@@ -49,7 +49,16 @@ jobs:
           git add data/macro/overnight_global.parquet
           if git diff --cached --quiet; then
             echo "No changes."
-          else
-            git commit -m "data: overnight globals $(date -u +%F)"
-            git push
+            exit 0
           fi
+          git commit -m "data: overnight globals $(date -u +%F)"
+          # Retry push up to 5 times with pull-rebase in case another
+          # workflow pushed between our commit and push.
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing on latest main..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
