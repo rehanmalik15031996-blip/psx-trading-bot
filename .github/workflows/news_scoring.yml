@@ -1,0 +1,61 @@
+name: News sentiment scoring
+
+# Runs the Claude-scored news pipeline several times per day so the
+# 24h macro tilt in the briefing always reflects the latest headlines.
+#
+# Schedule (UTC):
+#   02:00 UTC = 07:00 PKT   morning run (pre-open news)
+#   08:00 UTC = 13:00 PKT   midday run (intraday news)
+#   13:00 UTC = 18:00 PKT   evening run (post-close + global close news)
+
+on:
+  schedule:
+    - cron: '0 2 * * 1-5'
+    - cron: '0 8 * * 1-5'
+    - cron: '0 13 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news-scoring
+  cancel-in-progress: false
+
+jobs:
+  score-news:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Score fresh headlines
+        run: python scripts/score_news_sentiment.py --per-feed 8 --batch 8
+
+      - name: Commit scored news
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/news/scored_news.parquet
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "data: news sentiment $(date -u +%FT%H%MZ)"
+            git push
+          fi

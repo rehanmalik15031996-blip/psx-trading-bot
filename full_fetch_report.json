@@ -1,0 +1,838 @@
+[
+  {
+    "name": "PSX Terminal (REST)",
+    "ok": true,
+    "latency_ms": 7588.8,
+    "format": "json",
+    "rows": 8,
+    "cols": 10,
+    "schema": [
+      "symbol",
+      "price",
+      "change_pct",
+      "volume",
+      "trades",
+      "value_pkr",
+      "high",
+      "low",
+      "timestamp",
+      "status"
+    ],
+    "records": [
+      {
+        "symbol": "OGDC",
+        "price": 319.34,
+        "change_pct": -0.00551,
+        "volume": 2642398,
+        "trades": 6237,
+        "value_pkr": 841783449.75,
+        "high": 321.2,
+        "low": 315.84,
+        "timestamp": "2026-04-23T10:49:01Z",
+        "status": "SUS"
+      },
+      {
+        "symbol": "HBL",
+        "price": 298.44,
+        "change_pct": -0.00999,
+        "volume": 1560192,
+        "trades": 2814,
+        "value_pkr": 466099805.25,
+        "high": 302.9,
+        "low": 295.5,
+        "timestamp": "2026-04-23T10:48:04Z",
+        "status": "SUS"
+      },
+      {
+        "symbol": "LUCK",
+        "price": 425.8,
+        "change_pct": -0.01234,
+        "volume": 1051797,
+        "trades": 5917,
+        "value_pkr": 446973996.37,
+        "high": 433.99,
+        "low": 420.55,
+        "timestamp": "2026-04-23T10:49:37Z",
+        "status": "SUS"
+      },
+      {
+        "symbol": "ENGROH",
+        "price": 280.72,
+        "change_pct": -0.01075,
+        "volume": 3446636,
+        "trades": 2840,
+        "value_pkr": 980433971.46,
+        "high": 286.4,
+        "low": 278.7,
+        "timestamp": "2026-04-23T10:48:52Z",
+        "status": "SUS"
+      },
+      {
+        "symbol": "PSO",
+        "price": 390.11,
+        "change_pct": -0.00248,
+        "volume": 2607401,
+        "trades": 6111,
+        "value_pkr": 1017730577.97,
+        "high": 393.89,
+        "low": 386.79,
+        "timestamp": "2026-04-23T10:49:49Z",
+        "status": "SUS"
+      }
+    ],
+    "extras": {
+      "errors": []
+    },
+    "summary": "8/8 stocks (trades, rupee turnover, live status); errors=0",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "PSX Indices (DPS)",
+    "ok": true,
+    "latency_ms": 1811.6,
+    "format": "table",
+    "rows": 18,
+    "cols": 6,
+    "schema": [
+      "index",
+      "high",
+      "low",
+      "current",
+      "change",
+      "change_pct"
+    ],
+    "records": [
+      {
+        "index": "KSE100",
+        "high": 171561.74,
+        "low": 168416.02,
+        "current": 169173.37,
+        "change": -2405.93,
+        "change_pct": -1.4
+      },
+      {
+        "index": "KSE100PR",
+        "high": 52771.5,
+        "low": 51803.89,
+        "current": 52036.85,
+        "change": -821.17,
+        "change_pct": -1.55
+      },
+      {
+        "index": "ALLSHR",
+        "high": 102350.78,
+        "low": 100772.55,
+        "current": 101133.75,
+        "change": -1244.19,
+        "change_pct": -1.22
+      },
+      {
+        "index": "KSE30",
+        "high": 51943.47,
+        "low": 50979.65,
+        "current": 51218.37,
+        "change": -886.76,
+        "change_pct": -1.7
+      },
+      {
+        "index": "KMI30",
+        "high": 245538.99,
+        "low": 241685.09,
+        "current": 242294.52,
+        "change": -3809.08,
+        "change_pct": -1.55
+      }
+    ],
+    "extras": {},
+    "summary": "18 indices parsed",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "PSX Market Watch",
+    "ok": true,
+    "latency_ms": 2447.7,
+    "format": "table",
+    "rows": 482,
+    "cols": 11,
+    "schema": [
+      "symbol",
+      "sector_code",
+      "sector_name",
+      "indices",
+      "ldcp",
+      "open",
+      "high",
+      "low",
+      "current",
+      "change_pct",
+      "volume"
+    ],
+    "records": [
+      {
+        "symbol": "FNEL",
+        "sector_code": "0813",
+        "sector_name": "Investment Banks / Investment Companies / Securities Cos.",
+        "indices": [
+          "ALLSHR"
+        ],
+        "ldcp": 1.38,
+        "open": 1.39,
+        "high": 1.74,
+        "low": 1.37,
+        "current": 1.7,
+        "change_pct": 23.19,
+        "volume": 286823348.0
+      },
+      {
+        "symbol": "HASCOLNC",
+        "sector_code": "0821",
+        "sector_name": "Oil & Gas Marketing Companies",
+        "indices": [
+          "ALLSHR"
+        ],
+        "ldcp": 19.39,
+        "open": 19.49,
+        "high": 20.93,
+        "low": 19.4,
+        "current": 20.51,
+        "change_pct": 5.78,
+        "volume": 77776966.0
+      },
+      {
+        "symbol": "KOSM",
+        "sector_code": "0830",
+        "sector_name": "Textile Spinning",
+        "indices": [
+          "ALLSHR"
+        ],
+        "ldcp": 6.19,
+        "open": 6.26,
+        "high": 6.72,
+        "low": 6.01,
+        "current": 6.43,
+        "change_pct": 3.88,
+        "volume": 69436828.0
+      },
+      {
+        "symbol": "YOUW",
+        "sector_code": "0831",
+        "sector_name": "Textile Weaving",
+        "indices": [
+          "ALLSHR",
+          "KMIALLSHR",
+          "KSE100",
+          "KSE100PR"
+        ],
+        "ldcp": 6.73,
+        "open": 6.7,
+        "high": 7.73,
+        "low": 6.31,
+        "current": 7.73,
+        "change_pct": 14.86,
+        "volume": 58862399.0
+      },
+      {
+        "symbol": "CLOV",
+        "sector_code": "0810",
+        "sector_name": "Food & Personal Care Products",
+        "indices": [
+          "ALLSHR",
+          "KMIALLSHR"
+        ],
+        "ldcp": 8.89,
+        "open": 9.22,
+        "high": 9.43,
+        "low": 8.11,
+        "current": 8.66,
+        "change_pct": -2.59,
+        "volume": 50463724.0
+      }
+    ],
+    "extras": {},
+    "summary": "482 symbols with OHLCV",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "PSX Circuit Breakers",
+    "ok": true,
+    "latency_ms": 2539.9,
+    "format": "table",
+    "rows": 18,
+    "cols": 4,
+    "schema": [
+      "symbol",
+      "direction",
+      "change_pct",
+      "volume"
+    ],
+    "records": [
+      {
+        "symbol": "ADMM",
+        "direction": "upper",
+        "change_pct": 10.0,
+        "volume": 1849445.0
+      },
+      {
+        "symbol": "ANSM",
+        "direction": "upper",
+        "change_pct": 10.03,
+        "volume": 530272.0
+      },
+      {
+        "symbol": "DFSM",
+        "direction": "upper",
+        "change_pct": 9.98,
+        "volume": 13106354.0
+      },
+      {
+        "symbol": "ESBL",
+        "direction": "upper",
+        "change_pct": 9.99,
+        "volume": 782073.0
+      },
+      {
+        "symbol": "JSML",
+        "direction": "upper",
+        "change_pct": 10.0,
+        "volume": 734143.0
+      }
+    ],
+    "extras": {
+      "upper_locked_count": 16,
+      "lower_locked_count": 2
+    },
+    "summary": "upper_locked=16, lower_locked=2",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "PSX Announcements",
+    "ok": true,
+    "latency_ms": 2532.4,
+    "format": "text",
+    "rows": 0,
+    "cols": 0,
+    "schema": [],
+    "records": [],
+    "extras": {
+      "status_code": 200,
+      "content_len": 49148
+    },
+    "summary": "reachable but JS-rendered \u2014 use Playwright or reverse-engineer dps.psx.com.pk internal XHR endpoints to get structured filings",
+    "error": null,
+    "verdict": "REACH-ONLY"
+  },
+  {
+    "name": "SCStrade FIPI/LIPI",
+    "ok": true,
+    "latency_ms": 1821.4,
+    "format": "mixed",
+    "rows": 9,
+    "cols": 4,
+    "schema": [
+      "category",
+      "buy_pkr_mn",
+      "sell_pkr_mn",
+      "net_pkr_mn"
+    ],
+    "records": [
+      {
+        "category": "Foreign",
+        "buy_pkr_mn": 15.48,
+        "sell_pkr_mn": -15.21,
+        "net_pkr_mn": 0.27
+      },
+      {
+        "category": "Banks / DFI",
+        "buy_pkr_mn": 2.29,
+        "sell_pkr_mn": -0.93,
+        "net_pkr_mn": 1.36
+      },
+      {
+        "category": "Broker Proprietary Trading",
+        "buy_pkr_mn": 21.25,
+        "sell_pkr_mn": -21.75,
+        "net_pkr_mn": -0.5
+      },
+      {
+        "category": "Companies",
+        "buy_pkr_mn": 6.13,
+        "sell_pkr_mn": -6.1,
+        "net_pkr_mn": 0.03
+      },
+      {
+        "category": "Individuals",
+        "buy_pkr_mn": 153.68,
+        "sell_pkr_mn": -150.54,
+        "net_pkr_mn": 3.14
+      }
+    ],
+    "extras": {
+      "sectors": [
+        {
+          "sector": "All other Sectors",
+          "buy_usd_mn": 4.37,
+          "sell_usd_mn": -4.47,
+          "net_usd_mn": -0.1
+        },
+        {
+          "sector": "Cement",
+          "buy_usd_mn": 2.31,
+          "sell_usd_mn": -2.23,
+          "net_usd_mn": 0.08
+        },
+        {
+          "sector": "Banks",
+          "buy_usd_mn": 1.57,
+          "sell_usd_mn": -2.46,
+          "net_usd_mn": -0.89
+        },
+        {
+          "sector": "Fertilizer",
+          "buy_usd_mn": 0.27,
+          "sell_usd_mn": -0.52,
+          "net_usd_mn": -0.25
+        },
+        {
+          "sector": "Foods",
+          "buy_usd_mn": 0.9,
+          "sell_usd_mn": -0.83,
+          "net_usd_mn": 0.07
+        },
+        {
+          "sector": "Oil and Gas Exploration",
+          "buy_usd_mn": 1.01,
+          "sell_usd_mn": -0.84,
+          "net_usd_mn": 0.18
+        },
+        {
+          "sector": "Oil and Gas Marketing",
+          "buy_usd_mn": 1.36,
+          "sell_usd_mn": -0.87,
+          "net_usd_mn": 0.49
+        },
+        {
+          "sector": "Power",
+          "buy_usd_mn": 1.65,
+          "sell_usd_mn": -1.09,
+          "net_usd_mn": 0.56
+        },
+        {
+          "sector": "Technology",
+          "buy_usd_mn": 1.81,
+          "sell_usd_mn": -1.73,
+          "net_usd_mn": 0.08
+        },
+        {
+          "sector": "Textile Composite",
+          "buy_usd_mn": 0.21,
+          "sell_usd_mn": -0.16,
+          "net_usd_mn": 0.05
+        }
+      ],
+      "report_date": "22-Apr-2026",
+      "foreign_net_pkr_mn": 0.27,
+      "local_net_pkr_mn": -0.26
+    },
+    "summary": "9 categories, 10 sectors, foreign_net=+0.3 mn PKR, local_net=-0.3 mn PKR, date=22-Apr-2026",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "SBP Policy Rate + KIBOR",
+    "ok": true,
+    "latency_ms": 1797.5,
+    "format": "json",
+    "rows": 1,
+    "cols": 9,
+    "schema": [
+      "as_on",
+      "policy_rate_pct",
+      "ceiling_rate_pct",
+      "floor_rate_pct",
+      "weighted_on_repo_pct",
+      "kibor",
+      "tbill_yields_pct",
+      "pib_yields_pct",
+      "reserves_usd_mn"
+    ],
+    "records": [
+      {
+        "as_on": "2026-04-23",
+        "policy_rate_pct": 10.5,
+        "ceiling_rate_pct": 11.5,
+        "floor_rate_pct": 9.5,
+        "weighted_on_repo_pct": 9.79,
+        "kibor": {
+          "3-M": {
+            "bid": 11.01,
+            "offer": 11.26
+          },
+          "6-M": {
+            "bid": 11.19,
+            "offer": 11.44
+          },
+          "12-M": {
+            "bid": 11.45,
+            "offer": 11.95
+          }
+        },
+        "tbill_yields_pct": {
+          "1-M": 10.6982,
+          "3-M": 11.438,
+          "6-M": 11.1549,
+          "12-M": 11.89
+        },
+        "pib_yields_pct": {
+          "2-Y": 12.5,
+          "3-Y": 12.5,
+          "5-Y": 12.5,
+          "10-Y": null,
+          "15-Y": 12.4
+        },
+        "reserves_usd_mn": {
+          "sbp_usd_mn": 15079.5,
+          "banks_usd_mn": 5445.0,
+          "total_usd_mn": 20524.5
+        }
+      }
+    ],
+    "extras": {},
+    "summary": "policy=10.5% corridor=9.5-11.5%, KIBOR=3 tenors, T-Bill=4 tenors, PIB=5 tenors, as_on=2026-04-23",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "SBP M2M (PKR/USD)",
+    "ok": true,
+    "latency_ms": 1622.8,
+    "format": "json",
+    "rows": 1,
+    "cols": 5,
+    "schema": [
+      "as_on",
+      "m2m_rate",
+      "weighted_avg_bid",
+      "weighted_avg_offer",
+      "spread_pkr"
+    ],
+    "records": [
+      {
+        "as_on": "2026-04-23",
+        "m2m_rate": 278.8614,
+        "weighted_avg_bid": 278.594,
+        "weighted_avg_offer": 279.0191,
+        "spread_pkr": 0.4251
+      }
+    ],
+    "extras": {},
+    "summary": "PKR/USD M2M=278.8614 bid/offer=278.594/279.0191 spread=0.4251 as_on=2026-04-23",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "SBP EasyData (portal reach)",
+    "ok": true,
+    "latency_ms": 2329.7,
+    "format": "text",
+    "rows": 0,
+    "cols": 0,
+    "schema": [],
+    "records": [],
+    "extras": {
+      "status_code": 200,
+      "content_len": 24927
+    },
+    "summary": "reachable \u2014 register for free API key on portal for programmatic series access (M2, CPI, reserves, FX)",
+    "error": null,
+    "verdict": "REACH-ONLY"
+  },
+  {
+    "name": "yfinance (commodities)",
+    "ok": true,
+    "latency_ms": 4921.3,
+    "format": "dataframe",
+    "rows": 5,
+    "cols": 6,
+    "schema": [
+      "commodity",
+      "ticker",
+      "date",
+      "close",
+      "change_1d_pct",
+      "change_5d_pct"
+    ],
+    "records": [
+      {
+        "commodity": "Brent",
+        "ticker": "BZ=F",
+        "date": "2026-04-23",
+        "close": 97.4,
+        "change_1d_pct": -4.43,
+        "change_5d_pct": 2.01
+      },
+      {
+        "commodity": "WTI",
+        "ticker": "CL=F",
+        "date": "2026-04-23",
+        "close": 93.92,
+        "change_1d_pct": 1.03,
+        "change_5d_pct": 4.81
+      },
+      {
+        "commodity": "Cotton",
+        "ticker": "CT=F",
+        "date": "2026-04-23",
+        "close": 78.06,
+        "change_1d_pct": 2.27,
+        "change_5d_pct": 0.59
+      },
+      {
+        "commodity": "Gold",
+        "ticker": "GC=F",
+        "date": "2026-04-23",
+        "close": 4718.5,
+        "change_1d_pct": -0.3,
+        "change_5d_pct": -1.83
+      },
+      {
+        "commodity": "Copper",
+        "ticker": "HG=F",
+        "date": "2026-04-23",
+        "close": 6.03,
+        "change_1d_pct": -1.41,
+        "change_5d_pct": -0.03
+      }
+    ],
+    "extras": {
+      "errors": []
+    },
+    "summary": "5/5 commodities with close + 1d/5d change",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "FBR Revenue Collections",
+    "ok": true,
+    "latency_ms": 1128.4,
+    "format": "table",
+    "rows": 0,
+    "cols": 2,
+    "schema": [
+      "title",
+      "url"
+    ],
+    "records": [],
+    "extras": {},
+    "summary": "0 revenue-collection releases on FBR landing page (budget/finance-act docs excluded)",
+    "error": null,
+    "verdict": "EMPTY"
+  },
+  {
+    "name": "MoC Monthly Trade Statements",
+    "ok": false,
+    "latency_ms": 1259.8,
+    "format": "text",
+    "rows": 0,
+    "cols": 0,
+    "schema": [],
+    "records": [],
+    "extras": {
+      "status_code": 403
+    },
+    "summary": "HTTP 403 \u2014 Cloudflare WAF. Use PBS or headless browser.",
+    "error": "HTTP 403",
+    "verdict": "FAIL"
+  },
+  {
+    "name": "PBS Trade Statistics",
+    "ok": true,
+    "latency_ms": 1852.1,
+    "format": "table",
+    "rows": 30,
+    "cols": 2,
+    "schema": [
+      "title",
+      "url"
+    ],
+    "records": [
+      {
+        "title": "Trade Statistics",
+        "url": "https://tradedashboard.data.gov.pk/Home/Login"
+      },
+      {
+        "title": "Export_March_ 2026.xlsx",
+        "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Export_March-2026.xlsx"
+      },
+      {
+        "title": "Import _March_ 2026.xlsx",
+        "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Import_March-2026.xlsx"
+      },
+      {
+        "title": "Export_Feburary _ 2026.xlsx",
+        "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Export_February-2026.xlsx"
+      },
+      {
+        "title": "Import _Feburary_ 2026.xlsx",
+        "url": "https://www.pbs.gov.pk/wp-content/uploads/2020/07/Import_February-2026.xlsx"
+      }
+    ],
+    "extras": {},
+    "summary": "184 trade-statistics publications (deduped)",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "PBS (Bureau of Statistics)",
+    "ok": true,
+    "latency_ms": 1961.4,
+    "format": "table",
+    "rows": 4,
+    "cols": 2,
+    "schema": [
+      "title",
+      "url"
+    ],
+    "records": [
+      {
+        "title": "Weekly Sensitive Price Indicator (SPI) for the week ended on 16-04-2026",
+        "url": "https://www.pbs.gov.pk/weekly-sensitive-price-indicator-spi-for-the-week-ended-on-16-04-2026/"
+      },
+      {
+        "title": "Monthly Advance releases on Foreign Trade Statistics for March 2026",
+        "url": "https://www.pbs.gov.pk/monthly-advance-releases-on-foreign-trade-statistics-for-march-2026/"
+      },
+      {
+        "title": "Quantum Index of Large Scale Manufacturing Industries (QIM) for Feb 2026",
+        "url": "https://www.pbs.gov.pk/quantum-index-of-large-scale-manufacturing-industries-qim-for-feb-2026/"
+      },
+      {
+        "title": "Weekly Sensitive Price Indicator (SPI) for the week ended on 09-04-2026",
+        "url": "https://www.pbs.gov.pk/weekly-sensitive-price-indicator-spi-for-the-week-ended-on-09-04-2026/"
+      }
+    ],
+    "extras": {},
+    "summary": "4 PBS releases (CPI/SPI/LSM, deduped)",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "IMF Pakistan Country Page",
+    "ok": false,
+    "latency_ms": 870.2,
+    "format": "text",
+    "rows": 0,
+    "cols": 0,
+    "schema": [],
+    "records": [],
+    "extras": {
+      "status_code": 403
+    },
+    "summary": "HTTP 403 \u2014 WAF blocked. Fallback: monitor IMF stories via RSS feeds.",
+    "error": "HTTP 403",
+    "verdict": "FAIL"
+  },
+  {
+    "name": "RSS News Aggregator",
+    "ok": true,
+    "latency_ms": 3522.0,
+    "format": "table",
+    "rows": 25,
+    "cols": 5,
+    "schema": [
+      "source",
+      "title",
+      "published_at",
+      "link",
+      "summary"
+    ],
+    "records": [
+      {
+        "source": "Business Recorder \u2014 Markets",
+        "title": "Copper slips from multi-week high on Middle East uncertainty",
+        "published_at": "2026-04-23T11:34:10",
+        "link": "https://www.brecorder.com/news/40417928/copper-slips-from-multi-week-high-on-middle-east-uncertainty",
+        "summary": "LONDON: Copper prices retreated from multi-week highs on Thursday on stalled U.S.-Iran peace talks, continued closure of the Strait of Hormuz and a stronger dollar. Benchmark three-month copper on the London Metal Exchange dropped 1.4% to $13,243 a metric ton by 0940 GMT after touching its strongest"
+      },
+      {
+        "source": "Dawn Business",
+        "title": "KSE-100 plunges below 170,000-mark as bears maintain control of PSX",
+        "published_at": "2026-04-23T11:31:47",
+        "link": "https://www.dawn.com/news/1994338/kse-100-plunges-below-170000-mark-as-bears-maintain-control-of-psx",
+        "summary": "The Pakistan Stock Exchange (PSX)\u2019s benchmark index KSE-100 continued its bearish momentum on Thursday, losing over 2,400 points. KSE-100 declined by 2,405.93 points or 1.4 per cent to close at 169,173.37 points from the previous close of 171,579.30 points. The bourse rose to an intraday high of 171"
+      },
+      {
+        "source": "Business Recorder \u2014 Markets",
+        "title": "Palm falls as softer Dalian's palm olein triggers profit-taking",
+        "published_at": "2026-04-23T11:18:12",
+        "link": "https://www.brecorder.com/news/40417927/palm-falls-as-softer-dalians-palm-olein-triggers-profit-taking",
+        "summary": "JAKARTA: Malaysian palm oil futures closed lower on Thursday, after three straight sessions of gains, as softer Dalian\u2019s palm olein prices triggered profit-taking. The benchmark palm oil contract for July delivery on the Bursa Malaysia Derivatives Exchange lost 49 ringgit, or 1.06%, to 4,579 ringgit"
+      },
+      {
+        "source": "Business Recorder \u2014 Markets",
+        "title": "Indian rupee bogged down in worst losing streak in 3 months as oil pain persists",
+        "published_at": "2026-04-23T11:14:01",
+        "link": "https://www.brecorder.com/news/40417926/indian-rupee-bogged-down-in-worst-losing-streak-in-3-months-as-oil-pain-persists",
+        "summary": "MUMBAI: The Indian rupee fell for the fourth consecutive session on Thursday, its longest losing streak since mid-January, as stalled peace talks between the U.S. and Iran lifted oil prices over $100 per barrel. The Indian rupee closed at 94.1050 against the U.S. dollar, down 0.3% on the day. The cu"
+      },
+      {
+        "source": "Business Recorder \u2014 Markets",
+        "title": "Indian shares fall as crude drifts above $100; financials, autos lead losses",
+        "published_at": "2026-04-23T11:09:58",
+        "link": "https://www.brecorder.com/news/40417925/indian-shares-fall-as-crude-drifts-above-100-financials-autos-lead-losses",
+        "summary": "Financials and automakers dragged Indian shares down on Thursday, as Brent crude topped $100 a barrel after Iran seized two ships in the Strait of Hormuz and peace talks showed no sign of resuming. The Nifty 50 lost 0.84% to 24,173.05, while the BSE Sensex shed 1.09% to 77,664. Brent crude rose for "
+      }
+    ],
+    "extras": {
+      "per_source": {
+        "Business Recorder \u2014 Markets": 5,
+        "Profit by Pakistan Today": 5,
+        "Dawn Business": 5,
+        "The News \u2014 Business": 5,
+        "Tribune Business": 5
+      },
+      "errors": []
+    },
+    "summary": "25 articles from 5 feeds",
+    "error": null,
+    "verdict": "GOOD"
+  },
+  {
+    "name": "CoinGecko (crypto)",
+    "ok": true,
+    "latency_ms": 971.1,
+    "format": "json",
+    "rows": 2,
+    "cols": 5,
+    "schema": [
+      "coin",
+      "usd",
+      "change_24h_pct",
+      "volume_24h_usd",
+      "last_updated_at"
+    ],
+    "records": [
+      {
+        "coin": "bitcoin",
+        "usd": 77663,
+        "change_24h_pct": -0.785,
+        "volume_24h_usd": 45863316061.35759,
+        "last_updated_at": "2026-04-23T11:49:16Z"
+      },
+      {
+        "coin": "ethereum",
+        "usd": 2328.83,
+        "change_24h_pct": -2.753,
+        "volume_24h_usd": 20915385589.902275,
+        "last_updated_at": "2026-04-23T11:49:16Z"
+      }
+    ],
+    "extras": {},
+    "summary": "2/2 coins with price/change/vol",
+    "error": null,
+    "verdict": "GOOD"
+  }
+]

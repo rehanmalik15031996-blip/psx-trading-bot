@@ -1,0 +1,60 @@
+name: End of day (FIPI + check predictions)
+
+# Runs ~1 hour after PSX close (15:30 PKT = 10:30 UTC).
+# 11:30 UTC = 16:30 PKT.
+# 1) Appends today's FIPI flows to the daily cache.
+# 2) Scores yesterday's 5-day predictions against actuals (incl. cost-adjusted
+#    net return hit-rate). Commits both back to main.
+
+on:
+  schedule:
+    - cron: '30 11 * * 1-5'    # 16:30 PKT, Mon-Fri
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eod
+  cancel-in-progress: false
+
+jobs:
+  eod:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Cache today's FIPI flows
+        run: python scripts/cache_fipi_daily.py || true
+        # Don't fail the whole job if FIPI scrape blips — we still want
+        # the prediction check to run.
+
+      - name: Score yesterday's predictions against actuals
+        run: python scripts/check_predictions.py
+
+      - name: Commit updates
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/flows/fipi_daily.parquet data/predictions_log.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "data: EOD flows + scorecard $(date -u +%F)"
+            git push
+          fi

@@ -1,0 +1,45 @@
+{
+  "enabled": false,
+  "verdict_at": "2026-04-24T04:07:09.340457",
+  "reasons": [
+    "[FAIL] CAGR only -4.45pp (need +2.0)",
+    "[PASS] MaxDD moved -0.15pp (tolerance -3.0)",
+    "[FAIL] Sharpe -0.137 (need >= 0.0)"
+  ],
+  "metrics_base": {
+    "n_days": 486,
+    "years": 1.93,
+    "cagr": 0.1285,
+    "annualized_vol": 0.2531,
+    "sharpe": 0.604,
+    "sortino": 0.689,
+    "max_drawdown": -0.2144,
+    "calmar": 0.6,
+    "information_ratio": -1.213,
+    "benchmark_cagr": 0.4012,
+    "benchmark_sharpe": 1.371,
+    "benchmark_max_dd": -0.2356,
+    "alpha_cagr": -0.2727,
+    "rolling_1y_sharpe_mean": 0.951,
+    "rolling_1y_sharpe_min": -0.441,
+    "rolling_1y_beat_bh_pct": 0.204
+  },
+  "metrics_ranker": {
+    "n_days": 486,
+    "years": 1.93,
+    "cagr": 0.084,
+    "annualized_vol": 0.2285,
+    "sharpe": 0.467,
+    "sortino": 0.506,
+    "max_drawdown": -0.2159,
+    "calmar": 0.389,
+    "information_ratio": -1.495,
+    "benchmark_cagr": 0.4012,
+    "benchmark_sharpe": 1.371,
+    "benchmark_max_dd": -0.2356,
+    "alpha_cagr": -0.3171,
+    "rolling_1y_sharpe_mean": 0.844,
+    "rolling_1y_sharpe_min": -0.539,
+    "rolling_1y_beat_bh_pct": 0.089
+  }
+}

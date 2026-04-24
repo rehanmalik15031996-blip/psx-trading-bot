@@ -1,0 +1,212 @@
+[
+  {
+    "name": "PSX Terminal (REST)",
+    "ok": true,
+    "latency_ms": 1155.0,
+    "sample": {
+      "symbol_count": 557
+    },
+    "error": null,
+    "notes": "557 symbols returned"
+  },
+  {
+    "name": "PSX Indices (DPS)",
+    "ok": true,
+    "latency_ms": 2012.8,
+    "sample": {
+      "rows": 20,
+      "status": 200
+    },
+    "error": null,
+    "notes": "20 index rows"
+  },
+  {
+    "name": "PSX Market Watch",
+    "ok": true,
+    "latency_ms": 2999.2,
+    "sample": {
+      "rows": 482
+    },
+    "error": null,
+    "notes": "482 symbols in market watch"
+  },
+  {
+    "name": "PSX Circuit Breakers",
+    "ok": true,
+    "latency_ms": 2580.5,
+    "sample": {
+      "status_code": 200,
+      "rows_found": 20,
+      "content_len": 60303
+    },
+    "error": null,
+    "notes": "20 table rows, 60303 bytes"
+  },
+  {
+    "name": "PSX Announcements",
+    "ok": true,
+    "latency_ms": 1724.3,
+    "sample": {
+      "status_code": 200,
+      "items_found": 0,
+      "content_len": 49148
+    },
+    "error": null,
+    "notes": "0 items, 49148 bytes"
+  },
+  {
+    "name": "SCStrade FIPI/LIPI",
+    "ok": true,
+    "latency_ms": 1763.9,
+    "sample": {
+      "status_code": 200,
+      "keyword_hits": [
+        "Foreign",
+        "Banks",
+        "NBFC"
+      ],
+      "content_len": 2451
+    },
+    "error": null,
+    "notes": "3 FIPI keywords found"
+  },
+  {
+    "name": "SBP Policy Rate + KIBOR",
+    "ok": true,
+    "latency_ms": 1389.1,
+    "sample": {
+      "status_code": 200,
+      "latest_rate_pct": 10.5,
+      "content_len": 113670
+    },
+    "error": null,
+    "notes": "Policy rate = 10.5% (scraped)"
+  },
+  {
+    "name": "SBP M2M (PKR/USD)",
+    "ok": true,
+    "latency_ms": 1380.9,
+    "sample": {
+      "status_code": 200,
+      "m2m_rate": 278.8614,
+      "content_len": 113670
+    },
+    "error": null,
+    "notes": "PKR/USD M2M = 278.8614"
+  },
+  {
+    "name": "SBP EasyData (portal reach)",
+    "ok": true,
+    "latency_ms": 1781.4,
+    "sample": {
+      "status_code": 200,
+      "content_len": 24929
+    },
+    "error": null,
+    "notes": "HTTP 200 \u2014 API key needed for programmatic access"
+  },
+  {
+    "name": "yfinance (commodities)",
+    "ok": true,
+    "latency_ms": 3385.0,
+    "sample": {
+      "Brent": 97.4,
+      "WTI": 93.98,
+      "Cotton": 78.06,
+      "Gold": 4718.0,
+      "Copper": 6.03
+    },
+    "error": null,
+    "notes": "5/5 tickers OK"
+  },
+  {
+    "name": "FBR Revenue Collections",
+    "ok": true,
+    "latency_ms": 968.4,
+    "sample": {
+      "status_code": 200,
+      "content_len": 24625,
+      "keyword": true
+    },
+    "error": null,
+    "notes": "HTTP 200"
+  },
+  {
+    "name": "MoC Monthly Trade Statements",
+    "ok": false,
+    "latency_ms": 1183.2,
+    "sample": {
+      "status_code": 403,
+      "content_len": 4904,
+      "export_keyword": false
+    },
+    "error": null,
+    "notes": "HTTP 403 \u2014 Cloudflare-blocked; use PBS trade stats or headless browser"
+  },
+  {
+    "name": "PBS Trade Statistics",
+    "ok": true,
+    "latency_ms": 1332.3,
+    "sample": {
+      "status_code": 200,
+      "content_len": 586007
+    },
+    "error": null,
+    "notes": "HTTP 200"
+  },
+  {
+    "name": "PBS (Bureau of Statistics)",
+    "ok": true,
+    "latency_ms": 1515.2,
+    "sample": {
+      "status_code": 200,
+      "content_len": 399600,
+      "pbs_keyword": true
+    },
+    "error": null,
+    "notes": "HTTP 200"
+  },
+  {
+    "name": "IMF Pakistan Country Page",
+    "ok": true,
+    "latency_ms": 2496.4,
+    "sample": {
+      "status_code": 200,
+      "content_len": 428254,
+      "pakistan_keyword": true
+    },
+    "error": null,
+    "notes": "HTTP 200"
+  },
+  {
+    "name": "RSS News Aggregator",
+    "ok": true,
+    "latency_ms": 3740.1,
+    "sample": {
+      "Business Recorder \u2014 Markets": 30,
+      "Profit by Pakistan Today": 10,
+      "Dawn Business": 30,
+      "The News \u2014 Business": 50,
+      "Tribune Business": 25
+    },
+    "error": null,
+    "notes": "5/5 feeds returned entries"
+  },
+  {
+    "name": "CoinGecko (crypto)",
+    "ok": true,
+    "latency_ms": 836.6,
+    "sample": {
+      "bitcoin": {
+        "usd": 77656,
+        "24h_change_pct": -0.79
+      },
+      "ethereum": {
+        "usd": 2328.23,
+        "24h_change_pct": -2.78
+      }
+    },
+    "error": null,
+    "notes": "2 coins"
+  }
+]

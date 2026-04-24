@@ -1,0 +1,20 @@
+# Minimal dependencies for GitHub Actions daily pipeline.
+# Excludes training / ML-research libs (torch, transformers, lightgbm, catboost,
+# vectorbt, shap, matplotlib, pandas-ta, scikit-learn) which are only needed
+# locally for backtests and model tuning — not for the nightly data refresh.
+
+# Data fetch
+requests>=2.31.0,<3.0.0
+beautifulsoup4>=4.12.0,<5.0.0
+lxml>=5.0.0,<6.0.0
+feedparser>=6.0.10,<7.0.0
+yfinance>=0.2.40,<0.3.0
+python-dateutil>=2.8.2,<3.0.0
+
+# Data handling
+numpy>=1.26.0,<3.0.0
+pandas>=2.2.0,<3.0.0
+pyarrow>=16.0.0,<19.0.0
+
+# LLM (news scoring + daily predictions)
+anthropic>=0.34.0,<1.0.0

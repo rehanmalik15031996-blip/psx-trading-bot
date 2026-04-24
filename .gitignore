@@ -1,0 +1,48 @@
+# Local secrets — NEVER commit
+.env
+.env.*
+env (1)
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Streamlit cache / runtime
+.streamlit/secrets.toml
+.streamlit/cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Generated reports / scratch files we don't version
+*.docx
+reports/
+_tmp_*.py
+_scratch/
+
+# NOTE: data/ is INTENTIONALLY tracked in git. The GitHub Actions
+# workflows commit daily updates back to the repo so `git pull` on
+# your laptop is enough to get the latest prices, predictions,
+# scored news, and FIPI flows. Do not add `data/` here.
