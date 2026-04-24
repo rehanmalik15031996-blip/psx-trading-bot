@@ -26,12 +26,27 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Iterable, Optional
 
 from ui.tools import (
-    TOOL_SCHEMAS_ANTHROPIC, TOOL_SCHEMAS_GEMINI, dispatch,
+    TOOL_SCHEMAS_ANTHROPIC, TOOL_SCHEMAS_GEMINI, TOOL_SCHEMAS_OPENAI, dispatch,
 )
 
 
 DEFAULT_CLAUDE_MODEL = "claude-haiku-4-5"
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
+DEFAULT_GITHUB_MODEL = "openai/gpt-4o-mini"
+GITHUB_MODELS_BASE_URL = "https://models.github.ai/inference"
+
+# Curated list of GitHub Models that reliably support function calling on the
+# Low-tier rate limit (15 RPM / 150 RPD on Copilot Free). Add/remove as you
+# experiment — full catalog at https://github.com/marketplace/models
+GITHUB_MODEL_CHOICES = [
+    "openai/gpt-4o-mini",         # default — fast + cheap rate limits
+    "openai/gpt-4o",              # best quality (High tier: 10 RPM / 50 RPD)
+    "openai/gpt-4.1",             # latest flagship (High tier)
+    "openai/gpt-4.1-mini",        # mid-size GPT-4.1 (Low tier)
+    "meta/Llama-3.3-70B-Instruct",  # open-weights flagship
+    "mistral-ai/Mistral-Large-2411",
+]
+
 MAX_TOOL_ITERATIONS = 6
 
 
@@ -307,21 +322,148 @@ def _gemini_extract_text(response) -> str:
 
 
 # ==========================================================================
+# GitHub Models (free tier — OpenAI-compatible API)
+# Endpoint:  https://models.github.ai/inference/chat/completions
+# Auth:      Authorization: Bearer <GITHUB_TOKEN>   (needs models:read scope)
+# Format:    standard OpenAI Chat Completions + function calling
+# Rate:      Copilot Free — Low tier: 15 RPM / 150 RPD
+#                           High tier (gpt-4o, gpt-4.1): 10 RPM / 50 RPD
+# ==========================================================================
+class GithubModelsClient:
+    def __init__(self, model: str = DEFAULT_GITHUB_MODEL,
+                 api_key: Optional[str] = None):
+        self.model = model
+        # GITHUB_TOKEN is standard in CI; GH_TOKEN is what `gh` CLI sets.
+        self.api_key = (api_key
+                        or os.environ.get("GITHUB_TOKEN")
+                        or os.environ.get("GH_TOKEN"))
+        self._client = None
+
+    @property
+    def available(self) -> bool:
+        return bool(self.api_key)
+
+    def _ensure(self):
+        if self._client is not None:
+            return
+        if not self.api_key:
+            raise RuntimeError(
+                "GITHUB_TOKEN not set. Create a fine-grained PAT with the "
+                "'models:read' scope at https://github.com/settings/tokens "
+                "and add it to the sidebar or your .env.")
+        try:
+            from openai import OpenAI
+        except ImportError as e:
+            raise RuntimeError(
+                f"openai package not installed: {e}. "
+                f"Install with: pip install openai")
+        self._client = OpenAI(
+            base_url=GITHUB_MODELS_BASE_URL,
+            api_key=self.api_key,
+            default_headers={"X-GitHub-Api-Version": "2022-11-28"},
+        )
+
+    def run_chat(self, history: list[dict], system: str = SYSTEM_PROMPT,
+                 max_tokens: int = 1024) -> dict:
+        """Run one user turn through the OpenAI-format tool-use loop.
+
+        `history` is the provider-agnostic [{role, content}] list. We translate
+        into OpenAI chat format with a system message prepended.
+        """
+        self._ensure()
+
+        messages: list[dict] = [{"role": "system", "content": system}]
+        for h in history:
+            role = h.get("role", "user")
+            content = h.get("content", "")
+            # Our internal history uses flat strings; flatten list-of-blocks if
+            # we ever see one (from a cross-provider switch mid-conversation).
+            if isinstance(content, list):
+                content = "\n".join(
+                    c.get("text", "") for c in content
+                    if isinstance(c, dict) and c.get("type") == "text"
+                )
+            messages.append({"role": role, "content": str(content)})
+
+        trace: list[dict] = []
+
+        for _ in range(MAX_TOOL_ITERATIONS):
+            resp = self._client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                tools=TOOL_SCHEMAS_OPENAI,
+                tool_choice="auto",
+                max_tokens=max_tokens,
+                temperature=0.2,
+            )
+            choice = resp.choices[0]
+            msg = choice.message
+            tool_calls = getattr(msg, "tool_calls", None) or []
+
+            # Final answer — no more tool calls needed.
+            if choice.finish_reason != "tool_calls" or not tool_calls:
+                text = (msg.content or "").strip()
+                return {"text": text, "trace": trace}
+
+            # Append the assistant message WITH its tool_calls so the model
+            # sees its own request on the next turn. Per OpenAI spec the
+            # content field can be null when tool_calls are present.
+            messages.append({
+                "role": "assistant",
+                "content": msg.content or "",
+                "tool_calls": [
+                    {
+                        "id": tc.id,
+                        "type": "function",
+                        "function": {
+                            "name": tc.function.name,
+                            "arguments": tc.function.arguments,
+                        },
+                    }
+                    for tc in tool_calls
+                ],
+            })
+
+            # Execute each requested tool and append tool-role messages.
+            for tc in tool_calls:
+                name = tc.function.name
+                try:
+                    args = json.loads(tc.function.arguments or "{}")
+                except json.JSONDecodeError:
+                    args = {}
+                result = dispatch(name, args)
+                trace.append({"tool": name, "args": args, "result": result})
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tc.id,
+                    "content": json.dumps(result, default=str)[:8000],
+                })
+
+        return {"text": "(too many tool iterations — stopping)", "trace": trace}
+
+
+# ==========================================================================
 # Factory + unified entrypoint
 # ==========================================================================
-def get_client(provider: str, api_key: Optional[str] = None, model: Optional[str] = None):
-    p = (provider or "").lower()
-    if p == "claude" or p == "anthropic":
+def get_client(provider: str, api_key: Optional[str] = None,
+               model: Optional[str] = None):
+    p = (provider or "").lower().replace("-", "_")
+    if p in ("claude", "anthropic"):
         return ClaudeClient(model=model or DEFAULT_CLAUDE_MODEL, api_key=api_key)
-    if p == "gemini" or p == "google":
+    if p in ("gemini", "google"):
         return GeminiClient(model=model or DEFAULT_GEMINI_MODEL, api_key=api_key)
-    raise ValueError(f"Unknown provider {provider!r}; expected 'claude' or 'gemini'.")
+    if p in ("github", "github_models", "githubmodels"):
+        return GithubModelsClient(model=model or DEFAULT_GITHUB_MODEL,
+                                  api_key=api_key)
+    raise ValueError(
+        f"Unknown provider {provider!r}; "
+        f"expected 'claude', 'gemini', or 'github'."
+    )
 
 
 if __name__ == "__main__":
-    # Quick smoke test (skipped if no API key)
     from rich import print
-    for prov in ("claude", "gemini"):
+    for prov in ("claude", "gemini", "github"):
         c = get_client(prov)
         print(f"{prov} available: {c.available}")
         if not c.available:

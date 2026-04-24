@@ -1272,6 +1272,29 @@ TOOL_SCHEMAS_GEMINI: list[dict] = [_anthropic_to_gemini_schema(t)
 
 
 # --------------------------------------------------------------------------
+# JSON schemas — OpenAI / GitHub Models function-calling format
+# OpenAI expects: [{"type": "function", "function": {name, description, parameters}}]
+# `parameters` is a JSON-Schema object — identical shape to our Anthropic
+# `input_schema`, so we can reuse it directly.
+# --------------------------------------------------------------------------
+def _anthropic_to_openai_schema(t: dict) -> dict:
+    """Convert an Anthropic tool schema to OpenAI function-calling format."""
+    params = t.get("input_schema") or {"type": "object", "properties": {}}
+    return {
+        "type": "function",
+        "function": {
+            "name": t["name"],
+            "description": t["description"],
+            "parameters": params,
+        },
+    }
+
+
+TOOL_SCHEMAS_OPENAI: list[dict] = [_anthropic_to_openai_schema(t)
+                                     for t in TOOL_SCHEMAS_ANTHROPIC]
+
+
+# --------------------------------------------------------------------------
 # Smoke test
 # --------------------------------------------------------------------------
 if __name__ == "__main__":

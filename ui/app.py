@@ -57,7 +57,10 @@ from ui import tools, recommendations as recs
 from ui.portfolio import (
     load_user_portfolio, save_user_portfolio, add_position, remove_position,
 )
-from ui.llm_clients import get_client, DEFAULT_CLAUDE_MODEL, DEFAULT_GEMINI_MODEL
+from ui.llm_clients import (
+    get_client, DEFAULT_CLAUDE_MODEL, DEFAULT_GEMINI_MODEL,
+    DEFAULT_GITHUB_MODEL, GITHUB_MODEL_CHOICES,
+)
 
 
 # --------------------------------------------------------------------------
@@ -77,12 +80,18 @@ st.set_page_config(
 def _init_state():
     ss = st.session_state
     ss.setdefault("chat_history", [])
-    ss.setdefault("provider", "claude")
+    # Default to the free GitHub Models option if a GITHUB_TOKEN is in env;
+    # otherwise fall back to Claude.
+    has_gh = bool(os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN"))
+    ss.setdefault("provider", "github" if has_gh else "claude")
     ss.setdefault("claude_key", os.environ.get("ANTHROPIC_API_KEY", ""))
     ss.setdefault("gemini_key", os.environ.get("GOOGLE_API_KEY", "")
                   or os.environ.get("GEMINI_API_KEY", ""))
+    ss.setdefault("github_key", os.environ.get("GITHUB_TOKEN", "")
+                  or os.environ.get("GH_TOKEN", ""))
     ss.setdefault("claude_model", DEFAULT_CLAUDE_MODEL)
     ss.setdefault("gemini_model", DEFAULT_GEMINI_MODEL)
+    ss.setdefault("github_model", DEFAULT_GITHUB_MODEL)
 
 
 _init_state()
@@ -98,17 +107,47 @@ def render_sidebar():
         st.divider()
 
         st.markdown("### Chat model")
+        provider_labels = {
+            "github": "GitHub (free)",
+            "claude": "Claude (paid)",
+            "gemini": "Gemini (paid)",
+        }
+        providers = list(provider_labels.keys())
+        current_idx = providers.index(st.session_state.provider) \
+            if st.session_state.provider in providers else 0
         provider = st.radio(
             "Provider",
-            ["claude", "gemini"],
-            index=0 if st.session_state.provider == "claude" else 1,
+            providers,
+            index=current_idx,
             horizontal=True,
+            format_func=lambda p: provider_labels[p],
             label_visibility="collapsed",
             key="provider_radio",
         )
         st.session_state.provider = provider
 
-        if provider == "claude":
+        if provider == "github":
+            st.text_input(
+                "GitHub token (PAT with models:read)",
+                value=st.session_state.github_key,
+                type="password",
+                key="github_key",
+                help="Fine-grained PAT with the 'models:read' scope. "
+                     "Create at https://github.com/settings/tokens. "
+                     "Or set GITHUB_TOKEN env var before launching.",
+            )
+            st.selectbox(
+                "GitHub model",
+                GITHUB_MODEL_CHOICES,
+                index=(GITHUB_MODEL_CHOICES.index(st.session_state.github_model)
+                       if st.session_state.github_model in GITHUB_MODEL_CHOICES
+                       else 0),
+                key="github_model",
+                help="Low tier (gpt-4o-mini, gpt-4.1-mini, Llama) = 15 RPM / "
+                     "150 RPD on free. High tier (gpt-4o, gpt-4.1) = "
+                     "10 RPM / 50 RPD.",
+            )
+        elif provider == "claude":
             st.text_input(
                 "Anthropic API key",
                 value=st.session_state.claude_key,
@@ -279,13 +318,23 @@ def _send_message(user_msg: str):
                 _reply_error("No Anthropic API key set. Add it in the sidebar "
                              "or set ANTHROPIC_API_KEY in your environment.")
                 return
-            client = get_client("claude", api_key=ss.claude_key, model=ss.claude_model)
+            client = get_client("claude", api_key=ss.claude_key,
+                                model=ss.claude_model)
+        elif ss.provider == "github":
+            if not ss.github_key:
+                _reply_error("No GitHub token set. Add a fine-grained PAT "
+                             "with the 'models:read' scope in the sidebar, "
+                             "or set GITHUB_TOKEN in your environment.")
+                return
+            client = get_client("github", api_key=ss.github_key,
+                                model=ss.github_model)
         else:
             if not ss.gemini_key:
                 _reply_error("No Google API key set. Add it in the sidebar "
                              "or set GOOGLE_API_KEY in your environment.")
                 return
-            client = get_client("gemini", api_key=ss.gemini_key, model=ss.gemini_model)
+            client = get_client("gemini", api_key=ss.gemini_key,
+                                model=ss.gemini_model)
     except Exception as e:
         _reply_error(f"Client init failed: {e}")
         return

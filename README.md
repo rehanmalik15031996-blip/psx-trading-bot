@@ -407,8 +407,8 @@ that's your permanent audit trail.
 
 ## Interactive UI (chat + portfolio + scanner)
 
-The UI is a Streamlit app that pairs a Claude-Haiku or Gemini-Flash chatbot
-with the Plan D backend. Launch with:
+The UI is a Streamlit app that pairs a Claude-Haiku, Gemini-Flash, or free
+GitHub Models chatbot with the Plan D backend. Launch with:
 
 ```powershell
 streamlit run ui\app.py
@@ -440,18 +440,47 @@ Then open http://localhost:8501 in your browser.
 - **Backtest** — run the full Plan D Phase 1 backtest on demand and view the
   equity curve against buy-and-hold.
 
-### API keys
+### API keys and chat providers
 
-Either set them before launch:
+The UI supports three providers — pick one from the sidebar radio.
+
+| Provider | Cost | Rate limits | Default model | Env var |
+|---|---|---|---|---|
+| **GitHub Models** (default) | **free** | 15 RPM / 150 RPD (Low tier) | `openai/gpt-4o-mini` | `GITHUB_TOKEN` |
+| Claude | paid | none | `claude-haiku-4-5` | `ANTHROPIC_API_KEY` |
+| Gemini | paid | none | `gemini-2.5-flash` | `GEMINI_API_KEY` |
+
+Copy `.env.example` → `.env` and fill in whichever you want to use, then
+launch:
 
 ```powershell
-$env:ANTHROPIC_API_KEY = "sk-ant-..."
-$env:GOOGLE_API_KEY    = "AIza..."           # for Gemini
+streamlit run ui\app.py
 ```
 
-Or paste them into the sidebar at runtime (stored in session only, never
-written to disk). You only need one — pick the provider you prefer from the
-sidebar radio.
+Or paste keys into the sidebar at runtime (stored in session only, never
+written to disk). The data pipeline (news scoring + daily predictions)
+always uses Anthropic for reliability — `ANTHROPIC_API_KEY` is only
+optional for the chat, not for the pipeline.
+
+#### Using GitHub Models (free, default)
+
+1. Go to https://github.com/settings/tokens and create a **fine-grained
+   personal access token**.
+2. Grant the **`models:read`** permission (under "Account permissions").
+   For the local "Pull latest data from GitHub" sidebar button to work,
+   also give the token `repo` access to your `psx-trading-bot` fork.
+3. Put the token in `.env` as `GITHUB_TOKEN=ghp_...` or paste it into
+   the sidebar.
+4. Pick a model from the sidebar dropdown:
+   - `openai/gpt-4o-mini` — default, fastest, plenty of rate limit
+   - `openai/gpt-4o` — higher quality, High tier (10 RPM / 50 RPD)
+   - `openai/gpt-4.1` — flagship, High tier
+   - `meta/Llama-3.3-70B-Instruct` — open-weights alternative
+   - `mistral-ai/Mistral-Large-2411`
+
+A typical chat question triggers 1–3 tool calls, so the 150 req/day Low-
+tier limit comfortably covers ~50 real conversations per day — more than
+enough for a personal trading assistant.
 
 ### Safety
 

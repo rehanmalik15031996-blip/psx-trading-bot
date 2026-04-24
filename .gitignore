@@ -2,8 +2,13 @@
 .env
 .env.*
 env (1)
+github token
+github_token
+github-token
 *.pem
 *.key
+*token*.txt
+*secret*
 
 # Python
 __pycache__/
