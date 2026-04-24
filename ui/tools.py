@@ -968,6 +968,67 @@ def get_todays_predictions(max_items: int = 20,
     }
 
 
+def get_watchlist() -> dict:
+    """Return every symbol the user has added to the watchlist, enriched with
+    live price, 1d / 5d return, momentum rank, and target-price status.
+
+    Use this to answer 'what's on my watchlist', 'is anything I'm tracking
+    breaking out', or 'am I near a target price on any name'."""
+    try:
+        from ui.watchlist import load_watchlist
+    except Exception as e:
+        return {"error": f"watchlist module unavailable: {e}"}
+    items = load_watchlist()
+    if not items:
+        return {"items": [], "note": "Watchlist is empty. Add symbols from "
+                                       "the Watchlist tab in the UI."}
+    ranking = get_universe_ranking()
+    rank_map = {r["symbol"]: r["rank"]
+                for r in ranking.get("ranking", [])}
+    rows: list[dict] = []
+    for it in items:
+        sym = it["symbol"]
+        p = get_price(sym)
+        last = p.get("close_pkr")
+        tgt = it.get("target_price")
+        rows.append({
+            "symbol": sym,
+            "added_date": it.get("added_date"),
+            "note": it.get("note"),
+            "last_price_pkr": last,
+            "ret_1d_pct": p.get("ret_1d_pct"),
+            "ret_5d_pct": p.get("ret_5d_pct"),
+            "momentum_rank": rank_map.get(sym),
+            "target_price_pkr": tgt,
+            "upside_to_target_pct":
+                round((tgt / last - 1) * 100, 2)
+                if (tgt and last) else None,
+            "alert_above_hit":
+                bool(it.get("alert_above") and last and last >= it["alert_above"]),
+            "alert_below_hit":
+                bool(it.get("alert_below") and last and last <= it["alert_below"]),
+        })
+    return {"count": len(rows), "items": rows}
+
+
+def get_trade_journal(limit: int = 20) -> dict:
+    """Return the user's closed-trade history from data/trade_journal.json.
+
+    Includes realized gross/net P&L in PKR, hold days, win rate, and per-trade
+    details. Use whenever the user asks about their track record, prior wins/
+    losses, or whether a given name has worked for them before."""
+    try:
+        from ui.trade_journal import load_journal, journal_stats
+    except Exception as e:
+        return {"error": f"trade_journal unavailable: {e}"}
+    trades = load_journal()
+    trades_sorted = sorted(trades,
+                            key=lambda t: t.get("exit_date") or "",
+                            reverse=True)
+    return {"stats": journal_stats(),
+            "recent_trades": trades_sorted[: int(limit)]}
+
+
 TOOL_FUNCTIONS = {
     "list_universe": list_universe,
     "get_price": get_price,
@@ -988,6 +1049,8 @@ TOOL_FUNCTIONS = {
     "get_scored_sentiment": get_scored_sentiment,
     "estimate_trade_net_return": estimate_trade_net_return,
     "get_todays_predictions": get_todays_predictions,
+    "get_watchlist": get_watchlist,
+    "get_trade_journal": get_trade_journal,
 }
 
 
@@ -1233,6 +1296,29 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
                                      "that clear the cost threshold.")
                 },
             },
+        },
+    },
+    {
+        "name": "get_watchlist",
+        "description": ("List every symbol the user has saved to their "
+                        "watchlist with live price, 1d/5d return, momentum "
+                        "rank, target-price upside, and whether configured "
+                        "price alerts have been hit. Call this when the user "
+                        "asks 'what's on my watchlist', 'anything interesting "
+                        "I'm tracking', or 'am I near a target on any name'."),
+        "input_schema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "get_trade_journal",
+        "description": ("Return the user's closed-position trade journal "
+                        "with realized gross and net (post-cost) P&L, win "
+                        "rate, average winner, average loser, and recent "
+                        "trade details. Call this when the user asks about "
+                        "their track record, past trades in a name, or "
+                        "overall performance."),
+        "input_schema": {
+            "type": "object",
+            "properties": {"limit": {"type": "integer", "default": 20}},
         },
     },
 ]

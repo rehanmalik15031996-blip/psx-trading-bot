@@ -105,6 +105,37 @@ def remove_position(index: int) -> None:
         save_user_portfolio(positions)
 
 
+def close_position(index: int, *, exit_price: float, exit_date: str | None = None,
+                   exit_reason: str = "manual", exit_notes: str = "") -> dict:
+    """Close a live position: record the full round-trip in the trade journal
+    and remove the position from the active portfolio.
+
+    Returns the stored journal entry (includes gross/net P&L in PKR and %),
+    or a dict with an "error" key if the index is out of range.
+    """
+    from ui.trade_journal import append_trade
+
+    positions = load_user_portfolio()
+    if not (0 <= index < len(positions)):
+        return {"error": f"position index {index} out of range "
+                         f"(have {len(positions)})"}
+    p = positions[index]
+    entry = append_trade(
+        symbol=p["symbol"],
+        quantity=float(p.get("quantity", 0)),
+        entry_date=str(p.get("entry_date") or ""),
+        entry_price=float(p["entry_price"]),
+        exit_date=str(exit_date or datetime.now().strftime("%Y-%m-%d")),
+        exit_price=float(exit_price),
+        exit_reason=exit_reason,
+        entry_notes=str(p.get("notes", "") or ""),
+        exit_notes=exit_notes,
+    )
+    positions.pop(index)
+    save_user_portfolio(positions)
+    return entry
+
+
 if __name__ == "__main__":
     from rich import print
     print(load_user_portfolio())
