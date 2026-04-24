@@ -1,10 +1,13 @@
-name: End of day (FIPI + check predictions)
+name: End of day (OHLCV + FIPI + check predictions)
 
 # Runs ~1 hour after PSX close (15:30 PKT = 10:30 UTC).
 # 11:30 UTC = 16:30 PKT.
-# 1) Appends today's FIPI flows to the daily cache.
-# 2) Scores yesterday's 5-day predictions against actuals (incl. cost-adjusted
-#    net return hit-rate). Commits both back to main.
+# 1) Refreshes today's OHLCV from PSX DPS for the 15-stock universe so the
+#    UI and all downstream tools (ranking, scanner, predictions) see today's
+#    close instead of yesterday's.
+# 2) Appends today's FIPI flows to the daily cache.
+# 3) Scores yesterday's 5-day predictions against actuals (incl. cost-adjusted
+#    net return hit-rate). Commits everything back to main.
 
 on:
   schedule:
@@ -39,6 +42,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r .github/requirements-ci.txt
 
+      - name: Refresh OHLCV (today's close for the 15-stock universe)
+        run: python scripts/backfill.py
+        # Idempotent: overwrites parquet files with the latest full history
+        # from PSX DPS (~5y x 15 symbols, runs in ~30-60s). Without this the
+        # UI would stay a day behind every single morning.
+
       - name: Cache today's FIPI flows
         run: python scripts/cache_fipi_daily.py || true
         # Don't fail the whole job if FIPI scrape blips — we still want
@@ -51,12 +60,12 @@ jobs:
         run: |
           git config user.name  "psx-bot"
           git config user.email "psx-bot@users.noreply.github.com"
-          git add data/flows/fipi_daily.parquet data/predictions_log.json
+          git add data/ohlcv/ data/flows/fipi_daily.parquet data/predictions_log.json
           if git diff --cached --quiet; then
             echo "No changes."
             exit 0
           fi
-          git commit -m "data: EOD flows + scorecard $(date -u +%F)"
+          git commit -m "data: EOD OHLCV + flows + scorecard $(date -u +%F)"
           for i in 1 2 3 4 5; do
             if git push; then exit 0; fi
             echo "Push attempt $i rejected; rebasing on latest main..."

@@ -304,7 +304,17 @@ def render_sidebar():
                           "daily CI workflows, then clears the price cache."):
             _do_git_pull()
 
-        if st.button("Refresh price cache", use_container_width=True):
+        if st.button("Refresh prices from PSX DPS",
+                      use_container_width=True,
+                      help="Pulls today's OHLCV for the 15-stock universe "
+                           "directly from PSX DPS (bypasses GitHub). Use "
+                           "right after market close if the EOD workflow "
+                           "hasn't run yet. Takes ~60 seconds."):
+            _do_backfill()
+
+        if st.button("Clear in-memory cache", use_container_width=True,
+                      help="Forces tools.py to reload parquet files. Use "
+                           "after manually editing data/ on disk."):
             tools.refresh_cache()
             st.success("Cache cleared.")
             time.sleep(0.4)
@@ -329,6 +339,55 @@ def render_sidebar():
             "Data updates are committed to GitHub by the workflows in "
             "`.github/workflows/`. Press 'Pull latest' to sync locally."
         )
+
+
+def _do_backfill():
+    """Run scripts/backfill.py in-process so Streamlit shows progress and
+    catches any exception locally."""
+    with st.spinner("Pulling today's OHLCV from PSX DPS (may take ~60s)…"):
+        try:
+            from connectors.psx_historical import PSXHistoricalConnector
+            from config.universe import symbols as universe_symbols
+            from data.store import save_ohlcv
+        except Exception as e:
+            st.error(f"Import failed: {type(e).__name__}: {e}")
+            return
+        conn = PSXHistoricalConnector()
+        probe = conn.test()
+        if not probe.ok:
+            st.error(f"PSX DPS unreachable: {probe.error}")
+            return
+
+        ok, fail = 0, 0
+        last_dates: list[str] = []
+        bar = st.progress(0.0)
+        syms = universe_symbols()
+        for i, sym in enumerate(syms):
+            try:
+                rows = conn.fetch_symbol(sym)
+                if rows:
+                    save_ohlcv(sym, rows)
+                    ok += 1
+                    last_dates.append(max(r["date"] for r in rows))
+                else:
+                    fail += 1
+            except Exception:
+                fail += 1
+            bar.progress((i + 1) / len(syms))
+        bar.empty()
+
+        tools.refresh_cache()
+        if last_dates:
+            freshest = max(last_dates)
+            st.success(
+                f"Refreshed {ok}/{len(syms)} symbols. "
+                f"Latest date on disk: **{freshest}**."
+                + (f"  ({fail} failed.)" if fail else "")
+            )
+        else:
+            st.error("No symbols refreshed.")
+        time.sleep(0.8)
+        st.rerun()
 
 
 def _do_git_pull():
