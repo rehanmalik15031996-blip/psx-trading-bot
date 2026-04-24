@@ -143,7 +143,7 @@
     },
     {
       "prediction_id": "2026-04-24-FABL",
-      "generated_at": "2026-04-24T14:57:57+05:00",
+      "generated_at": "2026-04-24T11:37:01+00:00",
       "symbol": "FABL",
       "sector": "Banking",
       "model": "claude-haiku-4-5",
@@ -151,22 +151,22 @@
       "entry_price_pkr": 89.92,
       "direction": "NEUTRAL",
       "conviction": "MEDIUM",
-      "expected_return_5d_low_pct": -3.5,
-      "expected_return_5d_mid_pct": 0.8,
+      "expected_return_5d_low_pct": -4.5,
+      "expected_return_5d_mid_pct": -0.8,
       "expected_return_5d_high_pct": 3.2,
       "suggested_action": "HOLD",
       "suggested_stop_pkr": 80.93,
-      "suggested_target_pkr": 93.8,
-      "rationale": "FABL shows mixed signals despite ranking 2nd in momentum: technical setup is sound (RSI 64.5, price above SMA200, uptrend in place) and SBP's accommodative 10.5% policy rate is structurally bullish for banking. However, negative LIPI flows (-2.6mn), near-term weakness (1d=-1.45%, 5d=-3.44%), and geopolitical headwinds (US-Iran deadlock causing KSE-100 volatility) offset upside conviction. The macro backdrop (stable but risk-off) and market filter being off prevent a BULLISH rating.",
+      "suggested_target_pkr": 95.5,
+      "rationale": "FABL exhibits positive 21d/150d/250d momentum and ranks 2nd in a 15-stock universe, supported by accommodative SBP policy (10.5% rate) and small FPI inflows (+2.61mn PKR). However, overnight risk is elevated: VIX spiked to 19.31 (+2.06% 1d, +7.64% 5d), EEM dropped -1.62% 1d, and macro sentiment turned negative (-0.07) driven by US-Iran geopolitical tensions (-0.55 headline impact). The bank-specific negative tilt (-0.275, 72h) from revenue concerns adds friction. The rules-based PSX gap prior is FLAT, suggesting no tailwind from overnight global moves. With VIX in elevated regime (19.3), conviction downgrades from the positive momentum signals.",
       "key_drivers": [
-        "Accommodative SBP policy rate (10.5%) supports banking sector fundamentals",
-        "Strong 252d momentum (+86.13%) and rank 2/15 suggest underlying strength",
-        "Technical setup intact: price above all major MAs, uptrend confirmed"
+        "Rank #2 momentum in universe; 21d MA squeeze (sma20≈sma50=88) and 3.3% above 200d SMA suggest underlying uptrend intact",
+        "SBP accommodative policy (10.5%, below ceiling) traditionally bullish for banking sector",
+        "FPI net buying +2.61mn PKR today offsets local selling, signaling modest foreign interest in valuations"
       ],
       "key_risks": [
-        "Negative local flows (-2.6mn LIPI) and market risk-off sentiment",
-        "Recent 5d decline (-3.44%) and 1d weakness (-1.45%) may signal pullback",
-        "US-Iran geopolitical tension causing broader KSE-100 volatility"
+        "VIX elevated at 19.3 (+7.64% 5d); EM ETF down -1.62% 1d signals risk-off sentiment that typically hits frontier EM banks hardest",
+        "US-Iran geopolitics (-0.55 impact score) and KSE-100 heavy selloff (-2000 pts) undermine near-term sentiment; FABL-specific revenue headwinds (-0.275 72h tilt) add pressure",
+        "Stock down -1.45% 1d and -3.44% 5d, testing 5d momentum despite ranking well; widened stop/target band reflects VIX stress regime"
       ],
       "data_snapshot": {
         "as_of_price_date": "2026-04-23",
@@ -195,7 +195,7 @@
         "usdpkr_ret_21d": 0.004,
         "news_count_matched": 5,
         "news_headlines": [
-          "SBP seen holding rates as oil shock splits analysts",
+          "Rupee inches up against US dollar",
           "Pakistan repays $3.45bn to UAE, confirms central bank",
           "SBP buys back Rs309.5bn PIBs in second auction",
           "KSE-100 drops 2,000 points as US-Iran deadlock persists",
@@ -211,7 +211,7 @@
         "stop_triggered": null,
         "target_triggered": null
       },
-      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 3.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 80.93,\n  \"suggested_target_pkr\": 93.80,\n  \"rationale\": \"FABL shows mixed signals despite ranking 2nd in momentum: technical setup is sound (RSI 64.5, price above SMA200, uptrend in place) and SBP's accommodative 10.5% policy rate is structurally bullish for banking. However, negative LIPI flows (-2.6mn), near-term weakness (1d=-1.45%, 5d=-3.44%), and geopolitical headwinds (US-Iran deadlock causing KSE-100 volatility) offset upside conviction. The macro backdrop (stable but risk-off) and market filter being off prevent a BULLISH rating.\",\n  \"key_drivers\": [\n    \"Accommodative SBP policy rate (10.5%) supports banking sector fundamentals\",\n    \"Strong 252d momentum (+86.13%) and rank 2/15 suggest underlying strength\",\n    \"Technical setup intact: price above all major MAs, uptrend confirmed\"\n  ],\n  \"key_risks\": [\n    \"Negative local flows (-2.6mn LIPI) and market risk-off sentiment\",\n    \"Recent 5d decline (-3.44%) and 1d weakness (-1.45%) may signal pullback\",\n    \"US-Iran geopolitical tension causing broader KSE-100 volatility\"\n  ]\n}\n```"
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -4.5,\n  \"expected_return_5d_mid_pct\": -0.8,\n  \"expected_return_5d_high_pct\": 3.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 80.93,\n  \"suggested_target_pkr\": 95.50,\n  \"rationale\": \"FABL exhibits positive 21d/150d/250d momentum and ranks 2nd in a 15-stock universe, supported by accommodative SBP policy (10.5% rate) and small FPI inflows (+2.61mn PKR). However, overnight risk is elevated: VIX spiked to 19.31 (+2.06% 1d, +7.64% 5d), EEM dropped -1.62% 1d, and macro sentiment turned negative (-0.07) driven by US-Iran geopolitical tensions (-0.55 headline impact). The bank-specific negative tilt (-0.275, 72h) from revenue concerns adds friction. The rules-based PSX gap prior is FLAT, suggesting no tailwind from overnight global moves. With VIX in elevated regime (19.3), conviction downgrades from the positive momentum signals.\",\n  \"key_drivers\": [\n    \"Rank #2 momentum in universe; 21d MA squeeze (sma20≈sma50=88) and 3.3% above 200d SMA suggest underlying uptrend intact\",\n    \"SBP accommodative policy (10.5%, below ceiling) traditionally bullish for banking sector\",\n    \"FPI net buying +2.61mn PKR today offsets local selling, signaling modest foreign interest in valuations\"\n  ],\n  \"key_risks\": [\n    \"VIX elevated at 19.3 (+7.64% 5d); EM ETF down -1.62% 1d signals risk-off sentiment that typically hits frontier EM banks hardest\",\n    \"US-Iran geopolitics (-0.55 impact score) and"
     },
     {
       "prediction_id": "2026-04-24-FCCL",
@@ -287,32 +287,32 @@
     },
     {
       "prediction_id": "2026-04-24-HUBC",
-      "generated_at": "2026-04-24T14:57:31+05:00",
+      "generated_at": "2026-04-24T11:36:27+00:00",
       "symbol": "HUBC",
       "sector": "Power",
       "model": "claude-haiku-4-5",
       "horizon_trading_days": 5,
       "entry_price_pkr": 226.43,
-      "direction": "BULLISH",
+      "direction": "NEUTRAL",
       "conviction": "MEDIUM",
-      "expected_return_5d_low_pct": -1.5,
-      "expected_return_5d_mid_pct": 2.8,
-      "expected_return_5d_high_pct": 5.5,
-      "suggested_action": "ADD",
-      "suggested_stop_pkr": 205.0,
-      "suggested_target_pkr": 237.5,
-      "rationale": "HUBC exhibits strong medium-term uptrend (21d +10.29%, 252d +59.33%) with price trading 10.3% above 200-day MA, supported by accommodative SBP policy rate (10.5%). However, RSI at 71.8 signals overbought conditions and recent 1-day momentum is negative, tempering near-term enthusiasm. Power sector showing modest positive flows (0.33 mn USD), and macro tailwinds from elevated oil prices (Brent +6.67% 5d) provide underlying support.",
+      "expected_return_5d_low_pct": -3.5,
+      "expected_return_5d_mid_pct": 0.8,
+      "expected_return_5d_high_pct": 3.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 204.8,
+      "suggested_target_pkr": 234.2,
+      "rationale": "HUBC shows strong 21-day momentum (+10.29%) and sits 10.3% above 200-day MA, supporting a constructive longer-term posture. However, overnight macro signals are mixed: S&P weakness (-0.41%), elevated VIX (19.31, +2.06%), and EM weakness (-1.62%) create a risk-off undertone that typically pressures frontier EM names. The stock ranks 6/15 in momentum, outside the top 5, and macro sentiment tilts slightly negative (-0.07) due to geopolitical headwinds (US-Iran tensions, Middle East). Five-day expected return of +0.8% mid falls short of transaction costs (~1.6%), making an entry inefficient despite technical strength.",
       "key_drivers": [
-        "Strong YTD momentum (+59.33% annual return) and sustained position above key moving averages",
-        "Accommodative SBP policy rate (10.5%) historically supportive of equity rallies",
-        "Rising energy commodity prices (Brent +6.67% 5d, WTI +2.09% 5d) beneficial for power sector",
-        "SEPCO board appointment news signals governance improvement in power SOEs"
+        "Elevated VIX (19.31) and overnight global risk-off (EEM -1.62%, Nikkei -0.75%) weigh on EM sentiment",
+        "Geopolitical tension (US-Iran deadlock) suppressing short-term appetite despite accommodative SBP policy (10.5%)",
+        "Power sector net inflow (+0.33 mn USD) and oil prices elevated support longer-term thesis",
+        "Strong 21-day (+10.29%) and 252-day (+59.33%) returns reflect structural uptrend; RSI 71.8 signals overbought near-term"
       ],
       "key_risks": [
-        "RSI at 71.8 indicates overbought conditions; pullback risk elevated within 5-day window",
-        "Market filter off (risk_on=False) constrains fresh inflows despite sector momentum",
-        "Stock already near 52-week high (-7.28% from peak); limited upside runway",
-        "Negative 1-day return (-0.69%) suggests recent profit-taking momentum"
+        "VIX elevated at 19.31; further global risk-off could trigger 1-2% PSX gap-down and cascade to HUBC",
+        "Geopolitical headlines (US-Iran, Middle East tensions) remain headline-sensitive; any escalation could sharpen drawdown",
+        "RSI 71.8 and distance from 52-week high only -7.28% leave limited upside room; profit-taking risk near 240 PKR",
+        "Macro sentiment tilt -0.037 and private sector confidence dip (Gallup) may constrain sector rotation into utilities"
       ],
       "data_snapshot": {
         "as_of_price_date": "2026-04-23",
@@ -353,7 +353,7 @@
         "stop_triggered": null,
         "target_triggered": null
       },
-      "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -1.5,\n  \"expected_return_5d_mid_pct\": 2.8,\n  \"expected_return_5d_high_pct\": 5.5,\n  \"suggested_action\": \"ADD\",\n  \"suggested_stop_pkr\": 205.0,\n  \"suggested_target_pkr\": 237.5,\n  \"rationale\": \"HUBC exhibits strong medium-term uptrend (21d +10.29%, 252d +59.33%) with price trading 10.3% above 200-day MA, supported by accommodative SBP policy rate (10.5%). However, RSI at 71.8 signals overbought conditions and recent 1-day momentum is negative, tempering near-term enthusiasm. Power sector showing modest positive flows (0.33 mn USD), and macro tailwinds from elevated oil prices (Brent +6.67% 5d) provide underlying support.\",\n  \"key_drivers\": [\n    \"Strong YTD momentum (+59.33% annual return) and sustained position above key moving averages\",\n    \"Accommodative SBP policy rate (10.5%) historically supportive of equity rallies\",\n    \"Rising energy commodity prices (Brent +6.67% 5d, WTI +2.09% 5d) beneficial for power sector\",\n    \"SEPCO board appointment news signals governance improvement in power SOEs\"\n  ],\n  \"key_risks\": [\n    \"RSI at 71.8 indicates overbought conditions; pullback risk elevated within 5-day window\",\n    \"Market filter off (risk_on=False) constrains fresh inflows despite sector momentum\",\n    \"Stock already near 52-week high (-7.28% from peak); limited upside runway\",\n    \"Negative 1-day return (-0.69%) suggests recent profit-taking momentum\"\n  ]\n}\n```"
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 3.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 204.8,\n  \"suggested_target_pkr\": 234.2,\n  \"rationale\": \"HUBC shows strong 21-day momentum (+10.29%) and sits 10.3% above 200-day MA, supporting a constructive longer-term posture. However, overnight macro signals are mixed: S&P weakness (-0.41%), elevated VIX (19.31, +2.06%), and EM weakness (-1.62%) create a risk-off undertone that typically pressures frontier EM names. The stock ranks 6/15 in momentum, outside the top 5, and macro sentiment tilts slightly negative (-0.07) due to geopolitical headwinds (US-Iran tensions, Middle East). Five-day expected return of +0.8% mid falls short of transaction costs (~1.6%), making an entry inefficient despite technical strength.\",\n  \"key_drivers\": [\n    \"Elevated VIX (19.31) and overnight global risk-off (EEM -1.62%, Nikkei -0.75%) weigh on EM sentiment\",\n    \"Geopolitical tension (US-Iran deadlock) suppressing short-term appetite despite accommodative SBP policy (10.5%)\",\n    \"Power sector net inflow (+0.33 mn USD) and oil prices elevated support longer-term thesis\",\n    \"Strong 21-day (+10.29%) and 252-day (+59.33%) returns reflect structural uptrend; RSI 71.8 signals overbought near-term\"\n  ],\n  \"key_risks\": [\n    \"VIX elevated at 19.31; further global risk-off could trigger 1-2% PSX gap-down and cascade to "
     },
     {
       "prediction_id": "2026-04-24-KOHC",
@@ -578,31 +578,29 @@
     },
     {
       "prediction_id": "2026-04-24-MLCF",
-      "generated_at": "2026-04-24T14:57:44+05:00",
+      "generated_at": "2026-04-24T11:36:44+00:00",
       "symbol": "MLCF",
       "sector": "Cement",
-      "model": "claude-haiku-4-5",
+      "model": "rule-based-v1",
       "horizon_trading_days": 5,
       "entry_price_pkr": 86.52,
       "direction": "BEARISH",
-      "conviction": "MEDIUM",
-      "expected_return_5d_low_pct": -5.5,
-      "expected_return_5d_mid_pct": -2.0,
-      "expected_return_5d_high_pct": 1.5,
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -16.09,
+      "expected_return_5d_mid_pct": -5.51,
+      "expected_return_5d_high_pct": 5.08,
       "suggested_action": "AVOID",
-      "suggested_stop_pkr": 92.98,
-      "suggested_target_pkr": 81.5,
-      "rationale": "MLCF is structurally weak with a 63-day momentum of -33.98% and ranks 13/15 in the universe. The stock has already declined 8.12% over 5 days and sits 13.44% below its 200-day MA, signaling downtrend persistence. While SBP's accommodative rate supports cement demand and macro flows are neutral-positive, these tailwinds are insufficient to overcome the negative technical momentum and poor relative ranking.",
+      "suggested_stop_pkr": 79.6,
+      "suggested_target_pkr": 90.92,
+      "rationale": "Rule-based score -0.65 (direction BEARISH, conviction HIGH). Driven by 0 positive factors and 4 risks. No news sentiment integrated (LLM not available).",
       "key_drivers": [
-        "Negative 63-day momentum (-33.98%) and weak momentum rank (13/15) persist",
-        "Stock trading 13.44% below 200-day MA; RSI 64.7 in overbought near-term but trend is down",
-        "SBP policy rate accommodative at 10.5%; cement sector net inflows +0.18 USD mn provide limited support",
-        "Recent 5-day and 21-day returns (-8.12%, +0.78%) show volatility but overall downtrend intact"
+        "No strong drivers"
       ],
       "key_risks": [
-        "SBP's accommodative stance and positive cement inflows could catalyze near-term bounce to 90–93 PKR",
-        "Macro environment stable; USD/PKR flat; rising energy prices (Brent +6.67% 5d) may pressure margins but could also support pricing",
-        "Risk-on sentiment shift or infrastructure spending announcement could trigger reversal; 52-week low at 60.87 is cushion"
+        "Negative 150d momentum -21.7%",
+        "Weakening 60d momentum -34.0%",
+        "Price -13.4% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
       ],
       "data_snapshot": {
         "as_of_price_date": "2026-04-23",
@@ -631,11 +629,11 @@
         "usdpkr_ret_21d": 0.004,
         "news_count_matched": 8,
         "news_headlines": [
-          "Retail bodies urge govt to review early market closures amid revenue losses",
-          "China’s AI darling DeepSeek previews new model adapted for Huawei chip technology",
-          "IEA sees 'tight' liquefied natural gas markets through 2027",
-          "Customs revises import values for PVC, PU coated fabric after global price review",
-          "Price monitoring committee claims transport fares remain unchanged"
+          "Indian rupee logs steepest weekly drop in over three years as Iran war worries resurface",
+          "Rupee inches up against US dollar",
+          "Gold price drops by Rs2,900 per tola in Pakistan",
+          "Pakistan repays $3.45bn to UAE, confirms central bank",
+          "Retail bodies urge govt to review early market closures amid revenue losses"
         ]
       },
       "outcome": {
@@ -646,37 +644,34 @@
         "inside_range": null,
         "stop_triggered": null,
         "target_triggered": null
-      },
-      "_llm_raw": "```json\n{\n  \"direction\": \"BEARISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -5.5,\n  \"expected_return_5d_mid_pct\": -2.0,\n  \"expected_return_5d_high_pct\": 1.5,\n  \"suggested_action\": \"AVOID\",\n  \"suggested_stop_pkr\": 92.98,\n  \"suggested_target_pkr\": 81.50,\n  \"rationale\": \"MLCF is structurally weak with a 63-day momentum of -33.98% and ranks 13/15 in the universe. The stock has already declined 8.12% over 5 days and sits 13.44% below its 200-day MA, signaling downtrend persistence. While SBP's accommodative rate supports cement demand and macro flows are neutral-positive, these tailwinds are insufficient to overcome the negative technical momentum and poor relative ranking.\",\n  \"key_drivers\": [\n    \"Negative 63-day momentum (-33.98%) and weak momentum rank (13/15) persist\",\n    \"Stock trading 13.44% below 200-day MA; RSI 64.7 in overbought near-term but trend is down\",\n    \"SBP policy rate accommodative at 10.5%; cement sector net inflows +0.18 USD mn provide limited support\",\n    \"Recent 5-day and 21-day returns (-8.12%, +0.78%) show volatility but overall downtrend intact\"\n  ],\n  \"key_risks\": [\n    \"SBP's accommodative stance and positive cement inflows could catalyze near-term bounce to 90–93 PKR\",\n    \"Macro environment stable; USD/PKR flat; rising energy prices (Brent +6.67% 5d) may pressure margins but could also support pricing\",\n    \"Risk-on sentiment shift or infrastructure spending announcement could trigger reversal; 52-week low at 60.87 is cushion\"\n  "
+      }
     },
     {
       "prediction_id": "2026-04-24-OGDC",
-      "generated_at": "2026-04-24T15:12:17+05:00",
+      "generated_at": "2026-04-24T11:36:53+00:00",
       "symbol": "OGDC",
       "sector": "Oil & Gas E&P",
-      "model": "claude-haiku-4-5",
+      "model": "rule-based-v1",
       "horizon_trading_days": 5,
       "entry_price_pkr": 319.33,
-      "direction": "BULLISH",
-      "conviction": "MEDIUM",
-      "expected_return_5d_low_pct": -1.5,
-      "expected_return_5d_mid_pct": 2.8,
-      "expected_return_5d_high_pct": 5.5,
-      "suggested_action": "ADD",
-      "suggested_stop_pkr": 289.0,
-      "suggested_target_pkr": 335.0,
-      "rationale": "OGDC benefits from elevated Brent crude (+6.67% 5d, +65.5% YTD) and recent operational news (Jand-1 well revival). The stock trades 16.3% above 200-day MA with strong 252d momentum (+48.97%) and rank 5 in universe. However, overnight gap-down risk (-0.81% prior), elevated VIX (19.31), and risk-off market filter cap upside—conviction stays MEDIUM despite tailwinds.",
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.12,
+      "expected_return_5d_mid_pct": 1.28,
+      "expected_return_5d_high_pct": 7.68,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 293.78,
+      "suggested_target_pkr": 343.85,
+      "rationale": "Rule-based score +0.25 (direction NEUTRAL, conviction LOW). Driven by 4 positive factors and 2 risks. No news sentiment integrated (LLM not available).",
       "key_drivers": [
-        "Brent crude up 6.67% 5d; structural 63d surge (+65.5%) supports E&P valuations",
-        "OGDC production revival (Jand-1) and sector net inflow (+0.5 mn USD) signal confidence",
-        "Stock 78% above 52w low; 20d momentum +15.26% confirms uptrend integrity",
-        "IEA tight LNG forecast through 2027 underpins medium-term gas demand"
+        "Positive 150d momentum +14.1%",
+        "Strong 20d momentum +15.3%",
+        "Price +16.3% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
       ],
       "key_risks": [
-        "Overnight gap-down prior (-0.81%) and elevated VIX (19.31) with risk-off filter on",
-        "RSI 78.1 overbought; stock -4.36% from 52w high suggests limited upside buffer",
-        "US-Iran deadlock headlines create headline risk; oil shock splitting analyst calls",
-        "Macro environment 'stable' but not enthusiastic; local flows turned negative today (-2.6 mn PKR)"
+        "RSI 78.1 — overbought, pullback risk",
+        "Market breadth weak — Phase-1 in cash"
       ],
       "data_snapshot": {
         "as_of_price_date": "2026-04-23",
@@ -705,9 +700,9 @@
         "usdpkr_ret_21d": 0.004,
         "news_count_matched": 6,
         "news_headlines": [
+          "Indian rupee logs steepest weekly drop in over three years as Iran war worries resurface",
           "IEA sees 'tight' liquefied natural gas markets through 2027",
           "Mitsubishi Motors recalls over 108,000 vehicles in the US over liftgate issue",
-          "SBP seen holding rates as oil shock splits analysts",
           "KSE-100 drops 2,000 points as US-Iran deadlock persists",
           "Oil prices jump after renewed flare-up"
         ]
@@ -720,36 +715,37 @@
         "inside_range": null,
         "stop_triggered": null,
         "target_triggered": null
-      },
-      "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -1.5,\n  \"expected_return_5d_mid_pct\": 2.8,\n  \"expected_return_5d_high_pct\": 5.5,\n  \"suggested_action\": \"ADD\",\n  \"suggested_stop_pkr\": 289.0,\n  \"suggested_target_pkr\": 335.0,\n  \"rationale\": \"OGDC benefits from elevated Brent crude (+6.67% 5d, +65.5% YTD) and recent operational news (Jand-1 well revival). The stock trades 16.3% above 200-day MA with strong 252d momentum (+48.97%) and rank 5 in universe. However, overnight gap-down risk (-0.81% prior), elevated VIX (19.31), and risk-off market filter cap upside—conviction stays MEDIUM despite tailwinds.\",\n  \"key_drivers\": [\n    \"Brent crude up 6.67% 5d; structural 63d surge (+65.5%) supports E&P valuations\",\n    \"OGDC production revival (Jand-1) and sector net inflow (+0.5 mn USD) signal confidence\",\n    \"Stock 78% above 52w low; 20d momentum +15.26% confirms uptrend integrity\",\n    \"IEA tight LNG forecast through 2027 underpins medium-term gas demand\"\n  ],\n  \"key_risks\": [\n    \"Overnight gap-down prior (-0.81%) and elevated VIX (19.31) with risk-off filter on\",\n    \"RSI 78.1 overbought; stock -4.36% from 52w high suggests limited upside buffer\",\n    \"US-Iran deadlock headlines create headline risk; oil shock splitting analyst calls\",\n    \"Macro environment 'stable' but not enthusiastic; local flows turned negative today (-2.6 mn PKR)\"\n  ]\n}\n```"
+      }
     },
     {
       "prediction_id": "2026-04-24-PABC",
-      "generated_at": "2026-04-24T14:57:38+05:00",
+      "generated_at": "2026-04-24T11:36:35+00:00",
       "symbol": "PABC",
       "sector": "Misc",
       "model": "claude-haiku-4-5",
       "horizon_trading_days": 5,
       "entry_price_pkr": 109.19,
       "direction": "BEARISH",
-      "conviction": "HIGH",
-      "expected_return_5d_low_pct": -6.5,
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -8.5,
       "expected_return_5d_mid_pct": -3.2,
-      "expected_return_5d_high_pct": -0.5,
+      "expected_return_5d_high_pct": 1.5,
       "suggested_action": "AVOID",
-      "suggested_stop_pkr": 116.8,
-      "suggested_target_pkr": 102.6,
-      "rationale": "PABC ranks 15th (last) in momentum across the PSX universe with RSI at 71.1 indicating overbought conditions, yet the stock is down 4.51% over 5 days and 16.58% below its 200-day MA, signaling weak fundamental support. Mixed trend, stable volatility regime, and risk-off macro sentiment (market filter off, PSX extending losses) suggest further downside pressure over the 5-day horizon.",
+      "suggested_stop_pkr": 119.1,
+      "suggested_target_pkr": 103.7,
+      "rationale": "PABC is ranked last (15/15) in momentum and exhibits severe technical weakness: -33.98% below 52-week high, RSI overbought at 71.1 on a mixed trend, and 21-day underperformance (-4.51% 5d return, -1.51% 1d). Overnight macro shows elevated VIX (19.31, +2.06%), EEM stress (-1.62%), and geopolitical headwinds (-0.39 category tilt) creating a risk-off filter that screens PABC out of contention. Ticker-specific sentiment is negative (-0.450 score) due to retail sector headwinds (early market closure revenue losses). While macro policy remains accommodative (SBP 10.5%) and FIPI is positive, the combination of extreme technical weakness, negative newsflow momentum, and elevated global volatility argues for avoidance over next 5 days.",
       "key_drivers": [
-        "Worst momentum rank (15/15) in 15-stock universe indicates severe relative weakness",
-        "Stock is 33.98% below 52-week high and trading 16.58% below long-term MA—structural weakness",
-        "RSI overbought at 71.1 despite negative 5d/-4.51% and 1d/-1.51% returns suggests reversal risk",
-        "Risk-off macro environment: PSX extending losses, Middle East tensions, no bullish catalyst in news"
+        "Severe momentum ranking (15/15) and -4.51% 5-day underperformance vs. PSX",
+        "Elevated VIX (19.31) and EM stress (-1.62%) creating risk-off macro filter",
+        "Geopolitical headwinds (Iran-US tensions, -0.39 category tilt) weighing on sentiment",
+        "Ticker-specific negative news (retail revenue losses, -0.450 72h score)",
+        "Technical: RSI 71.1 overbought, price -33.98% below 52w high, mixed trend"
       ],
       "key_risks": [
-        "Accommodative SBP policy rate (10.5%) could eventually support equities and lift sentiment",
-        "Commodity strength (Brent +6.67% 5d, cotton +5.03%) may benefit select sectors if macro stabilizes",
-        "Potential short-covering bounce if selling becomes exhausted near support levels"
+        "VIX elevated (19.31, regime=elevated): 5d bands widened 50% to capture volatility tail",
+        "Overweight geopolitical risk (-0.39 tilt) may resolve favorably, reducing downside pressure",
+        "Accommodative SBP policy (10.5%) and positive FIPI (+2.61 mn) could trigger short covering or rally",
+        "Stock 28% above 52w low; downside cushion limited if macro stabilizes"
       ],
       "data_snapshot": {
         "as_of_price_date": "2026-04-23",
@@ -778,11 +774,11 @@
         "usdpkr_ret_21d": 0.004,
         "news_count_matched": 8,
         "news_headlines": [
-          "Retail bodies urge govt to review early market closures amid revenue losses",
-          "China’s AI darling DeepSeek previews new model adapted for Huawei chip technology",
-          "IEA sees 'tight' liquefied natural gas markets through 2027",
-          "Customs revises import values for PVC, PU coated fabric after global price review",
-          "Price monitoring committee claims transport fares remain unchanged"
+          "Indian rupee logs steepest weekly drop in over three years as Iran war worries resurface",
+          "Rupee inches up against US dollar",
+          "Gold price drops by Rs2,900 per tola in Pakistan",
+          "Pakistan repays $3.45bn to UAE, confirms central bank",
+          "Retail bodies urge govt to review early market closures amid revenue losses"
         ]
       },
       "outcome": {
@@ -794,7 +790,7 @@
         "stop_triggered": null,
         "target_triggered": null
       },
-      "_llm_raw": "```json\n{\n  \"direction\": \"BEARISH\",\n  \"conviction\": \"HIGH\",\n  \"expected_return_5d_low_pct\": -6.5,\n  \"expected_return_5d_mid_pct\": -3.2,\n  \"expected_return_5d_high_pct\": -0.5,\n  \"suggested_action\": \"AVOID\",\n  \"suggested_stop_pkr\": 116.8,\n  \"suggested_target_pkr\": 102.6,\n  \"rationale\": \"PABC ranks 15th (last) in momentum across the PSX universe with RSI at 71.1 indicating overbought conditions, yet the stock is down 4.51% over 5 days and 16.58% below its 200-day MA, signaling weak fundamental support. Mixed trend, stable volatility regime, and risk-off macro sentiment (market filter off, PSX extending losses) suggest further downside pressure over the 5-day horizon.\",\n  \"key_drivers\": [\n    \"Worst momentum rank (15/15) in 15-stock universe indicates severe relative weakness\",\n    \"Stock is 33.98% below 52-week high and trading 16.58% below long-term MA—structural weakness\",\n    \"RSI overbought at 71.1 despite negative 5d/-4.51% and 1d/-1.51% returns suggests reversal risk\",\n    \"Risk-off macro environment: PSX extending losses, Middle East tensions, no bullish catalyst in news\"\n  ],\n  \"key_risks\": [\n    \"Accommodative SBP policy rate (10.5%) could eventually support equities and lift sentiment\",\n    \"Commodity strength (Brent +6.67% 5d, cotton +5.03%) may benefit select sectors if macro stabilizes\",\n    \"Potential short-covering bounce if selling becomes exhausted near support levels\"\n  ]\n}\n```"
+      "_llm_raw": "```json\n{\n  \"direction\": \"BEARISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -8.5,\n  \"expected_return_5d_mid_pct\": -3.2,\n  \"expected_return_5d_high_pct\": 1.5,\n  \"suggested_action\": \"AVOID\",\n  \"suggested_stop_pkr\": 119.1,\n  \"suggested_target_pkr\": 103.7,\n  \"rationale\": \"PABC is ranked last (15/15) in momentum and exhibits severe technical weakness: -33.98% below 52-week high, RSI overbought at 71.1 on a mixed trend, and 21-day underperformance (-4.51% 5d return, -1.51% 1d). Overnight macro shows elevated VIX (19.31, +2.06%), EEM stress (-1.62%), and geopolitical headwinds (-0.39 category tilt) creating a risk-off filter that screens PABC out of contention. Ticker-specific sentiment is negative (-0.450 score) due to retail sector headwinds (early market closure revenue losses). While macro policy remains accommodative (SBP 10.5%) and FIPI is positive, the combination of extreme technical weakness, negative newsflow momentum, and elevated global volatility argues for avoidance over next 5 days.\",\n  \"key_drivers\": [\n    \"Severe momentum ranking (15/15) and -4.51% 5-day underperformance vs. PSX\",\n    \"Elevated VIX (19.31) and EM stress (-1.62%) creating risk-off macro filter\",\n    \"Geopolitical headwinds (Iran-US tensions, -0.39 category tilt) weighing on sentiment\",\n    \"Ticker-specific negative news (retail revenue losses, -0.450 72h score)\",\n    \"Technical: RSI 71.1 overbought, price -33.98% below 52w high, mixed trend\"\n  ],\n  \"key_risks\": [\n    \"VIX elevated ("
     },
     {
       "prediction_id": "2026-04-24-POL",
@@ -870,34 +866,32 @@
     },
     {
       "prediction_id": "2026-04-24-PPL",
-      "generated_at": "2026-04-24T14:58:05+05:00",
+      "generated_at": "2026-04-24T11:37:10+00:00",
       "symbol": "PPL",
       "sector": "Oil & Gas E&P",
       "model": "claude-haiku-4-5",
       "horizon_trading_days": 5,
       "entry_price_pkr": 228.23,
-      "direction": "BULLISH",
+      "direction": "NEUTRAL",
       "conviction": "MEDIUM",
-      "expected_return_5d_low_pct": -1.5,
-      "expected_return_5d_mid_pct": 3.2,
-      "expected_return_5d_high_pct": 6.5,
-      "suggested_action": "ADD",
-      "suggested_stop_pkr": 208.0,
-      "suggested_target_pkr": 243.5,
-      "rationale": "PPL ranks #1 in momentum across the 15-stock universe with strong technical setup (RSI 67, price 9.56% above 200-day MA, uptrend confirmed). Macro tailwinds include Brent +6.67% in 5d and +65.5% in 63d, IEA warnings of tight LNG markets through 2027, and recent oil price jump from Iran tensions. However, market filter is currently off (risk_on=False) and KSE-100 weakness (-2,000 pts) creates near-term headwinds that cap conviction to MEDIUM.",
+      "expected_return_5d_low_pct": -4.5,
+      "expected_return_5d_mid_pct": 0.8,
+      "expected_return_5d_high_pct": 4.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 205.4,
+      "suggested_target_pkr": 237.8,
+      "rationale": "PPL ranks #1 in momentum and trades 9.6% above sma200, supported by strong Brent +6.67% 5d and IEA tight LNG narrative (+0.35 sentiment). However, overnight global risk is mixed: S&P -0.41%, VIX elevated at 19.31 (+2.06%), EEM -1.62%, and geopolitical headwinds (-0.39 category score) from US-Iran tensions offset commodity strength. The stock fell -2.48% today despite positive sector flows (+0.5 mn USD O&G E&P), signaling caution. Expected return of ~0.8% mid does not justify transaction costs (~0.56% round-trip + 15% CGT), so HOLD is appropriate over BUY.",
       "key_drivers": [
-        "Brent crude up 6.67% in 5d; WTI +2.09%, supporting E&P valuations",
-        "PPL #1 momentum rank; price well above 20/50-day MAs; RSI 67 shows strength",
-        "IEA tight LNG forecast 2027; Iran flare-up pushing oil higher",
-        "Accommodative SBP policy rate (10.5%) supports equity appetite",
-        "Positive FIPI/LIPI regime with oil & gas sector net buying 0.5mn USD"
+        "Brent crude +6.67% 5d and +65.5% 63d; oil prices resilient on Middle East geopolitics",
+        "IEA tight LNG markets narrative and positive sector-specific sentiment (+0.088 72h score)",
+        "#1 momentum rank and 9.6% premium to sma200; near 21d high of 281.52",
+        "Foreign net inflow +2.61 mn PKR today and dedicated O&G sector +0.75 mn USD flows"
       ],
       "key_risks": [
-        "Market filter risk_on=False; KSE-100 dropped 2,000 pts; broader equity weakness may drag PPL",
-        "RSI 67 signals potential overbought conditions on 5d horizon",
-        "63d momentum negative (-16.75%), suggesting prior weakness not fully recovered",
-        "USD/PKR stable but FX headwind if rupee depreciates further",
-        "Geopolitical premia in oil could reverse if US-Iran tensions ease"
+        "VIX elevated (19.31, regime=elevated) and geopolitics strongly negative (-0.39); US-Iran deadlock pressuring sentiment",
+        "S&P -0.41% overnight and EEM -1.62% signal risk-off; frontier EM typically loses 1–2x of US moves",
+        "Stock down -2.48% 1d despite positive fundamentals; momentum may be overextended (RSI 67.2)",
+        "Macro tilt neutral (-0.037) and macro environment stable, but geopolitical overhang could trigger volatility"
       ],
       "data_snapshot": {
         "as_of_price_date": "2026-04-23",
@@ -924,13 +918,13 @@
         "brent_ret_21d": 0.0146,
         "usdpkr_value": 278.59,
         "usdpkr_ret_21d": 0.004,
-        "news_count_matched": 7,
+        "news_count_matched": 6,
         "news_headlines": [
+          "Indian rupee logs steepest weekly drop in over three years as Iran war worries resurface",
           "IEA sees 'tight' liquefied natural gas markets through 2027",
           "Mitsubishi Motors recalls over 108,000 vehicles in the US over liftgate issue",
-          "SBP seen holding rates as oil shock splits analysts",
-          "Iran war hits Asia's polyester suppliers to global fast fashion",
-          "KSE-100 drops 2,000 points as US-Iran deadlock persists"
+          "KSE-100 drops 2,000 points as US-Iran deadlock persists",
+          "Oil prices jump after renewed flare-up"
         ]
       },
       "outcome": {
@@ -942,7 +936,7 @@
         "stop_triggered": null,
         "target_triggered": null
       },
-      "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -1.5,\n  \"expected_return_5d_mid_pct\": 3.2,\n  \"expected_return_5d_high_pct\": 6.5,\n  \"suggested_action\": \"ADD\",\n  \"suggested_stop_pkr\": 208.0,\n  \"suggested_target_pkr\": 243.5,\n  \"rationale\": \"PPL ranks #1 in momentum across the 15-stock universe with strong technical setup (RSI 67, price 9.56% above 200-day MA, uptrend confirmed). Macro tailwinds include Brent +6.67% in 5d and +65.5% in 63d, IEA warnings of tight LNG markets through 2027, and recent oil price jump from Iran tensions. However, market filter is currently off (risk_on=False) and KSE-100 weakness (-2,000 pts) creates near-term headwinds that cap conviction to MEDIUM.\",\n  \"key_drivers\": [\n    \"Brent crude up 6.67% in 5d; WTI +2.09%, supporting E&P valuations\",\n    \"PPL #1 momentum rank; price well above 20/50-day MAs; RSI 67 shows strength\",\n    \"IEA tight LNG forecast 2027; Iran flare-up pushing oil higher\",\n    \"Accommodative SBP policy rate (10.5%) supports equity appetite\",\n    \"Positive FIPI/LIPI regime with oil & gas sector net buying 0.5mn USD\"\n  ],\n  \"key_risks\": [\n    \"Market filter risk_on=False; KSE-100 dropped 2,000 pts; broader equity weakness may drag PPL\",\n    \"RSI 67 signals potential overbought conditions on 5d horizon\",\n    \"63d momentum negative (-16.75%), suggesting prior weakness not fully recovered\",\n    \"USD/PKR stable but FX headwind if rupee depreciates further\",\n    \"Geopolitical premia in oil coul"
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -4.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 4.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 205.4,\n  \"suggested_target_pkr\": 237.8,\n  \"rationale\": \"PPL ranks #1 in momentum and trades 9.6% above sma200, supported by strong Brent +6.67% 5d and IEA tight LNG narrative (+0.35 sentiment). However, overnight global risk is mixed: S&P -0.41%, VIX elevated at 19.31 (+2.06%), EEM -1.62%, and geopolitical headwinds (-0.39 category score) from US-Iran tensions offset commodity strength. The stock fell -2.48% today despite positive sector flows (+0.5 mn USD O&G E&P), signaling caution. Expected return of ~0.8% mid does not justify transaction costs (~0.56% round-trip + 15% CGT), so HOLD is appropriate over BUY.\",\n  \"key_drivers\": [\n    \"Brent crude +6.67% 5d and +65.5% 63d; oil prices resilient on Middle East geopolitics\",\n    \"IEA tight LNG markets narrative and positive sector-specific sentiment (+0.088 72h score)\",\n    \"#1 momentum rank and 9.6% premium to sma200; near 21d high of 281.52\",\n    \"Foreign net inflow +2.61 mn PKR today and dedicated O&G sector +0.75 mn USD flows\"\n  ],\n  \"key_risks\": [\n    \"VIX elevated (19.31, regime=elevated) and geopolitics strongly negative (-0.39); US-Iran deadlock pressuring sentiment\",\n    \"S&P -0.41% overnight and EEM -1.62% signal risk-off; frontier EM typically loses 1–2x of US moves\",\n    \"Stock down -2.48% 1d"
     },
     {
       "prediction_id": "2026-04-24-PSO",
