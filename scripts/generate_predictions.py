@@ -143,6 +143,26 @@ Calibration guidance (IMPORTANT):
       (momentum trumps value short-term), but downgrade conviction one
       notch (HIGH->MEDIUM) and flag the rich valuation as a key_risk.
     * NO_SIGNAL or LOW confidence: ignore the value layer for this stock.
+- QUALITY SCORE (0-100, used as a multiplier on value):
+    * HIGH (>=70) + BUY_VALUE = real edge — push conviction.
+    * JUNK (<30) + BUY_VALUE = value trap — DOWNGRADE to HOLD even if
+      momentum is positive. Flag "value trap risk" in key_risks.
+    * HIGH + bullish momentum = strongest setup; conviction can be HIGH.
+    * Quality alone is NOT a 5-day signal — only use it as a filter.
+- EARNINGS MOMENTUM:
+    * ACCELERATING + bullish momentum/news = HIGH conviction allowed.
+    * RECOVERING (out of a slump) + positive news = MEDIUM-HIGH ok.
+    * EROSION + neutral signals = downgrade to HOLD/AVOID even if
+      technicals are fine (post-earnings drift is bearish).
+    * DECELERATING = mild bearish bias.
+- EARNINGS EVENT RISK (CRITICAL): if the briefing contains an
+  "EARNINGS EVENT RISK (BLACKOUT)" line, you MUST set suggested_action
+  to HOLD or AVOID and warn about post-result gap risk in the
+  rationale, regardless of momentum / value signals. Earnings days
+  produce 5-10% gaps that destroy short-term predictions. If it shows
+  "EVENT WINDOW" (6-14 days out), you MAY still recommend BUY/ADD but
+  with conviction one notch lower and tighter stop loss in the
+  rationale.
 - Be skeptical. If nothing special is happening, say NEUTRAL/LOW/HOLD.
 
 Return JSON ONLY. No other text."""
@@ -296,6 +316,63 @@ def build_briefing(ctx: dict) -> str:
             ]
     except Exception as e:
         lines += ["", f"INTRINSIC VALUE: (skipped — {type(e).__name__})"]
+
+    # Quality score (filter for value traps)
+    try:
+        from brain.quality import quality_score
+        q = quality_score(sym)
+        if q.get("error"):
+            lines += ["", f"QUALITY: (skipped — {q['error'][:80]})"]
+        else:
+            comps = q.get("components", {})
+            roe = comps.get("profitability", {}).get("value")
+            de = comps.get("leverage", {}).get("value")
+            cv = comps.get("stability", {}).get("value")
+            lines += [
+                "",
+                f"QUALITY SCORE: {q.get('quality_score')}/100  band={q.get('band')}",
+                f"  ROE={roe}%   D/E={de}   EPS_5y_CV={cv}",
+                f"  (HIGH+BUY_VALUE = real edge; JUNK+BUY_VALUE = trap; "
+                f"HIGH+momentum = strongest signal.)",
+            ]
+    except Exception as e:
+        lines += ["", f"QUALITY: (skipped — {type(e).__name__})"]
+
+    # Earnings momentum (post-earnings drift)
+    try:
+        from brain.quality import earnings_momentum
+        em = earnings_momentum(sym)
+        if em.get("flag") not in (None, "INSUFFICIENT_DATA"):
+            lines += [
+                "",
+                f"EARNINGS MOMENTUM: {em['flag']}   "
+                f"YoY={em.get('yoy_growth_pct')}%  "
+                f"prior_YoY={em.get('prior_yoy_growth_pct')}%  "
+                f"accel={em.get('acceleration_pp')}pp  "
+                f"3y_CAGR={em.get('cagr_3y_pct')}%",
+            ]
+    except Exception as e:
+        lines += ["", f"EARNINGS MOMENTUM: (skipped — {type(e).__name__})"]
+
+    # Earnings event risk
+    try:
+        from brain.earnings_calendar import next_event
+        ev = next_event(sym)
+        if ev.get("days_until") is not None and 0 <= ev["days_until"] <= 14:
+            tag = ("BLACKOUT" if ev.get("in_blackout_5d") else
+                   "EVENT WINDOW")
+            lines += [
+                "",
+                f"EARNINGS EVENT RISK ({tag}): {ev['symbol']} likely "
+                f"reports on {ev['next_event_date_utc']} (in "
+                f"{ev['days_until']} days, conf={ev['confidence']}, "
+                f"src={ev['source']}). "
+                + ("Do NOT recommend BUY/ADD; expect post-result gap."
+                   if ev.get("in_blackout_5d")
+                   else "Flag in rationale; consider tighter stop.")
+            ]
+    except Exception as e:
+        lines += ["", f"EARNINGS EVENT RISK: (skipped — {type(e).__name__})"]
 
     return "\n".join(lines)
 

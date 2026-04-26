@@ -62,7 +62,11 @@ def smart_entry_zone(entry: float, stop: float, support: dict,
 def score(pred: dict) -> float:
     """Rank buys by expected NET return * conviction weight.
 
-    Filters out any trade whose gross mid return doesn't clear cost+edge.
+    Filters out:
+      - non-BUY/ADD or non-BULLISH calls
+      - trades whose gross mid return doesn't clear cost+edge
+      - stocks in earnings blackout (≤5 days, HIGH/MED confidence) — we
+        don't want to take new positions into a result-day gap.
     """
     if pred.get("suggested_action") not in ("BUY", "ADD"):
         return -99
@@ -72,6 +76,14 @@ def score(pred: dict) -> float:
     viable, _ = trade_is_viable(mid_gross)
     if not viable:
         return -99
+    # Earnings blackout filter
+    try:
+        from brain.earnings_calendar import next_event
+        ev = next_event(pred["symbol"])
+        if ev.get("in_blackout_5d"):
+            return -99
+    except Exception:
+        pass
     w = CONVICTION_WEIGHT.get(pred.get("conviction", "LOW"), 0)
     mid_net = net_return_pct(mid_gross)
     return w * mid_net
@@ -127,6 +139,23 @@ def main():
             print(f"  {p['symbol']:<6s} gross={g:+.2f}%  net(cost+CGT)={n:+.2f}%  "
                   f"conviction={p['conviction']}")
         print()
+
+    # Earnings-blackout report (informational)
+    try:
+        from brain.earnings_calendar import universe_calendar
+        cal = universe_calendar(days_ahead=14)
+        blackouts = cal.get("blackout_now") or []
+        if blackouts:
+            print("-" * 100)
+            print("EARNINGS BLACKOUT (≤5 trading days, HIGH/MED confidence) "
+                  "— NO new BUY/ADD on these:")
+            for ev in blackouts:
+                print(f"  {ev['symbol']:<6s} reports {ev['next_event_date_utc']}  "
+                      f"({ev['days_until']}d, conf={ev['confidence']}, "
+                      f"src={ev['source']})")
+            print()
+    except Exception:
+        pass
 
     # --------------------------------------------------------------
     # BUY LIST — the actionable part

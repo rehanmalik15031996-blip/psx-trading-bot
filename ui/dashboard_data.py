@@ -161,6 +161,8 @@ def morning_brief() -> dict:
         "top_buys": _safe(tools.recommend_new_buys, max_ideas=5),
         "universe_movers": _safe(universe_movers),
         "value_book": _safe(tools.get_universe_value_book),
+        "quality_book": _safe(tools.get_universe_quality_book),
+        "earnings_calendar": _safe(tools.get_earnings_calendar, days_ahead=21),
     }
 
 

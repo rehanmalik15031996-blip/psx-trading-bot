@@ -79,13 +79,21 @@ class YFinanceFundamentalsConnector(BaseConnector):
     def fetch_one(self, symbol: str) -> dict[str, Any]:
         """Fetch a single stock's fundamentals as a flat dict.
 
+        Includes income-statement series, balance-sheet aggregates (total
+        equity, total debt, total assets), latest 6 dividend dates, and
+        the next earnings timestamp when yfinance exposes one.
+
         Returns at minimum::
 
             {"symbol": "OGDC", "as_of_utc": "...", "ok": True,
              "book_value_per_share": 321.71, "eps_ttm": 32.12,
              "shares_outstanding": 4.3e9, "market_cap_pkr": 5.6e11,
+             "total_equity_pkr": 1.25e12, "total_debt_pkr": 0.0,
+             "total_assets_pkr": 1.5e12,
              "dividend_ttm": 17.5, "dividend_5y_avg": 14.2,
              "n_dividends_lifetime": 75,
+             "last_dividend_dates": ["2026-03-15", ...],
+             "next_earnings_date_utc": "2026-04-29T16:00:00Z" | None,
              "revenue_5y": [...], "net_income_5y": [...],
              "eps_5y": [...], "currency": "PKR"}
 
@@ -141,6 +149,7 @@ class YFinanceFundamentalsConnector(BaseConnector):
             div_ttm = None
             div_5y_avg = None
             n_divs = 0
+            last_div_dates: list[str] = []
             if divs is not None and not divs.empty:
                 divs = divs.copy()
                 # yfinance sometimes returns naive; coerce to UTC
@@ -157,6 +166,67 @@ class YFinanceFundamentalsConnector(BaseConnector):
                 if len(last5):
                     # annualize: total of last 5y / 5
                     div_5y_avg = round(float(last5.sum()) / 5.0, 4)
+                # Last 6 dividend dates (newest first) for cadence-based
+                # earnings prediction
+                last_div_dates = [d.date().isoformat()
+                                   for d in divs.index.sort_values(
+                                       ascending=False)[:6]]
+
+            # Balance-sheet aggregates (total equity, total debt, total assets)
+            bs = t.balance_sheet
+            tot_eq = tot_dt = tot_as = None
+            if bs is not None and not bs.empty:
+                # Equity — try several common labels in order
+                for lbl in ("Stockholders Equity",
+                            "Total Equity Gross Minority Interest",
+                            "Common Stock Equity"):
+                    if lbl in bs.index:
+                        try:
+                            tot_eq = float(bs.loc[lbl].dropna().iloc[0])
+                            break
+                        except Exception:
+                            pass
+                # Debt — prefer Total Debt; otherwise sum LT + ST debt
+                for lbl in ("Total Debt",
+                            "Long Term Debt And Capital Lease Obligation",
+                            "Long Term Debt"):
+                    if lbl in bs.index:
+                        try:
+                            tot_dt = float(bs.loc[lbl].dropna().iloc[0])
+                            break
+                        except Exception:
+                            pass
+                # Total assets
+                for lbl in ("Total Assets", ):
+                    if lbl in bs.index:
+                        try:
+                            tot_as = float(bs.loc[lbl].dropna().iloc[0])
+                            break
+                        except Exception:
+                            pass
+
+            # Next earnings date when yfinance has it
+            next_earn = None
+            ts = info.get("earningsTimestamp")
+            if ts:
+                try:
+                    next_earn = (pd.Timestamp(int(ts), unit="s", tz="UTC")
+                                  .isoformat())
+                except Exception:
+                    pass
+            else:
+                # Sometimes lives under t.calendar
+                try:
+                    cal = t.calendar
+                    if isinstance(cal, dict):
+                        ed = cal.get("Earnings Date")
+                        if ed:
+                            d0 = ed[0] if isinstance(ed, list) else ed
+                            next_earn = pd.Timestamp(d0).tz_localize(
+                                "UTC", nonexistent="shift_forward",
+                                ambiguous="NaT").isoformat()
+                except Exception:
+                    pass
 
             rec.update({
                 "ok": True,
@@ -168,9 +238,14 @@ class YFinanceFundamentalsConnector(BaseConnector):
                 "shares_outstanding": (float(shares)
                                        if shares is not None else None),
                 "market_cap_pkr": (float(mcap) if mcap is not None else None),
+                "total_equity_pkr": tot_eq,
+                "total_debt_pkr": tot_dt,
+                "total_assets_pkr": tot_as,
                 "dividend_ttm": div_ttm,
                 "dividend_5y_avg": div_5y_avg,
                 "n_dividends_lifetime": n_divs,
+                "last_dividend_dates": last_div_dates,
+                "next_earnings_date_utc": next_earn,
                 "revenue_5y": rev_5y,
                 "net_income_5y": ni_5y,
                 "eps_5y": eps_5y,
@@ -220,9 +295,15 @@ class YFinanceFundamentalsConnector(BaseConnector):
                     "eps_ttm": rec.get("eps_ttm"),
                     "shares_outstanding": rec.get("shares_outstanding"),
                     "market_cap_pkr": rec.get("market_cap_pkr"),
+                    "total_equity_pkr": rec.get("total_equity_pkr"),
+                    "total_debt_pkr": rec.get("total_debt_pkr"),
+                    "total_assets_pkr": rec.get("total_assets_pkr"),
                     "dividend_ttm": rec.get("dividend_ttm"),
                     "dividend_5y_avg": rec.get("dividend_5y_avg"),
                     "n_dividends_lifetime": rec.get("n_dividends_lifetime"),
+                    "last_dividend_dates_json": json.dumps(
+                        rec.get("last_dividend_dates") or []),
+                    "next_earnings_date_utc": rec.get("next_earnings_date_utc"),
                     "revenue_5y_json": json.dumps(rec.get("revenue_5y") or []),
                     "net_income_5y_json": json.dumps(rec.get("net_income_5y") or []),
                     "eps_5y_json": json.dumps(rec.get("eps_5y") or []),
@@ -265,7 +346,8 @@ def load_latest(symbol: str) -> dict | None:
         if df.empty:
             return None
         row = df.iloc[-1].to_dict()
-        for k in ("revenue_5y", "net_income_5y", "eps_5y"):
+        for k in ("revenue_5y", "net_income_5y", "eps_5y",
+                  "last_dividend_dates"):
             jk = f"{k}_json"
             if jk in row:
                 try:

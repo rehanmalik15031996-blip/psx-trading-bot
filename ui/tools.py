@@ -1061,6 +1061,76 @@ def get_universe_value_book() -> dict:
     return universe_value_book()
 
 
+# --------------------------------------------------------------------------
+# Quality / earnings-momentum / earnings-calendar
+# --------------------------------------------------------------------------
+def get_quality_score(symbol: str) -> dict:
+    """Composite 0-100 quality score for a single PSX symbol.
+
+    Blends profitability (ROE, 30%), leverage (D/E, 25%), earnings
+    stability (5y CV, 20%), revenue growth (15%), EPS growth (10%) with
+    sector-aware leverage thresholds. Use to distinguish real value
+    (BUY_VALUE + HIGH quality) from value traps (BUY_VALUE + JUNK).
+    """
+    try:
+        from brain.quality import quality_score
+    except Exception as e:
+        return {"error": f"quality engine unavailable: {e}"}
+    return quality_score((symbol or "").upper())
+
+
+def get_universe_quality_book() -> dict:
+    """Quality scores for the whole universe, sorted descending."""
+    try:
+        from brain.quality import universe_quality_book
+    except Exception as e:
+        return {"error": f"quality engine unavailable: {e}"}
+    return universe_quality_book()
+
+
+def get_earnings_momentum(symbol: str) -> dict:
+    """Earnings-momentum flag (ACCELERATING / RECOVERING / STEADY /
+    DECELERATING / EROSION) for a single PSX symbol with the YoY,
+    prior-YoY, acceleration (pp), and 3y CAGR.
+    """
+    try:
+        from brain.quality import earnings_momentum
+    except Exception as e:
+        return {"error": f"earnings_momentum unavailable: {e}"}
+    return earnings_momentum((symbol or "").upper())
+
+
+def get_universe_earnings_momentum() -> dict:
+    """Earnings-momentum flags for the whole universe."""
+    try:
+        from brain.quality import universe_earnings_momentum
+    except Exception as e:
+        return {"error": f"earnings_momentum unavailable: {e}"}
+    return universe_earnings_momentum()
+
+
+def get_earnings_calendar(days_ahead: int = 21) -> dict:
+    """Predicted upcoming earnings / dividend-meeting dates for the
+    universe. Each row carries days_until, confidence (HIGH/MED/LOW),
+    source (yfinance/cadence/sector_typical), and a blackout flag for
+    events ≤5 days away.
+    """
+    try:
+        from brain.earnings_calendar import universe_calendar
+    except Exception as e:
+        return {"error": f"earnings_calendar unavailable: {e}"}
+    return universe_calendar(days_ahead=int(days_ahead))
+
+
+def get_next_earnings(symbol: str) -> dict:
+    """Predicted next earnings date for one ticker."""
+    try:
+        from brain.earnings_calendar import next_event
+    except Exception as e:
+        return {"error": f"earnings_calendar unavailable: {e}"}
+    return next_event((symbol or "").upper())
+
+
 TOOL_FUNCTIONS = {
     "list_universe": list_universe,
     "get_price": get_price,
@@ -1085,6 +1155,12 @@ TOOL_FUNCTIONS = {
     "get_trade_journal": get_trade_journal,
     "get_value_signal": get_value_signal,
     "get_universe_value_book": get_universe_value_book,
+    "get_quality_score": get_quality_score,
+    "get_universe_quality_book": get_universe_quality_book,
+    "get_earnings_momentum": get_earnings_momentum,
+    "get_universe_earnings_momentum": get_universe_earnings_momentum,
+    "get_earnings_calendar": get_earnings_calendar,
+    "get_next_earnings": get_next_earnings,
 }
 
 
@@ -1384,6 +1460,83 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
                         "picks', 'which stocks should I sell on valuation', "
                         "or any portfolio-wide value question."),
         "input_schema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "get_quality_score",
+        "description": ("Composite 0-100 quality score for one stock. "
+                        "Blends ROE (30%), leverage / debt-equity (25%, "
+                        "sector-aware), 5y EPS stability (20%), revenue "
+                        "3y CAGR (15%), EPS 3y CAGR (10%). Returns the "
+                        "score, band (HIGH/MEDIUM/LOW/JUNK), and the "
+                        "underlying components. Use to distinguish real "
+                        "value picks from value traps and to support "
+                        "'is X a quality business?' questions. Always "
+                        "pair this with a value signal: high-quality + "
+                        "BUY_VALUE = real edge; JUNK + BUY_VALUE = trap."),
+        "input_schema": {
+            "type": "object",
+            "properties": {"symbol": {"type": "string"}},
+            "required": ["symbol"],
+        },
+    },
+    {
+        "name": "get_universe_quality_book",
+        "description": ("Quality scores for the whole universe, sorted "
+                        "from highest to lowest. Use for 'rank by quality', "
+                        "'best quality names on PSX', or before opening any "
+                        "value-driven trade."),
+        "input_schema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "get_earnings_momentum",
+        "description": ("Earnings-momentum flag for one stock: "
+                        "ACCELERATING (yoy>5%, growth speeding up), "
+                        "RECOVERING (yoy>5% out of a prior loss), "
+                        "STEADY, DECELERATING (yoy positive but "
+                        "slowing), EROSION (yoy<-5%). Includes YoY %, "
+                        "prior-YoY %, acceleration in pp, 3y CAGR. "
+                        "Use for trend-following 'is X improving?' "
+                        "questions. Best paired with momentum and "
+                        "quality."),
+        "input_schema": {
+            "type": "object",
+            "properties": {"symbol": {"type": "string"}},
+            "required": ["symbol"],
+        },
+    },
+    {
+        "name": "get_universe_earnings_momentum",
+        "description": ("Earnings-momentum flags for all 15 stocks."),
+        "input_schema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "get_earnings_calendar",
+        "description": ("Predicted next earnings / dividend-meeting "
+                        "date for every universe stock within "
+                        "days_ahead (default 21 days). Each row carries "
+                        "days_until, confidence (HIGH/MEDIUM/LOW), "
+                        "source (yfinance / cadence / sector_typical) "
+                        "and an in_blackout_5d flag. CRITICAL for "
+                        "event-risk management: do NOT recommend "
+                        "initiating new BUY/ADD positions on stocks in "
+                        "blackout window. Use for 'what's reporting "
+                        "soon', 'should I exit X before earnings', "
+                        "'when does Y report'."),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "days_ahead": {"type": "integer", "default": 21},
+            },
+        },
+    },
+    {
+        "name": "get_next_earnings",
+        "description": ("Predicted next earnings date for ONE stock."),
+        "input_schema": {
+            "type": "object",
+            "properties": {"symbol": {"type": "string"}},
+            "required": ["symbol"],
+        },
     },
 ]
 

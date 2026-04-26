@@ -506,6 +506,88 @@ def render_dashboard_tab():
     # ---------------- Row 5: top value picks (slow signal)
     _card_value_book(brief.get("value_book", {}))
 
+    # ---------------- Row 6: upcoming earnings + quality leaders
+    c1, c2 = st.columns([1.2, 1])
+    with c1:
+        _card_earnings_calendar(brief.get("earnings_calendar", {}))
+    with c2:
+        _card_quality_leaders(brief.get("quality_book", {}))
+
+
+def _card_earnings_calendar(cal: dict):
+    if "error" in cal:
+        st.container(border=True).warning(
+            f"Earnings calendar: {cal['error']}"
+        )
+        return
+    upcoming = cal.get("upcoming") or []
+    blackouts = cal.get("blackout_now") or []
+    with st.container(border=True):
+        title_color = "red" if blackouts else "blue"
+        st.markdown(
+            f"**Upcoming events (next 21 days)** — "
+            f":{title_color}[{len(blackouts)} in blackout] · "
+            f"{len(upcoming)} total"
+        )
+        st.caption(
+            "Hybrid prediction: yfinance for confirmed dates + dividend-"
+            "cadence model for the rest. Blackout = ≤5 days with "
+            "HIGH/MED confidence (no new BUY/ADD)."
+        )
+        if not upcoming:
+            st.markdown("_No events in the next 21 days._")
+            return
+        for ev in upcoming[:8]:
+            d = ev.get("days_until", 0)
+            color = ("red" if ev.get("in_blackout_5d")
+                     else "orange" if d <= 14 else "blue")
+            badge = ("**BLACKOUT**" if ev.get("in_blackout_5d")
+                     else "WINDOW" if d <= 14 else "")
+            st.markdown(
+                f"- :{color}[**{ev['symbol']}**] · "
+                f"{ev.get('next_event_date_utc')}  ·  "
+                f"**{d}d**  ·  conf=`{ev.get('confidence')}`  ·  "
+                f"src=`{ev.get('source')}` {badge}"
+            )
+
+
+def _card_quality_leaders(qb: dict):
+    if "error" in qb:
+        st.container(border=True).warning(
+            f"Quality book: {qb['error']}"
+        )
+        return
+    rows = qb.get("rows") or []
+    if not rows:
+        return
+    counts = qb.get("band_counts", {})
+    with st.container(border=True):
+        st.markdown(
+            f"**Quality leaders** — "
+            f":green[HIGH {counts.get('HIGH', 0)}] · "
+            f"MED {counts.get('MEDIUM', 0)} · "
+            f"LOW {counts.get('LOW', 0)} · "
+            f":red[JUNK {counts.get('JUNK', 0)}]"
+        )
+        st.caption(
+            "ROE + leverage + EPS stability + growth. Use as a filter on "
+            "value picks: HIGH+BUY = real edge, JUNK+BUY = trap."
+        )
+        for r in rows[:5]:
+            sc = r.get("quality_score")
+            if sc is None:
+                continue
+            band = r.get("band", "?")
+            color = ("green" if band == "HIGH" else
+                     "orange" if band == "MEDIUM" else
+                     "red")
+            roe_v = r.get("components", {}).get("profitability", {}).get("value")
+            st.markdown(
+                f"- **{r['symbol']}** ({r.get('sector','?')[:14]})  "
+                f":{color}[{sc:.1f}/100  {band}]  ·  "
+                f"ROE `{roe_v}%`"
+            )
+
 
 def _card_value_book(vb: dict):
     if "error" in vb:
@@ -1397,6 +1479,13 @@ def render_value_tab():
         st.info("Run `python -m connectors.yfinance_fundamentals` to seed "
                 "the cache, then reload this tab.")
         return
+    qbook = tools.get_universe_quality_book()
+    embook = tools.get_universe_earnings_momentum()
+    cal = tools.get_earnings_calendar(days_ahead=21)
+
+    q_by_sym = {r["symbol"]: r for r in (qbook.get("rows") or [])}
+    em_by_sym = {r["symbol"]: r for r in (embook.get("rows") or [])}
+    ev_by_sym = {r["symbol"]: r for r in (cal.get("all_rows") or [])}
 
     counts = book.get("signal_counts", {})
     rows = book.get("rows") or []
@@ -1411,25 +1500,35 @@ def render_value_tab():
         st.warning("No value rows — fundamentals cache may be empty.")
         return
 
-    # Build display frame
+    # Build display frame: value + quality + earnings momentum + event
     df_rows = []
     for r in rows:
+        sym = r.get("symbol")
+        q = q_by_sym.get(sym, {})
+        em = em_by_sym.get(sym, {})
+        ev = ev_by_sym.get(sym, {})
+        d = ev.get("days_until")
+        ev_str = (f"{ev.get('next_event_date_utc')} ({d}d)"
+                  if d is not None and d <= 21 else "—")
         df_rows.append({
-            "Sym": r.get("symbol"),
-            "Sector": r.get("sector", "")[:18],
+            "Sym": sym,
+            "Sector": r.get("sector", "")[:14],
             "Px": r.get("current_price"),
             "Fair": r.get("fair_value"),
             "Upside %": r.get("upside_pct"),
-            "Signal": r.get("signal"),
-            "Conf": r.get("confidence", "—"),
-            "Method": r.get("method", "")[:60],
-            "Warnings": "; ".join(r.get("warnings", [])) or "",
+            "Value Sig": r.get("signal"),
+            "V-Conf": r.get("confidence", "—"),
+            "Q Score": q.get("quality_score"),
+            "Q Band": q.get("band", "—"),
+            "EPS Mom": em.get("flag", "—"),
+            "Next Event": ev_str,
+            "Method": r.get("method", "")[:50],
         })
     df = pd.DataFrame(df_rows)
 
     def _style(r):
         styles = [""] * len(r)
-        sig = str(r["Signal"])
+        sig = str(r["Value Sig"])
         if sig == "BUY_VALUE":
             styles = ["background-color: #1f4f2f; color: white"] * len(r)
         elif sig == "SELL_VALUE":
@@ -1440,6 +1539,13 @@ def render_value_tab():
 
     st.dataframe(df.style.apply(_style, axis=1),
                   hide_index=True, use_container_width=True)
+    st.caption(
+        "Combined view: **Value Sig** = fair-value signal, **Q Score** = "
+        "quality 0-100 (HIGH/MED/LOW/JUNK), **EPS Mom** = earnings "
+        "trajectory, **Next Event** = predicted result-day. The classic "
+        "edge play is BUY_VALUE + HIGH quality + ACCELERATING/RECOVERING "
+        "earnings + no event window. Avoid BUY_VALUE + JUNK = trap."
+    )
 
     # ------------------------------------------------------- per-stock detail
     st.markdown("#### Inspect a single stock")
