@@ -1,4 +1,40 @@
 {
   "version": 1,
-  "positions": []
+  "positions": [
+    {
+      "symbol": "HUBC",
+      "entry_date": "2026-04-24",
+      "entry_price": 225.13,
+      "quantity": 750.0,
+      "notes": ""
+    },
+    {
+      "symbol": "FABL",
+      "entry_date": "2026-04-24",
+      "entry_price": 92.67,
+      "quantity": 542.0,
+      "notes": ""
+    },
+    {
+      "symbol": "OGDC",
+      "entry_date": "2026-04-24",
+      "entry_price": 315.91,
+      "quantity": 12.0,
+      "notes": ""
+    },
+    {
+      "symbol": "PABC",
+      "entry_date": "2026-04-24",
+      "entry_price": 112.68,
+      "quantity": 970.0,
+      "notes": ""
+    },
+    {
+      "symbol": "MLCF",
+      "entry_date": "2026-04-24",
+      "entry_price": 93.65,
+      "quantity": 950.0,
+      "notes": ""
+    }
+  ]
 }

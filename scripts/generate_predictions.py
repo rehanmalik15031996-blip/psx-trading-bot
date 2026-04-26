@@ -270,7 +270,7 @@ def predict_with_claude(briefing: str, sym: str, close: float) -> dict:
     client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     resp = client.messages.create(
         model="claude-haiku-4-5",
-        max_tokens=700,
+        max_tokens=1500,
         system=PREDICTION_SYSTEM_PROMPT,
         messages=[{
             "role": "user",
@@ -318,6 +318,7 @@ def predict_with_gemini(briefing: str, sym: str, close: float) -> dict:
 
 def parse_json_loose(text: str) -> dict:
     """Parse JSON from an LLM response, tolerating code fences + trailing text."""
+    import re as _re
     t = text.strip()
     # Remove ```json ... ``` fences if present
     if t.startswith("```"):
@@ -327,6 +328,10 @@ def parse_json_loose(text: str) -> dict:
         if t.rstrip().endswith("```"):
             t = t.rstrip()[:-3]
     t = t.strip()
+    # JSON spec disallows leading '+' on numbers, but Claude sometimes emits
+    # `"expected_return_5d_high_pct": +4.2`. Strip the '+' when it sits right
+    # after `:` (or after `,` / `[` for arrays of numbers).
+    t = _re.sub(r'([:\[,]\s*)\+(\d)', r'\1\2', t)
     # First try raw parse
     try:
         return json.loads(t)
@@ -335,8 +340,51 @@ def parse_json_loose(text: str) -> dict:
     # Find the first '{' and last '}' and parse between them
     a, b = t.find("{"), t.rfind("}")
     if a != -1 and b != -1 and b > a:
-        return json.loads(t[a:b + 1])
-    raise ValueError(f"Could not parse JSON from LLM response: {text[:200]}")
+        try:
+            return json.loads(t[a:b + 1])
+        except json.JSONDecodeError:
+            pass
+    # Last-resort: brace-balance walk from first '{', stopping at the matching '}'.
+    # Handles cases where Claude appends prose after a complete JSON object, or
+    # where the closing fence is malformed.
+    if a != -1:
+        depth = 0
+        in_str = False
+        esc = False
+        for i in range(a, len(t)):
+            ch = t[i]
+            if in_str:
+                if esc:
+                    esc = False
+                elif ch == "\\":
+                    esc = True
+                elif ch == '"':
+                    in_str = False
+            else:
+                if ch == '"':
+                    in_str = True
+                elif ch == "{":
+                    depth += 1
+                elif ch == "}":
+                    depth -= 1
+                    if depth == 0:
+                        try:
+                            return json.loads(t[a:i + 1])
+                        except json.JSONDecodeError:
+                            break
+    # On failure, dump the full raw response so we can diagnose.
+    try:
+        from pathlib import Path as _P
+        _P("_bad_llm_response.txt").write_text(
+            f"=== {datetime.now().isoformat()} ===\n{text}\n",
+            encoding="utf-8",
+        )
+    except Exception:
+        pass
+    raise ValueError(
+        f"Could not parse JSON from LLM response (full text saved to "
+        f"_bad_llm_response.txt; first 200 chars): {text[:200]}"
+    )
 
 
 # ==========================================================================
@@ -654,7 +702,7 @@ def main():
     log["predictions"] = sorted(existing.values(), key=lambda p: p["prediction_id"])
     save_log(log)
 
-    print(f"\nSaved {len(new_records)} predictions → {LOG_PATH}")
+    print(f"\nSaved {len(new_records)} predictions -> {LOG_PATH}")
     print(f"Total predictions in log: {len(log['predictions'])}")
 
 
