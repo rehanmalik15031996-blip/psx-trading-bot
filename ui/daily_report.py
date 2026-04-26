@@ -71,6 +71,19 @@ def _styles() -> dict[str, ParagraphStyle]:
             "body", parent=base["Normal"],
             fontSize=10, leading=14, spaceAfter=4,
         ),
+        # Italic, lightly tinted "what this section means" caption that
+        # sits under each section header — turns a plain table into
+        # something a non-quant can read.
+        "explainer": ParagraphStyle(
+            "explainer", parent=base["Normal"],
+            fontSize=9, leading=12,
+            textColor=_TEXT_MUTED,
+            backColor=_BG_BAND,
+            borderPadding=6,
+            spaceBefore=2, spaceAfter=6,
+            leftIndent=0, rightIndent=0,
+            fontName="Helvetica-Oblique",
+        ),
         "body_muted": ParagraphStyle(
             "body_muted", parent=base["Normal"],
             fontSize=9, leading=12, textColor=_TEXT_MUTED,
@@ -111,6 +124,12 @@ def _color_for_mood(label: str) -> colors.Color:
 
 
 # ---------- section builders -------------------------------------------
+def _explain(story: list, sty: dict, text: str) -> None:
+    """Render a plain-English caption under a section header so a
+    non-technical reader knows what they're looking at."""
+    story.append(Paragraph(text, sty["explainer"]))
+
+
 def _hero_section(story: list, sty: dict, mood: dict, narrative: str) -> None:
     today = datetime.now().strftime("%A, %d %B %Y")
     story.append(Paragraph(f"PSX Daily Brief — {today}", sty["title"]))
@@ -123,6 +142,15 @@ def _hero_section(story: list, sty: dict, mood: dict, narrative: str) -> None:
         f'</font> &nbsp;·&nbsp; market mood {mood_score}/100</para>'
     )
     story.append(Paragraph(badge, sty["subtitle"]))
+    _explain(story, sty,
+        "<b>Market mood</b> is a 0–100 score combining four things: "
+        "the rule-based regime classifier (NORMAL / CAUTION / CRISIS), "
+        "tonight's overnight global cues (S&amp;P 500, VIX, Asia "
+        "futures), the last 24 hours of scored PSX news, and any "
+        "earnings-blackout warnings. Higher = more constructive backdrop "
+        "for taking risk. Below 40 = step back; 40–60 = mixed / "
+        "selective; above 60 = supportive."
+    )
     if narrative:
         story.append(Paragraph(narrative, sty["body"]))
     story.append(Spacer(1, 4))
@@ -133,6 +161,17 @@ def _action_section(story: list, sty: dict, action: dict) -> None:
         return
     sym = action.get("symbol")
     story.append(Paragraph("Top action today", sty["h2"]))
+    _explain(story, sty,
+        "The single highest-conviction trade idea from today's 5-day "
+        "forecasts <i>after</i> deducting estimated PSX round-trip "
+        "transaction costs (brokerage + FED + slippage + CGT). If "
+        "nothing clears the cost-and-edge threshold, the bot will tell "
+        "you to stay patient — cash is a position. <b>Buy near</b> = "
+        "the recent close used as the anchor; treat it as a guide, not "
+        "a limit. <b>Stop loss</b> = where the thesis is wrong; close "
+        "the trade if hit. <b>Target</b> = where to take profit if the "
+        "5-day forecast plays out."
+    )
     if not sym:
         story.append(Paragraph(
             "<b>Stay patient.</b> No high-conviction setups today.",
@@ -185,6 +224,13 @@ def _alerts_section(story: list, sty: dict, alerts: list) -> None:
     if not alerts:
         return
     story.append(Paragraph("Things to watch", sty["h2"]))
+    _explain(story, sty,
+        "Risk warnings the system has flagged for the next few sessions. "
+        "Red dots are blackouts (don't open new positions on those "
+        "names — they're about to report results, and earnings days "
+        "typically produce 5–10% gaps that destroy short-term forecasts). "
+        "Lighter dots are softer cautions worth knowing."
+    )
     for a in alerts[:8]:
         st = sty["callout_red"] if a.get("level") == "warning" else sty["body"]
         bullet = "● " if a.get("level") == "warning" else "○ "
@@ -196,6 +242,19 @@ def _forecast_section(story: list, sty: dict, brief: dict) -> None:
     if not preds:
         return
     story.append(Paragraph("Forecast — next 5 trading days", sty["h2"]))
+    _explain(story, sty,
+        "Every stock in the 15-name universe gets a fresh 5-trading-day "
+        "forecast every morning, blending price action, fundamentals, "
+        "intrinsic value, quality, earnings momentum, FIPI flows, "
+        "global overnight cues, news sentiment, and an LLM strategist "
+        "on top. <b>Action</b>: BUY/ADD = open or grow a position; "
+        "HOLD = sit tight; AVOID/TRIM/SELL = stay away or reduce. "
+        "<b>Direction</b>: where the bot thinks the 5-day price will "
+        "go. <b>Conviction</b>: how confident (LOW / MEDIUM / HIGH). "
+        "<b>Net 5d %</b>: expected return after estimated transaction "
+        "costs — if it's negative or near zero, the trade isn't worth "
+        "the cost. Green Action cells are tradable today; red are not."
+    )
 
     header = ["Symbol", "Action", "Direction", "Conviction",
               "Entry", "Stop", "Target", "Net 5d %"]
@@ -271,6 +330,16 @@ def _portfolio_section(story: list, sty: dict, brief: dict) -> None:
         return
 
     story.append(Paragraph("Your portfolio", sty["h2"]))
+    _explain(story, sty,
+        "Live snapshot of the holdings you've added. <b>Live value</b> "
+        "= what your shares are worth right now (last close × quantity). "
+        "<b>Cost</b> = what you paid in total. <b>Unrealized P&amp;L</b> "
+        "= the paper gain/loss on positions you still hold; it becomes "
+        "realised only when you close them. <b>Closed trades</b> below "
+        "is your trading-journal track record (win rate + realised "
+        "PKR P&amp;L) — useful for spotting whether you actually book "
+        "winners or hang on too long."
+    )
     pnl = pf.get("total_unrealized_pnl_pkr") or 0
     ret = pf.get("total_unrealized_pnl_pct")
     cost = pf.get("total_cost_pkr") or 0
@@ -346,6 +415,13 @@ def _watchlist_section(story: list, sty: dict) -> None:
     if not items:
         return
     story.append(Paragraph("Watchlist", sty["h2"]))
+    _explain(story, sty,
+        "Stocks you're tracking but don't yet own, plus any price "
+        "alerts you've set. The <b>Action</b> column reuses today's "
+        "5-day forecast so you can see at a glance whether each "
+        "watched name is currently a BUY, HOLD, or AVOID. Use this "
+        "to decide which alerts to actually act on."
+    )
     rows = [["Symbol", "Target", "Note"]]
     for w in items:
         rows.append([
@@ -382,6 +458,15 @@ def _quality_section(story: list, sty: dict, brief: dict) -> None:
         return
     story.append(Paragraph("Quality leaders (highest-quality businesses)",
                             sty["h2"]))
+    _explain(story, sty,
+        "A quality score (0–100) blending profitability (ROE), "
+        "leverage (debt-to-equity), earnings stability, and dividend "
+        "consistency. <b>Why this matters</b>: high-quality businesses "
+        "fall less in panics and recover faster. Bands: A = best, "
+        "B = good, C = average, D = stretched. The forecasts for "
+        "names in the A/B band are weighted more conservatively when "
+        "size-position recommendations are computed."
+    )
     rows = [["Symbol", "Sector", "Score / 100", "Band", "ROE %", "D/E"]]
     for q in leaders[:8]:
         comps = q.get("components") or {}
@@ -416,6 +501,15 @@ def _calendar_section(story: list, sty: dict, brief: dict) -> None:
     if not (upcoming or blackouts):
         return
     story.append(Paragraph("Earnings calendar (next 21 days)", sty["h2"]))
+    _explain(story, sty,
+        "Upcoming results announcements. The <b>day a company reports</b> "
+        "and the 1–2 days around it routinely produce 5–10% gaps that "
+        "no short-term model can predict — so any name within ~3 trading "
+        "days of its release date is automatically <b>blackout</b> "
+        "(don't open new positions). Confidence reflects whether the "
+        "date came from the company itself, a broker, or a heuristic "
+        "based on prior years."
+    )
     if blackouts:
         story.append(Paragraph(
             "<b>Blackout — do NOT open new positions on:</b> "
@@ -455,6 +549,16 @@ def _movers_section(story: list, sty: dict, brief: dict) -> None:
     if not (gainers or losers):
         return
     story.append(Paragraph("Today's biggest moves", sty["h2"]))
+    _explain(story, sty,
+        "Universe stocks ranked by yesterday's price change. <b>Up most</b> "
+        "= biggest 1-day winners; <b>Down most</b> = biggest losers. "
+        "Pair this with the Forecast section above: a stock that "
+        "ripped 4% yesterday but the model still says BUY is showing "
+        "follow-through; a 4% drop with a BUY forecast is a potential "
+        "discount. Big moves with no news are often noise; big moves "
+        "lined up with the news section below are usually the start "
+        "of a trend."
+    )
 
     def _mover_row(items: list) -> list[list[str]]:
         rows: list[list[str]] = [["Symbol", "Last", "1d %", "5d %"]]
@@ -578,21 +682,45 @@ def build_daily_report(
     _calendar_section(story, sty, brief)
 
     story.append(Spacer(1, 8))
-    fresh_lines = []
+    fresh_lines: list[str] = []
     try:
         from ui.dashboard_data import data_freshness
         fresh = data_freshness()
         for k, v in fresh.items():
-            if v.get("exists"):
+            if not v.get("exists"):
+                fresh_lines.append(f"{k}: <i>missing</i>")
+                continue
+            latest = v.get("latest_data_date")
+            tdb = v.get("trading_days_behind")
+            if latest is not None and tdb is not None:
+                if tdb == 0:
+                    gap = "today"
+                elif tdb == 1:
+                    gap = "1 trading day ago"
+                else:
+                    gap = f"{tdb} trading days ago"
                 fresh_lines.append(
-                    f"{k}: {v.get('updated_at')} ({v.get('age_hours')}h ago)"
+                    f"<b>{k}</b>: data through {latest} ({gap})"
+                    f" — file written {v.get('updated_at')}"
+                    f" ({v.get('age_hours')}h ago)"
                 )
             else:
-                fresh_lines.append(f"{k}: missing")
+                fresh_lines.append(
+                    f"<b>{k}</b>: file written {v.get('updated_at')}"
+                    f" ({v.get('age_hours')}h ago)"
+                )
     except Exception:
         pass
     if fresh_lines:
         story.append(Paragraph("Data freshness", sty["h2"]))
+        _explain(story, sty,
+            "When each input file was last refreshed and what trading "
+            "day it actually covers. PSX is closed Sat/Sun, so it is "
+            "<b>normal</b> for prices, news, and FIPI to be 1 trading "
+            "day behind on a Monday morning before the market opens. "
+            "If anything is more than 2 trading days stale, run "
+            "<i>Pull latest from GitHub</i> in the sidebar."
+        )
         for ln in fresh_lines:
             story.append(Paragraph(ln, sty["body_muted"]))
 

@@ -26,7 +26,7 @@ UI code renders placeholders rather than aborting the whole brief.
 from __future__ import annotations
 
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -228,15 +228,75 @@ def morning_brief() -> dict:
     }
 
 
+def _latest_bar_date_in_dir(dir_path: Path) -> str | None:
+    """Scan all OHLCV parquets and return the most recent bar date as
+    'YYYY-MM-DD'. Used so the freshness panel can show what date the
+    actual market data goes up to (not just when the file was written)."""
+    try:
+        import pandas as pd
+        latest = None
+        for f in dir_path.glob("*.parquet"):
+            try:
+                df = pd.read_parquet(f, columns=["date"])
+                if df.empty:
+                    continue
+                d = pd.to_datetime(df["date"]).max()
+                if latest is None or d > latest:
+                    latest = d
+            except Exception:
+                continue
+        return None if latest is None else str(latest.date())
+    except Exception:
+        return None
+
+
+def _latest_date_in_parquet(p: Path, col: str = "date") -> str | None:
+    """Return the latest value in `col` of a parquet file as 'YYYY-MM-DD'."""
+    try:
+        import pandas as pd
+        df = pd.read_parquet(p, columns=[col])
+        if df.empty:
+            return None
+        return str(pd.to_datetime(df[col]).max().date())
+    except Exception:
+        return None
+
+
+def _latest_prediction_date(p: Path) -> str | None:
+    """Newest prediction_id date in predictions_log.json (e.g. 2026-04-27)."""
+    try:
+        if not p.exists():
+            return None
+        data = json.loads(p.read_text(encoding="utf-8"))
+        ids = [x.get("prediction_id", "") for x in data.get("predictions", [])]
+        ids = [s[:10] for s in ids if s and len(s) >= 10]
+        return max(ids) if ids else None
+    except Exception:
+        return None
+
+
 def data_freshness() -> dict[str, Any]:
-    """Return mtimes of the key data files so the UI can show when things
-    were last updated by the GitHub Actions workflows."""
+    """Return both the file mtimes AND the latest data-point dates of
+    the key on-disk artefacts.
+
+    Two distinct concepts:
+      - `updated_at` / `age_hours`: when the file was last written by
+        the GitHub Actions workflows (or the local backfill button).
+      - `latest_data_date`: the most recent trading day / event date
+        actually inside the file. This is what tells you "is the data
+        old?" — file mtime can be very recent (today's CI ran) while
+        the data still lives on Friday's close.
+    """
     files = {
         "OHLCV directory": PROJECT_ROOT / "data" / "ohlcv",
-        "Overnight globals": PROJECT_ROOT / "data" / "macro" / "overnight_global.parquet",
-        "Scored news": PROJECT_ROOT / "data" / "news" / "scored_news.parquet",
-        "Predictions log": PROJECT_ROOT / "data" / "predictions_log.json",
-        "FIPI flows": PROJECT_ROOT / "data" / "flows" / "fipi_daily.parquet",
+        "Overnight globals":
+            PROJECT_ROOT / "data" / "macro" / "overnight_global.parquet",
+        "Scored news":
+            PROJECT_ROOT / "data" / "news" / "scored_news.parquet",
+        "Predictions log":
+            PROJECT_ROOT / "data" / "predictions_log.json",
+        "FIPI flows":
+            PROJECT_ROOT / "data" / "flows" / "fipi_daily.parquet",
     }
     out: dict[str, Any] = {}
     now = datetime.now()
@@ -244,18 +304,67 @@ def data_freshness() -> dict[str, Any]:
         if not p.exists():
             out[name] = {"exists": False}
             continue
-        # For directories, use the latest mtime of any file inside.
         if p.is_dir():
-            ts = max((f.stat().st_mtime for f in p.rglob("*") if f.is_file()),
-                     default=0.0)
+            ts = max((f.stat().st_mtime for f in p.rglob("*")
+                       if f.is_file()), default=0.0)
         else:
             ts = p.stat().st_mtime
         dt = datetime.fromtimestamp(ts)
         age_h = (now - dt).total_seconds() / 3600
+
+        # Compute the "latest data point" inside the file.
+        latest_data_date: str | None = None
+        if name == "OHLCV directory":
+            latest_data_date = _latest_bar_date_in_dir(p)
+        elif name == "Overnight globals":
+            latest_data_date = (_latest_date_in_parquet(p, "date")
+                                 or _latest_date_in_parquet(p, "as_of"))
+        elif name == "Scored news":
+            latest_data_date = (_latest_date_in_parquet(p, "published_at")
+                                 or _latest_date_in_parquet(p, "scored_at"))
+        elif name == "Predictions log":
+            latest_data_date = _latest_prediction_date(p)
+        elif name == "FIPI flows":
+            latest_data_date = _latest_date_in_parquet(p, "date")
+
+        # How fresh is the latest data point relative to today?
+        days_behind: int | None = None
+        trading_days_behind: int | None = None
+        if latest_data_date:
+            try:
+                d_data = datetime.fromisoformat(latest_data_date).date()
+                d_today = datetime.now().date()
+                days_behind = (d_today - d_data).days
+                # Trading-days = calendar days minus weekends in the gap.
+                # Approximation good enough for retail dashboards (PSX is
+                # closed Sat/Sun; public holidays are rare and separately
+                # reported by the EOD workflow).
+                if days_behind > 0:
+                    weekends = 0
+                    for off in range(1, days_behind + 1):
+                        wd = (d_data + timedelta(days=off)).weekday()
+                        if wd >= 5:  # 5=Sat, 6=Sun
+                            weekends += 1
+                    trading_days_behind = max(0, days_behind - weekends)
+                else:
+                    trading_days_behind = 0
+            except Exception:
+                pass
+
+        # Convenience boolean: is the file fresh by trading-day standards?
+        is_fresh = (
+            trading_days_behind is not None
+            and trading_days_behind <= 1
+        )
+
         out[name] = {
             "exists": True,
             "updated_at": dt.strftime("%Y-%m-%d %H:%M"),
             "age_hours": round(age_h, 1),
+            "latest_data_date": latest_data_date,
+            "days_behind_today": days_behind,
+            "trading_days_behind": trading_days_behind,
+            "is_fresh": is_fresh,
         }
     return out
 

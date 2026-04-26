@@ -413,16 +413,24 @@ def render_top_strip():
             )
     with c5:
         fresh = dash.data_freshness()
-        pred = fresh.get("Predictions log", {})
-        over = fresh.get("Overnight globals", {})
-        pred_age = (pred.get("age_hours")
-                    if isinstance(pred, dict) else None)
-        over_age = (over.get("age_hours")
-                    if isinstance(over, dict) else None)
+        ohlcv = fresh.get("OHLCV directory", {}) or {}
+        preds = fresh.get("Predictions log", {}) or {}
+
+        def _short(info: dict) -> str:
+            if not info.get("exists"):
+                return ":red[missing]"
+            tdb = info.get("trading_days_behind")
+            if tdb is None:
+                return f"{info.get('age_hours', 0)}h"
+            color = ("green" if tdb <= 1 else "orange"
+                     if tdb <= 3 else "red")
+            latest = info.get("latest_data_date") or "?"
+            return f":{color}[{latest}]"
+
         st.markdown(
-            "**Data freshness**  \n"
-            f"Predictions: {pred_age}h  \n"
-            f"Overnight:  {over_age}h"
+            "**Latest data**  \n"
+            f"Prices:  {_short(ohlcv)}  \n"
+            f"Predictions:  {_short(preds)}"
         )
 
     st.divider()
@@ -509,17 +517,42 @@ def render_sidebar():
 
         # -- Freshness panel
         with st.expander("Data freshness", expanded=False):
+            st.caption(
+                "The **green/orange/red dot** is based on how recent "
+                "the actual data inside the file is (in trading days), "
+                "not just when the file was last touched. PSX is "
+                "closed on Sat/Sun, so being 1 trading day behind on "
+                "a Monday morning is normal."
+            )
             for name, info in dash.data_freshness().items():
                 if not info.get("exists"):
                     st.markdown(f"- **{name}** — _missing_")
                     continue
-                age = info.get("age_hours", 0)
-                color = ("green" if age < 6 else "orange"
-                         if age < 24 else "red")
-                st.markdown(
-                    f"- **{name}**  \n"
-                    f"  :{color}[{info['updated_at']}]  ({age}h ago)"
-                )
+                # Color code by trading-days behind, falling back to
+                # mtime age if we couldn't infer a data date.
+                tdb = info.get("trading_days_behind")
+                if tdb is None:
+                    age = info.get("age_hours", 0)
+                    color = ("green" if age < 6 else "orange"
+                             if age < 24 else "red")
+                    label = (f":{color}[file: {info['updated_at']}]"
+                              f"  ({age}h ago)")
+                else:
+                    color = ("green" if tdb <= 1 else "orange"
+                             if tdb <= 3 else "red")
+                    latest = info.get("latest_data_date") or "?"
+                    if tdb == 0:
+                        gap = "today"
+                    elif tdb == 1:
+                        gap = "1 trading day ago"
+                    else:
+                        gap = f"{tdb} trading days ago"
+                    label = (
+                        f":{color}[data through **{latest}** ({gap})]  \n"
+                        f"  &nbsp;&nbsp;_file written {info['updated_at']} "
+                        f"({info.get('age_hours', 0)}h ago)_"
+                    )
+                st.markdown(f"- **{name}**  \n  {label}")
 
         st.divider()
         st.markdown("### Help")
