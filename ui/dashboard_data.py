@@ -110,6 +110,67 @@ def load_prediction_log_stats(last_n_days: int = 30) -> dict:
     }
 
 
+def universe_index_history(days: int = 60) -> dict:
+    """Equal-weighted index of the 15-stock universe, normalised to 100.
+
+    Used by the Today tab sparkline as a stand-in for KSE-100 (we don't
+    cache the official index — but an equal-weighted basket of our
+    universe is a good directional proxy because these are mostly
+    blue-chip / index constituents).
+    """
+    try:
+        ranking = tools.get_universe_ranking()
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+    syms = [r["symbol"] for r in ranking.get("ranking", [])]
+    if not syms:
+        return {"error": "no universe symbols"}
+
+    series: list[list[float]] = []  # list of normalized close arrays
+    dates_ref: list[str] = []
+    for sym in syms:
+        h = _safe(tools.get_price_history, sym, days=int(days))
+        bars = h.get("bars") or []
+        if len(bars) < 5:
+            continue
+        # Normalise each symbol's series to start at 100
+        first = float(bars[0]["close"])
+        if first <= 0:
+            continue
+        norm = [round(float(b["close"]) / first * 100.0, 4) for b in bars]
+        if not dates_ref or len(bars) > len(dates_ref):
+            dates_ref = [b["date"] for b in bars]
+        series.append(norm)
+
+    if not series:
+        return {"error": "no price history available"}
+    # Align all series to the longest one, padding shorter at the front by
+    # repeating their first value (rare on PSX where data is uniform, but
+    # safe).
+    max_len = max(len(s) for s in series)
+    aligned: list[list[float]] = []
+    for s in series:
+        if len(s) < max_len:
+            s = [s[0]] * (max_len - len(s)) + s
+        aligned.append(s)
+    # Equal-weighted average per day
+    n = len(aligned)
+    avg = [sum(col) / n for col in zip(*aligned)]
+    # Compute key stats
+    last = avg[-1]
+    first_v = avg[0]
+    pct_change = (last / first_v - 1.0) * 100.0 if first_v else 0.0
+    return {
+        "series_label": "Universe (eq-weighted, 100=start)",
+        "as_of_first": dates_ref[0] if dates_ref else None,
+        "as_of_last": dates_ref[-1] if dates_ref else None,
+        "n_symbols": n,
+        "values": avg,
+        "dates": dates_ref[-len(avg):],
+        "pct_change_pct": round(pct_change, 2),
+    }
+
+
 def universe_movers(top_k: int = 3) -> dict:
     """Top-k gainers and top-k losers in the universe for the latest bar.
 
@@ -160,6 +221,7 @@ def morning_brief() -> dict:
         "prediction_accuracy": _safe(load_prediction_log_stats),
         "top_buys": _safe(tools.recommend_new_buys, max_ideas=5),
         "universe_movers": _safe(universe_movers),
+        "universe_index": _safe(universe_index_history, days=60),
         "value_book": _safe(tools.get_universe_value_book),
         "quality_book": _safe(tools.get_universe_quality_book),
         "earnings_calendar": _safe(tools.get_earnings_calendar, days_ahead=21),

@@ -51,3 +51,9 @@ _scratch/
 # workflows commit daily updates back to the repo so `git pull` on
 # your laptop is enough to get the latest prices, predictions,
 # scored news, and FIPI flows. Do not add `data/` here.
+#
+# Per-user UI state (onboarding flag, dismissed tips, etc.).
+# Each user has their own copy — should NOT be in git.
+data/.ui_state.json
+# Helper file used by commit scripts; never commit it.
+_commit_msg.txt

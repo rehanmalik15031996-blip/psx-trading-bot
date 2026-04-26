@@ -77,6 +77,12 @@ from ui.llm_clients import (
     get_client, DEFAULT_CLAUDE_MODEL, DEFAULT_GEMINI_MODEL,
     DEFAULT_GITHUB_MODEL, GITHUB_MODEL_CHOICES,
 )
+from ui import daily_report
+
+# Where the small persistent UI flags live (onboarding seen, etc.).
+# Kept out of git via .gitignore (data/.ui_state.json), so each user has
+# their own copy.
+_UI_STATE_PATH = PROJECT_ROOT / "data" / ".ui_state.json"
 
 
 st.set_page_config(
@@ -213,6 +219,62 @@ _CUSTOM_CSS = """
         background: rgba(120, 140, 170, 0.05);
         border-radius: 8px;
         padding: 0.4rem 0.7rem;
+        animation: psx-fade-in 0.55s ease-out;
+    }
+    /* Animate the metric VALUE specifically — a quick scale-up + fade
+       gives the same "counter ticking up" feel as a counting animation
+       without needing JS. */
+    div[data-testid="stMetricValue"] {
+        animation: psx-count-in 0.65s cubic-bezier(.2,.7,.2,1) both;
+    }
+    div[data-testid="stMetricDelta"] {
+        animation: psx-fade-in 0.9s ease-out 0.15s both;
+    }
+    @keyframes psx-fade-in {
+        0%   { opacity: 0; transform: translateY(4px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes psx-count-in {
+        0%   { opacity: 0; transform: scale(0.84); }
+        60%  { opacity: 1; transform: scale(1.04); }
+        100% { opacity: 1; transform: scale(1.00); }
+    }
+    /* Hero gets a subtle slide-in too */
+    .psx-hero {
+        animation: psx-slide-in 0.55s ease-out;
+    }
+    @keyframes psx-slide-in {
+        0%   { opacity: 0; transform: translateY(-8px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    /* Onboarding "welcome" panel */
+    .psx-onboard {
+        background: linear-gradient(120deg,
+                                     rgba(47,111,235,0.16),
+                                     rgba(35,134,54,0.10));
+        border: 1px solid rgba(110, 130, 160, 0.30);
+        border-radius: 12px;
+        padding: 1.1rem 1.4rem;
+        margin: 0 0 1rem 0;
+    }
+    .psx-onboard h2 { margin: 0 0 0.5rem 0 !important;
+                      font-size: 1.4rem !important; }
+    .psx-onboard p  { margin: 0 0 0.4rem 0 !important; }
+    .psx-onboard ul { margin: 0.2rem 0 0.4rem 1.2rem; padding: 0; }
+    .psx-onboard li { margin: 0.15rem 0; }
+    /* Sparkline panel */
+    .psx-spark-wrap {
+        background: rgba(120, 140, 170, 0.04);
+        border-radius: 10px;
+        padding: 0.6rem 0.9rem 0.4rem 0.9rem;
+        margin: 0.5rem 0 0.6rem 0;
+        border: 1px solid rgba(110, 130, 160, 0.18);
+    }
+    .psx-spark-title {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: rgba(180, 195, 215, 0.95);
+        margin: 0 0 0.25rem 0;
     }
 </style>
 """
@@ -423,6 +485,12 @@ def render_sidebar():
                 )
 
         st.divider()
+        st.markdown("### Help")
+        if st.button("Show welcome tour again", use_container_width=True,
+                      help="Re-display the first-run onboarding panel above "
+                           "the tabs."):
+            reset_onboarding()
+            st.rerun()
         st.caption(
             "Data updates are committed to GitHub by the workflows in "
             "`.github/workflows/`. Press 'Pull latest' to sync locally."
@@ -525,6 +593,166 @@ def _do_git_pull():
 
 
 # --------------------------------------------------------------------------
+# Onboarding tour — shown once on first launch
+# --------------------------------------------------------------------------
+def _load_ui_state() -> dict:
+    import json
+    try:
+        if _UI_STATE_PATH.exists():
+            return json.loads(_UI_STATE_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        pass
+    return {}
+
+
+def _save_ui_state(state: dict) -> None:
+    import json
+    try:
+        _UI_STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        _UI_STATE_PATH.write_text(
+            json.dumps(state, indent=2, default=str),
+            encoding="utf-8",
+        )
+    except Exception:
+        pass
+
+
+def render_onboarding() -> None:
+    """First-run welcome panel. Renders only if the user has never
+    dismissed it. Persisted via data/.ui_state.json so it stays
+    hidden after the first 'Got it'."""
+    state = _load_ui_state()
+    if state.get("onboarding_seen") and \
+            not st.session_state.get("force_onboarding"):
+        return
+
+    st.markdown(
+        '<div class="psx-onboard">'
+        '<h2>Welcome to PSX Advisor</h2>'
+        '<p>This tool watches 15 PSX stocks for you, scores them with '
+        'a 13-layer model (price action, fundamentals, news, '
+        'overnight global cues, intrinsic value, quality, earnings '
+        'momentum, and an LLM strategist on top), and tells you what '
+        'to do — in plain English.</p>'
+        '<p><b>A 30-second tour:</b></p>'
+        '<ul>'
+        '<li><b>Today</b> — your morning brief: one screen, one '
+        'paragraph, one top action. Start here every day.</li>'
+        '<li><b>My Holdings</b> — paste your portfolio, get '
+        'position-aware advice and trailing stops.</li>'
+        '<li><b>Forecast</b> — 5-day predictions for every '
+        'universe stock + a rolling scorecard of how the bot has '
+        'actually been doing.</li>'
+        '<li><b>Fair Value</b> — sector-aware intrinsic value, '
+        'quality score, and earnings momentum — the analyst-grade '
+        'fundamentals layer.</li>'
+        '<li><b>Ask Advisor</b> — chat with Claude / Gemini / GitHub '
+        'Models; every answer is grounded in live tool calls into the '
+        'pipelines, not generic LLM text.</li>'
+        '</ul>'
+        '<p>Tip: hit <b>Download daily report (PDF)</b> on the Today '
+        'tab to share the morning brief with someone else (WhatsApp, '
+        'email, print).</p>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    cols = st.columns([1, 1, 4])
+    with cols[0]:
+        if st.button("Got it — let's go", type="primary",
+                      use_container_width=True, key="onboard_dismiss"):
+            state["onboarding_seen"] = True
+            state["onboarding_seen_at"] = datetime.now().isoformat()
+            _save_ui_state(state)
+            st.session_state["force_onboarding"] = False
+            st.rerun()
+    with cols[1]:
+        st.button("Show again later", use_container_width=True,
+                  key="onboard_later")
+
+
+def reset_onboarding() -> None:
+    """Helper exposed in the sidebar: re-show the tour on next render."""
+    state = _load_ui_state()
+    state["onboarding_seen"] = False
+    _save_ui_state(state)
+    st.session_state["force_onboarding"] = True
+
+
+# --------------------------------------------------------------------------
+# Daily PDF brief — download button helper
+# --------------------------------------------------------------------------
+def _render_pdf_download(brief: dict, mood: dict, narrative: str,
+                          action: dict, alerts: list) -> None:
+    """Build the PDF on demand and offer it as a download.
+
+    We build lazily (only when the user expands or clicks) so the Today
+    tab stays snappy on first paint."""
+    with st.expander("Download daily report (PDF)", expanded=False):
+        st.caption(
+            "One-page summary of today's brief: market mood, top "
+            "action, alerts, full forecast table, your portfolio, "
+            "quality leaders, and earnings calendar. Share via "
+            "WhatsApp / email or print."
+        )
+        if st.button("Generate PDF", key="gen_pdf",
+                      use_container_width=False):
+            try:
+                with st.spinner("Building your daily brief…"):
+                    pdf_bytes = daily_report.build_daily_report(
+                        brief=brief, mood=mood, narrative=narrative,
+                        action=action, alerts=alerts,
+                    )
+                st.session_state["_pdf_bytes"] = pdf_bytes
+                st.session_state["_pdf_filename"] = (
+                    daily_report.default_filename())
+                st.success(f"Generated ({len(pdf_bytes):,} bytes).")
+            except Exception as e:
+                st.error(f"PDF build failed: {type(e).__name__}: {e}")
+        if st.session_state.get("_pdf_bytes"):
+            st.download_button(
+                "Download PDF",
+                data=st.session_state["_pdf_bytes"],
+                file_name=st.session_state.get(
+                    "_pdf_filename", "psx-daily-brief.pdf"),
+                mime="application/pdf",
+                use_container_width=False,
+                key="dl_pdf",
+            )
+
+
+# --------------------------------------------------------------------------
+# Universe sparkline — small chart on Today
+# --------------------------------------------------------------------------
+def _render_universe_sparkline(idx: dict) -> None:
+    if not idx or "error" in idx:
+        return
+    values = idx.get("values") or []
+    dates = idx.get("dates") or []
+    if len(values) < 5:
+        return
+
+    pct = idx.get("pct_change_pct", 0.0)
+    arrow = "▲" if pct > 0 else "▼" if pct < 0 else "–"
+    color = "rgb(120,200,140)" if pct > 0 else (
+            "rgb(220,120,120)" if pct < 0 else "rgb(170,170,170)")
+    span = (f"{idx.get('as_of_first', '?')} → "
+            f"{idx.get('as_of_last', '?')}")
+
+    st.markdown(
+        '<div class="psx-spark-wrap">'
+        f'<div class="psx-spark-title">'
+        f'PSX 15-stock equal-weighted index '
+        f'<span style="color:{color}">{arrow} {pct:+.2f}%</span> '
+        f'<span style="opacity:0.6;font-weight:400">'
+        f'· {span} · base 100</span></div>',
+        unsafe_allow_html=True,
+    )
+    df = pd.DataFrame({"index": values}, index=pd.to_datetime(dates))
+    st.line_chart(df, height=130, use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+
+# --------------------------------------------------------------------------
 # DASHBOARD TAB
 # --------------------------------------------------------------------------
 def render_today_tab():
@@ -557,6 +785,12 @@ def render_today_tab():
         unsafe_allow_html=True,
     )
     st.markdown(narrative)
+
+    # ---------------------------------------------------- Universe sparkline
+    _render_universe_sparkline(brief.get("universe_index", {}))
+
+    # ---------------------------------------------------- PDF download
+    _render_pdf_download(brief, mood, narrative, action, alerts)
 
     # ---------------------------------------------------- 3 hero columns
     c1, c2, c3 = st.columns([1.1, 1, 1])
@@ -2157,6 +2391,7 @@ def main():
     )
 
     render_top_strip()
+    render_onboarding()
 
     # Plain-English tab labels with the most-used items first.
     tabs = st.tabs([
