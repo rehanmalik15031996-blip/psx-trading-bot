@@ -220,15 +220,52 @@ _CUSTOM_CSS = """
         border-radius: 8px;
         padding: 0.4rem 0.7rem;
         animation: psx-fade-in 0.55s ease-out;
+        /* IMPORTANT: prevent the parent from clipping long values with
+           "..." when the column is narrow. Streamlit's default sets
+           overflow:hidden on the value which causes the dotted ellipsis
+           the user is seeing for amounts like "+411,626 PKR". */
+        overflow: visible !important;
     }
-    /* Animate the metric VALUE specifically — a quick scale-up + fade
-       gives the same "counter ticking up" feel as a counting animation
-       without needing JS. */
     div[data-testid="stMetricValue"] {
         animation: psx-count-in 0.65s cubic-bezier(.2,.7,.2,1) both;
+        /* No truncation — let large PKR amounts render fully even in
+           narrow columns. We shrink the font slightly and use tabular
+           digits so the numbers still align across cards. */
+        font-size: 1.55rem !important;
+        line-height: 1.18 !important;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+    div[data-testid="stMetricValue"] > div {
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: nowrap !important;
+        max-width: none !important;
+    }
+    /* Streamlit wraps the actual number in a span — make sure THAT
+       can't get truncated either. */
+    div[data-testid="stMetricValue"] span,
+    div[data-testid="stMetricValue"] p {
+        overflow: visible !important;
+        text-overflow: clip !important;
+        white-space: nowrap !important;
+    }
+    div[data-testid="stMetricLabel"] {
+        font-size: 0.82rem !important;
+        opacity: 0.85;
     }
     div[data-testid="stMetricDelta"] {
         animation: psx-fade-in 0.9s ease-out 0.15s both;
+        font-size: 0.95rem !important;
+        white-space: nowrap;
+    }
+    /* Smaller screens: tighten further so 6-digit PKR amounts still fit */
+    @media (max-width: 1200px) {
+        div[data-testid="stMetricValue"] {
+            font-size: 1.35rem !important;
+        }
     }
     @keyframes psx-fade-in {
         0%   { opacity: 0; transform: translateY(4px); }
