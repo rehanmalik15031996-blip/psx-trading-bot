@@ -107,6 +107,16 @@ Tools available: see the tool list. Prefer the specialised tools:
 - `get_trade_journal` for "how have I been doing" / "past trades" / "show
   my win rate" questions. Returns realized gross and net P&L, win rate,
   best/worst trade, avg hold days, and the most recent closed trades.
+- `get_value_signal` for "is X cheap/expensive", "what's the fair value
+  of X", "is X overvalued", "intrinsic value", or any value-investing
+  question on a SINGLE stock. Returns fair_value, upside %, BUY_VALUE /
+  FAIR / SELL_VALUE / NO_SIGNAL with the formula breakdown. Always
+  remind the user this is a SLOW signal (6-24 months) — do NOT use it
+  to override a 5-day momentum/news call.
+- `get_universe_value_book` for "what's cheap right now", "find me
+  deep-value picks", "which of my holdings should I sell on valuation",
+  "rank the universe by upside" — runs the model on all 15 and returns
+  rows sorted from most-undervalued downward.
 
 Cost awareness: every trade round-trip is ~0.56% + 15% CGT on gains.
 A BUY/ADD only makes sense if expected gross 5d return >= ~1.6%. When

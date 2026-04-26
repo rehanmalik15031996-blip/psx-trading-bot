@@ -503,6 +503,58 @@ def render_dashboard_tab():
     with c2:
         _card_prediction_accuracy(brief.get("prediction_accuracy", {}))
 
+    # ---------------- Row 5: top value picks (slow signal)
+    _card_value_book(brief.get("value_book", {}))
+
+
+def _card_value_book(vb: dict):
+    if "error" in vb:
+        st.container(border=True).warning(
+            f"Value book: {vb['error']}  (run "
+            f"`python -m connectors.yfinance_fundamentals`)"
+        )
+        return
+    rows = vb.get("rows") or []
+    if not rows:
+        return
+    counts = vb.get("signal_counts", {})
+    with st.container(border=True):
+        st.markdown(
+            f"**Intrinsic-value scan** (slow 6-24m signal) — "
+            f":green[BUY {counts.get('BUY_VALUE', 0)}] · "
+            f"FAIR {counts.get('FAIR', 0)} · "
+            f":red[SELL {counts.get('SELL_VALUE', 0)}]"
+        )
+        st.caption(
+            "Most-undervalued names by sector-aware fair-value model. "
+            "Use as a *holding-period* tailwind, not a 5-day entry signal."
+        )
+        # Top-3 most-undervalued AND top-3 most-overvalued
+        ups = [r for r in rows
+                if r.get("upside_pct") is not None
+                and r.get("signal") != "NO_SIGNAL"]
+        top_buys = ups[:3]
+        top_sells = ups[-3:][::-1]
+        cc1, cc2 = st.columns(2)
+        with cc1:
+            st.markdown("**Most undervalued**")
+            for r in top_buys:
+                st.markdown(
+                    f"- **{r['symbol']}** ({r.get('sector','?')[:14]})  "
+                    f"`{r['current_price']}` → fair `{r.get('fair_value')}`  "
+                    f"**:green[{r.get('upside_pct'):+.1f}%]**  "
+                    f"_{r.get('confidence','?')}_"
+                )
+        with cc2:
+            st.markdown("**Most overvalued**")
+            for r in top_sells:
+                st.markdown(
+                    f"- **{r['symbol']}** ({r.get('sector','?')[:14]})  "
+                    f"`{r['current_price']}` → fair `{r.get('fair_value')}`  "
+                    f"**:red[{r.get('upside_pct'):+.1f}%]**  "
+                    f"_{r.get('confidence','?')}_"
+                )
+
 
 def _card_regime(r: dict):
     if "error" in r:
@@ -1327,6 +1379,127 @@ def render_predictions_tab():
 
 
 # --------------------------------------------------------------------------
+# VALUE TAB — fundamental fair-value vs market price
+# --------------------------------------------------------------------------
+def render_value_tab():
+    st.markdown("### Intrinsic value vs market price")
+    st.caption(
+        "Sector-aware fair-value model. Banks → DDM. E&P → P/B blend. "
+        "Cement → 3y-avg P/E. OMC/Misc → 50/50 P/E + P/B. Power → DDM. "
+        "Pharma & Conglomerate use specialised rules. Slow signal, "
+        "6-24 month horizon — best combined with momentum/news for entry "
+        "timing. Refreshed weekly by the `fundamentals` GitHub Action."
+    )
+
+    book = tools.get_universe_value_book()
+    if "error" in book:
+        st.error(book["error"])
+        st.info("Run `python -m connectors.yfinance_fundamentals` to seed "
+                "the cache, then reload this tab.")
+        return
+
+    counts = book.get("signal_counts", {})
+    rows = book.get("rows") or []
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Universe", book.get("n_symbols", 0))
+    c2.metric("BUY_VALUE", counts.get("BUY_VALUE", 0))
+    c3.metric("FAIR",      counts.get("FAIR", 0))
+    c4.metric("SELL_VALUE", counts.get("SELL_VALUE", 0))
+
+    if not rows:
+        st.warning("No value rows — fundamentals cache may be empty.")
+        return
+
+    # Build display frame
+    df_rows = []
+    for r in rows:
+        df_rows.append({
+            "Sym": r.get("symbol"),
+            "Sector": r.get("sector", "")[:18],
+            "Px": r.get("current_price"),
+            "Fair": r.get("fair_value"),
+            "Upside %": r.get("upside_pct"),
+            "Signal": r.get("signal"),
+            "Conf": r.get("confidence", "—"),
+            "Method": r.get("method", "")[:60],
+            "Warnings": "; ".join(r.get("warnings", [])) or "",
+        })
+    df = pd.DataFrame(df_rows)
+
+    def _style(r):
+        styles = [""] * len(r)
+        sig = str(r["Signal"])
+        if sig == "BUY_VALUE":
+            styles = ["background-color: #1f4f2f; color: white"] * len(r)
+        elif sig == "SELL_VALUE":
+            styles = ["background-color: #5a1f1f; color: white"] * len(r)
+        elif sig == "NO_SIGNAL":
+            styles = ["color: #888"] * len(r)
+        return styles
+
+    st.dataframe(df.style.apply(_style, axis=1),
+                  hide_index=True, use_container_width=True)
+
+    # ------------------------------------------------------- per-stock detail
+    st.markdown("#### Inspect a single stock")
+    syms = [r.get("symbol") for r in rows if r.get("symbol")]
+    pick = st.selectbox("Symbol", syms, key="value_pick")
+    if not pick:
+        return
+    rec = next((r for r in rows if r.get("symbol") == pick), None)
+    if not rec:
+        return
+    if "error" in rec:
+        st.error(rec["error"])
+        return
+
+    a, b, c, d = st.columns(4)
+    a.metric("Current price", f"{rec.get('current_price')} PKR")
+    a_fair = rec.get("fair_value")
+    b.metric("Fair value", f"{a_fair} PKR" if a_fair is not None else "—")
+    up = rec.get("upside_pct")
+    c.metric("Upside vs fair", f"{up:+.1f} %" if up is not None else "—")
+    d.metric("Signal", rec.get("signal"),
+              help=f"Confidence: {rec.get('confidence', '—')}")
+
+    st.markdown(f"**Method:** {rec.get('method', '—')}")
+    if rec.get("warnings"):
+        st.warning(" · ".join(rec["warnings"]))
+
+    # Show the underlying components
+    comps = rec.get("components") or {}
+    cols = st.columns(4)
+    for col, key, title in zip(
+        cols,
+        ["pe", "pb", "graham", "ddm"],
+        ["P/E method", "P/B method", "Graham number", "DDM (dividend)"],
+    ):
+        c0 = comps.get(key) or {}
+        v = c0.get("value")
+        with col:
+            st.markdown(f"**{title}**")
+            st.markdown(f"`{v}` PKR" if v is not None else "_n/a_")
+            for k in ("formula", "method", "eps_3y", "eps_ttm", "bvps",
+                      "sector_pe", "sector_pb", "D_ttm", "g", "r", "D1",
+                      "quality", "reason"):
+                if k in c0 and k != "value":
+                    st.caption(f"{k}: `{c0[k]}`")
+
+    # Sector medians used
+    secm = rec.get("sector_medians") or {}
+    if secm:
+        st.caption(
+            f"Sector medians used → P/E {secm.get('pe_med')}  ·  "
+            f"P/B {secm.get('pb_med')}  ·  n peers {secm.get('n')}"
+        )
+
+    asof = rec.get("as_of_fundamentals")
+    if asof:
+        st.caption(f"Fundamentals last refreshed: `{asof}`")
+
+
+# --------------------------------------------------------------------------
 # NEWS TAB
 # --------------------------------------------------------------------------
 def render_news_tab():
@@ -1569,7 +1742,7 @@ def main():
 
     tabs = st.tabs([
         "Dashboard", "Portfolio", "Watchlist", "Scanner",
-        "Predictions", "News", "Chat", "Backtest",
+        "Predictions", "Value", "News", "Chat", "Backtest",
     ])
     with tabs[0]:
         render_dashboard_tab()
@@ -1582,10 +1755,12 @@ def main():
     with tabs[4]:
         render_predictions_tab()
     with tabs[5]:
-        render_news_tab()
+        render_value_tab()
     with tabs[6]:
-        render_chat_tab()
+        render_news_tab()
     with tabs[7]:
+        render_chat_tab()
+    with tabs[8]:
         render_backtest_tab()
 
 

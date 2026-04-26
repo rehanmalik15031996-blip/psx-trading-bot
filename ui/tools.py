@@ -1029,6 +1029,38 @@ def get_trade_journal(limit: int = 20) -> dict:
             "recent_trades": trades_sorted[: int(limit)]}
 
 
+# --------------------------------------------------------------------------
+# Value / fundamental layer (brain/valuation.py)
+# --------------------------------------------------------------------------
+def get_value_signal(symbol: str) -> dict:
+    """Sector-aware fair-value signal for one PSX symbol.
+
+    Returns intrinsic value, upside vs current price, BUY_VALUE / FAIR /
+    SELL_VALUE / NO_SIGNAL plus the formula and components used.
+    See ``brain/valuation.py`` for the per-sector rules.
+    """
+    try:
+        from brain.valuation import value_signal
+    except Exception as e:
+        return {"error": f"valuation engine unavailable: {e}"}
+    sym = (symbol or "").upper()
+    return value_signal(sym)
+
+
+def get_universe_value_book() -> dict:
+    """Run the value model on every universe ticker.
+
+    Output is sorted from most-undervalued (highest upside %) to most-
+    overvalued. Use this when the user asks "what's cheap" or "deep
+    value picks".
+    """
+    try:
+        from brain.valuation import universe_value_book
+    except Exception as e:
+        return {"error": f"valuation engine unavailable: {e}"}
+    return universe_value_book()
+
+
 TOOL_FUNCTIONS = {
     "list_universe": list_universe,
     "get_price": get_price,
@@ -1051,6 +1083,8 @@ TOOL_FUNCTIONS = {
     "get_todays_predictions": get_todays_predictions,
     "get_watchlist": get_watchlist,
     "get_trade_journal": get_trade_journal,
+    "get_value_signal": get_value_signal,
+    "get_universe_value_book": get_universe_value_book,
 }
 
 
@@ -1320,6 +1354,36 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
             "type": "object",
             "properties": {"limit": {"type": "integer", "default": 20}},
         },
+    },
+    {
+        "name": "get_value_signal",
+        "description": ("Sector-aware fair-value (intrinsic value) signal for "
+                        "ONE PSX symbol. Returns fair_value PKR, upside_pct "
+                        "vs current price, signal in {BUY_VALUE, FAIR, "
+                        "SELL_VALUE, NO_SIGNAL}, the method used (DDM for "
+                        "banks, P/B for E&P, P/E for cement, blends for "
+                        "OMC/Misc), the components, and quality warnings. "
+                        "Use this for 'is this stock cheap?', 'what's the "
+                        "fair value of X?', 'is X overvalued?', or any "
+                        "value-investing / mean-reversion-to-fundamentals "
+                        "question. This is a SLOW signal (6-24 months); "
+                        "combine with momentum/news for entry timing."),
+        "input_schema": {
+            "type": "object",
+            "properties": {"symbol": {"type": "string"}},
+            "required": ["symbol"],
+        },
+    },
+    {
+        "name": "get_universe_value_book",
+        "description": ("Run the fair-value model on all 15 stocks and "
+                        "return them sorted from most-undervalued to most-"
+                        "overvalued. Each row has fair_value, upside_pct, "
+                        "signal, confidence, sector, and method. Use this "
+                        "for 'what's cheap right now', 'find me deep value "
+                        "picks', 'which stocks should I sell on valuation', "
+                        "or any portfolio-wide value question."),
+        "input_schema": {"type": "object", "properties": {}},
     },
 ]
 

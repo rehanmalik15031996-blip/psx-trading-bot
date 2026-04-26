@@ -129,6 +129,20 @@ Calibration guidance (IMPORTANT):
   widen the expected_return_5d [low, high] band by at least 50% vs. a
   normal-VIX day. Predicting a tight band on a stressed-VIX day leads to
   systematic inside-range misses.
+- INTRINSIC VALUE (slow signal, 6-24 month horizon): the briefing now
+  includes a fair-value estimate vs current price. This is a SLOW signal
+  and only marginally affects the 5-day call. Use it as follows:
+    * BUY_VALUE with HIGH confidence + bullish momentum/flows: a small
+      conviction upgrade is justified (LOW->MEDIUM, MEDIUM->HIGH).
+    * SELL_VALUE with HIGH confidence + bearish momentum/flows: a small
+      conviction upgrade on the bearish call is justified.
+    * BUY_VALUE but bearish momentum: do NOT flip to BULLISH for 5 days;
+      the value gap can stay open for 6+ months. Mention it as a 'longer-
+      term tailwind' in the rationale and stay NEUTRAL/HOLD short-term.
+    * SELL_VALUE but bullish momentum: a 5-day bullish call is still OK
+      (momentum trumps value short-term), but downgrade conviction one
+      notch (HIGH->MEDIUM) and flag the rich valuation as a key_risk.
+    * NO_SIGNAL or LOW confidence: ignore the value layer for this stock.
 - Be skeptical. If nothing special is happening, say NEUTRAL/LOW/HOLD.
 
 Return JSON ONLY. No other text."""
@@ -258,6 +272,30 @@ def build_briefing(ctx: dict) -> str:
         lines += ["", sent_block]
     except Exception as e:
         lines += ["", f"SCORED NEWS SENTIMENT: (skipped — {type(e).__name__})"]
+
+    # Fundamental fair value (slow / 6-24 month signal)
+    try:
+        from brain.valuation import value_signal
+        v = value_signal(sym)
+        if "error" in v:
+            lines += ["",
+                      f"INTRINSIC VALUE: (no fundamentals — {v['error'][:80]})"]
+        else:
+            warn_str = (" | warnings: " + "; ".join(v.get("warnings", []))
+                        if v.get("warnings") else "")
+            lines += [
+                "",
+                "INTRINSIC VALUE (fair-value vs market price)",
+                f"  fair_value     = {v.get('fair_value')} PKR",
+                f"  current_price  = {v.get('current_price')} PKR",
+                f"  upside_pct     = {v.get('upside_pct')}%   "
+                f"signal={v.get('signal')}   confidence={v.get('confidence')}",
+                f"  method         = {v.get('method')}{warn_str}",
+                f"  (Slow 6-24m signal. BUY_VALUE = ≥25% upside; "
+                f"SELL_VALUE = ≤-10% upside.)",
+            ]
+    except Exception as e:
+        lines += ["", f"INTRINSIC VALUE: (skipped — {type(e).__name__})"]
 
     return "\n".join(lines)
 

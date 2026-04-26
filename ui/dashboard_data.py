@@ -160,6 +160,7 @@ def morning_brief() -> dict:
         "prediction_accuracy": _safe(load_prediction_log_stats),
         "top_buys": _safe(tools.recommend_new_buys, max_ideas=5),
         "universe_movers": _safe(universe_movers),
+        "value_book": _safe(tools.get_universe_value_book),
     }
 
 
