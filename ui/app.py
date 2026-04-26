@@ -3,19 +3,21 @@
 Run from the repo root:
     streamlit run ui/app.py
 
-Tabs:
-  1. Dashboard  — morning brief: regime, overnight, today's picks, portfolio P&L,
-                  news tilt, prediction accuracy, top gainers/losers.
-  2. Portfolio  — live positions with sector allocation, per-position price
-                  chart, trailing-stop diagnostics, close-to-journal flow,
-                  realized-trade history, CSV import/export.
-  3. Watchlist  — tracked symbols with target-price tracking and alert levels.
-  4. Scanner    — 15-stock universe ranked by momentum + today's Phase 1 picks.
-  5. Predictions- today's stored 5-day forecasts + rolling hit-rate scorecard.
-  6. News       — Claude-scored PSX news feed with sentiment, tickers, category.
-  7. Chat       — LLM advisor (Claude / Gemini / GitHub Models) that grounds
-                  every answer in tool calls into the backend.
-  8. Backtest   — on-demand Plan D Phase 1 backtest.
+Tabs (story-first, beginner friendly):
+  1. Today          — narrative morning brief: market mood, what to do,
+                      portfolio at a glance, alerts, top movers.
+  2. My Holdings    — live positions, sector allocation, trailing stop,
+                      close-to-journal flow, realised P&L history.
+  3. Forecast       — 5-day predictions for every universe stock with
+                      entry / stop / target and the rolling scorecard.
+  4. Fair Value     — sector-aware intrinsic value, quality score, and
+                      earnings momentum for every stock.
+  5. Watchlist      — stocks you're tracking with target prices.
+  6. Find Ideas     — 15-stock universe ranked by momentum strength.
+  7. News           — AI-scored PSX news feed with sentiment + tickers.
+  8. Ask Advisor    — chat with Claude / Gemini / GitHub Models; every
+                      answer is grounded in live tool calls.
+  9. Strategy Tester— on-demand Plan-D Phase-1 backtest.
 
 API keys: set ANTHROPIC_API_KEY / GOOGLE_API_KEY / GITHUB_TOKEN in your .env
 or paste them in the sidebar for this session.
@@ -60,7 +62,9 @@ import streamlit as st
 from config.universe import sector_of
 from config.costs import round_trip_cost_pct, minimum_gross_for_trade
 
-from ui import tools, recommendations as recs, dashboard_data as dash
+from ui import (
+    tools, recommendations as recs, dashboard_data as dash, explainers,
+)
 from ui.portfolio import (
     load_user_portfolio, save_user_portfolio, add_position, remove_position,
     close_position,
@@ -152,6 +156,90 @@ def _action_color(action: str) -> str:
     if "HOLD" in a or "BUY" in a or "ADD" in a:
         return "green"
     return "gray"
+
+
+# --------------------------------------------------------------------------
+# UI styling — a calm, readable look. We don't override Streamlit's theme,
+# only tweak typography, spacing, and a few container affordances.
+# --------------------------------------------------------------------------
+_CUSTOM_CSS = """
+<style>
+    /* Comfortable max line length on huge screens */
+    .block-container { max-width: 1400px; padding-top: 2rem; }
+    /* Tab labels: a touch larger and more breathing room */
+    button[data-baseweb="tab"] {
+        font-size: 1.05rem !important;
+        padding: 0.5rem 1.1rem !important;
+    }
+    /* Section header card */
+    .psx-section-header {
+        background: rgba(56, 139, 253, 0.06);
+        border-left: 3px solid #2f6feb;
+        border-radius: 6px;
+        padding: 0.85rem 1.1rem;
+        margin: 0.4rem 0 1rem 0;
+    }
+    .psx-section-header h2 {
+        margin: 0 0 0.15rem 0 !important;
+        font-weight: 600;
+        font-size: 1.45rem !important;
+    }
+    .psx-section-header p {
+        margin: 0 !important;
+        color: rgba(180, 195, 215, 0.95);
+        font-size: 0.96rem;
+    }
+    /* Hero "Today" headline */
+    .psx-hero {
+        padding: 1.1rem 1.4rem;
+        border-radius: 12px;
+        background: linear-gradient(120deg,
+                                     rgba(47,111,235,0.10),
+                                     rgba(35,134,54,0.06));
+        border: 1px solid rgba(110, 130, 160, 0.20);
+        margin-bottom: 1rem;
+    }
+    .psx-hero h1 { margin: 0 !important; font-size: 1.9rem !important; }
+    .psx-hero .mood {
+        display: inline-block;
+        margin-top: 0.5rem;
+        padding: 0.2rem 0.7rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+    /* Metric tweaks for hero */
+    div[data-testid="stMetric"] {
+        background: rgba(120, 140, 170, 0.05);
+        border-radius: 8px;
+        padding: 0.4rem 0.7rem;
+    }
+</style>
+"""
+
+
+def inject_css() -> None:
+    st.markdown(_CUSTOM_CSS, unsafe_allow_html=True)
+
+
+def section_header(title: str, what: str,
+                   how_to_read: list[str] | None = None,
+                   expander_label: str = "How to read this") -> None:
+    """Standardised tab introduction.
+
+    Renders a coloured banner with a one-line description plus an optional
+    "How to read this" expander so the deep mechanics are available on
+    demand without crowding the screen.
+    """
+    st.markdown(
+        f'<div class="psx-section-header"><h2>{title}</h2>'
+        f'<p>{what}</p></div>',
+        unsafe_allow_html=True,
+    )
+    if how_to_read:
+        with st.expander(expander_label, expanded=False):
+            for line in how_to_read:
+                st.markdown(f"- {line}")
 
 
 # --------------------------------------------------------------------------
@@ -439,79 +527,213 @@ def _do_git_pull():
 # --------------------------------------------------------------------------
 # DASHBOARD TAB
 # --------------------------------------------------------------------------
-def render_dashboard_tab():
-    st.markdown("### Morning brief")
-    st.caption(
-        "Everything you want to know before the PSX opens. Pulled from the "
-        "same tools the LLM uses — there's one source of truth."
-    )
+def render_today_tab():
+    """The story-first landing page.
 
+    Goal: any normal person opens this and within 10 seconds knows
+    (a) what's happening in the market, (b) how it looks, and
+    (c) what to do today.
+    """
     brief = dash.morning_brief()
+    mood = explainers.market_mood(brief)
+    narrative = explainers.daily_narrative(brief)
+    action = explainers.top_action_today(brief)
+    alerts = explainers.alert_lines(brief)
 
-    # ---------------- Row 1: regime + strategy signal + overnight
-    c1, c2, c3 = st.columns([1, 1, 1.3])
+    today_str = datetime.now().strftime("%A, %d %b %Y")
+    greeting = explainers.time_of_day_greeting()
+
+    # ---------------------------------------------------- Hero
+    st.markdown(
+        f'<div class="psx-hero">'
+        f'<h1>Good {greeting} — {today_str}</h1>'
+        f'<div class="mood" style="background:rgba(50,150,80,0.18);'
+        f'color:white;">'
+        f'<span style="color:rgb(120,200,140)">●</span>&nbsp;'
+        f'{mood["label"]} '
+        f'<span style="opacity:0.7">· market mood {mood["score"]}/100</span>'
+        f'</div>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(narrative)
+
+    # ---------------------------------------------------- 3 hero columns
+    c1, c2, c3 = st.columns([1.1, 1, 1])
     with c1:
-        _card_regime(brief.get("regime", {}))
+        _today_action_card(action)
     with c2:
-        _card_strategy(brief.get("strategy_signal", {}))
+        _today_mood_card(mood)
     with c3:
-        _card_overnight(brief.get("overnight", {}))
+        _today_portfolio_card(brief.get("portfolio", {}),
+                               brief.get("journal_stats", {}))
 
-    # ---------------- Row 2: today's top picks (from stored predictions)
-    st.markdown("#### Today's actionable picks")
-    preds = brief.get("predictions", {})
-    if "error" in preds:
-        st.info(preds["error"])
-    else:
-        actionable = [p for p in preds.get("predictions", [])
-                      if p.get("suggested_action") in ("BUY", "ADD")
-                      and p.get("clears_cost_threshold")]
-        if not actionable:
-            st.info(
-                f"No BUY/ADD names clear the {preds.get('minimum_gross_for_trade_pct', '?')}% "
-                f"cost+edge threshold today."
-            )
-        else:
-            df = pd.DataFrame(actionable)[[
-                "symbol", "sector", "conviction",
-                "entry_price_pkr", "suggested_stop_pkr", "suggested_target_pkr",
-                "expected_gross_5d_pct", "expected_net_5d_pct",
-                "rationale",
-            ]]
-            df.columns = ["Sym", "Sector", "Conv", "Entry", "Stop", "Target",
-                          "Gross %", "Net %", "Why"]
-            st.dataframe(df, hide_index=True, use_container_width=True)
-        st.caption(
-            f"As of {preds.get('as_of', '?')} | round-trip cost "
-            f"{preds.get('round_trip_cost_pct', '?')}% | need >= "
-            f"{preds.get('minimum_gross_for_trade_pct', '?')}% gross to be viable"
-        )
+    # ---------------------------------------------------- Alerts
+    if alerts:
+        st.markdown("#### Things to watch")
+        for a in alerts[:6]:
+            if a["level"] == "warning":
+                st.warning(a["text"])
+            else:
+                st.info(a["text"])
 
-    # ---------------- Row 3: portfolio snapshot + journal + movers + sentiment
-    st.markdown("#### Portfolio & market movers")
+    # ---------------------------------------------------- Movers + value
+    st.markdown("#### What's moving today")
     c1, c2 = st.columns([1, 1])
     with c1:
-        _card_portfolio(brief.get("portfolio", {}),
-                         brief.get("journal_stats", {}))
+        _today_movers_card(brief.get("universe_movers", {}))
     with c2:
-        _card_movers(brief.get("universe_movers", {}))
+        _today_top_picks_card(brief.get("predictions", {}))
 
-    # ---------------- Row 4: news tilt + prediction accuracy
-    c1, c2 = st.columns([1.2, 1])
-    with c1:
-        _card_sentiment(brief.get("sentiment", {}))
-    with c2:
-        _card_prediction_accuracy(brief.get("prediction_accuracy", {}))
+    # ---------------------------------------------------- Optional drill-down
+    with st.expander(
+        "Show me the underlying signals (regime, overnight, news, "
+        "value, quality, calendar)",
+        expanded=False,
+    ):
+        c1, c2, c3 = st.columns([1, 1, 1.3])
+        with c1: _card_regime(brief.get("regime", {}))
+        with c2: _card_strategy(brief.get("strategy_signal", {}))
+        with c3: _card_overnight(brief.get("overnight", {}))
 
-    # ---------------- Row 5: top value picks (slow signal)
-    _card_value_book(brief.get("value_book", {}))
+        c1, c2 = st.columns([1.2, 1])
+        with c1: _card_sentiment(brief.get("sentiment", {}))
+        with c2: _card_prediction_accuracy(
+            brief.get("prediction_accuracy", {}))
 
-    # ---------------- Row 6: upcoming earnings + quality leaders
-    c1, c2 = st.columns([1.2, 1])
-    with c1:
-        _card_earnings_calendar(brief.get("earnings_calendar", {}))
-    with c2:
-        _card_quality_leaders(brief.get("quality_book", {}))
+        _card_value_book(brief.get("value_book", {}))
+
+        c1, c2 = st.columns([1.2, 1])
+        with c1: _card_earnings_calendar(brief.get("earnings_calendar", {}))
+        with c2: _card_quality_leaders(brief.get("quality_book", {}))
+
+
+# ----------------------------- Today-tab cards (plain English)
+def _today_action_card(action: dict) -> None:
+    with st.container(border=True):
+        st.markdown("### What to do today")
+        sym = action.get("symbol")
+        if not sym:
+            st.markdown(":blue[**Stay patient.**] No high-conviction "
+                         "setups today.")
+            st.caption(action.get("reason", ""))
+            return
+        conv = (action.get("conviction") or "").upper()
+        word = explainers.conviction_word(conv)
+        net = action.get("net")
+        st.markdown(
+            f":green[**Top idea: {sym}** — {action['action']}]  "
+            f"_({word})_"
+        )
+        if net is not None:
+            st.markdown(
+                f"Expected net return next 5 days: **{net:+.2f}%**"
+            )
+        cc1, cc2, cc3 = st.columns(3)
+        cc1.metric("Buy near",   f"{action.get('entry') or '—'}")
+        cc2.metric("Stop loss",  f"{action.get('stop') or '—'}")
+        cc3.metric("Target",     f"{action.get('target') or '—'}")
+        if action.get("reason"):
+            st.caption(action["reason"])
+
+
+def _today_mood_card(mood: dict) -> None:
+    with st.container(border=True):
+        st.markdown("### How the market looks")
+        st.markdown(f":{mood['color']}[**{mood['label']}**] "
+                     f"· score {mood['score']}/100")
+        st.progress(min(int(mood['score']), 100) / 100.0)
+        for r in mood.get("reasons", [])[:5]:
+            st.markdown(f"- {r}")
+
+
+def _today_portfolio_card(pf: dict, js: dict) -> None:
+    with st.container(border=True):
+        st.markdown("### Your portfolio")
+        if pf.get("note") or (pf.get("position_count", 0) == 0
+                                and not pf.get("positions")):
+            st.markdown(":gray[No positions yet.]")
+            st.caption("Add holdings under **My Holdings** to track P&L "
+                       "and get position-aware advice.")
+            return
+        cc1, cc2 = st.columns(2)
+        ret = pf.get("total_unrealized_pnl_pct")
+        pnl = pf.get("total_unrealized_pnl_pkr", 0)
+        mv = pf.get("total_market_value_pkr", 0)
+        cc1.metric(
+            "Live value", f"{mv:,.0f} PKR",
+            delta=f"{ret:+.2f}%" if ret is not None else None,
+        )
+        cc2.metric("Unrealized P&L", f"{pnl:+,.0f} PKR")
+        cc1.metric("Positions", pf.get("position_count", 0))
+        cc2.metric(
+            "Win rate (closed)",
+            f"{js.get('win_rate_pct', 0):.0f}%"
+            if js.get("count") else "—",
+        )
+
+
+def _today_movers_card(m: dict) -> None:
+    with st.container(border=True):
+        st.markdown("### Today's biggest moves")
+        if "error" in m:
+            st.caption(m["error"])
+            return
+        gainers = m.get("gainers", [])
+        losers = m.get("losers", [])
+        cc1, cc2 = st.columns(2)
+        with cc1:
+            st.markdown(":green[**Up most**]")
+            for g in gainers:
+                st.markdown(
+                    f"- **{g['symbol']}** {_pct_raw(g.get('ret_1d_pct'))}"
+                )
+        with cc2:
+            st.markdown(":red[**Down most**]")
+            for l in losers:
+                st.markdown(
+                    f"- **{l['symbol']}** {_pct_raw(l.get('ret_1d_pct'))}"
+                )
+        st.caption(
+            "Universe = your 15 tracked stocks. These are 1-day moves; "
+            "use the **Forecast** tab for what comes next."
+        )
+
+
+def _today_top_picks_card(preds: dict) -> None:
+    with st.container(border=True):
+        st.markdown("### Stocks the bot likes most")
+        if "error" in preds:
+            st.caption(preds["error"])
+            return
+        actionable = [
+            p for p in (preds.get("predictions") or [])
+            if p.get("suggested_action") in ("BUY", "ADD")
+            and p.get("clears_cost_threshold")
+        ]
+        if not actionable:
+            st.markdown(":gray[Nothing clears the cost+edge threshold "
+                         "today.]")
+            st.caption(
+                "The system needs an expected gross return ≥ "
+                f"{preds.get('minimum_gross_for_trade_pct', '?')}% "
+                "(after estimated brokerage + slippage + tax) before it "
+                "calls a trade. Cash is a position."
+            )
+            return
+        # Show top 5 short rows
+        for p in actionable[:5]:
+            conv = (p.get("conviction") or "").upper()
+            word = explainers.conviction_word(conv)
+            net = p.get("expected_net_5d_pct")
+            st.markdown(
+                f"- **{p['symbol']}** — {p.get('suggested_action')}  "
+                f":green[net {net:+.2f}%]  · _{word}_"
+            )
+        st.caption(
+            "Source: stored daily forecasts. See **Forecast** tab "
+            "for the full table with entry / stop / target."
+        )
 
 
 def _card_earnings_calendar(cal: dict):
@@ -829,11 +1051,20 @@ def _card_prediction_accuracy(pa: dict):
 # PORTFOLIO TAB
 # --------------------------------------------------------------------------
 def render_portfolio_tab():
-    st.markdown("### Your portfolio")
-    st.caption(
-        "Live P&L, sector allocation, trailing-stop diagnostics, and a "
-        "one-click close-to-journal flow. The advisor reads these positions "
-        "via `get_user_portfolio`."
+    section_header(
+        "My Holdings",
+        "What you own, what it's worth right now, and how each "
+        "position is doing.",
+        how_to_read=[
+            "**Live value** is what your positions are worth at "
+            "yesterday's close. Updates daily after PSX close.",
+            "**Unrealized P&L** is paper profit/loss — only realised "
+            "when you sell.",
+            "**Trailing stop** is the price below which the bot "
+            "suggests you exit to lock in gains.",
+            "Click *Close position* to move a trade to the journal "
+            "and record the realised P&L.",
+        ],
     )
 
     # --- Add position
@@ -1187,10 +1418,17 @@ def _render_journal_section():
 # WATCHLIST TAB
 # --------------------------------------------------------------------------
 def render_watchlist_tab():
-    st.markdown("### Watchlist")
-    st.caption(
-        "Symbols you want to track without holding. The advisor reads these "
-        "via `get_watchlist` so chat answers are aware of your focus list."
+    section_header(
+        "Watchlist",
+        "Stocks you're keeping an eye on but don't own yet. Set a target "
+        "price and the bot will tell you when it's hit.",
+        how_to_read=[
+            "Add any of your 15 universe stocks here.",
+            "Set a **target price** to get a visual cue when the stock "
+            "trades through your level.",
+            "The chatbot reads this list — ask *'how is my watchlist "
+            "doing?'* or *'should I buy any of my watched stocks today?'*",
+        ],
     )
 
     with st.expander("Add a symbol", expanded=False):
@@ -1293,10 +1531,21 @@ def render_watchlist_tab():
 # SCANNER TAB
 # --------------------------------------------------------------------------
 def render_scanner_tab():
-    st.markdown("### Market scanner")
-    st.caption("Universe ranked by 150-day momentum; today's Phase 1 picks "
-                "highlighted in green. Would-be picks (when the market filter "
-                "is off) in amber.")
+    section_header(
+        "Find Ideas",
+        "All 15 stocks ranked by recent strength. The bot's top picks "
+        "are highlighted in green.",
+        how_to_read=[
+            "**Momentum** = how strongly a stock has trended over the "
+            "last ~150 trading days. Higher is stronger.",
+            "**Highlighted in green** = the strategy currently wants "
+            "to buy this stock today.",
+            "**Highlighted in amber** = would be picked if the overall "
+            "market filter wasn't blocking new entries.",
+            "Use this to compare stocks side-by-side before opening "
+            "the **Forecast** tab for the deeper view.",
+        ],
+    )
 
     try:
         sig = tools.get_strategy_signal()
@@ -1373,11 +1622,28 @@ def render_scanner_tab():
 # PREDICTIONS TAB
 # --------------------------------------------------------------------------
 def render_predictions_tab():
-    st.markdown("### Today's predictions (5-day horizon)")
+    section_header(
+        "Forecast",
+        "Where the bot thinks each stock will be in 5 trading days "
+        "(roughly one week), with entry / stop / target.",
+        how_to_read=[
+            "**Direction** — bullish, bearish, or neutral over the "
+            "next ~5 days.",
+            "**Conviction** — high / medium / low. Only HIGH and "
+            "MEDIUM signals turn into trade plans.",
+            "**Entry / Stop / Target** — the actual price levels you "
+            "would use if you took the trade.",
+            "**Net %** — expected return AFTER brokerage, slippage, "
+            "and capital-gains tax. The bot only flags BUY/ADD when "
+            "this beats a 1% edge over costs.",
+            "**Scorecard at the bottom** — how the bot's calls have "
+            "actually performed (rolling 30 days). Be sceptical until "
+            "you have at least 60 scored predictions.",
+        ],
+    )
     st.caption(
-        "Claude-generated 5-day forecasts stored every morning by the "
-        "`predictions` GitHub Action. The `eod` workflow scores them at "
-        "close to populate the scorecard at the bottom."
+        "Generated daily by the `predictions` GitHub Action. The `eod` "
+        "workflow scores each prediction once results are in."
     )
 
     preds = tools.get_todays_predictions(max_items=30)
@@ -1464,13 +1730,24 @@ def render_predictions_tab():
 # VALUE TAB — fundamental fair-value vs market price
 # --------------------------------------------------------------------------
 def render_value_tab():
-    st.markdown("### Intrinsic value vs market price")
-    st.caption(
-        "Sector-aware fair-value model. Banks → DDM. E&P → P/B blend. "
-        "Cement → 3y-avg P/E. OMC/Misc → 50/50 P/E + P/B. Power → DDM. "
-        "Pharma & Conglomerate use specialised rules. Slow signal, "
-        "6-24 month horizon — best combined with momentum/news for entry "
-        "timing. Refreshed weekly by the `fundamentals` GitHub Action."
+    section_header(
+        "Fair Value",
+        "Are these stocks cheap or expensive vs what they're really "
+        "worth? A long-term lens (6–24 months), not a short-term call.",
+        how_to_read=[
+            "**Looks cheap** = trading ≥25% below estimated fair value. "
+            "**Looks expensive** = trading ≥10% above. **Fairly priced** "
+            "is everything in between.",
+            "**Quality score (0–100)** — how strong the underlying "
+            "business is (profitability, debt, earnings stability). "
+            "TIP: cheap + high quality = real edge; cheap + JUNK "
+            "quality = a value trap to avoid.",
+            "**EPS Mom** — earnings momentum: are profits growing, "
+            "stable, or shrinking?",
+            "**Next Event** — expected results-day. If shown in red, "
+            "wait until after the announcement before adding.",
+            "Refreshed weekly by the `fundamentals` GitHub Action.",
+        ],
     )
 
     book = tools.get_universe_value_book()
@@ -1609,11 +1886,21 @@ def render_value_tab():
 # NEWS TAB
 # --------------------------------------------------------------------------
 def render_news_tab():
-    st.markdown("### Scored news feed")
-    st.caption(
-        "Claude-Haiku scores every RSS headline for sentiment, confidence, "
-        "category, and affected PSX tickers. The `news_scoring` workflow "
-        "updates this cache 3×/day."
+    section_header(
+        "News & Sentiment",
+        "Pakistan business news, scored by AI for how positive or "
+        "negative it is for the market and your stocks.",
+        how_to_read=[
+            "Each headline gets a sentiment score from −1 (very "
+            "negative) to +1 (very positive).",
+            "**Macro tilt** is the weighted average across all "
+            "recent headlines — your single number for 'is the news "
+            "supportive or hostile right now?'",
+            "Filter by symbol to see headlines specific to your "
+            "holdings.",
+            "Refreshed three times a day by the `news_scoring` "
+            "GitHub Action.",
+        ],
     )
 
     hours = st.slider("Lookback (hours)", min_value=6, max_value=168,
@@ -1683,11 +1970,22 @@ CHAT_EXAMPLES = [
 
 
 def render_chat_tab():
-    st.markdown("### Chat with the advisor")
-    st.caption(
-        "Ask about any ticker, your portfolio, your watchlist, your realized "
-        "P&L, or today's picks. The bot calls live data — it cannot invent "
-        "prices or recommendations."
+    section_header(
+        "Ask the Advisor",
+        "Ask anything in plain English. The bot pulls live data and "
+        "answers from your portfolio, news, predictions, and "
+        "fundamentals — no guessing.",
+        how_to_read=[
+            "Try natural questions: *'should I hold MCB?'*, *'what's "
+            "cheap right now?'*, *'when does PPL report?'*, *'is "
+            "PSO a value trap?'*.",
+            "Pick a model in the sidebar: **GitHub Models** is free "
+            "(rate-limited), **Claude** is the most accurate, **Gemini** "
+            "is the fastest.",
+            "The bot ALWAYS uses tool calls under the hood — it can't "
+            "invent prices, P&L, or news. If a number looks wrong, ask "
+            "*'where did that come from?'*",
+        ],
     )
 
     st.markdown("**Example questions:**")
@@ -1781,10 +2079,21 @@ def _reply_error(msg: str):
 # BACKTEST TAB
 # --------------------------------------------------------------------------
 def render_backtest_tab():
-    st.markdown("### Backtest Plan D Phase 1")
-    st.caption(
-        "End-to-end backtest of the monthly momentum strategy over the full "
-        "available price history. First run takes 15–30 seconds."
+    section_header(
+        "Strategy Tester",
+        "How would the bot's strategy have performed in the past? "
+        "Run it over real PSX history and see the equity curve.",
+        how_to_read=[
+            "**Equity curve** = how PKR 100 invested at the start "
+            "would have grown over time.",
+            "**CAGR** = annualised return. **Sharpe** = return per "
+            "unit of risk (>1 is good, >2 is excellent).",
+            "**Max drawdown** = the worst peak-to-trough loss. Real "
+            "trading needs to live through these.",
+            "Toggle *Use regime overlay* to see how the rule-based "
+            "market filter (NORMAL / CAUTION / CRISIS) affects results.",
+            "Past performance is not a guarantee of future returns.",
+        ],
     )
 
     c1, c2 = st.columns([1, 3])
@@ -1838,36 +2147,38 @@ def render_backtest_tab():
 # Main
 # --------------------------------------------------------------------------
 def main():
+    inject_css()
     render_sidebar()
     st.markdown("# PSX Advisor")
-    st.caption("A rules-based trading bot for the Pakistan Stock Exchange, "
-                "paired with an LLM advisor that grounds every answer in "
-                "live data.")
+    st.caption(
+        "Your AI-powered Pakistan Stock Exchange research desk — built "
+        "around a rules-based trading bot, plain-English explanations, "
+        "and an advisor that grounds every answer in live data."
+    )
 
     render_top_strip()
 
+    # Plain-English tab labels with the most-used items first.
     tabs = st.tabs([
-        "Dashboard", "Portfolio", "Watchlist", "Scanner",
-        "Predictions", "Value", "News", "Chat", "Backtest",
+        "Today",          # narrative landing
+        "My Holdings",    # portfolio
+        "Forecast",       # predictions
+        "Fair Value",     # intrinsic value + quality + earnings momentum
+        "Watchlist",      # tracked symbols
+        "Find Ideas",     # scanner / momentum ranking
+        "News",           # scored news feed
+        "Ask Advisor",    # chatbot
+        "Strategy Tester",  # backtest
     ])
-    with tabs[0]:
-        render_dashboard_tab()
-    with tabs[1]:
-        render_portfolio_tab()
-    with tabs[2]:
-        render_watchlist_tab()
-    with tabs[3]:
-        render_scanner_tab()
-    with tabs[4]:
-        render_predictions_tab()
-    with tabs[5]:
-        render_value_tab()
-    with tabs[6]:
-        render_news_tab()
-    with tabs[7]:
-        render_chat_tab()
-    with tabs[8]:
-        render_backtest_tab()
+    with tabs[0]: render_today_tab()
+    with tabs[1]: render_portfolio_tab()
+    with tabs[2]: render_predictions_tab()
+    with tabs[3]: render_value_tab()
+    with tabs[4]: render_watchlist_tab()
+    with tabs[5]: render_scanner_tab()
+    with tabs[6]: render_news_tab()
+    with tabs[7]: render_chat_tab()
+    with tabs[8]: render_backtest_tab()
 
 
 if __name__ == "__main__":
