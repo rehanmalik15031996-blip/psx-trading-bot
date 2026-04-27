@@ -2106,6 +2106,269 @@ def render_predictions_tab():
 
 
 # --------------------------------------------------------------------------
+# REPORTS TAB — Director's Report / management outlook per stock
+# --------------------------------------------------------------------------
+def _tone_badge(tone: float) -> str:
+    """Return a coloured pill rendering the management tone score."""
+    if tone is None:
+        tone = 0.0
+    if tone >= 0.5:
+        return f":green[●● bullish (+{tone:.2f})]"
+    if tone >= 0.15:
+        return f":green[● mildly bullish (+{tone:.2f})]"
+    if tone <= -0.5:
+        return f":red[●● bearish ({tone:+.2f})]"
+    if tone <= -0.15:
+        return f":red[● mildly bearish ({tone:+.2f})]"
+    return f":orange[— neutral ({tone:+.2f})]"
+
+
+def _strength_badge(s: str) -> str:
+    s = (s or "LOW").upper()
+    return {"HIGH": ":green[**HIGH**]",
+            "MEDIUM": ":orange[**MEDIUM**]",
+            "LOW": ":gray[LOW]"}.get(s, s)
+
+
+def _staleness(filing_date: str | None) -> str:
+    if not filing_date:
+        return ":gray[—]"
+    try:
+        d = datetime.strptime(filing_date, "%Y-%m-%d")
+        days = (datetime.now() - d).days
+        if days <= 14:  return f":green[Fresh • {days}d ago]"
+        if days <= 90:  return f":orange[{days}d ago]"
+        if days <= 270: return f":gray[{days}d ago]"
+        return f":red[Stale • {days}d ago]"
+    except Exception:
+        return f":gray[{filing_date}]"
+
+
+def render_reports_tab():
+    """Detailed Director's Report viewer with universe overview + per-stock
+    drill-down. The user picks a stock and sees the full extracted outlook,
+    growth plans, risks, key financials, and historical filings — exactly
+    what they would read if they downloaded the PDF themselves, but
+    indexed and searchable."""
+    section_header(
+        "Reports & Outlook",
+        "What management is actually saying. Every quarter and annual "
+        "report from your 15 stocks is read by an LLM and distilled into "
+        "outlook, growth plans, and risks — the part of the report most "
+        "investors skip.",
+        how_to_read=[
+            "**Tone score** (-1 to +1) measures how bullish/bearish the "
+            "narrative is. ≥+0.15 is constructive; ≤-0.15 means caution.",
+            "**Guidance strength** (HIGH/MEDIUM/LOW) is how committed and "
+            "specific management is — HIGH means concrete plans with "
+            "numbers, LOW is platitudes.",
+            "**Fresh** filings (≤14 days) carry the most signal. Anything "
+            "older than ~6 months is mostly stale.",
+            "Use this in combination with **Forecast** and **Fair Value**: "
+            "a HIGH-tone outlook on a cheap, momentum-rising stock is the "
+            "strongest setup the system can identify.",
+        ],
+    )
+
+    rows = dash.latest_management_outlook(top_k=20).get("rows") or []
+    if not rows:
+        st.info(
+            "No Director's Reports cached yet. The weekly workflow "
+            "(`Financial results & Director's reports`) extracts new "
+            "filings every Saturday at 11:00 PKT, and the EOD pipeline "
+            "auto-triggers it within ~24 hours of an earnings event. "
+            "Once that runs, this tab will populate."
+        )
+        return
+
+    # ------------------------------------------------------------------
+    # 1) Universe overview — heatmap of every covered stock
+    # ------------------------------------------------------------------
+    st.subheader("Universe outlook at a glance")
+    st.caption(
+        "Latest filing per stock. Click a row in the table below to "
+        "see the full extract; or pick a symbol from the drill-down "
+        "selector underneath."
+    )
+
+    # KPI strip
+    fresh_n = sum(1 for r in rows
+                    if (datetime.now() -
+                        datetime.strptime(r["filing_date"], "%Y-%m-%d")).days
+                    <= 14)
+    bull_n = sum(1 for r in rows if (r.get("outlook_tone") or 0) > 0.15)
+    bear_n = sum(1 for r in rows if (r.get("outlook_tone") or 0) < -0.15)
+    high_g = sum(1 for r in rows
+                   if (r.get("guidance_strength") or "").upper() == "HIGH")
+    avg_tone = (sum(float(r.get("outlook_tone") or 0) for r in rows) /
+                  max(len(rows), 1))
+
+    k1, k2, k3, k4, k5 = st.columns(5)
+    k1.metric("Stocks covered", len(rows))
+    k2.metric("Fresh (≤14d)", fresh_n)
+    k3.metric("Bullish tone", bull_n, delta=f"{bear_n} bearish")
+    k4.metric("HIGH guidance", high_g)
+    k5.metric("Avg tone", f"{avg_tone:+.2f}")
+
+    # Universe table
+    import pandas as _pd
+    table_rows = []
+    for r in sorted(rows,
+                      key=lambda x: float(x.get("outlook_tone") or 0),
+                      reverse=True):
+        table_rows.append({
+            "Symbol": r["symbol"],
+            "Period": r.get("fy_period") or r.get("doc_type") or "",
+            "Filed": r.get("filing_date") or "—",
+            "Tone": float(r.get("outlook_tone") or 0),
+            "Guidance": (r.get("guidance_strength") or "LOW").upper(),
+            "Plans": len(r.get("growth_plans") or []),
+            "Risks": len(r.get("risks_mentioned") or []),
+            "Capex": "✔" if r.get("capex_announced") else "",
+            "Expansion": "✔" if r.get("expansion_announced") else "",
+            "Summary": (r.get("outlook_summary") or "")[:100] +
+                ("…" if len(r.get("outlook_summary") or "") > 100 else ""),
+        })
+    df_tbl = _pd.DataFrame(table_rows)
+    st.dataframe(
+        df_tbl,
+        hide_index=True,
+        use_container_width=True,
+        column_config={
+            "Tone": st.column_config.NumberColumn(
+                "Tone", format="%+.2f",
+                help="−1 (bearish) to +1 (bullish). Computed by LLM "
+                     "from the narrative.",
+            ),
+            "Plans": st.column_config.NumberColumn(
+                "# Plans", help="Forward-looking growth/capex initiatives "
+                                "mentioned"),
+            "Risks": st.column_config.NumberColumn(
+                "# Risks", help="Headwinds called out by management"),
+            "Summary": st.column_config.TextColumn(
+                "What management is saying", width="large"),
+        },
+    )
+
+    st.divider()
+
+    # ------------------------------------------------------------------
+    # 2) Per-stock drill-down — full filing detail
+    # ------------------------------------------------------------------
+    st.subheader("Drill into one stock")
+    available = sorted({r["symbol"] for r in rows})
+    pick = st.selectbox(
+        "Stock",
+        options=available,
+        index=0,
+        key="reports_pick",
+        help="Pick a symbol to see the full extracted outlook, every "
+             "growth plan, every risk, and the filing history.",
+    )
+
+    history = dash.management_outlook_history(pick)
+    if not history:
+        st.warning(f"No reports cached for {pick} yet.")
+        return
+
+    latest = history[0]
+    older = history[1:]
+
+    # ---- Header card -------------------------------------------------
+    st.markdown(f"### {pick} — {latest['fy_period'] or latest['doc_type']}")
+    h1, h2, h3, h4 = st.columns([2, 1, 1, 1])
+    h1.markdown(
+        f"**Filing**: {latest['title'] or latest['doc_type']}  \n"
+        f"**Date**: {latest['filing_date']}  ({_staleness(latest['filing_date'])})"
+    )
+    h2.markdown(f"**Tone**  \n{_tone_badge(latest['outlook_tone'])}")
+    h3.markdown(f"**Guidance**  \n{_strength_badge(latest['guidance_strength'])}")
+    flags = []
+    if latest.get("capex_announced"):     flags.append("Capex")
+    if latest.get("expansion_announced"): flags.append("Expansion")
+    h4.markdown(
+        f"**Signals**  \n{', '.join(flags) if flags else ':gray[—]'}"
+    )
+
+    # ---- Outlook summary --------------------------------------------
+    st.markdown("#### Outlook")
+    st.info(latest["outlook_summary"] or
+              "_(LLM did not extract a narrative)_")
+
+    # ---- Growth plans + risks side-by-side --------------------------
+    cL, cR = st.columns(2)
+    with cL:
+        st.markdown("#### Growth plans / forward initiatives")
+        plans = latest.get("growth_plans") or []
+        if plans:
+            for i, plan in enumerate(plans, 1):
+                st.success(f"**{i}.** {plan}")
+        else:
+            st.caption("_None highlighted in this filing._")
+    with cR:
+        st.markdown("#### Risks management is calling out")
+        risks = latest.get("risks_mentioned") or []
+        if risks:
+            for i, risk in enumerate(risks, 1):
+                st.warning(f"**{i}.** {risk}")
+        else:
+            st.caption("_None highlighted in this filing._")
+
+    # ---- Key financials ---------------------------------------------
+    fin = latest.get("key_financials_called_out") or {}
+    if fin:
+        st.markdown("#### Numbers management chose to highlight")
+        cols = st.columns(min(len(fin), 4))
+        for i, (k, v) in enumerate(list(fin.items())[:8]):
+            cols[i % len(cols)].metric(
+                k.replace("_", " ").title(),
+                str(v) if v is not None else "—",
+            )
+
+    # ---- Verbatim excerpt + PDF -------------------------------------
+    with st.expander("Read the verbatim excerpt the LLM relied on",
+                       expanded=False):
+        st.text(latest.get("raw_excerpt") or
+                  "_(no verbatim excerpt persisted)_")
+    if latest.get("pdf_url"):
+        st.markdown(
+            f"[Open the original PDF on PSX ↗]({latest['pdf_url']})"
+        )
+    st.caption(
+        f"Extracted by `{latest.get('extracted_by_model','?')}` in "
+        f"{latest.get('extraction_seconds') or 0:.1f}s · "
+        f"persisted to `data/results/reports.parquet`."
+    )
+
+    # ---- Filing history ---------------------------------------------
+    if older:
+        st.markdown("#### Older filings for this stock")
+        st.caption(
+            "Useful for spotting tone reversals — e.g. management was "
+            "bullish three quarters ago and has been turning cautious."
+        )
+        for past in older:
+            with st.expander(
+                f"{past['fy_period'] or past['doc_type']} — "
+                f"{past['filing_date']}  ·  tone "
+                f"{past['outlook_tone']:+.2f}",
+                expanded=False,
+            ):
+                st.markdown(f"**Tone**: {_tone_badge(past['outlook_tone'])}  "
+                              f"·  **Guidance**: "
+                              f"{_strength_badge(past['guidance_strength'])}")
+                st.markdown(f"**Outlook.** {past['outlook_summary']}")
+                if past.get("growth_plans"):
+                    st.markdown("**Plans:** " +
+                                  "; ".join(past["growth_plans"][:4]))
+                if past.get("risks_mentioned"):
+                    st.markdown("**Risks:** " +
+                                  "; ".join(past["risks_mentioned"][:4]))
+                if past.get("pdf_url"):
+                    st.markdown(f"[Original PDF ↗]({past['pdf_url']})")
+
+
+# --------------------------------------------------------------------------
 # VALUE TAB — fundamental fair-value vs market price
 # --------------------------------------------------------------------------
 def render_value_tab():
@@ -2543,6 +2806,7 @@ def main():
         "Today",          # narrative landing
         "My Holdings",    # portfolio
         "Forecast",       # predictions
+        "Reports",        # Director's reports / management outlook
         "Fair Value",     # intrinsic value + quality + earnings momentum
         "Watchlist",      # tracked symbols
         "Find Ideas",     # scanner / momentum ranking
@@ -2553,12 +2817,13 @@ def main():
     with tabs[0]: render_today_tab()
     with tabs[1]: render_portfolio_tab()
     with tabs[2]: render_predictions_tab()
-    with tabs[3]: render_value_tab()
-    with tabs[4]: render_watchlist_tab()
-    with tabs[5]: render_scanner_tab()
-    with tabs[6]: render_news_tab()
-    with tabs[7]: render_chat_tab()
-    with tabs[8]: render_backtest_tab()
+    with tabs[3]: render_reports_tab()
+    with tabs[4]: render_value_tab()
+    with tabs[5]: render_watchlist_tab()
+    with tabs[6]: render_scanner_tab()
+    with tabs[7]: render_news_tab()
+    with tabs[8]: render_chat_tab()
+    with tabs[9]: render_backtest_tab()
 
 
 if __name__ == "__main__":

@@ -163,6 +163,17 @@ Calibration guidance (IMPORTANT):
   "EVENT WINDOW" (6-14 days out), you MAY still recommend BUY/ADD but
   with conviction one notch lower and tighter stop loss in the
   rationale.
+- MANAGEMENT OUTLOOK (forward-looking, 1-12 month horizon): if the
+  briefing contains a "MANAGEMENT OUTLOOK" stanza extracted from the
+  Director's Report, treat it as a slow but high-signal layer:
+    * Strongly bullish tone (>=+0.5) + HIGH guidance + bullish
+      momentum: conviction can be HIGH; flag "management raising
+      guidance" in rationale.
+    * Bearish tone (<=-0.4): downgrade conviction one notch (HIGH
+      ->MEDIUM, MEDIUM->LOW). Mention specific risks in key_risks.
+    * Capex/expansion announced + bullish momentum: small upgrade in
+      conviction is justified.
+    * Stale (>270d) or LOW guidance: ignore — narrative is too old.
 - Be skeptical. If nothing special is happening, say NEUTRAL/LOW/HOLD.
 
 Return JSON ONLY. No other text."""
@@ -373,6 +384,57 @@ def build_briefing(ctx: dict) -> str:
             ]
     except Exception as e:
         lines += ["", f"EARNINGS EVENT RISK: (skipped — {type(e).__name__})"]
+
+    # Management outlook — extracted from latest Director's Report
+    try:
+        from ui import dashboard_data as _dash
+        hist = _dash.management_outlook_history(sym)
+        if hist:
+            mo = hist[0]
+            try:
+                fdate = pd.Timestamp(mo.get("filing_date"))
+                age_days = (pd.Timestamp(price.get("as_of") or
+                                            pd.Timestamp.today()) -
+                              fdate).days
+            except Exception:
+                age_days = None
+            stale_tag = ""
+            if age_days is not None:
+                if age_days > 270:
+                    stale_tag = "  (STALE — narrative >9 months old)"
+                elif age_days <= 14:
+                    stale_tag = "  (FRESH — filed within 2 weeks)"
+            tone = float(mo.get("outlook_tone") or 0.0)
+            plans = mo.get("growth_plans") or []
+            risks = mo.get("risks_mentioned") or []
+            flags = []
+            if mo.get("capex_announced"):     flags.append("CAPEX")
+            if mo.get("expansion_announced"): flags.append("EXPANSION")
+            lines += [
+                "",
+                f"MANAGEMENT OUTLOOK (Director's Report — "
+                f"{mo.get('fy_period') or mo.get('doc_type')} filed "
+                f"{mo.get('filing_date')}){stale_tag}",
+                f"  tone = {tone:+.2f}   guidance = "
+                f"{mo.get('guidance_strength') or 'LOW'}   "
+                f"flags = {', '.join(flags) if flags else '—'}",
+                f"  outlook: {(mo.get('outlook_summary') or '')[:280]}",
+            ]
+            if plans:
+                lines.append(
+                    "  top plan: " + (plans[0] or "")[:200]
+                )
+            if risks:
+                lines.append(
+                    "  top risk: " + (risks[0] or "")[:200]
+                )
+        else:
+            lines += ["",
+                       "MANAGEMENT OUTLOOK: no Director's Report cached "
+                       "for this symbol yet."]
+    except Exception as e:
+        lines += ["",
+                   f"MANAGEMENT OUTLOOK: (skipped — {type(e).__name__})"]
 
     return "\n".join(lines)
 

@@ -20,6 +20,54 @@ from config.costs import (MINIMUM_NET_EDGE_PCT, minimum_gross_for_trade,
 
 LOG = ROOT / "data" / "predictions_log.json"
 CONVICTION_WEIGHT = {"HIGH": 1.0, "MEDIUM": 0.7, "LOW": 0.3}
+
+# Down-shift one notch on the conviction ladder (used by the management-
+# outlook soft cap below). Values mirror the keys in CONVICTION_WEIGHT.
+_CONVICTION_DOWNGRADE = {"HIGH": "MEDIUM", "MEDIUM": "LOW", "LOW": "LOW"}
+
+
+def _management_outlook(symbol: str) -> dict:
+    """Latest cached management-outlook record for ``symbol``, or ``{}``.
+    Wraps the dashboard helper so a missing parquet / import doesn't sink
+    the trade-plan run."""
+    try:
+        from ui import dashboard_data as _dash
+        hist = _dash.management_outlook_history(symbol)
+        return hist[0] if hist else {}
+    except Exception:
+        return {}
+
+
+def _outlook_adjusted(pred: dict) -> tuple[str, str]:
+    """Apply the management-outlook soft-cap rule and return
+    ``(effective_conviction, annotation)``.
+
+    Rule: if the latest Director's Report has tone <= -0.4 (clearly
+    cautious management) AND the LLM gave HIGH conviction, downgrade to
+    MEDIUM. Symmetrically, if tone >= +0.5 with HIGH guidance, leave the
+    bullish call as-is (we don't auto-upgrade — that would risk
+    over-trading on stale narratives).
+
+    Annotation is a one-line tag rendered in the trade-plan output so the
+    user can see *why* the conviction was capped.
+    """
+    raw = (pred.get("conviction") or "LOW").upper()
+    mo = _management_outlook(pred["symbol"])
+    if not mo or "outlook_tone" not in mo:
+        return raw, ""
+    tone = float(mo.get("outlook_tone") or 0.0)
+    period = mo.get("fy_period") or mo.get("doc_type") or "report"
+    if tone <= -0.4 and raw == "HIGH":
+        return _CONVICTION_DOWNGRADE[raw], (
+            f"management cautious in {period} (tone {tone:+.2f}) — "
+            f"HIGH→MEDIUM"
+        )
+    if tone <= -0.4 and raw == "MEDIUM":
+        return _CONVICTION_DOWNGRADE[raw], (
+            f"management cautious in {period} (tone {tone:+.2f}) — "
+            f"MEDIUM→LOW"
+        )
+    return raw, ""
 RT_COST = round_trip_cost_pct()
 MIN_GROSS = minimum_gross_for_trade()
 
@@ -84,7 +132,9 @@ def score(pred: dict) -> float:
             return -99
     except Exception:
         pass
-    w = CONVICTION_WEIGHT.get(pred.get("conviction", "LOW"), 0)
+    # Apply management-outlook soft cap (HIGH->MEDIUM if tone <= -0.4)
+    eff_conviction, _ = _outlook_adjusted(pred)
+    w = CONVICTION_WEIGHT.get(eff_conviction, 0)
     mid_net = net_return_pct(mid_gross)
     return w * mid_net
 
@@ -164,12 +214,12 @@ def main():
         print("No BULLISH MEDIUM/HIGH setups today. Staying in cash is a valid answer.")
         return
 
-    print("-" * 115)
+    print("-" * 119)
     print(f"{'#':<3s} {'SYM':<6s} {'SECT':<12s} "
           f"{'Y-CLS':>7s} {'ENTRY BAND':>15s} {'STOP':>7s} {'TARGET':>7s} "
-          f"{'GROSS':>6s} {'COST':>5s} {'NET':>6s} {'R:R':>5s} {'CONV':>6s} "
+          f"{'GROSS':>6s} {'COST':>5s} {'NET':>6s} {'R:R':>5s} {'CONV':>10s} "
           f"{'SCORE':>6s}")
-    print("-" * 115)
+    print("-" * 119)
     trade_plans = []
     for i, p in enumerate(buys, 1):
         sym = p["symbol"]
@@ -183,11 +233,15 @@ def main():
         net_mid = net_return_pct(gross_mid)
 
         sector = (p.get("sector") or "?")[:12]
+        eff_conv, conv_note = _outlook_adjusted(p)
+        # Show downgrade with an arrow so it's obvious in the table.
+        conv_disp = (f"{p['conviction']}→{eff_conv}"
+                       if eff_conv != p["conviction"] else p["conviction"])
         print(f"{i:<3d} {sym:<6s} {sector:<12s} "
               f"{entry_px:>7.2f} [{band[0]:>6.2f}, {band[1]:>6.2f}] "
               f"{stop:>7.2f} {target:>7.2f} "
               f"{gross_mid:>+6.2f} {RT_COST:>+5.2f} {net_mid:>+6.2f} "
-              f"{rr['rr']:>5.2f} {p['conviction']:>6s} "
+              f"{rr['rr']:>5.2f} {conv_disp:>10s} "
               f"{score(p):>+6.2f}")
 
         trade_plans.append({
@@ -201,7 +255,9 @@ def main():
             "gross_return_5d_pct": gross_mid,
             "round_trip_cost_pct": RT_COST,
             "net_return_5d_pct": net_mid,
-            "conviction": p["conviction"],
+            "conviction": eff_conv,
+            "raw_conviction": p["conviction"],
+            "conviction_cap_note": conv_note,
             "rationale": p["rationale"],
             "drivers": p.get("key_drivers", []),
             "risks": p.get("key_risks", []),
@@ -215,8 +271,10 @@ def main():
     print("DETAILED TRADE PLANS")
     print("=" * 100)
     for plan in trade_plans:
-        print(f"\n[{plan['symbol']} - {plan['sector']}]  "
-              f"{plan['conviction']} conviction")
+        conv_line = f"{plan['conviction']} conviction"
+        if plan.get("conviction_cap_note"):
+            conv_line += f"   [⚠ {plan['conviction_cap_note']}]"
+        print(f"\n[{plan['symbol']} - {plan['sector']}]  {conv_line}")
         print(f"  Rationale: {plan['rationale']}")
         print(f"  HOW TO ENTER:")
         print(f"    Place a LIMIT BUY at {plan['buy_low']}-{plan['buy_high']} PKR "

@@ -205,6 +205,64 @@ def universe_movers(top_k: int = 3) -> dict:
     }
 
 
+def management_outlook_history(symbol: str) -> list[dict]:
+    """All cached Director's Report extractions for `symbol`,
+    newest-first. Used by the per-stock drill-down view in the
+    Reports tab so the user can see how management's outlook has
+    evolved over the last few quarters."""
+    p = PROJECT_ROOT / "data" / "results" / "reports.parquet"
+    if not p.exists():
+        return []
+    try:
+        import pandas as pd
+        df = pd.read_parquet(p)
+    except Exception:
+        return []
+    if df.empty:
+        return []
+
+    df = df[df["symbol"].str.upper() == symbol.upper()].copy()
+    if df.empty:
+        return []
+
+    df["filing_date"] = pd.to_datetime(df["filing_date"], errors="coerce")
+    df = df.sort_values("filing_date", ascending=False)
+
+    def _list(v):
+        try:
+            return [] if v is None else list(v.tolist() if hasattr(v, "tolist")
+                                                 else v)
+        except Exception:
+            return []
+
+    out: list[dict] = []
+    for _, r in df.iterrows():
+        out.append({
+            "symbol": r["symbol"],
+            "filing_date": (r["filing_date"].strftime("%Y-%m-%d")
+                              if pd.notna(r["filing_date"]) else None),
+            "doc_type": r["doc_type"],
+            "fy_period": r.get("fy_period") or "",
+            "outlook_summary": r["outlook_summary"],
+            "outlook_tone": float(r["outlook_tone"] or 0.0),
+            "growth_plans": _list(r.get("growth_plans")),
+            "risks_mentioned": _list(r.get("risks_mentioned")),
+            "guidance_strength": r.get("guidance_strength") or "LOW",
+            "capex_announced": bool(r.get("capex_announced") or False),
+            "expansion_announced":
+                bool(r.get("expansion_announced") or False),
+            "key_financials_called_out":
+                dict(r["key_financials_called_out"])
+                if r.get("key_financials_called_out") is not None else {},
+            "raw_excerpt": r.get("raw_excerpt") or "",
+            "title": r.get("title") or "",
+            "pdf_url": r.get("pdf_url") or "",
+            "extracted_by_model": r.get("extracted_by_model") or "",
+            "extraction_seconds": r.get("extraction_seconds") or None,
+        })
+    return out
+
+
 def latest_management_outlook(symbol: str | None = None,
                                 top_k: int = 15) -> dict:
     """Latest extracted Director's Report / outlook per symbol.
