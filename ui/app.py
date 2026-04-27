@@ -859,6 +859,25 @@ def render_today_tab():
     # ---------------------------------------------------- Universe sparkline
     _render_universe_sparkline(brief.get("universe_index", {}))
 
+    # ---------------------------------------------------- Fresh reports
+    mo = brief.get("management_outlook") or {}
+    fresh_n = int(mo.get("fresh_this_week") or 0)
+    if fresh_n > 0:
+        rows_mo = mo.get("rows") or []
+        from datetime import timedelta as _td
+        cutoff = (datetime.now() - _td(days=7)).date()
+        fresh_syms = [r["symbol"] for r in rows_mo
+                       if r.get("filing_date")
+                       and datetime.strptime(r["filing_date"],
+                                              "%Y-%m-%d").date() >= cutoff]
+        if fresh_syms:
+            st.success(
+                f"**{fresh_n} new Director's Report{'s' if fresh_n > 1 else ''} "
+                f"this week** ({', '.join(fresh_syms[:5])}). "
+                f"Open the **Forecast** tab and pick the symbol to read "
+                f"management's outlook."
+            )
+
     # ---------------------------------------------------- PDF download
     _render_pdf_download(brief, mood, narrative, action, alerts)
 
@@ -2009,6 +2028,62 @@ def render_predictions_tab():
             st.markdown("**Drivers:** " + " · ".join(drivers))
         if risks:
             st.markdown("**Risks:** " + " · ".join(risks))
+
+        # ---- Management outlook panel (latest Director's Report) -----
+        outlook = dash.latest_management_outlook(symbol=pick)
+        rows_out = (outlook or {}).get("rows") or []
+        if rows_out:
+            mo = rows_out[0]
+            tone = mo.get("outlook_tone", 0.0)
+            tone_label = (":green[+ bullish]" if tone > 0.15
+                           else ":red[\u2212 bearish]" if tone < -0.15
+                           else ":orange[\u2014 neutral]")
+            with st.expander(
+                f"Management Outlook — {mo['fy_period'] or mo['doc_type']}"
+                f"  ({mo['filing_date']}) · tone {tone_label}",
+                expanded=True,
+            ):
+                st.caption(
+                    "Plain-English forward-looking commentary extracted "
+                    "from the company's latest filing on PSX. This is "
+                    "what management itself is telling investors about "
+                    "the next 6\u201312 months. Higher tone + concrete "
+                    "plans = forward-looking tailwind; risks listed "
+                    "below = what management itself is worried about."
+                )
+                st.markdown(f"**Outlook.** {mo['outlook_summary']}")
+                cs1, cs2, cs3 = st.columns(3)
+                cs1.metric("Tone (-1\u2026+1)", f"{tone:+.2f}")
+                cs2.metric("Guidance strength", mo["guidance_strength"])
+                cs3.metric(
+                    "New plans",
+                    "Capex" if mo["capex_announced"]
+                    else "Expansion" if mo["expansion_announced"]
+                    else "—",
+                )
+                if mo["growth_plans"]:
+                    st.markdown("**Growth plans management called out:**")
+                    for plan in mo["growth_plans"]:
+                        st.markdown(f"- {plan}")
+                if mo["risks_mentioned"]:
+                    st.markdown("**Risks management is flagging:**")
+                    for risk in mo["risks_mentioned"]:
+                        st.markdown(f"- {risk}")
+                if mo.get("pdf_url"):
+                    st.markdown(
+                        f"[Read the original PDF on PSX \u2197]"
+                        f"({mo['pdf_url']})"
+                    )
+                st.caption(
+                    f"_Extracted by `{mo['extracted_by_model']}` "
+                    f"from {mo.get('title') or 'PSX filing'}._"
+                )
+        else:
+            st.caption(
+                "_No Director's Report cached for this stock yet — the "
+                "weekly `Financial results` workflow ingests new filings "
+                "from PSX every Saturday._"
+            )
 
     st.divider()
 

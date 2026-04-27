@@ -38,6 +38,12 @@ matplotlib>=3.8.0
 # Daily PDF brief export (Today tab "Download report")
 reportlab>=4.0.0
 
+# Director's-report extraction: render scanned PDF pages to PNG so vision
+# LLMs (GitHub Models gpt-4o, Claude) can OCR + summarize in one pass.
+pymupdf>=1.24.0
+# Lighter-weight PDF text extraction (used as a fallback / for inspection).
+pypdf>=4.0.0
+
 # Plan D UI: Streamlit chat/portfolio app + Gemini client
 streamlit>=1.38.0
 google-genai>=1.0.0

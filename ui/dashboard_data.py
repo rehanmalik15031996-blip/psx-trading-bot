@@ -205,6 +205,105 @@ def universe_movers(top_k: int = 3) -> dict:
     }
 
 
+def latest_management_outlook(symbol: str | None = None,
+                                top_k: int = 15) -> dict:
+    """Latest extracted Director's Report / outlook per symbol.
+
+    Reads `data/results/reports.parquet` (built by
+    `scripts/extract_director_report.py`) and returns the most recent
+    filing per symbol that actually contained narrative outlook
+    commentary (skipping pure dividend notices etc.).
+
+    Returns:
+        {
+          "as_of": "2026-04-27",
+          "rows": [
+            {symbol, filing_date, doc_type, fy_period, outlook_summary,
+             outlook_tone, growth_plans (list), risks_mentioned (list),
+             guidance_strength, capex_announced, expansion_announced,
+             title, pdf_url, extracted_by_model},
+            ...
+          ],
+          "fresh_this_week": int,
+          "summary": "12 reports cached; 3 fresh this week (HUBC/MCB/MEBL).",
+        }
+    """
+    p = PROJECT_ROOT / "data" / "results" / "reports.parquet"
+    out = {"as_of": None, "rows": [], "fresh_this_week": 0,
+            "summary": "No filings extracted yet."}
+    if not p.exists():
+        return out
+    try:
+        import pandas as pd
+        df = pd.read_parquet(p)
+    except Exception as e:
+        out["summary"] = f"reports.parquet unreadable: {e}"
+        return out
+
+    if df.empty:
+        return out
+
+    # Skip filings the LLM marked as "no narrative" — they're noise.
+    df = df[~df["outlook_summary"].fillna("").str.startswith(
+        "No narrative outlook")].copy()
+    if symbol:
+        df = df[df["symbol"].str.upper() == symbol.upper()].copy()
+    if df.empty:
+        return out
+
+    # Latest per symbol.
+    df["filing_date"] = pd.to_datetime(df["filing_date"], errors="coerce")
+    df = (df.sort_values(["symbol", "filing_date"])
+            .drop_duplicates(subset=["symbol"], keep="last"))
+
+    # "Fresh this week" = filing_date within last 7 calendar days.
+    cutoff = pd.Timestamp.now().normalize() - pd.Timedelta(days=7)
+    fresh = int((df["filing_date"] >= cutoff).sum())
+
+    def _list(v: Any) -> list:
+        # Parquet returns nested lists as numpy arrays; coerce safely.
+        try:
+            if v is None:
+                return []
+            if hasattr(v, "tolist"):
+                return list(v.tolist())
+            return list(v)
+        except Exception:
+            return []
+
+    rows: list[dict] = []
+    for _, r in df.head(top_k).iterrows():
+        rows.append({
+            "symbol": r["symbol"],
+            "filing_date": (r["filing_date"].strftime("%Y-%m-%d")
+                              if pd.notna(r["filing_date"]) else None),
+            "doc_type": r["doc_type"],
+            "fy_period": r.get("fy_period") or "",
+            "outlook_summary": r["outlook_summary"],
+            "outlook_tone": float(r["outlook_tone"] or 0.0),
+            "growth_plans": _list(r.get("growth_plans")),
+            "risks_mentioned": _list(r.get("risks_mentioned")),
+            "guidance_strength": r.get("guidance_strength") or "LOW",
+            "capex_announced": bool(r.get("capex_announced") or False),
+            "expansion_announced":
+                bool(r.get("expansion_announced") or False),
+            "title": r.get("title") or "",
+            "pdf_url": r.get("pdf_url") or "",
+            "extracted_by_model": r.get("extracted_by_model") or "",
+        })
+    rows.sort(key=lambda x: x["filing_date"] or "", reverse=True)
+
+    return {
+        "as_of": datetime.now().strftime("%Y-%m-%d"),
+        "rows": rows,
+        "fresh_this_week": fresh,
+        "summary": (
+            f"{len(df)} symbols with cached management outlook; "
+            f"{fresh} freshly filed in the last 7 days."
+        ),
+    }
+
+
 def morning_brief() -> dict:
     """Aggregate every piece of context a trader wants before the open."""
     from ui.trade_journal import journal_stats
@@ -225,6 +324,7 @@ def morning_brief() -> dict:
         "value_book": _safe(tools.get_universe_value_book),
         "quality_book": _safe(tools.get_universe_quality_book),
         "earnings_calendar": _safe(tools.get_earnings_calendar, days_ahead=21),
+        "management_outlook": _safe(latest_management_outlook),
     }
 
 
@@ -297,6 +397,8 @@ def data_freshness() -> dict[str, Any]:
             PROJECT_ROOT / "data" / "predictions_log.json",
         "FIPI flows":
             PROJECT_ROOT / "data" / "flows" / "fipi_daily.parquet",
+        "Director's reports":
+            PROJECT_ROOT / "data" / "results" / "reports.parquet",
     }
     out: dict[str, Any] = {}
     now = datetime.now()
@@ -326,6 +428,8 @@ def data_freshness() -> dict[str, Any]:
             latest_data_date = _latest_prediction_date(p)
         elif name == "FIPI flows":
             latest_data_date = _latest_date_in_parquet(p, "date")
+        elif name == "Director's reports":
+            latest_data_date = _latest_date_in_parquet(p, "filing_date")
 
         # How fresh is the latest data point relative to today?
         days_behind: int | None = None

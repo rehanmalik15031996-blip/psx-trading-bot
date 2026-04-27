@@ -57,3 +57,7 @@ _scratch/
 data/.ui_state.json
 # Helper file used by commit scripts; never commit it.
 _commit_msg.txt
+# Cached raw PSX PDFs — typically 2-3 MB each, re-downloadable from PSX
+# any time. We commit the structured `data/results/reports.parquet`
+# (the LLM-extracted outlook + plans + risks) but NOT the source PDFs.
+data/results/raw/

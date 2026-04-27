@@ -74,3 +74,72 @@ jobs:
           done
           echo "Push failed after 5 attempts."
           exit 1
+
+      # If a known earnings date passes today, dispatch the financial
+      # results workflow to ingest the new filings within ~24h. Reads
+      # the predicted earnings calendar (already cached by the
+      # fundamentals workflow) and looks for events dated today or in
+      # the last 2 trading days. Best-effort: if the calendar isn't
+      # available we silently skip the dispatch.
+      - name: Trigger financial-results extractor on earnings days
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +e
+          python - <<'PY' > /tmp/fired.txt 2>&1
+          import json, os, sys
+          from datetime import date, timedelta
+          from pathlib import Path
+
+          # Earnings calendar can live in either of two cached spots
+          # depending on the version of the fundamentals workflow.
+          candidates = [
+              Path("data/fundamentals/earnings_calendar.json"),
+              Path("data/fundamentals/earnings_dates.parquet"),
+          ]
+          today = date.today()
+          window = {today - timedelta(days=d) for d in range(0, 3)}
+
+          fire: list[str] = []
+          if candidates[0].exists():
+              try:
+                  data = json.loads(candidates[0].read_text())
+                  for row in data.get("events", []) or []:
+                      d = (row.get("next_event_date_utc") or "")[:10]
+                      try:
+                          dd = date.fromisoformat(d)
+                      except Exception:
+                          continue
+                      if dd in window and row.get("symbol"):
+                          fire.append(row["symbol"])
+              except Exception as e:
+                  print(f"calendar read failed: {e}")
+          elif candidates[1].exists():
+              try:
+                  import pandas as pd
+                  df = pd.read_parquet(candidates[1])
+                  if "next_event_date_utc" in df.columns:
+                      df["d"] = pd.to_datetime(df["next_event_date_utc"]).dt.date
+                      hit = df[df["d"].isin(window)]
+                      fire = hit["symbol"].dropna().astype(str).tolist()
+              except Exception as e:
+                  print(f"parquet read failed: {e}")
+          print("FIRE_FOR=" + ",".join(sorted(set(fire))))
+          PY
+          cat /tmp/fired.txt
+          FIRE_FOR=$(grep '^FIRE_FOR=' /tmp/fired.txt | sed 's/^FIRE_FOR=//')
+          if [ -z "$FIRE_FOR" ]; then
+            echo "No earnings events in the last 3 days; skipping dispatch."
+            exit 0
+          fi
+          IFS=','
+          for sym in $FIRE_FOR; do
+            echo "Dispatching financial-results extractor for $sym..."
+            curl -sS -X POST \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/dispatches" \
+              -d "{\"event_type\":\"earnings-trigger\",\"client_payload\":{\"symbol\":\"$sym\"}}" \
+              || echo "  dispatch failed for $sym (continuing)"
+          done

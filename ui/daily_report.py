@@ -542,6 +542,52 @@ def _calendar_section(story: list, sty: dict, brief: dict) -> None:
         story.append(t)
 
 
+def _management_outlook_section(story: list, sty: dict, brief: dict) -> None:
+    """Show the 5 most recent Director's Reports with extracted outlook."""
+    mo = brief.get("management_outlook") or {}
+    rows = mo.get("rows") or []
+    if not rows:
+        return
+    rows = sorted(rows, key=lambda r: r.get("filing_date") or "",
+                   reverse=True)[:5]
+    story.append(Paragraph("What management is saying", sty["h2"]))
+    _explain(story, sty,
+        "The most recent Director's Reports filed by your universe "
+        "stocks on PSX, with management's <b>forward-looking commentary</b> "
+        "summarised in plain English. These reports come out quarterly + "
+        "annually and contain capex plans, expansion announcements, and "
+        "self-reported risks &mdash; leading information that doesn't "
+        "show up in prices or news for weeks. <b>Tone</b> ranges from "
+        "&minus;1 (very bearish guidance) to +1 (very bullish); "
+        "<b>strength</b> reflects how concrete the guidance is."
+    )
+    for r in rows:
+        sym = r.get("symbol", "")
+        period = r.get("fy_period") or r.get("doc_type") or ""
+        date = r.get("filing_date") or ""
+        tone = float(r.get("outlook_tone") or 0.0)
+        tone_word = ("bullish" if tone > 0.15
+                     else "bearish" if tone < -0.15 else "neutral")
+        head = (f"<b>{sym}</b> — {period} ({date}) · "
+                f"tone {tone:+.2f} ({tone_word}), "
+                f"strength {r.get('guidance_strength', '—')}")
+        story.append(Paragraph(head, sty["body"]))
+        story.append(Paragraph(
+            r.get("outlook_summary", "") or "—", sty["body_muted"]))
+        plans = r.get("growth_plans") or []
+        if plans:
+            story.append(Paragraph("<b>Growth plans:</b>", sty["body_muted"]))
+            for plan in plans[:4]:
+                story.append(Paragraph(f"• {plan}", sty["body_muted"]))
+        risks = r.get("risks_mentioned") or []
+        if risks:
+            story.append(Paragraph("<b>Risks management flagged:</b>",
+                                     sty["body_muted"]))
+            for risk in risks[:3]:
+                story.append(Paragraph(f"• {risk}", sty["body_muted"]))
+        story.append(Spacer(1, 4))
+
+
 def _movers_section(story: list, sty: dict, brief: dict) -> None:
     m = brief.get("universe_movers") or {}
     gainers = m.get("gainers") or []
@@ -675,6 +721,7 @@ def build_daily_report(
     _action_section(story, sty, action)
     _alerts_section(story, sty, alerts)
     _forecast_section(story, sty, brief)
+    _management_outlook_section(story, sty, brief)
     _portfolio_section(story, sty, brief)
     _watchlist_section(story, sty)
     _movers_section(story, sty, brief)

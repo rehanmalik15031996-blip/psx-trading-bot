@@ -1,0 +1,108 @@
+name: Financial results & Director's reports
+
+# Pulls the latest financial-result filings (Annual Report, Quarterly,
+# Half-Yearly, Material Information) from PSX for every universe stock,
+# downloads the PDFs to `data/results/raw/<SYMBOL>/`, and uses a
+# vision-capable LLM to extract management's outlook, growth plans, and
+# self-reported risks. The structured output is written to
+# `data/results/reports.parquet` and ends up in the morning brief +
+# Predictions tab + daily PDF.
+#
+# Routing:
+#   ANNUAL reports               → Claude Haiku (paid; richer extraction)
+#   QUARTERLY / HALF-YEAR / MAT.  → GitHub Models gpt-4o-mini (free vision)
+#
+# Triggers:
+#   - cron Saturday 06:00 UTC (11:00 PKT) — weekly catch-up
+#   - repository_dispatch: 'earnings-trigger'
+#       Fired by the EOD workflow once a known earnings date passes — so
+#       new filings get extracted within ~24h of being uploaded to PSX.
+#   - workflow_dispatch — manual "Run now" with optional symbol filter.
+
+on:
+  schedule:
+    - cron: '0 6 * * 6'           # 11:00 PKT, Saturday
+  repository_dispatch:
+    types: [earnings-trigger]
+  workflow_dispatch:
+    inputs:
+      symbol:
+        description: 'Single symbol (e.g. HUBC) — leave blank for full universe'
+        required: false
+        default: ''
+      force:
+        description: 'Re-extract even if doc already in parquet'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: financial-results
+  cancel-in-progress: false
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      # GITHUB_TOKEN is auto-provided to the workflow with `models:read`
+      # scope as long as the repo has GitHub Models enabled (free for
+      # all repos at present).
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Extract director's reports
+        run: |
+          set -e
+          ARGS=""
+          if [ "${{ github.event.inputs.symbol }}" != "" ]; then
+            ARGS="--symbol ${{ github.event.inputs.symbol }}"
+          fi
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          if [ "${{ github.event_name }}" = "repository_dispatch" ] \
+             && [ "${{ github.event.client_payload.symbol }}" != "" ]; then
+            ARGS="--symbol ${{ github.event.client_payload.symbol }}"
+          fi
+          echo "Running: python -m scripts.extract_director_report $ARGS"
+          python -m scripts.extract_director_report $ARGS
+
+      - name: Commit reports
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/results/reports.parquet \
+                  data/results/raw/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "data: director's reports $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing on latest main..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
