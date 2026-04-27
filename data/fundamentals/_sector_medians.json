@@ -1,0 +1,92 @@
+{
+  "computed_utc": "2026-04-27T12:53:05+00:00",
+  "by_sector": {
+    "Power": {
+      "n": 1,
+      "pe_med": 6.42,
+      "pb_med": 1.33,
+      "yield_med": 8.79,
+      "payout_med": 56.4,
+      "members": [
+        "HUBC"
+      ]
+    },
+    "Misc": {
+      "n": 1,
+      "pe_med": null,
+      "pb_med": null,
+      "yield_med": null,
+      "payout_med": null,
+      "members": [
+        "PABC"
+      ]
+    },
+    "Cement": {
+      "n": 3,
+      "pe_med": null,
+      "pb_med": null,
+      "yield_med": null,
+      "payout_med": null,
+      "members": [
+        "FCCL",
+        "KOHC",
+        "MLCF"
+      ]
+    },
+    "Oil & Gas E&P": {
+      "n": 3,
+      "pe_med": 6.71,
+      "pb_med": 1.01,
+      "yield_med": 4.83,
+      "payout_med": 32.4,
+      "members": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ]
+    },
+    "Banking": {
+      "n": 3,
+      "pe_med": null,
+      "pb_med": null,
+      "yield_med": null,
+      "payout_med": null,
+      "members": [
+        "FABL",
+        "MCB",
+        "MEBL"
+      ]
+    },
+    "OMC/Refining": {
+      "n": 2,
+      "pe_med": null,
+      "pb_med": null,
+      "yield_med": null,
+      "payout_med": null,
+      "members": [
+        "APL",
+        "PSO"
+      ]
+    },
+    "Conglomerate/Chem": {
+      "n": 1,
+      "pe_med": null,
+      "pb_med": null,
+      "yield_med": null,
+      "payout_med": null,
+      "members": [
+        "EPCL"
+      ]
+    },
+    "Pharma": {
+      "n": 1,
+      "pe_med": null,
+      "pb_med": null,
+      "yield_med": null,
+      "payout_med": null,
+      "members": [
+        "SEARL"
+      ]
+    }
+  }
+}

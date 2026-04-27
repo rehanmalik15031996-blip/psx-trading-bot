@@ -109,6 +109,10 @@ Then return ONLY a single JSON object with EXACTLY these fields:
   "guidance_strength": "LOW" | "MEDIUM" | "HIGH",           // how specific the guidance is
   "capex_announced": true | false,                          // are new capex/expansion projects mentioned
   "expansion_announced": true | false,                      // new geography / new product / capacity
+  "installed_capacity": "<verbatim quote of installed/nameplate/total capacity, e.g. '1,292 MW gross', '7,000 tpd cement'> or null",
+  "actual_production": "<verbatim quote of current/actual production for the period, e.g. '823 MW average dispatch', '4,200 tpd average'> or null",
+  "capacity_utilization_pct": <number 0-100 if both installed_capacity and actual_production are stated AS NUMBERS in the same unit; otherwise null>,
+  "new_products": ["<concrete new product or service launch in the next 12 months>", ...],   // 0-3 items, each ≤ 150 chars
   "key_financials_called_out": {{
     "revenue_growth_yoy_pct": <number or null>,
     "profit_growth_yoy_pct": <number or null>,
@@ -121,12 +125,27 @@ Rules:
 - If this document has NO narrative outlook (e.g. it's a Notice of
   Dividend or pure financial tables), set outlook_summary to "No
   narrative outlook in this filing.", outlook_tone to 0, all booleans
-  to false, all lists to [], and raw_excerpt to "".
+  to false, all lists to [], all the new capacity/product fields to
+  null/[], and raw_excerpt to "".
 - Use Pakistani context: "FX pressure" = rupee devaluation; "circular
   debt" common in power; "policy rate" / "CPI" = SBP context; "imported
   coal" matters for cement.
 - Concrete plans only — "commission new 2 MW line by Q3 FY27" beats
   "growth opportunities exist".
+- CAPACITY EXTRACTION (analyst-requested): only populate
+  installed_capacity, actual_production, and capacity_utilization_pct
+  when management EXPLICITLY states the numbers in the report. Do NOT
+  infer or estimate from financial tables or your own knowledge — if
+  the prose does not give the number, return null. Hallucinated
+  capacity numbers are worse than missing ones because they would
+  fool the analyst.
+- capacity_utilization_pct must be a single number that you can
+  compute from the two quoted figures using compatible units (e.g.
+  823 MW / 1,292 MW = 64). If units differ or a number is missing,
+  return null.
+- new_products are forward-looking ONLY (next 12 months): a brand new
+  cement variety being launched, a new bank product line, a
+  pharmaceutical molecule being filed for registration, etc.
 - raw_excerpt must be a true verbatim excerpt (no paraphrasing).
 - Output ONLY the JSON object, no markdown fences, no preamble."""
 
@@ -264,6 +283,10 @@ def _empty_extract(model: str) -> dict:
         "guidance_strength": "LOW",
         "capex_announced": False,
         "expansion_announced": False,
+        "installed_capacity": None,
+        "actual_production": None,
+        "capacity_utilization_pct": None,
+        "new_products": [],
         "key_financials_called_out": {
             "revenue_growth_yoy_pct": None,
             "profit_growth_yoy_pct": None,
@@ -284,6 +307,10 @@ def _augment(obj: dict, model: str) -> dict:
     obj.setdefault("guidance_strength", "LOW")
     obj.setdefault("capex_announced", False)
     obj.setdefault("expansion_announced", False)
+    obj.setdefault("installed_capacity", None)
+    obj.setdefault("actual_production", None)
+    obj.setdefault("capacity_utilization_pct", None)
+    obj.setdefault("new_products", [])
     obj.setdefault("key_financials_called_out", {
         "revenue_growth_yoy_pct": None,
         "profit_growth_yoy_pct": None,
@@ -298,6 +325,36 @@ def _augment(obj: dict, model: str) -> dict:
         obj["outlook_tone"] = max(-1.0, min(1.0, obj["outlook_tone"]))
     except (TypeError, ValueError):
         obj["outlook_tone"] = 0.0
+    # Sanitize capacity utilization — strict 0-100 numeric or None.
+    cu = obj.get("capacity_utilization_pct")
+    if cu is None or (isinstance(cu, str) and cu.strip().lower() in
+                       ("", "null", "none", "n/a")):
+        obj["capacity_utilization_pct"] = None
+    else:
+        try:
+            cu_f = float(cu)
+            if 0.0 <= cu_f <= 100.0:
+                obj["capacity_utilization_pct"] = round(cu_f, 1)
+            else:
+                obj["capacity_utilization_pct"] = None
+        except (TypeError, ValueError):
+            obj["capacity_utilization_pct"] = None
+    # Coerce string fields to plain str | None
+    for k in ("installed_capacity", "actual_production"):
+        v = obj.get(k)
+        if v is None:
+            continue
+        if not isinstance(v, str):
+            obj[k] = str(v)
+        s = obj[k].strip()
+        if s.lower() in ("", "null", "none", "n/a", "not stated",
+                          "not disclosed"):
+            obj[k] = None
+    # new_products must be a list[str], capped
+    nps = obj.get("new_products") or []
+    if not isinstance(nps, list):
+        nps = []
+    obj["new_products"] = [str(x)[:150] for x in nps][:3]
     return obj
 
 

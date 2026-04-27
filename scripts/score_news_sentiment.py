@@ -64,6 +64,7 @@ import pandas as pd
 
 from config.universe import symbols as universe_symbols
 from connectors.rss_news import RssNewsConnector
+from connectors.mettis_global import MettisGlobalConnector
 
 CACHE_DIR = ROOT / "data" / "news"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -120,9 +121,24 @@ def _save(df: pd.DataFrame) -> None:
 
 
 def _fetch_articles(per_feed: int) -> list[dict]:
-    """Pull raw articles from the RSS connector."""
-    result = RssNewsConnector().fetch(per_feed=per_feed)
-    return result.records or []
+    """Pull raw articles from every news source.
+
+    Combines the RSS aggregator (Business Recorder, Dawn, Profit, etc.)
+    with the Mettis Global scraper (PSX corporate notices + market
+    coverage). Each Mettis article carries a best-effort ``ticker_hits``
+    column the LLM scorer can use as grounding.
+    """
+    rss_result = RssNewsConnector().fetch(per_feed=per_feed)
+    rss_records = rss_result.records or []
+    try:
+        mettis_result = MettisGlobalConnector().fetch(per_listing=per_feed * 2)
+        mettis_records = mettis_result.records or []
+    except Exception as e:
+        print(f"  WARN: Mettis Global fetch failed: {type(e).__name__}: {e}")
+        mettis_records = []
+    # The two streams have a slightly different schema (Mettis carries
+    # ``ticker_hits``); we tolerate that downstream by using .get(key, "").
+    return rss_records + mettis_records
 
 
 def _parse_json_loose(text: str) -> list[dict]:
@@ -149,13 +165,18 @@ def _score_batch(batch: list[dict], client) -> list[dict]:
     """Send a batch of articles in one Claude call."""
     compact = []
     for i, a in enumerate(batch):
-        compact.append({
+        item = {
             "i": i,
             "source": a.get("source", ""),
             "published_at": a.get("published_at", ""),
             "title": (a.get("title") or "")[:200],
             "summary": (a.get("summary") or "")[:300],
-        })
+        }
+        # Mettis Global articles carry a coarse ticker hint we surface
+        # to the scorer so it doesn't have to re-derive the symbols.
+        if a.get("ticker_hits"):
+            item["ticker_hits_hint"] = a["ticker_hits"]
+        compact.append(item)
     user = (
         f"Score these {len(compact)} articles. Return a JSON ARRAY of "
         f"length {len(compact)} in the same order.\n\n"

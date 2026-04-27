@@ -155,6 +155,96 @@ def get_technical_snapshot(symbol: str) -> dict:
     trend_up = bool(sma20 and sma50 and sma200 and (sma20 > sma50 > sma200))
     trend_down = bool(sma20 and sma50 and sma200 and (sma20 < sma50 < sma200))
 
+    # ---------------- Bollinger Bands (analyst-requested) ----------------
+    # %B in [0,1] = position between lower (0) and upper (1) band.
+    # bb_width as % of mid is a squeeze/expansion gauge.
+    bb_pctb = bb_width_pct = None
+    bb_pctb_pctile = bb_width_pctile = None
+    bb_state = None
+    try:
+        from ta.volatility import BollingerBands as _BB
+        bb = _BB(close=c, window=20, window_dev=2)
+        pctb_series = bb.bollinger_pband()
+        wband_series = bb.bollinger_wband()
+        if not pctb_series.empty:
+            bb_pctb = float(pctb_series.iloc[-1])
+        if not wband_series.empty:
+            # ta returns wband already as a percent of mid: ((up-low)/mid)*100
+            bb_width_pct = float(wband_series.iloc[-1])
+        # 252-day percentile rank so the LLM gets context
+        if pctb_series is not None and len(pctb_series.dropna()) >= 60:
+            recent = pctb_series.tail(252).dropna()
+            if len(recent) > 0 and bb_pctb is not None:
+                bb_pctb_pctile = float((recent <= bb_pctb).mean()) * 100.0
+        if wband_series is not None and len(wband_series.dropna()) >= 60:
+            recent = wband_series.tail(252).dropna()
+            if len(recent) > 0 and bb_width_pct is not None:
+                bb_width_pctile = (
+                    float((recent <= bb_width_pct).mean()) * 100.0
+                )
+        # Categorical state — analyst-friendly summary
+        if bb_pctb is not None:
+            if bb_pctb >= 0.95:
+                bb_state = "near_upper_band"
+            elif bb_pctb <= 0.05:
+                bb_state = "near_lower_band"
+            elif (bb_width_pctile is not None and bb_width_pctile <= 10.0):
+                bb_state = "squeeze"
+            else:
+                bb_state = "neutral"
+    except Exception:
+        pass
+
+    # ---------------- MACD ----------------
+    macd_line = macd_signal_v = macd_hist = None
+    macd_cross_days = None
+    try:
+        from ta.trend import MACD as _MACD
+        m = _MACD(close=c, window_slow=26, window_fast=12, window_sign=9)
+        ml = m.macd()
+        ms = m.macd_signal()
+        mh = m.macd_diff()
+        if not ml.empty:
+            macd_line = float(ml.iloc[-1])
+        if not ms.empty:
+            macd_signal_v = float(ms.iloc[-1])
+        if not mh.empty:
+            macd_hist = float(mh.iloc[-1])
+        # Days since last sign-change in the histogram (cross detection)
+        if mh is not None and len(mh.dropna()) > 5:
+            sign = np.sign(mh.fillna(0.0))
+            changes = sign.ne(sign.shift())
+            last_change_idx = changes[changes].index
+            if len(last_change_idx) > 0:
+                macd_cross_days = int((mh.index[-1] - last_change_idx[-1]).days)
+    except Exception:
+        pass
+
+    # ---------------- OBV (volume confirmation) ----------------
+    obv_5d_change_pct = None
+    try:
+        if "volume" in df.columns:
+            from ta.volume import OnBalanceVolumeIndicator as _OBV
+            v = df["volume"].astype(float)
+            obv_series = _OBV(close=c, volume=v).on_balance_volume()
+            if obv_series is not None and len(obv_series.dropna()) > 6:
+                cur = float(obv_series.iloc[-1])
+                prev = float(obv_series.iloc[-6])
+                if prev != 0:
+                    obv_5d_change_pct = (cur / prev - 1.0) * 100.0
+    except Exception:
+        pass
+
+    # ---------------- Stochastic RSI ----------------
+    stoch_rsi = None
+    try:
+        from ta.momentum import StochRSIIndicator as _SR
+        srsi = _SR(close=c, window=14, smooth1=3, smooth2=3).stochrsi()
+        if srsi is not None and not srsi.empty:
+            stoch_rsi = float(srsi.iloc[-1])
+    except Exception:
+        pass
+
     return {
         "symbol": sym,
         "as_of": str(c.index[-1].date()),
@@ -188,6 +278,30 @@ def get_technical_snapshot(symbol: str) -> dict:
         },
         "rsi_14": round(rsi14, 1) if rsi14 is not None else None,
         "trend": "up" if trend_up else "down" if trend_down else "mixed",
+        # New indicator block — surfaced to the LLM via the briefing
+        "bollinger": {
+            "pctb": round(bb_pctb, 3) if bb_pctb is not None else None,
+            "pctb_pctile_252d": (round(bb_pctb_pctile, 0)
+                                 if bb_pctb_pctile is not None else None),
+            "width_pct": (round(bb_width_pct, 2)
+                          if bb_width_pct is not None else None),
+            "width_pctile_252d": (round(bb_width_pctile, 0)
+                                  if bb_width_pctile is not None else None),
+            "state": bb_state,
+        },
+        "macd": {
+            "line": round(macd_line, 3) if macd_line is not None else None,
+            "signal": (round(macd_signal_v, 3)
+                       if macd_signal_v is not None else None),
+            "histogram": round(macd_hist, 3) if macd_hist is not None else None,
+            "days_since_cross": macd_cross_days,
+        },
+        "obv": {
+            "change_5d_pct": (round(obv_5d_change_pct, 1)
+                              if obv_5d_change_pct is not None else None),
+        },
+        "stoch_rsi": (round(stoch_rsi, 3)
+                      if stoch_rsi is not None else None),
     }
 
 
@@ -506,12 +620,27 @@ def _cached(key: str, fn):
 # --------------------------------------------------------------------------
 # TOOL: FIPI / LIPI daily flows
 # --------------------------------------------------------------------------
+# Categories the analyst flagged as "big fish" — institutional money
+# whose flow direction is the most informative single signal in PSX.
+# Names are the SCStrade-normalised forms returned by
+# ``SCStradeFIPIConnector._normalize_category``.
+_BIG_FISH_CATEGORIES = {
+    "Foreign", "Foreign Corporate", "Foreign Individual",
+    "Banks / DFI", "Banks", "Mutual Funds", "Mutual Fund",
+    "Insurance", "Insurance Companies",
+}
+
+
 def get_fipi_flows() -> dict:
     """Today's foreign vs local net flows on PSX (from SCStrade).
 
     Foreign > 0 means net foreign BUY (bullish); < 0 means net foreign SELL
     (risk-off signal the knowledge base calls the 'single most useful daily
     sentiment indicator').
+
+    Output also includes the analyst-requested ``big_fish`` aggregate
+    (foreign + banks + mutual funds + insurance) which is the
+    institutional cohort — the cohort that drives multi-day moves.
     """
     def _run():
         try:
@@ -527,6 +656,38 @@ def get_fipi_flows() -> dict:
                 key=lambda s: abs(s.get("net_usd_mn", 0)),
                 reverse=True,
             )[:8]
+
+            # Big-fish breakdown — analyst-flagged: foreign + banks +
+            # mutual funds + insurance is the cohort that actually moves
+            # PSX over multi-day windows. Individuals and brokers chase.
+            participants = r.records or []
+            big_fish_components: list[dict] = []
+            big_fish_net = 0.0
+            retail_net = 0.0
+            for p in participants:
+                cat = (p.get("category") or "").strip()
+                net = float(p.get("net_pkr_mn") or 0.0)
+                if cat in _BIG_FISH_CATEGORIES:
+                    big_fish_components.append({
+                        "category": cat,
+                        "buy_pkr_mn": p.get("buy_pkr_mn"),
+                        "sell_pkr_mn": p.get("sell_pkr_mn"),
+                        "net_pkr_mn": net,
+                    })
+                    big_fish_net += net
+                elif cat:
+                    retail_net += net
+            # Sort big_fish by absolute size for display
+            big_fish_components.sort(
+                key=lambda x: abs(x.get("net_pkr_mn") or 0.0),
+                reverse=True,
+            )
+            big_fish_regime = (
+                "institutional_buying" if big_fish_net > 0
+                else "institutional_selling" if big_fish_net < 0
+                else "neutral"
+            )
+
             return {
                 "as_of": extras.get("report_date"),
                 "foreign_net_pkr_mn": extras.get("foreign_net_pkr_mn"),
@@ -534,7 +695,11 @@ def get_fipi_flows() -> dict:
                 "foreign_regime": ("net_buying"
                                    if (extras.get("foreign_net_pkr_mn") or 0) > 0
                                    else "net_selling"),
-                "participants": r.records,
+                "big_fish_net_pkr_mn": round(big_fish_net, 2),
+                "big_fish_regime": big_fish_regime,
+                "big_fish_components": big_fish_components,
+                "retail_net_pkr_mn": round(retail_net, 2),
+                "participants": participants,
                 "top_sectors_by_flow": sectors,
                 "source": "scstrade.com",
             }
@@ -542,6 +707,65 @@ def get_fipi_flows() -> dict:
             return {"error": f"FIPI fetch raised: {type(e).__name__}: {e}"}
 
     return _cached("fipi", _run)
+
+
+def get_sector_volume_heatmap(top_k: int = 5,
+                                lookback_days: int = 20) -> dict:
+    """Top sectors by today's traded value vs their ``lookback_days``
+    average — used as a "where's the action" heatmap on the Today tab
+    and inside the briefing.
+
+    For each sector in the universe we sum (close * volume) per stock,
+    compare today's total with the trailing average, and flag any
+    sector running > 2× its average (institutional rotation).
+    """
+    try:
+        from data.store import load_ohlcv
+        from config.universe import UNIVERSE
+        rows: dict[str, dict] = {}
+        for ent in UNIVERSE:
+            try:
+                df = load_ohlcv(ent.symbol)
+            except Exception:
+                continue
+            if df is None or df.empty or "volume" not in df.columns:
+                continue
+            df = df.tail(lookback_days + 5).copy()
+            df["traded_value"] = (df["close"].astype(float)
+                                  * df["volume"].astype(float))
+            today_val = float(df["traded_value"].iloc[-1])
+            avg_val = float(df["traded_value"].iloc[:-1]
+                              .tail(lookback_days).mean())
+            blk = rows.setdefault(ent.sector,
+                                  {"sector": ent.sector,
+                                   "today_pkr_mn": 0.0,
+                                   "avg_pkr_mn": 0.0,
+                                   "members": []})
+            blk["today_pkr_mn"] += today_val
+            blk["avg_pkr_mn"] += avg_val
+            blk["members"].append(ent.symbol)
+        out: list[dict] = []
+        for s, blk in rows.items():
+            today_mn = blk["today_pkr_mn"] / 1e6
+            avg_mn = blk["avg_pkr_mn"] / 1e6
+            ratio = (today_mn / avg_mn) if avg_mn > 0 else None
+            out.append({
+                "sector": s,
+                "today_pkr_mn": round(today_mn, 1),
+                "avg_pkr_mn": round(avg_mn, 1),
+                "ratio_vs_avg": (round(ratio, 2)
+                                  if ratio is not None else None),
+                "is_hot": bool(ratio is not None and ratio >= 2.0),
+                "members": blk["members"],
+            })
+        out.sort(key=lambda x: x["today_pkr_mn"], reverse=True)
+        return {
+            "lookback_days": lookback_days,
+            "top": out[: top_k],
+            "all": out,
+        }
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
 
 
 # --------------------------------------------------------------------------

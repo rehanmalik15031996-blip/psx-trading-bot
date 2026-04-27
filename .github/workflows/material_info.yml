@@ -1,0 +1,84 @@
+name: Material Information refresh
+
+# Walks every universe stock on PSX Data Portal and pulls the
+# "Material Information" disclosures — price-sensitive corporate
+# announcements that companies are required to file in real time
+# (board events, big contracts, plant trips, M&A, regulatory
+# notices). Stored to `data/material_information.parquet` and
+# committed back to the repo so the local Streamlit UI and
+# generate_predictions.py can read them.
+#
+# Triggers:
+#   - cron daily 12:30 UTC (17:30 PKT) — after the PSX close.
+#   - repository_dispatch: 'eod-trigger' from eod.yml so the most
+#     recent disclosures are picked up alongside the EOD bars.
+#   - workflow_dispatch — manual "Run now" for ad-hoc refreshes.
+
+on:
+  schedule:
+    - cron: '30 12 * * 1-5'   # 17:30 PKT Mon-Fri (after market close)
+  repository_dispatch:
+    types: [eod-trigger]
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 'ISO date — only keep filings on or after (blank = no filter)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: material-information
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Refresh material information
+        run: |
+          set -e
+          ARGS=""
+          if [ "${{ github.event.inputs.since }}" != "" ]; then
+            ARGS="--since ${{ github.event.inputs.since }}"
+          fi
+          echo "Running: python scripts/refresh_material_info.py $ARGS"
+          python scripts/refresh_material_info.py $ARGS
+
+      - name: Commit cache
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/material_information.parquet 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "data: material information $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing on latest main..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1

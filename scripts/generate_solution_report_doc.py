@@ -182,8 +182,10 @@ def build_doc_model() -> list[dict]:
              "What is the tape doing today?",
              "Daily after market close",
              "Open, high, low, close, volume; momentum 20/60/150/250d; "
-             "moving averages 20/50/200; RSI-14; 52-week range; "
-             "realised volatility"],
+             "moving averages 20/50/200; RSI-14; Stochastic RSI; "
+             "Bollinger Bands (%B and band-width percentile); MACD "
+             "with histogram and cross-detection; On-Balance Volume "
+             "5-day change; 52-week range; realised volatility"],
             ["L2 · Macro & global",
              "What does the wider environment look like?",
              "Daily; overnight block at 06:00 PKT",
@@ -193,16 +195,21 @@ def build_doc_model() -> list[dict]:
             ["L3 · Sentiment",
              "What are people saying right now?",
              "Hourly during market hours",
-             "Headlines from five Pakistani business publications, "
-             "scored for sentiment, confidence, category, and "
-             "affected ticker"],
+             "Headlines from Pakistani business publications and "
+             "Mettis Global (which republishes every PSX corporate "
+             "notice as a navigable article), scored for sentiment, "
+             "confidence, category, and affected ticker"],
             ["L4 · Fundamentals (forward-looking)",
              "What is the company, and where is it going?",
              "Weekly; on each new filing",
-             "EPS, BVPS, ROE, debt-to-equity, EPS stability, sector-"
-             "comparable multiples, fair value, quality score, "
-             "earnings momentum, earnings calendar, management's "
-             "outlook from the latest Director's Report"],
+             "Price-to-Earnings, Price-to-Book, Dividend Yield, "
+             "Payout Ratio (each compared to the sector median); "
+             "EPS, BVPS, ROE, debt-to-equity, EPS stability; "
+             "sector-aware fair value; quality score; earnings "
+             "momentum; earnings calendar; installed-vs-actual "
+             "capacity utilisation, capex / new-product plans, and "
+             "management outlook extracted from the latest Director's "
+             "Report; Material Information disclosures"],
             ["L5 · Decision",
              "What should the analyst do today?",
              "Daily, 09:00 PKT",
@@ -271,11 +278,16 @@ def build_doc_model() -> list[dict]:
                 "PSX Data Portal (dps.psx.com.pk)",
                 "Daily after close", "L1"],
             ["2", "Foreign / Local Flows (FIPI / LIPI)",
-                "SCStrade public daily flows",
+                "SCS Trade public daily flow tables — full "
+                "category breakdown (foreign, banks, mutual funds, "
+                "insurance, NBFC, brokers, individuals, companies, "
+                "other organisations)",
                 "Daily after close", "L1"],
             ["3", "Pakistani Business News",
                 "Dawn, Profit, Business Recorder, Tribune, "
-                "Reuters Pakistan",
+                "Reuters Pakistan, plus Mettis Global "
+                "(republishes every PSX corporate notice as a "
+                "navigable news article)",
                 "Hourly", "L3"],
             ["4", "SBP Policy Rate",
                 "State Bank of Pakistan announcements",
@@ -287,17 +299,27 @@ def build_doc_model() -> list[dict]:
                 "Yahoo Finance — US, Asia, FX, volatility",
                 "06:00 PKT", "L2"],
             ["7", "Company Fundamentals",
-                "Yahoo Finance per-symbol financials",
+                "Yahoo Finance per-symbol financials, with a "
+                "weekly cross-check against Sarmaya.com",
                 "Weekly", "L4"],
             ["8", "Earnings Calendar",
-                "Yahoo Finance earnings dates + heuristics",
+                "PSX Data Portal filing history + Yahoo Finance "
+                "earnings dates",
                 "Weekly", "L4"],
             ["9", "Universe Valuation Book",
-                "Derived from fundamentals + sector medians",
+                "Derived from fundamentals + sector medians "
+                "(P/E, P/B, dividend yield, payout ratio)",
                 "Weekly", "L4"],
             ["10", "PSX Filings & Director's Reports",
-                "PSX Data Portal company pages",
+                "PSX Data Portal company pages — quarterly and "
+                "annual reports (Director's Report inside the "
+                "quarterly financials; ratios from annual reports)",
                 "Weekly + on filing", "L4"],
+            ["11", "PSX Material Information",
+                "PSX Data Portal MATERIAL-tagged announcements — "
+                "price-sensitive disclosures companies are required "
+                "to file when something material changes",
+                "Daily after close", "L3 / L4"],
         ]},
 
         {"kind": "h", "level": 2, "text": "3.1  Per-source detail"},
@@ -334,24 +356,45 @@ def build_doc_model() -> list[dict]:
 
         {"name": "Foreign / Local Flows (FIPI / LIPI)",
          "purpose":
-            "Foreign vs. local institutional flow direction. Pakistan "
-            "is a frontier market where flow direction matters more "
-            "than in developed markets — foreign-net-selling streaks "
-            "of three or more days correlate with a 2-4% drawdown on "
-            "small and mid caps.",
+            "Tracks where the *big fish* — foreign investors, banks, "
+            "mutual funds, insurance companies — are putting their "
+            "money each session. Pakistan is a frontier market where "
+            "institutional flow direction matters more than in "
+            "developed markets: foreign-net-selling streaks of three "
+            "or more days correlate with a 2-4% drawdown on small and "
+            "mid caps, and a coordinated foreign-and-mutual-funds buy "
+            "day is one of the strongest tactical signals available.",
          "fields":
-            "Date, foreign net (PKR mn), local net (PKR mn), flow "
-            "regime (net-buying / net-selling / neutral), top "
-            "sectors by flow.",
+            "Date, plus per-cohort buy / sell / net in PKR millions "
+            "for: foreign, banks and DFI, mutual funds, NBFC, "
+            "insurance, brokers, individuals, companies, and other "
+            "organisations. Derived: a 'big fish net' aggregate "
+            "(foreign + banks + mutual funds + insurance), a "
+            "retail-cohort net (individuals + brokers), and an "
+            "interpretation regime: institutional-buying, "
+            "institutional-selling, or neutral. Plus a sector "
+            "volume heatmap — top five sectors by traded value "
+            "today vs. their 20-day average, with a hot flag at 2× "
+            "or higher.",
          "calc":
-            "Sector-flow match: if a stock's sector is on today's "
-            "top-flow list, the briefing tags it explicitly so the "
-            "decision step can up- or down-weight it.",
+            "Each cohort is parsed independently from the public "
+            "daily table, normalised to PKR millions, and persisted "
+            "per trading day. Sector volume is reconstructed from "
+            "the universe price tape and ranked against a rolling "
+            "20-day average so we can flag concentration days "
+            "(for example, cement at 3.1× average usually signals "
+            "institutional rotation into or out of the sector).",
          "use":
-            "Treated as a sentiment-confirming feature, not a primary "
-            "signal. A stock cannot pass on flows alone; flows can "
-            "however veto a buy when the rest of the picture is "
-            "neutral."},
+            "How an analyst should read it: a day with foreign "
+            "buying plus mutual-fund selling is often "
+            "rebalancing — fade neither cohort. A day with foreign "
+            "and mutual funds both buying while individuals sell is "
+            "the cleanest institutional-accumulation tape, and the "
+            "decision step is told to upgrade conviction one notch "
+            "on stocks in the heat-map sectors. Conversely a "
+            "foreign-and-banks-selling day combined with negative "
+            "news in the last 24 hours triggers a one-notch "
+            "conviction downgrade on the affected names."},
 
         {"name": "Pakistani Business News",
          "purpose":
@@ -374,7 +417,12 @@ def build_doc_model() -> list[dict]:
             "A weighted score below -0.3 with high confidence in the "
             "last 24 hours blocks new buys on the affected names. "
             "Headlines themselves are also passed verbatim into the "
-            "briefing so the decision step can read them directly.",
+            "briefing so the decision step can read them directly. "
+            "Mettis Global is treated as a primary feed because "
+            "it converts every PSX corporate notice into a "
+            "navigable news article — that gives the system a "
+            "ticker-keyed firehose of corporate actions that the "
+            "general business press picks up only hours later.",
          "limit":
             "RSS coverage is uneven; Urdu-language financial commentary "
             "and social media chatter are not currently captured."},
@@ -435,19 +483,45 @@ def build_doc_model() -> list[dict]:
         {"name": "Company Fundamentals",
          "purpose":
             "The inputs to valuation, quality, and earnings-momentum "
-            "calculations.",
+            "calculations, and the four headline ratios that any "
+            "analyst expects to see on the screen.",
          "fields":
             "Trailing-twelve-month EPS, 5-year EPS history, BVPS, "
             "5-year dividends per share, revenue, net income, total "
             "equity, total debt, ROE, debt-to-equity, EPS coefficient "
-            "of variation.",
+            "of variation. Derived per stock and persisted on every "
+            "refresh: Price-to-Earnings (P/E = current price ÷ "
+            "trailing EPS), Price-to-Book (P/B = current price ÷ "
+            "BVPS), Dividend Yield (= last 12 months of dividends ÷ "
+            "current price), and Payout Ratio (= dividends ÷ "
+            "earnings, clipped to the 0-200% range). Each ratio is "
+            "also expressed as a percentage difference vs. the "
+            "sector median (P/E vs. sector, P/B vs. sector), so a "
+            "stock at -19% on P/E is reading nineteen per cent "
+            "cheaper than its peers.",
+         "calc":
+            "Ratios are anchored on the most recent PSX close (not "
+            "the vendor's regular-market price, which can be stale "
+            "for thinly-traded names). Sector medians are recomputed "
+            "across the universe at the end of every fundamentals "
+            "refresh and persisted alongside the per-stock record. "
+            "Where the universe contains only one stock in a sector, "
+            "the comparison is shown as 'n/a' rather than zero, to "
+            "avoid spurious signals.",
          "use":
             "Drives the entire Layer-4 stack — valuation, quality, "
-            "earnings momentum — described in detail in section 4.",
+            "earnings momentum — described in detail in section 4. "
+            "The four ratios with sector comparisons are surfaced "
+            "directly in the briefing for the decision step to "
+            "reason over, and on the Value tab in the user "
+            "interface so the analyst sees the same numbers the "
+            "model sees.",
          "limit":
-            "Vendor data occasionally lags PSX filings by 1-2 weeks; "
-            "we cross-check material differences against direct PSX "
-            "filings."},
+            "Vendor data occasionally lags PSX filings by 1-2 weeks. "
+            "Mitigated by a weekly cross-check against Sarmaya.com — "
+            "any field that disagrees by more than 25% in absolute "
+            "terms is flagged as a Cross-check warning on the Value "
+            "tab so the analyst can verify before acting."},
 
         {"name": "Earnings Calendar",
          "purpose":
@@ -458,6 +532,12 @@ def build_doc_model() -> list[dict]:
          "fields":
             "Per-symbol next-event date, days until event, confidence "
             "(high / medium / low), source.",
+         "calc":
+            "Built primarily from the PSX Data Portal filing history "
+            "(quarter-end + a 45-day SECP filing lag is the most "
+            "reliable predictor of the next result date) and "
+            "cross-referenced against Yahoo Finance and the "
+            "company's own announcements where available.",
          "use":
             "Blackout flag for events within five trading days at "
             "high or medium confidence — an absolute hard filter on "
@@ -494,27 +574,133 @@ def build_doc_model() -> list[dict]:
             "Forward-looking commentary directly from management. "
             "Quarterly and annual filings contain the most credible "
             "guidance available in Pakistani markets — most retail "
-            "and even some institutional investors do not read them.",
+            "and even some institutional investors do not read them. "
+            "Pulled from the PSX Data Portal, where the Director's "
+            "Report is embedded inside each set of quarterly "
+            "financial results and the headline ratios are inside "
+            "the annual report.",
          "fields":
             "Filing date, period, document type, summarised outlook, "
             "tone score (-1 to +1), guidance strength (high / medium "
             "/ low), list of growth plans, list of risks, capex / "
-            "expansion flags, key financial figures called out by "
-            "management, link to original document.",
+            "expansion flags, link to original document. "
+            "Capacity & expansion fields extracted verbatim where "
+            "management states them: installed capacity (for example "
+            "'1,292 MW gross'), actual production (for example "
+            "'823 MW average dispatch in H1 FY26'), implied "
+            "utilisation %, and a list of any new products / "
+            "expansions announced.",
          "calc":
             "Each filing is read by an AI vision model that extracts "
-            "the structured fields above. The original PDF is "
-            "retained for verification.",
+            "the structured fields above. The instruction is strict: "
+            "leave any number null unless the report literally states "
+            "it — no inference. The original PDF is retained for "
+            "verification, and the verbatim quote is shown in the "
+            "user interface alongside the extracted figure.",
          "use":
             "A recent filing (within 14 days) with high guidance "
             "strength and a tone above +0.5 nudges conviction up; a "
             "tone of -0.4 or below caps high conviction down to "
             "medium. Filings older than 270 days are ignored — the "
-            "narrative is too stale.",
+            "narrative is too stale. Capacity & expansion lets the "
+            "analyst sanity-check expansion claims: a power "
+            "company running at 64% of installed capacity that "
+            "announces a new 200 MW unit is well-justified; the "
+            "same company at 92% utilisation announcing the same "
+            "capex is a stronger demand signal. The decision step "
+            "is told that low utilisation (below 70%) combined "
+            "with a new capex announcement should *downgrade* "
+            "conviction one notch — capacity is the constraint, "
+            "not demand.",
          "limit":
             "PSX exposes only the five most recent filings per "
             "category per company, so we forward-cache to build a "
             "longer history over time."},
+
+        {"name": "Mettis Global news + PSX notices feed",
+         "purpose":
+            "A second, ticker-keyed news feed built specifically "
+            "for the PSX. Mettis Global publishes general business "
+            "headlines and — uniquely — turns every PSX corporate "
+            "notice (dividend, board meeting, profit release, "
+            "ratings action, regulatory action) into a navigable "
+            "news article tagged with the ticker. That gives the "
+            "system a fast, structured stream of corporate actions "
+            "that the general business press picks up only hours "
+            "later.",
+         "fields":
+            "Headline, summary, publication timestamp, source, URL, "
+            "and a best-effort list of PSX tickers detected in the "
+            "headline body.",
+         "calc":
+            "Scraped from the public site with graceful "
+            "degradation (an empty result on a layout change, "
+            "never a crash). Fed into the same automated reading "
+            "pass used for the general business press, with a "
+            "ticker-hits hint so the scorer can attribute "
+            "sentiment to the right names.",
+         "use":
+            "Specifically for ticker-level news: a regulatory "
+            "action article published on Mettis at 10:00 PKT is "
+            "live in the briefing within the hour and can block a "
+            "buy that the daily run was about to recommend on the "
+            "next session."},
+
+        {"name": "Sarmaya.com cross-check",
+         "purpose":
+            "Independent triangulation on the headline "
+            "fundamentals. Sarmaya is a well-respected Pakistani "
+            "equities portal that publishes per-symbol P/E, P/B, "
+            "EPS, dividend yield, and market capitalisation. "
+            "Comparing against it catches vendor-data lags or "
+            "outright errors before the analyst sees a wrong "
+            "number on the Value tab.",
+         "fields":
+            "Per symbol: P/E, P/B, EPS, dividend yield, "
+            "market cap, last-update timestamp, source URL.",
+         "calc":
+            "Scraped weekly per symbol (cheap — only fifteen "
+            "stocks). Cached locally. Compared against the "
+            "primary fundamentals source field-by-field; any "
+            "absolute disagreement above 25% is flagged on the "
+            "Value tab as a Cross-check warning so the analyst "
+            "can verify before placing the trade.",
+         "use":
+            "Sanity layer only. The primary fundamentals source "
+            "remains authoritative; Sarmaya is an early-warning "
+            "system for stale or incorrect numbers."},
+
+        {"name": "PSX Material Information",
+         "purpose":
+            "Companies listed on the PSX are required to file "
+            "*Material Information* — price-sensitive disclosures "
+            "such as significant contract wins, board "
+            "resolutions, plant shutdowns, regulatory enforcement, "
+            "or any change a reasonable investor would need to "
+            "know about. These filings empirically precede 3-7% "
+            "price gaps on the affected stock and a fresh filing "
+            "is a strong volatility flag.",
+         "fields":
+            "Symbol, filing date, title, link to the original "
+            "PDF, and a derived doc identifier so duplicates "
+            "across refreshes are deduplicated.",
+         "calc":
+            "Scraped daily after market close from the PSX Data "
+            "Portal MATERIAL-tagged announcement stream and "
+            "appended to a dedicated cache. The briefing carries "
+            "a 'Material Information (last 5 trading days)' "
+            "stanza listing recent filings for the relevant "
+            "symbol.",
+         "use":
+            "Treated as a volatility flag rather than a "
+            "directional signal — direction is unknown until the "
+            "filing has been read in context. The decision step "
+            "is instructed to widen the predicted-return band and "
+            "downgrade high conviction to medium when a fresh "
+            "Material Information filing is present. The user "
+            "interface shows a banner on the Today tab when any "
+            "holding has a fresh disclosure, and a Material "
+            "Disclosures section on the Reports tab."},
     ]
 
     for s in sources:
@@ -721,7 +907,45 @@ def build_doc_model() -> list[dict]:
             "Embedded in the AI's rule book — applied at the moment "
             "of decision, not retrofitted afterwards."},
 
-        {"name": "Strategy 12 — Cost-aware Trade Filter",
+        {"name": "Strategy 12 — Volatility & Volume Confirmation Indicators",
+         "why":
+            "Three classic indicators add timing precision on top of "
+            "the slower momentum and value signals: Bollinger Bands "
+            "(volatility-adjusted price extremes), MACD with its "
+            "histogram (trend confirmation and turn detection), and "
+            "On-Balance Volume (does volume confirm the move?). The "
+            "system computes them deterministically and surfaces the "
+            "interpretations to the decision step.",
+         "calc":
+            "Bollinger Bands: 20-day mean and ±2 standard deviations "
+            "around it. The system tracks two derived numbers — %B "
+            "(where the close sits relative to the bands; above 1 "
+            "is above the upper band) and band-width as a "
+            "percentile of the last 252 trading days (low percentile "
+            "= a 'squeeze' that typically resolves into a sharp "
+            "directional move). MACD: 12-26 exponential moving "
+            "averages with a 9-period signal line and a histogram "
+            "that captures the difference; positive histogram = "
+            "bullish trend, sign-flip = trend change. OBV (On-"
+            "Balance Volume): cumulative volume signed by the close-"
+            "vs-prior-close; the system reports the 5-day percentage "
+            "change so a rising tape with rising OBV reads as "
+            "volume-confirmed.",
+         "role":
+            "Conviction overlay. Selected rules embedded in the "
+            "decision rule book: %B above 0.95 with an already high "
+            "RSI is overbought — downgrade BUY conviction one notch. "
+            "%B below 0.05 with positive earnings momentum is a "
+            "mean-reversion BUY setup. Band-width below the 5th "
+            "percentile is a squeeze — the next move is likely "
+            "large; widen the predicted-return band. A MACD "
+            "histogram crossing positive while price is above the "
+            "50-day moving average is treated as trend confirmation. "
+            "A 5-day OBV change of +10% or more on a bullish call "
+            "permits a small conviction upgrade; a -10% OBV move "
+            "against an apparent uptrend is a divergence flag."},
+
+        {"name": "Strategy 13 — Cost-aware Trade Filter",
          "why":
             "Cost models are usually retrofitted to post-mortem P&L. "
             "Here they are baked in as a pre-trade filter so no "

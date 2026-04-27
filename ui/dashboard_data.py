@@ -237,6 +237,14 @@ def management_outlook_history(symbol: str) -> list[dict]:
 
     out: list[dict] = []
     for _, r in df.iterrows():
+        # capacity_utilization_pct may be missing on older rows (pre-extension)
+        cap_util = r.get("capacity_utilization_pct") if (
+            "capacity_utilization_pct" in df.columns) else None
+        try:
+            cap_util_f = (None if cap_util is None or cap_util != cap_util
+                          else float(cap_util))
+        except (TypeError, ValueError):
+            cap_util_f = None
         out.append({
             "symbol": r["symbol"],
             "filing_date": (r["filing_date"].strftime("%Y-%m-%d")
@@ -251,6 +259,16 @@ def management_outlook_history(symbol: str) -> list[dict]:
             "capex_announced": bool(r.get("capex_announced") or False),
             "expansion_announced":
                 bool(r.get("expansion_announced") or False),
+            # Capacity & expansion (analyst-requested)
+            "installed_capacity": (
+                r.get("installed_capacity")
+                if "installed_capacity" in df.columns else None) or None,
+            "actual_production": (
+                r.get("actual_production")
+                if "actual_production" in df.columns else None) or None,
+            "capacity_utilization_pct": cap_util_f,
+            "new_products": _list(r.get("new_products"))
+                              if "new_products" in df.columns else [],
             "key_financials_called_out":
                 dict(r["key_financials_called_out"])
                 if r.get("key_financials_called_out") is not None else {},
@@ -362,6 +380,63 @@ def latest_management_outlook(symbol: str | None = None,
     }
 
 
+def material_information_recent(symbol: str | None = None,
+                                  days: int = 30,
+                                  top_k: int = 30) -> dict:
+    """Recent Material Information filings.
+
+    Reads ``data/material_information.parquet`` (built by
+    ``scripts/refresh_material_info.py``) and returns the most recent
+    filings — optionally filtered to one symbol.
+
+    Returns::
+
+        {"as_of": "2026-04-27",
+         "rows": [{symbol, date, title, doc_id, pdf_url}, ...],
+         "summary": "8 material filings in the last 30 days; 2 today."}
+    """
+    p = PROJECT_ROOT / "data" / "material_information.parquet"
+    out: dict = {"as_of": datetime.now().strftime("%Y-%m-%d"),
+                  "rows": [], "summary": "No material information cached yet."}
+    if not p.exists():
+        return out
+    try:
+        import pandas as pd
+        df = pd.read_parquet(p)
+    except Exception as e:
+        out["summary"] = f"material_information.parquet unreadable: {e}"
+        return out
+    if df.empty:
+        return out
+
+    df["date"] = pd.to_datetime(df["date"], errors="coerce")
+    cutoff = pd.Timestamp.now().normalize() - pd.Timedelta(days=days)
+    df = df[df["date"] >= cutoff]
+    if symbol:
+        df = df[df["symbol"].str.upper() == symbol.upper()]
+    df = df.sort_values("date", ascending=False).head(top_k)
+
+    today_date = pd.Timestamp.now().normalize()
+    today_count = int((df["date"] == today_date).sum())
+
+    rows = []
+    for _, r in df.iterrows():
+        rows.append({
+            "symbol": r["symbol"],
+            "date": (r["date"].strftime("%Y-%m-%d")
+                      if pd.notna(r["date"]) else None),
+            "title": r.get("title") or "",
+            "doc_id": str(r.get("doc_id") or ""),
+            "pdf_url": r.get("pdf_url") or "",
+        })
+    out["rows"] = rows
+    out["summary"] = (
+        f"{len(df)} material filings in the last {days} days; "
+        f"{today_count} today."
+    )
+    return out
+
+
 def morning_brief() -> dict:
     """Aggregate every piece of context a trader wants before the open."""
     from ui.trade_journal import journal_stats
@@ -383,6 +458,7 @@ def morning_brief() -> dict:
         "quality_book": _safe(tools.get_universe_quality_book),
         "earnings_calendar": _safe(tools.get_earnings_calendar, days_ahead=21),
         "management_outlook": _safe(latest_management_outlook),
+        "material_information": _safe(material_information_recent, days=14),
     }
 
 
@@ -457,6 +533,8 @@ def data_freshness() -> dict[str, Any]:
             PROJECT_ROOT / "data" / "flows" / "fipi_daily.parquet",
         "Director's reports":
             PROJECT_ROOT / "data" / "results" / "reports.parquet",
+        "Material information":
+            PROJECT_ROOT / "data" / "material_information.parquet",
     }
     out: dict[str, Any] = {}
     now = datetime.now()

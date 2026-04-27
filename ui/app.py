@@ -878,6 +878,30 @@ def render_today_tab():
                 f"management's outlook."
             )
 
+    # ---------------------------------------------------- Material info banner
+    mi = brief.get("material_information") or {}
+    mi_rows = mi.get("rows") or []
+    if mi_rows:
+        # Highlight only filings from the last 2 trading days — those
+        # are the high-volatility flags.
+        from datetime import timedelta as _td2
+        recent_cut = (datetime.now() - _td2(days=2)).date()
+        fresh_mi = [
+            r for r in mi_rows
+            if r.get("date")
+            and datetime.strptime(r["date"], "%Y-%m-%d").date()
+                >= recent_cut
+        ]
+        if fresh_mi:
+            symbols_hit = ", ".join(sorted({r["symbol"]
+                                              for r in fresh_mi}))[:120]
+            st.warning(
+                f"⚡ **Material Information filed in the last 2 days** "
+                f"({len(fresh_mi)} disclosures across {symbols_hit}). "
+                f"These typically precede 3-7% gaps — check the "
+                f"**Reports** tab before placing new orders."
+            )
+
     # ---------------------------------------------------- PDF download
     _render_pdf_download(brief, mood, narrative, action, alerts)
 
@@ -929,6 +953,9 @@ def render_today_tab():
         c1, c2 = st.columns([1.2, 1])
         with c1: _card_earnings_calendar(brief.get("earnings_calendar", {}))
         with c2: _card_quality_leaders(brief.get("quality_book", {}))
+
+        # Big-fish flows + sector heatmap (analyst-requested)
+        _card_big_fish_flows()
 
 
 # ----------------------------- Today-tab cards (plain English)
@@ -1093,6 +1120,96 @@ def _card_earnings_calendar(cal: dict):
                 f"{ev.get('next_event_date_utc')}  ·  "
                 f"**{d}d**  ·  conf=`{ev.get('confidence')}`  ·  "
                 f"src=`{ev.get('source')}` {badge}"
+            )
+
+
+def _card_big_fish_flows():
+    """Today-tab panel: where the institutional money went today.
+
+    Combines the FIPI/LIPI big-fish breakdown (foreign + banks +
+    mutual funds + insurance) with the sector volume heatmap so the
+    user can see at a glance whether institutions are net buyers or
+    sellers and which sectors are trading hot.
+    """
+    try:
+        flow = tools.get_fipi_flows()
+        heat = tools.get_sector_volume_heatmap(top_k=5,
+                                                  lookback_days=20)
+    except Exception as e:
+        st.container(border=True).caption(
+            f"Big-fish flows unavailable: {type(e).__name__}: {e}"
+        )
+        return
+
+    with st.container(border=True):
+        st.markdown("### Where the big money went today")
+        st.caption(
+            "Institutional activity (foreign + banks + mutual funds + "
+            "insurance) drives multi-day moves. Retail flow (Individuals "
+            "+ Brokers) tends to chase. Sector-volume leaders show which "
+            "industries the day's action concentrated in."
+        )
+        if "error" in flow:
+            st.warning(flow["error"])
+        else:
+            bf_net = flow.get("big_fish_net_pkr_mn") or 0
+            retail_net = flow.get("retail_net_pkr_mn") or 0
+            regime = flow.get("big_fish_regime") or "neutral"
+            colour = ("green" if regime == "institutional_buying"
+                      else "red" if regime == "institutional_selling"
+                      else "gray")
+            kc1, kc2, kc3 = st.columns(3)
+            kc1.metric("Big fish net (PKR mn)", f"{bf_net:+.1f}")
+            kc2.metric("Retail net (PKR mn)", f"{retail_net:+.1f}")
+            kc3.markdown(f"**Regime**\n\n:{colour}[{regime.replace('_',' ').title()}]")
+            comps = flow.get("big_fish_components") or []
+            if comps:
+                rows_df = pd.DataFrame([
+                    {"Cohort": c.get("category"),
+                      "Buy (PKR mn)":  c.get("buy_pkr_mn"),
+                      "Sell (PKR mn)": c.get("sell_pkr_mn"),
+                      "Net (PKR mn)":  c.get("net_pkr_mn")}
+                    for c in comps
+                ])
+                st.dataframe(
+                    rows_df,
+                    hide_index=True,
+                    use_container_width=True,
+                    column_config={
+                        "Buy (PKR mn)":  st.column_config.NumberColumn(format="%.1f"),
+                        "Sell (PKR mn)": st.column_config.NumberColumn(format="%.1f"),
+                        "Net (PKR mn)":  st.column_config.NumberColumn(format="%+.1f"),
+                    },
+                )
+
+        # Sector-volume heatmap
+        sec_top = (heat.get("top") or []) if isinstance(heat, dict) else []
+        if sec_top:
+            st.markdown("**Sector volume leaders today (vs 20-day average)**")
+            heat_rows = []
+            for s in sec_top:
+                ratio = s.get("ratio_vs_avg")
+                heat_rows.append({
+                    "Sector": s.get("sector"),
+                    "Today (PKR mn)": s.get("today_pkr_mn"),
+                    "20d avg (PKR mn)": s.get("avg_pkr_mn"),
+                    "Ratio vs avg": ratio,
+                    "🔥": "🔥" if s.get("is_hot") else "",
+                })
+            st.dataframe(
+                pd.DataFrame(heat_rows),
+                hide_index=True,
+                use_container_width=True,
+                column_config={
+                    "Today (PKR mn)": st.column_config.NumberColumn(format="%.1f"),
+                    "20d avg (PKR mn)": st.column_config.NumberColumn(format="%.1f"),
+                    "Ratio vs avg": st.column_config.NumberColumn(format="%.2fx"),
+                },
+            )
+            st.caption(
+                "🔥 = traded value ≥ 2× the 20-day average. That kind "
+                "of volume spike usually flags institutional rotation "
+                "into or out of the sector."
             )
 
 
@@ -2314,6 +2431,63 @@ def render_reports_tab():
         else:
             st.caption("_None highlighted in this filing._")
 
+    # ---- Capacity & expansion (analyst-requested) -------------------
+    inst_cap = latest.get("installed_capacity")
+    act_prod = latest.get("actual_production")
+    util_pct = latest.get("capacity_utilization_pct")
+    new_prods = latest.get("new_products") or []
+    if inst_cap or act_prod or util_pct is not None or new_prods:
+        st.markdown("#### Capacity & expansion")
+        st.caption(
+            "Pulled verbatim from the Director's Report. Use this to "
+            "judge whether announced capex is justified — high "
+            "utilisation + expansion = real demand; low utilisation + "
+            "expansion = capacity-led, demand may not absorb it."
+        )
+        cap_cols = st.columns(3)
+        cap_cols[0].metric(
+            "Installed capacity", str(inst_cap) if inst_cap else "—",
+            help="Verbatim quote from management.",
+        )
+        cap_cols[1].metric(
+            "Actual production", str(act_prod) if act_prod else "—",
+            help="Verbatim quote from management.",
+        )
+        if util_pct is not None:
+            badge = ("🟢 healthy" if util_pct >= 80
+                     else "🟡 partial" if util_pct >= 60
+                     else "🔴 underutilised")
+            cap_cols[2].metric(
+                "Utilisation", f"{util_pct:.0f}%",
+                help=("Computed from the two verbatim figures above."),
+            )
+            cap_cols[2].caption(badge)
+        else:
+            cap_cols[2].metric("Utilisation", "—")
+        if new_prods:
+            st.markdown("**New products in the next 12 months**")
+            for nprod in new_prods[:5]:
+                st.success(f"• {nprod}")
+        # Analyst-flagged interpretation cues
+        if util_pct is not None and util_pct < 70 and (
+            latest.get("capex_announced")
+            or latest.get("expansion_announced")
+        ):
+            st.warning(
+                f"Capacity utilisation is **only {util_pct:.0f}%**, "
+                f"yet management has announced capex/expansion. The "
+                f"binding constraint is demand, not capacity — be "
+                f"cautious about extrapolating expansion as a positive."
+            )
+        elif util_pct is not None and util_pct >= 90 and (
+            latest.get("capex_announced")
+            or latest.get("expansion_announced")
+        ):
+            st.success(
+                f"Running at **{util_pct:.0f}%** of installed capacity "
+                f"— announced expansion is well-justified by demand."
+            )
+
     # ---- Key financials ---------------------------------------------
     fin = latest.get("key_financials_called_out") or {}
     if fin:
@@ -2518,6 +2692,99 @@ def render_value_tab():
             f"Sector medians used → P/E {secm.get('pe_med')}  ·  "
             f"P/B {secm.get('pb_med')}  ·  n peers {secm.get('n')}"
         )
+
+    # ---- Snapshot ratios + sector comparison (analyst-requested) ---
+    try:
+        from connectors.yfinance_fundamentals import load_latest as _lf
+        from brain.sector_ratios import load_sector_medians as _lsm
+        f = _lf(pick) or {}
+        sec = f.get("sector") or rec.get("sector") or ""
+        sec_block = (_lsm().get("by_sector") or {}).get(sec, {})
+
+        st.markdown("#### Snapshot ratios vs sector")
+        st.caption(
+            "Anchored on the latest PSX close. The sector column is "
+            "the median across the universe sector cohort — peers "
+            "sample shown beneath the table."
+        )
+        ratio_rows = [
+            {"Metric": "P/E (Price ÷ EPS TTM)",
+              "Stock":  f.get("pe_ratio"),
+              "Sector median": sec_block.get("pe_med"),
+              "vs sector": (f.get("pe_vs_sector_pct")
+                              if f.get("pe_vs_sector_pct") is not None
+                              else None)},
+            {"Metric": "P/B (Price ÷ Book value)",
+              "Stock":  f.get("pb_ratio"),
+              "Sector median": sec_block.get("pb_med"),
+              "vs sector": (f.get("pb_vs_sector_pct")
+                              if f.get("pb_vs_sector_pct") is not None
+                              else None)},
+            {"Metric": "Dividend yield %",
+              "Stock":  f.get("dividend_yield_pct"),
+              "Sector median": sec_block.get("yield_med"),
+              "vs sector": None},
+            {"Metric": "Payout ratio % (dividend ÷ EPS)",
+              "Stock":  f.get("payout_ratio_pct"),
+              "Sector median": sec_block.get("payout_med"),
+              "vs sector": None},
+        ]
+        st.dataframe(
+            pd.DataFrame(ratio_rows),
+            hide_index=True,
+            use_container_width=True,
+            column_config={
+                "Stock": st.column_config.NumberColumn(format="%.2f"),
+                "Sector median": st.column_config.NumberColumn(format="%.2f"),
+                "vs sector": st.column_config.NumberColumn(
+                    "vs sector %",
+                    format="%+.0f",
+                    help=("Positive = above peers (potentially "
+                          "expensive on P/E or P/B)."),
+                ),
+            },
+        )
+        if sec_block.get("members"):
+            st.caption(
+                f"Peers ({sec}, n={sec_block.get('n', '—')}): "
+                + ", ".join(sec_block["members"])
+            )
+
+        # Sarmaya.com cross-check
+        try:
+            from connectors.sarmaya import crosscheck as _cc
+            cc = _cc(pick)
+            if cc.get("sarmaya_present"):
+                st.markdown("#### Cross-check vs Sarmaya.com")
+                if cc.get("flags"):
+                    st.warning(
+                        f"⚠️ {cc['n_flags']} field(s) disagree with "
+                        f"Sarmaya by more than {cc['tolerance_pct']}%. "
+                        "yfinance is treated as authoritative."
+                    )
+                    st.dataframe(pd.DataFrame(cc["flags"]),
+                                  hide_index=True,
+                                  use_container_width=True)
+                else:
+                    st.success(
+                        "✅ Sarmaya values agree within tolerance — "
+                        "ratios above are corroborated."
+                    )
+                if cc.get("sarmaya_source_url"):
+                    st.caption(
+                        f"Sarmaya source: {cc['sarmaya_source_url']}"
+                    )
+            elif cc.get("yfinance_present"):
+                st.caption(
+                    "Sarmaya cross-check: no cached snapshot yet. "
+                    "Run a Sarmaya refresh (`python -m "
+                    "connectors.sarmaya`) to enable."
+                )
+        except Exception as e:
+            st.caption(f"Sarmaya cross-check unavailable: "
+                        f"{type(e).__name__}")
+    except Exception as e:
+        st.caption(f"Snapshot ratios unavailable: {type(e).__name__}: {e}")
 
     asof = rec.get("as_of_fundamentals")
     if asof:

@@ -172,8 +172,55 @@ Calibration guidance (IMPORTANT):
     * Bearish tone (<=-0.4): downgrade conviction one notch (HIGH
       ->MEDIUM, MEDIUM->LOW). Mention specific risks in key_risks.
     * Capex/expansion announced + bullish momentum: small upgrade in
-      conviction is justified.
+      conviction is justified. BUT — if installed-vs-actual capacity
+      utilisation is LOW (<70%) AND capex is announced, downgrade
+      conviction one notch: capacity is the constraint, not demand.
     * Stale (>270d) or LOW guidance: ignore — narrative is too old.
+- BOLLINGER BANDS (analyst-requested signal):
+    * %B > 0.95 AND RSI > 70 → overbought stretch; downgrade BUY
+      conviction one notch and tighten stop.
+    * %B < 0.05 AND positive earnings momentum → mean-reversion
+      BUY setup; conviction MEDIUM is justified.
+    * width_pctile_252d <= 10 (a "squeeze") → coming move likely
+      large in EITHER direction; widen the
+      expected_return_5d [low, high] band by 50% relative to a normal
+      day, regardless of direction.
+- MACD: a fresh bullish histogram cross (days_since_cross <= 3)
+  while close is above sma_50 = trend confirmation; supports HIGH
+  conviction on a BULLISH call. A fresh bearish cross is the
+  opposite signal.
+- OBV: |5d change| > 5% in the direction of the price move = volume
+  CONFIRMS the trend (good). Price up + OBV down (or vice versa) is
+  a "non-confirmation" — downgrade conviction one notch.
+- FUNDAMENTAL RATIOS vs sector medians:
+    * P/E and P/B both > 30% above sector median + neutral momentum
+      → stock is rich; favour HOLD/NEUTRAL.
+    * P/E and P/B both > 30% below sector median + ACCELERATING
+      earnings momentum + HIGH quality → strong "cheap quality"
+      setup; conviction can be HIGH on a BULLISH call.
+    * Dividend yield > 8% and payout_ratio > 100% → dividend may be
+      unsustainable; flag as a key_risk.
+- BIG FISH FLOWS (FIPI/LIPI institutional cohort):
+    * "BIG FISH" = foreign + banks + mutual funds + insurance.
+      This is the cohort that sets multi-day trend; retail
+      (Individuals + Brokers) typically chases.
+    * big_fish_net_pkr_mn strongly POSITIVE (>+150 mn) on a BULLISH
+      call → conviction can be HIGH; institutional buying confirms.
+    * big_fish_net_pkr_mn strongly NEGATIVE (<-150 mn) on a BULLISH
+      call → downgrade conviction one notch and add "institutional
+      selling against the move" as a key_risk.
+    * If "this stock's sector is trading HOT" appears in the
+      briefing, treat that sector as having short-term momentum
+      tailwind — supports BULLISH calls on member stocks for ~3
+      trading days.
+- MATERIAL INFORMATION (price-sensitive corporate disclosures):
+    * If the briefing lists Material Information filings <= 2
+      trading days old, widen the expected_return_5d band by 50%
+      and downgrade BUY conviction one notch UNLESS the headline
+      is unambiguously positive (e.g. "wins large export
+      contract", "regulatory approval received").
+    * Material Information ages quickly — anything older than 5
+      trading days is information already in the price.
 - Be skeptical. If nothing special is happening, say NEUTRAL/LOW/HOLD.
 
 Return JSON ONLY. No other text."""
@@ -234,6 +281,90 @@ def build_briefing(ctx: dict) -> str:
             f"dist_from_high_pct={rng.get('dist_from_52w_high_pct')}  "
             f"dist_from_low_pct={rng.get('dist_from_52w_low_pct')}"
         )
+        # Bollinger Bands — analyst-flagged as a profitable indicator
+        bb = tech.get("bollinger") or {}
+        if bb.get("pctb") is not None:
+            pctb = bb["pctb"]
+            wpct = bb.get("width_pct")
+            wpctile = bb.get("width_pctile_252d")
+            state = bb.get("state") or "neutral"
+            interp_bits = []
+            if state == "near_upper_band":
+                interp_bits.append("close near UPPER band — overbought / breakout")
+            elif state == "near_lower_band":
+                interp_bits.append("close near LOWER band — oversold / mean-revert")
+            elif state == "squeeze":
+                interp_bits.append("SQUEEZE — width in bottom decile, "
+                                   "expansion likely")
+            interp = (" — " + "; ".join(interp_bits)) if interp_bits else ""
+            lines.append(
+                f"  Bollinger %B={pctb:.2f}  width_pct={wpct}  "
+                f"width_pctile_252d={wpctile}{interp}"
+            )
+        # MACD with cross detection
+        macd = tech.get("macd") or {}
+        if macd.get("histogram") is not None:
+            hist = macd["histogram"]
+            days = macd.get("days_since_cross")
+            cross_dir = ("bullish" if hist > 0 else "bearish") if hist else "flat"
+            days_str = f"{days}d ago" if days is not None else "n/a"
+            lines.append(
+                f"  MACD: line={macd.get('line')}  signal={macd.get('signal')}  "
+                f"hist={hist:+.3f}  last_cross={cross_dir} ({days_str})"
+            )
+        # OBV (volume confirms / contradicts the move)
+        obv = tech.get("obv") or {}
+        if obv.get("change_5d_pct") is not None:
+            ch = obv["change_5d_pct"]
+            tag = ("volume CONFIRMS uptrend" if ch > 5
+                   else "volume CONTRADICTS uptrend" if ch < -5
+                   else "volume neutral")
+            lines.append(f"  OBV 5d change: {ch:+.1f}%  ({tag})")
+        # Stoch RSI
+        if tech.get("stoch_rsi") is not None:
+            sr = tech["stoch_rsi"]
+            tag = ("overbought" if sr > 0.8
+                   else "oversold" if sr < 0.2 else "mid-range")
+            lines.append(f"  Stoch RSI: {sr:.2f}  ({tag})")
+
+    # Fundamental ratios with sector comparison (analyst-requested, Layer 4)
+    try:
+        from connectors.yfinance_fundamentals import load_latest as _load_fund
+        from brain.sector_ratios import load_sector_medians as _load_sec
+        f = _load_fund(sym) or {}
+        sec_med_payload = _load_sec()
+        sec_med = (sec_med_payload.get("by_sector") or {}).get(sector, {})
+        if any(f.get(k) is not None for k in
+               ("pe_ratio", "pb_ratio", "dividend_yield_pct",
+                "payout_ratio_pct")):
+            def _vs(val, med, lower_is_cheap=True):
+                if val is None or med in (None, 0):
+                    return ""
+                diff_pct = (val / med - 1.0) * 100.0
+                tag = ("cheap vs sector" if (diff_pct < 0 and lower_is_cheap)
+                       else "rich vs sector" if (diff_pct > 0 and lower_is_cheap)
+                       else "above sector" if diff_pct > 0
+                       else "below sector")
+                return f" (vs sector median {med}, {diff_pct:+.0f}% — {tag})"
+            lines += [
+                "",
+                f"FUNDAMENTAL RATIOS  ({sector})",
+                f"  P/E ratio:  {f.get('pe_ratio')}"
+                f"{_vs(f.get('pe_ratio'), sec_med.get('pe_med'))}",
+                f"  P/B ratio:  {f.get('pb_ratio')}"
+                f"{_vs(f.get('pb_ratio'), sec_med.get('pb_med'))}",
+                f"  Dividend yield: {f.get('dividend_yield_pct')}%"
+                f"{_vs(f.get('dividend_yield_pct'), sec_med.get('yield_med'), lower_is_cheap=False)}",
+                f"  Payout ratio:   {f.get('payout_ratio_pct')}%  "
+                f"(EPS distributed as dividend; >100% means dipping into reserves)",
+            ]
+            if sec_med.get("n"):
+                lines.append(
+                    f"  Sector sample size: n={sec_med['n']} "
+                    f"({', '.join(sec_med.get('members', [])[:8])})"
+                )
+    except Exception as e:
+        lines += ["", f"FUNDAMENTAL RATIOS: (skipped — {type(e).__name__})"]
 
     lines += [
         "",
@@ -276,6 +407,25 @@ def build_briefing(ctx: dict) -> str:
         f"Local net: {fipi.get('local_net_pkr_mn')} mn PKR  "
         f"Regime: {fipi.get('foreign_regime')}",
     ]
+    # Big-fish breakdown — analyst-flagged as the most informative read.
+    bf_net = fipi.get("big_fish_net_pkr_mn")
+    bf_components = fipi.get("big_fish_components") or []
+    if bf_net is not None and bf_components:
+        comp_str = ", ".join(
+            f"{c.get('category')} "
+            f"{(c.get('net_pkr_mn') or 0.0):+.1f}"
+            for c in bf_components[:6]
+        )
+        lines.append(
+            f"  BIG FISH (foreign + banks + mutual funds + insurance): "
+            f"net = {bf_net:+.1f} mn PKR  "
+            f"({fipi.get('big_fish_regime')})"
+        )
+        lines.append(f"    breakdown: {comp_str}")
+        lines.append(
+            f"  retail_net = {fipi.get('retail_net_pkr_mn')} mn PKR  "
+            f"(Individuals/Brokers — typically chase, less informative)"
+        )
     # Is the symbol's sector on the top flows list?
     for s in (fipi.get("top_sectors_by_flow") or []):
         name = (s.get("sector") or "").lower()
@@ -283,6 +433,37 @@ def build_briefing(ctx: dict) -> str:
             lines.append(
                 f"  Sector flow match: '{s.get('sector')}' net_usd_mn={s.get('net_usd_mn')}"
             )
+
+    # Sector volume heatmap — "where the action is" today vs 20-day avg
+    try:
+        from ui.tools import get_sector_volume_heatmap
+        heat = get_sector_volume_heatmap(top_k=5, lookback_days=20)
+        top = heat.get("top") or []
+        if top:
+            lines.append("  SECTOR VOLUME LEADERS TODAY (vs 20d avg):")
+            for s in top:
+                ratio = s.get("ratio_vs_avg")
+                ratio_str = (f"{ratio:.1f}× avg" if ratio is not None
+                             else "n/a")
+                hot = " HOT" if s.get("is_hot") else ""
+                lines.append(
+                    f"    - {s.get('sector')}: "
+                    f"PKR {s.get('today_pkr_mn')} mn  ({ratio_str}){hot}"
+                )
+            sector_first = sector.lower().split()[0]
+            for s in top:
+                sname = (s.get("sector") or "").lower()
+                if sector_first in sname and s.get("is_hot"):
+                    lines.append(
+                        f"    NOTE: {sym}'s sector ({s['sector']}) is "
+                        f"trading HOT today ({s.get('ratio_vs_avg')}× "
+                        f"normal volume) — possible institutional "
+                        f"rotation."
+                    )
+                    break
+    except Exception as e:
+        lines.append(f"  SECTOR VOLUME HEATMAP: (skipped — "
+                     f"{type(e).__name__})")
 
     lines += [
         "",
@@ -420,6 +601,35 @@ def build_briefing(ctx: dict) -> str:
                 f"flags = {', '.join(flags) if flags else '—'}",
                 f"  outlook: {(mo.get('outlook_summary') or '')[:280]}",
             ]
+            # Capacity utilisation — analyst-flagged: a low utilisation +
+            # capex announcement means demand isn't actually the binding
+            # constraint, so the LLM gets an explicit gating signal here.
+            inst_cap = mo.get("installed_capacity")
+            act_prod = mo.get("actual_production")
+            util_pct = mo.get("capacity_utilization_pct")
+            if inst_cap or act_prod or util_pct is not None:
+                cap_bits = []
+                if inst_cap:
+                    cap_bits.append(f"installed={str(inst_cap)[:60]}")
+                if act_prod:
+                    cap_bits.append(f"actual={str(act_prod)[:60]}")
+                if util_pct is not None:
+                    cap_bits.append(f"utilization={util_pct:.0f}%")
+                tag = ""
+                if util_pct is not None:
+                    if util_pct < 70 and mo.get("capex_announced"):
+                        tag = ("  (LOW UTILISATION + CAPEX — capacity is "
+                               "NOT the binding constraint; downgrade "
+                               "conviction one notch)")
+                    elif util_pct >= 90 and mo.get("expansion_announced"):
+                        tag = ("  (HIGH UTILISATION + EXPANSION — "
+                               "expansion is well-justified by demand)")
+                lines.append("  capacity: " + " | ".join(cap_bits) + tag)
+            if mo.get("new_products"):
+                lines.append(
+                    "  new products: "
+                    + "; ".join(str(x)[:80] for x in mo["new_products"][:3])
+                )
             if plans:
                 lines.append(
                     "  top plan: " + (plans[0] or "")[:200]
@@ -435,6 +645,34 @@ def build_briefing(ctx: dict) -> str:
     except Exception as e:
         lines += ["",
                    f"MANAGEMENT OUTLOOK: (skipped — {type(e).__name__})"]
+
+    # Material Information — high-volatility flag (analyst-requested)
+    try:
+        from ui import dashboard_data as _dash2
+        mi = _dash2.material_information_recent(symbol=sym, days=10,
+                                                  top_k=5)
+        rows = (mi or {}).get("rows") or []
+        if rows:
+            lines += [
+                "",
+                f"MATERIAL INFORMATION (last 10 trading days, {len(rows)} filings)",
+            ]
+            for r in rows[:5]:
+                title = (r.get("title") or "")[:130]
+                lines.append(f"  [{r.get('date')}] {title}")
+            lines.append(
+                "  Note: Material Information disclosures typically "
+                "precede 3-7% gaps. Treat as a VOLATILITY FLAG: widen "
+                "the expected_return_5d band by 50% if any filing is "
+                "<= 2 trading days old, and downgrade BUY conviction "
+                "one notch unless the news is unambiguously positive."
+            )
+        else:
+            lines += ["", "MATERIAL INFORMATION: none in the last "
+                       "10 days."]
+    except Exception as e:
+        lines += ["", f"MATERIAL INFORMATION: (skipped — "
+                   f"{type(e).__name__})"]
 
     return "\n".join(lines)
 

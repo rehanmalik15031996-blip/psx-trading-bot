@@ -294,6 +294,56 @@ class PSXResultsConnector(BaseConnector):
                 out[kind].append(rec)
         return out
 
+    # ---- material information -------------------------------------
+    def fetch_material_information(
+        self, symbols: list[str] | None = None,
+        since: str | None = None,
+    ) -> list[dict]:
+        """Walk the universe and return all MATERIAL-type announcements.
+
+        Material Information is how PSX-listed companies disclose
+        price-sensitive events between scheduled filings — major
+        contracts, M&A, regulatory actions, plant trips, large
+        impairments, etc. Their presence frequently precedes 3-7%
+        gaps, which is why we surface them as a distinct stream
+        rather than rolling them into the general announcements feed.
+
+        Parameters
+        ----------
+        symbols : list[str] | None
+            Universe subset; defaults to every symbol in the trading
+            universe.
+        since : str | None
+            ISO date (YYYY-MM-DD); only filings on or after this date
+            are returned. ``None`` returns the full history Mettis
+            currently exposes.
+
+        Returns
+        -------
+        list[dict] sorted newest-first, schema::
+
+            {symbol, date, title, doc_id, pdf_url, tab,
+             type='MATERIAL', fy_period}
+        """
+        if symbols is None:
+            from config.universe import symbols as universe_symbols
+            symbols = universe_symbols()
+        out: list[dict] = []
+        for sym in symbols:
+            try:
+                anns = self.fetch_announcements(sym)
+            except Exception:
+                continue
+            for a in anns:
+                if a.get("type") != "MATERIAL":
+                    continue
+                if since and (a.get("date") or "") < since:
+                    continue
+                out.append(a)
+        out.sort(key=lambda r: (r.get("date") or "", r.get("symbol") or ""),
+                 reverse=True)
+        return out
+
     # ---- pdf download ----------------------------------------------
     def download_pdf(self, doc_id: str | int, dest: Path) -> str:
         """Download the PDF for `doc_id`, save to `dest`, return SHA256.

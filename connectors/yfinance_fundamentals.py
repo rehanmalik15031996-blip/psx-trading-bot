@@ -34,6 +34,39 @@ warnings.filterwarnings("ignore")
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CACHE_DIR = PROJECT_ROOT / "data" / "fundamentals"
 META_PATH = CACHE_DIR / "_meta.json"
+SECTOR_MEDIANS_PATH = CACHE_DIR / "_sector_medians.json"
+
+
+def _latest_psx_close(symbol: str) -> float | None:
+    """Most recent PSX close from the cached OHLCV parquet.
+
+    yfinance ``regularMarketPrice`` is often days stale for PSX names, so
+    every derived ratio (P/E, P/B, dividend yield, payout ratio) is
+    anchored on the price our own pipeline already trusts.
+    """
+    try:
+        from data.store import load_ohlcv
+        df = load_ohlcv(symbol)
+        if df is None or df.empty:
+            return None
+        c = float(df.iloc[-1]["close"])
+        return c if c > 0 else None
+    except Exception:
+        return None
+
+
+def _safe_div(num, den):
+    """Float division that returns None instead of raising on bad inputs."""
+    try:
+        if num is None or den is None:
+            return None
+        n = float(num)
+        d = float(den)
+        if d == 0:
+            return None
+        return n / d
+    except (TypeError, ValueError):
+        return None
 
 
 class YFinanceFundamentalsConnector(BaseConnector):
@@ -228,13 +261,42 @@ class YFinanceFundamentalsConnector(BaseConnector):
                 except Exception:
                     pass
 
+            # ---------------- derived valuation ratios ----------------
+            # Anchored on the most recent PSX close (our own cache), NOT
+            # yfinance ``regularMarketPrice`` which is days stale for
+            # Pakistani equities. This means the ratios match what the
+            # analyst sees on the screen the same morning.
+            psx_close = _latest_psx_close(symbol)
+            book_f = float(book) if book is not None else None
+            eps_f = float(eps_ttm) if eps_ttm is not None else None
+            div_f = float(div_ttm) if div_ttm is not None else None
+
+            pe_ratio = _safe_div(psx_close, eps_f)
+            pb_ratio = _safe_div(psx_close, book_f)
+            div_yield_pct = (
+                _safe_div(div_f, psx_close) * 100.0
+                if (_safe_div(div_f, psx_close) is not None) else None
+            )
+            payout_pct = (
+                _safe_div(div_f, eps_f) * 100.0
+                if (_safe_div(div_f, eps_f) is not None) else None
+            )
+            # Payout ratio can spike past 100% in down-earnings years
+            # (companies often hold the dividend constant). We clip to a
+            # sane band so downstream interpretation isn't dominated by
+            # outliers, but we keep the raw number too for transparency.
+            payout_pct_clipped = (
+                max(0.0, min(200.0, payout_pct))
+                if payout_pct is not None else None
+            )
+
             rec.update({
                 "ok": True,
                 "currency": info.get("currency", "PKR"),
-                "book_value_per_share": (round(float(book), 4)
-                                         if book is not None else None),
-                "eps_ttm": (round(float(eps_ttm), 4)
-                            if eps_ttm is not None else None),
+                "book_value_per_share": (round(book_f, 4)
+                                         if book_f is not None else None),
+                "eps_ttm": (round(eps_f, 4)
+                            if eps_f is not None else None),
                 "shares_outstanding": (float(shares)
                                        if shares is not None else None),
                 "market_cap_pkr": (float(mcap) if mcap is not None else None),
@@ -252,6 +314,20 @@ class YFinanceFundamentalsConnector(BaseConnector):
                 "yf_stale_price": (float(info.get("regularMarketPrice"))
                                    if info.get("regularMarketPrice") is not None
                                    else None),
+                # New derived ratios — analyst-facing
+                "psx_close_pkr": (round(psx_close, 4)
+                                  if psx_close is not None else None),
+                "pe_ratio": (round(pe_ratio, 2)
+                             if pe_ratio is not None else None),
+                "pb_ratio": (round(pb_ratio, 2)
+                             if pb_ratio is not None else None),
+                "dividend_yield_pct": (round(div_yield_pct, 2)
+                                       if div_yield_pct is not None else None),
+                "payout_ratio_pct": (round(payout_pct_clipped, 1)
+                                     if payout_pct_clipped is not None
+                                     else None),
+                "payout_ratio_pct_raw": (round(payout_pct, 1)
+                                         if payout_pct is not None else None),
             })
         except Exception as e:
             rec["error"] = f"{type(e).__name__}: {e}"
@@ -307,6 +383,13 @@ class YFinanceFundamentalsConnector(BaseConnector):
                     "revenue_5y_json": json.dumps(rec.get("revenue_5y") or []),
                     "net_income_5y_json": json.dumps(rec.get("net_income_5y") or []),
                     "eps_5y_json": json.dumps(rec.get("eps_5y") or []),
+                    # Derived ratios (anchored on PSX close)
+                    "psx_close_pkr": rec.get("psx_close_pkr"),
+                    "pe_ratio": rec.get("pe_ratio"),
+                    "pb_ratio": rec.get("pb_ratio"),
+                    "dividend_yield_pct": rec.get("dividend_yield_pct"),
+                    "payout_ratio_pct": rec.get("payout_ratio_pct"),
+                    "payout_ratio_pct_raw": rec.get("payout_ratio_pct_raw"),
                     "error": rec.get("error", ""),
                 }])
                 df.to_parquet(CACHE_DIR / f"{sym}.parquet", index=False)
@@ -314,6 +397,18 @@ class YFinanceFundamentalsConnector(BaseConnector):
                 meta["results"][sym] = f"save_fail: {e}"
 
         META_PATH.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+
+        # Recompute sector medians (P/E, P/B, dividend yield, payout
+        # ratio) once the universe-wide refresh is finished. We keep
+        # this in a separate module so callers can also recompute it
+        # cheaply at any time without re-pulling yfinance.
+        try:
+            from brain.sector_ratios import refresh_sector_medians
+            refresh_sector_medians()
+        except Exception as e:
+            meta["sector_medians_error"] = f"{type(e).__name__}: {e}"
+            META_PATH.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+
         elapsed = (time.perf_counter() - start) * 1000.0
         ok_count = sum(1 for v in meta["results"].values() if v == "ok")
         return FetchResult(
@@ -322,7 +417,9 @@ class YFinanceFundamentalsConnector(BaseConnector):
             latency_ms=elapsed,
             format="parquet",
             schema=["symbol", "book_value_per_share", "eps_ttm",
-                    "dividend_ttm", "shares_outstanding", "market_cap_pkr"],
+                    "dividend_ttm", "shares_outstanding", "market_cap_pkr",
+                    "pe_ratio", "pb_ratio", "dividend_yield_pct",
+                    "payout_ratio_pct"],
             records=records,
             extras={"meta": meta},
             summary=f"{ok_count}/{len(syms)} symbols fetched ok",
