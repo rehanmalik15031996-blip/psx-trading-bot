@@ -945,7 +945,54 @@ def build_doc_model() -> list[dict]:
             "permits a small conviction upgrade; a -10% OBV move "
             "against an apparent uptrend is a divergence flag."},
 
-        {"name": "Strategy 13 — Cost-aware Trade Filter",
+        {"name": "Strategy 13 — Sector-aware Macroeconomic Impact",
+         "why":
+            "Macroeconomic news rarely moves all stocks in the same "
+            "direction; it sorts the market by sector. A 1 percentage-"
+            "point increase in the policy rate is a strong tailwind "
+            "for banks (they reprice loans faster than deposits) and "
+            "a strong headwind for cement (financial costs spike and "
+            "construction demand falls). An oil price spike rewards "
+            "exploration and production companies and squeezes "
+            "transportation, packaging, and pharmaceutical importers. "
+            "The system needs to recognise these patterns "
+            "automatically and tell the analyst exactly which stocks "
+            "win and which stocks get hurt.",
+         "calc":
+            "A deterministic rule book (kept in plain code, not a "
+            "model) maps each macroeconomic indicator move "
+            "(policy-rate change, oil price 5- and 21-day returns, "
+            "USD/PKR 21- and 63-day moves, coal proxy, cotton) to a "
+            "small signed score in each sector. Banking on a rate-up "
+            "day scores +2 (margin expansion); Cement on the same "
+            "day scores -3 (financial costs and demand both bite). "
+            "The score for an individual stock then adjusts that "
+            "sector reading by the company's debt-to-equity ratio "
+            "from the latest balance sheet — a high-leverage cement "
+            "company is hit harder than a low-leverage peer — and by "
+            "company-specific tags (CASA-rich tier-1 banks get an "
+            "extra notch on rate-up days; HUBCO carries an extra "
+            "headwind notch on rate-up days because of its ongoing "
+            "tariff renegotiation). Every score line carries a "
+            "human-readable explanation so the analyst sees not just "
+            "'+2' but 'higher policy rate widens net interest "
+            "margins'.",
+         "role":
+            "Two roles. (1) Reasoning input: the briefing handed to "
+            "the AI now includes a 'macro impact for this stock' "
+            "block listing the active drivers, the sector verdict, "
+            "and the stock-level verdict with its amplifier note. "
+            "The AI is required to cite at least one macro tailwind "
+            "or headwind in its rationale and to reflect strong "
+            "headwinds in conviction. (2) Direct visibility: a "
+            "Macro Radar panel on the Today tab shows today's "
+            "sector winners and losers and the most-affected "
+            "individual stocks, so the analyst can see the same "
+            "logic the AI saw. The same data is exposed inside "
+            "the per-stock Forecast drill-down as the 'Why this "
+            "call?' panel."},
+
+        {"name": "Strategy 14 — Cost-aware Trade Filter",
          "why":
             "Cost models are usually retrofitted to post-mortem P&L. "
             "Here they are baked in as a pre-trade filter so no "

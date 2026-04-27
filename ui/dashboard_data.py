@@ -459,7 +459,19 @@ def morning_brief() -> dict:
         "earnings_calendar": _safe(tools.get_earnings_calendar, days_ahead=21),
         "management_outlook": _safe(latest_management_outlook),
         "material_information": _safe(material_information_recent, days=14),
+        "macro_impact": _safe(_macro_impact_today),
     }
+
+
+def _macro_impact_today() -> dict:
+    """Today's deterministic per-sector macro reading.
+
+    Wraps :func:`brain.macro_impact.compute_macro_impact` so the Today
+    tab can show a Macro Radar panel without recomputing on each rerun.
+    Failure modes are absorbed by ``_safe`` in :func:`morning_brief`.
+    """
+    from brain.macro_impact import compute_macro_impact
+    return compute_macro_impact()
 
 
 def _latest_bar_date_in_dir(dir_path: Path) -> str | None:

@@ -93,10 +93,31 @@ The schema is:
   "suggested_action": "BUY" | "ADD" | "HOLD" | "TRIM" | "AVOID" | "SELL",
   "suggested_stop_pkr": <float>,
   "suggested_target_pkr": <float>,
-  "rationale": "<2-3 sentence paragraph>",
-  "key_drivers": ["<short bullet>", "<short bullet>"],
-  "key_risks": ["<short bullet>", "<short bullet>"]
+  "rationale": "<4-6 sentence paragraph; see 'RATIONALE REQUIREMENTS' below>",
+  "key_drivers": ["<short bullet, each MUST cite one signal from the briefing>", ...],
+  "key_risks": ["<short bullet, each MUST cite one signal from the briefing>", ...],
+  "macro_tailwinds": ["<short bullet from MACRO IMPACT block, only those >=+1>", ...],
+  "macro_headwinds": ["<short bullet from MACRO IMPACT block, only those <=-1>", ...]
 }
+
+RATIONALE REQUIREMENTS (analyst-mandatory — the investor needs to see the
+"why" behind every bullish/bearish decision):
+- The rationale MUST be 4-6 sentences. Length matters because the analyst
+  has explicitly asked for explained decisions.
+- Sentence 1: state the call (BULLISH/BEARISH/NEUTRAL) and the headline
+  reason in plain English.
+- Sentence 2: cite the dominant TECHNICAL signal (momentum, RSI,
+  Bollinger, MACD, OBV).
+- Sentence 3: cite the dominant FUNDAMENTAL or VALUE signal (P/E vs
+  sector, fair value gap, quality, earnings momentum, management
+  outlook).
+- Sentence 4: cite the dominant MACRO / FLOWS signal (policy rate,
+  Brent, USD/PKR, big-fish FIPI/LIPI, sector volume).
+- Sentence 5 (optional): mention the most important RISK and what would
+  flip the call.
+- Use plain English. No jargon. The audience is a financial analyst,
+  not a quant. Talk in cause-and-effect ("rates fell, so cement margins
+  ease, so MLCF gains earnings power").
 
 Calibration guidance (IMPORTANT):
 - Most 5-day moves on PSX are ±2-6%. A "BULLISH" call should expect the mid
@@ -213,6 +234,34 @@ Calibration guidance (IMPORTANT):
       briefing, treat that sector as having short-term momentum
       tailwind — supports BULLISH calls on member stocks for ~3
       trading days.
+- SECTOR-AWARE MACRO IMPACT (analyst-mandatory):
+    * The briefing now contains a "MACRO IMPACT FOR THIS STOCK" stanza
+      that lists today's active macro drivers, the sector verdict, and
+      the stock-level verdict (with leverage / tier amplifiers).
+    * Stock-level verdict STRONG TAILWIND (score >= +3) on a BULLISH
+      call → conviction can be HIGH; mention the dominant driver in
+      the rationale.
+    * Stock-level verdict STRONG HEADWIND (score <= -3) on a BULLISH
+      call → downgrade conviction one notch and add the headwind to
+      key_risks.
+    * Stock-level verdict TAILWIND (+1, +2): mention as a supporting
+      reason in macro_tailwinds[].
+    * Stock-level verdict HEADWIND (-1, -2): mention in
+      macro_headwinds[].
+    * If the stock is in a HEADWIND sector but you're calling BULLISH
+      because of a stock-specific catalyst (earnings beat, Material
+      Information positive), you MUST acknowledge the macro headwind in
+      the rationale and explain why the stock-specific catalyst trumps
+      it. NEVER ignore a STRONG HEADWIND silently.
+    * Examples (the analyst asked for these explicitly):
+        - Rate +1.0pp + Banking + tier-1 (MCB/MEBL): STRONG TAILWIND
+          (+3 to +4) — NIM expansion. Push conviction.
+        - Rate +1.0pp + Cement + high-D/E (e.g. MLCF if D/E>1):
+          STRONG HEADWIND (-4 to -5). Downgrade to AVOID/SELL.
+        - Brent +12% in 21d + Oil & Gas E&P: STRONG TAILWIND (+3) —
+          revenue lift on every barrel.
+        - PKR weak 3% in 21d + Pharma: STRONG HEADWIND (-2 to -3) —
+          API import cost spike.
 - MATERIAL INFORMATION (price-sensitive corporate disclosures):
     * If the briefing lists Material Information filings <= 2
       trading days old, widen the expected_return_5d band by 50%
@@ -399,6 +448,53 @@ def build_briefing(ctx: dict) -> str:
     ]
     if rate.get("interpretation"):
         lines.append(f"  Regime: {rate['interpretation']}")
+
+    # Sector-aware macro impact — translates the macro context above
+    # into per-sector tailwinds / headwinds and per-stock amplifiers
+    # (high-D/E names amplify rate moves, etc.). The analyst asked
+    # explicitly: "interest rates increased by 1% — explain how this
+    # impacts banking, cement, etc."  This stanza answers that.
+    try:
+        from brain.macro_impact import compute_macro_impact
+        mi = compute_macro_impact(macro=macro, rate=rate, universe=[sym])
+        drivers = mi.get("drivers") or []
+        sym_block = (mi.get("by_symbol") or {}).get(sym) or {}
+        sector_block = (mi.get("by_sector") or {}).get(sector) or {}
+        if drivers or sym_block:
+            lines += ["", "MACRO IMPACT FOR THIS STOCK"]
+            if drivers:
+                lines.append(f"  Active drivers ({len(drivers)}):")
+                for d in drivers[:6]:
+                    lines.append(
+                        f"    - {d.get('magnitude'):>8}  "
+                        f"{d.get('name')}: {d.get('move')}"
+                    )
+            if sector_block:
+                v = sector_block.get("verdict") or "NEUTRAL"
+                sc = sector_block.get("score", 0)
+                lines.append(
+                    f"  Sector ({sector}) verdict: {v}  (score = {sc:+d})"
+                )
+                for t in (sector_block.get("tailwinds") or [])[:4]:
+                    lines.append(f"    + {t}")
+                for h in (sector_block.get("headwinds") or [])[:4]:
+                    lines.append(f"    - {h}")
+            if sym_block:
+                lines.append(
+                    f"  Stock-level verdict: {sym_block.get('verdict')}  "
+                    f"(stock_score = {sym_block.get('stock_score'):+d}, "
+                    f"sector_score = {sym_block.get('sector_score'):+d})"
+                )
+                if sym_block.get("amplifier_note"):
+                    lines.append(f"    amplifier: {sym_block['amplifier_note']}")
+            lines.append(
+                "  Note: macro impact is a DETERMINISTIC sector rule book. "
+                "Use it to *justify* your direction call in the rationale; "
+                "high-magnitude tailwinds or headwinds should also adjust "
+                "conviction up or down."
+            )
+    except Exception as e:
+        lines += ["", f"MACRO IMPACT: (skipped — {type(e).__name__}: {e})"]
 
     lines += [
         "",
@@ -936,11 +1032,37 @@ def predict_with_rules(ctx: dict) -> dict:
     stop = round(close * 0.92, 2)
     target = round(close * (1 + max(high, 3.0) / 100.0), 2)
 
+    # Sector-aware macro impact (so the rule-based fallback is not blind
+    # to the analyst's macro requirement).
+    macro_tailwinds: list[str] = []
+    macro_headwinds: list[str] = []
+    macro_summary = ""
+    try:
+        from brain.macro_impact import compute_macro_impact
+        sym_for_mi = ctx.get("symbol", "?")
+        mi = compute_macro_impact(macro={"indicators": macro}, rate=rate,
+                                    universe=[sym_for_mi])
+        sym_block = (mi.get("by_symbol") or {}).get(sym_for_mi) or {}
+        for t in (sym_block.get("tailwinds") or [])[:3]:
+            macro_tailwinds.append(t)
+        for h in (sym_block.get("headwinds") or [])[:3]:
+            macro_headwinds.append(h)
+        if sym_block.get("verdict"):
+            macro_summary = (f"Macro verdict: {sym_block.get('verdict')} "
+                              f"(stock score {sym_block.get('stock_score'):+d}). ")
+    except Exception:
+        pass
+
     rationale = (
-        f"Rule-based score {score:+.2f} (direction {direction}, "
-        f"conviction {conviction}). Driven by {len(drivers)} positive factors "
-        f"and {len(risks)} risks. No news sentiment integrated "
-        f"(LLM not available)."
+        f"Rule-based call: {direction} with {conviction} conviction "
+        f"(score {score:+.2f}). "
+        f"Drivers ({len(drivers)}): "
+        f"{drivers[0] if drivers else 'none material'}. "
+        f"Risks ({len(risks)}): "
+        f"{risks[0] if risks else 'none material'}. "
+        f"{macro_summary}"
+        f"This is a deterministic fallback — the AI model was "
+        f"unavailable; rationale is therefore terse."
     )
 
     return {
@@ -955,6 +1077,8 @@ def predict_with_rules(ctx: dict) -> dict:
         "rationale": rationale,
         "key_drivers": drivers[:4] or ["No strong drivers"],
         "key_risks": risks[:4] or ["No material risks flagged"],
+        "macro_tailwinds": macro_tailwinds,
+        "macro_headwinds": macro_headwinds,
     }
 
 
@@ -1031,6 +1155,25 @@ def generate_one(sym: str, provider: str) -> dict:
         pred = predict_with_rules(ctx)
         model = "rule-based-v1"
 
+    # Snapshot the deterministic macro-impact reading at prediction
+    # time, so the UI ("Why this call?") can show the same tailwinds /
+    # headwinds the LLM saw, even if macro data shifts later.
+    macro_impact_snapshot = None
+    try:
+        from brain.macro_impact import compute_macro_impact
+        mi_full = compute_macro_impact(
+            macro=ctx.get("macro"), rate=ctx.get("policy_rate"),
+            universe=[sym],
+        )
+        macro_impact_snapshot = {
+            "drivers": mi_full.get("drivers") or [],
+            "by_sector": (mi_full.get("by_sector") or {}).get(
+                ctx.get("sector"), {}),
+            "by_symbol": (mi_full.get("by_symbol") or {}).get(sym, {}),
+        }
+    except Exception:
+        macro_impact_snapshot = None
+
     now = datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
     record = {
         "prediction_id": f"{date.today().isoformat()}-{sym}",
@@ -1041,6 +1184,7 @@ def generate_one(sym: str, provider: str) -> dict:
         "horizon_trading_days": HORIZON_DAYS,
         "entry_price_pkr": close,
         **pred,
+        "macro_impact": macro_impact_snapshot,
         "data_snapshot": gather_snapshot(ctx),
         "outcome": {
             "checked_at": None,

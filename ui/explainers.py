@@ -311,7 +311,12 @@ def top_action_today(brief: dict[str, Any]) -> dict[str, Any]:
         "target":  best.get("suggested_target_pkr"),
         "gross":   best.get("expected_gross_5d_pct"),
         "net":     best.get("expected_net_5d_pct"),
-        "reason":  (best.get("rationale") or "")[:280],
+        "reason":  (best.get("rationale") or ""),  # full rationale, no clip
+        "key_drivers":      best.get("key_drivers") or [],
+        "key_risks":        best.get("key_risks") or [],
+        "macro_tailwinds":  best.get("macro_tailwinds") or [],
+        "macro_headwinds":  best.get("macro_headwinds") or [],
+        "macro_impact":     best.get("macro_impact"),  # full snapshot if any
     }
 
 

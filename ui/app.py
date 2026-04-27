@@ -915,6 +915,14 @@ def render_today_tab():
         _today_portfolio_card(brief.get("portfolio", {}),
                                brief.get("journal_stats", {}))
 
+    # ---------------------------------------------------- Macro Radar
+    # Sector-aware reading of today's macro drivers (rates, oil, FX,
+    # etc.). The analyst asked for an explicit sector winners/losers
+    # view: "today interest rates increased by 1% — show me which
+    # banks benefit and which cement names get hurt".  This panel
+    # answers that directly.
+    _today_macro_radar(brief.get("macro_impact", {}))
+
     # ---------------------------------------------------- Alerts
     if alerts:
         st.markdown("#### Things to watch")
@@ -983,8 +991,47 @@ def _today_action_card(action: dict) -> None:
         cc1.metric("Buy near",   f"{action.get('entry') or '—'}")
         cc2.metric("Stop loss",  f"{action.get('stop') or '—'}")
         cc3.metric("Target",     f"{action.get('target') or '—'}")
+        # ---- Why this call?  (analyst-mandatory explainer)
+        # The analyst said: "Investor should know the rationale behind
+        # decision making". Show the full LLM rationale plus the top
+        # drivers, risks, and macro tailwinds/headwinds.
         if action.get("reason"):
-            st.caption(action["reason"])
+            st.markdown("**Why this call?**")
+            st.markdown(f"_{action['reason']}_")
+        drivers = action.get("key_drivers") or []
+        risks = action.get("key_risks") or []
+        tailwinds = action.get("macro_tailwinds") or []
+        headwinds = action.get("macro_headwinds") or []
+        if drivers or risks or tailwinds or headwinds:
+            with st.expander("Drivers, risks and macro context",
+                              expanded=False):
+                if drivers:
+                    st.markdown("**Drivers (positive signals)**")
+                    for d in drivers[:5]:
+                        st.markdown(f"- {d}")
+                if risks:
+                    st.markdown("**Risks (what could break this)**")
+                    for r in risks[:5]:
+                        st.markdown(f"- {r}")
+                if tailwinds:
+                    st.markdown("**Macro tailwinds**")
+                    for t in tailwinds[:4]:
+                        st.markdown(f"- {t}")
+                if headwinds:
+                    st.markdown("**Macro headwinds**")
+                    for h in headwinds[:4]:
+                        st.markdown(f"- {h}")
+                # If we stored the deterministic macro snapshot at
+                # prediction time, surface the dominant driver.
+                mi_snap = action.get("macro_impact") or {}
+                drivers_active = mi_snap.get("drivers") or []
+                if drivers_active:
+                    top = drivers_active[0]
+                    st.caption(
+                        f"Dominant macro driver at the time of the call: "
+                        f"**{top.get('name')}** "
+                        f"({top.get('move')}, {top.get('magnitude')})."
+                    )
 
 
 def _today_mood_card(mood: dict) -> None:
@@ -1020,6 +1067,131 @@ def _today_portfolio_card(pf: dict, js: dict) -> None:
             "Win rate (closed)",
             f"{js.get('win_rate_pct', 0):.0f}%"
             if js.get("count") else "—",
+        )
+
+
+def _today_macro_radar(mi: dict) -> None:
+    """Macro Radar — today's drivers + per-sector winners and losers.
+
+    The analyst's exact request: "today interest rates increased by 1%
+    — show me which banks benefit most and which cement names get hurt
+    most". This panel is the visual answer.
+    """
+    if not mi or mi.get("error"):
+        with st.container(border=True):
+            st.markdown("### Macro Radar")
+            st.caption("Macro impact engine unavailable today "
+                        f"({mi.get('error', 'no data')}).")
+        return
+    drivers = mi.get("drivers") or []
+    by_sector = mi.get("by_sector") or {}
+    by_symbol = mi.get("by_symbol") or {}
+
+    with st.container(border=True):
+        st.markdown("### Macro Radar — today's sector winners & losers")
+        st.caption(
+            "How today's macro environment (policy rate, oil, USD/PKR, "
+            "etc.) reads across PSX sectors. Each sector and stock gets "
+            "a deterministic tailwind / headwind score so every call "
+            "this app makes can cite a specific reason."
+        )
+
+        # ---- Active drivers
+        if not drivers:
+            st.info(
+                "No major macro drivers active today — markets are in a "
+                "quiet macro regime. Stock-specific signals dominate."
+            )
+        else:
+            st.markdown("**Active macro drivers**")
+            d_rows = [
+                {
+                    "Driver":     d.get("name"),
+                    "Move":       d.get("move"),
+                    "Magnitude":  d.get("magnitude"),
+                    "Context":    d.get("context") or "",
+                }
+                for d in drivers[:8]
+            ]
+            st.dataframe(d_rows, hide_index=True,
+                          use_container_width=True)
+
+        # ---- Sector winners / losers
+        if by_sector:
+            sec_rows = sorted(
+                [
+                    {
+                        "Sector":  s,
+                        "Score":   v.get("score", 0),
+                        "Verdict": v.get("verdict") or "NEUTRAL",
+                        "Top reason": (
+                            ((v.get("tailwinds") or [None])[0]
+                             if (v.get("score") or 0) > 0
+                             else (v.get("headwinds") or [None])[0])
+                            or "—"
+                        ),
+                    }
+                    for s, v in by_sector.items()
+                ],
+                key=lambda r: r["Score"], reverse=True,
+            )
+            cw, ch = st.columns(2)
+            with cw:
+                st.markdown(":green[**Tailwind sectors**]")
+                wins = [r for r in sec_rows if r["Score"] > 0]
+                if wins:
+                    st.dataframe(wins, hide_index=True,
+                                  use_container_width=True)
+                else:
+                    st.caption("No clear tailwind sectors today.")
+            with ch:
+                st.markdown(":red[**Headwind sectors**]")
+                losers = [r for r in sec_rows if r["Score"] < 0]
+                if losers:
+                    st.dataframe(losers, hide_index=True,
+                                  use_container_width=True)
+                else:
+                    st.caption("No clear headwind sectors today.")
+
+        # ---- Most affected stocks (with leverage amplifier)
+        if by_symbol:
+            sym_rows = sorted(
+                [
+                    {
+                        "Symbol":         s,
+                        "Sector":         v.get("sector"),
+                        "Stock score":    v.get("stock_score", 0),
+                        "Sector score":   v.get("sector_score", 0),
+                        "Verdict":        v.get("verdict") or "NEUTRAL",
+                        "Amplifier":      v.get("amplifier_note") or "—",
+                    }
+                    for s, v in by_symbol.items()
+                ],
+                key=lambda r: r["Stock score"], reverse=True,
+            )
+            cw2, ch2 = st.columns(2)
+            with cw2:
+                st.markdown(":green[**Stocks most likely to benefit**]")
+                top = [r for r in sym_rows if r["Stock score"] > 0][:5]
+                if top:
+                    st.dataframe(top, hide_index=True,
+                                  use_container_width=True)
+                else:
+                    st.caption("No stock currently in clear macro tailwind.")
+            with ch2:
+                st.markdown(":red[**Stocks most exposed to headwinds**]")
+                bot = [r for r in sym_rows if r["Stock score"] < 0]
+                bot = sorted(bot, key=lambda r: r["Stock score"])[:5]
+                if bot:
+                    st.dataframe(bot, hide_index=True,
+                                  use_container_width=True)
+                else:
+                    st.caption("No stock currently in clear macro headwind.")
+        st.caption(
+            "Scores are signed integers from the deterministic rule "
+            "book in `brain/macro_impact.py` (sector base sensitivity "
+            "+/- a leverage amplifier). Higher absolute value = more "
+            "confident the move helps or hurts the name."
         )
 
 
@@ -2138,13 +2310,100 @@ def render_predictions_tab():
         c1.metric("Entry", f"{p.get('entry_price_pkr')} PKR")
         c2.metric("Stop",  f"{p.get('suggested_stop_pkr')} PKR")
         c3.metric("Target", f"{p.get('suggested_target_pkr')} PKR")
-        st.markdown("**Rationale:** " + (p.get("rationale") or "—"))
-        drivers = p.get("key_drivers") or []
-        risks = p.get("key_risks") or []
-        if drivers:
-            st.markdown("**Drivers:** " + " · ".join(drivers))
-        if risks:
-            st.markdown("**Risks:** " + " · ".join(risks))
+
+        # -------------------------------------------------------- Why this call?
+        # Analyst-mandatory: every bullish/bearish call must show the
+        # reasoning behind it.
+        direction = (p.get("direction") or "").upper()
+        conviction = (p.get("conviction") or "").upper()
+        action_str = (p.get("suggested_action") or "").upper()
+        dir_color = ("green" if direction == "BULLISH"
+                      else "red" if direction == "BEARISH" else "orange")
+        net_pct = p.get("expected_net_5d_pct")
+        st.markdown(
+            f"### Why this call?  "
+            f":{dir_color}[**{direction}**] · "
+            f"conviction **{conviction}** · "
+            f"action **{action_str}**"
+            + (f" · net **{net_pct:+.2f}%**" if net_pct is not None else "")
+        )
+        if p.get("rationale"):
+            st.markdown(f"_{p['rationale']}_")
+
+        cw1, cw2 = st.columns(2)
+        with cw1:
+            drivers = p.get("key_drivers") or []
+            if drivers:
+                st.markdown(":green[**Drivers (positive signals)**]")
+                for d in drivers[:6]:
+                    st.markdown(f"- {d}")
+            tailwinds = p.get("macro_tailwinds") or []
+            if tailwinds:
+                st.markdown(":green[**Macro tailwinds**]")
+                for t in tailwinds[:5]:
+                    st.markdown(f"- {t}")
+        with cw2:
+            risks = p.get("key_risks") or []
+            if risks:
+                st.markdown(":red[**Risks (what could break this)**]")
+                for r in risks[:6]:
+                    st.markdown(f"- {r}")
+            headwinds = p.get("macro_headwinds") or []
+            if headwinds:
+                st.markdown(":red[**Macro headwinds**]")
+                for h in headwinds[:5]:
+                    st.markdown(f"- {h}")
+
+        # ---- Stored macro impact snapshot at prediction time
+        mi_snap = p.get("macro_impact") or {}
+        if mi_snap:
+            with st.expander(
+                "Macro context at the time of this call "
+                "(deterministic rule book)",
+                expanded=False,
+            ):
+                drivers_snap = mi_snap.get("drivers") or []
+                if drivers_snap:
+                    st.markdown("**Active drivers**")
+                    st.dataframe(
+                        [
+                            {
+                                "Driver": d.get("name"),
+                                "Move": d.get("move"),
+                                "Magnitude": d.get("magnitude"),
+                                "Context": d.get("context") or "",
+                            }
+                            for d in drivers_snap
+                        ],
+                        hide_index=True, use_container_width=True,
+                    )
+                else:
+                    st.caption("No major drivers active at prediction "
+                                "time.")
+                sym_block = mi_snap.get("by_symbol") or {}
+                if sym_block:
+                    cs1, cs2, cs3 = st.columns(3)
+                    cs1.metric("Sector score",
+                                f"{sym_block.get('sector_score', 0):+d}")
+                    cs2.metric("Stock score",
+                                f"{sym_block.get('stock_score', 0):+d}")
+                    cs3.metric("Verdict",
+                                sym_block.get("verdict") or "NEUTRAL")
+                    if sym_block.get("amplifier_note"):
+                        st.caption(
+                            f"_Stock-specific amplifier: "
+                            f"{sym_block['amplifier_note']}_"
+                        )
+                sec_block = mi_snap.get("by_sector") or {}
+                if sec_block:
+                    if sec_block.get("tailwinds"):
+                        st.markdown(":green[**Sector-level tailwinds**]")
+                        for t in sec_block["tailwinds"]:
+                            st.markdown(f"- {t}")
+                    if sec_block.get("headwinds"):
+                        st.markdown(":red[**Sector-level headwinds**]")
+                        for h in sec_block["headwinds"]:
+                            st.markdown(f"- {h}")
 
         # ---- Management outlook panel (latest Director's Report) -----
         outlook = dash.latest_management_outlook(symbol=pick)
@@ -2661,6 +2920,118 @@ def render_value_tab():
     c.metric("Upside vs fair", f"{up:+.1f} %" if up is not None else "—")
     d.metric("Signal", rec.get("signal"),
               help=f"Confidence: {rec.get('confidence', '—')}")
+
+    # ---- Why BUY_VALUE / SELL_VALUE / FAIR? (analyst-mandatory)
+    # The analyst said: "every suggestion must be explained". This block
+    # constructs a plain-English explanation by combining the value
+    # signal, the quality gate, the earnings-momentum trajectory, the
+    # sector cheapness, and any nearby earnings event.
+    sig = (rec.get("signal") or "").upper()
+    sig_color = ("green" if sig == "BUY_VALUE"
+                  else "red" if sig == "SELL_VALUE"
+                  else "blue" if sig == "FAIR" else "gray")
+    st.markdown(
+        f"### Why this **:{sig_color}[{rec.get('signal')}]** call?"
+    )
+    why_lines: list[str] = []
+    method = rec.get("method") or "n/a"
+    conf = rec.get("confidence") or "—"
+    if up is not None:
+        if sig == "BUY_VALUE":
+            why_lines.append(
+                f"**Step 1 — Fair value gap.** Estimated fair value is "
+                f"**{a_fair} PKR** vs market **{rec.get('current_price')} "
+                f"PKR**, so the stock trades **{up:+.1f}%** below what "
+                f"the underlying earnings and book value support. Any "
+                f"upside above 25% qualifies as BUY_VALUE."
+            )
+        elif sig == "SELL_VALUE":
+            why_lines.append(
+                f"**Step 1 — Fair value gap.** Estimated fair value is "
+                f"**{a_fair} PKR**, but the market price is "
+                f"**{rec.get('current_price')} PKR**. The stock is "
+                f"**{abs(up):.1f}%** above fair — anything below -10% "
+                f"upside flags as SELL_VALUE."
+            )
+        elif sig == "FAIR":
+            why_lines.append(
+                f"**Step 1 — Fair value gap.** Estimated fair value is "
+                f"**{a_fair} PKR** vs market **{rec.get('current_price')} "
+                f"PKR** ({up:+.1f}%). That is inside the FAIR band "
+                f"(-10% to +25%) — neither a clear buy nor a clear sell."
+            )
+    why_lines.append(
+        f"**Step 2 — How fair value was estimated.** {method}.  "
+        f"Confidence: **{conf}** "
+        + (f"(method warnings: {', '.join(rec['warnings'])})"
+           if rec.get("warnings") else "")
+        + "."
+    )
+    # Quality gate (value trap detector)
+    qrec = q_by_sym.get(pick) or {}
+    if qrec.get("quality_score") is not None:
+        qband = (qrec.get("band") or "—").upper()
+        why_lines.append(
+            f"**Step 3 — Quality gate.** Quality score "
+            f"**{qrec['quality_score']}/100** ({qband}). "
+            + (
+                "HIGH quality + BUY_VALUE = the highest-edge setup."
+                if qband == "HIGH" and sig == "BUY_VALUE"
+                else "JUNK quality + BUY_VALUE = textbook value trap; "
+                      "stay away even though the screen flags BUY."
+                if qband == "JUNK" and sig == "BUY_VALUE"
+                else "Quality is filter, not signal — only acts as a "
+                      "veto when both ends agree."
+            )
+        )
+    # Earnings momentum
+    em = em_by_sym.get(pick) or {}
+    if em.get("flag") and em["flag"] != "INSUFFICIENT_DATA":
+        why_lines.append(
+            f"**Step 4 — Earnings trajectory.** **{em['flag']}** "
+            f"(YoY {em.get('yoy_growth_pct')}%, prior YoY "
+            f"{em.get('prior_yoy_growth_pct')}%, 3y CAGR "
+            f"{em.get('cagr_3y_pct')}%). "
+            + (
+                "Accelerating earnings + cheap valuation = strong setup."
+                if em["flag"] == "ACCELERATING" and sig == "BUY_VALUE"
+                else "Eroding earnings + apparent cheapness = often a "
+                      "trap — stay sceptical of the BUY signal."
+                if em["flag"] in ("EROSION", "DECELERATING")
+                     and sig == "BUY_VALUE"
+                else "Adds context but does not override the value call."
+            )
+        )
+    # Sector cheapness
+    if secm and (secm.get("pe_med") or secm.get("pb_med")):
+        why_lines.append(
+            f"**Step 5 — Sector context.** Sector medians used: "
+            f"P/E **{secm.get('pe_med')}**, P/B **{secm.get('pb_med')}** "
+            f"across **{secm.get('n')} peers**. The fair-value model "
+            f"benchmarks the stock against this cohort, not the whole "
+            f"market — so a 'cheap' read is cheap *relative to peers*."
+        )
+    # Nearby earnings event
+    ev = ev_by_sym.get(pick) or {}
+    if ev.get("days_until") is not None and ev["days_until"] <= 14:
+        why_lines.append(
+            f"**Step 6 — Nearby earnings event.** Likely results day "
+            f"**{ev.get('next_event_date_utc')}** "
+            f"(in **{ev['days_until']} days**). Hold off on adding "
+            f"until after the announcement — results-day moves of "
+            f"5-10% routinely overwhelm the value gap."
+        )
+    for line in why_lines:
+        st.markdown(line)
+
+    # Long-horizon vs short-horizon caveat
+    st.info(
+        "Fair-value calls have a **6-24 month horizon**. They sit "
+        "next to — not on top of — the short-term Forecast tab. A "
+        "cheap stock can stay cheap for many months; a SELL_VALUE "
+        "stock can keep rallying on momentum. Use this view to "
+        "weight position sizing, not as a 5-day timing tool."
+    )
 
     st.markdown(f"**Method:** {rec.get('method', '—')}")
     if rec.get("warnings"):
