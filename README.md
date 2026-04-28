@@ -14,14 +14,14 @@ It trades a **curated universe of 15 fundamental PSX blue chips**, auto-selected
 by `scripts/select_universe.py` from the KSE-30 / KMI-30 pool with sector caps.
 The universe has two layers:
 
-- **6 user-required tickers** pinned in `config/candidates.py::REQUIRED_TICKERS`
-  — currently `HUBC, PABC, MLCF, OGDC, FABL, PPL`.
+- **7 user-required tickers** pinned in `config/candidates.py::REQUIRED_TICKERS`
+  — currently `HUBC, PABC, MLCF, OGDC, FABL, PPL, NPL`.
 - **9 flex slots** ranked by training AUC with sector-diversity caps.
   Regenerate quarterly with `python scripts/select_universe.py`.
 
 ## Strategy in one paragraph
 
-On the **last trading day of every month**, rank the 15 stocks by 150-day
+On the **last trading day of every month**, rank the universe by 150-day
 log-return, drop the most volatile 30% (by 20-day realized vol), and if the
 universe's average 150-day momentum is positive, hold the top 5 equal-weighted
 for the month. If universe momentum is negative — **go to cash**. An optional
@@ -88,7 +88,7 @@ flowchart LR
 ```
 pakistan stock market/
 ├── config/
-│   ├── universe.py                 # The 15 stocks the bot trades
+│   ├── universe.py                 # The stocks the bot trades
 │   └── candidates.py               # REQUIRED_TICKERS + CANDIDATE_POOL
 ├── connectors/                     # Data source connectors
 │   ├── psx_historical.py           # PSX DPS EOD time-series
@@ -112,7 +112,7 @@ pakistan stock market/
 │   ├── portfolio.py                # User portfolio CRUD (JSON-backed)
 │   └── recommendations.py          # Position analysis + scanner tables
 ├── scripts/
-│   ├── select_universe.py          # Quarterly: pick the 15 stocks
+│   ├── select_universe.py          # Quarterly: pick the universe
 │   ├── backfill.py                 # Pull 5y OHLCV for universe
 │   ├── backfill_macro.py           # Pull 5y macro series
 │   ├── generate_report_v2.py       # Daily runner (Plan D)
@@ -401,7 +401,7 @@ that's your permanent audit trail.
   minutes/month**. Free tier gives 2,000 min/month for private repos, so
   this uses about 44% of your free quota. Public repos: unlimited.
 - Anthropic: about **$0.05–0.15/day** at current Haiku pricing for news
-  scoring (3x/day, ~25 articles each) + predictions (1x/day, 15 stocks).
+  scoring (3x/day, ~25 articles each) + predictions (1x/day, full universe).
 - Hosting: **$0** — the UI runs locally.
 
 
@@ -434,7 +434,7 @@ Then open http://localhost:8501 in your browser.
   lives in `data/user_portfolio.json`, **separate** from the bot's own paper
   portfolio.
 
-- **Scanner** — full 15-stock universe ranked by 150d momentum, with today's
+- **Scanner** — full universe ranked by 150d momentum, with today's
   Phase 1 picks highlighted. Good for hunting fresh buy ideas.
 
 - **Backtest** — run the full Plan D Phase 1 backtest on demand and view the
@@ -613,7 +613,7 @@ python scripts\daily_pipeline.py --dry-run       # don't touch paper portfolio
 
 ## Realistic expectations
 
-Over a 3-5 year horizon on our 15-stock universe with 40 bps round-trip costs:
+Over a 3-5 year horizon on our universe with 40 bps round-trip costs:
 
 - **CAGR: 15-20%** (not 30%+ — those numbers came from a cherry-picked window)
 - **Sharpe: 0.9 - 1.1**

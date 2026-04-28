@@ -1,20 +1,31 @@
-"""Daily PDF brief generator.
+"""Daily PDF brief generator (analyst-facing edition).
 
 Builds a single-file PDF you can download from the Today tab and forward
-to anyone (WhatsApp, email, print) — same content the UI shows, formatted
-for offline reading.
+to anyone (WhatsApp, email, print) or hand to an analyst — every
+recommendation in the document carries an explicit reason that traces
+back to a specific data point.
 
 Sections (in order):
-  1. Header: date, market mood, one-line narrative
-  2. What to do today: top action card
-  3. Things to watch: alerts
-  4. Forecast table: every universe stock with action / direction / 5d net
-  5. Portfolio snapshot: positions + P&L
-  6. Watchlist
-  7. Quality leaders
-  8. Earnings calendar (next 21 days)
-  9. Top movers (universe)
- 10. Footer: data freshness + disclaimers
+  1.  Header: date, market mood, one-line narrative
+  2.  What to do today: top action card
+  3.  Things to watch: alerts
+  4.  Macro Radar: industry-KPI snapshot (T-bill, KIBOR, FX reserves,
+      KSE-100, CPI), active macro drivers, per-sector tailwind /
+      headwind verdicts with one-line reasons
+  5.  Forecast table: every universe stock with action / direction /
+      conviction / 5d net %
+  6.  Top news in last 24h: highest-impact scored articles
+  7.  Material Information: PSX disclosures in the last 14 days
+  8.  Per-stock detail: one card per universe stock with rationale,
+      key drivers, key risks, macro reading, recent news, material
+      disclosures, fundamental ratios vs sector medians
+  9.  Management outlook: latest Director's Reports
+  10. Portfolio snapshot: positions + P&L
+  11. Watchlist
+  12. Top movers (universe)
+  13. Quality leaders
+  14. Earnings calendar (next 21 days)
+  15. Footer: data freshness + disclaimers
 
 Public API:
     build_daily_report(brief=None, mood=None, narrative=None,
@@ -243,7 +254,7 @@ def _forecast_section(story: list, sty: dict, brief: dict) -> None:
         return
     story.append(Paragraph("Forecast — next 5 trading days", sty["h2"]))
     _explain(story, sty,
-        "Every stock in the 15-name universe gets a fresh 5-trading-day "
+        "Every stock in the bot's universe gets a fresh 5-trading-day "
         "forecast every morning, blending price action, fundamentals, "
         "intrinsic value, quality, earnings momentum, FIPI flows, "
         "global overnight cues, news sentiment, and an LLM strategist "
@@ -542,6 +553,596 @@ def _calendar_section(story: list, sty: dict, brief: dict) -> None:
         story.append(t)
 
 
+def _macro_radar_section(story: list, sty: dict, brief: dict) -> None:
+    """Render the macro radar: industry-KPI snapshot, active drivers,
+    and per-sector tailwind / headwind verdicts.
+
+    The analyst's repeated request was that every BUY / SELL the bot
+    surfaces must be defended with a specific reason. This section shows
+    the macro layer of that defence: what's moving today, which sectors
+    benefit, which sectors get hurt, and the live numeric KPIs (T-bill
+    3M, KIBOR 3M, FX reserves, KSE-100, CPI YoY) that drive the rule
+    book in ``brain/macro_impact.py``.
+    """
+    mi = brief.get("macro_impact") or {}
+    if not mi or mi.get("error"):
+        return
+    drivers = mi.get("drivers") or []
+    by_sector = mi.get("by_sector") or {}
+    kpis = mi.get("kpis") or {}
+
+    story.append(Paragraph("Macro Radar — today's sector winners & losers",
+                            sty["h2"]))
+    _explain(story, sty,
+        "How today's macro environment reads across PSX sectors. The bot "
+        "tracks twelve macro variables (policy rate, Brent, USD/PKR, "
+        "gold, copper, cotton, coal proxy, T-bill 3M, KIBOR 3M, FX "
+        "reserves, KSE-100, CPI) and translates each move into a "
+        "<b>signed score</b> for every sector via a hand-crafted rule "
+        "book. Every score line carries a one-sentence reason so the "
+        "analyst can audit the call. <b>Tailwind</b> = positive macro "
+        "backdrop for that sector; <b>Headwind</b> = negative."
+    )
+
+    # ---- Industry KPI table -------------------------------------------
+    if kpis:
+        kpi_rows = [["Indicator", "Current", "Change", "Read"]]
+        if kpis.get("tbill_3m_pct") is not None:
+            chg = kpis.get("tbill_3m_change_5d")
+            kpi_rows.append([
+                "T-bill 3M cut-off", f"{kpis['tbill_3m_pct']:.2f}%",
+                f"{chg*100:+.0f} bps (5d)" if chg is not None else "—",
+                "Money-market yield (banking proxy)",
+            ])
+        if kpis.get("kibor_3m_pct") is not None:
+            chg = kpis.get("kibor_3m_change_5d")
+            kpi_rows.append([
+                "KIBOR 3M", f"{kpis['kibor_3m_pct']:.2f}%",
+                f"{chg*100:+.0f} bps (5d)" if chg is not None else "—",
+                "Floating-rate loan benchmark",
+            ])
+        if kpis.get("reserves_sbp_usd_mn") is not None:
+            chg = kpis.get("reserves_change_30d")
+            kpi_rows.append([
+                "SBP FX reserves",
+                f"USD {kpis['reserves_sbp_usd_mn']/1000:.1f} bn",
+                f"{chg/1000:+.1f} bn (30d)" if chg is not None else "—",
+                "BoP stress signal",
+            ])
+        if kpis.get("kse100_close") is not None:
+            r5 = kpis.get("kse100_ret_5d")
+            kpi_rows.append([
+                "KSE-100", f"{kpis['kse100_close']:,.0f}",
+                f"{r5*100:+.1f}% (5d)" if r5 is not None else "—",
+                "Broad-market regime",
+            ])
+        if kpis.get("cpi_yoy_pct") is not None:
+            period = kpis.get("cpi_period") or ""
+            kpi_rows.append([
+                f"CPI YoY ({period})" if period else "CPI YoY",
+                f"{kpis['cpi_yoy_pct']:.1f}%",
+                "—",
+                "Inflation regime / real-rate signal",
+            ])
+        if len(kpi_rows) > 1:
+            kt = Table(kpi_rows, colWidths=[40*mm, 30*mm, 35*mm, 65*mm])
+            kt.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), _BRAND_BLUE),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, -1), 9),
+                ("ALIGN", (1, 1), (2, -1), "RIGHT"),
+                ("GRID", (0, 0), (-1, -1), 0.3, _GRID),
+                ("ROWBACKGROUNDS", (0, 1), (-1, -1),
+                 [colors.white, _BG_BAND]),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+                ("TOPPADDING", (0, 0), (-1, -1), 4),
+            ]))
+            story.append(kt)
+            story.append(Spacer(1, 4))
+
+    # ---- Active drivers -----------------------------------------------
+    if drivers:
+        d_rows = [["Driver", "Magnitude", "Move", "Context"]]
+        for d in drivers[:8]:
+            d_rows.append([
+                str(d.get("name", "")),
+                str(d.get("magnitude", "")),
+                str(d.get("move", "")),
+                (str(d.get("context", "") or ""))[:120],
+            ])
+        dt = Table(d_rows, colWidths=[35*mm, 22*mm, 38*mm, 75*mm])
+        dt.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, 0), _BG_BAND),
+            ("TEXTCOLOR", (0, 0), (-1, 0), _BRAND_BLUE),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTSIZE", (0, 0), (-1, -1), 8),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("GRID", (0, 0), (-1, -1), 0.3, _GRID),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+            ("TOPPADDING", (0, 0), (-1, -1), 3),
+        ]))
+        story.append(Paragraph(
+            f"<b>Active macro drivers ({len(drivers)})</b>", sty["body"]))
+        story.append(dt)
+        story.append(Spacer(1, 4))
+
+    # ---- Sector verdicts ----------------------------------------------
+    if by_sector:
+        s_rows = [["Sector", "Score", "Verdict", "Top reason"]]
+        for sec, v in sorted(by_sector.items(),
+                              key=lambda kv: -(kv[1].get("score") or 0)):
+            score = int(v.get("score") or 0)
+            verdict = v.get("verdict") or "NEUTRAL"
+            top = (v.get("tailwinds") or [None])[0] if score > 0 else \
+                   (v.get("headwinds") or [None])[0] if score < 0 else None
+            top_str = (top or "—")[:130]
+            s_rows.append([sec, f"{score:+d}", verdict, top_str])
+        st_table = Table(s_rows, colWidths=[34*mm, 18*mm, 30*mm, 88*mm])
+        s_style = [
+            ("BACKGROUND", (0, 0), (-1, 0), _BRAND_BLUE),
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTSIZE", (0, 0), (-1, -1), 8),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("GRID", (0, 0), (-1, -1), 0.3, _GRID),
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1),
+             [colors.white, _BG_BAND]),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+            ("TOPPADDING", (0, 0), (-1, -1), 3),
+        ]
+        for i, r in enumerate(s_rows[1:], start=1):
+            try:
+                sc = int(r[1])
+                if sc >= 1:
+                    s_style.append(("TEXTCOLOR", (1, i), (1, i), _BRAND_GREEN))
+                    s_style.append(("FONTNAME", (1, i), (1, i),
+                                    "Helvetica-Bold"))
+                elif sc <= -1:
+                    s_style.append(("TEXTCOLOR", (1, i), (1, i), _BRAND_RED))
+                    s_style.append(("FONTNAME", (1, i), (1, i),
+                                    "Helvetica-Bold"))
+            except (ValueError, TypeError):
+                pass
+        st_table.setStyle(TableStyle(s_style))
+        story.append(Paragraph("<b>Sector verdicts</b>", sty["body"]))
+        story.append(st_table)
+    story.append(Spacer(1, 6))
+
+
+def _scored_news_for_symbol(sym: str, limit: int = 3) -> list[dict]:
+    """Return the most recent scored news rows that mention `sym` in
+    ``affected_symbols``. Sorted newest first."""
+    try:
+        import pandas as pd
+        from pathlib import Path
+        p = Path(__file__).resolve().parent.parent / "data" / "news" \
+            / "scored_news.parquet"
+        if not p.exists():
+            return []
+        df = pd.read_parquet(p)
+        if "affected_symbols" not in df.columns:
+            return []
+        sym_u = sym.upper()
+        # affected_symbols is stored as comma-separated strings (sometimes
+        # already a list). Normalise both.
+        def _hit(v):
+            if v is None:
+                return False
+            if isinstance(v, (list, tuple)):
+                return sym_u in {str(x).upper() for x in v}
+            if isinstance(v, str):
+                return sym_u in {x.strip().upper()
+                                  for x in v.split(",") if x.strip()}
+            return False
+        df = df[df["affected_symbols"].apply(_hit)]
+        if df.empty:
+            return []
+        df = df.sort_values("scored_at", ascending=False).head(limit)
+        return df.to_dict("records")
+    except Exception:
+        return []
+
+
+def _material_info_for_symbol(sym: str, days: int = 14) -> list[dict]:
+    """Return Material Information disclosures for `sym` filed in the
+    last `days` calendar days."""
+    try:
+        import pandas as pd
+        from datetime import datetime, timedelta
+        from pathlib import Path
+        p = Path(__file__).resolve().parent.parent / "data" \
+            / "material_information.parquet"
+        if not p.exists():
+            return []
+        df = pd.read_parquet(p)
+        if df.empty or "symbol" not in df.columns:
+            return []
+        df = df[df["symbol"].astype(str).str.upper() == sym.upper()]
+        if "date" in df.columns and not df.empty:
+            cutoff = datetime.now().date() - timedelta(days=days)
+            df = df[pd.to_datetime(df["date"]).dt.date >= cutoff]
+        if df.empty:
+            return []
+        return df.sort_values("date", ascending=False).head(5).to_dict("records")
+    except Exception:
+        return []
+
+
+def _fundamentals_snapshot(sym: str) -> dict:
+    """Return P/E, P/B, dividend yield, payout ratio for `sym` plus the
+    matching sector medians for a 'vs peers' read."""
+    try:
+        from connectors.yfinance_fundamentals import load_latest
+        from brain.sector_ratios import load_sector_medians
+        f = load_latest(sym) or {}
+        sec_meds = (load_sector_medians() or {}).get("by_sector") or {}
+        sec = f.get("sector") or ""
+        meds = sec_meds.get(sec, {}) or {}
+        return {
+            "sector":       sec,
+            "pe":           f.get("pe_ratio"),
+            "pe_med":       meds.get("pe_med"),
+            "pb":           f.get("pb_ratio"),
+            "pb_med":       meds.get("pb_med"),
+            "dy":           f.get("dividend_yield_pct"),
+            "dy_med":       meds.get("dy_med"),
+            "payout":       f.get("payout_ratio_pct"),
+            "payout_med":   meds.get("payout_med"),
+            "debt_to_eq":   (round(float(f["total_debt_pkr"])
+                                    / float(f["total_equity_pkr"]), 2)
+                              if (f.get("total_debt_pkr") is not None
+                                   and f.get("total_equity_pkr"))
+                              else None),
+        }
+    except Exception:
+        return {}
+
+
+def _per_stock_detail_section(story: list, sty: dict, brief: dict) -> None:
+    """Render one detail card per universe stock — the analyst-facing
+    deep dive that explains *why* the forecast came out the way it did.
+
+    For each stock we surface: rationale, key drivers, key risks,
+    macro impact (sector + amplifier), latest scored news, recent
+    material information, and fundamentals vs sector medians.
+    """
+    preds = (brief.get("predictions") or {}).get("predictions") or []
+    if not preds:
+        return
+    mi = brief.get("macro_impact") or {}
+    by_symbol = mi.get("by_symbol") or {}
+    by_sector = mi.get("by_sector") or {}
+
+    story.append(PageBreak())
+    story.append(Paragraph("Per-stock detail", sty["h2"]))
+    _explain(story, sty,
+        "One card per stock with the full reasoning behind today's "
+        "forecast. The table on the previous page tells you <i>what</i> "
+        "the bot recommends; this section tells you <i>why</i>. Each "
+        "card stitches together the LLM rationale, the deterministic "
+        "macro engine's sector and stock-level reading, the latest "
+        "scored news headlines that mention the ticker, any Material "
+        "Information disclosures filed on PSX in the last 14 days, and "
+        "the fundamental ratios benchmarked against the sector median. "
+        "If a recommendation looks surprising, the reason is on this "
+        "page."
+    )
+
+    def _action_color(action: str) -> colors.Color:
+        a = (action or "").upper()
+        if a in ("BUY", "ADD"):
+            return _BRAND_GREEN
+        if a in ("SELL", "AVOID", "TRIM"):
+            return _BRAND_RED
+        return _TEXT_MUTED
+
+    # Sort BUY/ADD first then HOLD then AVOID/SELL
+    def _rank(p: dict) -> int:
+        a = (p.get("suggested_action") or "").upper()
+        if a in ("BUY", "ADD"): return 0
+        if a == "HOLD":         return 1
+        return 2
+
+    for p in sorted(preds, key=lambda x: (_rank(x),
+                                           x.get("symbol", ""))):
+        sym = (p.get("symbol") or "").upper()
+        if not sym:
+            continue
+        action = (p.get("suggested_action") or "—").upper()
+        direction = p.get("direction") or "—"
+        conviction = p.get("conviction") or "—"
+        net5 = p.get("expected_net_5d_pct")
+        mid5 = p.get("expected_return_5d_mid_pct")
+        net_str = (f"{net5:+.2f}%" if isinstance(net5, (int, float))
+                   else "—")
+        mid_str = (f"{mid5:+.1f}%" if isinstance(mid5, (int, float))
+                   else "—")
+        sym_block = by_symbol.get(sym) or {}
+        sector = sym_block.get("sector") or ""
+        sec_block = by_sector.get(sector) or {}
+        ac = _action_color(action)
+
+        # ---- Card header --------------------------------------------
+        head_html = (
+            f"<b>{sym}</b>"
+            f"  <font color='{_TEXT_MUTED.hexval()}'>· {sector}</font>  "
+            f"&nbsp;·&nbsp; <font color='{ac.hexval()}'>"
+            f"<b>{action}</b></font>  "
+            f"({direction.lower()}, {conviction.lower()} conviction)  "
+            f"&nbsp;·&nbsp; net 5d <b>{net_str}</b> "
+            f"(mid {mid_str})"
+        )
+        story.append(Paragraph(head_html, sty["body"]))
+
+        entry = _safe_str(p.get("entry_price_pkr"))
+        stop  = _safe_str(p.get("suggested_stop_pkr")
+                          or p.get("stop_loss_pkr"))
+        target = _safe_str(p.get("suggested_target_pkr")
+                           or p.get("target_price_pkr"))
+        story.append(Paragraph(
+            f"<font color='{_TEXT_MUTED.hexval()}'>"
+            f"Entry near {entry} PKR  ·  Stop {stop}  ·  "
+            f"Target {target}</font>",
+            sty["body_muted"]))
+
+        # ---- Rationale ----------------------------------------------
+        rat = (p.get("rationale") or "").strip()
+        if rat:
+            # Don't hard-truncate — analysts want the full LLM
+            # reasoning. ReportLab will reflow naturally.
+            story.append(Paragraph(f"<b>Rationale.</b> {rat}",
+                                     sty["body"]))
+
+        # ---- Key drivers / risks ------------------------------------
+        kd = p.get("key_drivers") or []
+        kr = p.get("key_risks") or []
+        if kd:
+            story.append(Paragraph("<b>Key drivers</b>", sty["body"]))
+            for d in kd[:4]:
+                story.append(Paragraph(f"• {d}", sty["body_muted"]))
+        if kr:
+            story.append(Paragraph("<b>Key risks</b>", sty["body"]))
+            for r in kr[:4]:
+                story.append(Paragraph(f"• {r}", sty["body_muted"]))
+
+        # ---- Macro reading ------------------------------------------
+        if sym_block or sec_block:
+            sec_score = sec_block.get("score") or 0
+            sec_verdict = sec_block.get("verdict") or "NEUTRAL"
+            stock_verdict = sym_block.get("verdict") or "NEUTRAL"
+            stock_score = sym_block.get("stock_score") or 0
+            sec_color = (_BRAND_GREEN if sec_score > 0
+                          else _BRAND_RED if sec_score < 0 else _TEXT_MUTED)
+            stk_color = (_BRAND_GREEN if stock_score > 0
+                          else _BRAND_RED if stock_score < 0 else _TEXT_MUTED)
+            story.append(Paragraph(
+                f"<b>Macro reading.</b> Sector ({sector}): "
+                f"<font color='{sec_color.hexval()}'>{sec_verdict} "
+                f"({sec_score:+d})</font>. Stock: "
+                f"<font color='{stk_color.hexval()}'>{stock_verdict} "
+                f"({stock_score:+d})</font>.",
+                sty["body"]))
+            for line in (sec_block.get("tailwinds") or [])[:2]:
+                story.append(Paragraph(f"+ {line}", sty["body_muted"]))
+            for line in (sec_block.get("headwinds") or [])[:2]:
+                story.append(Paragraph(f"− {line}", sty["body_muted"]))
+            if sym_block.get("amplifier_note"):
+                story.append(Paragraph(
+                    f"<i>Stock amplifier:</i> "
+                    f"{sym_block['amplifier_note']}",
+                    sty["body_muted"]))
+
+        # ---- Recent news --------------------------------------------
+        news = _scored_news_for_symbol(sym, limit=3)
+        if news:
+            story.append(Paragraph("<b>Recent news</b>", sty["body"]))
+            for n in news:
+                s = n.get("sentiment")
+                s_str = (f"{s:+.2f}" if isinstance(s, (int, float))
+                         else "—")
+                s_color = (_BRAND_GREEN if isinstance(s, (int, float))
+                                            and s > 0.1
+                            else _BRAND_RED if isinstance(s, (int, float))
+                                                and s < -0.1
+                            else _TEXT_MUTED)
+                cat = n.get("category") or ""
+                src = n.get("source") or ""
+                title = (n.get("title") or "")[:140]
+                one = (n.get("one_liner") or "")[:200]
+                story.append(Paragraph(
+                    f"<font color='{s_color.hexval()}'>● {s_str}</font>  "
+                    f"<font color='{_TEXT_MUTED.hexval()}'>[{cat} · "
+                    f"{src}]</font>  {title}",
+                    sty["body_muted"]))
+                if one:
+                    story.append(Paragraph(
+                        f"<font color='{_TEXT_MUTED.hexval()}'>"
+                        f"&nbsp;&nbsp;{one}</font>",
+                        sty["body_muted"]))
+
+        # ---- Material Information -----------------------------------
+        mat = _material_info_for_symbol(sym, days=14)
+        if mat:
+            story.append(Paragraph("<b>Recent Material Information</b>",
+                                     sty["body"]))
+            for m in mat[:3]:
+                date = str(m.get("date") or "")[:10]
+                title = (m.get("title") or m.get("subject") or "")[:200]
+                story.append(Paragraph(
+                    f"• {date} — {title}", sty["body_muted"]))
+
+        # ---- Fundamentals vs sector ---------------------------------
+        f = _fundamentals_snapshot(sym)
+        if f and (f.get("pe") is not None or f.get("pb") is not None):
+            def _vs(v, m, fmt: str = "{:.2f}") -> str:
+                if v is None:
+                    return "—"
+                base = fmt.format(float(v))
+                if m is None:
+                    return base
+                return f"{base} <font color='{_TEXT_MUTED.hexval()}'>" \
+                       f"(sector {fmt.format(float(m))})</font>"
+            line = (
+                f"<b>Ratios vs sector ({f.get('sector')}):</b>  "
+                f"P/E {_vs(f.get('pe'), f.get('pe_med'))}  ·  "
+                f"P/B {_vs(f.get('pb'), f.get('pb_med'))}  ·  "
+                f"Div Yld {_vs(f.get('dy'), f.get('dy_med'), '{:.1f}%')}  ·  "
+                f"Payout "
+                f"{_vs(f.get('payout'), f.get('payout_med'), '{:.0f}%')}"
+            )
+            if f.get("debt_to_eq") is not None:
+                line += f"  ·  D/E {f['debt_to_eq']:.2f}"
+            story.append(Paragraph(line, sty["body_muted"]))
+
+        story.append(Spacer(1, 8))
+
+
+def _news_digest_section(story: list, sty: dict) -> None:
+    """Top-level news digest — the highest-impact scored articles in
+    the last 24 hours, ordered by absolute sentiment magnitude.
+
+    Complementary to the per-stock cards: this surface answers the
+    analyst's first question of the morning ("anything important
+    happen overnight?") without having to drill into each ticker.
+    """
+    try:
+        import pandas as pd
+        from datetime import datetime, timedelta, timezone
+        from pathlib import Path
+        p = Path(__file__).resolve().parent.parent / "data" / "news" \
+            / "scored_news.parquet"
+        if not p.exists():
+            return
+        df = pd.read_parquet(p)
+        if df.empty:
+            return
+        # Last 24 hours by scored_at; fall back to most recent 30 if
+        # nothing arrived overnight.
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
+        try:
+            df["_ts"] = pd.to_datetime(df["scored_at"], utc=True,
+                                          errors="coerce")
+            recent = df[df["_ts"] >= cutoff]
+        except Exception:
+            recent = df.tail(30)
+        if recent.empty:
+            recent = df.tail(30)
+
+        # Sort by absolute sentiment then confidence (HIGH first).
+        conf_rank = {"HIGH": 3, "MED": 2, "LOW": 1}
+        recent = recent.assign(
+            _abs=recent["sentiment"].abs().fillna(0.0),
+            _conf=recent["confidence"].map(conf_rank).fillna(0),
+        )
+        recent = recent.sort_values(by=["_conf", "_abs"],
+                                      ascending=[False, False]).head(8)
+    except Exception:
+        return
+
+    if recent.empty:
+        return
+    story.append(Paragraph(
+        "Top news in the last 24 hours", sty["h2"]))
+    _explain(story, sty,
+        "Highest-impact scored articles from Pakistani business "
+        "newswires (Mettis Global, Dawn, Tribune, Profit, Business "
+        "Recorder), ranked by an LLM-derived <b>sentiment score</b> "
+        "from −1.0 (very bearish) to +1.0 (very bullish) and confidence "
+        "(HIGH / MED / LOW). The <b>category</b> tag tells you whether "
+        "it's a single-stock story, a macro / policy print, a "
+        "commodity move, or a global cue. Use this as the morning "
+        "scan; the per-stock cards below dive into ticker-specific "
+        "items."
+    )
+
+    rows = [["Sentiment", "Cat", "Symbols", "Headline", "One-liner"]]
+    for _, r in recent.iterrows():
+        s = r.get("sentiment")
+        s_str = f"{s:+.2f}" if isinstance(s, (int, float)) else "—"
+        cat = (r.get("category") or "")[:6]
+        syms = (r.get("affected_symbols") or "")
+        if isinstance(syms, (list, tuple)):
+            syms = ",".join([str(x) for x in syms])
+        syms = (syms or "")[:18]
+        title = (r.get("title") or "")[:80]
+        one = (r.get("one_liner") or "")[:130]
+        rows.append([s_str, cat, syms, title, one])
+    t = Table(rows, colWidths=[18*mm, 14*mm, 25*mm, 60*mm, 60*mm])
+    style = [
+        ("BACKGROUND", (0, 0), (-1, 0), _BRAND_BLUE),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("FONTSIZE", (0, 0), (-1, -1), 8),
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("GRID", (0, 0), (-1, -1), 0.3, _GRID),
+        ("ROWBACKGROUNDS", (0, 1), (-1, -1),
+         [colors.white, _BG_BAND]),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+        ("TOPPADDING", (0, 0), (-1, -1), 3),
+    ]
+    for i, r in enumerate(rows[1:], start=1):
+        try:
+            sv = float(r[0].rstrip("%"))
+            color = (_BRAND_GREEN if sv > 0.1
+                     else _BRAND_RED if sv < -0.1 else _TEXT_MUTED)
+            style.append(("TEXTCOLOR", (0, i), (0, i), color))
+            style.append(("FONTNAME", (0, i), (0, i), "Helvetica-Bold"))
+        except (ValueError, AttributeError):
+            pass
+    t.setStyle(TableStyle(style))
+    story.append(t)
+    story.append(Spacer(1, 6))
+
+
+def _material_info_section(story: list, sty: dict, brief: dict) -> None:
+    """Render Material Information disclosures from PSX for the
+    universe in the last 14 days.
+
+    Material information notices are price-sensitive disclosures
+    (board meetings, capacity changes, related-party transactions,
+    legal cases) that companies are *required* to publish. They often
+    move stocks 5-10% in a single session, so they belong in any
+    analyst-facing brief.
+    """
+    mi = brief.get("material_information") or {}
+    rows = mi.get("rows") or []
+    if not rows:
+        return
+    story.append(Paragraph(
+        "Material Information (last 14 days)", sty["h2"]))
+    _explain(story, sty,
+        "Price-sensitive disclosures filed by your universe stocks on "
+        "PSX. By regulation these are released to the market within 24 "
+        "hours of the underlying event and frequently produce 5–10% "
+        "single-day moves. <b>Always</b> read this section before "
+        "opening a new position — many of the stocks below will be "
+        "showing volatility unrelated to the macro / technical setup."
+    )
+    out = [["Date", "Symbol", "Subject"]]
+    for r in rows[:15]:
+        out.append([
+            str(r.get("date") or "")[:10],
+            str(r.get("symbol") or ""),
+            (str(r.get("title") or r.get("subject") or ""))[:140],
+        ])
+    if len(out) > 1:
+        t = Table(out, colWidths=[24*mm, 20*mm, 130*mm])
+        t.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, 0), _BRAND_BLUE),
+            ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+            ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("FONTSIZE", (0, 0), (-1, -1), 9),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("GRID", (0, 0), (-1, -1), 0.3, _GRID),
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1),
+             [colors.white, _BG_BAND]),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+            ("TOPPADDING", (0, 0), (-1, -1), 3),
+        ]))
+        story.append(t)
+
+
 def _management_outlook_section(story: list, sty: dict, brief: dict) -> None:
     """Show the 5 most recent Director's Reports with extracted outlook."""
     mo = brief.get("management_outlook") or {}
@@ -720,7 +1321,11 @@ def build_daily_report(
     _hero_section(story, sty, mood, narrative)
     _action_section(story, sty, action)
     _alerts_section(story, sty, alerts)
+    _macro_radar_section(story, sty, brief)
     _forecast_section(story, sty, brief)
+    _news_digest_section(story, sty)
+    _material_info_section(story, sty, brief)
+    _per_stock_detail_section(story, sty, brief)
     _management_outlook_section(story, sty, brief)
     _portfolio_section(story, sty, brief)
     _watchlist_section(story, sty)

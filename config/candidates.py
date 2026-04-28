@@ -10,7 +10,7 @@ All candidates have 5+ years of DPS history as of 2026-04-23.
 
 from __future__ import annotations
 
-# User's 6 non-negotiable tickers — always in the universe.
+# User's non-negotiable tickers — always in the universe.
 REQUIRED_TICKERS: list[str] = [
     "HUBC",   # Hub Power (Power Generation)
     "PABC",   # Pakistan Aluminium Beverage Cans (Miscellaneous)
@@ -18,6 +18,7 @@ REQUIRED_TICKERS: list[str] = [
     "OGDC",   # Oil & Gas Development (Oil & Gas E&P)
     "FABL",   # Faysal Bank (Commercial Banks)
     "PPL",    # Pakistan Petroleum (Oil & Gas E&P)
+    "NPL",    # Nishat Power (Power Generation — IPP)
 ]
 
 # Known sector for each candidate — used for diversification constraint.
@@ -87,5 +88,6 @@ def sector_of_candidate(symbol: str) -> str | None:
         "OGDC":  "Oil & Gas Exploration Companies",
         "FABL":  "Commercial Banks",
         "PPL":   "Oil & Gas Exploration Companies",
+        "NPL":   "Power Generation & Distribution",
     }
     return required_sectors.get(symbol)

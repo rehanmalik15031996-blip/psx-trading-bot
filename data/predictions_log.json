@@ -3721,6 +3721,155 @@
       "_llm_raw": "```json\n{\n  \"direction\": \"BEARISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -8.5,\n  \"expected_return_5d_mid_pct\": -3.2,\n  \"expected_return_5d_high_pct\": +1.5,\n  \"suggested_action\": \"AVOID\",\n  \"suggested_stop_pkr\": 92.62,\n  \"suggested_target_pkr\": 75.48,\n  \"rationale\": \"MLCF is BEARISH over 5 days despite accelerating earnings, because severe valuation overhang and deteriorating momentum overwhelm micro tailwinds. The stock is trading 43% above intrinsic value (83.87 vs 58.75 PKR fair value), a SELL_VALUE signal with HIGH confidence; even high-quality cement stocks rarely sustain +40% premiums when cost-of-capital is rising. Technically, the stock has collapsed 10.1% in 5 days and ranks 14th of 15 in momentum, with RSI 58.6 (neutral-to-weak) and price 16% below the 200-day MA, signalling a structural downtrend that accelerating EPS alone cannot reverse in the short term. Macro is mixed: CPI cooling (7.3% YoY) opens the door to rate cuts, a sector tailwind; but Brent crude jumped 9.7% in 5 days, raising furnace-oil and freight costs for cement kilns, a headwind scored at -2. The SBP policy rate is pinned at 11.5%, keeping borrowing costs punitive for leveraged cement operators (D/E 0.21, but sector players often lever higher). Institutional flows turned negative today (big-fish selling -5.4 mn PKR, driven by mutual funds), a sign that even recovery narratives are being sold into. The key risk is that a rate-cut cycle surprise could flip the macro narrative and"
     },
     {
+      "prediction_id": "2026-04-28-NPL",
+      "generated_at": "2026-04-28T15:27:05+05:00",
+      "symbol": "NPL",
+      "sector": "Power",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 83.22,
+      "direction": "BULLISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -1.5,
+      "expected_return_5d_mid_pct": 4.2,
+      "expected_return_5d_high_pct": 8.5,
+      "suggested_action": "BUY",
+      "suggested_stop_pkr": 75.9,
+      "suggested_target_pkr": 89.5,
+      "rationale": "NPL is BULLISH on strong macro-structural tailwinds, accelerating earnings momentum, and bullish technicals confirming the multi-week uptrend. Brent crude jumped +9.7% in 5 days, which directly flows through to furnace-oil-fired power plants via PPA indexation pass-through; additionally, SBP FX reserves at USD 15.1 bn signal imminent circular-debt settlement plans that normalise plant cash flow and support dividend sustainability. RSI at 69.8 with OBV +8.1% over 5 days confirms institutional accumulation despite a mild big-fish selling headwind today; the MACD bullish histogram (+1.06) has been in force for 33 days, underpinning trend structure. Earnings are accelerating at YoY +31.77% (vs prior +23.13%), and the stock is valued at P/E 5.47 vs sector median 5.95 (8% discount) with HIGH quality (89.8/100 ROE), creating a rare cheap-quality-growth setup. The only material risk is near-term macro headwinds from geopolitical and rate-hike anxiety (policy sentiment score -0.12), which could trigger a 1-2 day correction; however, the fundamental power-sector tailwind and earnings acceleration are structural, not sentiment-driven.",
+      "key_drivers": [
+        "Brent +9.7% in 5d drives fuel-cost pass-through under furnace-oil PPA indexation (MACRO IMPACT sector verdict STRONG TAILWIND +3)",
+        "SBP FX reserves at USD 15.1 bn signal circular-debt resolution and cash-flow normalisation (MACRO IMPACT +2 stock-level tailwind)",
+        "Earnings accelerating at YoY +31.77% vs prior +23.13%, 3y CAGR +26.21% (EARNINGS MOMENTUM ACCELERATING)",
+        "RSI 69.8 with OBV +8.1% in 5d confirms uptrend; MACD histogram +1.06 bullish for 33 days (TECHNICALS: momentum + volume confirmation)",
+        "P/E 5.47 (8% below sector) + P/B 1.02 (14% below sector) + HIGH quality 89.8/100 = cheap quality growth (FUNDAMENTAL VALUE + QUALITY)"
+      ],
+      "key_risks": [
+        "Big-fish institutional net selling -5.4 mn PKR today despite bullish price action; if this reverses into sustained outflow, momentum could stall (FIPI/LIPI DIVERGENCE)",
+        "Macro sentiment tilted bearish (-0.12) with rate-hike and geopolitical anxiety dominating headlines; a 1-2 day sentiment-driven correction could test 78-80 PKR support (MACRO SENTIMENT HEADWIND)",
+        "Fair value estimated at 80.37 PKR vs current 83.22 PKR is marginal upside (-3.42%); if earnings growth stalls or dividend cut risk emerges, valuation multiple could compress (FAIR VALUE JUST ABOVE CURRENT)",
+        "Dividend yield 9.61% with payout ratio 52.6% is sustainable today, but stress in circular debt or fuel-cost pass-through delays could threaten payout (DIVIDEND SUSTAINABILITY)"
+      ],
+      "macro_tailwinds": [
+        "Brent crude +9.7% in 5d: furnace-oil-fired plants recover fuel margins via PPA indexation",
+        "SBP FX reserves USD 15.1 bn: reserve-building typically paired with circular-debt settlement; cash flow normalisation supports dividends"
+      ],
+      "macro_headwinds": [
+        "Rate-hike anxiety and geopolitical tension dominating sentiment (macro tilt -0.12); short-term retail positioning may reverse"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 15.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "NPL",
+          "sector": "Power",
+          "sector_score": 3,
+          "stock_score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 15.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.165,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 168519.54,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-27",
+        "close_pkr": 83.22,
+        "ret_5d": 0.0456,
+        "ret_21d": 0.2484,
+        "ret_63d": -0.0431,
+        "mom_20d_log": 0.2776,
+        "mom_60d_log": -0.1289,
+        "mom_150d_log": 0.68,
+        "mom_250d_log": 0.7905,
+        "rvol_20d_ann": 0.7329,
+        "rvol_regime": "stable",
+        "rsi_14": 69.8,
+        "px_vs_sma200_pct": 49.48,
+        "trend": "up",
+        "momentum_rank_today": 1,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.01,
+        "fipi_local_net_pkr_mn": -0.01,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Machinery imports jump over 10% to $7.87 billion in 9MFY26 as industrial activity picks up"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"HIGH\",\n  \"expected_return_5d_low_pct\": -1.5,\n  \"expected_return_5d_mid_pct\": 4.2,\n  \"expected_return_5d_high_pct\": 8.5,\n  \"suggested_action\": \"BUY\",\n  \"suggested_stop_pkr\": 75.90,\n  \"suggested_target_pkr\": 89.50,\n  \"rationale\": \"NPL is BULLISH on strong macro-structural tailwinds, accelerating earnings momentum, and bullish technicals confirming the multi-week uptrend. Brent crude jumped +9.7% in 5 days, which directly flows through to furnace-oil-fired power plants via PPA indexation pass-through; additionally, SBP FX reserves at USD 15.1 bn signal imminent circular-debt settlement plans that normalise plant cash flow and support dividend sustainability. RSI at 69.8 with OBV +8.1% over 5 days confirms institutional accumulation despite a mild big-fish selling headwind today; the MACD bullish histogram (+1.06) has been in force for 33 days, underpinning trend structure. Earnings are accelerating at YoY +31.77% (vs prior +23.13%), and the stock is valued at P/E 5.47 vs sector median 5.95 (8% discount) with HIGH quality (89.8/100 ROE), creating a rare cheap-quality-growth setup. The only material risk is near-term macro headwinds from geopolitical and rate-hike anxiety (policy sentiment score -0.12), which could trigger a 1-2 day correction; however, the fundamental power-sector tailwind and earnings acceleration are structural, not sentiment-driven.\",\n  \"key_drivers\": [\n    \"Brent +9.7% in 5d drives fuel-cost pass-through un"
+    },
+    {
       "prediction_id": "2026-04-28-OGDC",
       "generated_at": "2026-04-28T09:55:38+00:00",
       "symbol": "OGDC",

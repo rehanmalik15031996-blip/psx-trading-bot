@@ -13,7 +13,7 @@ Tabs (story-first, beginner friendly):
   4. Fair Value     — sector-aware intrinsic value, quality score, and
                       earnings momentum for every stock.
   5. Watchlist      — stocks you're tracking with target prices.
-  6. Find Ideas     — 15-stock universe ranked by momentum strength.
+  6. Find Ideas     — universe ranked by momentum strength.
   7. News           — AI-scored PSX news feed with sentiment + tickers.
   8. Ask Advisor    — chat with Claude / Gemini / GitHub Models; every
                       answer is grounded in live tool calls.
@@ -501,7 +501,7 @@ def render_sidebar():
 
         if st.button("Refresh prices from PSX DPS",
                       use_container_width=True,
-                      help="Pulls today's OHLCV for the 15-stock universe "
+                      help="Pulls today's OHLCV for the full universe "
                            "directly from PSX DPS (bypasses GitHub). Use "
                            "right after market close if the EOD workflow "
                            "hasn't run yet. Takes ~60 seconds."):
@@ -759,10 +759,15 @@ def _render_pdf_download(brief: dict, mood: dict, narrative: str,
     tab stays snappy on first paint."""
     with st.expander("Download daily report (PDF)", expanded=False):
         st.caption(
-            "One-page summary of today's brief: market mood, top "
-            "action, alerts, full forecast table, your portfolio, "
-            "quality leaders, and earnings calendar. Share via "
-            "WhatsApp / email or print."
+            "**Analyst-ready PDF** of today's brief: market mood, top "
+            "action, **Macro Radar** (industry KPIs + sector verdicts), "
+            "full forecast table, **top news in the last 24h**, "
+            "**Material Information** disclosures, "
+            "**per-stock detail cards** (rationale, key drivers, key "
+            "risks, recent news headlines with sentiment scores, "
+            "fundamentals vs sector medians, macro impact), "
+            "management outlook, portfolio, quality leaders, and "
+            "earnings calendar. Share via email / WhatsApp / print."
         )
         if st.button("Generate PDF", key="gen_pdf",
                       use_container_width=False):
@@ -811,7 +816,7 @@ def _render_universe_sparkline(idx: dict) -> None:
     st.markdown(
         '<div class="psx-spark-wrap">'
         f'<div class="psx-spark-title">'
-        f'PSX 15-stock equal-weighted index '
+        f'PSX universe equal-weighted index '
         f'<span style="color:{color}">{arrow} {pct:+.2f}%</span> '
         f'<span style="opacity:0.6;font-weight:400">'
         f'· {span} · base 100</span></div>',
@@ -2183,7 +2188,7 @@ def render_watchlist_tab():
 def render_scanner_tab():
     section_header(
         "Find Ideas",
-        "All 15 stocks ranked by recent strength. The bot's top picks "
+        "Every stock in the universe ranked by recent strength. The bot's top picks "
         "are highlighted in green.",
         how_to_read=[
             "**Momentum** = how strongly a stock has trended over the "
@@ -2567,7 +2572,7 @@ def render_reports_tab():
     section_header(
         "Reports & Outlook",
         "What management is actually saying. Every quarter and annual "
-        "report from your 15 stocks is read by an LLM and distilled into "
+        "report from your universe is read by an LLM and distilled into "
         "outlook, growth plans, and risks — the part of the report most "
         "investors skip.",
         how_to_read=[

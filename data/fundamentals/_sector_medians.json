@@ -1,14 +1,15 @@
 {
-  "computed_utc": "2026-04-27T14:05:51+00:00",
+  "computed_utc": "2026-04-28T10:25:25+00:00",
   "by_sector": {
     "Power": {
-      "n": 1,
-      "pe_med": 6.42,
-      "pb_med": 1.33,
-      "yield_med": 8.79,
-      "payout_med": 56.4,
+      "n": 2,
+      "pe_med": 5.95,
+      "pb_med": 1.18,
+      "yield_med": 9.2,
+      "payout_med": 54.5,
       "members": [
-        "HUBC"
+        "HUBC",
+        "NPL"
       ]
     },
     "Misc": {

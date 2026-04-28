@@ -906,6 +906,7 @@ NEWS_KEYWORDS: dict[str, list[str]] = {
     "FCCL": ["Fauji Cement", "FCCL"],
     "EPCL": ["Engro Polymer", "EPCL"],
     "SEARL": ["Searle", "SEARL"],
+    "NPL": ["Nishat Power", "NPL ", "Nishat Mills Power"],
 }
 
 # Sector-level keyword groups so we can attribute news to sector flows
