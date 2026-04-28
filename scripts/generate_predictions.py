@@ -1271,8 +1271,18 @@ def main():
     if provider == "rule":
         print("  (no API key found — using rule-based fallback)")
 
-    tickers = args.symbols or list(REQUIRED_TICKERS)
-    print(f"Tickers: {', '.join(tickers)}")
+    if args.symbols:
+        tickers = list(args.symbols)
+    else:
+        # Default to the full 15-stock universe — generating predictions
+        # only for the 6 REQUIRED_TICKERS leaves 9 of the user's tracked
+        # names without a daily forecast.
+        try:
+            from config.universe import UNIVERSE
+            tickers = [u.symbol for u in UNIVERSE]
+        except Exception:
+            tickers = list(REQUIRED_TICKERS)
+    print(f"Tickers ({len(tickers)}): {', '.join(tickers)}")
     print(f"Horizon: {HORIZON_DAYS} trading days")
 
     log = load_log()
