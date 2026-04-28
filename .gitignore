@@ -7,8 +7,9 @@ github_token
 github-token
 *.pem
 *.key
-*token*.txt
+*token*
 *secret*
+scripts/git token*
 
 # Python
 __pycache__/

@@ -462,9 +462,40 @@ def build_briefing(ctx: dict) -> str:
         sector_block = (mi.get("by_sector") or {}).get(sector) or {}
         if drivers or sym_block:
             lines += ["", "MACRO IMPACT FOR THIS STOCK"]
+            kpis = mi.get("kpis") or {}
+            if kpis:
+                lines.append("  Industry KPIs:")
+                if kpis.get("tbill_3m_pct") is not None:
+                    chg = kpis.get("tbill_3m_change_5d")
+                    lines.append(
+                        f"    T-bill 3M: {kpis['tbill_3m_pct']:.2f}%"
+                        + (f"  ({chg*100:+.0f} bps in 5d)" if chg is not None else ""))
+                if kpis.get("kibor_3m_pct") is not None:
+                    chg = kpis.get("kibor_3m_change_5d")
+                    lines.append(
+                        f"    KIBOR 3M: {kpis['kibor_3m_pct']:.2f}%"
+                        + (f"  ({chg*100:+.0f} bps in 5d)" if chg is not None else ""))
+                if kpis.get("reserves_sbp_usd_mn") is not None:
+                    chg = kpis.get("reserves_change_30d")
+                    lines.append(
+                        f"    SBP reserves: USD {kpis['reserves_sbp_usd_mn']/1000:.1f} bn"
+                        + (f"  ({chg/1000:+.1f} bn in 30d)" if chg is not None else ""))
+                if kpis.get("kse100_close") is not None:
+                    r5 = kpis.get("kse100_ret_5d"); r21 = kpis.get("kse100_ret_21d")
+                    extras = []
+                    if r5  is not None: extras.append(f"{r5*100:+.1f}% 5d")
+                    if r21 is not None: extras.append(f"{r21*100:+.1f}% 21d")
+                    extra_str = f"  ({', '.join(extras)})" if extras else ""
+                    lines.append(
+                        f"    KSE-100: {kpis['kse100_close']:,.0f}{extra_str}")
+                if kpis.get("cpi_yoy_pct") is not None:
+                    period = kpis.get("cpi_period") or ""
+                    lines.append(
+                        f"    CPI YoY: {kpis['cpi_yoy_pct']:.1f}%"
+                        + (f"  ({period} print)" if period else ""))
             if drivers:
                 lines.append(f"  Active drivers ({len(drivers)}):")
-                for d in drivers[:6]:
+                for d in drivers[:8]:
                     lines.append(
                         f"    - {d.get('magnitude'):>8}  "
                         f"{d.get('name')}: {d.get('move')}"
@@ -1170,6 +1201,7 @@ def generate_one(sym: str, provider: str) -> dict:
             "by_sector": (mi_full.get("by_sector") or {}).get(
                 ctx.get("sector"), {}),
             "by_symbol": (mi_full.get("by_symbol") or {}).get(sym, {}),
+            "kpis": mi_full.get("kpis") or {},
         }
     except Exception:
         macro_impact_snapshot = None

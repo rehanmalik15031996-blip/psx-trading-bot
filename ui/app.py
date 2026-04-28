@@ -1086,15 +1086,53 @@ def _today_macro_radar(mi: dict) -> None:
     drivers = mi.get("drivers") or []
     by_sector = mi.get("by_sector") or {}
     by_symbol = mi.get("by_symbol") or {}
+    kpis = mi.get("kpis") or {}
 
     with st.container(border=True):
         st.markdown("### Macro Radar — today's sector winners & losers")
         st.caption(
             "How today's macro environment (policy rate, oil, USD/PKR, "
-            "etc.) reads across PSX sectors. Each sector and stock gets "
-            "a deterministic tailwind / headwind score so every call "
-            "this app makes can cite a specific reason."
+            "T-bills, FX reserves, KSE-100, CPI) reads across PSX "
+            "sectors. Each sector and stock gets a deterministic "
+            "tailwind / headwind score so every call this app makes "
+            "can cite a specific reason."
         )
+
+        # ---- Industry KPI dashboard (live numbers)
+        if kpis:
+            st.markdown("**Industry KPIs (today)**")
+            k_cols = st.columns(5)
+            tbill = kpis.get("tbill_3m_pct")
+            kibor = kpis.get("kibor_3m_pct")
+            rsv   = kpis.get("reserves_sbp_usd_mn")
+            kse   = kpis.get("kse100_close")
+            cpi   = kpis.get("cpi_yoy_pct")
+            cpi_p = kpis.get("cpi_period") or ""
+            with k_cols[0]:
+                st.metric("T-bill 3M",
+                          f"{tbill:.2f}%" if tbill is not None else "—",
+                          f"{kpis.get('tbill_3m_change_5d')*100:+.0f} bps (5d)"
+                          if kpis.get("tbill_3m_change_5d") is not None else None)
+            with k_cols[1]:
+                st.metric("KIBOR 3M",
+                          f"{kibor:.2f}%" if kibor is not None else "—",
+                          f"{kpis.get('kibor_3m_change_5d')*100:+.0f} bps (5d)"
+                          if kpis.get("kibor_3m_change_5d") is not None else None)
+            with k_cols[2]:
+                st.metric("SBP reserves",
+                          f"${rsv/1000:.1f} bn" if rsv is not None else "—",
+                          f"{kpis.get('reserves_change_30d')/1000:+.1f} bn (30d)"
+                          if kpis.get("reserves_change_30d") is not None else None)
+            with k_cols[3]:
+                st.metric("KSE-100",
+                          f"{kse:,.0f}" if kse is not None else "—",
+                          f"{kpis.get('kse100_ret_5d')*100:+.1f}% (5d)"
+                          if kpis.get("kse100_ret_5d") is not None else None)
+            with k_cols[4]:
+                st.metric(f"CPI YoY ({cpi_p})" if cpi_p else "CPI YoY",
+                          f"{cpi:.1f}%" if cpi is not None else "—",
+                          f"{kpis.get('cpi_yoy_change_pp'):+.1f} pp"
+                          if kpis.get("cpi_yoy_change_pp") is not None else None)
 
         # ---- Active drivers
         if not drivers:
@@ -2936,6 +2974,10 @@ def render_value_tab():
     why_lines: list[str] = []
     method = rec.get("method") or "n/a"
     conf = rec.get("confidence") or "—"
+    # Sector medians are referenced both in the "Why this call?" Step-5
+    # narrative below and in the method breakdown further down. Resolve
+    # once here so the variable is defined before either consumer.
+    secm = rec.get("sector_medians") or {}
     if up is not None:
         if sig == "BUY_VALUE":
             why_lines.append(
@@ -3056,8 +3098,8 @@ def render_value_tab():
                 if k in c0 and k != "value":
                     st.caption(f"{k}: `{c0[k]}`")
 
-    # Sector medians used
-    secm = rec.get("sector_medians") or {}
+    # Sector medians used (variable already resolved at the top of the
+    # function — see the "Why this call?" stanza above).
     if secm:
         st.caption(
             f"Sector medians used → P/E {secm.get('pe_med')}  ·  "

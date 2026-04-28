@@ -46,6 +46,9 @@ from typing import Any, Callable, Optional
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 RATE_HISTORY_PATH = PROJECT_ROOT / "data" / "macro" / "_policy_rate_history.json"
+SBP_RATES_PATH   = PROJECT_ROOT / "data" / "macro" / "sbp_rates.parquet"
+KSE100_PATH      = PROJECT_ROOT / "data" / "macro" / "kse100.parquet"
+CPI_PATH         = PROJECT_ROOT / "data" / "macro" / "cpi_pakistan.parquet"
 
 
 # ---------------------------------------------------------------------------
@@ -75,6 +78,42 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "pkr_weak":  (+1, "Revaluation gains on USD treasury and "
                           "FX-denominated trade book."),
         "pkr_strong":(-1, "Smaller FX revaluation gains."),
+        "gold_up":   (-1, "Strong gold = risk-off mood = equity outflow "
+                          "from EM banks."),
+        "gold_down": (+1, "Risk-on tone supports bank equities."),
+        "copper_up": (+1, "Copper strength signals global industrial "
+                          "growth — supports loan demand and asset "
+                          "quality on emerging-market bank books."),
+        "copper_down":(-1,"Copper weakness = global slowdown signal — "
+                          "rising NPL risk."),
+        # Industry-specific KPIs ------------------------------------
+        "tbill_above_policy": (+1, "T-bill 3M trading above the policy "
+                                    "rate signals the market expects "
+                                    "future hikes — banks lock in higher "
+                                    "yields on the new investment book."),
+        "tbill_below_policy": (-1, "T-bill 3M trading below the policy "
+                                    "rate signals expected cuts — banks "
+                                    "see investment yields compress."),
+        "tbill_up":   (+1, "Rising T-bill 3M cut-offs lift bank treasury "
+                            "yields immediately (the investment book "
+                            "reprices faster than deposits)."),
+        "tbill_down": (-1, "Falling T-bill 3M cut-offs squeeze bank "
+                            "treasury yields immediately."),
+        "kibor_up":   (+1, "Higher KIBOR feeds straight into floating-rate "
+                            "loan yields — direct NII boost."),
+        "kibor_down": (-1, "Lower KIBOR drags floating-rate loan yields."),
+        "reserves_stress":  (-2, "FX-reserve stress triggers IMF / SBP "
+                                  "tightening risk — bank equities sell "
+                                  "off ahead of currency moves."),
+        "reserves_recovery":(+1, "Rebuilding reserves de-risks the BoP — "
+                                  "supportive for bank equities."),
+        "kse100_up":   (+1, "Broad market strength supports bank equities "
+                             "via fund flows and trading book gains."),
+        "kse100_down": (-1, "Broad market weakness pressures bank equities."),
+        "cpi_high":    (+1, "Sticky inflation forces SBP to hold high — "
+                             "NIMs stay elevated."),
+        "cpi_easing":  (-1, "Cooling CPI opens the door to rate cuts — "
+                             "NIMs face compression risk."),
     },
     "Cement": {
         "rate_up":   (-3, "Sector is highly leveraged: financial costs "
@@ -94,6 +133,32 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "coal_up":   (-3, "Direct fuel-cost shock on cement margins — "
                           "coal is the dominant kiln fuel."),
         "coal_down": (+3, "Cement margins ease as coal cost falls."),
+        "gold_up":   (-1, "Risk-off mood pressures cyclicals like cement."),
+        "gold_down": (+1, "Risk-on appetite supports cyclicals."),
+        "copper_up": (+1, "Industrial-cycle proxy is strong — supportive "
+                          "for construction demand."),
+        "copper_down":(-1,"Industrial slowdown reads through to "
+                          "construction."),
+        # Industry-specific KPIs ------------------------------------
+        "tbill_above_policy": (-1, "T-bills above policy rate price-in "
+                                    "more hikes — leverage-heavy cement "
+                                    "balance sheets bear the cost."),
+        "tbill_below_policy": (+1, "T-bills below policy rate signal "
+                                    "cuts ahead — cement gets early "
+                                    "financial-cost relief."),
+        "kibor_up":   (-2, "Higher KIBOR feeds directly into cement "
+                            "floating-rate finance costs — immediate "
+                            "EPS hit."),
+        "kibor_down": (+2, "Lower KIBOR delivers immediate financial-cost "
+                            "relief on cement balance sheets."),
+        "reserves_stress":  (-1, "FX stress raises imported-coal price "
+                                  "risk and dents construction confidence."),
+        "kse100_up":   (+1, "Broad-market risk-on supports cyclicals."),
+        "kse100_down": (-1, "Broad-market risk-off weighs on cyclicals."),
+        "cpi_high":    (-1, "Sticky inflation keeps rates restrictive — "
+                             "construction demand stays soft."),
+        "cpi_easing":  (+2, "Cooling CPI opens the door to cuts — biggest "
+                             "single tailwind for leveraged cement."),
     },
     "Oil & Gas E&P": {
         "rate_up":   ( 0, "Cash-rich, low-leverage names; mostly "
@@ -108,6 +173,18 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "pkr_weak":  (+2, "Wellhead prices are USD-linked; weaker PKR "
                           "translates to more PKR per barrel."),
         "pkr_strong":(-2, "Smaller PKR revenue lift on each USD barrel."),
+        "copper_up": (+1, "Industrial-growth read-through is positive "
+                          "for energy demand."),
+        "copper_down":(-1,"Industrial slowdown signal weighs on energy "
+                          "demand."),
+        # Industry-specific KPIs ------------------------------------
+        "reserves_stress":  (-1, "FX stress raises circular-debt risk "
+                                  "(receivables from gas / power chain "
+                                  "stay stuck)."),
+        "reserves_recovery":(+1, "Reserve rebuild eases circular-debt "
+                                  "settlement pressure — cash flow lift."),
+        "kse100_up":   (+1, "Risk-on flows support sector multiples."),
+        "kse100_down": (-1, "Risk-off flows compress sector multiples."),
     },
     "OMC/Refining": {
         "rate_up":   (-1, "Inventory financing costs rise; OMCs carry "
@@ -122,6 +199,16 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "pkr_weak":  ( 0, "Roughly neutral — government formula passes "
                           "through FX changes within a few weeks."),
         "pkr_strong":( 0, "Roughly neutral after pass-through."),
+        # Industry-specific KPIs ------------------------------------
+        "kibor_up":   (-1, "Higher KIBOR raises inventory-financing cost."),
+        "kibor_down": (+1, "Lower KIBOR cuts inventory-financing cost."),
+        "reserves_stress":  (-2, "FX stress jeopardises L/Cs for crude "
+                                  "imports and OGRA pricing — historic "
+                                  "trigger for OMC profitability shocks."),
+        "reserves_recovery":(+1, "L/C confirmation normalises — relief."),
+        "kse100_up":   (+1, "Cyclical exposure benefits from broad "
+                             "market strength."),
+        "kse100_down": (-1, "Cyclical exposure suffers when market sells."),
     },
     "Power": {
         "rate_up":   (-1, "Long-term project debt costs rise; new capex "
@@ -136,6 +223,20 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "pkr_weak":  (+1, "Capacity payments are partly USD-indexed under "
                           "old PPAs — weaker PKR helps reported earnings."),
         "pkr_strong":(-1, "Smaller PKR uplift on USD-indexed payments."),
+        # Industry-specific KPIs ------------------------------------
+        "kibor_up":   (-2, "IPPs are heavily leveraged — KIBOR feeds "
+                            "straight into financial costs."),
+        "kibor_down": (+2, "KIBOR relief is the single biggest near-term "
+                            "EPS driver for leveraged IPPs."),
+        "reserves_stress":  (-2, "Reserve stress almost always coincides "
+                                  "with worsening circular debt — IPPs "
+                                  "see receivables balloon and cash flow "
+                                  "deteriorate."),
+        "reserves_recovery":(+2, "Reserve rebuilds typically come with "
+                                  "circular-debt settlement plans — cash "
+                                  "flow normalises and dividends resume."),
+        "kse100_down": (-1, "Risk-off flows hit dividend-yield names "
+                             "less, but still negative on the margin."),
     },
     "Conglomerate/Chem": {
         "rate_up":   (-2, "Petrochemical balance sheets are typically "
@@ -165,6 +266,19 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                           "full pass-through to consumers."),
         "pkr_strong":(+2, "API import-cost relief — pharma gross margins "
                           "expand quickly."),
+        # Industry-specific KPIs ------------------------------------
+        "reserves_stress":  (-2, "FX stress squeezes L/Cs for API "
+                                  "imports while DRAP MRPs are slow to "
+                                  "adjust — gross margin compression "
+                                  "risk."),
+        "reserves_recovery":(+1, "API import flow normalises — gross "
+                                  "margins stabilise."),
+        "cpi_high":    (-1, "DRAP MRP increases lag CPI by 2-3 quarters; "
+                             "high CPI pinches gross margins until "
+                             "revisions catch up."),
+        "cpi_easing":  (+1, "Cooling CPI eases the case for further DRAP "
+                             "MRP cuts and removes a forward overhang."),
+        "kse100_down": (-1, "Defensive but still hit by risk-off flows."),
     },
     "Misc": {  # PABC — aluminium can manufacturer
         "rate_up":   (-1, "Adds to financial costs on working capital."),
@@ -174,6 +288,36 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "oil_down":  (+1, "Energy cost relief."),
         "pkr_weak":  (-2, "Aluminium ingot imports become more expensive."),
         "pkr_strong":(+2, "Imported aluminium ingot becomes cheaper."),
+        # Industry-specific KPIs ------------------------------------
+        "reserves_stress":  (-2, "Imported aluminium L/C confirmation "
+                                  "becomes harder under reserve stress."),
+        "reserves_recovery":(+1, "Imports normalise — supply-chain "
+                                  "relief."),
+        "kibor_up":   (-1, "Higher KIBOR raises working-capital costs."),
+        "kibor_down": (+1, "KIBOR relief eases working-capital costs."),
+    },
+    "Conglomerate/Chem": {
+        "rate_up":   (-2, "Petrochemical balance sheets are typically "
+                          "highly leveraged; rate hikes flow straight to "
+                          "the bottom line."),
+        "rate_down": (+2, "Financial costs ease — direct EPS lift."),
+        "rate_high": (-1, "Persistent financial-cost drag."),
+        "rate_low":  (+1, "Persistent financial-cost relief."),
+        "oil_up":    (+1, "Wider naphtha-to-PVC spread in some "
+                          "configurations; mixed for downstream."),
+        "oil_down":  (-1, "Narrower margins on PVC and other "
+                          "oil-derivative chemicals."),
+        "pkr_weak":  (-1, "Imported feedstock costs rise."),
+        "pkr_strong":(+1, "Imported feedstock costs fall."),
+        # Industry-specific KPIs ------------------------------------
+        "kibor_up":   (-2, "Highly leveraged chem balance sheets — KIBOR "
+                            "feeds straight into financial cost."),
+        "kibor_down": (+2, "Direct EPS lift on KIBOR relief."),
+        "reserves_stress":  (-2, "Imported feedstock L/C confirmation "
+                                  "tightens and price volatility rises."),
+        "reserves_recovery":(+1, "Imports normalise."),
+        "cpi_easing":  (+1, "Cooling CPI raises odds of rate cuts — "
+                             "direct financial-cost relief."),
     },
 }
 
@@ -222,36 +366,181 @@ def _save_rate_history(rows: list[dict]) -> None:
 
 
 def _record_rate_observation(rate_pct: float | None) -> Optional[float]:
-    """Append today's rate to the history file (idempotent on the same
-    rate value) and return the previous distinct value if any."""
+    """Persist today's rate observation and return the most recent
+    rate seen on a *previous* calendar date (or None if there is no
+    earlier observation).
+
+    Persistence rules:
+      * One row per calendar date — re-running the same day overwrites
+        rather than appending. That keeps the history immune from
+        synthetic test runs and from the rule-based fallback that may
+        call the engine many times per day.
+      * Only the rate from a strictly earlier date is treated as the
+        "previous" rate. Multiple values written for *today* never
+        produce a phantom rate change.
+      * The history file is capped at 50 distinct dates (>2 years of
+        MPC decisions, plenty for our purposes).
+    """
     if rate_pct is None:
         return None
     hist = _load_rate_history()
     today = datetime.now(timezone.utc).date().isoformat()
-    if not hist or hist[-1].get("rate_pct") != rate_pct:
-        hist.append({"date": today, "rate_pct": float(rate_pct)})
-        # Keep only the most recent 50 entries — that's >2 years of MPC
-        # decisions, plenty for our purposes.
-        hist = hist[-50:]
-        _save_rate_history(hist)
-    # Find the most recent distinct previous rate
-    for row in reversed(hist[:-1]):
-        if row.get("rate_pct") != rate_pct:
-            return float(row["rate_pct"])
-    return None
+
+    by_date: dict[str, float] = {}
+    for row in hist:
+        d = row.get("date")
+        r = row.get("rate_pct")
+        if isinstance(d, str) and isinstance(r, (int, float)):
+            by_date[d] = float(r)
+    by_date[today] = float(rate_pct)
+
+    # Sort by date and keep last 50 entries
+    items = sorted(by_date.items())[-50:]
+    rebuilt = [{"date": d, "rate_pct": r} for d, r in items]
+    _save_rate_history(rebuilt)
+
+    # Most recent rate observed on a *strictly earlier* date.
+    earlier = [r for d, r in items if d < today]
+    if not earlier:
+        return None
+    return earlier[-1]
+
+
+def _load_kpi_snapshot() -> dict:
+    """Read the persisted industry-KPI parquets and return a snapshot.
+
+    Returned shape (all keys optional)::
+
+        {
+          "tbill_3m_pct":          float,
+          "tbill_3m_change_5d":    float,    # absolute %-points
+          "kibor_3m_pct":          float,
+          "kibor_3m_change_5d":    float,
+          "reserves_total_usd_mn": float,
+          "reserves_change_30d":   float,    # absolute USD mn
+          "reserves_sbp_usd_mn":   float,
+          "kse100_close":          float,
+          "kse100_ret_5d":         float,    # fractional return
+          "kse100_ret_21d":        float,
+          "cpi_yoy_pct":           float,
+          "cpi_period":            str,      # e.g. "March"
+        }
+
+    The macro engine treats every field as optional — missing data
+    silently skips the matching driver.
+    """
+    out: dict = {}
+    try:
+        import pandas as pd
+    except Exception:
+        return out
+
+    if SBP_RATES_PATH.exists():
+        try:
+            df = pd.read_parquet(SBP_RATES_PATH).sort_values("date")
+            if not df.empty:
+                last = df.iloc[-1]
+                out["tbill_3m_pct"] = (float(last.get("tbill_3m_pct"))
+                                        if last.get("tbill_3m_pct") is not None
+                                        else None)
+                out["kibor_3m_pct"] = (float(last.get("kibor_3m_pct"))
+                                        if last.get("kibor_3m_pct") is not None
+                                        else None)
+                out["reserves_total_usd_mn"] = (
+                    float(last.get("reserves_total_usd_mn"))
+                    if last.get("reserves_total_usd_mn") is not None
+                    else None)
+                out["reserves_sbp_usd_mn"] = (
+                    float(last.get("reserves_sbp_usd_mn"))
+                    if last.get("reserves_sbp_usd_mn") is not None
+                    else None)
+                # Compute 5-day changes (absolute %-points / USD mn).
+                if len(df) >= 6:
+                    five = df.iloc[-6]
+                    if (last.get("tbill_3m_pct") is not None
+                            and five.get("tbill_3m_pct") is not None):
+                        out["tbill_3m_change_5d"] = (
+                            float(last["tbill_3m_pct"])
+                            - float(five["tbill_3m_pct"]))
+                    if (last.get("kibor_3m_pct") is not None
+                            and five.get("kibor_3m_pct") is not None):
+                        out["kibor_3m_change_5d"] = (
+                            float(last["kibor_3m_pct"])
+                            - float(five["kibor_3m_pct"]))
+                if len(df) >= 22:
+                    thirty = df.iloc[-22]
+                    if (last.get("reserves_total_usd_mn") is not None
+                            and thirty.get("reserves_total_usd_mn") is not None):
+                        out["reserves_change_30d"] = (
+                            float(last["reserves_total_usd_mn"])
+                            - float(thirty["reserves_total_usd_mn"]))
+        except Exception:
+            pass
+
+    if KSE100_PATH.exists():
+        try:
+            df = pd.read_parquet(KSE100_PATH).sort_values("date")
+            if not df.empty:
+                last = df.iloc[-1]
+                out["kse100_close"] = float(last.get("kse100_close"))
+                if len(df) >= 6:
+                    five = df.iloc[-6]
+                    if five.get("kse100_close"):
+                        out["kse100_ret_5d"] = (
+                            float(last["kse100_close"])
+                            / float(five["kse100_close"]) - 1.0)
+                if len(df) >= 22:
+                    twenty_one = df.iloc[-22]
+                    if twenty_one.get("kse100_close"):
+                        out["kse100_ret_21d"] = (
+                            float(last["kse100_close"])
+                            / float(twenty_one["kse100_close"]) - 1.0)
+        except Exception:
+            pass
+
+    if CPI_PATH.exists():
+        try:
+            df = pd.read_parquet(CPI_PATH).sort_values("date")
+            if not df.empty:
+                last = df.iloc[-1]
+                out["cpi_yoy_pct"] = float(last.get("cpi_yoy_pct"))
+                out["cpi_period"] = str(last.get("period") or "")
+                # CPI direction: compare current value to the value
+                # recorded for the previous distinct period text.
+                prev_period = df[
+                    (df["period"].fillna("") != last.get("period", ""))
+                ]
+                if not prev_period.empty:
+                    prev_last = prev_period.iloc[-1]
+                    if prev_last.get("cpi_yoy_pct") is not None:
+                        out["cpi_yoy_change_pp"] = (
+                            float(last["cpi_yoy_pct"])
+                            - float(prev_last["cpi_yoy_pct"]))
+        except Exception:
+            pass
+
+    return out
 
 
 def detect_drivers(
     macro: dict | None,
     rate: dict | None,
+    kpis: dict | None = None,
 ) -> list[Driver]:
     """Inspect today's macro snapshot and return the meaningful drivers.
 
     Thresholds are deliberately conservative — a 1% oil tick is noise,
     a 5% move in 5d or a 10% move in 21d is news.
+
+    ``kpis`` is the industry-KPI snapshot from :func:`_load_kpi_snapshot`
+    (T-bill, KIBOR, reserves, KSE-100, CPI). When omitted the engine
+    will load it from disk; pass ``{}`` to suppress the new drivers
+    explicitly.
     """
     drivers: list[Driver] = []
     indicators = (macro or {}).get("indicators") or {}
+    if kpis is None:
+        kpis = _load_kpi_snapshot()
 
     # ---- Policy rate (level + change vs last observation)
     rate_pct = (rate or {}).get("policy_rate_pct")
@@ -364,6 +653,233 @@ def detect_drivers(
             magnitude="MODERATE",
             context="Cement-grade coal lags Brent.",
         ))
+
+    # ---- Gold (risk-off proxy)
+    gold = indicators.get("gold") or {}
+    g21 = gold.get("ret_21d") or 0
+    if g21 >= 0.07:
+        drivers.append(Driver(
+            name="Gold",
+            tag="gold_up",
+            move=f"{g21*100:+.1f}% in 21d",
+            magnitude=("STRONG" if g21 >= 0.12 else "MODERATE"),
+            context=f"Gold at {gold.get('value', '?')} USD/oz — risk-off "
+                     "tone reduces appetite for EM equities.",
+        ))
+    elif g21 <= -0.05:
+        drivers.append(Driver(
+            name="Gold",
+            tag="gold_down",
+            move=f"{g21*100:+.1f}% in 21d",
+            magnitude=("STRONG" if g21 <= -0.10 else "MODERATE"),
+            context=f"Gold at {gold.get('value', '?')} USD/oz — risk-on "
+                     "tone supports EM equity inflows.",
+        ))
+
+    # ---- Copper (industrial growth proxy)
+    cop = indicators.get("copper") or {}
+    c21 = cop.get("ret_21d") or 0
+    if c21 >= 0.06:
+        drivers.append(Driver(
+            name="Copper",
+            tag="copper_up",
+            move=f"{c21*100:+.1f}% in 21d",
+            magnitude=("STRONG" if c21 >= 0.10 else "MODERATE"),
+            context="Strong copper signals global industrial growth — "
+                     "supportive of EM cyclicals.",
+        ))
+    elif c21 <= -0.06:
+        drivers.append(Driver(
+            name="Copper",
+            tag="copper_down",
+            move=f"{c21*100:+.1f}% in 21d",
+            magnitude=("STRONG" if c21 <= -0.10 else "MODERATE"),
+            context="Copper weakness signals global slowdown — bearish "
+                     "for EM cyclicals.",
+        ))
+
+    # ---- Cotton (textile sector input cost; future textile tickers)
+    ctn = indicators.get("cotton") or {}
+    t21 = ctn.get("ret_21d") or 0
+    if t21 >= 0.08:
+        drivers.append(Driver(
+            name="Cotton",
+            tag="cotton_up",
+            move=f"{t21*100:+.1f}% in 21d",
+            magnitude=("STRONG" if t21 >= 0.15 else "MODERATE"),
+            context="Cotton strength raises raw-material cost for "
+                     "Pakistan textile exporters.",
+        ))
+    elif t21 <= -0.08:
+        drivers.append(Driver(
+            name="Cotton",
+            tag="cotton_down",
+            move=f"{t21*100:+.1f}% in 21d",
+            magnitude=("STRONG" if t21 <= -0.15 else "MODERATE"),
+            context="Cotton easing supports textile gross margins.",
+        ))
+
+    # ---- T-bill 3M relative to policy rate (banking NIM signal)
+    tbill = kpis.get("tbill_3m_pct") if kpis else None
+    if tbill is not None and rate_pct is not None:
+        gap = tbill - rate_pct
+        if gap >= 0.30:
+            drivers.append(Driver(
+                name="T-bill 3M curve",
+                tag="tbill_above_policy",
+                move=f"3M cut-off {tbill:.2f}% vs policy {rate_pct:.2f}% "
+                     f"(+{gap*100:.0f} bps)",
+                magnitude=("STRONG" if gap >= 0.75 else "MODERATE"),
+                context="Money market is pricing-in further hikes; banks "
+                         "lock in higher yields on the new investment book.",
+            ))
+        elif gap <= -0.30:
+            drivers.append(Driver(
+                name="T-bill 3M curve",
+                tag="tbill_below_policy",
+                move=f"3M cut-off {tbill:.2f}% vs policy {rate_pct:.2f}% "
+                     f"({gap*100:.0f} bps)",
+                magnitude=("STRONG" if gap <= -0.75 else "MODERATE"),
+                context="Money market is pricing-in cuts; banks see "
+                         "investment yields compress over coming weeks.",
+            ))
+
+    # ---- T-bill 5d trend (banks' weekly funding-yield read)
+    tb_chg5 = kpis.get("tbill_3m_change_5d") if kpis else None
+    if tb_chg5 is not None:
+        if tb_chg5 >= 0.30:
+            drivers.append(Driver(
+                name="T-bill 3M (5-day move)",
+                tag="tbill_up",
+                move=f"+{tb_chg5*100:.0f} bps in 5d to {tbill:.2f}%",
+                magnitude=("STRONG" if tb_chg5 >= 0.60 else "MODERATE"),
+                context="Treasury yields rising — bank investment book "
+                         "reprices higher.",
+            ))
+        elif tb_chg5 <= -0.30:
+            drivers.append(Driver(
+                name="T-bill 3M (5-day move)",
+                tag="tbill_down",
+                move=f"{tb_chg5*100:.0f} bps in 5d to {tbill:.2f}%",
+                magnitude=("STRONG" if tb_chg5 <= -0.60 else "MODERATE"),
+                context="Treasury yields falling — bank investment book "
+                         "reprices lower.",
+            ))
+
+    # ---- KIBOR 3M (floating-rate loan & financing cost benchmark)
+    kibor = kpis.get("kibor_3m_pct") if kpis else None
+    kb_chg5 = kpis.get("kibor_3m_change_5d") if kpis else None
+    if kb_chg5 is not None and kibor is not None:
+        if kb_chg5 >= 0.30:
+            drivers.append(Driver(
+                name="KIBOR 3M (5-day move)",
+                tag="kibor_up",
+                move=f"+{kb_chg5*100:.0f} bps in 5d to {kibor:.2f}%",
+                magnitude=("STRONG" if kb_chg5 >= 0.60 else "MODERATE"),
+                context="Inter-bank funding cost rising — feeds into "
+                         "leveraged sector EPS and bank loan yields.",
+            ))
+        elif kb_chg5 <= -0.30:
+            drivers.append(Driver(
+                name="KIBOR 3M (5-day move)",
+                tag="kibor_down",
+                move=f"{kb_chg5*100:.0f} bps in 5d to {kibor:.2f}%",
+                magnitude=("STRONG" if kb_chg5 <= -0.60 else "MODERATE"),
+                context="Inter-bank funding cost falling — relief on "
+                         "leveraged-sector financial costs.",
+            ))
+
+    # ---- FX reserves regime (BoP stress / recovery)
+    rsv = kpis.get("reserves_sbp_usd_mn") if kpis else None
+    rsv_chg = kpis.get("reserves_change_30d") if kpis else None
+    if rsv is not None:
+        if rsv < 8000:
+            drivers.append(Driver(
+                name="FX reserves",
+                tag="reserves_stress",
+                move=f"SBP USD {rsv/1000:.1f} bn — sub-$8 bn",
+                magnitude="STRONG",
+                context="Reserve adequacy below 1.5 months of imports — "
+                         "elevated IMF / currency risk.",
+            ))
+        elif rsv < 10000:
+            drivers.append(Driver(
+                name="FX reserves",
+                tag="reserves_stress",
+                move=f"SBP USD {rsv/1000:.1f} bn",
+                magnitude="MODERATE",
+                context="Reserve buffer thin; markets watch for BoP "
+                         "stress and IMF tranche timing.",
+            ))
+        elif rsv >= 14000 and (rsv_chg or 0) >= 1500:
+            drivers.append(Driver(
+                name="FX reserves",
+                tag="reserves_recovery",
+                move=(f"SBP USD {rsv/1000:.1f} bn "
+                      f"(+{rsv_chg/1000:.1f} bn in 30d)"
+                      if rsv_chg else f"SBP USD {rsv/1000:.1f} bn"),
+                magnitude="MODERATE",
+                context="Reserve rebuild cuts BoP risk and supports "
+                         "broad-market sentiment.",
+            ))
+        elif rsv >= 14000:
+            drivers.append(Driver(
+                name="FX reserves",
+                tag="reserves_recovery",
+                move=f"SBP USD {rsv/1000:.1f} bn",
+                magnitude="MILD",
+                context="Reserve buffer comfortable — BoP risk muted.",
+            ))
+
+    # ---- KSE-100 momentum (broad-market regime)
+    kr5 = (kpis.get("kse100_ret_5d") if kpis else None) or 0
+    kr21 = (kpis.get("kse100_ret_21d") if kpis else None) or 0
+    if kr21 >= 0.05 or kr5 >= 0.04:
+        drivers.append(Driver(
+            name="KSE-100 momentum",
+            tag="kse100_up",
+            move=(f"{kr21*100:+.1f}% in 21d" if abs(kr21) >= 0.05
+                  else f"{kr5*100:+.1f}% in 5d"),
+            magnitude=("STRONG" if kr21 >= 0.10 else "MODERATE"),
+            context=f"KSE-100 at "
+                     f"{(kpis or {}).get('kse100_close', '?'):.0f} — "
+                     "broad market in risk-on mode.",
+        ))
+    elif kr21 <= -0.05 or kr5 <= -0.04:
+        drivers.append(Driver(
+            name="KSE-100 momentum",
+            tag="kse100_down",
+            move=(f"{kr21*100:+.1f}% in 21d" if abs(kr21) >= 0.05
+                  else f"{kr5*100:+.1f}% in 5d"),
+            magnitude=("STRONG" if kr21 <= -0.10 else "MODERATE"),
+            context=f"KSE-100 at "
+                     f"{(kpis or {}).get('kse100_close', '?'):.0f} — "
+                     "broad market in risk-off mode.",
+        ))
+
+    # ---- CPI regime (inflation level + direction)
+    cpi = kpis.get("cpi_yoy_pct") if kpis else None
+    cpi_chg = kpis.get("cpi_yoy_change_pp") if kpis else None
+    if cpi is not None:
+        if cpi >= 12.0:
+            drivers.append(Driver(
+                name="CPI YoY",
+                tag="cpi_high",
+                move=f"{cpi:.1f}% YoY (sticky)",
+                magnitude=("STRONG" if cpi >= 18.0 else "MODERATE"),
+                context="Inflation well above SBP comfort band — keeps "
+                         "rates restrictive.",
+            ))
+        elif cpi <= 8.0 and (cpi_chg is None or cpi_chg <= 0):
+            drivers.append(Driver(
+                name="CPI YoY",
+                tag="cpi_easing",
+                move=(f"{cpi:.1f}% YoY ({cpi_chg:+.1f}pp vs prior)"
+                      if cpi_chg is not None else f"{cpi:.1f}% YoY"),
+                magnitude=("STRONG" if cpi <= 5.0 else "MODERATE"),
+                context="Inflation cooling — opens room for SBP rate "
+                         "cuts that benefit leveraged sectors.",
+            ))
 
     return drivers
 
@@ -561,7 +1077,8 @@ def compute_macro_impact(
                 return None
         fund_loader = _default_loader
 
-    drivers = detect_drivers(macro, rate)
+    kpis = _load_kpi_snapshot()
+    drivers = detect_drivers(macro, rate, kpis=kpis)
     sectors = score_sectors(drivers)
 
     by_symbol: dict[str, dict] = {}
@@ -582,6 +1099,7 @@ def compute_macro_impact(
         "drivers":   [asdict(d) for d in drivers],
         "by_sector": {s: asdict(v) for s, v in sectors.items()},
         "by_symbol": by_symbol,
+        "kpis":      kpis,
     }
 
 

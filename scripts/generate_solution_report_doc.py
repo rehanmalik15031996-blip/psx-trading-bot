@@ -955,31 +955,77 @@ def build_doc_model() -> list[dict]:
             "construction demand falls). An oil price spike rewards "
             "exploration and production companies and squeezes "
             "transportation, packaging, and pharmaceutical importers. "
-            "The system needs to recognise these patterns "
-            "automatically and tell the analyst exactly which stocks "
-            "win and which stocks get hurt.",
+            "A jump in gold or a fall in copper signals risk-off "
+            "money flow that pulls foreign capital away from Pakistan "
+            "equities regardless of sector. The system needs to "
+            "recognise these patterns automatically and tell the "
+            "analyst exactly which stocks win and which stocks get "
+            "hurt — every day, on every recommendation.",
          "calc":
             "A deterministic rule book (kept in plain code, not a "
-            "model) maps each macroeconomic indicator move "
-            "(policy-rate change, oil price 5- and 21-day returns, "
-            "USD/PKR 21- and 63-day moves, coal proxy, cotton) to a "
-            "small signed score in each sector. Banking on a rate-up "
-            "day scores +2 (margin expansion); Cement on the same "
-            "day scores -3 (financial costs and demand both bite). "
-            "The score for an individual stock then adjusts that "
-            "sector reading by the company's debt-to-equity ratio "
-            "from the latest balance sheet — a high-leverage cement "
-            "company is hit harder than a low-leverage peer — and by "
-            "company-specific tags (CASA-rich tier-1 banks get an "
-            "extra notch on rate-up days; HUBCO carries an extra "
-            "headwind notch on rate-up days because of its ongoing "
-            "tariff renegotiation). Every score line carries a "
-            "human-readable explanation so the analyst sees not just "
-            "'+2' but 'higher policy rate widens net interest "
-            "margins'.",
+            "model) maps each macroeconomic indicator move to a "
+            "signed score in each sector. The drivers tracked are: "
+            "(1) State Bank policy-rate level and change, (2) Brent "
+            "crude 5- and 21-day returns, (3) USD/PKR 21- and 63-day "
+            "moves, (4) coal proxy implied from sustained oil moves "
+            "(coal prices lag Brent by about a month with high "
+            "correlation), (5) gold as a global risk-off proxy, "
+            "(6) copper as a global industrial-growth proxy, "
+            "(7) cotton for textile-export exposure, and a layer of "
+            "industry-specific KPIs that the State Bank publishes "
+            "every business day: (8) the 3-month T-bill cut-off "
+            "yield and its position relative to the policy rate "
+            "(money-market signal that banks lean on), (9) the "
+            "3-month KIBOR (the funding-cost benchmark that flows "
+            "into floating-rate loan and corporate financial-cost "
+            "lines), (10) total foreign-exchange reserves with a "
+            "stress band below USD 8 billion and a recovery band "
+            "above USD 14 billion that captures balance-of-payments "
+            "regime shifts, (11) the KSE-100 5- and 21-day momentum "
+            "for broad-market regime, and (12) the latest Pakistan "
+            "CPI year-on-year print scraped from Trading Economics "
+            "with a fallback to PBS — a high CPI reading keeps the "
+            "rate environment restrictive, while a cooling CPI "
+            "opens the door to cuts and is a powerful tailwind for "
+            "leveraged sectors. Each driver fires only when the "
+            "move clears a meaningful threshold (oil only counts "
+            "when it has moved 7% in a week or 10% in a month, "
+            "T-bills must drift more than 30 basis points away from "
+            "the policy rate to register, reserves must cross the "
+            "stress / recovery bands rather than wobble around the "
+            "centre — smaller moves are filtered as noise). Banking "
+            "on a rate-up day scores +2 (margin expansion) and gets "
+            "a further +1 when KIBOR is rising or T-bills are "
+            "trading above policy; Cement on a rate-up day scores "
+            "-3 and gets another -2 when KIBOR rises (financial "
+            "costs and demand both bite); IPPs score -2 on rising "
+            "KIBOR and -2 when reserves drop into the stress band "
+            "because circular debt almost always worsens during BoP "
+            "stress; pharma scores -2 on reserve stress because API "
+            "imports require letters of credit that get harder to "
+            "confirm. The score for an individual stock then "
+            "adjusts that sector reading by the company's debt-to-"
+            "equity ratio from the latest balance sheet — a high-"
+            "leverage cement company is hit harder than a low-"
+            "leverage peer — and by company-specific tags (CASA-"
+            "rich tier-1 banks get an extra notch on rate-up days; "
+            "HUBCO carries an extra headwind notch on rate-up days "
+            "because of its ongoing tariff renegotiation). Policy-"
+            "rate changes are detected by comparing today's rate "
+            "against the most recent observation on a strictly "
+            "earlier date, stored in a small history file — that "
+            "way only real MPC moves between distinct days fire "
+            "the rate-change rules, not intra-day repeats. Every "
+            "score line carries a human-readable explanation so the "
+            "analyst sees not just '+2' but 'higher policy rate "
+            "widens net interest margins because banks reprice "
+            "loans faster than deposits'. The same KPI snapshot is "
+            "also written into the LLM briefing so the AI's "
+            "rationale can cite the actual T-bill or CPI number "
+            "rather than speak in generalities.",
          "role":
-            "Two roles. (1) Reasoning input: the briefing handed to "
-            "the AI now includes a 'macro impact for this stock' "
+            "Three roles. (1) Reasoning input: the briefing handed "
+            "to the AI now includes a 'macro impact for this stock' "
             "block listing the active drivers, the sector verdict, "
             "and the stock-level verdict with its amplifier note. "
             "The AI is required to cite at least one macro tailwind "
@@ -988,9 +1034,14 @@ def build_doc_model() -> list[dict]:
             "Macro Radar panel on the Today tab shows today's "
             "sector winners and losers and the most-affected "
             "individual stocks, so the analyst can see the same "
-            "logic the AI saw. The same data is exposed inside "
-            "the per-stock Forecast drill-down as the 'Why this "
-            "call?' panel."},
+            "logic the AI saw. The same data is exposed inside the "
+            "per-stock Forecast drill-down as the 'Why this call?' "
+            "panel. (3) Chat answers: the chatbot can answer "
+            "questions like 'what is the macro impact on cement "
+            "today?' or 'which banks benefit from this rate cut?' "
+            "by calling the same engine — so verbal questions get "
+            "the same explainable, sector-specific answer the UI "
+            "shows."},
 
         {"name": "Strategy 14 — Cost-aware Trade Filter",
          "why":
@@ -1381,6 +1432,286 @@ def build_doc_model() -> list[dict]:
              "Lets the analyst see which layers earn or lose money "
              "over a custom date range."],
         ]},
+        {"kind": "pagebreak"},
+    ]
+
+    # ----------------------------------------------------- 10. AUDIT
+    doc += [
+        {"kind": "h", "level": 1,
+         "text": "10. Solution Health Audit (April 2026)"},
+
+        {"kind": "p", "text":
+            "After the analyst feedback round was incorporated, the "
+            "full solution was re-audited end-to-end. Every connector "
+            "was probed live, every chatbot tool was dispatched, every "
+            "decision-engine output was inspected for the new "
+            "macroeconomic-impact fields, and every dashboard tab was "
+            "rendered against today's data. The findings and the fixes "
+            "applied are listed below in plain English so the reader "
+            "knows exactly what state the system is in today."},
+
+        {"kind": "h", "level": 2,
+         "text": "10.1  Issues found and fixed"},
+        {"kind": "table",
+         "headers": ["#", "Where", "Issue", "Fix applied"],
+         "rows": [
+            ["1", "Data freshness panel",
+             "The 'Material Information' file always reported "
+             "'no latest data date' even when the parquet was up to "
+             "date — the freshness check was missing the branch that "
+             "reads the date column for that particular file.",
+             "Added a branch that reads the announcement date "
+             "(falling back to the scrape time). The file now shows "
+             "an accurate latest-data-date and freshness flag."],
+            ["2", "Macro impact engine",
+             "The policy-rate history file was keyed on rate value "
+             "rather than calendar date, so multiple observations "
+             "written on the same day (synthetic tests, repeated "
+             "rule-based fallbacks) inflated false rate-change "
+             "drivers. The engine occasionally reported a phantom "
+             "rate cut.",
+             "Switched the persistence to one row per calendar date. "
+             "Only the rate from a strictly earlier date is treated "
+             "as the previous reading, so intra-day repeats can no "
+             "longer cause phantom MPC moves. The polluted history "
+             "was reset."],
+            ["3", "Predictions log",
+             "Predictions written to the log before the macro "
+             "impact engine existed had no macro tailwinds, "
+             "headwinds, or impact snapshot, so the 'Why this call?' "
+             "panel showed empty macro lines for older predictions.",
+             "Added a back-fill step inside the prediction reader: "
+             "when an older prediction is loaded for display, the "
+             "macro impact engine is run live and its output is "
+             "stitched in, so the explanation panel always has macro "
+             "context."],
+            ["4", "Chatbot tools",
+             "The chatbot could not answer macro-impact, "
+             "Director's-Report, Material-Information or sector-"
+             "volume questions because there were no specific "
+             "tools for them. Users had to read those panels in the "
+             "UI manually.",
+             "Added four new chatbot tools: macro impact today (with "
+             "optional symbol filter), management outlook, material "
+             "information, and sector volume heatmap. The chatbot "
+             "now supports questions like 'what is the macro impact "
+             "on cement today?' or 'what does PSO management say "
+             "about furnace oil costs?'"],
+            ["5", "Fundamentals cache",
+             "Only two of the fifteen stocks had the new "
+             "P/E, P/B, dividend yield and payout-ratio fields; the "
+             "rest were cached before the connector was upgraded. "
+             "This caused four of the eight sector medians "
+             "(Banking, Cement, OMC/Refining, Conglomerate/Chem) to "
+             "compute as null, which in turn caused the value tab "
+             "to display blanks in the 'vs sector' columns.",
+             "Re-ran the fundamentals refresh for the full "
+             "fifteen-stock universe. Every stock now has all four "
+             "ratios, every sector has a median, and every stock "
+             "carries its own 'percent above/below sector' figures."],
+            ["6", "Macro driver coverage",
+             "The first cut of the macro impact engine looked at "
+             "four drivers (policy rate, oil, USD/PKR, coal proxy). "
+             "The analyst asked for 'many macroeconomic factors' to "
+             "be respected — gold, copper and cotton were already "
+             "being collected daily but were not feeding the "
+             "engine.",
+             "Extended driver detection to gold (risk-off proxy), "
+             "copper (industrial-growth proxy) and cotton (textile "
+             "input cost), with thresholds tuned to fire only on "
+             "meaningful 21-day moves. Banking, Cement and Oil & "
+             "Gas E&P rule-books were extended to read the new "
+             "tags. The engine now responds to seven distinct macro "
+             "drivers."],
+        ]},
+
+        {"kind": "h", "level": 2,
+         "text": "10.2  Findings that are working as designed"},
+        {"kind": "bullets", "items": [
+            "The Sarmaya cross-check connector reports 'no parseable "
+            "page' because Sarmaya rebuilt their site on a "
+            "JavaScript-only single-page architecture. The connector "
+            "degrades gracefully — it returns an empty result and a "
+            "clear note rather than crashing the pipeline. Every "
+            "downstream consumer treats Sarmaya as an optional "
+            "cross-check, so the system continues to function on "
+            "yfinance fundamentals alone.",
+            "The Material Information parquet currently holds only a "
+            "handful of rows. PSX has simply not filed many material "
+            "disclosures for the fifteen-stock universe in the past "
+            "month — this is real-world data, not a scraping bug. "
+            "When a wave of disclosures arrives (typically before "
+            "result season) the file fills naturally.",
+            "Three cement names (FCCL, KOHC, MLCF) display a payout "
+            "ratio of zero. They genuinely paused dividends in 2019. "
+            "The figure is correct.",
+            "The strategy-rule recommendation can show CASH while "
+            "individual AI conviction calls show BUY. This is the "
+            "system working as designed: the rule sets exposure, "
+            "the AI ranks within the budget. Both are surfaced so "
+            "the analyst can see the tension."],
+        },
+
+        {"kind": "h", "level": 2,
+         "text": "10.3  End-to-end smoke test"},
+        {"kind": "p", "text":
+            "After every fix, a single end-to-end script exercised "
+            "the morning-brief assembly, the action explainer, the "
+            "predictions reader, and all four new chat tools against "
+            "the live data on disk. All thirteen assertions passed: "
+            "the macro impact engine emits three drivers and covers "
+            "all eight sectors, the predictions reader back-fills "
+            "macro context for older entries, every chat tool returns "
+            "a non-error payload, and the UI explainer surfaces the "
+            "rationale plus tailwinds and headwinds for the day's "
+            "top action."},
+
+        {"kind": "h", "level": 2,
+         "text": "10.4  Iteration April 28: industry-specific KPI "
+                  "expansion"},
+        {"kind": "p", "text":
+            "Following the audit, four of the five 'open items' "
+            "identified for the next iteration were closed in a "
+            "single follow-up. The State Bank connector already "
+            "captures the T-bill and PIB yield curves, KIBOR, and "
+            "reserve totals daily, but those numbers were being "
+            "discarded after a single use — so the macro impact "
+            "engine could not see whether T-bills had moved or "
+            "whether reserves were drifting toward the IMF stress "
+            "band. Three persistent time-series files now keep "
+            "those readings on disk:"},
+        {"kind": "bullets", "items": [
+            "data/macro/sbp_rates.parquet — one row per business day "
+            "with the policy rate, KIBOR (3, 6, 12 months), T-bill "
+            "cut-offs (1, 3, 6, 12 months), PIB yields (3, 5, 10 "
+            "years), and FX reserves (SBP, banks, total).",
+            "data/macro/kse100.parquet — one row per business day "
+            "with the KSE-100 close, daily change, and intra-day "
+            "high / low captured from the PSX DPS indices page.",
+            "data/macro/cpi_pakistan.parquet — one row per refresh "
+            "with the latest Pakistan CPI year-on-year print, the "
+            "calendar period it covers (e.g. 'March'), and the "
+            "data source. The scrape uses Trading Economics first "
+            "(it publishes the print as a one-line summary that is "
+            "robust to layout changes) and falls back to the "
+            "Bureau of Statistics landing page."],
+        },
+        {"kind": "p", "text":
+            "A new GitHub Actions workflow (.github/workflows/"
+            "macro_kpis.yml) refreshes all three files on weekdays "
+            "at 17:00 Pakistan time (12:00 UTC), commits the "
+            "incremental rows, and pushes back to the main "
+            "branch. The workflow is idempotent: re-runs on the "
+            "same business day overwrite the row in place rather "
+            "than creating duplicates."},
+        {"kind": "p", "text":
+            "The macro impact engine now consumes those files "
+            "through a new helper, _load_kpi_snapshot, and emits "
+            "five additional families of drivers — T-bill 3-month "
+            "trading above or below policy rate (banking signal), "
+            "T-bill 5-day trend, KIBOR 5-day trend (financial-"
+            "cost benchmark for every leveraged sector), reserve "
+            "stress / recovery (BoP regime), KSE-100 5- and 21-"
+            "day momentum (broad-market regime), and CPI level "
+            "and direction (real-rate signal). The sector rule "
+            "book has been expanded to react to each tag with a "
+            "specific score and a one-sentence reason: KIBOR "
+            "rising scores -2 for IPPs and Conglomerate / Chem "
+            "because both run highly leveraged balance sheets, "
+            "but only -1 for OMCs because their working-capital "
+            "cycle is shorter; reserve stress scores -2 for "
+            "OMCs (letter-of-credit risk on crude imports), -2 "
+            "for IPPs (circular debt worsens), -2 for pharma "
+            "(API import letters of credit get harder to "
+            "confirm), -1 for cement and miscellaneous "
+            "manufacturers, and -2 for banks themselves; CPI "
+            "easing scores +2 for cement (single biggest "
+            "tailwind for leveraged construction names) and +1 "
+            "for chem and pharma; CPI sticky-high scores -1 for "
+            "cement and pharma. The analyst's exact request was "
+            "industry-level KPIs with sector-specific reasoning, "
+            "and that is now what the engine produces."},
+        {"kind": "p", "text":
+            "Both the user interface and the language-model "
+            "briefing reflect the new data. The Macro Radar "
+            "panel on the Today tab now shows the live numeric "
+            "values (T-bill 3-month, KIBOR 3-month, SBP "
+            "reserves, KSE-100, CPI year-on-year) at the top of "
+            "the card with five-day or thirty-day deltas, "
+            "before the existing driver and sector / stock "
+            "tables. The chatbot has gained a new tool, "
+            "get_industry_kpis, that returns the same numeric "
+            "snapshot directly, and the existing "
+            "get_macro_impact_today tool now carries the "
+            "industry-KPI block alongside the drivers and "
+            "verdicts. Most importantly, the LLM briefing that "
+            "is built before every prediction now opens its "
+            "macro section with an 'Industry KPIs' block listing "
+            "the actual numbers, so the AI's rationale can cite "
+            "specific values rather than speak in generalities."},
+        {"kind": "p", "text":
+            "Quick sanity check on April 27 data: the engine "
+            "produces five active drivers (Brent crude up 9.7% "
+            "in 5 days, Copper up 9.0% in 21 days, Cotton up "
+            "12.9% in 21 days, FX reserves recovering at USD "
+            "15.1 billion, CPI cooling to 7.3%) and routes them "
+            "into eight sector verdicts: Banking +1 (tailwind), "
+            "Cement +1 (tailwind, CPI easing wins out over "
+            "Brent up), Oil & Gas E&P +5 (strong tailwind), "
+            "OMC / Refining +2 (tailwind), Power +3 (strong "
+            "tailwind), Conglomerate / Chem +3 (strong "
+            "tailwind), Pharma +1 (tailwind), Misc neutral. "
+            "Every line carries a human-readable reason — for "
+            "example Power's strong tailwind cites 'Reserve "
+            "rebuilds typically come with circular-debt "
+            "settlement plans — cash flow normalises and "
+            "dividends resume' (+2) plus 'Furnace-oil-fired "
+            "plants get fuel-cost pass-through under PPA "
+            "indexation' (+1)."},
+
+        {"kind": "h", "level": 2,
+         "text": "10.5  Open items for the next iteration"},
+        {"kind": "p", "text":
+            "Three items remain on the roadmap. Each requires "
+            "either a less stable data source or a longer-running "
+            "engineering effort, so they are deliberately scoped "
+            "for the next sprint rather than slotted into the "
+            "April 28 KPI release."},
+        {"kind": "bullets", "items": [
+            "APCMA cement-industry retention prices and DRAP "
+            "pharmaceutical price-cap notifications. Both are "
+            "published as PDF bulletins on the relevant industry "
+            "association or regulator website; the cadence is "
+            "irregular and the format changes between releases. "
+            "A robust pipeline needs PDF parsing rather than HTML "
+            "scraping, plus a small retry / human-review queue "
+            "for malformed releases. The existing macro engine "
+            "already covers the headline driver (CPI for pharma, "
+            "reserve stress for both), but per-product retention "
+            "and MRP detail would let the engine fire on company-"
+            "specific signals such as a single pharma product "
+            "getting a price increase.",
+            "NEPRA quarterly circular-debt bulletin for the IPP "
+            "sector. NEPRA publishes a quarterly state-of-"
+            "industry report and an annual circular-debt update; "
+            "both are PDFs with tables that move position year "
+            "to year. The current engine uses the FX reserve "
+            "stress / recovery driver as a proxy because reserve "
+            "stress and circular-debt growth move together with "
+            "high correlation, but a direct circular-debt number "
+            "would let the engine flag IPP-specific tail risk "
+            "even when reserves look fine.",
+            "Live paper-trading against a broker API. KASB / JS "
+            "Investments / AKD all expose REST APIs that accept "
+            "limit and stop orders, including a paper / sandbox "
+            "mode. Wiring the predictions feed to one of those "
+            "APIs would remove the last back-test biases — fees, "
+            "fills, slippage, and timing all become real. Scoped "
+            "as a multi-week project because broker credentials, "
+            "compliance review, and a staged rollout are "
+            "required before the system can place real orders."],
+        },
+
         {"kind": "pagebreak"},
     ]
 

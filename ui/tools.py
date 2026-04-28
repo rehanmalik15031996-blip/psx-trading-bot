@@ -21,7 +21,7 @@ Design notes:
 from __future__ import annotations
 
 import json
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -1152,10 +1152,48 @@ def get_todays_predictions(max_items: int = 20,
                 if p.get("data_snapshot", {}).get("as_of_price_date") == as_of]
     rt_cost = round_trip_cost_pct()
 
+    # Older predictions in the log were generated before the macro-
+    # impact engine existed. Compute it lazily now (cheap — same
+    # deterministic rule book), so the "Why this call?" panel still
+    # has macro context for them.
+    cached_macro_impact: dict | None = None
+    universe_syms = [p["symbol"] for p in latest]
+    def _macro_for(sym: str, sector: str | None) -> dict | None:
+        nonlocal cached_macro_impact
+        try:
+            from brain.macro_impact import compute_macro_impact
+            if cached_macro_impact is None:
+                cached_macro_impact = compute_macro_impact(
+                    universe=universe_syms)
+            return {
+                "drivers": cached_macro_impact.get("drivers") or [],
+                "by_sector": (cached_macro_impact.get("by_sector") or {})
+                              .get(sector or "", {}),
+                "by_symbol": (cached_macro_impact.get("by_symbol") or {})
+                              .get(sym, {}),
+            }
+        except Exception:
+            return None
+
     rows: list[dict] = []
     for p in latest:
         gross = float(p.get("expected_return_5d_mid_pct") or 0)
         net = net_return_pct(gross)
+
+        mi = p.get("macro_impact")
+        sym_block = (mi or {}).get("by_symbol") or {}
+        # Best-effort backfill for older predictions
+        if not mi:
+            mi = _macro_for(p["symbol"], p.get("sector"))
+            sym_block = (mi or {}).get("by_symbol") or {}
+
+        # Synthesize macro_tailwinds/headwinds from the snapshot if the
+        # prediction record does not already carry them (older format).
+        macro_tw = p.get("macro_tailwinds") or list(
+            (sym_block.get("tailwinds") or [])[:3])
+        macro_hw = p.get("macro_headwinds") or list(
+            (sym_block.get("headwinds") or [])[:3])
+
         row = {
             "symbol": p["symbol"],
             "sector": p.get("sector"),
@@ -1172,6 +1210,9 @@ def get_todays_predictions(max_items: int = 20,
             "rationale": p.get("rationale"),
             "key_drivers": p.get("key_drivers", []),
             "key_risks": p.get("key_risks", []),
+            "macro_tailwinds": macro_tw,
+            "macro_headwinds": macro_hw,
+            "macro_impact": mi,
         }
         rows.append(row)
 
@@ -1355,6 +1396,103 @@ def get_next_earnings(symbol: str) -> dict:
     return next_event((symbol or "").upper())
 
 
+def get_macro_impact_today(symbol: str | None = None) -> dict:
+    """Sector- and stock-level macroeconomic impact for the current
+    macro snapshot. Returns active drivers (rates, oil, USD/PKR, gold,
+    copper, cotton, coal proxy, T-bill 3M, KIBOR 3M, FX reserves,
+    KSE-100 momentum, CPI YoY), per-sector tailwind/headwind verdicts,
+    per-stock scores, and the live industry-KPI snapshot. If `symbol`
+    is provided, the response is narrowed to that one ticker plus its
+    sector verdict.
+    """
+    try:
+        from brain.macro_impact import compute_macro_impact
+    except Exception as e:
+        return {"error": f"macro_impact engine unavailable: {e}"}
+    full = compute_macro_impact()
+    if not symbol:
+        return full
+    sym = symbol.upper().strip()
+    by_symbol = full.get("by_symbol") or {}
+    sym_block = by_symbol.get(sym) or {}
+    sector = sym_block.get("sector")
+    by_sector = full.get("by_sector") or {}
+    return {
+        "symbol": sym,
+        "sector": sector,
+        "drivers": full.get("drivers") or [],
+        "sector_verdict": by_sector.get(sector or "", {}),
+        "stock_verdict": sym_block,
+        "kpis": full.get("kpis") or {},
+        "as_of": full.get("as_of"),
+    }
+
+
+def get_industry_kpis() -> dict:
+    """Live numeric snapshot of the industry-specific KPIs the macro
+    engine consumes: SBP T-bill 3M cut-off, KIBOR 3M, total / SBP-only
+    FX reserves, KSE-100 close + 5d / 21d returns, Pakistan CPI YoY %.
+
+    Each value is the *latest* observation from the persisted parquets
+    in ``data/macro/``. Use this to answer "what's the current T-bill
+    rate?", "where are FX reserves today?", "what was the latest CPI
+    print?".
+    """
+    try:
+        from brain.macro_impact import _load_kpi_snapshot
+    except Exception as e:
+        return {"error": f"industry KPI loader unavailable: {e}"}
+    snap = _load_kpi_snapshot() or {}
+    if not snap:
+        return {"error": "no industry KPI parquets on disk yet"}
+    return {
+        "as_of": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "kpis":  snap,
+    }
+
+
+def get_management_outlook(symbol: str) -> dict:
+    """Latest LLM-extracted management commentary for `symbol`:
+    business outlook, growth/risk highlights, capacity utilization and
+    new-product mentions, sourced from the company's most recent
+    Director's Report PDF on PSX Data Portal. Use this to answer
+    questions like 'what does HUBC management say about coal pricing?'.
+    """
+    try:
+        from ui.dashboard_data import management_outlook_history
+    except Exception as e:
+        return {"error": f"management outlook module unavailable: {e}"}
+    rows = management_outlook_history(symbol=symbol.upper().strip())
+    if not rows:
+        return {"error": f"No Director's Report on file for {symbol!r}."}
+    # The history is sorted newest-first by the dashboard helper.
+    return {"symbol": symbol.upper().strip(),
+             "latest": rows[0],
+             "history_count": len(rows)}
+
+
+def get_material_information(symbol: str | None = None,
+                              days: int = 14) -> dict:
+    """Recent PSX Material Information disclosures (price-sensitive
+    notices). If `symbol` is provided, filter to that ticker; otherwise
+    return everything in the last `days`."""
+    try:
+        from ui.dashboard_data import material_information_recent
+    except Exception as e:
+        return {"error": f"material info module unavailable: {e}"}
+    payload = material_information_recent(
+        symbol=symbol.upper().strip() if symbol else None,
+        days=int(days),
+    )
+    rows = payload.get("rows") or []
+    return {
+        "as_of":   payload.get("as_of"),
+        "rows":    rows,
+        "count":   len(rows),
+        "summary": payload.get("summary"),
+    }
+
+
 TOOL_FUNCTIONS = {
     "list_universe": list_universe,
     "get_price": get_price,
@@ -1367,8 +1505,11 @@ TOOL_FUNCTIONS = {
     "recommend_new_buys": recommend_new_buys,
     "get_price_history": get_price_history,
     "get_fipi_flows": get_fipi_flows,
+    "get_sector_volume_heatmap": get_sector_volume_heatmap,
     "get_policy_rate": get_policy_rate,
     "get_macro_snapshot": get_macro_snapshot,
+    "get_macro_impact_today": get_macro_impact_today,
+    "get_industry_kpis": get_industry_kpis,
     "get_recent_news": get_recent_news,
     "get_full_context": get_full_context,
     "get_overnight_signals": get_overnight_signals,
@@ -1385,6 +1526,8 @@ TOOL_FUNCTIONS = {
     "get_universe_earnings_momentum": get_universe_earnings_momentum,
     "get_earnings_calendar": get_earnings_calendar,
     "get_next_earnings": get_next_earnings,
+    "get_management_outlook": get_management_outlook,
+    "get_material_information": get_material_information,
 }
 
 
@@ -1760,6 +1903,80 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
             "type": "object",
             "properties": {"symbol": {"type": "string"}},
             "required": ["symbol"],
+        },
+    },
+    {
+        "name": "get_macro_impact_today",
+        "description": ("Sector- and stock-level macroeconomic impact "
+                        "based on today's snapshot. Returns the active "
+                        "macro drivers (policy rate, oil, USD/PKR, gold, "
+                        "copper, cotton, coal proxy, T-bill 3M, KIBOR "
+                        "3M, FX reserves, KSE-100 momentum, CPI YoY), "
+                        "per-sector tailwind/headwind verdicts, "
+                        "per-stock scores, and the live industry-KPI "
+                        "snapshot. Pass `symbol` to narrow the response "
+                        "to one ticker."),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "symbol": {"type": "string",
+                            "description": "Optional ticker, e.g. 'MEBL'"},
+            },
+        },
+    },
+    {
+        "name": "get_industry_kpis",
+        "description": ("Live numeric snapshot of the industry-specific "
+                        "KPIs the macro engine consumes: SBP T-bill 3M, "
+                        "KIBOR 3M, FX reserves, KSE-100 close + 5d/21d "
+                        "momentum, Pakistan CPI YoY %. Use for direct "
+                        "questions like 'what's the current T-bill "
+                        "rate?', 'where are FX reserves today?', 'what "
+                        "was the latest CPI print?'."),
+        "input_schema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "get_management_outlook",
+        "description": ("Latest LLM-extracted commentary from the "
+                        "company's most recent Director's Report PDF: "
+                        "business outlook, growth and risk highlights, "
+                        "capacity utilization, and new-product mentions. "
+                        "Use this for any 'what does management say "
+                        "about X' question."),
+        "input_schema": {
+            "type": "object",
+            "properties": {"symbol": {"type": "string"}},
+            "required": ["symbol"],
+        },
+    },
+    {
+        "name": "get_material_information",
+        "description": ("Recent PSX Material Information disclosures "
+                        "(price-sensitive notices). Optional `symbol` "
+                        "filters to one ticker; `days` controls the "
+                        "lookback window (default 14)."),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "symbol": {"type": "string"},
+                "days":   {"type": "integer",
+                            "description": "Lookback window in days "
+                                            "(default 14)."},
+            },
+        },
+    },
+    {
+        "name": "get_sector_volume_heatmap",
+        "description": ("Today's most-active sectors on PSX, ranked by "
+                        "traded value vs the 20-day average. Helps the "
+                        "user spot which industries are catching the "
+                        "day's flow."),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "top_k":         {"type": "integer"},
+                "lookback_days": {"type": "integer"},
+            },
         },
     },
 ]

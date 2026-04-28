@@ -578,6 +578,11 @@ def data_freshness() -> dict[str, Any]:
             latest_data_date = _latest_date_in_parquet(p, "date")
         elif name == "Director's reports":
             latest_data_date = _latest_date_in_parquet(p, "filing_date")
+        elif name == "Material information":
+            # The parquet stores the announcement date in `date`; fall
+            # back to scrape time if the column is somehow missing.
+            latest_data_date = (_latest_date_in_parquet(p, "date")
+                                 or _latest_date_in_parquet(p, "scraped_at_utc"))
 
         # How fresh is the latest data point relative to today?
         days_behind: int | None = None

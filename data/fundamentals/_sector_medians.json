@@ -1,5 +1,5 @@
 {
-  "computed_utc": "2026-04-27T12:53:05+00:00",
+  "computed_utc": "2026-04-27T14:05:51+00:00",
   "by_sector": {
     "Power": {
       "n": 1,
@@ -13,20 +13,20 @@
     },
     "Misc": {
       "n": 1,
-      "pe_med": null,
-      "pb_med": null,
-      "yield_med": null,
-      "payout_med": null,
+      "pe_med": 7.56,
+      "pb_med": 1.8,
+      "yield_med": 0.0,
+      "payout_med": 0.0,
       "members": [
         "PABC"
       ]
     },
     "Cement": {
       "n": 3,
-      "pe_med": null,
-      "pb_med": null,
-      "yield_med": null,
-      "payout_med": null,
+      "pe_med": 7.98,
+      "pb_med": 1.39,
+      "yield_med": 0.0,
+      "payout_med": 0.0,
       "members": [
         "FCCL",
         "KOHC",
@@ -35,7 +35,7 @@
     },
     "Oil & Gas E&P": {
       "n": 3,
-      "pe_med": 6.71,
+      "pe_med": 5.47,
       "pb_med": 1.01,
       "yield_med": 4.83,
       "payout_med": 32.4,
@@ -47,10 +47,10 @@
     },
     "Banking": {
       "n": 3,
-      "pe_med": null,
-      "pb_med": null,
-      "yield_med": null,
-      "payout_med": null,
+      "pe_med": 8.23,
+      "pb_med": 1.43,
+      "yield_med": 7.34,
+      "payout_med": 55.6,
       "members": [
         "FABL",
         "MCB",
@@ -59,10 +59,10 @@
     },
     "OMC/Refining": {
       "n": 2,
-      "pe_med": null,
-      "pb_med": null,
-      "yield_med": null,
-      "payout_med": null,
+      "pe_med": 7.46,
+      "pb_med": 0.88,
+      "yield_med": 4.14,
+      "payout_med": 27.25,
       "members": [
         "APL",
         "PSO"
@@ -70,20 +70,20 @@
     },
     "Conglomerate/Chem": {
       "n": 1,
-      "pe_med": null,
-      "pb_med": null,
-      "yield_med": null,
-      "payout_med": null,
+      "pe_med": -7.66,
+      "pb_med": 1.43,
+      "yield_med": 0.0,
+      "payout_med": 0.0,
       "members": [
         "EPCL"
       ]
     },
     "Pharma": {
       "n": 1,
-      "pe_med": null,
-      "pb_med": null,
-      "yield_med": null,
-      "payout_med": null,
+      "pe_med": 54.58,
+      "pb_med": 1.63,
+      "yield_med": 0.0,
+      "payout_med": 0.0,
       "members": [
         "SEARL"
       ]
