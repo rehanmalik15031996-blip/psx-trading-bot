@@ -415,10 +415,15 @@ def build_briefing(ctx: dict) -> str:
     except Exception as e:
         lines += ["", f"FUNDAMENTAL RATIOS: (skipped — {type(e).__name__})"]
 
+    try:
+        from config.universe import symbols as _univ_symbols
+        _n_universe = len(_univ_symbols())
+    except Exception:
+        _n_universe = 35
     lines += [
         "",
-        "MOMENTUM RANK IN 15-STOCK UNIVERSE",
-        f"  Rank: {ctx.get('momentum_rank_today')} / 15",
+        f"MOMENTUM RANK IN {_n_universe}-STOCK UNIVERSE",
+        f"  Rank: {ctx.get('momentum_rank_today')} / {_n_universe}",
         f"  In Phase-1 top-5 today: {ctx.get('in_phase1_top5')}",
         f"  Would-be top-5 if market filter off: {ctx.get('in_top5_if_filter_off')}",
         f"  Market filter regime: {signal.get('market_regime', '?')} "

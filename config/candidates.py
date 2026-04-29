@@ -1,16 +1,18 @@
 """Candidate pool for universe selection.
 
-These are liquid PSX blue-chip names (mostly KSE-30 / KMI-30 constituents)
-that the selector considers for the 9 "flex" slots. The 6 user-required
-tickers live in REQUIRED_TICKERS.
+These are liquid KSE-100 constituents that the selector considers for
+the "flex" slots. The 7 user-required tickers live in REQUIRED_TICKERS.
 
-Having a curated pool means we don't backfill all 500+ PSX names every time.
-All candidates have 5+ years of DPS history as of 2026-04-23.
+Having a curated pool means we don't backfill all 500+ PSX names every
+time. All candidates target 5+ years of price history and >= 1bn PKR
+market cap to ensure they are tradeable.
+
+Last expanded: 2026-04-30 — universe scaled from 16 → 35 names to
+mirror the broader KSE-100 sector composition.
 """
 
 from __future__ import annotations
 
-# User's non-negotiable tickers — always in the universe.
 REQUIRED_TICKERS: list[str] = [
     "HUBC",   # Hub Power (Power Generation)
     "PABC",   # Pakistan Aluminium Beverage Cans (Miscellaneous)
@@ -21,10 +23,8 @@ REQUIRED_TICKERS: list[str] = [
     "NPL",    # Nishat Power (Power Generation — IPP)
 ]
 
-# Known sector for each candidate — used for diversification constraint.
-# This is the PSX canonical sector (from Market Watch sector codes).
 CANDIDATE_POOL: list[tuple[str, str]] = [
-    # --- Banking ---
+    # --- Banking (KSE-100 weight ~25-30%) ---
     ("MCB",    "Commercial Banks"),
     ("HBL",    "Commercial Banks"),
     ("UBL",    "Commercial Banks"),
@@ -32,8 +32,9 @@ CANDIDATE_POOL: list[tuple[str, str]] = [
     ("BAHL",   "Commercial Banks"),
     ("ABL",    "Commercial Banks"),
     ("NBP",    "Commercial Banks"),
+    ("AKBL",   "Commercial Banks"),
 
-    # --- Oil & Gas E&P ---
+    # --- Oil & Gas E&P (top index weight) ---
     ("MARI",   "Oil & Gas Exploration Companies"),
     ("POL",    "Oil & Gas Exploration Companies"),
 
@@ -41,34 +42,54 @@ CANDIDATE_POOL: list[tuple[str, str]] = [
     ("PSO",    "Oil & Gas Marketing Companies"),
     ("APL",    "Oil & Gas Marketing Companies"),
     ("ATRL",   "Refinery"),
+    ("NRL",    "Refinery"),
 
     # --- Cement ---
     ("LUCK",   "Cement"),
     ("FCCL",   "Cement"),
     ("DGKC",   "Cement"),
     ("KOHC",   "Cement"),
+    ("BWCL",   "Cement"),
+    ("CHCC",   "Cement"),
 
     # --- Fertilizer ---
     ("FFC",    "Fertilizer"),
     ("EFERT",  "Fertilizer"),
+    ("FATIMA", "Fertilizer"),
 
-    # --- Power (besides HUBC) ---
+    # --- Power (besides HUBC and NPL) ---
     ("KAPCO",  "Power Generation & Distribution"),
     ("KEL",    "Power Generation & Distribution"),
 
     # --- Conglomerate / Chemical ---
-    ("ENGROH", "Cable & Electrical Goods"),    # Engro Holdings
-    ("LOTCHEM","Chemical"),
+    ("ENGROH", "Cable & Electrical Goods"),
+    ("LOTCHEM", "Chemical"),
     ("EPCL",   "Chemical"),
+    ("ICI",    "Chemical"),
 
     # --- Technology ---
     ("SYS",    "Technology & Communication"),
     ("TRG",    "Technology & Communication"),
+    ("AVN",    "Technology & Communication"),
 
-    # --- Auto / Food ---
+    # --- Auto ---
     ("INDU",   "Automobile Assembler"),
+    ("HCAR",   "Automobile Assembler"),
+    ("PSMC",   "Automobile Assembler"),
+
+    # --- Pharma ---
     ("SEARL",  "Pharmaceuticals"),
+    ("GLAXO",  "Pharmaceuticals"),
+    ("ABOT",   "Pharmaceuticals"),
+
+    # --- Consumer / Food ---
     ("COLG",   "Food & Personal Care"),
+    ("NESTLE", "Food & Personal Care"),
+    ("UFL",    "Food & Personal Care"),
+
+    # --- Textile ---
+    ("NML",    "Textile Composite"),
+    ("GATM",   "Textile Composite"),
 ]
 
 
@@ -80,7 +101,6 @@ def sector_of_candidate(symbol: str) -> str | None:
     for s, sec in CANDIDATE_POOL:
         if s == symbol:
             return sec
-    # required tickers — canonical sectors
     required_sectors = {
         "HUBC":  "Power Generation & Distribution",
         "PABC":  "Miscellaneous",
