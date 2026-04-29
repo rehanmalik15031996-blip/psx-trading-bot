@@ -583,32 +583,70 @@ def _executive_summary(summary: dict) -> list[str]:
                     + " — these names need a strategy review."
                 )
 
-    # Signal IC findings
+    # Signal IC findings — split into price-based (regime) and macro
     sigs = sig.get("signals") or {}
-    strong_neg = [(k, v) for k, v in sigs.items()
-                   if (v.get("spearman_ic") or 0) <= -0.20
-                   and v.get("n", 0) >= 50]
-    strong_pos = [(k, v) for k, v in sigs.items()
-                   if (v.get("spearman_ic") or 0) >= 0.10
-                   and v.get("n", 0) >= 50]
-    if strong_neg:
+    price_signals = ("rsi_14", "px_vs_sma20_pct", "ret_21d")
+    macro_signals = ("brent", "gold", "usdpkr")
+
+    price_ics = [(k, sigs[k]["spearman_ic"]) for k in price_signals
+                  if k in sigs
+                     and sigs[k].get("n", 0) >= 50
+                     and sigs[k].get("spearman_ic") is not None]
+    if price_ics:
+        n_pos = sum(1 for _, ic in price_ics if ic >= 0.05)
+        n_neg = sum(1 for _, ic in price_ics if ic <= -0.05)
+        if n_pos >= 2 and n_neg == 0:
+            regime = ("MOMENTUM REGIME — strong-RSI / strong-momentum "
+                       "names *outperform* the next 5 days. The long "
+                       "side's existing momentum bias is correct here.")
+        elif n_neg >= 2 and n_pos == 0:
+            regime = ("MEAN-REVERSION REGIME — overbought / "
+                       "strong-momentum names *underperform* the next "
+                       "5 days; oversold names outperform. The Short "
+                       "Ideas tab leverages this; the long side does "
+                       "not yet exploit it (BULLISH calls suffer in "
+                       "this regime).")
+        else:
+            regime = ("MIXED REGIME — no consistent direction across "
+                       "the price-based signals. Conviction should be "
+                       "tempered until the regime clarifies.")
         findings.append(
-            f"**Mean-reversion regime detected** for this window: "
-            + ", ".join(f"`{k}` (IC {v['spearman_ic']:+.2f})"
-                          for k, v in strong_neg[:4])
-            + ". Top-tercile (overbought / strong-momentum) names "
-            "*underperform* the next 5 days; bottom-tercile names "
-            "outperform. The Short Ideas tab leverages this — the "
-            "long side currently does NOT, which is why `BULLISH` "
-            "calls underperformed."
-        )
-    if strong_pos:
-        findings.append(
-            f"**Useful long signals:** "
-            + ", ".join(f"`{k}` (IC {v['spearman_ic']:+.2f})"
-                          for k, v in strong_pos[:4])
+            f"**Price-signal regime: {regime.split(' — ')[0]}.** "
+            f"{regime.split(' — ', 1)[1]} "
+            "Price-signal ICs: "
+            + ", ".join(f"`{k}` ({ic:+.2f})" for k, ic in price_ics)
             + "."
         )
+
+    macro_ics = [(k, sigs[k]["spearman_ic"]) for k in macro_signals
+                  if k in sigs
+                     and sigs[k].get("n", 0) >= 50
+                     and sigs[k].get("spearman_ic") is not None]
+    strong_macro = [(k, ic) for k, ic in macro_ics if abs(ic) >= 0.15]
+    if strong_macro:
+        bits = []
+        for k, ic in strong_macro:
+            arrow = "↑ predicts up" if ic > 0 else "↑ predicts down"
+            bits.append(f"`{k}` IC {ic:+.2f} ({arrow})")
+        findings.append(
+            f"**Macro drivers with material predictive power:** "
+            + ", ".join(bits) + ". These are KSE-100-wide signals; the "
+            "macro-impact engine should weight them more aggressively."
+        )
+
+    other_strong = [(k, v) for k, v in sigs.items()
+                     if k not in price_signals and k not in macro_signals
+                     and abs(v.get("spearman_ic") or 0) >= 0.15
+                     and v.get("n", 0) >= 30]
+    if other_strong:
+        findings.append(
+            "**Other signals with edge:** "
+            + ", ".join(f"`{k}` (IC {v['spearman_ic']:+.2f}, "
+                          f"n={v.get('n')})"
+                          for k, v in other_strong[:3])
+            + "."
+        )
+
     if not findings:
         findings.append("Insufficient data to derive headline findings; "
                          "rerun once more sessions are realized.")
@@ -834,13 +872,23 @@ def main() -> int:
         "as_of":   asof.isoformat(),
         "window_start": window.window_start.isoformat(),
         "window_end":   window.window_end.isoformat(),
+        "window_calendar_days": (window.window_end
+                                    - window.window_start).days,
         "forward_days": window.forward_days,
         "signal_backtest":     _summarize_signals(sig_df),
         "prediction_backtest": _summarize_predictions(pred_df),
     }
+    # Latest-run snapshot used by the UI...
     (OUT_DIR / "phase1_summary.json").write_text(
         json.dumps(summary, indent=2, default=str), encoding="utf-8")
-    print(f"[backtest]   summary -> phase1_summary.json")
+    # ...and a window-suffixed archive so multi-window comparisons
+    # ("2 weeks vs 2 months") survive subsequent runs.
+    archive_name = (
+        f"phase1_summary_{summary['window_calendar_days']}d.json"
+    )
+    (OUT_DIR / archive_name).write_text(
+        json.dumps(summary, indent=2, default=str), encoding="utf-8")
+    print(f"[backtest]   summary -> phase1_summary.json (+ {archive_name})")
 
     md = _write_markdown(summary, window)
     print(f"[backtest]   markdown report -> {md.relative_to(PROJECT_ROOT)}")

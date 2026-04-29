@@ -40,13 +40,36 @@ PREDS_PATH = BT_DIR / "phase1_predictions.parquet"
 # --- helpers ----------------------------------------------------------------
 
 
-def _load_summary() -> dict | None:
+def _load_summary(window_days: int | None = None) -> dict | None:
+    """Load a summary; if window_days is given, prefer the archived
+    `phase1_summary_{N}d.json` over the rolling latest snapshot.
+    """
+    if window_days is not None:
+        archive = BT_DIR / f"phase1_summary_{int(window_days)}d.json"
+        if archive.exists():
+            try:
+                return json.loads(archive.read_text(encoding="utf-8"))
+            except Exception:
+                pass
     if not SUMMARY_PATH.exists():
         return None
     try:
         return json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
     except Exception:
         return None
+
+
+def _list_archived_windows() -> list[int]:
+    """Return calendar-day windows that have archived summaries."""
+    out: list[int] = []
+    for p in BT_DIR.glob("phase1_summary_*d.json"):
+        try:
+            n = int(p.stem.replace("phase1_summary_", "")
+                          .replace("d", ""))
+            out.append(n)
+        except Exception:
+            continue
+    return sorted(out)
 
 
 def _badge_color(pct: float | None, *, higher_is_better: bool = True
@@ -312,8 +335,73 @@ def _render_prediction_breakdowns(summary: dict) -> None:
 # --- public entrypoint ------------------------------------------------------
 
 
+def _window_picker() -> tuple[int | None, dict | None]:
+    """Render the window picker and return (window_days, loaded_summary)."""
+    archived = _list_archived_windows()
+    options = ["Latest run"] + [f"{n} days" for n in archived]
+    picked = st.radio("Backtest window",
+                       options=options,
+                       index=0 if not archived else (
+                           options.index("60 days") if 60 in archived
+                           else 0),
+                       horizontal=True,
+                       help="Pick a previously-archived window or the "
+                            "most recent harness run.",
+                       key="phase1_window_picker")
+    if picked == "Latest run":
+        return None, _load_summary()
+    n = int(picked.replace(" days", ""))
+    return n, _load_summary(window_days=n)
+
+
+def _render_comparison(archived: list[int]) -> None:
+    """Two-column side-by-side IC table for any two archived windows."""
+    if len(archived) < 2:
+        return
+    a, b = archived[0], archived[-1]
+    sa = _load_summary(window_days=a)
+    sb = _load_summary(window_days=b)
+    if not sa or not sb:
+        return
+    sigs_a = ((sa.get("signal_backtest") or {}).get("signals") or {})
+    sigs_b = ((sb.get("signal_backtest") or {}).get("signals") or {})
+    keys = sorted(set(sigs_a) | set(sigs_b),
+                   key=lambda k: -abs((sigs_b.get(k) or {})
+                                        .get("spearman_ic") or 0))
+    rows = []
+    for k in keys:
+        ic_a = (sigs_a.get(k) or {}).get("spearman_ic")
+        ic_b = (sigs_b.get(k) or {}).get("spearman_ic")
+        flip = (ic_a is not None and ic_b is not None
+                and (ic_a * ic_b) < 0
+                and (abs(ic_a) >= 0.10 or abs(ic_b) >= 0.10))
+        rows.append({
+            "Signal":   k,
+            f"{a}d IC": ic_a,
+            f"{b}d IC": ic_b,
+            "Flag":     ("REGIME FLIP" if flip
+                          else ""),
+        })
+    df = pd.DataFrame(rows)
+
+    def _flagstyle(r):
+        if r.get("Flag") == "REGIME FLIP":
+            return ["background-color:#7f1d1d;color:#fff"] * len(r)
+        return [""] * len(r)
+    st.markdown(
+        f"**Side-by-side: last {a} days vs last {b} days.** "
+        "Signals where the IC sign flipped (and the magnitude is "
+        "meaningful in at least one window) are flagged in red — "
+        "those are the regime-change indicators."
+    )
+    st.dataframe(df.style.apply(_flagstyle, axis=1).format({
+        f"{a}d IC": "{:+.4f}",
+        f"{b}d IC": "{:+.4f}",
+    }), hide_index=True, use_container_width=True)
+
+
 def render() -> None:
-    st.markdown("### Phase-1 backtest — last 14 calendar days")
+    st.markdown("### Phase-1 backtest — accuracy review")
     st.caption(
         "Rigorous accuracy review of the bot's predictions vs realized "
         "PSX prices. Two engines: per-dataset signal IC across all 35 "
@@ -322,7 +410,12 @@ def render() -> None:
         "after each new prediction batch to refresh."
     )
 
-    summary = _load_summary()
+    archived = _list_archived_windows()
+    if archived:
+        window_days, summary = _window_picker()
+    else:
+        summary = _load_summary()
+        window_days = None
     if summary is None:
         st.warning(
             "No backtest artefacts on disk yet. Run "
@@ -378,11 +471,21 @@ def render() -> None:
     _render_findings(summary)
     st.divider()
     _render_signal_table(summary)
+
+    # If we have multiple archived windows, show the side-by-side
+    # comparison so the analyst can spot regime changes (e.g.
+    # 14-day MEAN-REVERSION inside a 60-day MOMENTUM regime).
+    if archived and len(archived) >= 2:
+        st.divider()
+        _render_comparison(archived)
+
     st.divider()
     _render_prediction_breakdowns(summary)
     st.divider()
 
     st.caption(
-        "Full markdown report at `docs/phase1_backtest_<window>.md`. "
-        "Raw artefacts at `data/backtest/phase1_*.parquet`."
+        "Full markdown reports at `docs/phase1_backtest_<window>.md` "
+        "and the side-by-side write-up at "
+        "`docs/phase1_backtest_comparison.md`. Raw artefacts at "
+        "`data/backtest/phase1_*.parquet`."
     )
