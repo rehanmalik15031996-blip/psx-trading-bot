@@ -1,0 +1,18 @@
+{
+  "workflow": "material_info",
+  "ok": true,
+  "note": "new=0 total=12",
+  "as_of": "2026-04-29T20:12:48+00:00",
+  "github": {
+    "run_id": "25131369878",
+    "run_number": "5",
+    "ref": "refs/heads/main",
+    "sha": "25beb988b6f36f499050050029b541a905fb6102"
+  },
+  "payload": {
+    "ok": true,
+    "new_records": 0,
+    "total_in_store": 12,
+    "as_of_utc": "2026-04-29T20:12:48+00:00"
+  }
+}
