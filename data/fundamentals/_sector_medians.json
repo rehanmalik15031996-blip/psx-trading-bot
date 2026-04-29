@@ -1,12 +1,12 @@
 {
-  "computed_utc": "2026-04-28T10:25:25+00:00",
+  "computed_utc": "2026-04-29T20:14:44+00:00",
   "by_sector": {
     "Power": {
       "n": 2,
-      "pe_med": 5.95,
-      "pb_med": 1.18,
-      "yield_med": 9.2,
-      "payout_med": 54.5,
+      "pe_med": 4.93,
+      "pb_med": 0.92,
+      "yield_med": 9.82,
+      "payout_med": 52.6,
       "members": [
         "HUBC",
         "NPL"
@@ -14,8 +14,8 @@
     },
     "Misc": {
       "n": 1,
-      "pe_med": 7.56,
-      "pb_med": 1.8,
+      "pe_med": 7.2,
+      "pb_med": 1.71,
       "yield_med": 0.0,
       "payout_med": 0.0,
       "members": [
@@ -24,8 +24,8 @@
     },
     "Cement": {
       "n": 3,
-      "pe_med": 7.98,
-      "pb_med": 1.39,
+      "pe_med": 7.35,
+      "pb_med": 1.35,
       "yield_med": 0.0,
       "payout_med": 0.0,
       "members": [
@@ -36,9 +36,9 @@
     },
     "Oil & Gas E&P": {
       "n": 3,
-      "pe_med": 5.47,
-      "pb_med": 1.01,
-      "yield_med": 4.83,
+      "pe_med": 5.13,
+      "pb_med": 0.96,
+      "yield_med": 5.08,
       "payout_med": 32.4,
       "members": [
         "OGDC",
@@ -48,10 +48,10 @@
     },
     "Banking": {
       "n": 3,
-      "pe_med": 8.23,
-      "pb_med": 1.43,
-      "yield_med": 7.34,
-      "payout_med": 55.6,
+      "pe_med": 8.08,
+      "pb_med": 1.4,
+      "yield_med": 6.78,
+      "payout_med": 43.9,
       "members": [
         "FABL",
         "MCB",
@@ -60,9 +60,9 @@
     },
     "OMC/Refining": {
       "n": 2,
-      "pe_med": 7.46,
-      "pb_med": 0.88,
-      "yield_med": 4.14,
+      "pe_med": 7.12,
+      "pb_med": 0.85,
+      "yield_med": 4.25,
       "payout_med": 27.25,
       "members": [
         "APL",
@@ -71,8 +71,8 @@
     },
     "Conglomerate/Chem": {
       "n": 1,
-      "pe_med": -7.66,
-      "pb_med": 1.43,
+      "pe_med": -7.46,
+      "pb_med": 1.39,
       "yield_med": 0.0,
       "payout_med": 0.0,
       "members": [
@@ -81,8 +81,8 @@
     },
     "Pharma": {
       "n": 1,
-      "pe_med": 54.58,
-      "pb_med": 1.63,
+      "pe_med": 50.6,
+      "pb_med": 1.51,
       "yield_med": 0.0,
       "payout_med": 0.0,
       "members": [
