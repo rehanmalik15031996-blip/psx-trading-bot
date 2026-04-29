@@ -616,10 +616,53 @@ def _do_backfill():
         st.rerun()
 
 
+def _read_canonical_token() -> str | None:
+    """Token resolution order, most-trusted first:
+    1. scripts/git token new trading bot   (the user's canonical file)
+    2. .git/github-credentials             (what command-line git uses)
+    3. GITHUB_TOKEN / GH_TOKEN env vars    (last resort, often stale)
+
+    Returns None if no usable token is found.
+    """
+    candidates = [
+        PROJECT_ROOT / "scripts" / "git token new trading bot",
+        PROJECT_ROOT / "scripts" / "git_token_new_trading_bot",
+        PROJECT_ROOT / "scripts" / "github_token.txt",
+    ]
+    for p in candidates:
+        try:
+            if p.exists():
+                txt = p.read_text(encoding="utf-8").strip()
+                # File may be the bare token, or in URL form.
+                if "@" in txt:
+                    # extract everything between final ':' before '@' and '@'
+                    seg = txt.split("@", 1)[0]
+                    if ":" in seg:
+                        return seg.rsplit(":", 1)[-1].strip()
+                if txt.startswith(("ghp_", "github_pat_", "ghs_", "gho_")):
+                    return txt.splitlines()[0].strip()
+        except Exception:
+            continue
+
+    cred_file = PROJECT_ROOT / ".git" / "github-credentials"
+    try:
+        if cred_file.exists():
+            for line in cred_file.read_text(encoding="utf-8").splitlines():
+                if "github.com" in line and "@" in line:
+                    seg = line.split("@", 1)[0]
+                    if ":" in seg:
+                        tok = seg.rsplit(":", 1)[-1].strip()
+                        if tok and tok != "x-access-token":
+                            return tok
+    except Exception:
+        pass
+
+    return os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+
+
 def _do_git_pull():
     import subprocess
-    # Use GITHUB_TOKEN from env to auth against private repo (matches launcher)
-    tok = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    tok = _read_canonical_token()
     try:
         remote = subprocess.run(
             ["git", "remote", "get-url", "origin"],
@@ -631,12 +674,28 @@ def _do_git_pull():
             capture_output=True, text=True, timeout=10,
             cwd=str(PROJECT_ROOT),
         ).stdout.strip() or "main"
-        if tok and remote.startswith("https://"):
-            auth_url = "https://x-access-token:" + tok + "@" + remote[len("https://"):]
+
+        # Strip any token already embedded in the remote URL, then re-embed
+        # the canonical one. This guarantees the freshest token is used,
+        # regardless of what was baked into .git/config historically.
+        clean_remote = remote
+        if remote.startswith("https://") and "@" in remote:
+            clean_remote = "https://" + remote.split("@", 1)[1]
+
+        if tok and clean_remote.startswith("https://"):
+            auth_url = ("https://x-access-token:" + tok + "@"
+                        + clean_remote[len("https://"):])
+            # Disable inherited credential helpers (Windows Credential
+            # Manager often holds a stale credential for a different
+            # GitHub account, which would override the embedded token).
             cmd = ["git", "-c", "credential.helper=",
-                   "pull", auth_url, branch, "--ff-only", "--no-rebase"]
+                   "pull", auth_url, branch,
+                   "--ff-only", "--no-rebase"]
         else:
+            # Fallback: rely on the local store helper configured under
+            # [credential "https://github.com"] in .git/config.
             cmd = ["git", "pull", "--ff-only", "--no-rebase"]
+
         result = subprocess.run(cmd, capture_output=True, text=True,
                                 timeout=60, cwd=str(PROJECT_ROOT))
         if result.returncode == 0:
@@ -650,7 +709,6 @@ def _do_git_pull():
             st.rerun()
         else:
             err = (result.stderr or result.stdout or "").strip()
-            # Scrub token from output before display.
             if tok:
                 err = err.replace(tok, "***")
             st.error(f"git pull failed:\n```\n{err[-400:]}\n```")
