@@ -12,20 +12,23 @@ Sections (in order):
   4.  Macro Radar: industry-KPI snapshot (T-bill, KIBOR, FX reserves,
       KSE-100, CPI), active macro drivers, per-sector tailwind /
       headwind verdicts with one-line reasons
-  5.  Forecast table: every universe stock with action / direction /
+  5.  Bot's Verdict: ONE unified call per stock, reconciling all
+      seven lenses (Value / Quality / Momentum / Macro / News / Flow /
+      Management) with explicit conflict-resolution rules
+  6.  Forecast table: every universe stock with action / direction /
       conviction / 5d net %
-  6.  Top news in last 24h: highest-impact scored articles
-  7.  Material Information: PSX disclosures in the last 14 days
-  8.  Per-stock detail: one card per universe stock with rationale,
+  7.  Top news in last 24h: highest-impact scored articles
+  8.  Material Information: PSX disclosures in the last 14 days
+  9.  Per-stock detail: one card per universe stock with rationale,
       key drivers, key risks, macro reading, recent news, material
       disclosures, fundamental ratios vs sector medians
-  9.  Management outlook: latest Director's Reports
-  10. Portfolio snapshot: positions + P&L
-  11. Watchlist
-  12. Top movers (universe)
-  13. Quality leaders
-  14. Earnings calendar (next 21 days)
-  15. Footer: data freshness + disclaimers
+  10. Management outlook: latest Director's Reports
+  11. Portfolio snapshot: positions + P&L
+  12. Watchlist
+  13. Top movers (universe)
+  14. Quality leaders
+  15. Earnings calendar (next 21 days)
+  16. Footer: data freshness + disclaimers
 
 Public API:
     build_daily_report(brief=None, mood=None, narrative=None,
@@ -710,6 +713,156 @@ def _macro_radar_section(story: list, sty: dict, brief: dict) -> None:
     story.append(Spacer(1, 6))
 
 
+def _bots_verdict_section(story: list, sty: dict) -> None:
+    """Render the unified verdict synthesizer's output as a one-page
+    PDF section.
+
+    The analyst's complaint was that different tabs gave different calls
+    on the same name (Value SELL vs Momentum BUY). This section runs
+    ``brain.verdict_synthesizer.synthesize_universe`` and prints the
+    single, conflict-resolved verdict per ticker — plus, for any name
+    where lenses disagree, the explicit resolution rule that was
+    applied. The deterministic synthesizer is independent of the LLM
+    strategist, so this section will populate even when the LLM call
+    fails.
+    """
+    try:
+        from brain.verdict_synthesizer import synthesize_universe
+        out = synthesize_universe()
+    except Exception:
+        return
+    rows = out.get("rows") or []
+    if not rows:
+        return
+
+    story.append(PageBreak())
+    story.append(Paragraph("The Bot's Verdict — one call per stock",
+                            sty["h2"]))
+    _explain(story, sty,
+        "A single, conflict-resolved verdict per universe stock that "
+        "blends <b>seven lenses</b> (Value, Quality, Momentum, Macro, "
+        "News, Flow, Management). Each lens contributes a signed score "
+        "in [-3 .. +3]; the weighted sum drives the action. When two "
+        "lenses disagree sharply (e.g. Value SELL vs Momentum BUY), "
+        "an explicit hand-crafted rule resolves the conflict and the "
+        "rule is documented in plain English. <b>This is the answer "
+        "to use when individual tabs seem to tell different stories — "
+        "the synthesiser already did the reconciliation.</b>")
+
+    # ----- Universe-wide ranking table ---------------------------------
+    head = ["Symbol", "Sector", "Action", "Conviction", "Score",
+            "Conflicts"]
+    body = [head]
+    for r in rows:
+        body.append([
+            r["symbol"], r.get("sector") or "—",
+            r["action"], r["conviction"],
+            f"{r['score']:+d}",
+            str(len(r.get("conflicts") or [])),
+        ])
+    t = Table(body, colWidths=[16*mm, 38*mm, 18*mm, 22*mm, 14*mm, 18*mm])
+    style = [
+        ("FONTNAME",   (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("BACKGROUND", (0, 0), (-1, 0), _BRAND_BLUE),
+        ("TEXTCOLOR",  (0, 0), (-1, 0), colors.white),
+        ("FONTSIZE",   (0, 0), (-1, -1), 8),
+        ("GRID",       (0, 0), (-1, -1), 0.3,
+            colors.HexColor("#cfd6e4")),
+        ("ALIGN",      (2, 0), (-1, -1), "CENTER"),
+        ("LEFTPADDING",  (0, 0), (-1, -1), 4),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+    ]
+    for i, r in enumerate(rows, start=1):
+        if r["action"] in ("BUY", "ADD"):
+            style.append(("TEXTCOLOR", (2, i), (2, i), _BRAND_GREEN))
+            style.append(("FONTNAME",  (2, i), (2, i),
+                            "Helvetica-Bold"))
+        elif r["action"] in ("AVOID", "TRIM", "SELL"):
+            style.append(("TEXTCOLOR", (2, i), (2, i), _BRAND_RED))
+            style.append(("FONTNAME",  (2, i), (2, i),
+                            "Helvetica-Bold"))
+    t.setStyle(TableStyle(style))
+    story.append(t)
+    story.append(Spacer(1, 8))
+
+    # ----- Detail blocks for top-3 buys, top-3 avoids, all conflicts ---
+    buys   = [r for r in rows if r["action"] in ("BUY", "ADD")][:3]
+    avoids = [r for r in rows if r["action"] in ("AVOID", "TRIM")][:3]
+    conflicting = [r for r in rows if r.get("conflicts")]
+
+    def _lens_table(v: dict):
+        h = ["Lens", "Score", "Reason"]
+        b = [h]
+        for c in v["contributions"]:
+            sc = int(c["score"])
+            b.append([c["name"], f"{sc:+d}",
+                       c["reason"][:90]])
+        tt = Table(b, colWidths=[26*mm, 14*mm, 110*mm])
+        st_style = [
+            ("FONTNAME",   (0, 0), (-1, 0), "Helvetica-Bold"),
+            ("BACKGROUND", (0, 0), (-1, 0),
+                colors.HexColor("#e6ecf6")),
+            ("FONTSIZE",   (0, 0), (-1, -1), 8),
+            ("GRID",       (0, 0), (-1, -1), 0.25,
+                colors.HexColor("#cfd6e4")),
+            ("VALIGN",     (0, 0), (-1, -1), "TOP"),
+            ("LEFTPADDING",  (0, 0), (-1, -1), 3),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 3),
+        ]
+        for i, c in enumerate(v["contributions"], start=1):
+            sc = int(c["score"])
+            if sc >= 1:
+                st_style.append(("TEXTCOLOR", (1, i), (1, i),
+                                   _BRAND_GREEN))
+                st_style.append(("FONTNAME", (1, i), (1, i),
+                                   "Helvetica-Bold"))
+            elif sc <= -1:
+                st_style.append(("TEXTCOLOR", (1, i), (1, i),
+                                   _BRAND_RED))
+                st_style.append(("FONTNAME", (1, i), (1, i),
+                                   "Helvetica-Bold"))
+        tt.setStyle(TableStyle(st_style))
+        return tt
+
+    def _render_card(v: dict, header: str):
+        story.append(Paragraph(
+            f"<b>{header}: {v['symbol']}</b> — "
+            f"{v['action']} · {v['direction']} · "
+            f"{v['conviction']} conviction · score {v['score']:+d}",
+            sty["body"]))
+        story.append(_lens_table(v))
+        if v.get("resolution_log"):
+            story.append(Spacer(1, 3))
+            for line in v["resolution_log"]:
+                story.append(Paragraph(
+                    f"<i>Resolution: {line}</i>", sty["body_muted"]))
+        story.append(Spacer(1, 6))
+
+    if buys:
+        story.append(Paragraph("<b>Top BUY-side verdicts</b>",
+                                sty["body"]))
+        for v in buys:
+            _render_card(v, "BUY")
+
+    if avoids:
+        story.append(Paragraph("<b>AVOID / TRIM verdicts</b>",
+                                sty["body"]))
+        for v in avoids:
+            _render_card(v, "AVOID")
+
+    if conflicting:
+        story.append(Paragraph(
+            f"<b>Names where lenses disagreed "
+            f"({len(conflicting)} of {len(rows)})</b>", sty["body"]))
+        _explain(story, sty,
+            "These are the names where the analyst would say 'the "
+            "tabs don't agree'. Each one has been resolved by an "
+            "explicit rule below.")
+        for v in conflicting[:6]:
+            _render_card(v, v["action"])
+    story.append(Spacer(1, 6))
+
+
 def _scored_news_for_symbol(sym: str, limit: int = 3) -> list[dict]:
     """Return the most recent scored news rows that mention `sym` in
     ``affected_symbols``. Sorted newest first."""
@@ -905,6 +1058,34 @@ def _per_stock_detail_section(story: list, sty: dict, brief: dict) -> None:
             story.append(Paragraph("<b>Key risks</b>", sty["body"]))
             for r in kr[:4]:
                 story.append(Paragraph(f"• {r}", sty["body_muted"]))
+
+        # ---- Critic self-review notes -------------------------------
+        # When the deterministic critic catches a logic gap (BULLISH
+        # call with bearish drivers, inverted stop/target geometry, or
+        # sharp disagreement with the seven-lens synthesizer), the
+        # downgrade or rewrite is documented here so the analyst can
+        # audit exactly what was caught and how it was handled.
+        cn = p.get("critic_notes") or []
+        if cn:
+            story.append(Paragraph(
+                "<b>Critic self-review</b> "
+                "<font color='#888'>"
+                "(post-checks that adjusted the call):</font>",
+                sty["body"]))
+            for note in cn[:4]:
+                story.append(Paragraph(f"• {note}",
+                                          sty["body_muted"]))
+
+        # ---- MPC alert badge ----------------------------------------
+        if p.get("mpc_cap_applied"):
+            ms = p.get("mpc_alert") or {}
+            story.append(Paragraph(
+                f"<b>MPC alert applied.</b> "
+                f"<font color='#c08030'>Conviction was capped one "
+                f"notch — SBP MPC meets on {ms.get('next_mpc')} "
+                f"({ms.get('days_until')} day(s) away) and this "
+                f"stock's sector is rate-sensitive.</font>",
+                sty["body_muted"]))
 
         # ---- Macro reading ------------------------------------------
         if sym_block or sec_block:
@@ -1322,6 +1503,7 @@ def build_daily_report(
     _action_section(story, sty, action)
     _alerts_section(story, sty, alerts)
     _macro_radar_section(story, sty, brief)
+    _bots_verdict_section(story, sty)
     _forecast_section(story, sty, brief)
     _news_digest_section(story, sty)
     _material_info_section(story, sty, brief)

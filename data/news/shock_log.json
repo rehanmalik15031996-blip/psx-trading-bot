@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "shocks": [
+    {
+      "article_id": "829e711815e49c54",
+      "title": "PSO posts massive 4x jump in profit to Rs40bn",
+      "sentiment": 0.45,
+      "confidence": "HIGH",
+      "category": "COMPANY",
+      "affected_symbols": [
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "scored_at": "2026-04-29T07:33:57+00:00",
+      "detected_at": "2026-04-29T08:36:45+00:00"
+    }
+  ]
+}

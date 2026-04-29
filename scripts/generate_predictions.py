@@ -1186,6 +1186,19 @@ def generate_one(sym: str, provider: str) -> dict:
         pred = predict_with_rules(ctx)
         model = "rule-based-v1"
 
+    # Critic self-review: deterministic post-checks that catch the
+    # gross logic errors the LLM occasionally makes (BULLISH call with
+    # bearish drivers, stop/target geometry inverted, sharp
+    # disagreement with the seven-lens synthesizer). Severity 'fail'
+    # forces HOLD; 'warn' downgrades conviction one notch. Every
+    # decision is stamped on `critic_notes` so the analyst can audit.
+    try:
+        from brain.prediction_critic import review as _critic_review
+        _critic_review(pred, sym, close)
+    except Exception as e:
+        print(f"  [{sym}] critic self-review failed: "
+              f"{type(e).__name__}: {e}")
+
     # Snapshot the deterministic macro-impact reading at prediction
     # time, so the UI ("Why this call?") can show the same tailwinds /
     # headwinds the LLM saw, even if macro data shifts later.
@@ -1206,6 +1219,39 @@ def generate_one(sym: str, provider: str) -> dict:
     except Exception:
         macro_impact_snapshot = None
 
+    # Pre-MPC alert: if the SBP MPC meets in <= PRE_WINDOW_DAYS and the
+    # stock's sector is rate-sensitive, downgrade conviction one notch
+    # so a pre-meeting position is not built with full size. Also stamp
+    # a flag so the UI can show "MPC cap applied" to the analyst.
+    mpc_state = (macro_impact_snapshot or {}).get("mpc_alert") or {}
+    if not mpc_state:
+        try:
+            from config.sbp_mpc_calendar import mpc_alert_state
+            mpc_state = mpc_alert_state()
+        except Exception:
+            mpc_state = {}
+    mpc_cap_applied = False
+    if (mpc_state.get("in_pre_window")
+            and ctx.get("sector") in (mpc_state.get(
+                "rate_sensitive_sectors") or [])):
+        original_conviction = pred.get("conviction")
+        downgrade = {"HIGH": "MEDIUM", "MEDIUM": "LOW", "LOW": "LOW"}
+        new_conviction = downgrade.get(original_conviction,
+                                          original_conviction)
+        if new_conviction != original_conviction:
+            pred["conviction"] = new_conviction
+            mpc_cap_applied = True
+            # Append to risks so the rationale stays auditable.
+            risks = list(pred.get("key_risks") or [])
+            risks.append(
+                f"SBP MPC in {mpc_state.get('days_until')} day(s) on "
+                f"{mpc_state.get('next_mpc')} — sector is rate-"
+                f"sensitive; conviction capped from "
+                f"{original_conviction} to {new_conviction} pending "
+                f"the rate decision."
+            )
+            pred["key_risks"] = risks[:6]
+
     now = datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
     record = {
         "prediction_id": f"{date.today().isoformat()}-{sym}",
@@ -1217,6 +1263,8 @@ def generate_one(sym: str, provider: str) -> dict:
         "entry_price_pkr": close,
         **pred,
         "macro_impact": macro_impact_snapshot,
+        "mpc_alert": mpc_state,
+        "mpc_cap_applied": mpc_cap_applied,
         "data_snapshot": gather_snapshot(ctx),
         "outcome": {
             "checked_at": None,

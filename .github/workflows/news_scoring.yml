@@ -48,11 +48,28 @@ jobs:
       - name: Score fresh headlines
         run: python scripts/score_news_sentiment.py --per-feed 8 --batch 8
 
-      - name: Commit scored news
+      - name: Detect intraday news shocks
+        id: shock
+        run: |
+          set +e
+          python scripts/check_news_shocks.py
+          rc=$?
+          if [ "$rc" -eq 7 ]; then
+            echo "shock=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          elif [ "$rc" -eq 0 ]; then
+            echo "shock=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          else
+            exit "$rc"
+          fi
+
+      - name: Commit scored news (and shock log)
         run: |
           git config user.name  "psx-bot"
           git config user.email "psx-bot@users.noreply.github.com"
-          git add data/news/scored_news.parquet
+          git add data/news/scored_news.parquet \
+                  data/news/shock_log.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes."
             exit 0
@@ -66,3 +83,11 @@ jobs:
           done
           echo "Push failed after 5 attempts."
           exit 1
+
+      - name: Dispatch predictions on shock
+        if: steps.shock.outputs.shock == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Shock detected — dispatching predictions workflow now."
+          gh workflow run predictions.yml --ref "${GITHUB_REF#refs/heads/}"

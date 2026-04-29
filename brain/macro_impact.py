@@ -1094,12 +1094,25 @@ def compute_macro_impact(
         sym_imp = score_symbol(sym, sector, sec_imp, fund)
         by_symbol[sym] = asdict(sym_imp)
 
+    # Pre-MPC alert: if the SBP MPC meets in the next 3 calendar days
+    # we soft-cap conviction on rate-sensitive sectors. The cap is a
+    # signal the predictions pipeline + UI consume; we do NOT mutate
+    # sector scores here, because we want the macro reading itself to
+    # remain a clean reflection of *current* data.
+    try:
+        from config.sbp_mpc_calendar import mpc_alert_state
+        mpc = mpc_alert_state()
+    except Exception:
+        mpc = {"in_pre_window": False, "in_post_window": False,
+               "label": "", "rate_sensitive_sectors": []}
+
     return {
         "as_of": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "drivers":   [asdict(d) for d in drivers],
         "by_sector": {s: asdict(v) for s, v in sectors.items()},
         "by_symbol": by_symbol,
         "kpis":      kpis,
+        "mpc_alert": mpc,
     }
 
 

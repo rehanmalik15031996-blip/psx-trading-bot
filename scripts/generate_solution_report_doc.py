@@ -1712,6 +1712,149 @@ def build_doc_model() -> list[dict]:
             "required before the system can place real orders."],
         },
 
+        # =======================================================
+        # 10.5 — Iteration April 29: synthesizer + autonomy +
+        # critic. Closes the gap exposed by the SBP MPC surprise
+        # the day before, and answers the analyst's complaint
+        # that different tabs gave contradictory calls.
+        # =======================================================
+        {"kind": "h", "level": 2,
+         "text": "10.5  Iteration April 29: verdict synthesizer, "
+                  "autonomous re-trigger, and critic self-review"},
+        {"kind": "p", "text":
+            "Three days after the industry-KPI expansion the SBP "
+            "Monetary Policy Committee announced a surprise rate "
+            "decision at 11:45 PKT mid-session, and yesterday's "
+            "predictions — generated at 09:15 PKT before any signal "
+            "of the move existed — were left out of date for the "
+            "rest of the day. The user surfaced two further "
+            "complaints in the same conversation: that the bot's "
+            "predictions occasionally diverged from market reality, "
+            "and that the dashboard sometimes carried opposite "
+            "calls on the same name on different tabs (Value tab "
+            "marking a stock SELL while the prediction tab marked it "
+            "BUY). The April 29 iteration ships three independent "
+            "fixes that together answer all three complaints with a "
+            "single coherent story."},
+        {"kind": "h", "level": 3,
+         "text": "Fix 1 — Verdict synthesizer (one call across "
+                  "seven lenses)"},
+        {"kind": "p", "text":
+            "A new module, brain/verdict_synthesizer.py, takes the "
+            "outputs of all the existing lenses (value, quality, "
+            "momentum, macro, news sentiment, FIPI flow, and "
+            "Director's Report tone), maps each into a signed "
+            "score in the range -3 to +3, and combines them with "
+            "fixed weights into a single composite verdict per "
+            "stock. The output carries one of five actions — BUY, "
+            "ADD, HOLD, TRIM, AVOID — together with a direction "
+            "label, a conviction level, and an audit trail that "
+            "shows what every lens contributed. Crucially, when "
+            "two lenses disagree sharply (a +2 lens against a -2 "
+            "lens), the synthesizer logs the conflict explicitly "
+            "and applies a hand-crafted resolution rule. Six rules "
+            "are encoded today: value-sells-while-momentum-buys "
+            "permits a short-term trade with a tight stop and "
+            "capped conviction, value-buys-while-momentum-sells is "
+            "treated as a value-trap risk and rejected, macro-"
+            "tailwind-with-quality-junk routes the flow to a "
+            "higher-quality peer in the same sector, news-bearish-"
+            "with-flow-buying delays sizing for one session of "
+            "confirmation, management-bullish-with-macro-bearish "
+            "soft-caps conviction until the next earnings print, "
+            "and quality-high-with-value-sell explicitly tells the "
+            "analyst to wait for a 10-15% pullback to intrinsic "
+            "value before adding. The synthesizer is wired into "
+            "the Today tab as a top-level 'Bot's Verdict' panel "
+            "(with a drill-down per stock that lays out every "
+            "lens's contribution and reason), into the daily PDF "
+            "report as its own page, and into the chatbot as a "
+            "new tool, get_bots_verdict, so any 'why does Value "
+            "say X but the prediction say Y' question receives a "
+            "single reconciled answer."},
+        {"kind": "h", "level": 3,
+         "text": "Fix 2 — Intraday news-shock retrigger"},
+        {"kind": "p", "text":
+            "A new script, scripts/check_news_shocks.py, runs "
+            "after every news-scoring batch (07:00 / 13:00 / 18:00 "
+            "PKT). It scans the last six hours of scored articles "
+            "and flags any item that simultaneously crosses three "
+            "gates: absolute sentiment of at least 0.40, HIGH "
+            "confidence, and either a universe-ticker mention or a "
+            "high-impact macro tag (POLICY_RATE, FX, OIL_SHOCK, "
+            "REGULATOR, DOWNGRADE, etc.). Every fired shock is "
+            "stamped into data/news/shock_log.json so the same "
+            "article never re-fires. The wrapper workflow "
+            "(.github/workflows/news_scoring.yml) checks the "
+            "exit code: when the script returns 7, the workflow "
+            "dispatches predictions.yml via the GitHub CLI, so "
+            "fresh recommendations land within minutes of a "
+            "high-impact news event rather than waiting for the "
+            "09:15 PKT next-day window. The same pattern handles "
+            "an SBP surprise: when the central bank's press "
+            "release is scored as a high-confidence rate-policy "
+            "article, the bot re-predicts the entire universe "
+            "automatically and the dashboard updates by the next "
+            "page reload."},
+        {"kind": "h", "level": 3,
+         "text": "Fix 3 — Pre-MPC alert"},
+        {"kind": "p", "text":
+            "Hand-maintained config/sbp_mpc_calendar.py carries "
+            "every SBP MPC date for the calendar year (eight "
+            "meetings on the official 2026 schedule). The macro "
+            "impact engine now emits an mpc_alert block in its "
+            "output that flags whether the next meeting falls "
+            "inside a three-day pre-window or a one-day post-"
+            "window. The predictions pipeline reads that block and "
+            "automatically downgrades conviction one notch on "
+            "rate-sensitive sectors (banking, cement, power, auto, "
+            "textile, conglomerate) when the pre-window is "
+            "active, so a position is never built at full size "
+            "into a meeting the bot cannot predict. The Today "
+            "tab and the PDF Macro Radar both display the alert "
+            "banner with the meeting date and a one-line "
+            "explanation of why the conviction cap is applied. "
+            "The user's specific failure on April 28 — a +9 BUY "
+            "on a banking name the night before the surprise "
+            "hike — would not have happened with this rule in "
+            "place: conviction would have been capped to MEDIUM "
+            "and a 'MPC in 0 days' note would have been on the "
+            "card."},
+        {"kind": "h", "level": 3,
+         "text": "Fix 4 — Critic self-review pass"},
+        {"kind": "p", "text":
+            "Even the strongest LLM occasionally publishes an "
+            "internally inconsistent recommendation — a BULLISH "
+            "direction with bearish key drivers, or a BULLISH "
+            "call with stop / target geometry inverted (target "
+            "below entry). brain/prediction_critic.py runs four "
+            "deterministic post-checks on every prediction "
+            "before it is written to disk: direction-versus-"
+            "action consistency, drivers-match-direction "
+            "(detected via simple keyword polarity scan), stop-"
+            "and-target geometry, and synthesizer alignment "
+            "(when the deterministic synthesizer disagrees "
+            "sharply with the LLM, conviction is capped one "
+            "notch). A 'fail' check forces the call to HOLD and "
+            "downgrades conviction to LOW; a 'warn' check "
+            "downgrades conviction one notch. Every action is "
+            "stamped on a critic_notes field so the analyst can "
+            "audit what the critic caught and why. The PDF "
+            "report's per-stock detail card now shows the "
+            "critic notes inline whenever they are non-empty."},
+        {"kind": "p", "text":
+            "Together the four fixes give the analyst a single "
+            "coherent decision flow: every prediction is now "
+            "filtered through the deterministic critic, every "
+            "stock receives a verdict that already reconciles "
+            "the seven lenses, the dashboard explains conflicts "
+            "rather than presenting them, and the bot re-"
+            "predicts on demand whenever a HIGH-confidence shock "
+            "lands. None of these features depend on a new "
+            "external dependency or a paid API; the entire "
+            "iteration runs on the same deterministic data flow "
+            "the rest of the bot already uses."},
+
         {"kind": "pagebreak"},
     ]
 

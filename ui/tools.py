@@ -1529,6 +1529,13 @@ TOOL_FUNCTIONS = {
     "get_next_earnings": get_next_earnings,
     "get_management_outlook": get_management_outlook,
     "get_material_information": get_material_information,
+    "get_bots_verdict": lambda symbol=None: (
+        __import__("brain.verdict_synthesizer", fromlist=["synthesize"])
+        .synthesize(symbol) if symbol else
+        __import__("brain.verdict_synthesizer",
+                    fromlist=["synthesize_universe"])
+        .synthesize_universe()
+    ),
 }
 
 
@@ -1977,6 +1984,26 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
             "properties": {
                 "top_k":         {"type": "integer"},
                 "lookback_days": {"type": "integer"},
+            },
+        },
+    },
+    {
+        "name": "get_bots_verdict",
+        "description": ("THE BOT'S VERDICT — a single unified call per "
+                        "stock that reconciles all seven lenses (Value, "
+                        "Quality, Momentum, Macro, News, Flow, "
+                        "Management) into one action with explicit "
+                        "conflict resolution. ALWAYS call this when "
+                        "the user is confused about contradictory "
+                        "signals across tabs (e.g. 'Value tab says SELL "
+                        "but the prediction says BUY — what do I do?'). "
+                        "Pass `symbol` for one ticker, or omit for the "
+                        "universe-wide ranking."),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "symbol": {"type": "string",
+                            "description": "Optional PSX ticker."},
             },
         },
     },

@@ -986,6 +986,13 @@ def render_today_tab():
     # answers that directly.
     _today_macro_radar(brief.get("macro_impact", {}))
 
+    # ---------------------------------------------------- Bot's Verdict
+    # The unified, conflict-resolved call across all seven lenses
+    # (Value / Quality / Momentum / Macro / News / Flow / Management).
+    # Surfaces the ONE answer the analyst should act on, plus a
+    # transparent breakdown so they can audit the reasoning.
+    _today_bots_verdict()
+
     # ---------------------------------------------------- Alerts
     if alerts:
         st.markdown("#### Things to watch")
@@ -1133,6 +1140,128 @@ def _today_portfolio_card(pf: dict, js: dict) -> None:
         )
 
 
+def _today_bots_verdict() -> None:
+    """The Bot's Verdict — a unified, conflict-resolved call across
+    all seven lenses (Value, Quality, Momentum, Macro, News, Flow,
+    Management).
+
+    The analyst's repeated complaint was: 'every tab tells a different
+    story — Value says SELL on the same stock Momentum says BUY'.
+    This panel runs the deterministic synthesiser in
+    ``brain.verdict_synthesizer`` to produce ONE call per stock, with
+    a transparent breakdown so the conflict resolution is visible.
+    """
+    try:
+        from brain.verdict_synthesizer import synthesize_universe
+        out = synthesize_universe()
+    except Exception as e:
+        st.warning(f"Bot's Verdict unavailable: {type(e).__name__}: {e}")
+        return
+    rows = out.get("rows") or []
+    if not rows:
+        return
+
+    st.markdown("### The Bot's Verdict")
+    st.caption(
+        "One unified call per stock, blending **seven lenses** "
+        "(Value · Quality · Momentum · Macro · News · Flow · "
+        "Management). When lenses disagree, the conflict is "
+        "highlighted and resolved with an explicit rule. This is the "
+        "answer to use when different tabs seem to tell different "
+        "stories — the synthesiser already did the reconciliation. "
+        "Click any row to see the full lens breakdown."
+    )
+
+    # ----- Top summary table -------------------------------------------
+    import pandas as pd
+    summary_rows = []
+    for r in rows:
+        n_conflicts = len(r.get("conflicts") or [])
+        summary_rows.append({
+            "Symbol":     r["symbol"],
+            "Sector":     r["sector"],
+            "Action":     r["action"],
+            "Direction":  r["direction"],
+            "Conviction": r["conviction"],
+            "Score":      r["score"],
+            "Conflicts":  n_conflicts,
+        })
+    df = pd.DataFrame(summary_rows)
+    st.dataframe(df, hide_index=True, use_container_width=True,
+                  column_config={
+                      "Score": st.column_config.NumberColumn(
+                          "Score", help="Composite score across lenses",
+                          format="%+d"),
+                      "Conflicts": st.column_config.NumberColumn(
+                          "Conflicts",
+                          help=("Number of lens-pair disagreements; "
+                                "0 means full agreement"),
+                          format="%d"),
+                  })
+
+    # ----- Drill-down for each stock -----------------------------------
+    pick = st.selectbox(
+        "Show full lens breakdown for:",
+        options=[r["symbol"] for r in rows],
+        key="verdict_drilldown",
+    )
+    if pick:
+        chosen = next((r for r in rows if r["symbol"] == pick), None)
+        if chosen:
+            _render_verdict_card(chosen)
+
+
+def _render_verdict_card(v: dict) -> None:
+    """Compact verdict card for one stock — shared between the Today
+    tab drill-down and the per-stock page."""
+    sym = v["symbol"]
+    action = v["action"]
+    color = ("#1e8a45" if action in ("BUY", "ADD")
+             else "#c0392b" if action in ("SELL", "AVOID", "TRIM")
+             else "#666666")
+    st.markdown(
+        f"#### {sym} — "
+        f"<span style='color:{color}'><b>{action}</b></span>  "
+        f"<span style='color:#888'>· {v['direction']} · "
+        f"{v['conviction']} conviction · score {v['score']:+d}</span>",
+        unsafe_allow_html=True,
+    )
+    st.caption(f"Sector: {v.get('sector') or '—'}")
+
+    cols = st.columns(7)
+    for i, c in enumerate(v["contributions"]):
+        with cols[i]:
+            score = int(c["score"])
+            badge = ("🟢" if score >= 1 else "🔴" if score <= -1 else "⚪")
+            sign = ("+" if score > 0 else "")
+            st.metric(c["name"], f"{badge} {sign}{score}",
+                       help=c["reason"])
+
+    # Itemised lens reasons (full text, no truncation)
+    with st.expander("Why each lens scored what it did", expanded=False):
+        for c in v["contributions"]:
+            sign = "+" if c["score"] > 0 else (
+                "−" if c["score"] < 0 else " ")
+            st.markdown(
+                f"- **{c['name']}** ({sign}{abs(int(c['score']))}, "
+                f"weight {c['weight']}): {c['reason']}"
+            )
+
+    # Conflicts + resolution
+    conflicts = v.get("conflicts") or []
+    log = v.get("resolution_log") or []
+    if conflicts:
+        st.markdown("**Lens conflicts detected:**")
+        for cf in conflicts:
+            st.warning(cf)
+        if log:
+            st.markdown("**Resolution applied:**")
+            for line in log:
+                st.info(line)
+    else:
+        st.success("All lenses agree — no conflict resolution needed.")
+
+
 def _today_macro_radar(mi: dict) -> None:
     """Macro Radar — today's drivers + per-sector winners and losers.
 
@@ -1160,6 +1289,28 @@ def _today_macro_radar(mi: dict) -> None:
             "tailwind / headwind score so every call this app makes "
             "can cite a specific reason."
         )
+
+        # ---- Pre-MPC alert banner (rate-sensitive sectors capped)
+        mpc = mi.get("mpc_alert") or {}
+        if mpc.get("in_pre_window"):
+            sectors = ", ".join(mpc.get("rate_sensitive_sectors")
+                                  or [])[:120]
+            st.warning(
+                f"**SBP MPC alert** — meeting on **"
+                f"{mpc.get('next_mpc')}** "
+                f"({mpc.get('days_until')} day(s) away). "
+                f"Conviction is capped one notch on rate-sensitive "
+                f"sectors ({sectors}). The bot will re-predict "
+                f"automatically when the post-meeting press release "
+                f"is scored as a news shock."
+            )
+        elif mpc.get("in_post_window"):
+            st.info(
+                f"**Post-MPC re-pricing window** — the SBP announced "
+                f"on {mpc.get('next_mpc')}. Today's predictions "
+                f"already incorporate the new rate; expect higher "
+                f"intraday volatility on banks / IPPs / cements."
+            )
 
         # ---- Industry KPI dashboard (live numbers)
         if kpis:
