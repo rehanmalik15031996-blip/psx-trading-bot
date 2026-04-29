@@ -1,53 +1,45 @@
-# Core data/ingestion
+# Streamlit Cloud runtime requirements (slim).
+#
+# This file is consumed by Streamlit Cloud at deploy time. The dashboard
+# only READS pre-computed parquet / JSON artefacts written by the heavy
+# GitHub Actions pipelines (overnight, eod, predictions, news_scoring,
+# fundamentals, financial_results, material_info, macro_kpis). It never
+# trains a model on demand, so we deliberately leave out lightgbm /
+# catboost / torch / transformers / vectorbt / shap — that keeps the
+# deployed image well below the free tier's 1 GB memory ceiling and
+# makes redeploys complete in ~3 minutes instead of ~12.
+#
+# For local development / training, use ``requirements-full.txt``
+# instead:
+#     pip install -r requirements-full.txt
+
+# Core data + UI
+streamlit>=1.38.0
+pandas>=2.2.0
+numpy>=1.26.0
+pyarrow>=16.0.0
+plotly>=5.22.0
+
+# Connectors at runtime (sector lookups, fundamentals snapshots,
+# news fetch, fair-value calc)
 requests>=2.31.0
 beautifulsoup4>=4.12.0
 lxml>=5.0.0
 feedparser>=6.0.10
 yfinance>=0.2.40
-pandas>=2.2.0
-rich>=13.7.0
-websocket-client>=1.7.0
 python-dateutil>=2.8.2
+rich>=13.7.0
 
-# Phase 1+: storage
-pyarrow>=16.0.0
-
-# Phase 2: features + models
-pandas-ta>=0.3.14b
-# `ta` library — supplies Bollinger Bands / MACD / OBV / Stoch RSI used in
-# the technical snapshot surfaced to the LLM briefing.
+# Technicals (Bollinger / MACD / OBV / Stoch RSI in the briefing
+# preview that the UI surfaces inside chatbot answers)
 ta>=0.11.0
-numpy>=1.26.0
 scikit-learn>=1.4.0
-lightgbm>=4.3.0
-catboost>=1.2.5
 
-# Phase 3: backtest
-vectorbt>=0.26.0
-
-# Phase 4: sentiment + LLM
-transformers>=4.40.0
-# CPU-only torch — install from: pip install torch --index-url https://download.pytorch.org/whl/cpu
-torch>=2.2.0
+# LLM clients — chatbot tool dispatcher selects the live provider
 anthropic>=0.34.0
-# OpenAI SDK — used for GitHub Models (free-tier chatbot provider) via the
-# OpenAI-compatible endpoint at https://models.github.ai/inference
 openai>=1.40.0
-
-# Phase 5: reporting
-jinja2>=3.1.0
-shap>=0.45.0
-matplotlib>=3.8.0
-# Daily PDF brief export (Today tab "Download report")
-reportlab>=4.0.0
-
-# Director's-report extraction: render scanned PDF pages to PNG so vision
-# LLMs (GitHub Models gpt-4o, Claude) can OCR + summarize in one pass.
-pymupdf>=1.24.0
-# Lighter-weight PDF text extraction (used as a fallback / for inspection).
-pypdf>=4.0.0
-
-# Plan D UI: Streamlit chat/portfolio app + Gemini client
-streamlit>=1.38.0
 google-genai>=1.0.0
-plotly>=5.22.0
+
+# Daily PDF brief (analyst-facing report download)
+reportlab>=4.0.0
+pypdf>=4.0.0

@@ -358,21 +358,67 @@ forwarding.
 
 ### Daily usage on your laptop
 
+The dashboard is intentionally lightweight at runtime — the heavy ML
+training (LightGBM / CatBoost / torch / transformers / vectorbt / shap)
+runs in scheduled GitHub Actions, not at UI runtime, so the local
+``requirements.txt`` is the slim Streamlit-Cloud-compatible one. Use
+``requirements-full.txt`` if you also want to train models or run the
+backtest locally.
+
 ```powershell
 # 1. Clone once
 git clone https://github.com/<you>/psx-trading-bot.git
 cd psx-trading-bot
 python -m venv .venv
 .venv\Scripts\activate
+# Slim runtime (UI + chatbot + connectors, ~150 MB):
 pip install -r requirements.txt
+# OR full stack (training + backtest, ~2 GB):
+pip install -r requirements-full.txt
 
 # 2. Create a local .env with your API keys (never commit this)
 #    ANTHROPIC_API_KEY=...
 #    GEMINI_API_KEY=...
+#    GITHUB_TOKEN=ghp_...   (free chatbot via GitHub Models)
 
 # 3. Launch the UI
-streamlit run ui\app.py
+streamlit run streamlit_app.py
+# (legacy entry point still works: streamlit run ui\app.py)
 ```
+
+### Hosting the UI on Streamlit Cloud (free tier)
+
+The app is ready to deploy on [Streamlit Community Cloud](https://share.streamlit.io)
+for free. The runtime image is well under the 1 GB memory ceiling
+because the heavy training packages are kept in ``requirements-full.txt``,
+which Streamlit Cloud does not install.
+
+Deploy in three clicks:
+
+1. **Sign in** to [share.streamlit.io](https://share.streamlit.io)
+   with the same GitHub account that owns this repository.
+2. Click **New app** and fill in:
+    - *Repository*: ``<you>/psx-trading-bot``
+    - *Branch*: ``main``
+    - *Main file path*: ``streamlit_app.py``
+    - *Python version*: ``3.11``
+3. Open **Advanced settings → Secrets** and paste this TOML
+   (using the values from your local ``.env``):
+
+    ```toml
+    ANTHROPIC_API_KEY = "sk-ant-api03-..."
+    GITHUB_TOKEN      = "ghp_..."
+    GEMINI_API_KEY    = "AIza..."
+    ```
+
+   The same template lives in ``.streamlit/secrets.toml.example`` for
+   reference. Click **Deploy**.
+
+The app re-deploys automatically on every push to ``main``, so once
+the GitHub Actions workflows commit fresh data the live dashboard
+sees it within a few minutes. There are no servers to manage and no
+secrets in source control — Streamlit Cloud holds them in its own
+encrypted store.
 
 Then in the running Streamlit app, click **"Pull latest data from GitHub"**
 in the sidebar whenever you want a fresh snapshot — or just `git pull`

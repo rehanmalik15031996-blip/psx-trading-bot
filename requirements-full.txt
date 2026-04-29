@@ -1,0 +1,69 @@
+# Full local development / training requirements.
+#
+# This is the FULL dependency set for running everything in the repo
+# locally — including the heavy training pipeline (LightGBM, CatBoost,
+# torch + transformers for sentiment fine-tuning, vectorbt for the
+# vectorised backtest, shap for feature attribution, pymupdf for the
+# Director's Report PDF rasteriser).
+#
+# Install with:
+#     pip install -r requirements-full.txt
+#
+# Streamlit Cloud uses the slim ``requirements.txt`` instead so the
+# deployed image stays inside the free-tier 1 GB memory ceiling. The
+# scheduled GitHub Actions workflows have their own minimal CI deps
+# in .github/requirements-ci.txt.
+
+# Core data/ingestion
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+feedparser>=6.0.10
+yfinance>=0.2.40
+pandas>=2.2.0
+rich>=13.7.0
+websocket-client>=1.7.0
+python-dateutil>=2.8.2
+
+# Phase 1+: storage
+pyarrow>=16.0.0
+
+# Phase 2: features + models
+pandas-ta>=0.3.14b
+# `ta` library — supplies Bollinger Bands / MACD / OBV / Stoch RSI used in
+# the technical snapshot surfaced to the LLM briefing.
+ta>=0.11.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+lightgbm>=4.3.0
+catboost>=1.2.5
+
+# Phase 3: backtest
+vectorbt>=0.26.0
+
+# Phase 4: sentiment + LLM
+transformers>=4.40.0
+# CPU-only torch — install from: pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.2.0
+anthropic>=0.34.0
+# OpenAI SDK — used for GitHub Models (free-tier chatbot provider) via the
+# OpenAI-compatible endpoint at https://models.github.ai/inference
+openai>=1.40.0
+
+# Phase 5: reporting
+jinja2>=3.1.0
+shap>=0.45.0
+matplotlib>=3.8.0
+# Daily PDF brief export (Today tab "Download report")
+reportlab>=4.0.0
+
+# Director's-report extraction: render scanned PDF pages to PNG so vision
+# LLMs (GitHub Models gpt-4o, Claude) can OCR + summarize in one pass.
+pymupdf>=1.24.0
+# Lighter-weight PDF text extraction (used as a fallback / for inspection).
+pypdf>=4.0.0
+
+# Plan D UI: Streamlit chat/portfolio app + Gemini client
+streamlit>=1.38.0
+google-genai>=1.0.0
+plotly>=5.22.0

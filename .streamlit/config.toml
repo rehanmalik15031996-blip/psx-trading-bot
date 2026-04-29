@@ -1,0 +1,39 @@
+# Streamlit Cloud / local-runtime configuration.
+#
+# Only set values here that we want everywhere (Cloud + local). Anything
+# that changes per-environment (secrets, etc.) belongs in
+# .streamlit/secrets.toml on the deployment, not in this file.
+
+[server]
+# Streamlit Cloud sets PORT for us; locally we want the same default
+# the CLI uses so behaviour matches.
+headless = true
+runOnSave = false
+# Pre-computed artefacts in data/ can be larger than the default 200 MB
+# upload limit for download_button payloads — bump the buffer.
+maxUploadSize = 200
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+# Match the existing in-app palette so the deployed app looks identical
+# to the local one (the dashboard uses a custom dark surface plus
+# brand-blue accents in PDF + Macro Radar charts).
+base = "dark"
+primaryColor = "#2f6feb"
+backgroundColor = "#0e1117"
+secondaryBackgroundColor = "#161b22"
+textColor = "#e6edf3"
+font = "sans serif"
+
+[client]
+# Wider tracebacks help the analyst report Streamlit-side errors back
+# without losing the file path or stack frame.
+showErrorDetails = true
+toolbarMode = "minimal"
+
+[runner]
+# The Today tab triggers a few connector calls on first load. 30s is
+# enough for cold cache and well below Streamlit Cloud's hard ceiling.
+fastReruns = true
