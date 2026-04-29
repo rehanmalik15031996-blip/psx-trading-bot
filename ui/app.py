@@ -96,16 +96,55 @@ st.set_page_config(
 # --------------------------------------------------------------------------
 # Session state
 # --------------------------------------------------------------------------
+def _hydrate_env_from_st_secrets() -> None:
+    """Copy values from ``st.secrets`` into ``os.environ`` so the rest
+    of the codebase (which uses ``os.environ.get`` everywhere) picks
+    them up transparently when the app runs on Streamlit Cloud.
+
+    Only keys we actually consume are forwarded — we never leak the
+    full secrets dict into the process environment. Locally this is a
+    no-op because ``st.secrets`` is empty unless ``.streamlit/
+    secrets.toml`` exists.
+    """
+    try:
+        if not hasattr(st, "secrets"):
+            return
+        for key in ("GITHUB_TOKEN", "GH_TOKEN",
+                     "ANTHROPIC_API_KEY",
+                     "GEMINI_API_KEY", "GOOGLE_API_KEY"):
+            try:
+                val = st.secrets.get(key) if hasattr(st.secrets, "get") \
+                    else None
+            except Exception:
+                val = None
+            if val and not os.environ.get(key):
+                os.environ[key] = str(val)
+    except Exception:
+        pass
+
+
 def _init_state():
+    _hydrate_env_from_st_secrets()
     ss = st.session_state
     ss.setdefault("chat_history", [])
-    has_gh = bool(os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN"))
+
+    # GitHub Models token is auto-resolved (Streamlit secrets / env /
+    # local file) — the user never has to paste it. We resolve once
+    # at startup and store on session state so the providers panel
+    # below can show a live status badge.
+    auto_gh_token = _read_canonical_token() or ""
+    ss.setdefault("github_key", auto_gh_token)
+    # Always refresh, even if the slot already exists, so a token
+    # added to Streamlit Cloud secrets after the first launch is
+    # picked up on the next rerun.
+    if auto_gh_token and not ss.get("github_key"):
+        ss["github_key"] = auto_gh_token
+
+    has_gh = bool(ss.get("github_key"))
     ss.setdefault("provider", "github" if has_gh else "claude")
     ss.setdefault("claude_key", os.environ.get("ANTHROPIC_API_KEY", ""))
-    ss.setdefault("gemini_key", os.environ.get("GOOGLE_API_KEY", "")
-                  or os.environ.get("GEMINI_API_KEY", ""))
-    ss.setdefault("github_key", os.environ.get("GITHUB_TOKEN", "")
-                  or os.environ.get("GH_TOKEN", ""))
+    ss.setdefault("gemini_key", os.environ.get("GEMINI_API_KEY", "")
+                  or os.environ.get("GOOGLE_API_KEY", ""))
     ss.setdefault("claude_model", DEFAULT_CLAUDE_MODEL)
     ss.setdefault("gemini_model", DEFAULT_GEMINI_MODEL)
     ss.setdefault("github_model", DEFAULT_GITHUB_MODEL)
@@ -467,12 +506,25 @@ def render_sidebar():
         # "widget created with a default value but also had its value set
         # via the Session State API" warning.
         if provider == "github":
-            st.text_input(
-                "GitHub token (PAT w/ models:read)",
-                type="password", key="github_key",
-                help="Fine-grained PAT with 'models:read' scope. "
-                     "Or set GITHUB_TOKEN in .env.",
-            )
+            # GitHub Models is the free-tier provider and the chatbot
+            # auto-resolves the token from (1) Streamlit Cloud
+            # secrets, (2) the local ``.env``, or (3) the canonical
+            # token file on disk. The user never pastes it here —
+            # showing a status badge instead avoids accidentally
+            # baking a token into a screenshot or browser history.
+            tok = st.session_state.get("github_key") or ""
+            if tok:
+                preview = tok[:8] + "…" if len(tok) > 12 else "(short)"
+                st.success(
+                    f"GitHub token auto-loaded ({preview}) — "
+                    f"the chatbot is ready to go."
+                )
+            else:
+                st.error(
+                    "No GitHub token available. Add **GITHUB_TOKEN** "
+                    "to Streamlit Cloud secrets (Settings → Secrets) "
+                    "or to your local ``.env`` file."
+                )
             st.selectbox(
                 "GitHub model", GITHUB_MODEL_CHOICES,
                 key="github_model",
@@ -487,7 +539,7 @@ def render_sidebar():
         else:
             st.text_input("Google API key",
                           type="password", key="gemini_key",
-                          help="Or set GOOGLE_API_KEY in .env.")
+                          help="Or set GEMINI_API_KEY in .env.")
             st.text_input("Gemini model", key="gemini_model")
 
         st.divider()
@@ -618,12 +670,35 @@ def _do_backfill():
 
 def _read_canonical_token() -> str | None:
     """Token resolution order, most-trusted first:
-    1. scripts/git token new trading bot   (the user's canonical file)
-    2. .git/github-credentials             (what command-line git uses)
-    3. GITHUB_TOKEN / GH_TOKEN env vars    (last resort, often stale)
+    1. ``st.secrets["GITHUB_TOKEN"]`` (Streamlit Cloud injects this)
+    2. ``GITHUB_TOKEN`` / ``GH_TOKEN`` env vars (local ``.env``)
+    3. ``scripts/git token new trading bot`` (the user's canonical
+        local file — never committed to the repo)
+    4. ``.git/github-credentials`` (what command-line git uses)
 
-    Returns None if no usable token is found.
+    Returns ``None`` if no usable token is found. The first two
+    sources cover Streamlit Cloud automatically; the last two only
+    matter when running locally.
     """
+    # ---- 1. Streamlit Cloud secrets (highest trust on the cloud) ----
+    try:
+        if hasattr(st, "secrets"):
+            tok = st.secrets.get("GITHUB_TOKEN") if hasattr(
+                st.secrets, "get") else None
+            if tok and isinstance(tok, str) and tok.startswith(
+                    ("ghp_", "github_pat_", "ghs_", "gho_")):
+                return tok.strip()
+    except Exception:
+        pass
+
+    # ---- 2. Environment vars (local ``.env`` or CI export) ---------
+    for var in ("GITHUB_TOKEN", "GH_TOKEN"):
+        val = os.environ.get(var)
+        if val and val.startswith(
+                ("ghp_", "github_pat_", "ghs_", "gho_")):
+            return val.strip()
+
+    # ---- 3. Repo-local token files (for laptop development) --------
     candidates = [
         PROJECT_ROOT / "scripts" / "git token new trading bot",
         PROJECT_ROOT / "scripts" / "git_token_new_trading_bot",
@@ -635,7 +710,6 @@ def _read_canonical_token() -> str | None:
                 txt = p.read_text(encoding="utf-8").strip()
                 # File may be the bare token, or in URL form.
                 if "@" in txt:
-                    # extract everything between final ':' before '@' and '@'
                     seg = txt.split("@", 1)[0]
                     if ":" in seg:
                         return seg.rsplit(":", 1)[-1].strip()
@@ -644,6 +718,7 @@ def _read_canonical_token() -> str | None:
         except Exception:
             continue
 
+    # ---- 4. Git credential file (last resort) ----------------------
     cred_file = PROJECT_ROOT / ".git" / "github-credentials"
     try:
         if cred_file.exists():
@@ -657,7 +732,7 @@ def _read_canonical_token() -> str | None:
     except Exception:
         pass
 
-    return os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    return None
 
 
 def _do_git_pull():
