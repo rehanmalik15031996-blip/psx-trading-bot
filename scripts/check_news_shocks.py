@@ -53,13 +53,29 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 # Thresholds — calibrated against PSX intraday volatility.
 SHOCK_WINDOW_HOURS = 6
-MIN_SENTIMENT      = 0.40
+MIN_SENTIMENT      = 0.35   # was 0.40 - lowered after April 29 scorecard
+                              # showed "Rate hike undermines investor
+                              # confidence" (sentiment -0.40) was sitting
+                              # right on the threshold.
+# Broad-market shock: if the news flow as a whole has flipped direction
+# (>= ``BROAD_MARKET_MIN_ARTICLES`` HIGH-confidence articles inside the
+# window cross ``MIN_SENTIMENT``), that's itself a shock — even if no
+# single article touches a universe ticker.
+BROAD_MARKET_MIN_ARTICLES = 3
+
 SHOCK_CATEGORIES   = {
     "POLICY_RATE", "INTEREST_RATE", "MPC", "MONETARY",
     "FX", "RUPEE", "DEVALUATION", "RESERVES",
     "OIL_SHOCK", "OIL_PRICE",
     "REGULATOR", "SBP", "SECP", "OGRA", "NEPRA",
     "DEFAULT", "DOWNGRADE", "S&P", "MOODYS", "FITCH",
+    # Broad-market tags so the existing macro path also catches the
+    # cluster that hit on April 29 ("KSE-100 retreats 2,588 points",
+    # "PSX reverses early gains, closes red"). The broader narrative
+    # flipped the entire market regardless of which ticker was named.
+    "MARKET", "MARKETS", "KSE", "KSE100", "KSE-100",
+    "SELLOFF", "SELL_OFF", "EQUITIES", "INDEX",
+    "BROAD_MARKET", "PSX", "BEARISH_REGIME",
 }
 
 # Files
@@ -115,8 +131,75 @@ def _is_macro_shock(category: object) -> bool:
     return any(tag in cat_norm for tag in SHOCK_CATEGORIES)
 
 
+def _detect_broad_market_shock(df, fired_broad_keys: set[str]) -> dict | None:
+    """Detect when the broader news narrative flips even if no single
+    article matches a universe ticker / macro tag.
+
+    The criterion: >= ``BROAD_MARKET_MIN_ARTICLES`` HIGH-confidence
+    articles inside the recent window all carry sentiment in the same
+    direction with ``|sentiment| >= MIN_SENTIMENT``. That's a sign the
+    overall narrative has tilted bearish (or bullish) and the bot's
+    cached predictions need a refresh.
+
+    Returns a single synthetic shock record or ``None``. The shock is
+    de-duplicated using a short signature (date + direction + count) so
+    the same broad shift only fires the predictions workflow once per
+    day per direction.
+    """
+    if df is None or len(df) == 0:
+        return None
+    high_conf = df[
+        (df["confidence"].astype(str).str.upper() == "HIGH")
+        & (df["sentiment"].abs() >= MIN_SENTIMENT)
+    ].copy()
+    if len(high_conf) < BROAD_MARKET_MIN_ARTICLES:
+        return None
+
+    bears = high_conf[high_conf["sentiment"] <= -MIN_SENTIMENT]
+    bulls = high_conf[high_conf["sentiment"] >= MIN_SENTIMENT]
+    if len(bears) >= BROAD_MARKET_MIN_ARTICLES:
+        side = "BEARISH"
+        flock = bears
+    elif len(bulls) >= BROAD_MARKET_MIN_ARTICLES:
+        side = "BULLISH"
+        flock = bulls
+    else:
+        return None
+
+    today = datetime.now(timezone.utc).date().isoformat()
+    sig = f"BROAD::{today}::{side}::{len(flock)}"
+    if sig in fired_broad_keys:
+        return None
+
+    avg_sent = float(flock["sentiment"].mean())
+    titles = [str(t)[:120] for t in flock["title"].tolist()[:5]]
+    return {
+        "article_id": sig,
+        "title": (f"Broad-market {side.lower()} shock: "
+                    f"{len(flock)} HIGH-confidence articles avg "
+                    f"sentiment {avg_sent:+.2f}"),
+        "sentiment": avg_sent,
+        "confidence": "HIGH",
+        "category": "BROAD_MARKET",
+        "affected_symbols": [],
+        "is_macro_shock": True,
+        "is_broad_market": True,
+        "side": side,
+        "n_articles": int(len(flock)),
+        "sample_titles": titles,
+        "scored_at": "",
+        "detected_at": datetime.now(timezone.utc)
+                          .isoformat(timespec="seconds"),
+    }
+
+
 def detect_shocks() -> list[dict]:
-    """Return a list of shock records (one per qualifying article)."""
+    """Return a list of shock records (one per qualifying article).
+
+    Includes one synthetic record at most for a broad-market regime
+    shift (``is_broad_market=True``) when several HIGH-confidence
+    articles tilt the same direction inside the window.
+    """
     if not NEWS_PATH.exists():
         return []
     try:
@@ -175,10 +258,17 @@ def detect_shocks() -> list[dict]:
             "category":   str(cat or ""),
             "affected_symbols": sorted(list(hits)),
             "is_macro_shock": is_macro,
+            "is_broad_market": False,
             "scored_at": str(r.get("scored_at") or ""),
             "detected_at": datetime.now(timezone.utc)
                               .isoformat(timespec="seconds"),
         })
+
+    # Broad-market shock: the narrative-flip case.
+    broad = _detect_broad_market_shock(df, fired_ids)
+    if broad is not None:
+        shocks.append(broad)
+
     return shocks
 
 

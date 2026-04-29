@@ -1855,6 +1855,186 @@ def build_doc_model() -> list[dict]:
             "iteration runs on the same deterministic data flow "
             "the rest of the bot already uses."},
 
+        # =======================================================
+        # 10.6 — Iteration April 29 PM: accuracy gap fixes +
+        # international news. Closes five strategy shortcomings
+        # exposed by the morning's prediction scorecard and adds
+        # five international RSS sources.
+        # =======================================================
+        {"kind": "h", "level": 2,
+         "text": "10.6  Iteration April 29 PM: accuracy gap fixes "
+                  "and international news firehose"},
+        {"kind": "p", "text":
+            "An end-of-day scorecard run for the April 29 "
+            "predictions exposed five distinct strategy gaps. "
+            "Four of the day's five bullish calls were "
+            "concentrated in the energy / IPP cluster, and the "
+            "narrative had already turned against that cluster "
+            "by mid-session. The user also flagged that Brent "
+            "crude price displayed in the macro panel was stale, "
+            "and asked the bot to read international press "
+            "(Reuters, Bloomberg) alongside the domestic feeds. "
+            "This iteration ships seven small surgical changes, "
+            "one new daily workflow, and one new connector — no "
+            "architectural rewrites — that together close every "
+            "named gap without disturbing the iteration 10.5 "
+            "synthesizer / critic / shock-trigger pipeline."},
+
+        {"kind": "h", "level": 3,
+         "text": "Root cause — stale commodity / FX series"},
+        {"kind": "p", "text":
+            "The Brent crude value the macro panel displayed on "
+            "April 29 was correct as of April 24. There was no "
+            "scheduled workflow to refresh the yfinance commodity "
+            "and FX parquets — the existing macro KPI workflow "
+            "covered SBP rates, KSE-100, and CPI but not the "
+            "commodity / FX block. A new script, "
+            "scripts/refresh_macro_series.py, pulls the last "
+            "thirty days of Brent, WTI, gold, copper, cotton, "
+            "BTC, and USD/PKR every weekday at 09:30 PKT via the "
+            "new macro_series.yml workflow, dedupes by date, and "
+            "commits the updated parquets. With this in place, "
+            "the macro engine reads truly current data when "
+            "predictions.yml fires later in the morning and the "
+            "Today-tab macro panel shows the actual day's close."},
+
+        {"kind": "h", "level": 3,
+         "text": "Gap 1 — Stretched-signal blindness"},
+        {"kind": "p", "text":
+            "On April 29 the engine read a +9.7% Brent rally as "
+            "a fresh STRONG tailwind even though Brent was sitting "
+            "at the 95th percentile of its trailing-year "
+            "distribution and had already begun to roll over "
+            "intraday. A new helper, _is_stretched, in "
+            "brain/macro_impact.py, z-scores the current 5-day "
+            "return for each commodity series against its trailing "
+            "1-year distribution. When the absolute z-score is at "
+            "least 1.5 (a statistically extreme move), the matching "
+            "driver's magnitude is downshifted one notch (STRONG to "
+            "MODERATE, MODERATE to MILD) and the explanation flags "
+            "the move as 'stretched, z=X.X'. The same filter is "
+            "applied to gold, copper, and cotton drivers."},
+
+        {"kind": "h", "level": 3,
+         "text": "Gap 2 — KIBOR 1-day repricing missed"},
+        {"kind": "p", "text":
+            "The morning after the April 28 MPC, the 3-month KIBOR "
+            "spiked from 11.165% to 11.665% — a 50 bps overnight "
+            "jump. The macro engine's existing 5-day filter missed "
+            "the move because the prior four days were flat. New "
+            "fields kibor_3m_change_1d and kibor_12m_change_1d are "
+            "now computed in _load_kpi_snapshot, and a new driver "
+            "tag kibor_shock fires when either crosses 25 bps in a "
+            "single day. The driver carries -2 weight on cement, "
+            "IPP, banking and chem sectors so any prediction "
+            "produced on a post-MPC morning automatically reads "
+            "the funding-cost shock the same day it lands."},
+
+        {"kind": "h", "level": 3,
+         "text": "Gap 3 — KSE-100 trend filter (regime check)"},
+        {"kind": "p", "text":
+            "The morning of April 29 the KSE-100 had already "
+            "printed three consecutive red sessions and was "
+            "trading below its 20-day moving average — yet the "
+            "bot issued HIGH-conviction BUYs on three names. A "
+            "new check in brain/prediction_critic.py, "
+            "_check_market_regime, reads kse100.parquet and "
+            "downgrades any HIGH-conviction BULLISH call to "
+            "MEDIUM whenever the 5-day KSE-100 return is at least "
+            "-1.5% AND today's close is below the 20-day SMA. The "
+            "check fires only on the most aggressive subset of "
+            "calls so the strategist can still publish, just at "
+            "lower size; an analyst-readable note is added to "
+            "critic_notes explaining the regime context."},
+
+        {"kind": "h", "level": 3,
+         "text": "Gap 4 — Sector concentration risk"},
+        {"kind": "p", "text":
+            "Four of April 29's five bullish calls (PSO, PPL, "
+            "OGDC, NPL) sat in the same energy / IPP cluster, so "
+            "a single bad day for crude wiped out the entire "
+            "list. A new post-pass in "
+            "brain/verdict_synthesizer.py, "
+            "_apply_concentration_caps, runs at the end of "
+            "synthesize_universe. Whenever three or more BUY / "
+            "ADD verdicts land in the same sector, it picks the "
+            "one with the lowest composite score and downgrades "
+            "it to HOLD with concentration_warning explaining "
+            "the cap. The other names in the cluster keep their "
+            "bullish stance — the goal is diversification, not "
+            "wholesale sector bans. The Today tab and the daily "
+            "PDF surface the warning so the analyst sees why a "
+            "name was pushed out of the bullish list."},
+
+        {"kind": "h", "level": 3,
+         "text": "Gap 5 — Broad-market news shock"},
+        {"kind": "p", "text":
+            "The April 29 narrative cluster ('KSE-100 retreats "
+            "2,588 points', 'PSX reverses early gains', 'Rate "
+            "hike undermines investor confidence') should have "
+            "fired the news-shock retrigger but didn't — the "
+            "individual articles sat just below the 0.40 "
+            "threshold and none mentioned a universe ticker "
+            "directly. Two adjustments to "
+            "scripts/check_news_shocks.py close that gap: "
+            "MIN_SENTIMENT was lowered from 0.40 to 0.35, and a "
+            "new function _detect_broad_market_shock fires a "
+            "synthetic 'BROAD_MARKET' shock whenever at least "
+            "three HIGH-confidence articles tilt the same "
+            "direction inside the rolling six-hour window — "
+            "regardless of which ticker (if any) they name. "
+            "SHOCK_CATEGORIES was also expanded with MARKET, "
+            "KSE, KSE100, SELLOFF, EQUITIES, INDEX, "
+            "BROAD_MARKET, and BEARISH_REGIME so the existing "
+            "macro-tag path catches the same family of stories."},
+
+        {"kind": "h", "level": 3,
+         "text": "International news firehose"},
+        {"kind": "p", "text":
+            "A new connector, connectors/intl_news.py, adds five "
+            "international RSS sources alongside the existing "
+            "domestic aggregator: Reuters business and "
+            "commodities, Bloomberg public markets and economics "
+            "feeds, Investing.com commodities and Asia desks, "
+            "MarketWatch top stories and market pulse, and four "
+            "Google News custom-query feeds (Pakistan stocks, "
+            "KSE-100, Pakistan oil imports, State Bank of "
+            "Pakistan). Each pulled article is run through a "
+            "Pakistan-relevance keyword whitelist before being "
+            "forwarded to the Claude scorer — terms include "
+            "'pakistan', 'kse', 'sbp', 'pkr', 'karachi', 'brent', "
+            "'wti', 'opec', 'imf' and a few more — so the LLM "
+            "never burns credit on US tech earnings or European "
+            "macro stories that cannot move PSX. The connector "
+            "produces records in the same schema as the domestic "
+            "RSS connector, so it plugs straight into "
+            "scripts/score_news_sentiment.py with a single "
+            "import line; the existing news-scoring workflow "
+            "now picks up the international stream automatically "
+            "three times a day."},
+
+        {"kind": "h", "level": 3,
+         "text": "Net effect on the analyst's experience"},
+        {"kind": "p", "text":
+            "Replaying the April 29 morning through the new "
+            "pipeline produces a measurably different output. "
+            "Brent's STRONG-tailwind tag becomes a "
+            "MODERATE-with-stretched-warning. The KIBOR 1-day "
+            "shock fires and tags cement / IPP / banking with "
+            "-2. The KSE-100 regime check downgrades NPL, PPL, "
+            "and PSO from HIGH to MEDIUM conviction. The "
+            "concentration cap retires the weakest of the four "
+            "energy bullish calls. The broad-market news shock "
+            "fires off the cluster of bearish KSE-100 headlines "
+            "and dispatches a fresh prediction run "
+            "automatically. Reuters and Bloomberg articles "
+            "about Pakistan oil imports surface in the news lens "
+            "for the first time. None of this required new paid "
+            "data sources, none of it required a model retrain, "
+            "and the entire delta is captured in seven file "
+            "changes plus one new connector and one new daily "
+            "workflow."},
+
         {"kind": "pagebreak"},
     ]
 

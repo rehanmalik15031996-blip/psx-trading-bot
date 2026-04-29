@@ -24,6 +24,10 @@ explaining what real-world failure mode it protects against.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+KSE100_PATH = PROJECT_ROOT / "data" / "macro" / "kse100.parquet"
 
 
 @dataclass
@@ -180,6 +184,65 @@ def _check_synthesizer_alignment(pred: dict, sym: str) -> CriticVerdict | None:
     return None
 
 
+def _check_market_regime(pred: dict) -> CriticVerdict | None:
+    """Cap any HIGH-conviction BULLISH call when KSE-100 is in a
+    confirmed downtrend.
+
+    Closes Gap #3 from the April 29 scorecard: the bot issued
+    HIGH-conviction BUYs on NPL, PPL and PSO that morning while the
+    KSE-100 had printed three consecutive red sessions and was sitting
+    below its 20-day SMA. A confirmed broad-market downtrend is a
+    well-established Bayesian prior — even genuinely bullish setups
+    underperform inside one — so we soft-cap conviction to MEDIUM and
+    surface the regime context to the analyst.
+
+    Conditions (all must hold):
+      * 5-day KSE-100 return <= -1.5%
+      * Today's close < 20-day simple moving average
+
+    The check is a ``warn`` (one-notch conviction cut), never a ``fail``
+    — the strategist can still publish the call, just at lower size.
+    """
+    d = (pred.get("direction") or "").upper()
+    conv = (pred.get("conviction") or "").upper()
+    if d != "BULLISH" or conv != "HIGH":
+        return None
+
+    if not KSE100_PATH.exists():
+        return None
+    try:
+        import pandas as pd
+        df = pd.read_parquet(KSE100_PATH)
+    except Exception:
+        return None
+    if df.empty or "kse100_close" not in df.columns:
+        return None
+    df = df.sort_values("date").tail(30)
+    if len(df) < 21:
+        return None
+
+    closes = df["kse100_close"].astype(float).reset_index(drop=True)
+    today_close = float(closes.iloc[-1])
+    five_ago = float(closes.iloc[-6]) if len(closes) >= 6 else None
+    sma20 = float(closes.iloc[-21:-1].mean())
+
+    if five_ago is None or five_ago <= 0:
+        return None
+    ret_5d = (today_close / five_ago) - 1.0
+
+    if ret_5d <= -0.015 and today_close < sma20:
+        return CriticVerdict(
+            severity="warn",
+            note=(f"KSE-100 confirmed downtrend ("
+                  f"5d {ret_5d*100:+.1f}%, close "
+                  f"{today_close:.0f} below 20d SMA "
+                  f"{sma20:.0f}); HIGH-conviction BUYs "
+                  f"underperform inside broad-market downtrends, "
+                  f"conviction capped at MEDIUM."),
+        )
+    return None
+
+
 def _apply_severity(pred: dict, verdict: CriticVerdict) -> None:
     """Mutate the prediction in-place based on the critic's severity."""
     notes = list(pred.get("critic_notes") or [])
@@ -211,6 +274,7 @@ def review(pred: dict, sym: str, entry: float | None) -> dict:
         _check_drivers_match_direction(pred),
         _check_stop_target_geometry(pred, entry),
         _check_synthesizer_alignment(pred, sym),
+        _check_market_regime(pred),
     ]
     for v in checks:
         if v is not None:

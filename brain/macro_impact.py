@@ -49,6 +49,71 @@ RATE_HISTORY_PATH = PROJECT_ROOT / "data" / "macro" / "_policy_rate_history.json
 SBP_RATES_PATH   = PROJECT_ROOT / "data" / "macro" / "sbp_rates.parquet"
 KSE100_PATH      = PROJECT_ROOT / "data" / "macro" / "kse100.parquet"
 CPI_PATH         = PROJECT_ROOT / "data" / "macro" / "cpi_pakistan.parquet"
+MACRO_SERIES_DIR = PROJECT_ROOT / "data" / "macro"
+
+
+# ---------------------------------------------------------------------------
+#  Stretched-signal helper
+# ---------------------------------------------------------------------------
+# Closes Gap #1 from the April 29 scorecard: the engine was reading a
+# 9.7% Brent rally as a fresh tailwind even though it sat at the very
+# top of its trailing-year distribution and had already begun to
+# reverse intraday. ``_is_stretched`` z-scores the current 5-day return
+# against the trailing-1-year distribution of 5-day returns. A move
+# beyond ±1.5 sigma is statistically extreme and we should distrust
+# its directional read.
+def _is_stretched(
+    series_key: str,
+    current_ret_5d: float | None,
+    lookback_days: int = 252,
+    threshold: float = 1.5,
+) -> tuple[bool, float | None]:
+    """Return ``(stretched, z_score)`` for a yfinance macro series.
+
+    The function reads ``data/macro/<series_key>.parquet`` (the same
+    files refreshed by ``scripts/refresh_macro_series.py``), computes
+    rolling 5-day returns over the last ``lookback_days`` business
+    days, and checks whether ``current_ret_5d`` lies more than
+    ``threshold`` standard deviations from the mean.
+
+    A safe ``(False, None)`` is returned whenever the series is
+    missing, too short, or has no variance — we never want a missing
+    file to silently dampen drivers.
+    """
+    if current_ret_5d is None:
+        return False, None
+    try:
+        import pandas as pd
+    except Exception:
+        return False, None
+
+    p = MACRO_SERIES_DIR / f"{series_key}.parquet"
+    if not p.exists():
+        return False, None
+    try:
+        df = pd.read_parquet(p)
+    except Exception:
+        return False, None
+    if df.empty or "value" not in df.columns:
+        return False, None
+
+    df = df.sort_values("date").tail(lookback_days + 10)
+    closes = df["value"].astype(float)
+    rets = closes.pct_change(5).dropna()
+    if len(rets) < 30:
+        return False, None
+    mu = float(rets.mean())
+    sd = float(rets.std())
+    if sd <= 0:
+        return False, None
+    z = (float(current_ret_5d) - mu) / sd
+    return abs(z) >= threshold, round(z, 2)
+
+
+def _downshift_magnitude(mag: str) -> str:
+    """STRONG → MODERATE → MILD → MILD (clamped)."""
+    return {"STRONG": "MODERATE", "MODERATE": "MILD",
+            "MILD": "MILD"}.get(mag, mag)
 
 
 # ---------------------------------------------------------------------------
@@ -102,6 +167,12 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "kibor_up":   (+1, "Higher KIBOR feeds straight into floating-rate "
                             "loan yields — direct NII boost."),
         "kibor_down": (-1, "Lower KIBOR drags floating-rate loan yields."),
+        "kibor_shock": (-2, "1-day KIBOR repricing of >=25 bps — even "
+                              "though banks benefit from higher yields "
+                              "long-term, an MPC-day shock typically "
+                              "drags bank equities short-term as "
+                              "leverage-heavy borrowers (cement / "
+                              "power) sell off and drag the index."),
         "reserves_stress":  (-2, "FX-reserve stress triggers IMF / SBP "
                                   "tightening risk — bank equities sell "
                                   "off ahead of currency moves."),
@@ -151,6 +222,11 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                             "EPS hit."),
         "kibor_down": (+2, "Lower KIBOR delivers immediate financial-cost "
                             "relief on cement balance sheets."),
+        "kibor_shock": (-2, "1-day KIBOR repricing of >=25 bps — cement "
+                              "balance sheets carry heavy floating-rate "
+                              "debt; an overnight KIBOR jump shows up "
+                              "immediately in financial costs and "
+                              "typically triggers a 2-3% equity drawdown."),
         "reserves_stress":  (-1, "FX stress raises imported-coal price "
                                   "risk and dents construction confidence."),
         "kse100_up":   (+1, "Broad-market risk-on supports cyclicals."),
@@ -202,6 +278,11 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         # Industry-specific KPIs ------------------------------------
         "kibor_up":   (-1, "Higher KIBOR raises inventory-financing cost."),
         "kibor_down": (+1, "Lower KIBOR cuts inventory-financing cost."),
+        "kibor_shock": (-1, "1-day KIBOR repricing of >=25 bps — OMCs "
+                              "carry large inventory positions financed "
+                              "via short-term KIBOR-linked lines, so a "
+                              "jump shows up immediately in working-"
+                              "capital cost."),
         "reserves_stress":  (-2, "FX stress jeopardises L/Cs for crude "
                                   "imports and OGRA pricing — historic "
                                   "trigger for OMC profitability shocks."),
@@ -228,6 +309,11 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                             "straight into financial costs."),
         "kibor_down": (+2, "KIBOR relief is the single biggest near-term "
                             "EPS driver for leveraged IPPs."),
+        "kibor_shock": (-2, "1-day KIBOR repricing of >=25 bps — IPPs "
+                              "are the most leverage-heavy sector on "
+                              "PSX, so an overnight KIBOR jump produces "
+                              "an immediate financial-cost hit and a "
+                              "sharp equity reaction."),
         "reserves_stress":  (-2, "Reserve stress almost always coincides "
                                   "with worsening circular debt — IPPs "
                                   "see receivables balloon and cash flow "
@@ -295,6 +381,8 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                                   "relief."),
         "kibor_up":   (-1, "Higher KIBOR raises working-capital costs."),
         "kibor_down": (+1, "KIBOR relief eases working-capital costs."),
+        "kibor_shock": (-1, "1-day KIBOR repricing of >=25 bps — "
+                              "working-capital cost spikes immediately."),
     },
     "Conglomerate/Chem": {
         "rate_up":   (-2, "Petrochemical balance sheets are typically "
@@ -313,6 +401,9 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "kibor_up":   (-2, "Highly leveraged chem balance sheets — KIBOR "
                             "feeds straight into financial cost."),
         "kibor_down": (+2, "Direct EPS lift on KIBOR relief."),
+        "kibor_shock": (-2, "1-day KIBOR repricing of >=25 bps — "
+                              "leveraged chem balance sheets take an "
+                              "immediate financial-cost hit."),
         "reserves_stress":  (-2, "Imported feedstock L/C confirmation "
                                   "tightens and price volatility rises."),
         "reserves_recovery":(+1, "Imports normalise."),
@@ -454,6 +545,27 @@ def _load_kpi_snapshot() -> dict:
                     float(last.get("reserves_sbp_usd_mn"))
                     if last.get("reserves_sbp_usd_mn") is not None
                     else None)
+                # Compute 1-day changes (absolute %-points). The 1d
+                # delta is what catches MPC-day repricing — the +50 bps
+                # KIBOR 3M jump on April 28 was invisible to the 5d
+                # filter because the prior 4 days were flat.
+                if len(df) >= 2:
+                    prev = df.iloc[-2]
+                    if (last.get("tbill_3m_pct") is not None
+                            and prev.get("tbill_3m_pct") is not None):
+                        out["tbill_3m_change_1d"] = (
+                            float(last["tbill_3m_pct"])
+                            - float(prev["tbill_3m_pct"]))
+                    if (last.get("kibor_3m_pct") is not None
+                            and prev.get("kibor_3m_pct") is not None):
+                        out["kibor_3m_change_1d"] = (
+                            float(last["kibor_3m_pct"])
+                            - float(prev["kibor_3m_pct"]))
+                    if (last.get("kibor_12m_pct") is not None
+                            and prev.get("kibor_12m_pct") is not None):
+                        out["kibor_12m_change_1d"] = (
+                            float(last["kibor_12m_pct"])
+                            - float(prev["kibor_12m_pct"]))
                 # Compute 5-day changes (absolute %-points / USD mn).
                 if len(df) >= 6:
                     five = df.iloc[-6]
@@ -591,23 +703,41 @@ def detect_drivers(
     brent = indicators.get("brent") or {}
     r5 = brent.get("ret_5d") or 0
     r21 = brent.get("ret_21d") or 0
+    brent_stretched, brent_z = _is_stretched("brent", r5)
+    stretch_note = (f" [stretched, z={brent_z:+.1f}]"
+                    if brent_stretched and brent_z is not None else "")
     if r21 >= 0.10 or r5 >= 0.07:
+        mag = ("STRONG" if r21 >= 0.15 else "MODERATE")
+        if brent_stretched:
+            mag = _downshift_magnitude(mag)
         drivers.append(Driver(
             name="Brent crude",
             tag="oil_up",
             move=(f"{r21*100:+.1f}% in 21d" if abs(r21) >= 0.10
-                  else f"{r5*100:+.1f}% in 5d"),
-            magnitude=("STRONG" if r21 >= 0.15 else "MODERATE"),
-            context=f"Brent at {brent.get('value', '?')} USD/bbl.",
+                  else f"{r5*100:+.1f}% in 5d") + stretch_note,
+            magnitude=mag,
+            context=(f"Brent at {brent.get('value', '?')} USD/bbl."
+                     + (f" The 5d move sits {brent_z:+.1f}σ from the "
+                         "1y mean — statistically extreme, so the rally "
+                         "is unlikely to extend in a straight line."
+                         if brent_stretched and brent_z is not None
+                         else "")),
         ))
     elif r21 <= -0.10 or r5 <= -0.07:
+        mag = ("STRONG" if r21 <= -0.15 else "MODERATE")
+        if brent_stretched:
+            mag = _downshift_magnitude(mag)
         drivers.append(Driver(
             name="Brent crude",
             tag="oil_down",
             move=(f"{r21*100:+.1f}% in 21d" if abs(r21) >= 0.10
-                  else f"{r5*100:+.1f}% in 5d"),
-            magnitude=("STRONG" if r21 <= -0.15 else "MODERATE"),
-            context=f"Brent at {brent.get('value', '?')} USD/bbl.",
+                  else f"{r5*100:+.1f}% in 5d") + stretch_note,
+            magnitude=mag,
+            context=(f"Brent at {brent.get('value', '?')} USD/bbl."
+                     + (f" The 5d move sits {brent_z:+.1f}σ from the "
+                         "1y mean — bounce risk is elevated."
+                         if brent_stretched and brent_z is not None
+                         else "")),
         ))
 
     # ---- USD/PKR
@@ -656,66 +786,96 @@ def detect_drivers(
 
     # ---- Gold (risk-off proxy)
     gold = indicators.get("gold") or {}
+    g5  = gold.get("ret_5d") or 0
     g21 = gold.get("ret_21d") or 0
+    gold_stretched, gold_z = _is_stretched("gold", g5)
+    g_note = (f" [stretched, z={gold_z:+.1f}]"
+              if gold_stretched and gold_z is not None else "")
     if g21 >= 0.07:
+        mag = ("STRONG" if g21 >= 0.12 else "MODERATE")
+        if gold_stretched:
+            mag = _downshift_magnitude(mag)
         drivers.append(Driver(
             name="Gold",
             tag="gold_up",
-            move=f"{g21*100:+.1f}% in 21d",
-            magnitude=("STRONG" if g21 >= 0.12 else "MODERATE"),
+            move=f"{g21*100:+.1f}% in 21d" + g_note,
+            magnitude=mag,
             context=f"Gold at {gold.get('value', '?')} USD/oz — risk-off "
                      "tone reduces appetite for EM equities.",
         ))
     elif g21 <= -0.05:
+        mag = ("STRONG" if g21 <= -0.10 else "MODERATE")
+        if gold_stretched:
+            mag = _downshift_magnitude(mag)
         drivers.append(Driver(
             name="Gold",
             tag="gold_down",
-            move=f"{g21*100:+.1f}% in 21d",
-            magnitude=("STRONG" if g21 <= -0.10 else "MODERATE"),
+            move=f"{g21*100:+.1f}% in 21d" + g_note,
+            magnitude=mag,
             context=f"Gold at {gold.get('value', '?')} USD/oz — risk-on "
                      "tone supports EM equity inflows.",
         ))
 
     # ---- Copper (industrial growth proxy)
     cop = indicators.get("copper") or {}
+    c5  = cop.get("ret_5d") or 0
     c21 = cop.get("ret_21d") or 0
+    cop_stretched, cop_z = _is_stretched("copper", c5)
+    c_note = (f" [stretched, z={cop_z:+.1f}]"
+              if cop_stretched and cop_z is not None else "")
     if c21 >= 0.06:
+        mag = ("STRONG" if c21 >= 0.10 else "MODERATE")
+        if cop_stretched:
+            mag = _downshift_magnitude(mag)
         drivers.append(Driver(
             name="Copper",
             tag="copper_up",
-            move=f"{c21*100:+.1f}% in 21d",
-            magnitude=("STRONG" if c21 >= 0.10 else "MODERATE"),
+            move=f"{c21*100:+.1f}% in 21d" + c_note,
+            magnitude=mag,
             context="Strong copper signals global industrial growth — "
                      "supportive of EM cyclicals.",
         ))
     elif c21 <= -0.06:
+        mag = ("STRONG" if c21 <= -0.10 else "MODERATE")
+        if cop_stretched:
+            mag = _downshift_magnitude(mag)
         drivers.append(Driver(
             name="Copper",
             tag="copper_down",
-            move=f"{c21*100:+.1f}% in 21d",
-            magnitude=("STRONG" if c21 <= -0.10 else "MODERATE"),
+            move=f"{c21*100:+.1f}% in 21d" + c_note,
+            magnitude=mag,
             context="Copper weakness signals global slowdown — bearish "
                      "for EM cyclicals.",
         ))
 
     # ---- Cotton (textile sector input cost; future textile tickers)
     ctn = indicators.get("cotton") or {}
+    t5  = ctn.get("ret_5d") or 0
     t21 = ctn.get("ret_21d") or 0
+    cot_stretched, cot_z = _is_stretched("cotton", t5)
+    t_note = (f" [stretched, z={cot_z:+.1f}]"
+              if cot_stretched and cot_z is not None else "")
     if t21 >= 0.08:
+        mag = ("STRONG" if t21 >= 0.15 else "MODERATE")
+        if cot_stretched:
+            mag = _downshift_magnitude(mag)
         drivers.append(Driver(
             name="Cotton",
             tag="cotton_up",
-            move=f"{t21*100:+.1f}% in 21d",
-            magnitude=("STRONG" if t21 >= 0.15 else "MODERATE"),
+            move=f"{t21*100:+.1f}% in 21d" + t_note,
+            magnitude=mag,
             context="Cotton strength raises raw-material cost for "
                      "Pakistan textile exporters.",
         ))
     elif t21 <= -0.08:
+        mag = ("STRONG" if t21 <= -0.15 else "MODERATE")
+        if cot_stretched:
+            mag = _downshift_magnitude(mag)
         drivers.append(Driver(
             name="Cotton",
             tag="cotton_down",
-            move=f"{t21*100:+.1f}% in 21d",
-            magnitude=("STRONG" if t21 <= -0.15 else "MODERATE"),
+            move=f"{t21*100:+.1f}% in 21d" + t_note,
+            magnitude=mag,
             context="Cotton easing supports textile gross margins.",
         ))
 
@@ -788,6 +948,40 @@ def detect_drivers(
                 context="Inter-bank funding cost falling — relief on "
                          "leveraged-sector financial costs.",
             ))
+
+    # ---- KIBOR 1-day shock (MPC-day repricing)
+    # The plan-level signal that caught yesterday's MPC fallout (KIBOR
+    # 3M went 11.165 -> 11.665 overnight, a +50 bps spike).
+    # The 5-day filter above missed it because the prior 4 days were
+    # flat. The 1-day filter is what prices in MPC decisions live.
+    kb_chg1 = kpis.get("kibor_3m_change_1d") if kpis else None
+    kb_12_chg1 = kpis.get("kibor_12m_change_1d") if kpis else None
+    largest_1d = max(
+        [abs(x) for x in (kb_chg1, kb_12_chg1) if x is not None],
+        default=None,
+    )
+    if (kb_chg1 is not None and abs(kb_chg1) >= 0.25) or (
+        kb_12_chg1 is not None and abs(kb_12_chg1) >= 0.25
+    ):
+        # Pick the bigger of 3M / 12M for headline number; sign comes
+        # from the 3M leg (the key bank-loan benchmark).
+        sign = 1 if (kb_chg1 or kb_12_chg1 or 0) >= 0 else -1
+        bps = round((largest_1d or 0) * 100)
+        drivers.append(Driver(
+            name="KIBOR 1-day shock",
+            tag="kibor_shock",
+            move=(f"{'+' if sign > 0 else '-'}{bps} bps overnight "
+                  f"(3M {kb_chg1*100:+.0f} bps"
+                  + (f", 12M {kb_12_chg1*100:+.0f} bps"
+                     if kb_12_chg1 is not None else "")
+                  + ")"),
+            magnitude=("STRONG" if (largest_1d or 0) >= 0.50
+                        else "MODERATE"),
+            context="An overnight KIBOR repricing of this size almost "
+                     "always trails an MPC decision or a sudden T-bill "
+                     "auction surprise. Cement, IPPs and other "
+                     "leverage-heavy sectors feel it the same day.",
+        ))
 
     # ---- FX reserves regime (BoP stress / recovery)
     rsv = kpis.get("reserves_sbp_usd_mn") if kpis else None

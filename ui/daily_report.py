@@ -751,16 +751,21 @@ def _bots_verdict_section(story: list, sty: dict) -> None:
 
     # ----- Universe-wide ranking table ---------------------------------
     head = ["Symbol", "Sector", "Action", "Conviction", "Score",
-            "Conflicts"]
+            "Conflicts", "Notes"]
     body = [head]
+    any_concentration = False
     for r in rows:
+        if r.get("concentration_warning"):
+            any_concentration = True
         body.append([
             r["symbol"], r.get("sector") or "—",
             r["action"], r["conviction"],
             f"{r['score']:+d}",
             str(len(r.get("conflicts") or [])),
+            ("conc. cap" if r.get("concentration_warning") else ""),
         ])
-    t = Table(body, colWidths=[16*mm, 38*mm, 18*mm, 22*mm, 14*mm, 18*mm])
+    t = Table(body,
+                colWidths=[16*mm, 32*mm, 18*mm, 22*mm, 14*mm, 16*mm, 20*mm])
     style = [
         ("FONTNAME",   (0, 0), (-1, 0), "Helvetica-Bold"),
         ("BACKGROUND", (0, 0), (-1, 0), _BRAND_BLUE),
@@ -783,6 +788,15 @@ def _bots_verdict_section(story: list, sty: dict) -> None:
                             "Helvetica-Bold"))
     t.setStyle(TableStyle(style))
     story.append(t)
+    if any_concentration:
+        story.append(Spacer(1, 4))
+        story.append(Paragraph(
+            "<b>Concentration cap applied.</b> At least one bullish "
+            "verdict was downgraded to HOLD because too many names in "
+            "the same sector were bullish — the bot prefers diversified "
+            "picks over a single-sector bet. See the per-stock "
+            "resolution log below.",
+            sty["body_muted"]))
     story.append(Spacer(1, 8))
 
     # ----- Detail blocks for top-3 buys, top-3 avoids, all conflicts ---
@@ -831,6 +845,11 @@ def _bots_verdict_section(story: list, sty: dict) -> None:
             f"{v['conviction']} conviction · score {v['score']:+d}",
             sty["body"]))
         story.append(_lens_table(v))
+        if v.get("concentration_warning"):
+            story.append(Spacer(1, 3))
+            story.append(Paragraph(
+                f"<b>Concentration cap:</b> {v['concentration_warning']}",
+                sty["body_muted"]))
         if v.get("resolution_log"):
             story.append(Spacer(1, 3))
             for line in v["resolution_log"]:

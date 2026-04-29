@@ -1277,8 +1277,12 @@ def _today_bots_verdict() -> None:
     # ----- Top summary table -------------------------------------------
     import pandas as pd
     summary_rows = []
+    any_concentration = False
     for r in rows:
         n_conflicts = len(r.get("conflicts") or [])
+        cw = r.get("concentration_warning") or ""
+        if cw:
+            any_concentration = True
         summary_rows.append({
             "Symbol":     r["symbol"],
             "Sector":     r["sector"],
@@ -1287,8 +1291,17 @@ def _today_bots_verdict() -> None:
             "Conviction": r["conviction"],
             "Score":      r["score"],
             "Conflicts":  n_conflicts,
+            "Notes":      ("⚠ concentration cap" if cw else ""),
         })
     df = pd.DataFrame(summary_rows)
+    if any_concentration:
+        st.warning(
+            "Concentration cap applied: at least one bullish call was "
+            "downgraded to HOLD because too many names in the same "
+            "sector were bullish. The bot prefers diversified picks "
+            "over a single-sector bet. See the 'Notes' column and the "
+            "drill-down card for details."
+        )
     st.dataframe(df, hide_index=True, use_container_width=True,
                   column_config={
                       "Score": st.column_config.NumberColumn(
@@ -1362,6 +1375,10 @@ def _render_verdict_card(v: dict) -> None:
                 st.info(line)
     else:
         st.success("All lenses agree — no conflict resolution needed.")
+
+    cw = v.get("concentration_warning") or ""
+    if cw:
+        st.warning(f"Concentration cap: {cw}")
 
 
 def _today_macro_radar(mi: dict) -> None:

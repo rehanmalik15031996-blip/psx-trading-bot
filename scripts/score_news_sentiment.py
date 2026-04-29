@@ -65,6 +65,7 @@ import pandas as pd
 from config.universe import symbols as universe_symbols
 from connectors.rss_news import RssNewsConnector
 from connectors.mettis_global import MettisGlobalConnector
+from connectors.intl_news import IntlNewsConnector
 
 CACHE_DIR = ROOT / "data" / "news"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -123,10 +124,21 @@ def _save(df: pd.DataFrame) -> None:
 def _fetch_articles(per_feed: int) -> list[dict]:
     """Pull raw articles from every news source.
 
-    Combines the RSS aggregator (Business Recorder, Dawn, Profit, etc.)
-    with the Mettis Global scraper (PSX corporate notices + market
-    coverage). Each Mettis article carries a best-effort ``ticker_hits``
-    column the LLM scorer can use as grounding.
+    Combines:
+      - The domestic RSS aggregator (Business Recorder, Dawn, Profit,
+        Tribune, The News).
+      - The Mettis Global scraper (PSX corporate notices + market
+        coverage). Each Mettis article carries a best-effort
+        ``ticker_hits`` column the LLM scorer can use as grounding.
+      - The international RSS aggregator (Reuters, Bloomberg public,
+        Investing.com, MarketWatch, Google News custom queries).
+        Pre-filtered for Pakistan-relevance via a keyword whitelist
+        in ``connectors.intl_news`` so we don't burn LLM credit on
+        irrelevant US tech / European earnings stories.
+
+    All three streams use the same record schema so the rest of the
+    scoring pipeline is source-agnostic. Failures in any single
+    source are logged but do not abort the run.
     """
     rss_result = RssNewsConnector().fetch(per_feed=per_feed)
     rss_records = rss_result.records or []
@@ -136,9 +148,17 @@ def _fetch_articles(per_feed: int) -> list[dict]:
     except Exception as e:
         print(f"  WARN: Mettis Global fetch failed: {type(e).__name__}: {e}")
         mettis_records = []
-    # The two streams have a slightly different schema (Mettis carries
-    # ``ticker_hits``); we tolerate that downstream by using .get(key, "").
-    return rss_records + mettis_records
+    try:
+        intl_result = IntlNewsConnector().fetch(per_feed=per_feed * 2)
+        intl_records = intl_result.records or []
+        if intl_records:
+            print(f"  intl-news: {len(intl_records)} Pakistan-relevant "
+                  f"articles after global pre-filter")
+    except Exception as e:
+        print(f"  WARN: International news fetch failed: "
+              f"{type(e).__name__}: {e}")
+        intl_records = []
+    return rss_records + mettis_records + intl_records
 
 
 def _parse_json_loose(text: str) -> list[dict]:

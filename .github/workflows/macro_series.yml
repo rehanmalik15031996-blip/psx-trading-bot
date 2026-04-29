@@ -1,0 +1,77 @@
+name: Macro series (commodities + FX)
+
+# Refreshes the daily yfinance-sourced commodity / FX series consumed
+# by the macro impact engine (Brent, WTI, Gold, Copper, Cotton, BTC,
+# USD/PKR). Without this workflow these parquets only ever updated when
+# someone manually ran `backfill_macro.py`, which is exactly why the
+# macro engine on April 29 was reading a 5-day window ending five days
+# earlier and calling Brent's already-rolled-over rally a "+9.7%
+# tailwind".
+#
+# Cadence: weekdays 09:30 PKT (04:30 UTC) — early enough that
+# `predictions.yml` (which fires later in the morning) sees fresh data.
+
+on:
+  schedule:
+    - cron: '30 4 * * 1-5'      # 09:30 PKT, Mon-Fri
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: macro-series
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Refresh commodity + FX series
+        run: python scripts/refresh_macro_series.py
+        # Each series is wrapped in try/except inside the script — if
+        # one ticker is throttled the others still update. The job
+        # exits non-zero only if ALL tickers fail, which would be a
+        # yfinance-wide outage worth alerting on.
+
+      - name: Commit updates
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/macro/brent.parquet \
+                  data/macro/wti.parquet \
+                  data/macro/gold.parquet \
+                  data/macro/copper.parquet \
+                  data/macro/cotton.parquet \
+                  data/macro/btc.parquet \
+                  data/macro/usdpkr.parquet
+          if git diff --cached --quiet; then
+            echo "No changes (already up to date for today)."
+            exit 0
+          fi
+          git commit -m "data: macro series refresh $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1

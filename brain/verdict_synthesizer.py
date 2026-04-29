@@ -612,12 +612,78 @@ def synthesize(symbol: str) -> dict:
     return v.as_dict()
 
 
+def _apply_concentration_caps(rows: list[dict]) -> list[dict]:
+    """Downgrade the weakest BUY/ADD whenever a single sector already has
+    three or more bullish picks.
+
+    Closes Gap #4 from the April 29 scorecard. Four of the day's five
+    bullish calls (PSO, PPL, OGDC, NPL) were clustered in the energy
+    complex — one bad day for crude wiped out the entire portfolio. A
+    seasoned PM would never have run that concentration. The post-pass:
+
+      1. Counts BUY+ADD verdicts per sector.
+      2. For any sector with >= 3 bullish picks, picks the LOWEST-score
+         verdict in that group and downgrades it to HOLD with
+         ``concentration_warning`` set to a one-line explanation.
+      3. The next-weakest stays bullish — we want diversification, not
+         a wholesale sector ban. Repeat the process until every sector
+         has <= 2 bullish picks.
+
+    The ``concentration_warning`` field surfaces in the daily PDF and
+    the Today tab so the analyst sees why a name was pushed to HOLD.
+    """
+    if not rows:
+        return rows
+
+    BULLISH = {"BUY", "ADD"}
+
+    while True:
+        by_sector: dict[str, list[dict]] = {}
+        for r in rows:
+            if (r.get("action") or "").upper() in BULLISH:
+                by_sector.setdefault(r.get("sector") or "Other", []).append(r)
+
+        offender = next(
+            ((sec, picks) for sec, picks in by_sector.items()
+             if len(picks) >= 3),
+            None,
+        )
+        if offender is None:
+            break
+
+        sector, picks = offender
+        # Sort by score ascending — the *weakest* bullish call in the
+        # over-concentrated sector is the one we sacrifice first.
+        weakest = sorted(picks, key=lambda r: (r.get("score") or 0))[0]
+        weakest["action"] = "HOLD"
+        weakest["direction"] = "NEUTRAL"
+        weakest["conviction"] = "LOW"
+        weakest["concentration_warning"] = (
+            f"Sector '{sector}' already has {len(picks)} bullish picks; "
+            f"this is the weakest of them and was downgraded to HOLD to "
+            f"keep the bot's recommendations diversified."
+        )
+        # Append to resolution log if present so the audit trail is
+        # complete for the analyst.
+        rl = list(weakest.get("resolution_log") or [])
+        rl.append(
+            "Concentration cap: too many bullish names in the same "
+            "sector — this is the weakest of the cluster and is "
+            "downgraded to HOLD. The other names in the cluster keep "
+            "their bullish stance."
+        )
+        weakest["resolution_log"] = rl
+
+    return rows
+
+
 def synthesize_universe() -> dict:
     """Run :func:`synthesize` for every ticker in the bot's universe."""
     from config.universe import symbols
     from datetime import datetime, timezone
     rows = [synthesize(s) for s in symbols()]
     rows = sorted(rows, key=lambda r: -(r.get("score") or 0))
+    rows = _apply_concentration_caps(rows)
     return {
         "as_of": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "n": len(rows),
