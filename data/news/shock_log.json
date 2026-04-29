@@ -29,6 +29,76 @@
       "is_macro_shock": false,
       "scored_at": "2026-04-29T13:11:12+00:00",
       "detected_at": "2026-04-29T13:11:39+00:00"
+    },
+    {
+      "article_id": "9fd441480970fda5",
+      "title": "Oil spikes while stocks slip ahead of US Fed rate decision",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-29T19:53:20+00:00",
+      "detected_at": "2026-04-29T19:53:48+00:00"
+    },
+    {
+      "article_id": "5c9b407aaeb2dbf4",
+      "title": "Pakistan PM Oil Import Costs Up 167% Since Iran War Began - Crude Oil Prices Today | OilPrice.com",
+      "sentiment": -0.4,
+      "confidence": "HIGH",
+      "category": "MACRO",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-29T19:53:20+00:00",
+      "detected_at": "2026-04-29T19:53:48+00:00"
+    },
+    {
+      "article_id": "b368b961da8665d1",
+      "title": "US Stocks Fall as Oil Jumps, Iran Tensions Rise Before Earnings",
+      "sentiment": -0.5,
+      "confidence": "HIGH",
+      "category": "GLOBAL",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-29T19:53:20+00:00",
+      "detected_at": "2026-04-29T19:53:48+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-04-29::BEARISH::19",
+      "title": "Broad-market bearish shock: 19 HIGH-confidence articles avg sentiment -0.60",
+      "sentiment": -0.6042105263157894,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 19,
+      "sample_titles": [
+        "KSE-100 index retreats 2,588 points in a seller dominated session",
+        "Pakistan PM Oil Import Costs Up 167% Since Iran War Began - Crude Oil Prices Today | OilPrice.com",
+        "Pakistan stocks extend losses as KSE-100 slips below 166,000 points - Dunya News",
+        "PSX stays bearish, loses 2,588 more points - | Associated Press Of Pakistan",
+        "US Stocks Fall as Oil Jumps, Iran Tensions Rise Before Earnings"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-04-29T19:53:48+00:00"
     }
   ]
 }
