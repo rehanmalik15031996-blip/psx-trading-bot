@@ -145,6 +145,16 @@ def _resolve_github_token_simple() -> str:
 
 
 def _init_state():
+    """Initialise session state. Called from ``main()`` on every run.
+
+    Originally invoked at module top level, but Streamlit Cloud runs
+    the script via an importer that does not always set up a script
+    run context for module-level code, leading to a silent failure
+    that left ``st.session_state.provider`` unset by the time
+    ``render_sidebar`` ran. Calling from ``main()`` guarantees the
+    proper context is in place — and ``setdefault`` keeps the call
+    idempotent across reruns, so user choices persist.
+    """
     _hydrate_env_from_st_secrets()
     ss = st.session_state
     ss.setdefault("chat_history", [])
@@ -169,9 +179,6 @@ def _init_state():
     ss.setdefault("gemini_model", DEFAULT_GEMINI_MODEL)
     ss.setdefault("github_model", DEFAULT_GITHUB_MODEL)
     ss.setdefault("_pending_close", None)  # index of a position pending close
-
-
-_init_state()
 
 
 # --------------------------------------------------------------------------
@@ -3778,6 +3785,10 @@ def render_backtest_tab():
 # Main
 # --------------------------------------------------------------------------
 def main():
+    # Must run before any UI element so st.session_state.provider et al
+    # are guaranteed to be populated by the time render_sidebar() asks.
+    # setdefault() keeps it idempotent across Streamlit reruns.
+    _init_state()
     inject_css()
     render_sidebar()
     st.markdown("# PSX Advisor")
