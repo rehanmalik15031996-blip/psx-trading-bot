@@ -3837,6 +3837,7 @@ def main():
         "Fair Value",     # intrinsic value + quality + earnings momentum
         "Watchlist",      # tracked symbols
         "Find Ideas",     # scanner / momentum ranking
+        "Short Ideas",    # bearish picks for shorting / hedging
         "News",           # scored news feed
         "Ask Advisor",    # chatbot
         "Strategy Tester",  # backtest
@@ -3849,10 +3850,17 @@ def main():
     with tabs[4]: render_value_tab()
     with tabs[5]: render_watchlist_tab()
     with tabs[6]: render_scanner_tab()
-    with tabs[7]: render_news_tab()
-    with tabs[8]: render_chat_tab()
-    with tabs[9]: render_backtest_tab()
-    with tabs[10]:
+    with tabs[7]:
+        try:
+            from ui import short_ideas
+            short_ideas.render()
+        except Exception as e:
+            st.error(f"Could not load Short Ideas tab: "
+                     f"{type(e).__name__}: {e}")
+    with tabs[8]: render_news_tab()
+    with tabs[9]: render_chat_tab()
+    with tabs[10]: render_backtest_tab()
+    with tabs[11]:
         try:
             from ui import system_health
             system_health.render()

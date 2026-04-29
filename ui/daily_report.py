@@ -971,6 +971,133 @@ def _fundamentals_snapshot(sym: str) -> dict:
         return {}
 
 
+def _short_ideas_section(story: list, sty: dict) -> None:
+    """Render the bot's short-side picks as a one-page section.
+
+    Pulls :func:`brain.short_candidates.rank_shorts` and prints the
+    candidates above the watch threshold with the eligibility
+    disclaimer at the top. Mirrors the long-side verdict section
+    layout so the analyst can compare bull vs bear ideas at a
+    glance.
+    """
+    try:
+        from brain.short_candidates import rank_shorts
+        out = rank_shorts(min_conviction="LOW", max_results=15)
+    except Exception:
+        return
+    rows = out.get("candidates") or []
+
+    story.append(PageBreak())
+    story.append(Paragraph("Short Ideas — what the bot expects to fall",
+                            sty["h2"]))
+    _explain(story, sty,
+        "PSX names ranked by a composite <b>short_score (0-100)</b> "
+        "combining the verdict synthesizer's bearish lean, BEARISH "
+        "5-day predictions, negative news sentiment, technical "
+        "breakdown patterns, sector macro headwinds, and intraday "
+        "lower-circuit hits. <b>Read the eligibility note before "
+        "acting</b> — Pakistan retail shorting works only via "
+        "Single Stock Futures or NCCPL Securities Lending & "
+        "Borrowing and the eligible list changes monthly.")
+
+    # Disclaimer + regime banner
+    disclaimer = out.get("disclaimer", "")
+    if disclaimer:
+        story.append(Paragraph(f"<b>Disclaimer.</b> {disclaimer}",
+                                sty["body_muted"]))
+        story.append(Spacer(1, 4))
+    regime = out.get("regime") or {}
+    rname = regime.get("regime", "?")
+    rnote = regime.get("note", "")
+    if regime.get("shorts_aligned"):
+        story.append(Paragraph(
+            f"<b>Regime: {rname}.</b> {rnote}", sty["body_muted"]))
+    else:
+        story.append(Paragraph(
+            f"<b>Regime: {rname} — hostile to shorts.</b> {rnote}",
+            sty["callout_red"]
+            if "callout_red" in sty else sty["body_muted"]))
+    story.append(Spacer(1, 6))
+
+    if not rows:
+        story.append(Paragraph(
+            "<b>No short candidates today.</b> Either the bot's "
+            "signals are not pointing bearish on any universe name "
+            "or every name is below the watch-list cutoff. Check "
+            "this section again tomorrow morning.",
+            sty["body"]))
+        return
+
+    head = ["Symbol", "Sector", "Score", "Conviction",
+            "5d pred", "Top driver", "Eligible?"]
+    body = [head]
+    for r in rows:
+        pred = r.get("predicted_return_5d_pct")
+        body.append([
+            r["symbol"], r.get("sector") or "—",
+            f"{r['short_score']:.0f}",
+            r.get("conviction") or "LOW",
+            f"{pred:+.1f}%" if pred is not None else "—",
+            ((r.get("drivers") or ["—"])[0])[:60],
+            ("Likely" if r.get("eligibility", {})
+                .get("likely_eligible") else "Verify"),
+        ])
+    t = Table(body,
+                colWidths=[16*mm, 32*mm, 14*mm, 22*mm, 16*mm,
+                            66*mm, 16*mm])
+    style = [
+        ("FONTNAME",   (0, 0), (-1, 0), "Helvetica-Bold"),
+        ("BACKGROUND", (0, 0), (-1, 0), _BRAND_BLUE),
+        ("TEXTCOLOR",  (0, 0), (-1, 0), colors.white),
+        ("FONTSIZE",   (0, 0), (-1, -1), 8),
+        ("GRID",       (0, 0), (-1, -1), 0.3,
+            colors.HexColor("#cfd6e4")),
+        ("ALIGN",      (2, 0), (4, -1), "CENTER"),
+        ("ALIGN",      (6, 0), (6, -1), "CENTER"),
+        ("LEFTPADDING",  (0, 0), (-1, -1), 4),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+    ]
+    for i, r in enumerate(rows, start=1):
+        conv = (r.get("conviction") or "LOW").upper()
+        if conv == "HIGH":
+            style.append(("TEXTCOLOR", (3, i), (3, i), _BRAND_RED))
+            style.append(("FONTNAME",  (3, i), (3, i),
+                            "Helvetica-Bold"))
+        elif conv == "MEDIUM":
+            style.append(("TEXTCOLOR", (3, i), (3, i),
+                            colors.HexColor("#9a3412")))
+    t.setStyle(TableStyle(style))
+    story.append(t)
+    story.append(Spacer(1, 6))
+
+    # Top-2 drill-down cards
+    for r in rows[:2]:
+        story.append(Spacer(1, 4))
+        story.append(Paragraph(
+            f"<b>{r['symbol']}</b> — {r.get('sector') or '—'} · "
+            f"score {r['short_score']:.0f} · "
+            f"{r.get('conviction')} conviction",
+            sty["h3"] if "h3" in sty else sty["body"]))
+        if r.get("suggested_entry_pkr"):
+            story.append(Paragraph(
+                f"Suggested geometry — entry "
+                f"<b>{r['suggested_entry_pkr']:.2f}</b>, "
+                f"stop <b>{r['suggested_stop_pkr']:.2f}</b>, "
+                f"target <b>{r['suggested_target_pkr']:.2f}</b> "
+                f"(R/R {r.get('risk_reward', 0):.2f}).",
+                sty["body"]))
+        for d in (r.get("drivers") or [])[:4]:
+            story.append(Paragraph(f"&bull; {d}", sty["body_muted"]))
+        if r.get("concentration_warning"):
+            story.append(Paragraph(
+                f"<b>Concentration cap:</b> "
+                f"{r['concentration_warning']}",
+                sty["body_muted"]))
+        elig = r.get("eligibility") or {}
+        for n in (elig.get("notes") or [])[:2]:
+            story.append(Paragraph(f"<i>{n}</i>", sty["body_muted"]))
+
+
 def _per_stock_detail_section(story: list, sty: dict, brief: dict) -> None:
     """Render one detail card per universe stock — the analyst-facing
     deep dive that explains *why* the forecast came out the way it did.
@@ -1523,6 +1650,7 @@ def build_daily_report(
     _alerts_section(story, sty, alerts)
     _macro_radar_section(story, sty, brief)
     _bots_verdict_section(story, sty)
+    _short_ideas_section(story, sty)
     _forecast_section(story, sty, brief)
     _news_digest_section(story, sty)
     _material_info_section(story, sty, brief)

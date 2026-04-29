@@ -1536,6 +1536,13 @@ TOOL_FUNCTIONS = {
                     fromlist=["synthesize_universe"])
         .synthesize_universe()
     ),
+    "get_short_candidates": lambda min_conviction="LOW",
+                                  max_results=10: (
+        __import__("brain.short_candidates",
+                    fromlist=["rank_shorts"])
+        .rank_shorts(min_conviction=min_conviction,
+                       max_results=max_results)
+    ),
 }
 
 
@@ -2004,6 +2011,44 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
             "properties": {
                 "symbol": {"type": "string",
                             "description": "Optional PSX ticker."},
+            },
+        },
+    },
+    {
+        "name": "get_short_candidates",
+        "description": ("Stocks the bot expects to FALL over the next "
+                        "~5 sessions, ranked by a composite short_score "
+                        "(0-100). Combines the verdict synthesizer's "
+                        "bearish lean, BEARISH 5-day predictions, "
+                        "negative news sentiment, technical breakdown "
+                        "patterns, sector macro headwinds, and "
+                        "intraday lower-circuit hits. Use this when the "
+                        "user asks 'what should I short?', 'which "
+                        "stocks will go down?', 'find me bearish "
+                        "ideas', or wants a hedge against existing "
+                        "longs. ALWAYS include the eligibility "
+                        "disclaimer and the regime banner in the "
+                        "answer — Pakistan retail shorting is "
+                        "restricted to PSX Single Stock Futures and "
+                        "NCCPL Securities Lending & Borrowing, and "
+                        "shorting in a RISK_ON regime is the most "
+                        "common retail mistake."),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "min_conviction": {
+                    "type": "string",
+                    "enum": ["LOW", "MEDIUM", "HIGH"],
+                    "description": "LOW (default) returns watch-list + "
+                                   "actionable shorts; MEDIUM filters "
+                                   "to viable shorts; HIGH filters to "
+                                   "multi-signal strong shorts only.",
+                },
+                "max_results": {
+                    "type": "integer",
+                    "description": "Cap on the returned list "
+                                   "(default 10).",
+                },
             },
         },
     },

@@ -2202,6 +2202,132 @@ def build_doc_model() -> list[dict]:
             "everything is green."},
 
         {"kind": "pagebreak"},
+
+        # =======================================================
+        # 10.8 — Iteration April 30 PM: Short Ideas tab + tool
+        # =======================================================
+        {"kind": "h", "level": 2,
+         "text": "10.8  Iteration April 30 PM: Short Ideas tab and "
+                  "the bearish side of the bot"},
+        {"kind": "p", "text":
+            "Until now the bot has only surfaced bullish picks. "
+            "An analyst asked for a dedicated view that answers "
+            "'which stocks will go down so I can short them?'. "
+            "This iteration ships a new Short Ideas tab, a "
+            "matching chatbot tool, a daily-PDF section, and a "
+            "small composite scorer that ranks the universe by "
+            "bearish conviction without introducing any new data "
+            "source or LLM call."},
+
+        {"kind": "h", "level": 3,
+         "text": "Composite short_score (0-100)"},
+        {"kind": "p", "text":
+            "A new module, brain/short_candidates.py, computes a "
+            "transparent six-bucket score for every universe "
+            "name. The synthesizer's bearish lean carries 30 "
+            "points, a BEARISH 5-day prediction carries 25, "
+            "negative trailing-week news sentiment carries 15, a "
+            "technical breakdown setup carries 15, sector macro "
+            "headwinds carry 10, and an intraday lower-circuit "
+            "hit in the last five sessions carries 5. The score "
+            "buckets to HIGH (>=70), MEDIUM (>=45), and LOW (>=10) "
+            "conviction. Below 10 the name is not surfaced — there "
+            "is no real bearish thesis. Each candidate is "
+            "delivered with the specific drivers that fired so "
+            "the analyst can audit the score in seconds."},
+
+        {"kind": "h", "level": 3,
+         "text": "Regime adjustment + concentration cap"},
+        {"kind": "p", "text":
+            "The most common retail mistake is shorting in a clean "
+            "uptrend. The scorer reads the bot's market regime: "
+            "when the regime is RISK_ON, every short candidate is "
+            "automatically downgraded one conviction notch and the "
+            "tab shows a red banner explaining why. The same "
+            "concentration-cap rule that already runs on the long "
+            "side is mirrored on the short side: if three or more "
+            "candidates land in the same sector, the lowest-scoring "
+            "of them is forced to LOW conviction with a "
+            "concentration_warning so the analyst is not pile-"
+            "shorting six oil names at once."},
+
+        {"kind": "h", "level": 3,
+         "text": "Eligibility hint and disclaimer"},
+        {"kind": "p", "text":
+            "Pakistan retail shorting is restricted to PSX Single "
+            "Stock Futures (SSF) and NCCPL Securities Lending and "
+            "Borrowing (SLB). Both eligibility lists change "
+            "monthly. config/short_eligibility.py keeps a "
+            "conservative likely-eligible list of PSX-30 / KSE-100 "
+            "names plus a small list of stocks with elevated "
+            "squeeze risk; the latter never get a HIGH-conviction "
+            "tag from the bot regardless of signal strength. The "
+            "disclaimer is printed at the top of the tab and the "
+            "PDF section: the bot is NOT a substitute for a "
+            "broker-side eligibility check, and the user must "
+            "verify borrow availability and SSF margin BEFORE "
+            "acting on any recommendation."},
+
+        {"kind": "h", "level": 3,
+         "text": "Suggested short geometry"},
+        {"kind": "p", "text":
+            "Mirroring the long-side trade plan, every candidate "
+            "carries a suggested entry slightly above the current "
+            "quote (don't chase a falling print — wait for a "
+            "bounce), a stop above entry (the bounce continuing), "
+            "and a target below entry sized to the predicted "
+            "5-day move. The reward / risk ratio is shown so the "
+            "analyst can quickly spot the trades where the "
+            "geometry is unfavourable even when the score is high."},
+
+        {"kind": "h", "level": 3,
+         "text": "UI surfaces and chatbot tool"},
+        {"kind": "p", "text":
+            "ui/short_ideas.py renders the new tab with a "
+            "ranked-candidates table (conviction-coloured), a "
+            "drill-down card per selected ticker showing the "
+            "bucket breakdown, suggested geometry, and "
+            "eligibility notes. The daily PDF gains a Short "
+            "Ideas section right after the verdict synthesizer "
+            "page so the analyst sees both bullish and bearish "
+            "books at a glance. A new chatbot tool, "
+            "get_short_candidates, lets the advisor answer "
+            "'which stocks should I short?' in plain English with "
+            "sourced drivers — and the tool description forces the "
+            "chatbot to always include the eligibility disclaimer "
+            "and the regime note in any short recommendation."},
+
+        {"kind": "h", "level": 3,
+         "text": "Live data hookup"},
+        {"kind": "p", "text":
+            "Every refresh of the tab runs the same pipeline: "
+            "synthesize the universe, read the latest predictions "
+            "log, query 7-day news sentiment per symbol, compute "
+            "technical posture, ask the macro engine for sector "
+            "headwinds, and check the intraday circuit-breaker "
+            "parquet. Because all six inputs are already kept "
+            "fresh by the workflows shipped in iteration 10.7 "
+            "(macro_series 06:55, macro_kpis 08:30, "
+            "news_scoring 07:00 / 13:00 / 18:00, predictions "
+            "09:20, intraday_session 11:30 / 13:30, eod 16:30), "
+            "the Short Ideas tab inherits the freshness "
+            "guarantees automatically. No new workflow was "
+            "needed for this iteration."},
+
+        {"kind": "h", "level": 3,
+         "text": "What this iteration does NOT do"},
+        {"kind": "p", "text":
+            "No automatic short-execution. No broker integration. "
+            "No claim of borrow availability — just a "
+            "likely-eligible reference list that the analyst must "
+            "verify with their broker before sizing. The "
+            "scorecard pipeline is unchanged: 5-day BEARISH "
+            "predictions are scored exactly the same way as "
+            "BULLISH ones once the holding window closes, so the "
+            "short-side hit rate accumulates against the same "
+            "calibration framework as the long side."},
+
+        {"kind": "pagebreak"},
     ]
 
     # ----------------------------------------------------- A. GLOSSARY
