@@ -4883,6 +4883,2481 @@
         "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"LOW\",\n  \"expected_return_5d_low_pct\": -5.0,\n  \"expected_return_5d_mid_pct\": -1.0,\n  \"expected_return_5d_high_pct\": 3.0,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 84.5,\n  \"suggested_target_pkr\": 101.0,\n  \"rationale\": \"SEARL is rated NEUTRAL because while earnings have recovered sharply from a depressed base (500% YoY), the stock trades at a valuation disconnect (fair value 12.46 PKR vs 92.73 PKR) with weak quality fundamentals (ROE 3.1%, Quality Score 40/100), suggesting the price recovery is momentum-driven rather than fundamentally justified. Technically, RSI at 64.3 sits in neutral territory, but the stock is 12.7% below its 200-day moving average and ranks 14th of 15 in momentum, with a deteriorating 63-day momentum of -28.5%, indicating the recent 21-day bounce (+13.65%) lacks conviction and breadth. Fundamentally, the earnings recovery stems from a deeply depressed prior year, and the quality score (40/100) signals weak balance-sheet and profitability metrics—the 3-year EPS CAGR is -34.95%, a severe headwind despite the YoY rebound. Macro tailwinds are modest (+1 on pharma sector: stable FX reserves and cooling CPI easing DRAP headwinds), but these are partially offset by rising packaging/freight costs from the 9.7% Brent surge and continued policy rate pressure (11.5%) that drains working capital; the macro tilt turned bearish at -0.11 overnight, and institutional flows are negative (-5.4 mn PKR from big f"
+    },
+    {
+      "prediction_id": "2026-04-29-APL",
+      "generated_at": "2026-04-29T07:37:28+00:00",
+      "symbol": "APL",
+      "sector": "OMC/Refining",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 561.64,
+      "direction": "BULLISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -1.5,
+      "expected_return_5d_mid_pct": 4.2,
+      "expected_return_5d_high_pct": 8.5,
+      "suggested_action": "BUY",
+      "suggested_stop_pkr": 515.0,
+      "suggested_target_pkr": 595.0,
+      "rationale": "APL is BULLISH over 5 days on a convergence of strong macro tailwinds, recovering earnings momentum, and attractive valuation relative to intrinsic value. Brent crude has rallied +9.7% in 5 days, directly benefiting refining margin revaluation; the stock's own momentum ranks 7/15 in its peer universe and has posted +8.36% over 21 days, signalling institutional appetite recovery. RSI at 48.0 is neutral (not overbought), price sits 2.75% above the 200-day MA, and the stock carries a HIGH quality score (97/100 ROE, low leverage D/E=0.17), confirming this is not a value trap. Management's recent outlook (tone +0.65, guidance MEDIUM) flags capacity expansion (bulk storage at Rawalpindi and Port Qasim) to support retail and LPG diversification, a credible growth narrative, though frozen OMC margins remain a structural headwind. The FAIR signal (19.23% upside to 669.64 PKR fair value) over 6–24 months provides a slow tailwind, and today's macro verdict awards +2 sector tailwind (Brent revaluation + FX reserve normalisation) and +2 stock-level tailwind, supporting the bullish thesis. Earnings are RECOVERING (+43.7pp acceleration YoY) after a prior slump, a classic post-turnaround setup. Key risk: SBP policy rate remains restrictive at 11.5%, and if geopolitical shocks (currently -0.27 sentiment) depress global oil prices, margin expansion evaporates; a Brent drop below 90/bbl or material negative news on PSX sentiment would flip the call to NEUTRAL.",
+      "key_drivers": [
+        "Brent crude +9.7% in 5d drives inventory revaluation gains and refining margin expansion (macro TAILWIND +2 sector verdict)",
+        "Earnings RECOVERING with +43.7pp YoY acceleration (10.92% YoY vs -32.78% prior) signals post-slump turnaround momentum",
+        "P/E 5.17 vs sector median 7.46 (-31% valuation discount) + fair value 669.64 PKR (+19.23% upside, HIGH confidence) = attractive entry",
+        "Quality score 97/100 with strong ROE 24.71% and minimal leverage (D/E 0.17) confirms this is high-grade cheap, not a value trap",
+        "Management capex expansion (bulk storage, retail outlets, LPG/EV charging) + medium guidance provides credible 12-month growth catalyst",
+        "Price +8.36% over 21 days with RSI 48 (neutral, not stretched) indicates institutional re-rating without overbought stretch"
+      ],
+      "key_risks": [
+        "Frozen OMC regulated margins for two years (per Director's Report risk flag) may limit upside if operating costs continue to rise faster than tariff adjustments",
+        "Brent crude volatility: if global crude falls below 90/bbl (currently 99.13), refining margin tailwind reverses and stock faces 5–7% downside",
+        "Geopolitical sentiment currently -0.27 (bearish macro tilt); escalation or supply shock could depress commodity prices and cap retail demand",
+        "SBP policy rate stuck at 11.5% (neutral/tightening regime) limits consumer spending power on retail fuel and EV charging uptake; rate cuts needed to unlock management's expansion ROI",
+        "Big fish institutional flows turned negative (-9.5 mn PKR today, mutual funds -10.2 mn) — if selling accelerates, momentum could stall within 3–5 days",
+        "Dividend yield 5.75% with payout ratio 29.7% is sustainable, but any earnings miss could trigger dividend cut and repricing"
+      ],
+      "macro_tailwinds": [
+        "Brent crude +9.7% in 5d — Inventory revaluation gains and refining margin widening (sector TAILWIND +1)",
+        "FX reserves SBP USD 15.1 bn — L/C confirmation normalises and supply chain relief (sector TAILWIND +1)"
+      ],
+      "macro_headwinds": [
+        "SBP policy rate 11.5% (neutral/tightening) restrains consumer spending on retail fuel and EV charging expansion ROI",
+        "Geopolitical sentiment -0.27 (bearish) and PSX losses cited due to rate hike / geopolitical tensions may cap retail participation"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "OMC/Refining",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 15.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "APL",
+          "sector": "OMC/Refining",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 15.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 561.64,
+        "ret_5d": -0.0073,
+        "ret_21d": 0.0836,
+        "ret_63d": -0.1156,
+        "mom_20d_log": 0.0868,
+        "mom_60d_log": -0.0649,
+        "mom_150d_log": 0.0828,
+        "mom_250d_log": 0.291,
+        "rvol_20d_ann": 0.3922,
+        "rvol_regime": "stable",
+        "rsi_14": 48.0,
+        "px_vs_sma200_pct": 2.75,
+        "trend": "mixed",
+        "momentum_rank_today": 7,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "IMF okays 60% cut in gas levy"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"HIGH\",\n  \"expected_return_5d_low_pct\": -1.5,\n  \"expected_return_5d_mid_pct\": 4.2,\n  \"expected_return_5d_high_pct\": 8.5,\n  \"suggested_action\": \"BUY\",\n  \"suggested_stop_pkr\": 515.0,\n  \"suggested_target_pkr\": 595.0,\n  \"rationale\": \"APL is BULLISH over 5 days on a convergence of strong macro tailwinds, recovering earnings momentum, and attractive valuation relative to intrinsic value. Brent crude has rallied +9.7% in 5 days, directly benefiting refining margin revaluation; the stock's own momentum ranks 7/15 in its peer universe and has posted +8.36% over 21 days, signalling institutional appetite recovery. RSI at 48.0 is neutral (not overbought), price sits 2.75% above the 200-day MA, and the stock carries a HIGH quality score (97/100 ROE, low leverage D/E=0.17), confirming this is not a value trap. Management's recent outlook (tone +0.65, guidance MEDIUM) flags capacity expansion (bulk storage at Rawalpindi and Port Qasim) to support retail and LPG diversification, a credible growth narrative, though frozen OMC margins remain a structural headwind. The FAIR signal (19.23% upside to 669.64 PKR fair value) over 6–24 months provides a slow tailwind, and today's macro verdict awards +2 sector tailwind (Brent revaluation + FX reserve normalisation) and +2 stock-level tailwind, supporting the bullish thesis. Earnings are RECOVERING (+43.7pp acceleration YoY) after a prior slump, a classic post-turnaround setup. Key risk: SBP policy"
+    },
+    {
+      "prediction_id": "2026-04-29-EPCL",
+      "generated_at": "2026-04-29T07:37:43+00:00",
+      "symbol": "EPCL",
+      "sector": "Conglomerate/Chem",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 31.75,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -8.5,
+      "expected_return_5d_mid_pct": -1.2,
+      "expected_return_5d_high_pct": 6.8,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 28.6,
+      "suggested_target_pkr": 34.2,
+      "rationale": "EPCL is rated NEUTRAL with LOW conviction because earnings momentum is in sharp erosion (YoY -500%, accelerating downward by -398pp), the stock is trading at fair value with JUNK quality (ROE -16.66%, D/E 2.41), and recent Material Information volatility (filed 2026-04-27, 1 day stale) creates 5-10% gap risk that dominates short-term predictability. Technicals show RSI 22.4 (oversold) and price 17.7% below 52-week high, which would normally signal mean-reversion; however, the OBV and volume structure do not confirm the recent 5-day decline (-6.86%), suggesting weak institutional conviction. The macro backdrop for Conglomerate/Chem is STRONG TAILWIND (+5 stock-level score: rate-cut expectations + import normalization + naphtha/PVC spread widening), and the stock's very high leverage (D/E 2.41) amplifies these sector tailwinds; yet this slow macro signal (6-24 month horizon) cannot overcome the immediate headwind of collapsing earnings and blackout-window Material Information risk. The recent positive ticker-sentiment score (+0.275 on Q1 profit growth) is contradicted by the management filing dated 2026-04-22, which shows zero forward guidance and no visibility on earnings recovery, suggesting the market may have front-run Q1 optimism without structural support. A retest of fair value (30.47 PKR, -4% from current) is more likely than further gains over the next 5 days, and investors should wait for earnings clarity and Material Information digestion before adding exposure.",
+      "key_drivers": [
+        "RSI 22.4 deep oversold after 5-day -6.86% decline — typical mean-reversion setup, but volume non-confirmation weakens signal",
+        "STRONG TAILWIND macro score (+5) driven by rate-cut expectations (CPI 7.3% YoY cooling, SBP reserves USD 15.1bn stable) — leverage magnifier (+/-2 notches) boosts sector benefit",
+        "Ticker-specific positive sentiment (+0.275) from Q1 profit growth ('4x profit growth') reported in news",
+        "Price vs fair value spread: -4.03% downside, fair-value estimate 30.47 PKR — stock is at fair, not cheap"
+      ],
+      "key_risks": [
+        "Earnings momentum in severe EROSION: YoY -500% with accelerating deterioration of -398pp — post-earnings drift is strongly bearish and invalidates mean-reversion thesis",
+        "Material Information filing (2026-04-27, 1 day old) typically precedes 3-7% gaps; expected_return_5d band widened 50% to reflect post-filing volatility uncertainty",
+        "JUNK quality score (11.0/100) combined with fair-value signal = value trap risk — D/E 2.41 means leverage will amplify any downside move if macro tailwinds stall",
+        "Big Fish institutional selling (-9.5 mn PKR) on a down day — suggests weak institutional support despite oversold technicals",
+        "Management outlook in latest filing (2026-04-22) shows ZERO forward guidance and no narrative — absence of confidence despite Q1 profit spike raises recurrence risk"
+      ],
+      "macro_tailwinds": [
+        "Rate-cut expectations (CPI 7.3% YoY, SBP USD 15.1bn reserves stable) reduce financial cost of 2.41× debt leverage by ~1.5-2.0% within 6-24 months",
+        "Brent crude +9.7% in 5d and +50.5% in 63d — wider naphtha-to-PVC spread supports downstream margin expansion in some configurations",
+        "Import normalization driven by FX reserves stability — Conglomerate/Chem feedstock (especially for chemicals/polymers) benefits from API/chemical import cost predictability"
+      ],
+      "macro_headwinds": [
+        "Macro sentiment tilt -0.097 (NEUTRAL leaning bearish) on geopolitical risk (-0.24) — oil volatility may reverse if Middle East tensions cool, hurting Brent-dependent upside"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Conglomerate/Chem",
+          "score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Imports normalise.",
+            "+1 | CPI YoY: 7.3% YoY — Cooling CPI raises odds of rate cuts — direct financial-cost relief."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "EPCL",
+          "sector": "Conglomerate/Chem",
+          "sector_score": 3,
+          "stock_score": 5,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Imports normalise.",
+            "+1 | CPI YoY: 7.3% YoY — Cooling CPI raises odds of rate cuts — direct financial-cost relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "Very high debt-to-equity (2.4) magnifies rate-driven impact (+/-2 notches).",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 31.75,
+        "ret_5d": -0.0686,
+        "ret_21d": 0.0777,
+        "ret_63d": -0.0072,
+        "mom_20d_log": 0.0172,
+        "mom_60d_log": 0.0089,
+        "mom_150d_log": 0.006,
+        "mom_250d_log": 0.0889,
+        "rvol_20d_ann": 0.6349,
+        "rvol_regime": "stable",
+        "rsi_14": 22.4,
+        "px_vs_sma200_pct": 0.32,
+        "trend": "up",
+        "momentum_rank_today": 9,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "FIA to convert Karachi Cotton Exchange building into city headquarters",
+          "UBS beats profit expectations on market volatility",
+          "Mercedes-Benz profit slides amid cutthroat Chinese market",
+          "Karachi BRT Red Line section handed over to FWO after contractor removal",
+          "World Bank forecasts 24% jump in energy prices, 16% rise in commodities in 2026 amid Middle East war"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"LOW\",\n  \"expected_return_5d_low_pct\": -8.5,\n  \"expected_return_5d_mid_pct\": -1.2,\n  \"expected_return_5d_high_pct\": +6.8,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 28.6,\n  \"suggested_target_pkr\": 34.2,\n  \"rationale\": \"EPCL is rated NEUTRAL with LOW conviction because earnings momentum is in sharp erosion (YoY -500%, accelerating downward by -398pp), the stock is trading at fair value with JUNK quality (ROE -16.66%, D/E 2.41), and recent Material Information volatility (filed 2026-04-27, 1 day stale) creates 5-10% gap risk that dominates short-term predictability. Technicals show RSI 22.4 (oversold) and price 17.7% below 52-week high, which would normally signal mean-reversion; however, the OBV and volume structure do not confirm the recent 5-day decline (-6.86%), suggesting weak institutional conviction. The macro backdrop for Conglomerate/Chem is STRONG TAILWIND (+5 stock-level score: rate-cut expectations + import normalization + naphtha/PVC spread widening), and the stock's very high leverage (D/E 2.41) amplifies these sector tailwinds; yet this slow macro signal (6-24 month horizon) cannot overcome the immediate headwind of collapsing earnings and blackout-window Material Information risk. The recent positive ticker-sentiment score (+0.275 on Q1 profit growth) is contradicted by the management filing dated 2026-04-22, which shows zero forward guidance and no visibility on earnings recovery, suggesting the mar"
+    },
+    {
+      "prediction_id": "2026-04-29-FABL",
+      "generated_at": "2026-04-29T07:36:14+00:00",
+      "symbol": "FABL",
+      "sector": "Banking",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 88.59,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -3.5,
+      "expected_return_5d_mid_pct": 0.8,
+      "expected_return_5d_high_pct": 4.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 79.73,
+      "suggested_target_pkr": 92.5,
+      "rationale": "FABL is NEUTRAL over 5 days because strong quality and cheap valuation are offset by earnings momentum erosion and institutional selling, leaving a marginal edge below transaction costs. Technicals show a weak trend with RSI 47.5 and the stock trading 1.66% above the 200-day MA, suggesting neither bullish nor bearish confirmation. Fundamentally, FABL trades at 5.98× P/E (27% below sector median) and carries a quality score of 92.9, but earnings are decelerating sharply (YoY -5.97% vs +17.99% prior year; accel -23.96pp), which typically precedes a post-earnings drift into weakness. Macro backdrop is NEUTRAL for banking (sector score +1, but stock-level score 0 due to low leverage), with CPI cooling (7.3% YoY) opening the door to future rate cuts that compress NIMs — a slow headwind. Most critically, intrinsic value of 77.08 PKR implies -13% downside (SELL_VALUE HIGH confidence), and big-fish institutional cohort is net selling (-9.5 mn PKR today), which contradicts any bullish momentum narrative. The fair-value gap and earnings erosion will likely suppress near-term upside even if quality remains high; this is a value trap scenario — cheap on P/E but weakening profitability. A material downgrade in consensus earnings or a CPI surprise lower (triggering SBP rate cuts) could flip conviction, but absent that catalyst, a 5d hold is prudent.",
+      "key_drivers": [
+        "RSI 47.5 (neutral zone) — no overbought stretch or oversold bounce setup",
+        "P/E 5.98 vs sector median 8.23 (-27%) — valuation cheap in absolute terms",
+        "Quality score 92.9 (HIGH) — ROE 19.08%, D/E 0.17, low volatility — strong business quality",
+        "Earnings erosion YoY -5.97% vs prior +17.99% — earnings momentum flipping negative",
+        "Big-fish institutional net -9.5 mn PKR today (Mutual Funds -10.2 mn) — smart money selling into strength"
+      ],
+      "key_risks": [
+        "SELL_VALUE HIGH confidence at -12.99% downside — intrinsic value 77.08 PKR signals fair-value trap; momentum can persist for weeks but mean reversion risk is real",
+        "Earnings erosion acceleration (-23.96pp) typically precedes post-earnings weakness or dividend reset — quality does not prevent earnings revisions",
+        "SBP rate cuts (CPI cooling to 7.3% YoY) will compress NIM expansion, dampening earnings growth near-term",
+        "Institutional selling today (-9.5 mn PKR) during 1d +0.89% rally suggests insiders front-running a reversal",
+        "Banking sector volume 0.5× 20d average — low participation may indicate weak conviction in move"
+      ],
+      "macro_tailwinds": [
+        "Copper +9.0% in 21d signals global industrial growth, supporting loan demand and EM bank asset quality",
+        "FX reserves at USD 15.1 bn (rebuilding) de-risks balance of payments, supportive for bank equity sentiment"
+      ],
+      "macro_headwinds": [
+        "CPI 7.3% YoY cooling creates expectation of SBP rate cuts, compressing NIM expansion — earnings growth headwind for banks",
+        "Policy rate 11.5% neutral/tightening regime mixed for equities; growth risk if cuts delay",
+        "Macro sentiment -0.12 (bearish tilt) and geopolitics -0.27 create modest overnight headwind"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to rate cuts — NIMs face compression risk."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "FABL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to rate cuts — NIMs face compression risk."
+          ],
+          "amplifier_note": "Low debt-to-equity (0.2) dampens rate-driven impact (-1 notch).",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 88.59,
+        "ret_5d": -0.0489,
+        "ret_21d": 0.127,
+        "ret_63d": -0.0897,
+        "mom_20d_log": 0.1085,
+        "mom_60d_log": -0.0896,
+        "mom_150d_log": 0.1568,
+        "mom_250d_log": 0.6334,
+        "rvol_20d_ann": 0.5277,
+        "rvol_regime": "stable",
+        "rsi_14": 47.5,
+        "px_vs_sma200_pct": 1.66,
+        "trend": "up",
+        "momentum_rank_today": 3,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 3,
+        "news_headlines": [
+          "UBS beats profit expectations on market volatility",
+          "World Bank forecasts 24% jump in energy prices, 16% rise in commodities in 2026 amid Middle East war",
+          "Consortium submits bank guarantee for 25pc PIA stake"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 4.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 79.73,\n  \"suggested_target_pkr\": 92.50,\n  \"rationale\": \"FABL is NEUTRAL over 5 days because strong quality and cheap valuation are offset by earnings momentum erosion and institutional selling, leaving a marginal edge below transaction costs. Technicals show a weak trend with RSI 47.5 and the stock trading 1.66% above the 200-day MA, suggesting neither bullish nor bearish confirmation. Fundamentally, FABL trades at 5.98× P/E (27% below sector median) and carries a quality score of 92.9, but earnings are decelerating sharply (YoY -5.97% vs +17.99% prior year; accel -23.96pp), which typically precedes a post-earnings drift into weakness. Macro backdrop is NEUTRAL for banking (sector score +1, but stock-level score 0 due to low leverage), with CPI cooling (7.3% YoY) opening the door to future rate cuts that compress NIMs — a slow headwind. Most critically, intrinsic value of 77.08 PKR implies -13% downside (SELL_VALUE HIGH confidence), and big-fish institutional cohort is net selling (-9.5 mn PKR today), which contradicts any bullish momentum narrative. The fair-value gap and earnings erosion will likely suppress near-term upside even if quality remains high; this is a value trap scenario — cheap on P/E but weakening profitability. A material downgrade i"
+    },
+    {
+      "prediction_id": "2026-04-29-FCCL",
+      "generated_at": "2026-04-29T07:37:12+00:00",
+      "symbol": "FCCL",
+      "sector": "Cement",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 48.44,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -8.5,
+      "expected_return_5d_mid_pct": -1.2,
+      "expected_return_5d_high_pct": 6.8,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 43.6,
+      "suggested_target_pkr": 52.0,
+      "rationale": "FCCL is NEUTRAL in the near term because valuation is severely stretched (SELL_VALUE with -39.5% fair-value gap) and momentum is deteriorating, despite strong earnings acceleration and a modest macro tailwind for cement. Technicals show RSI at 53.6 (neutral zone) and the stock is down 6.4% over 5d and -20.7% from its 52-week high, signalling exhaustion after a 28% 21-day rally; the stock sits -8% below its 200-day MA, which is a weak positioning. Fundamentals are contradictory: earnings are accelerating sharply (YoY 62.1%), the quality score is HIGH (89/100), and the sector is receiving a +1 tailwind from cooling CPI and copper-led construction-cycle strength; however, the absolute P/E of 9.27 is 16% above the sector median, and the fair-value model pins intrinsic value at only 29.29 PKR, implying 39.5% downside. Macro sentiment is slightly bearish (-0.12 tilt), geopolitical risk is elevated (-0.27 category), and institutional flows are net-selling (-9.5 mn PKR big-fish net today), which contradicts the bullish earnings story. A Material Information disclosure filed 1 day ago (2026-04-27) adds volatility risk and warrants a 50% widening of the expected-return band. The key risk is that the fair-value gap suggests this rally is a temporary bounce within a longer-term downtrend; any reversal below 46.2 (sma50) will likely accelerate the sell-off toward the 36–40 range.",
+      "key_drivers": [
+        "Earnings momentum is ACCELERATING (YoY 62.1% vs prior 10.6%), providing fundamental support for valuations.",
+        "Quality score is HIGH (89/100) with ROE 15.8% and low leverage (D/E 0.48), indicating operational resilience.",
+        "Sector macro tailwind of +1 from cooling CPI opening door to rate cuts and copper-led industrial demand strength.",
+        "Technicals show stock down 6.4% in 5d and 20.7% from 52-week high after a 28% 21-day rally, signalling momentum exhaustion."
+      ],
+      "key_risks": [
+        "SELL_VALUE signal with HIGH confidence: fair value of 29.29 PKR implies 39.5% downside vs. 48.44 current price — valuation risk is material and longer-term headwind.",
+        "Institutional big-fish flows are net-selling (-9.5 mn PKR today), contradicting bullish technicals and suggesting smart money is trimming into strength.",
+        "Material Information disclosure filed 1 day ago creates binary event risk; widened 5-day band reflects post-disclosure volatility spike potential.",
+        "Macro sentiment is slightly bearish (-0.12 tilt) with geopolitical tensions elevated (-0.27); policy rate at 11.5% remains tight, limiting multiple expansion.",
+        "Stock sits 8% below 200-day MA and RSI is neutral (53.6), indicating no oversold reversal setup; price exhaustion after 28% in 21d is typical pullback prelude."
+      ],
+      "macro_tailwinds": [
+        "Cooling CPI (7.3% YoY) opens the door to future SBP rate cuts, which would ease financing costs for leveraged cement players like FCCL."
+      ],
+      "macro_headwinds": [
+        "Brent crude +9.7% in 5d raises furnace-oil and freight costs for cement producers; coal-fired kilns also face higher delivered-fuel costs.",
+        "Geopolitical tensions (-0.27 category sentiment) and elevated policy rate (11.5%) weigh on sentiment and limit valuation multiple recovery."
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Industrial-cycle proxy is strong — supportive for construction demand.",
+            "+2 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to cuts — biggest single tailwind for leveraged cement."
+          ],
+          "headwinds": [
+            "-2 | Brent crude: +9.7% in 5d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "FCCL",
+          "sector": "Cement",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Industrial-cycle proxy is strong — supportive for construction demand.",
+            "+2 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to cuts — biggest single tailwind for leveraged cement."
+          ],
+          "headwinds": [
+            "-2 | Brent crude: +9.7% in 5d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 48.44,
+        "ret_5d": -0.0638,
+        "ret_21d": 0.2798,
+        "ret_63d": -0.1915,
+        "mom_20d_log": 0.2111,
+        "mom_60d_log": -0.1479,
+        "mom_150d_log": -0.1887,
+        "mom_250d_log": 0.1236,
+        "rvol_20d_ann": 0.7371,
+        "rvol_regime": "stable",
+        "rsi_14": 53.6,
+        "px_vs_sma200_pct": -8.02,
+        "trend": "mixed",
+        "momentum_rank_today": 13,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Karachi BRT Red Line section handed over to FWO after contractor removal"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"LOW\",\n  \"expected_return_5d_low_pct\": -8.5,\n  \"expected_return_5d_mid_pct\": -1.2,\n  \"expected_return_5d_high_pct\": 6.8,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 43.6,\n  \"suggested_target_pkr\": 52.0,\n  \"rationale\": \"FCCL is NEUTRAL in the near term because valuation is severely stretched (SELL_VALUE with -39.5% fair-value gap) and momentum is deteriorating, despite strong earnings acceleration and a modest macro tailwind for cement. Technicals show RSI at 53.6 (neutral zone) and the stock is down 6.4% over 5d and -20.7% from its 52-week high, signalling exhaustion after a 28% 21-day rally; the stock sits -8% below its 200-day MA, which is a weak positioning. Fundamentals are contradictory: earnings are accelerating sharply (YoY 62.1%), the quality score is HIGH (89/100), and the sector is receiving a +1 tailwind from cooling CPI and copper-led construction-cycle strength; however, the absolute P/E of 9.27 is 16% above the sector median, and the fair-value model pins intrinsic value at only 29.29 PKR, implying 39.5% downside. Macro sentiment is slightly bearish (-0.12 tilt), geopolitical risk is elevated (-0.27 category), and institutional flows are net-selling (-9.5 mn PKR big-fish net today), which contradicts the bullish earnings story. A Material Information disclosure filed 1 day ago (2026-04-27) adds volatility risk and warrants a 50% widening of the expected-return band. The key risk is that the fair-value"
+    },
+    {
+      "prediction_id": "2026-04-29-HUBC",
+      "generated_at": "2026-04-29T07:35:21+00:00",
+      "symbol": "HUBC",
+      "sector": "Power",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 224.5,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -4.5,
+      "expected_return_5d_mid_pct": 0.8,
+      "expected_return_5d_high_pct": 5.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 205.0,
+      "suggested_target_pkr": 236.0,
+      "rationale": "HUBC is NEUTRAL over 5 days despite a STRONG TAILWIND macro score (+3) because earnings momentum has collapsed (-34% YoY, worst in 3 years), offsetting the sector's fuel-cost pass-through tailwind from Brent +9.7% in 5d and SBP reserve rebuilds signalling dividend normalisation. Technicals show the stock is 8% below 52w highs with RSI 55.7 (neutral, not stretched), price above sma50/sma200, and 21d momentum of +15.5% — solid but momentum is decelerating (60d = -1.76%), suggesting the recent rally is maturing. Fair value is 166.72 PKR vs 224.5 (−25.7% downside, SELL_VALUE with HIGH confidence), and while quality is HIGH (ROE 20.9%, D/E 0.38), the valuation gap combined with earnings erosion creates a value trap risk: the macro tailwind may support dividends, but profit growth is absent. Management guidance is MEDIUM and mentions EV charging expansion, but lacks specificity on revenue impact or timeline. Institutional flows turned negative today (Big Fish −9.5 mn PKR) despite positive sector flows, signalling selective selling in HUBC. The overnight global prior is FLAT (+0.29% gap), and PSX risk is mild; the 5-day band is widened moderately to account for earnings uncertainty and macro volatility.",
+      "key_drivers": [
+        "Brent crude +9.7% in 5d supporting fuel-cost pass-through under PPA indexation (STRONG TAILWIND +3 sector verdict)",
+        "SBP FX reserves at USD 15.1bn signalling circular-debt settlement and dividend normalisation (STRONG TAILWIND +2)",
+        "Price +15.5% in 21d with RSI 55.7 and sma20/50/200 uptrend intact — trend structure remains positive",
+        "Quality score 80.0/100 (HIGH) with ROE 20.9% and low leverage (D/E 0.38) underpins intrinsic support"
+      ],
+      "key_risks": [
+        "Earnings momentum in EROSION: −34.4% YoY (prior +21.7%), acceleration −56pp — profit growth has reversed sharply",
+        "Fair value 166.72 PKR vs current 224.5 (−25.7% downside, SELL_VALUE HIGH confidence) — stock is trading at significant premium to intrinsic",
+        "Institutional selling today (Big Fish −9.5 mn PKR) contradicts positive sector flows — selective profit-taking by smart money",
+        "Hub Plant PPA termination risk reduces dividend income from power generation subsidiary (noted in Director's Report risk section)",
+        "Management guidance is MEDIUM and EV charging expansion timeline/revenue impact unclear — execution risk on growth strategy"
+      ],
+      "macro_tailwinds": [
+        "Brent crude up 9.7% in 5d — fuel-cost pass-through under PPA indexation benefits furnace-oil plants",
+        "SBP FX reserves USD 15.1bn — reserve rebuilds typically trigger circular-debt settlement and dividend normalisation"
+      ],
+      "macro_headwinds": [
+        "CPI YoY 7.3% and SBP policy rate at 11.5% (neutral/tight regime) — elevated cost of capital constrains equity valuations"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 15.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "HUBC",
+          "sector": "Power",
+          "sector_score": 3,
+          "stock_score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 15.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 224.5,
+        "ret_5d": 0.0006,
+        "ret_21d": 0.1551,
+        "ret_63d": -0.0722,
+        "mom_20d_log": 0.1334,
+        "mom_60d_log": -0.0176,
+        "mom_150d_log": 0.04,
+        "mom_250d_log": 0.5315,
+        "rvol_20d_ann": 0.4623,
+        "rvol_regime": "stable",
+        "rsi_14": 55.7,
+        "px_vs_sma200_pct": 8.72,
+        "trend": "up",
+        "momentum_rank_today": 8,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 4,
+        "news_headlines": [
+          "World Bank forecasts 24% jump in energy prices, 16% rise in commodities in 2026 amid Middle East war",
+          "Nepra, ISMO clash over power plan 2025–35 on projects, demand, timelines",
+          "Nepra declares revenue-based loadshedding illegal",
+          "IMF okays 60% cut in gas levy"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -4.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 5.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 205.0,\n  \"suggested_target_pkr\": 236.0,\n  \"rationale\": \"HUBC is NEUTRAL over 5 days despite a STRONG TAILWIND macro score (+3) because earnings momentum has collapsed (-34% YoY, worst in 3 years), offsetting the sector's fuel-cost pass-through tailwind from Brent +9.7% in 5d and SBP reserve rebuilds signalling dividend normalisation. Technicals show the stock is 8% below 52w highs with RSI 55.7 (neutral, not stretched), price above sma50/sma200, and 21d momentum of +15.5% — solid but momentum is decelerating (60d = -1.76%), suggesting the recent rally is maturing. Fair value is 166.72 PKR vs 224.5 (−25.7% downside, SELL_VALUE with HIGH confidence), and while quality is HIGH (ROE 20.9%, D/E 0.38), the valuation gap combined with earnings erosion creates a value trap risk: the macro tailwind may support dividends, but profit growth is absent. Management guidance is MEDIUM and mentions EV charging expansion, but lacks specificity on revenue impact or timeline. Institutional flows turned negative today (Big Fish −9.5 mn PKR) despite positive sector flows, signalling selective selling in HUBC. The overnight global prior is FLAT (+0.29% gap), and PSX risk is mild; the 5-day band is widened moderately to account for earnings uncertainty and macro volatility."
+    },
+    {
+      "prediction_id": "2026-04-29-KOHC",
+      "generated_at": "2026-04-29T07:38:00+00:00",
+      "symbol": "KOHC",
+      "sector": "Cement",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 83.92,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -6.5,
+      "expected_return_5d_mid_pct": -1.2,
+      "expected_return_5d_high_pct": 3.8,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 75.5,
+      "suggested_target_pkr": 88.0,
+      "rationale": "KOHC is trading at a significant overvaluation relative to intrinsic value (15.5% downside to fair value of 70.9 PKR), which is the dominant headwind despite near-term micro support. Technically, the stock has broken below its 50-day moving average (83.42) and is trending downward with RSI at 49.6 (neutral) and price 14.8% below the 200-day MA, signaling a weakened intermediate trend that accelerated with a -2.13% one-day drop and -8.31% five-day loss. Fundamentally, earnings momentum is decelerating sharply (YoY growth fell from 52.8% to 30.2%, a -22.6pp deceleration), which is a post-momentum-peak warning despite KOHC's high quality score (90.2). Macro tailwinds are modest: cooling CPI (+1 score on cement sector) supports long-term borrowing costs, but Brent crude's 9.7% spike and fuel-cost headwinds (-2 score) partially offset this, and institutional flows are actively selling (big fish -9.5 mn PKR today). The stock is caught between a rich near-term valuation and earnings deceleration; absent a fresh catalyst, mean reversion toward fair value is the base case over 5–21 days. Stop loss placed at a -10% loss to protect against further gap downs; target set conservatively at prior support.",
+      "key_drivers": [
+        "SELL_VALUE HIGH confidence: current price 83.92 PKR vs. fair value 70.9 PKR = -15.5% overvaluation, slowing terminal earnings multiple compression.",
+        "Earnings momentum DECELERATING: YoY growth fell from 52.8% prior to 30.2% current (-22.6pp), flagging post-peak cycle risk typical of 5–21d post-deceleration weakness.",
+        "Price below SMA50 (83.42) and SMA200 (98.48): intermediate downtrend established; -14.78% distance from 200d MA indicates extended weakness.",
+        "Macro tailwind CPI cooling (+1 score): SBP may cut rates later in cycle, supporting leveraged cement valuations, but this is a 3–6 month signal, not 5d.",
+        "Institutional selling today: big fish net -9.5 mn PKR (mutual funds -10.2 mn dominant) suggests conviction selling into a weaker tape."
+      ],
+      "key_risks": [
+        "SELL_VALUE overshoot: if earnings stabilize in Q2 FY27 (next print ~May/Jun), compression may halt and stock could bounce 5–8% from current levels before resuming downtrend.",
+        "Sector tailwind underestimated: if cooling CPI (7.3% YoY, down from prior highs) triggers SBP rate-cut cycle earlier than expected, cement leverage multiplier amplifies upside; would require 2–3 hawkish CPI prints to be proven wrong.",
+        "Material Information (Karachi BRT Red Line handed to FWO): if this infrastructure project accelerates FY27 cement demand, stock could rally 6–10% on hidden optionality; monitor project timeline closely.",
+        "Commodity volatility: Brent +9.7% in 5d is a headwind, but if crude corrects sharply in next week, furnace-oil costs ease and stock may rebound; VIX at 17.8 (normal) but macro sentiment remains -0.12 (bearish).",
+        "Dividend yield 0% / payout ratio 0%: stock is not an income play; valuation is pure multiple-arbitrage, meaning any growth slowdown triggers sharp repricing."
+      ],
+      "macro_tailwinds": [
+        "CPI YoY 7.3% (cooling trend) opens door to future SBP rate cuts, reducing cost-of-capital for leveraged cement players; score +1 on cement sector.",
+        "Copper +9.0% in 21d as industrial-cycle proxy; signals construction-demand resilience on global rebuild, structural support for cement end-market."
+      ],
+      "macro_headwinds": [
+        "Brent crude +9.7% in 5d: furnace-oil and freight costs rise for cement kilns; margin compression headwind (-2 on cement sector), offsetting some CPI tailwind.",
+        "Macro sentiment -0.12 (bearish 24h): geopolitics -0.27, global uncertainty -0.27; PSX overnight prior is FLAT (+0.29%), so no gap boost; sentiment is a 1–3 day headwind."
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Industrial-cycle proxy is strong — supportive for construction demand.",
+            "+2 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to cuts — biggest single tailwind for leveraged cement."
+          ],
+          "headwinds": [
+            "-2 | Brent crude: +9.7% in 5d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "KOHC",
+          "sector": "Cement",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Industrial-cycle proxy is strong — supportive for construction demand.",
+            "+2 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to cuts — biggest single tailwind for leveraged cement."
+          ],
+          "headwinds": [
+            "-2 | Brent crude: +9.7% in 5d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 83.92,
+        "ret_5d": -0.0831,
+        "ret_21d": 0.1065,
+        "ret_63d": -0.2637,
+        "mom_20d_log": 0.0502,
+        "mom_60d_log": -0.2326,
+        "mom_150d_log": -0.1839,
+        "mom_250d_log": 0.188,
+        "rvol_20d_ann": 0.7222,
+        "rvol_regime": "stable",
+        "rsi_14": 49.6,
+        "px_vs_sma200_pct": -14.78,
+        "trend": "down",
+        "momentum_rank_today": 12,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Karachi BRT Red Line section handed over to FWO after contractor removal"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -6.5,\n  \"expected_return_5d_mid_pct\": -1.2,\n  \"expected_return_5d_high_pct\": +3.8,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 75.5,\n  \"suggested_target_pkr\": 88.0,\n  \"rationale\": \"KOHC is trading at a significant overvaluation relative to intrinsic value (15.5% downside to fair value of 70.9 PKR), which is the dominant headwind despite near-term micro support. Technically, the stock has broken below its 50-day moving average (83.42) and is trending downward with RSI at 49.6 (neutral) and price 14.8% below the 200-day MA, signaling a weakened intermediate trend that accelerated with a -2.13% one-day drop and -8.31% five-day loss. Fundamentally, earnings momentum is decelerating sharply (YoY growth fell from 52.8% to 30.2%, a -22.6pp deceleration), which is a post-momentum-peak warning despite KOHC's high quality score (90.2). Macro tailwinds are modest: cooling CPI (+1 score on cement sector) supports long-term borrowing costs, but Brent crude's 9.7% spike and fuel-cost headwinds (-2 score) partially offset this, and institutional flows are actively selling (big fish -9.5 mn PKR today). The stock is caught between a rich near-term valuation and earnings deceleration; absent a fresh catalyst, mean reversion toward fair value is the base case over 5–21 days. Stop loss placed at a -10% loss to protect against further gap downs; target set conservatively at prior support.\",\n  \""
+    },
+    {
+      "prediction_id": "2026-04-29-MCB",
+      "generated_at": "2026-04-29T07:38:29+00:00",
+      "symbol": "MCB",
+      "sector": "Banking",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 406.37,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -3.5,
+      "expected_return_5d_mid_pct": 0.8,
+      "expected_return_5d_high_pct": 3.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 372.83,
+      "suggested_target_pkr": 419.57,
+      "rationale": "MCB is grading NEUTRAL on a 5-day horizon despite a solid technical setup, driven by conflicting fundamental and macro signals that create near-term hesitation. Technically, the stock sits above its 50-day (400.12) and 200-day (374.5) moving averages with RSI at 46.5 (mid-range) and 21-day momentum positive at +12.35%, supporting a constructive lean. Fundamentally, however, earnings momentum has swung into EROSION (YoY -7.61%, deteriorating from -2.89%), signaling post-earnings drift risk even though valuation is fair (P/E 8.23 = sector median, fair-value gap only -1.47% with HIGH quality score of 90.8). Macro tailwinds are modest (+1 sector score from copper strength and FX reserve rebuilding) but offset by NIM compression risk from cooling CPI (7.3% YoY), which opens a rate-cut door that threatens bank margins; the 11.5% policy rate is neutral-to-tightening, limiting upside. Most critically, big-fish institutional flows turned net negative (-9.5 mn PKR today, led by mutual funds), signaling that large investors are exiting on the earnings erosion despite retail enthusiasm; this divergence weakens conviction. The overnight gap prior is FLAT (+0.29%), and macro sentiment tilt is neutral (-0.097), so no emergency downside catalyst is imminent, but the earnings deterioration + institutional selling + NIM headwind justify a HOLD rather than a BUY despite the technical strength.",
+      "key_drivers": [
+        "Earnings momentum in EROSION: YoY -7.61% (worst vs prior -2.89%), post-earnings drift risk despite neutral technicals",
+        "Technical above 50/200 SMA with 21d momentum +12.35%, but RSI 46.5 (mid-range, not oversold)",
+        "Big-fish institutional flows net -9.5 mn PKR today (mutual funds -10.2 mn), signaling profit-taking by large holders",
+        "Macro tailwind score +1 (copper +9.0% in 21d, FX reserves rebuild) but offset by NIM compression risk from CPI cooling at 7.3% YoY"
+      ],
+      "key_risks": [
+        "Earnings erosion (YoY -7.61%) is accelerating downward and often precedes multi-week selloffs in bank equities; watch for Q1 FY27 guidance",
+        "CPI cooling (7.3% YoY) opens rate-cut window — policy rate at 11.5% neutral, but market is pricing 50-100 bps cuts by H2, compressing NIM by ~15-25 bps",
+        "Institutional selling (-9.5 mn PKR, big-fish cohort) against retail buying is a divergence signal; if it persists, technical support at 400.12 may break",
+        "Dividend yield 8.87% is above sector (7.34%) and payout at 73% is sustainable, but if earnings erode further, payout may become pressured"
+      ],
+      "macro_tailwinds": [
+        "Copper +9.0% in 21d signals global industrial recovery and loan demand boost for emerging-market banks",
+        "SBP FX reserves USD 15.1 bn rebuilding de-risks balance-of-payments, supportive for bank equity risk appetite"
+      ],
+      "macro_headwinds": [
+        "CPI YoY 7.3% (cooling trend) opens door to SBP rate cuts H2 2026, compressing NIM by ~15-25 bps and eroding bank earnings power"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to rate cuts — NIMs face compression risk."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MCB",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to rate cuts — NIMs face compression risk."
+          ],
+          "amplifier_note": "Low debt-to-equity (0.1) dampens rate-driven impact (-1 notch). MCB is a CASA-rich tier-1 bank — bigger NIM expansion on rate-up days (+1 notch).",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 406.37,
+        "ret_5d": -0.0159,
+        "ret_21d": 0.1235,
+        "ret_63d": -0.0376,
+        "mom_20d_log": 0.1015,
+        "mom_60d_log": -0.0152,
+        "mom_150d_log": 0.1552,
+        "mom_250d_log": 0.412,
+        "rvol_20d_ann": 0.4468,
+        "rvol_regime": "stable",
+        "rsi_14": 46.5,
+        "px_vs_sma200_pct": 8.51,
+        "trend": "up",
+        "momentum_rank_today": 4,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 3,
+        "news_headlines": [
+          "UBS beats profit expectations on market volatility",
+          "World Bank forecasts 24% jump in energy prices, 16% rise in commodities in 2026 amid Middle East war",
+          "Consortium submits bank guarantee for 25pc PIA stake"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 3.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 372.83,\n  \"suggested_target_pkr\": 419.57,\n  \"rationale\": \"MCB is grading NEUTRAL on a 5-day horizon despite a solid technical setup, driven by conflicting fundamental and macro signals that create near-term hesitation. Technically, the stock sits above its 50-day (400.12) and 200-day (374.5) moving averages with RSI at 46.5 (mid-range) and 21-day momentum positive at +12.35%, supporting a constructive lean. Fundamentally, however, earnings momentum has swung into EROSION (YoY -7.61%, deteriorating from -2.89%), signaling post-earnings drift risk even though valuation is fair (P/E 8.23 = sector median, fair-value gap only -1.47% with HIGH quality score of 90.8). Macro tailwinds are modest (+1 sector score from copper strength and FX reserve rebuilding) but offset by NIM compression risk from cooling CPI (7.3% YoY), which opens a rate-cut door that threatens bank margins; the 11.5% policy rate is neutral-to-tightening, limiting upside. Most critically, big-fish institutional flows turned net negative (-9.5 mn PKR today, led by mutual funds), signaling that large investors are exiting on the earnings erosion despite retail enthusiasm; this divergence weakens conviction. The overnight gap prior is FLAT (+0.29%), and macro sentiment tilt is neutral (-0.097"
+    },
+    {
+      "prediction_id": "2026-04-29-MEBL",
+      "generated_at": "2026-04-29T07:38:42+00:00",
+      "symbol": "MEBL",
+      "sector": "Banking",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 495.88,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -3.5,
+      "expected_return_5d_mid_pct": 0.8,
+      "expected_return_5d_high_pct": 3.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 446.3,
+      "suggested_target_pkr": 520.0,
+      "rationale": "MEBL is rated NEUTRAL due to a clash between short-term technicals and fundamental valuation. The stock sits at 495.88 PKR, 12.9% above its 200-day MA and ranks #2 in the 15-stock momentum universe, supported by a +12.6% 5-day return and +78.8% 252-day return — classic trend strength. However, intrinsic value analysis reveals MEBL is trading at 38.98% ABOVE fair value (303 PKR via 50% DDM + 50% P/B), a SELL_VALUE signal with HIGH confidence; this rich valuation, combined with EARNINGS EROSION (YoY down 11.66% after +20.19% prior year), suggests mean reversion risk over the 5-day horizon. Macro tailwinds are modest: copper +9.0% in 21d and SBP forex reserves at 15.1 bn USD support banking-sector loan demand and NIMs (+2 stock-level score), but CPI cooling (7.3% YoY) threatens NIM compression once the SBP begins rate cuts. Institutional flows turned negative today (big fish -9.5 mn PKR net selling, mutual funds -10.2 mn PKR), signaling that smart money may be front-running the valuation reset. While RSI at 39 shows room for a bounce, the rich P/B (3.12 vs 1.43 sector median) and negative earnings momentum create a structural headwind that outweighs short-term momentum.",
+      "key_drivers": [
+        "Strong 5d and 21d momentum (+12.6%, rank 2/15) and price 12.9% above SMA200 suggest continued short-term trend strength in a risk-on regime",
+        "Sector TAILWIND macro score of +1 (copper growth + FX reserve stability) provides NIM stability for CASA-rich tier-1 bank",
+        "Macro policy tilt -0.097 (neutral) with no acute overnight global headwind (FLAT GAP PRIOR +0.29%) suggests normal trading conditions"
+      ],
+      "key_risks": [
+        "SELL_VALUE signal with HIGH confidence: stock is 38.98% above fair value (303 PKR); valuation reset risk dominates next 6-12 months",
+        "EARNINGS EROSION: EPS down 11.66% YoY after +20.19% prior year (-31.85pp acceleration) — post-earnings drift bias bearish and conflicts with bullish momentum",
+        "Institutional selling TODAY (big fish -9.5 mn PKR, mutual funds -10.2 mn PKR) on a bullish day suggests insiders are trimming into strength",
+        "P/B ratio 3.12 (118% above sector median 1.43) is stretched even for a HIGH-quality bank; mean reversion to 2.2–2.5 would mark 25–30% downside",
+        "CPI cooling (7.3% YoY) opens door to SBP rate cuts — when cuts begin, NIM compression will hurt a stock already expensive on P/E and P/B"
+      ],
+      "macro_tailwinds": [
+        "Copper +9.0% in 21d signals global industrial demand; supports EM bank loan growth and asset quality",
+        "SBP forex reserves at USD 15.1 bn — reserve rebuilding de-risks external position and supports banking equities"
+      ],
+      "macro_headwinds": [
+        "CPI YoY 7.3% cooling opens the door to SBP rate cuts — NIM compression risk once cuts materialize (headwind score -1)"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to rate cuts — NIMs face compression risk."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MEBL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to rate cuts — NIMs face compression risk."
+          ],
+          "amplifier_note": "MEBL is a CASA-rich tier-1 bank — bigger NIM expansion on rate-up days (+1 notch).",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 495.88,
+        "ret_5d": 0.0046,
+        "ret_21d": 0.1262,
+        "ret_63d": 0.0396,
+        "mom_20d_log": 0.0916,
+        "mom_60d_log": 0.0385,
+        "mom_150d_log": 0.2141,
+        "mom_250d_log": 0.6296,
+        "rvol_20d_ann": 0.4194,
+        "rvol_regime": "stable",
+        "rsi_14": 39.0,
+        "px_vs_sma200_pct": 12.94,
+        "trend": "up",
+        "momentum_rank_today": 2,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 3,
+        "news_headlines": [
+          "UBS beats profit expectations on market volatility",
+          "World Bank forecasts 24% jump in energy prices, 16% rise in commodities in 2026 amid Middle East war",
+          "Consortium submits bank guarantee for 25pc PIA stake"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 3.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 446.3,\n  \"suggested_target_pkr\": 520.0,\n  \"rationale\": \"MEBL is rated NEUTRAL due to a clash between short-term technicals and fundamental valuation. The stock sits at 495.88 PKR, 12.9% above its 200-day MA and ranks #2 in the 15-stock momentum universe, supported by a +12.6% 5-day return and +78.8% 252-day return — classic trend strength. However, intrinsic value analysis reveals MEBL is trading at 38.98% ABOVE fair value (303 PKR via 50% DDM + 50% P/B), a SELL_VALUE signal with HIGH confidence; this rich valuation, combined with EARNINGS EROSION (YoY down 11.66% after +20.19% prior year), suggests mean reversion risk over the 5-day horizon. Macro tailwinds are modest: copper +9.0% in 21d and SBP forex reserves at 15.1 bn USD support banking-sector loan demand and NIMs (+2 stock-level score), but CPI cooling (7.3% YoY) threatens NIM compression once the SBP begins rate cuts. Institutional flows turned negative today (big fish -9.5 mn PKR net selling, mutual funds -10.2 mn PKR), signaling that smart money may be front-running the valuation reset. While RSI at 39 shows room for a bounce, the rich P/B (3.12 vs 1.43 sector median) and negative earnings momentum create a structural headwind that outweighs short-term momentum.\",\n  \"key_drivers\": [\n    \"Str"
+    },
+    {
+      "prediction_id": "2026-04-29-MLCF",
+      "generated_at": "2026-04-29T07:35:47+00:00",
+      "symbol": "MLCF",
+      "sector": "Cement",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 81.67,
+      "direction": "BEARISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -8.5,
+      "expected_return_5d_mid_pct": -3.2,
+      "expected_return_5d_high_pct": 1.8,
+      "suggested_action": "AVOID",
+      "suggested_stop_pkr": 89.8,
+      "suggested_target_pkr": 72.5,
+      "rationale": "MLCF is BEARISH because the stock is deeply overvalued (fair value 57.21 PKR vs. market price 81.67 PKR, a -30% gap), and while earnings momentum is accelerating YoY, the technical setup shows the stock in a clear downtrend with price 18% below the 200-day MA and momentum ranking last in a 15-stock universe. The dominant technical signal is a 5-day return of -11.27% with RSI at 48.2 (not yet oversold), closing below SMA20 and SMA50, indicating sustained selling pressure. Fundamentally, despite HIGH quality (ROE 16.2%, quality score 85.5), the SELL_VALUE signal with HIGH confidence and P/B 17% cheaper than sector median cannot justify a bullish near-term call when price momentum is this negative; valuation gaps can persist 6+ months. Macro tailwinds from cooling CPI (opens door to rate cuts, beneficial for cement leverage) and copper strength (+9% in 21d) are offset by a 5-day Brent surge (+9.7%) raising furnace-oil and freight costs—sector verdict is only +1 tailwind. Most critically, institutional flows turned sharply negative (-9.5 mn PKR big-fish net selling today), contradicting the bullish earnings beat narrative and signaling distribution by smart money. A reversal to BULLISH would require a close above SMA50 (86.96) with positive big-fish buying reappearing.",
+      "key_drivers": [
+        "5-day momentum of -11.27% + price 18.3% below 200-day MA; sustained downtrend with RSI 48.2 below neutral",
+        "Fair value 57.21 PKR vs. 81.67 market (SELL_VALUE, HIGH confidence, -30% gap); valuation trap despite HIGH quality score",
+        "Big-fish institutional selling -9.5 mn PKR today (mutual funds -10.2 mn); smart money fleeing despite earnings acceleration",
+        "Earnings momentum ACCELERATING +66.87% YoY (strongest in 3y, CAGR 36%), but technical weakness dominates short-term",
+        "Sector macro tailwind +1 (CPI cooling supports rate-cut hopes for leveraged cement), but Brent +9.7% in 5d raises fuel/freight costs for cement kilns"
+      ],
+      "key_risks": [
+        "Earnings acceleration (66.87% YoY) could trigger a relief rally if institutional selling exhausts; stop-loss placement must respect breakeven support near 72-75 PKR",
+        "CPI cooling (7.3% YoY) and IMF board meeting on May 8 raise prospect of SBP rate cuts in 4-8 weeks, which would be a major tailwind for cement NIM and leverage—this long-term positive is not yet priced in 5d",
+        "Copper +9.0% in 21d signals strong construction demand; if real estate activity accelerates, cement demand could surprise to upside in 2-3 weeks",
+        "Material gap between HIGH quality (ROE 16.2%, D/E 0.21) and distressed price creates value-trap risk; price may not revert to fair value for 6+ months",
+        "SBP policy rate at 11.5% (neutral/tightening regime) and tight liquidity (3M KIBOR 11.66%) are headwinds for near-term sentiment; watch for further rate clarity"
+      ],
+      "macro_tailwinds": [
+        "CPI YoY 7.3% cooling opens door to SBP rate cuts, major tailwind for leveraged cement (sector +2 score); rate cuts expand NIM and reduce financing cost"
+      ],
+      "macro_headwinds": [
+        "Brent crude +9.7% in 5d raises furnace-oil and freight costs for cement kilns (sector -2 score); furnace-oil hedges may be underwater",
+        "SBP policy rate 11.5% (neutral/tightening regime); tight liquidity (3M KIBOR 11.66%) constrains near-term sentiment and equity flows"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Industrial-cycle proxy is strong — supportive for construction demand.",
+            "+2 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to cuts — biggest single tailwind for leveraged cement."
+          ],
+          "headwinds": [
+            "-2 | Brent crude: +9.7% in 5d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MLCF",
+          "sector": "Cement",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +9.0% in 21d — Industrial-cycle proxy is strong — supportive for construction demand.",
+            "+2 | CPI YoY: 7.3% YoY — Cooling CPI opens the door to cuts — biggest single tailwind for leveraged cement."
+          ],
+          "headwinds": [
+            "-2 | Brent crude: +9.7% in 5d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 81.67,
+        "ret_5d": -0.1127,
+        "ret_21d": 0.1208,
+        "ret_63d": -0.328,
+        "mom_20d_log": 0.105,
+        "mom_60d_log": -0.3293,
+        "mom_150d_log": -0.2746,
+        "mom_250d_log": 0.1972,
+        "rvol_20d_ann": 0.7093,
+        "rvol_regime": "stable",
+        "rsi_14": 48.2,
+        "px_vs_sma200_pct": -18.29,
+        "trend": "down",
+        "momentum_rank_today": 15,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Karachi BRT Red Line section handed over to FWO after contractor removal"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"BEARISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -8.5,\n  \"expected_return_5d_mid_pct\": -3.2,\n  \"expected_return_5d_high_pct\": +1.8,\n  \"suggested_action\": \"AVOID\",\n  \"suggested_stop_pkr\": 89.8,\n  \"suggested_target_pkr\": 72.5,\n  \"rationale\": \"MLCF is BEARISH because the stock is deeply overvalued (fair value 57.21 PKR vs. market price 81.67 PKR, a -30% gap), and while earnings momentum is accelerating YoY, the technical setup shows the stock in a clear downtrend with price 18% below the 200-day MA and momentum ranking last in a 15-stock universe. The dominant technical signal is a 5-day return of -11.27% with RSI at 48.2 (not yet oversold), closing below SMA20 and SMA50, indicating sustained selling pressure. Fundamentally, despite HIGH quality (ROE 16.2%, quality score 85.5), the SELL_VALUE signal with HIGH confidence and P/B 17% cheaper than sector median cannot justify a bullish near-term call when price momentum is this negative; valuation gaps can persist 6+ months. Macro tailwinds from cooling CPI (opens door to rate cuts, beneficial for cement leverage) and copper strength (+9% in 21d) are offset by a 5-day Brent surge (+9.7%) raising furnace-oil and freight costs—sector verdict is only +1 tailwind. Most critically, institutional flows turned sharply negative (-9.5 mn PKR big-fish net selling today), contradicting the bullish earnings beat narrative and signaling distribution by smart money. A reversal to BULLISH would require"
+    },
+    {
+      "prediction_id": "2026-04-29-NPL",
+      "generated_at": "2026-04-29T07:36:45+00:00",
+      "symbol": "NPL",
+      "sector": "Power",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 78.92,
+      "direction": "BULLISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -1.5,
+      "expected_return_5d_mid_pct": 4.2,
+      "expected_return_5d_high_pct": 8.5,
+      "suggested_action": "BUY",
+      "suggested_stop_pkr": 71.0,
+      "suggested_target_pkr": 84.5,
+      "rationale": "NPL is BULLISH on accelerating earnings momentum (31.77% YoY, up from 23.13%), a strong macro tailwind driven by Brent crude surging 9.7% in 5d (fuel-cost pass-through under PPA indexation), and FX reserve rebuilds signalling circular-debt settlement and dividend resumption — all converging on a stock trading 41% above its 200-day moving average with RSI at 58.3 (not yet overbought). Technically, the stock is in a confirmed uptrend: price is above SMA50 (72.56), momentum is positive (20d log = +20.32%), and the RSI shows room to run before overbought extremes. Fundamentally, NPL trades at 5.47× P/E and 1.02× P/B — both 8-14% cheaper than sector median — while posting a HIGH quality score (89.8/100), low leverage (D/E=0.09), and sustainable dividend yield (9.61% payout ratio 52.6%). Macro tailwinds score +3 (Brent fuel indexation + FX reserve rebuilds), and sector volume is elevated at 1.1× average, suggesting institutional participation. The intrinsic value is 79.66 PKR (0.94% upside, FAIR signal at HIGH confidence), so valuation is not a constraint. The primary risk is a reversal in Brent crude or unexpected policy tightening that could truncate the dividend — a -20% move in oil or an emergency rate hike would flip the call to NEUTRAL. Institutional selling today (-9.5 mn PKR net) is a minor headwind, but sector-level inflows (+0.42 mn USD) and retail buying (+9.46 mn PKR) suggest momentum is self-sustaining for the next 5 days.",
+      "key_drivers": [
+        "Earnings momentum accelerating at 31.77% YoY (up 8.64pp from prior quarter) — strongest growth signal in the briefing",
+        "Brent crude up 9.7% in 5d; Power sector gets +1 macro score for furnace-oil PPA indexation fuel-cost pass-through",
+        "FX reserves at USD 15.1 bn signal circular-debt settlement plans and dividend resumption — sector-level +2 macro score",
+        "Price above SMA50 (72.56) and SMA200 (55.89) in confirmed uptrend; RSI 58.3 leaves room before overbought",
+        "Valuation 8-14% cheaper than sector median (P/E 5.47, P/B 1.02) with HIGH quality score (89.8/100) and low D/E (0.09)",
+        "Sector volume elevated 1.1× average (PKR 2172 mn), Power sector inflows +0.42 mn USD confirm institutional demand"
+      ],
+      "key_risks": [
+        "Brent crude reversal (down from +9.7% 5d gain) would eliminate fuel-cost pass-through tailwind and truncate earnings upside",
+        "Institutional selling today (-9.5 mn PKR net from Mutual Funds -10.2) suggests some large holder trimming ahead of a potential pullback",
+        "SBP rate remains at 11.5% (neutral/tightening regime); any emergency hike to combat 7.3% CPI could crimp dividend sustainability and reset the valuation",
+        "Dividend payout ratio at 52.6% is sustainable now but leaves limited buffer; earnings miss would force dividend cut and trigger -8-12% gap down",
+        "Macro tilt slightly negative (-0.097) with geopolitical headwinds (-0.24) — if Middle East tensions escalate or Brent stalls, fuel tailwind evaporates"
+      ],
+      "macro_tailwinds": [
+        "Brent crude +9.7% in 5d — furnace-oil-fired plants benefit from fuel-cost pass-through under PPA indexation; sector +1 score",
+        "FX reserves (USD 15.1 bn) rebuilding suggests circular-debt settlement and dividend resumption normalisation; sector +2 score"
+      ],
+      "macro_headwinds": [
+        "SBP policy rate at 11.5% (neutral/tightening regime) — any further hike would raise discount rates and compress valuations",
+        "CPI YoY at 7.3% (March) — persistent inflation pressure could force unscheduled rate action"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 15.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "NPL",
+          "sector": "Power",
+          "sector_score": 3,
+          "stock_score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 15.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 78.92,
+        "ret_5d": -0.0588,
+        "ret_21d": 0.2517,
+        "ret_63d": -0.0646,
+        "mom_20d_log": 0.2032,
+        "mom_60d_log": -0.1432,
+        "mom_150d_log": 0.6394,
+        "mom_250d_log": 0.7632,
+        "rvol_20d_ann": 0.7695,
+        "rvol_regime": "stable",
+        "rsi_14": 58.3,
+        "px_vs_sma200_pct": 41.21,
+        "trend": "up",
+        "momentum_rank_today": 1,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 4,
+        "news_headlines": [
+          "World Bank forecasts 24% jump in energy prices, 16% rise in commodities in 2026 amid Middle East war",
+          "Nepra, ISMO clash over power plan 2025–35 on projects, demand, timelines",
+          "Nepra declares revenue-based loadshedding illegal",
+          "IMF okays 60% cut in gas levy"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"HIGH\",\n  \"expected_return_5d_low_pct\": -1.5,\n  \"expected_return_5d_mid_pct\": 4.2,\n  \"expected_return_5d_high_pct\": 8.5,\n  \"suggested_action\": \"BUY\",\n  \"suggested_stop_pkr\": 71.0,\n  \"suggested_target_pkr\": 84.5,\n  \"rationale\": \"NPL is BULLISH on accelerating earnings momentum (31.77% YoY, up from 23.13%), a strong macro tailwind driven by Brent crude surging 9.7% in 5d (fuel-cost pass-through under PPA indexation), and FX reserve rebuilds signalling circular-debt settlement and dividend resumption — all converging on a stock trading 41% above its 200-day moving average with RSI at 58.3 (not yet overbought). Technically, the stock is in a confirmed uptrend: price is above SMA50 (72.56), momentum is positive (20d log = +20.32%), and the RSI shows room to run before overbought extremes. Fundamentally, NPL trades at 5.47× P/E and 1.02× P/B — both 8-14% cheaper than sector median — while posting a HIGH quality score (89.8/100), low leverage (D/E=0.09), and sustainable dividend yield (9.61% payout ratio 52.6%). Macro tailwinds score +3 (Brent fuel indexation + FX reserve rebuilds), and sector volume is elevated at 1.1× average, suggesting institutional participation. The intrinsic value is 79.66 PKR (0.94% upside, FAIR signal at HIGH confidence), so valuation is not a constraint. The primary risk is a reversal in Brent crude or unexpected policy tightening that could truncate the dividend — a -20% move in oil or an emergency rate "
+    },
+    {
+      "prediction_id": "2026-04-29-OGDC",
+      "generated_at": "2026-04-29T07:36:00+00:00",
+      "symbol": "OGDC",
+      "sector": "Oil & Gas E&P",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 318.45,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.5,
+      "expected_return_5d_mid_pct": -1.2,
+      "expected_return_5d_high_pct": 2.8,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 290.0,
+      "suggested_target_pkr": 328.0,
+      "rationale": "OGDC is rated NEUTRAL over the next 5 days due to an imminent earnings blackout (reporting expected 2026-04-29) that makes near-term predictions unreliable; post-result gaps of 5-10% are typical and will destroy any directional call made today. While the macro backdrop is strongly supportive—Brent crude surged +9.7% in 5 days, delivering a STRONG TAILWIND (+5 sector score) that should lift E&P revenue per barrel—earnings momentum is ERODING sharply (YoY=-6.97%, down from +67.89% prior, -74.86pp acceleration), signaling that production curtailment headwinds (forced loss of 3,384 bbl/day oil + 152 MMcf gas daily) are offsetting commodity tailwinds on the bottom line. Technicals show OGDC in an uptrend (price +15.42% vs 200-day MA, RSI=61.4), but the stock is trading at SELL_VALUE (fair value 284.5 vs market 318.45, -10.66% overvalued, HIGH confidence), and institutional big-fish flows turned sharply negative today (-9.5 mn PKR) while retail chased (+9.46 mn PKR), a classic divergence that flags distribution risk. The combination of a blackout event, earnings erosion, rich valuation, and institutional selling outweighs the commodity tailwind for a 5-day horizon; the macro edge will likely remain locked until post-result clarity emerges.",
+      "key_drivers": [
+        "Brent crude +9.7% in 5d provides direct revenue-per-barrel lift (STRONG TAILWIND per sector macro rulebook)",
+        "RSI=61.4 and price +15.42% vs 200-day MA confirm uptrend in place",
+        "Management pursuing Jhal Magsi (14 MMcf/day commissioned) and compression projects (Q4 2026) show capex and production expansion pipeline",
+        "Production curtailment loss of 3,384 bbl/day oil + 152 MMcf gas daily cited as top operational risk, directly pressuring output"
+      ],
+      "key_risks": [
+        "EARNINGS BLACKOUT: OGDC reports 2026-04-29 (in 0 days, HIGH confidence); expect 5-10% post-result gap regardless of beat/miss",
+        "Earnings EROSION: YoY=-6.97% (down from +67.89%), -74.86pp deceleration masks the production curtailment headwind despite commodity tailwind",
+        "SELL_VALUE signal at -10.66% overvaluation (fair value 284.5 vs 318.45, HIGH confidence) — valuation does not price in erosion risk",
+        "Big-fish institutional flows turned sharply negative today (-9.5 mn PKR mutual fund selling) while retail chased (+9.46 mn), indicating distribution and lack of conviction from smart money",
+        "Forced production curtailment by SNGPL and UPL due to system load constraints remains unresolved; no timeline given for recovery"
+      ],
+      "macro_tailwinds": [
+        "Brent crude +9.7% in 5d — direct revenue lift on every barrel produced (stock-level STRONG TAILWIND +5)",
+        "Copper +9.0% in 21d — industrial-growth read-through supports energy demand",
+        "SBP FX reserves at USD 15.1 bn — reserve rebuild eases circular-debt settlement pressure on cash flow"
+      ],
+      "macro_headwinds": [
+        "CPI YoY 7.3% and SBP policy rate 11.5% (neutral/tightening regime) constrain domestic demand and increase cost of capital",
+        "Geopolitical tilt in news sentiment at -0.24 (Iran war peace talks stalled, UAE exit from OPEC) creates commodity volatility and policy uncertainty"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 5,
+          "tailwinds": [
+            "+3 | Brent crude: +9.7% in 5d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | Copper: +9.0% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "OGDC",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 5,
+          "stock_score": 5,
+          "tailwinds": [
+            "+3 | Brent crude: +9.7% in 5d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | Copper: +9.0% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 318.45,
+        "ret_5d": -0.0177,
+        "ret_21d": 0.2085,
+        "ret_63d": -0.0275,
+        "mom_20d_log": 0.1627,
+        "mom_60d_log": -0.0105,
+        "mom_150d_log": 0.1185,
+        "mom_250d_log": 0.4632,
+        "rvol_20d_ann": 0.4383,
+        "rvol_regime": "stable",
+        "rsi_14": 61.4,
+        "px_vs_sma200_pct": 15.42,
+        "trend": "up",
+        "momentum_rank_today": 5,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 3,
+        "news_headlines": [
+          "Stocks swing, oil edges up with Iran war peace talks stalled",
+          "IMF okays 60% cut in gas levy",
+          "UAE leaves OPEC and OPEC+ in huge blow to global oil producers' group"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"LOW\",\n  \"expected_return_5d_low_pct\": -4.5,\n  \"expected_return_5d_mid_pct\": -1.2,\n  \"expected_return_5d_high_pct\": 2.8,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 290.0,\n  \"suggested_target_pkr\": 328.0,\n  \"rationale\": \"OGDC is rated NEUTRAL over the next 5 days due to an imminent earnings blackout (reporting expected 2026-04-29) that makes near-term predictions unreliable; post-result gaps of 5-10% are typical and will destroy any directional call made today. While the macro backdrop is strongly supportive—Brent crude surged +9.7% in 5 days, delivering a STRONG TAILWIND (+5 sector score) that should lift E&P revenue per barrel—earnings momentum is ERODING sharply (YoY=-6.97%, down from +67.89% prior, -74.86pp acceleration), signaling that production curtailment headwinds (forced loss of 3,384 bbl/day oil + 152 MMcf gas daily) are offsetting commodity tailwinds on the bottom line. Technicals show OGDC in an uptrend (price +15.42% vs 200-day MA, RSI=61.4), but the stock is trading at SELL_VALUE (fair value 284.5 vs market 318.45, -10.66% overvalued, HIGH confidence), and institutional big-fish flows turned sharply negative today (-9.5 mn PKR) while retail chased (+9.46 mn PKR), a classic divergence that flags distribution risk. The combination of a blackout event, earnings erosion, rich valuation, and institutional selling outweighs the commodity tailwind for a 5-day horizon; the macro edge will likely remain locke"
+    },
+    {
+      "prediction_id": "2026-04-29-PABC",
+      "generated_at": "2026-04-29T07:35:32+00:00",
+      "symbol": "PABC",
+      "sector": "Misc",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 104.42,
+      "direction": "BEARISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -8.5,
+      "expected_return_5d_mid_pct": -4.2,
+      "expected_return_5d_high_pct": -0.5,
+      "suggested_action": "AVOID",
+      "suggested_stop_pkr": 111.7,
+      "suggested_target_pkr": 95.0,
+      "rationale": "PABC is bearish over the next 5 days due to a sharp earnings erosion (-14.56% YoY, accelerating -36.14pp) that contradicts the long-term quality story, combined with a SELL_VALUE signal at -13.2% downside from fair value of 90.63 PKR. Technically, the stock is down 7.5% over 5 days with RSI at 55.9 in a 'mixed' trend, sitting 19.9% below the 200-day MA, signalling loss of medium-term momentum despite a 20-day log momentum of +18.1%. Macro drivers are neutral (Brent headwind for energy-intensive aluminium offset by FX reserve tailwind), but institutional flows are negative at -9.5 mn PKR (mutual fund selling), confirming loss of big-fish conviction. Management's FY25 outlook, filed 2 weeks ago, explicitly flags Afghanistan border closure risk and geopolitical uncertainty, directly undermining the stated capex/expansion plan for a manufacturing footprint in that region. The earnings deceleration from +21.6% YoY growth to -14.6%, combined with valuation overshoot and institutional liquidation, creates a 5-day headwind that outweighs the stock's historically high quality (98.5/100) and long-term appeal.",
+      "key_drivers": [
+        "Earnings momentum erosion: -14.56% YoY (prior +21.58%), accelerating at -36.14pp, breaking multi-year 24.5% CAGR uptrend",
+        "SELL_VALUE signal at -13.2% downside; fair value 90.63 PKR vs 104.42 current, MED confidence",
+        "5-day price fall of -7.52% with RSI 55.9 in 'mixed' trend; price 19.9% below 200-day MA indicates momentum exhaustion",
+        "Big-fish institutional net selling: -9.5 mn PKR today (mutual funds -10.2 mn), signalling conviction loss",
+        "Management capex/expansion plan for Afghanistan undermined by stated border closure risk and ongoing military operations"
+      ],
+      "key_risks": [
+        "High quality score (98.5/100) and strong historical ROE (23.76%) may attract value buyers if earnings stabilise, reversing the SELL_VALUE signal",
+        "21-day momentum (+19.61%) is positive; a short-covering bounce off the 200-day MA (130.36 PKR) could trap bearish positions",
+        "Brent crude +9.68% in 5 days is a macro headwind for energy-intensive aluminium production, but stabilisation in oil prices could ease margin pressure",
+        "Low payout ratio (0%) and D/E of 0.5 suggest balance-sheet strength; dividend reinstatement or buyback could trigger relief rally"
+      ],
+      "macro_tailwinds": [
+        "FX reserves at USD 15.1 bn support import normalisation and supply-chain relief for aluminium feedstock"
+      ],
+      "macro_headwinds": [
+        "Brent crude up 9.7% in 5 days; energy-intensive aluminium manufacturing faces higher power and freight costs"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Misc",
+          "score": 0,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 15.1 bn — Imports normalise — supply-chain relief."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: +9.7% in 5d — Energy-intensive aluminium manufacturing pays more for power and freight."
+          ],
+          "verdict": "NEUTRAL"
+        },
+        "by_symbol": {
+          "symbol": "PABC",
+          "sector": "Misc",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 15.1 bn — Imports normalise — supply-chain relief."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: +9.7% in 5d — Energy-intensive aluminium manufacturing pays more for power and freight."
+          ],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 104.42,
+        "ret_5d": -0.0752,
+        "ret_21d": 0.1961,
+        "ret_63d": -0.1532,
+        "mom_20d_log": 0.1812,
+        "mom_60d_log": -0.1439,
+        "mom_150d_log": -0.3775,
+        "mom_250d_log": -0.0082,
+        "rvol_20d_ann": 0.6222,
+        "rvol_regime": "stable",
+        "rsi_14": 55.9,
+        "px_vs_sma200_pct": -19.9,
+        "trend": "mixed",
+        "momentum_rank_today": 16,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "FIA to convert Karachi Cotton Exchange building into city headquarters",
+          "UBS beats profit expectations on market volatility",
+          "Mercedes-Benz profit slides amid cutthroat Chinese market",
+          "Karachi BRT Red Line section handed over to FWO after contractor removal",
+          "World Bank forecasts 24% jump in energy prices, 16% rise in commodities in 2026 amid Middle East war"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"BEARISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -8.5,\n  \"expected_return_5d_mid_pct\": -4.2,\n  \"expected_return_5d_high_pct\": -0.5,\n  \"suggested_action\": \"AVOID\",\n  \"suggested_stop_pkr\": 111.7,\n  \"suggested_target_pkr\": 95.0,\n  \"rationale\": \"PABC is bearish over the next 5 days due to a sharp earnings erosion (-14.56% YoY, accelerating -36.14pp) that contradicts the long-term quality story, combined with a SELL_VALUE signal at -13.2% downside from fair value of 90.63 PKR. Technically, the stock is down 7.5% over 5 days with RSI at 55.9 in a 'mixed' trend, sitting 19.9% below the 200-day MA, signalling loss of medium-term momentum despite a 20-day log momentum of +18.1%. Macro drivers are neutral (Brent headwind for energy-intensive aluminium offset by FX reserve tailwind), but institutional flows are negative at -9.5 mn PKR (mutual fund selling), confirming loss of big-fish conviction. Management's FY25 outlook, filed 2 weeks ago, explicitly flags Afghanistan border closure risk and geopolitical uncertainty, directly undermining the stated capex/expansion plan for a manufacturing footprint in that region. The earnings deceleration from +21.6% YoY growth to -14.6%, combined with valuation overshoot and institutional liquidation, creates a 5-day headwind that outweighs the stock's historically high quality (98.5/100) and long-term appeal.\",\n  \"key_drivers\": [\n    \"Earnings momentum erosion: -14.56% YoY (prior +21.58%), accelerating a"
+    },
+    {
+      "prediction_id": "2026-04-29-POL",
+      "generated_at": "2026-04-29T07:36:59+00:00",
+      "symbol": "POL",
+      "sector": "Oil & Gas E&P",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 669.0,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -3.5,
+      "expected_return_5d_mid_pct": 1.2,
+      "expected_return_5d_high_pct": 5.5,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 602.0,
+      "suggested_target_pkr": 715.0,
+      "rationale": "POL is NEUTRAL over 5 days despite a strong macro tailwind (Brent +9.7% in 5d, 50.5% in 63d) because earnings momentum is decelerating sharply (YoY growth fallen from 39.3% to 0.9%), and the stock is richly valued (P/B +130% vs sector median, fair value 36% below current price). Technically, the stock is in a mixed trend (RSI 52.9, price only 4.2% above 200d SMA, volatility falling but still elevated at 21% annualized), with today's big-fish institutional selling (-9.5 mn PKR) contradicting the 1d rally (+1.39%). The sector macro tailwind is genuine and supported by strong commodity momentum (Brent and copper rallies), but the company's production headwinds (gas curtailment, natural decline per the Director's Report) and earnings erosion offset this momentum advantage. A 5-day HOLD is justified because the expected return of ~1.2% mid-point barely covers transaction costs (0.56%) and leaves minimal edge; the upside target of 715 PKR sits at the recent high (739 was 52w peak, current 669), suggesting limited near-term appreciation. The SELL_VALUE signal (HIGH confidence, -36.8% downside) and decelerating earnings momentum are slow signals but anchor a longer-term bearish undertone that damps short-term conviction.",
+      "key_drivers": [
+        "Brent crude +9.7% in 5d and +50.5% in 63d — direct revenue lift on every barrel produced, sector STRONG TAILWIND (+5)",
+        "Price up 1.39% 1d and 2.47% 5d on positive momentum, but RSI 52.9 (neutral zone) and mixed trend suggest limited follow-through",
+        "Dividend yield 11.74% is attractive, but payout ratio 58.5% is sustainable; earnings growth has collapsed to 0.89% YoY (from 39.3% prior year)",
+        "Quality score 99.6/100 is excellent, but high valuation (P/B +130% vs sector, fair value -36.8%) leaves no safety margin"
+      ],
+      "key_risks": [
+        "Earnings momentum is DECELERATING (YoY fell from 39.3% to 0.9%; accel = -38.4pp) — post-earnings drift and consensus downgrades likely in coming 2-4 weeks",
+        "SELL_VALUE signal with HIGH confidence (fair value 422.88 vs 669 current) — valuation is a major drag on 6-24 month returns; may compress near-term if sentiment shifts",
+        "Management flagged gas curtailment (enhanced pipeline pressures) and natural production decline as headwinds — top-line growth at risk even with oil prices rising",
+        "Big-fish institutional net selling today (-9.5 mn PKR) despite stock up 1.4% — indicates smart money is trimming into strength, not accumulating",
+        "Oil & Gas E&P sector volume only 0.4× 20d average today — low conviction, thin liquidity favors mean reversion after a 5d rally"
+      ],
+      "macro_tailwinds": [
+        "Brent crude +9.7% in 5d and +50.5% in 63d — direct revenue lift; sector score +3 alone from this driver",
+        "Copper +9.0% in 21d — industrial-growth read-through supports energy demand",
+        "SBP FX reserves at USD 15.1 bn — eases circular-debt settlement pressure, cash flow lift for energy sector"
+      ],
+      "macro_headwinds": [
+        "SBP policy rate at 11.5% (neutral/tightening regime) with 7.3% CPI YoY — real rates are tight, weighs on growth and CapEx appetite for expansion projects",
+        "Geopolitical sentiment -0.27 (UAE exit from OPEC+ is deflationary shock to oil cartel) — may limit further crude price upside"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 5,
+          "tailwinds": [
+            "+3 | Brent crude: +9.7% in 5d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | Copper: +9.0% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "POL",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 5,
+          "stock_score": 5,
+          "tailwinds": [
+            "+3 | Brent crude: +9.7% in 5d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | Copper: +9.0% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 669.0,
+        "ret_5d": 0.0247,
+        "ret_21d": 0.0789,
+        "ret_63d": 0.0124,
+        "mom_20d_log": 0.0754,
+        "mom_60d_log": 0.0223,
+        "mom_150d_log": -0.032,
+        "mom_250d_log": 0.281,
+        "rvol_20d_ann": 0.205,
+        "rvol_regime": "falling",
+        "rsi_14": 52.9,
+        "px_vs_sma200_pct": 4.19,
+        "trend": "mixed",
+        "momentum_rank_today": 10,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 3,
+        "news_headlines": [
+          "Stocks swing, oil edges up with Iran war peace talks stalled",
+          "IMF okays 60% cut in gas levy",
+          "UAE leaves OPEC and OPEC+ in huge blow to global oil producers' group"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 1.2,\n  \"expected_return_5d_high_pct\": 5.5,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 602.0,\n  \"suggested_target_pkr\": 715.0,\n  \"rationale\": \"POL is NEUTRAL over 5 days despite a strong macro tailwind (Brent +9.7% in 5d, +50.5% in 63d) because earnings momentum is decelerating sharply (YoY growth fallen from 39.3% to 0.9%), and the stock is richly valued (P/B +130% vs sector median, fair value 36% below current price). Technically, the stock is in a mixed trend (RSI 52.9, price only 4.2% above 200d SMA, volatility falling but still elevated at 21% annualized), with today's big-fish institutional selling (-9.5 mn PKR) contradicting the 1d rally (+1.39%). The sector macro tailwind is genuine and supported by strong commodity momentum (Brent and copper rallies), but the company's production headwinds (gas curtailment, natural decline per the Director's Report) and earnings erosion offset this momentum advantage. A 5-day HOLD is justified because the expected return of ~1.2% mid-point barely covers transaction costs (0.56%) and leaves minimal edge; the upside target of 715 PKR sits at the recent high (739 was 52w peak, current 669), suggesting limited near-term appreciation. The SELL_VALUE signal (HIGH confidence, -36.8% downside) and decelerating earnings momentum are slow signals but anchor a longer-term bearish undertone that damps shor"
+    },
+    {
+      "prediction_id": "2026-04-29-PPL",
+      "generated_at": "2026-04-29T07:36:29+00:00",
+      "symbol": "PPL",
+      "sector": "Oil & Gas E&P",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 225.47,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -3.5,
+      "expected_return_5d_mid_pct": 2.8,
+      "expected_return_5d_high_pct": 8.2,
+      "suggested_action": "ADD",
+      "suggested_stop_pkr": 206.0,
+      "suggested_target_pkr": 242.0,
+      "rationale": "PPL is BULLISH over the next 5 days, driven by a powerful sector tailwind (Brent crude +9.7% in 5d) that directly lifts Oil & Gas E&P revenue and cash generation at a time when SBP FX reserves are stabilizing. Technicals show the stock trading above its 50-day and 200-day moving averages (7.76% above sma200) with an uptrend intact despite a 1-day pullback; RSI at 48.1 is neutral and not overbought, and the 21-day momentum of +14.64% confirms positive momentum. Fundamentally, PPL trades at fair value (1.68% upside to 229.25 PKR fair value) with a HIGH quality score of 90.4 — strong ROE of 18.02%, zero leverage, and a sustainable payout ratio of 17.7% — making it a 'cheap quality' story in the Oil & Gas sector. The macro backdrop is highly supportive: Brent is up 9.7% in 5 days and 50.47% in 63 days, and the MACRO IMPACT analysis assigns a STRONG TAILWIND score of +5 to the Oil & Gas E&P sector, with Brent as the dominant driver providing direct revenue lift on every barrel produced. The key downside risk is that institutional investors (big fish) sold -9.5 mn PKR today even as retail chased, and earnings momentum is DECELERATING (YoY growth dropped from 78.83% to 18.78%, a -60pp swing), which may cap the rally if the market reprices growth expectations lower. If oil reverses sharply (Brent falls below 94 USD/bbl) or circular-debt headlines re-escalate liquidity stress, the trade flips to HOLD.",
+      "key_drivers": [
+        "Brent crude +9.7% in 5 days and +50.47% in 63 days — direct tailwind to Oil & Gas E&P revenue per MACRO IMPACT sector verdict (score +5)",
+        "Stock trading above sma50 and sma200 with 7.76% premium to 200-day; 21-day momentum +14.64% confirms uptrend remains intact",
+        "HIGH quality score of 90.4 (ROE 18.02%, D/E 0.0, sustainable payout 17.7%) + FAIR valuation (1.68% upside to 229.25 PKR) = low-risk quality entry",
+        "SBP FX reserves at USD 15.1 bn supporting circular-debt easing and cash flow stability per management commentary",
+        "In Phase-1 top-5 momentum names today and rank 6/15 in 15-stock universe despite overnight down-market"
+      ],
+      "key_risks": [
+        "Earnings momentum DECELERATING sharply (YoY collapsed from 78.83% to 18.78%, -60pp swing) — growth repricing risk if Q1 FY26 misses",
+        "Institutional investors (big fish) sold -9.5 mn PKR today (mutual funds -10.2 mn) against the move — weak conviction at higher levels",
+        "Oil & Gas E&P sector volume only 0.4× 20-day average today despite macro tailwind, suggesting momentum may be fading into resistance",
+        "Management outlook includes circular-debt liquidity risk as a top concern; if cash-flow stress re-escalates, dividend sustainability may be questioned",
+        "Macro news sentiment remains BEARISH at -0.12 (geopolitics -0.27, global -0.27) despite commodity rally; UAE exit from OPEC+ creates structural uncertainty for long-term oil trajectory"
+      ],
+      "macro_tailwinds": [
+        "Brent crude +9.7% in 5d — direct revenue lift on every barrel produced (STRONG TAILWIND +3)",
+        "Copper +9.0% in 21d — industrial-growth read-through positive for energy demand (TAILWIND +1)",
+        "SBP FX reserves USD 15.1 bn — circular-debt settlement pressure easing, cash flow lift (TAILWIND +1)"
+      ],
+      "macro_headwinds": [
+        "Macro/policy news sentiment -0.097 (geopolitics -0.24) — UAE exit from OPEC+ and stalled Iran peace talks add structural oil-market uncertainty",
+        "SBP policy rate at 11.5% (neutral/tightening regime) — high borrowing costs drag on CapEx deployment for the exploration wells PPL is spudding in FY26"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 5,
+          "tailwinds": [
+            "+3 | Brent crude: +9.7% in 5d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | Copper: +9.0% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "PPL",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 5,
+          "stock_score": 5,
+          "tailwinds": [
+            "+3 | Brent crude: +9.7% in 5d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | Copper: +9.0% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 15.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 225.47,
+        "ret_5d": -0.0588,
+        "ret_21d": 0.1464,
+        "ret_63d": -0.1645,
+        "mom_20d_log": 0.129,
+        "mom_60d_log": -0.1881,
+        "mom_150d_log": 0.1173,
+        "mom_250d_log": 0.4169,
+        "rvol_20d_ann": 0.5344,
+        "rvol_regime": "stable",
+        "rsi_14": 48.1,
+        "px_vs_sma200_pct": 7.76,
+        "trend": "up",
+        "momentum_rank_today": 6,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 4,
+        "news_headlines": [
+          "Shanghai nickel hits three-month high on supply worries",
+          "Stocks swing, oil edges up with Iran war peace talks stalled",
+          "IMF okays 60% cut in gas levy",
+          "UAE leaves OPEC and OPEC+ in huge blow to global oil producers' group"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 2.8,\n  \"expected_return_5d_high_pct\": 8.2,\n  \"suggested_action\": \"ADD\",\n  \"suggested_stop_pkr\": 206.0,\n  \"suggested_target_pkr\": 242.0,\n  \"rationale\": \"PPL is BULLISH over the next 5 days, driven by a powerful sector tailwind (Brent crude +9.7% in 5d) that directly lifts Oil & Gas E&P revenue and cash generation at a time when SBP FX reserves are stabilizing. Technicals show the stock trading above its 50-day and 200-day moving averages (7.76% above sma200) with an uptrend intact despite a 1-day pullback; RSI at 48.1 is neutral and not overbought, and the 21-day momentum of +14.64% confirms positive momentum. Fundamentally, PPL trades at fair value (1.68% upside to 229.25 PKR fair value) with a HIGH quality score of 90.4 — strong ROE of 18.02%, zero leverage, and a sustainable payout ratio of 17.7% — making it a 'cheap quality' story in the Oil & Gas sector. The macro backdrop is highly supportive: Brent is up 9.7% in 5 days and 50.47% in 63 days, and the MACRO IMPACT analysis assigns a STRONG TAILWIND score of +5 to the Oil & Gas E&P sector, with Brent as the dominant driver providing direct revenue lift on every barrel produced. The key downside risk is that institutional investors (big fish) sold -9.5 mn PKR today even as retail chased, and earnings momentum is DECELERATING (YoY growth dropped from 78.83% to 18.78%, a -60pp swing), which may c"
+    },
+    {
+      "prediction_id": "2026-04-29-PSO",
+      "generated_at": "2026-04-29T07:38:57+00:00",
+      "symbol": "PSO",
+      "sector": "OMC/Refining",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 383.25,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -3.5,
+      "expected_return_5d_mid_pct": 1.2,
+      "expected_return_5d_high_pct": 5.8,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 345.0,
+      "suggested_target_pkr": 410.0,
+      "rationale": "PSO is trading NEUTRAL over the next 5 days despite a medium-term BUY_VALUE signal (46% upside to 560 PKR), because short-term technicals and flows are mixed while macro tailwinds are modest. The stock is down 1.05% today on a flat overnight gap, with RSI 58.3 and price 10% below the 200-day MA, showing neither oversold dislocation nor momentum confirmation. Fundamentally, PSO's P/E is 31% rich vs. sector median (9.76 vs 7.46), and quality is LOW (42.7/100), making the value signal a potential trap—recovery in earnings YoY is strong (+96.68%) but the company has a 3-year CAGR of -14.58% and high leverage (D/E 1.82), flagging durability risk. Macro is a minor tailwind: Brent +9.7% in 5d supports refining margin upside (+1 sector driver, 1 stock driver = +2 sector verdict), and the IMF gas levy cut (Apr 28) eases input costs, but this is offset by SBP's 11.5% policy rate pinching borrowing costs and the institutional selling signal (Big Fish -9.5 mn PKR today vs. retail chase of +9.46 mn). Management outlook is constructively positioned (White Oil Pipeline capex, retail expansion, 0.60 tone), but circular debt (PKR 288 bn from SNGPL) remains a material drag. The expected return mid of +1.2% barely covers transaction costs (0.56%) and CGT (15%), so HOLD is appropriate; a close above 395 PKR or fresh bullish sentiment would warrant an ADD, but current overnight momentum and institutional selling do not justify entry risk.",
+      "key_drivers": [
+        "Brent crude +9.7% in 5d lifts refining margins and inventory revaluation (macro tailwind +1 stock driver)",
+        "Earnings momentum RECOVERING (+96.68% YoY) from depressed prior (-89.79%) signals post-cycle trough (earnings momentum signal)",
+        "Management outlook tone +0.60 with White Oil Pipeline Project capex and retail network expansion approved (management guidance MEDIUM)",
+        "Price 10% below 200-day MA (426.35 PKR) suggests downtrend loss of momentum but no capitulation (technical support level)"
+      ],
+      "key_risks": [
+        "Quality score 42.7/100 (LOW) combined with BUY_VALUE signal flags value-trap risk—3-year EPS CAGR -14.58% and high D/E 1.82 suggest earnings durability is weak",
+        "Big Fish institutional selling (-9.5 mn PKR) today contradicts retail chase (+9.46 mn)—smart money is exiting while retail chases, classic distribution signal",
+        "P/E 31% rich vs. sector median (9.76 vs 7.46) despite market cap weakness indicates valuation is not yet punished; negative surprise could snap the rebound",
+        "Circular debt PKR 288 bn owed by SNGPL (per management Director's Report) is a persistent liquidity drag if power sector defaults accelerate",
+        "SBP policy rate 11.5% and T-bill 3M 11.44% raise PSO's borrowing cost; if rate hikes continue, leverage headwind worsens"
+      ],
+      "macro_tailwinds": [
+        "Brent crude +9.7% in 5d supports inventory revaluation gains and refining margin widening (sector verdict TAILWIND +1)",
+        "SBP FX reserves USD 15.1 bn steady eases L/C confirmation bottlenecks, improving crude import velocity (sector verdict TAILWIND +1)",
+        "IMF gas levy 60% cut (Apr 28) lowers input cost for refining operations (policy relief)"
+      ],
+      "macro_headwinds": [
+        "SBP policy rate 11.5% (neutral/tightening regime) raises hurdle rate and borrowing cost for high-leverage OMC (D/E 1.82); if rates rise further, NIM and margin pressure follow",
+        "CPI 7.3% YoY remains sticky, constraining discretionary spending and fuel demand elasticity in a slowing economy"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "OMC/Refining",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 15.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "PSO",
+          "sector": "OMC/Refining",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +9.7% in 5d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 15.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 383.25,
+        "ret_5d": -0.0089,
+        "ret_21d": 0.1637,
+        "ret_63d": -0.2074,
+        "mom_20d_log": 0.1536,
+        "mom_60d_log": -0.1991,
+        "mom_150d_log": -0.1714,
+        "mom_250d_log": 0.1095,
+        "rvol_20d_ann": 0.4922,
+        "rvol_regime": "stable",
+        "rsi_14": 58.3,
+        "px_vs_sma200_pct": -10.11,
+        "trend": "down",
+        "momentum_rank_today": 11,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "IMF okays 60% cut in gas levy"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 1.2,\n  \"expected_return_5d_high_pct\": 5.8,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 345.0,\n  \"suggested_target_pkr\": 410.0,\n  \"rationale\": \"PSO is trading NEUTRAL over the next 5 days despite a medium-term BUY_VALUE signal (46% upside to 560 PKR), because short-term technicals and flows are mixed while macro tailwinds are modest. The stock is down 1.05% today on a flat overnight gap, with RSI 58.3 and price 10% below the 200-day MA, showing neither oversold dislocation nor momentum confirmation. Fundamentally, PSO's P/E is 31% rich vs. sector median (9.76 vs 7.46), and quality is LOW (42.7/100), making the value signal a potential trap—recovery in earnings YoY is strong (+96.68%) but the company has a 3-year CAGR of -14.58% and high leverage (D/E 1.82), flagging durability risk. Macro is a minor tailwind: Brent +9.7% in 5d supports refining margin upside (+1 sector driver, +1 stock driver = +2 sector verdict), and the IMF gas levy cut (Apr 28) eases input costs, but this is offset by SBP's 11.5% policy rate pinching borrowing costs and the institutional selling signal (Big Fish -9.5 mn PKR today vs. retail chase of +9.46 mn). Management outlook is constructively positioned (White Oil Pipeline capex, retail expansion, +0.60 tone), but circular debt (PKR 288 bn from SNGPL) remains a material drag. The expected return mid of +1.2% barel"
+    },
+    {
+      "prediction_id": "2026-04-29-SEARL",
+      "generated_at": "2026-04-29T07:38:15+00:00",
+      "symbol": "SEARL",
+      "sector": "Pharma",
+      "model": "claude-haiku-4-5",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 91.16,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.2,
+      "expected_return_5d_mid_pct": -1.8,
+      "expected_return_5d_high_pct": 2.1,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 82.0,
+      "suggested_target_pkr": 95.5,
+      "rationale": "SEARL is called NEUTRAL because the stock faces conflicting signals: strong 21d momentum (+14.54%) clashes with a severe 63d drawdown (-26.28%), weak institutional flows, and deeply depressed 5d/1d momentum (-4.16% / -1.69%). Momentum indicators are exhausted — the 20d log momentum is +11.77% but RSI sits at 48.8 (mid-range, not overbought), and the stock ranks 14th of 15 in a 15-stock universe, signalling it has lagged peers decisively over the past week. The intrinsic value layer presents a severe negative signal: fair value is calculated at 12.21 PKR vs current 91.16 PKR (SELL_VALUE, -86.61% downside), though confidence is LOW because the Pharma sector sample is n=1 and the valuation method relies on a 3y-average EPS that may be distorted by the recent earnings recovery (+500% YoY). Macro is a net tailwind for Pharma (+1: FX reserves stabilise API imports, cooling CPI eases DRAP headwind), but this is a slow, sector-wide signal and does not overcome the stock's 5-day weakness and institutional selling (-9.5 mn PKR big-fish net today). The management outlook is constructively bullish (+0.65 tone, flagging expansion and market-presence gains), but this is a 60-day-old report and does not yet justify a tactical entry against the price trend. The key risk is that the valuation discount may be justified if the earnings recovery is cyclical rather than structural; fundamentally, quality is LOW (40.3/100) and ROE is depressed (3.11%), making this a potential value trap. A 5-day hold is prudent pending clearer momentum recovery or a breach above the 21d MA at 91.3 PKR with follow-through institutional demand.",
+      "key_drivers": [
+        "21d momentum +14.54% shows recovery from 63d trough, but 5d/-4.16% reversal signals near-term fatigue",
+        "RSI14 at 48.8 (mid-zone) and rank 14/15 in 15-stock universe confirm weak relative strength vs peers this week",
+        "Macro tailwind for Pharma (+1 score) from FX reserves stabilisation and cooling CPI easing DRAP price-cap overhang",
+        "Management guidance remains constructively bullish on expansion (Feb 2026 report), supporting longer-term narrative",
+        "Earnings momentum RECOVERING: YoY +500% vs prior -105.75%, suggesting bottoming but 3y CAGR still -34.95% (quality trap risk)"
+      ],
+      "key_risks": [
+        "Intrinsic value SELL_VALUE signal: fair value 12.21 PKR vs 91.16 (−86.61%), though LOW confidence due to n=1 sector sample and EPS distortion from cyclical recovery",
+        "Big-fish institutional selling −9.5 mn PKR today (mutual funds −10.2 mn) contradicts bullish momentum; retail chasing into weakness",
+        "Quality score 40.3/100 (LOW) with ROE 3.11% suggests earnings recovery may be cyclical, not structural; value trap risk if normalized ROE reverts",
+        "Negative 5d/1d momentum (−4.16% / −1.69%) and last-in-peer ranking (14/15) show the 21d recovery is exhausting without fresh catalyst",
+        "SBP rate at 11.5% (neutral/tightening regime) and geopolitical headwind (−0.27 news tilt) limit near-term re-rating appetite despite macro tailwind"
+      ],
+      "macro_tailwinds": [
+        "FX reserves at USD 15.1 bn normalise API import flows and stabilise pharma gross margins (+1 sector impact)",
+        "CPI YoY 7.3% — cooling inflation eases case for further DRAP MRP cuts, removing forward overhang (+1 sector impact)"
+      ],
+      "macro_headwinds": [
+        "Brent crude +9.7% in 5d drives packaging and freight cost inflation; DRAP price caps limit pass-through margin expansion (−1 sector impact)",
+        "SBP policy rate 11.5% remains in tightening/neutral zone; geopolitical tension (−0.27 macro news tilt) dampens equity sentiment"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+9.7% in 5d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 99.13 USD/bbl."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+9.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "Cotton",
+            "tag": "cotton_up",
+            "move": "+12.9% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 15.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          },
+          {
+            "name": "CPI YoY",
+            "tag": "cpi_easing",
+            "move": "7.3% YoY",
+            "magnitude": "MODERATE",
+            "context": "Inflation cooling — opens room for SBP rate cuts that benefit leveraged sectors."
+          }
+        ],
+        "by_sector": {
+          "sector": "Pharma",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 15.1 bn — API import flow normalises — gross margins stabilise.",
+            "+1 | CPI YoY: 7.3% YoY — Cooling CPI eases the case for further DRAP MRP cuts and removes a forward overhang."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: +9.7% in 5d — Packaging and freight costs rise; DRAP price caps limit pass-through."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "SEARL",
+          "sector": "Pharma",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 15.1 bn — API import flow normalises — gross margins stabilise.",
+            "+1 | CPI YoY: 7.3% YoY — Cooling CPI eases the case for further DRAP MRP cuts and removes a forward overhang."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: +9.7% in 5d — Packaging and freight costs rise; DRAP price caps limit pass-through."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.438,
+          "kibor_3m_pct": 11.665,
+          "reserves_total_usd_mn": 20628.5,
+          "reserves_sbp_usd_mn": 15079.6,
+          "kse100_close": 167476.97,
+          "cpi_yoy_pct": 7.3,
+          "cpi_period": "March"
+        }
+      },
+      "data_snapshot": {
+        "as_of_price_date": "2026-04-28",
+        "close_pkr": 91.16,
+        "ret_5d": -0.0416,
+        "ret_21d": 0.1454,
+        "ret_63d": -0.2628,
+        "mom_20d_log": 0.1177,
+        "mom_60d_log": -0.2648,
+        "mom_150d_log": -0.2475,
+        "mom_250d_log": 0.1063,
+        "rvol_20d_ann": 0.6123,
+        "rvol_regime": "stable",
+        "rsi_14": 48.8,
+        "px_vs_sma200_pct": -14.11,
+        "trend": "mixed",
+        "momentum_rank_today": 14,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": -0.07,
+        "fipi_local_net_pkr_mn": 0.07,
+        "policy_rate_pct": 11.5,
+        "brent_value": 99.13,
+        "brent_ret_21d": -0.0302,
+        "usdpkr_value": 278.59,
+        "usdpkr_ret_21d": 0.0042,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "FIA to convert Karachi Cotton Exchange building into city headquarters",
+          "UBS beats profit expectations on market volatility",
+          "Mercedes-Benz profit slides amid cutthroat Chinese market",
+          "Karachi BRT Red Line section handed over to FWO after contractor removal",
+          "World Bank forecasts 24% jump in energy prices, 16% rise in commodities in 2026 amid Middle East war"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      },
+      "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"LOW\",\n  \"expected_return_5d_low_pct\": -5.2,\n  \"expected_return_5d_mid_pct\": -1.8,\n  \"expected_return_5d_high_pct\": 2.1,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 82.0,\n  \"suggested_target_pkr\": 95.5,\n  \"rationale\": \"SEARL is called NEUTRAL because the stock faces conflicting signals: strong 21d momentum (+14.54%) clashes with a severe 63d drawdown (-26.28%), weak institutional flows, and deeply depressed 5d/1d momentum (-4.16% / -1.69%). Momentum indicators are exhausted — the 20d log momentum is +11.77% but RSI sits at 48.8 (mid-range, not overbought), and the stock ranks 14th of 15 in a 15-stock universe, signalling it has lagged peers decisively over the past week. The intrinsic value layer presents a severe negative signal: fair value is calculated at 12.21 PKR vs current 91.16 PKR (SELL_VALUE, -86.61% downside), though confidence is LOW because the Pharma sector sample is n=1 and the valuation method relies on a 3y-average EPS that may be distorted by the recent earnings recovery (+500% YoY). Macro is a net tailwind for Pharma (+1: FX reserves stabilise API imports, cooling CPI eases DRAP headwind), but this is a slow, sector-wide signal and does not overcome the stock's 5-day weakness and institutional selling (-9.5 mn PKR big-fish net today). The management outlook is constructively bullish (+0.65 tone, flagging expansion and market-presence gains), but this is a 60-day-old report and does not yet justify"
     }
   ]
 }
