@@ -1,0 +1,19 @@
+{
+  "workflow": "financial_results",
+  "ok": true,
+  "note": "new=15 total=73 errors=1",
+  "as_of": "2026-04-29T20:17:27+00:00",
+  "github": {
+    "run_id": "25131475744",
+    "run_number": "2",
+    "ref": "refs/heads/main",
+    "sha": "ff6a33e0597723b9272d3d320d570eac8021eb8c"
+  },
+  "payload": {
+    "new": 15,
+    "total": 73,
+    "errors": [
+      "OGDC/270842-1: download: HTTPError: 404 Client Error: Not Found for url: https://dps.psx.com.pk/download/document/270842-1.pdf"
+    ]
+  }
+}
