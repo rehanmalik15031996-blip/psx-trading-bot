@@ -1,0 +1,26 @@
+{
+  "workflow": "overnight",
+  "ok": true,
+  "note": "521 rows, last 2026-04-29",
+  "as_of": "2026-04-29T20:12:07+00:00",
+  "github": {
+    "run_id": "25131368141",
+    "run_number": "8",
+    "ref": "refs/heads/main",
+    "sha": "25beb988b6f36f499050050029b541a905fb6102"
+  },
+  "payload": {
+    "rows": 521,
+    "last_date": "2026-04-29",
+    "tickers": [
+      "sp500",
+      "vix",
+      "nikkei",
+      "hangseng",
+      "ftse",
+      "dxy",
+      "fm_etf",
+      "eem"
+    ]
+  }
+}
