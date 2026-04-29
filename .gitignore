@@ -37,6 +37,9 @@ Thumbs.db
 # Streamlit cache / runtime
 .streamlit/secrets.toml
 .streamlit/cache/
+# Allow the secrets template (which has only placeholder values) to
+# be committed — overrides the broader ``*secret*`` rule above.
+!.streamlit/secrets.toml.example
 
 # Jupyter
 .ipynb_checkpoints/
