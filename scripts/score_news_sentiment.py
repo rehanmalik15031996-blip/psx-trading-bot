@@ -242,6 +242,12 @@ def main():
                         help="ignore cache, re-score every article")
     parser.add_argument("--limit", type=int, default=None,
                         help="cap total articles scored this run")
+    parser.add_argument("--skip-health", action="store_true",
+                        help="Do not call _health.write_status. Set when "
+                             "this script runs as a sub-step inside "
+                             "another workflow (e.g. intraday_session) "
+                             "so two workflows don't fight over "
+                             "data/_health/news_scoring.json.")
     args = parser.parse_args()
 
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -347,22 +353,23 @@ def main():
         print(f"    {r['sentiment']:+.2f} {r['confidence']:>4s} "
               f"{r['category']:<10s}{tickers} | {r['title'][:80]}")
 
-    try:
-        from scripts._health import write_status
-        write_status(
-            workflow="news_scoring",
-            ok=True,
-            note=(f"scored {len(new_df)} new of {len(articles)} fetched"),
-            payload={
-                "scored":  int(len(new_df)),
-                "fetched": int(len(articles)),
-                "by_category": {k: int(v)
-                                  for k, v in (cat_counts or {}).items()},
-            },
-        )
-    except Exception as e:
-        print(f"  WARN: _health.write_status failed: "
-              f"{type(e).__name__}: {e}")
+    if not args.skip_health:
+        try:
+            from scripts._health import write_status
+            write_status(
+                workflow="news_scoring",
+                ok=True,
+                note=(f"scored {len(new_df)} new of {len(articles)} fetched"),
+                payload={
+                    "scored":  int(len(new_df)),
+                    "fetched": int(len(articles)),
+                    "by_category": {k: int(v)
+                                      for k, v in (cat_counts or {}).items()},
+                },
+            )
+        except Exception as e:
+            print(f"  WARN: _health.write_status failed: "
+                  f"{type(e).__name__}: {e}")
 
     return 0
 

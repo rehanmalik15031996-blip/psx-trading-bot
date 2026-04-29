@@ -64,7 +64,9 @@ jobs:
                   data/macro/copper.parquet \
                   data/macro/cotton.parquet \
                   data/macro/btc.parquet \
-                  data/macro/usdpkr.parquet
+                  data/macro/usdpkr.parquet \
+                  data/_health/macro_series.json \
+                  data/_health/_history_macro_series.parquet 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes (already up to date for today)."
             exit 0

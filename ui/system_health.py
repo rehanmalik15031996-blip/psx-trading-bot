@@ -27,7 +27,6 @@ import streamlit as st
 
 ROOT = Path(__file__).resolve().parent.parent
 HEALTH_DIR = ROOT / "data" / "_health"
-HISTORY_PATH = HEALTH_DIR / "_history.parquet"
 
 
 # ----- shared helpers --------------------------------------------------------
@@ -299,21 +298,30 @@ def _render_history_chart() -> None:
     st.subheader("30-day run history")
     st.caption(
         "Daily run counts per workflow over the last 30 days, "
-        "from `data/_health/_history.parquet`. A flat zero line means "
-        "the workflow has not been firing — usually a sign that GitHub "
-        "deactivated the schedule and a `gh workflow enable` is needed."
+        "from `data/_health/_history_<workflow>.parquet` files "
+        "(one per workflow to avoid concurrency conflicts). A flat "
+        "zero line means the workflow has not been firing — usually "
+        "a sign that GitHub deactivated the schedule and a "
+        "`gh workflow enable` is needed."
     )
-    if not HISTORY_PATH.exists():
-        st.info("No history yet — `_history.parquet` will populate "
-                "after the next workflow runs commit health files.")
+    history_files = sorted(HEALTH_DIR.glob("_history_*.parquet"))
+    if not history_files:
+        st.info("No history yet — `_history_<workflow>.parquet` files "
+                "will populate after the next runs commit health files.")
         return
     try:
         import pandas as pd
 
-        df = pd.read_parquet(HISTORY_PATH)
-        if df.empty:
-            st.info("History file is empty.")
+        frames: list[pd.DataFrame] = []
+        for p in history_files:
+            try:
+                frames.append(pd.read_parquet(p))
+            except Exception:
+                continue
+        if not frames:
+            st.info("History files unreadable.")
             return
+        df = pd.concat(frames, ignore_index=True)
         df["ts"] = pd.to_datetime(df["as_of"], utc=True, errors="coerce")
         df = df.dropna(subset=["ts"])
         cutoff = datetime.now(timezone.utc) - timedelta(days=30)

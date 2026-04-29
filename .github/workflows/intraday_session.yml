@@ -66,10 +66,15 @@ jobs:
         # circuit-breaker scrape failure does not abort MarketWatch.
 
       - name: Score fresh headlines (small intraday batch)
-        run: python scripts/score_news_sentiment.py --per-feed 5 --batch 8
+        run: |
+          python scripts/score_news_sentiment.py \
+            --per-feed 5 --batch 8 --skip-health
         # Smaller batch than the morning / midday news_scoring runs.
         # The intent here is "is anything new and high-impact?" — the
         # comprehensive sweep stays at 07:00, 13:00, 18:00 PKT.
+        # --skip-health prevents two concurrent workflows fighting
+        # over data/_health/news_scoring.json (news_scoring.yml owns
+        # that file's freshness signal).
 
       - name: Detect intraday news shocks
         id: shock
@@ -97,7 +102,12 @@ jobs:
                   data/news/scored_news.parquet \
                   data/news/shock_log.json \
                   data/_health/intraday_session.json \
-                  data/_health/news_scoring.json 2>/dev/null || true
+                  data/_health/_history_intraday_session.parquet 2>/dev/null || true
+          # We do NOT add data/_health/news_scoring.json here —
+          # see --skip-health on the score_news_sentiment.py call
+          # above. Leaving news_scoring's freshness signal owned
+          # exclusively by news_scoring.yml prevents concurrent
+          # commits from rebase-conflicting on the same file.
           if git diff --cached --quiet; then
             echo "No changes."
             exit 0

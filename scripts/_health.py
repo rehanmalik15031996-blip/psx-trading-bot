@@ -25,7 +25,17 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 HEALTH_DIR = ROOT / "data" / "_health"
-HISTORY_PATH = HEALTH_DIR / "_history.parquet"
+
+
+def _history_path(workflow: str) -> Path:
+    """Per-workflow history file.
+
+    A single shared ``_history.parquet`` sounds simpler but causes
+    rebase conflicts whenever two workflows run concurrently
+    (which happens often — news_scoring + intraday_session, or any
+    EOD chain). One file per workflow eliminates the race.
+    """
+    return HEALTH_DIR / f"_history_{workflow}.parquet"
 
 VALID_WORKFLOWS: set[str] = {
     "macro_series", "macro_kpis", "overnight", "news_scoring",
@@ -99,7 +109,7 @@ def write_status(
 
 
 def _append_history(body: dict[str, Any]) -> None:
-    """Append a row to the rolling history parquet, capped at 90 days."""
+    """Append a row to the rolling per-workflow history parquet."""
     try:
         import pandas as pd
     except Exception:
@@ -107,6 +117,7 @@ def _append_history(body: dict[str, Any]) -> None:
         # history step. The single-row JSON is still authoritative.
         return
 
+    history_path = _history_path(body["workflow"])
     row = {
         "as_of":    body["as_of"],
         "workflow": body["workflow"],
@@ -115,9 +126,9 @@ def _append_history(body: dict[str, Any]) -> None:
         "run_id":   body.get("github", {}).get("run_id", ""),
     }
     df_new = pd.DataFrame([row])
-    if HISTORY_PATH.exists():
+    if history_path.exists():
         try:
-            df_old = pd.read_parquet(HISTORY_PATH)
+            df_old = pd.read_parquet(history_path)
         except Exception:
             df_old = pd.DataFrame()
     else:
@@ -132,4 +143,4 @@ def _append_history(body: dict[str, Any]) -> None:
         df_all = df_all[df_all["_ts"] >= cutoff].drop(columns=["_ts"])
     except Exception:
         df_all = df_all.tail(2000)
-    df_all.to_parquet(HISTORY_PATH, index=False)
+    df_all.to_parquet(history_path, index=False)

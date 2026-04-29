@@ -75,7 +75,9 @@ jobs:
           git config user.name  "psx-bot"
           git config user.email "psx-bot@users.noreply.github.com"
           git add data/news/scored_news.parquet \
-                  data/news/shock_log.json 2>/dev/null || true
+                  data/news/shock_log.json \
+                  data/_health/news_scoring.json \
+                  data/_health/_history_news_scoring.parquet 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes."
             exit 0

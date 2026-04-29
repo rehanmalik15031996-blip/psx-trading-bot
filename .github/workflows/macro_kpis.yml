@@ -75,7 +75,9 @@ jobs:
           git add data/macro/sbp_rates.parquet \
                   data/macro/kse100.parquet \
                   data/macro/cpi_pakistan.parquet \
-                  data/macro/_policy_rate_history.json
+                  data/macro/_policy_rate_history.json \
+                  data/_health/macro_kpis.json \
+                  data/_health/_history_macro_kpis.parquet 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes (already up to date for today)."
             exit 0

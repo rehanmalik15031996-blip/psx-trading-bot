@@ -49,7 +49,9 @@ jobs:
         run: |
           git config user.name  "psx-bot"
           git config user.email "psx-bot@users.noreply.github.com"
-          git add data/fundamentals/
+          git add data/fundamentals/ \
+                  data/_health/fundamentals.json \
+                  data/_health/_history_fundamentals.parquet 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No fundamentals changes."
             exit 0
