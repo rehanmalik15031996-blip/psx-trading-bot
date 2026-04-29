@@ -123,20 +123,40 @@ def _hydrate_env_from_st_secrets() -> None:
         pass
 
 
+def _resolve_github_token_simple() -> str:
+    """Light-weight token resolver used at module-load time.
+
+    The full :func:`_read_canonical_token` resolver (with all the
+    repo-local file fallbacks) is defined further down the file and
+    is therefore not yet available when ``_init_state()`` runs at
+    import time. This simpler helper covers the two paths that
+    actually matter on Streamlit Cloud — :data:`st.secrets` (already
+    hydrated into ``os.environ`` above) and the standard
+    ``GITHUB_TOKEN`` / ``GH_TOKEN`` env vars — and silently returns
+    ``""`` if neither is set. The richer resolver kicks in later
+    whenever the UI or git-pull button asks for the token again.
+    """
+    for var in ("GITHUB_TOKEN", "GH_TOKEN"):
+        val = os.environ.get(var, "")
+        if val and val.startswith(
+                ("ghp_", "github_pat_", "ghs_", "gho_")):
+            return val.strip()
+    return ""
+
+
 def _init_state():
     _hydrate_env_from_st_secrets()
     ss = st.session_state
     ss.setdefault("chat_history", [])
 
-    # GitHub Models token is auto-resolved (Streamlit secrets / env /
-    # local file) — the user never has to paste it. We resolve once
-    # at startup and store on session state so the providers panel
-    # below can show a live status badge.
-    auto_gh_token = _read_canonical_token() or ""
+    # GitHub Models token is auto-resolved (Streamlit secrets / env
+    # vars). We use the lightweight resolver here because the full
+    # one is defined further down the file. The user never pastes
+    # the token — the providers panel just shows a status badge.
+    auto_gh_token = _resolve_github_token_simple()
     ss.setdefault("github_key", auto_gh_token)
-    # Always refresh, even if the slot already exists, so a token
-    # added to Streamlit Cloud secrets after the first launch is
-    # picked up on the next rerun.
+    # Refresh on every rerun so a token added to Streamlit Cloud
+    # secrets after the first launch is picked up automatically.
     if auto_gh_token and not ss.get("github_key"):
         ss["github_key"] = auto_gh_token
 
