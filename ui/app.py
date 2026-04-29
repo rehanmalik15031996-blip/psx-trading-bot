@@ -3737,8 +3737,13 @@ def render_backtest_tab():
     section_header(
         "Strategy Tester",
         "How would the bot's strategy have performed in the past? "
-        "Run it over real PSX history and see the equity curve.",
+        "Run it over real PSX history and see the equity curve. The "
+        "Phase-1 panel below shows how recent predictions actually "
+        "scored against realized prices.",
         how_to_read=[
+            "**Phase-1 backtest (top)** — accuracy review of the "
+            "bot's last two weeks of predictions vs actual PSX prices, "
+            "across all 35 stocks and every dataset.",
             "**Equity curve** = how PKR 100 invested at the start "
             "would have grown over time.",
             "**CAGR** = annualised return. **Sharpe** = return per "
@@ -3750,6 +3755,17 @@ def render_backtest_tab():
             "Past performance is not a guarantee of future returns.",
         ],
     )
+
+    # Phase-1 rigorous backtest panel — recent predictions vs reality
+    try:
+        from ui import phase1_backtest as _p1
+        _p1.render()
+    except Exception as e:
+        st.warning(f"Phase-1 backtest panel unavailable: "
+                    f"{type(e).__name__}: {e}")
+
+    st.divider()
+    st.markdown("### Equity-curve simulator")
 
     c1, c2 = st.columns([1, 3])
     with c1:
