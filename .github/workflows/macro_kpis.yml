@@ -13,12 +13,25 @@ name: Macro KPIs (SBP rates + KSE-100 + CPI)
 # stress band", "KSE-100 in risk-on regime", "CPI cooling toward target",
 # and applies them to per-sector and per-stock scores.
 #
-# Cadence: weekdays at 17:00 PKT (12:00 UTC) — *after* the SBP
-# end-of-day data feed updates and *after* PSX close.
+# Cadence: TWO weekday runs.
+#
+#   08:30 PKT (03:30 UTC) — pre-open snapshot. Critical for catching
+#                           overnight KIBOR / T-bill repricing before
+#                           predictions.yml fires at 09:20 PKT (the
+#                           April 28 +50 bps post-MPC KIBOR jump
+#                           would have been invisible to predictions
+#                           without this run).
+#
+#   17:00 PKT (12:00 UTC) — EOD final snapshot, after PSX close
+#                           and after the SBP end-of-day feed.
+#
+# The script is idempotent on date — the second run of the day
+# overwrites the morning row in place.
 
 on:
   schedule:
-    - cron: '0 12 * * 1-5'      # 17:00 PKT, Mon-Fri
+    - cron: '30 3 * * 1-5'      # 08:30 PKT, Mon-Fri (pre-open)
+    - cron: '0 12 * * 1-5'      # 17:00 PKT, Mon-Fri (EOD)
   workflow_dispatch:
 
 permissions:

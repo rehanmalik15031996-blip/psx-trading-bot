@@ -169,6 +169,22 @@ def main() -> int:
     print(json.dumps({"ok": n_ok == len(results),
                         "series_refreshed": n_ok,
                         "series_total": len(results)}))
+
+    try:
+        from scripts._health import write_status
+        latest_dates = {r["key"]: r.get("last_date")
+                        for r in results if r.get("ok")}
+        write_status(
+            workflow="macro_series",
+            ok=(n_ok == len(results)),
+            note=f"{n_ok}/{len(results)} series refreshed",
+            payload={"results": results,
+                       "latest_dates": latest_dates},
+        )
+    except Exception as e:
+        print(f"  WARN: _health.write_status failed: "
+              f"{type(e).__name__}: {e}")
+
     return 0 if n_ok == len(results) else 1
 
 

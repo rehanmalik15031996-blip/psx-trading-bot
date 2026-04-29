@@ -8,12 +8,15 @@ name: Macro series (commodities + FX)
 # earlier and calling Brent's already-rolled-over rally a "+9.7%
 # tailwind".
 #
-# Cadence: weekdays 09:30 PKT (04:30 UTC) — early enough that
-# `predictions.yml` (which fires later in the morning) sees fresh data.
+# Cadence: weekdays 06:55 PKT (01:55 UTC) — fires BEFORE
+# `predictions.yml` (09:20 PKT) so the prediction pipeline reads
+# truly current commodity / FX values, not yesterday's. Original
+# 09:30 cron caused a regression — predictions read stale Brent
+# until this cron was advanced.
 
 on:
   schedule:
-    - cron: '30 4 * * 1-5'      # 09:30 PKT, Mon-Fri
+    - cron: '55 1 * * 1-5'      # 06:55 PKT, Mon-Fri
   workflow_dispatch:
 
 permissions:

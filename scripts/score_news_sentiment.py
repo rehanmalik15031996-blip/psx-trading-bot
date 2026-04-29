@@ -346,6 +346,24 @@ def main():
         tickers = f" [{r['affected_symbols']}]" if r["affected_symbols"] else ""
         print(f"    {r['sentiment']:+.2f} {r['confidence']:>4s} "
               f"{r['category']:<10s}{tickers} | {r['title'][:80]}")
+
+    try:
+        from scripts._health import write_status
+        write_status(
+            workflow="news_scoring",
+            ok=True,
+            note=(f"scored {len(new_df)} new of {len(articles)} fetched"),
+            payload={
+                "scored":  int(len(new_df)),
+                "fetched": int(len(articles)),
+                "by_category": {k: int(v)
+                                  for k, v in (cat_counts or {}).items()},
+            },
+        )
+    except Exception as e:
+        print(f"  WARN: _health.write_status failed: "
+              f"{type(e).__name__}: {e}")
+
     return 0
 
 

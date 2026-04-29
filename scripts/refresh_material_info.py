@@ -111,6 +111,20 @@ def _cli() -> int:
     print(f"Material Information refresh: "
           f"new={res['new_records']}  total={res['total_in_store']}  "
           f"as_of={res['as_of_utc']}")
+
+    try:
+        from scripts._health import write_status
+        write_status(
+            workflow="material_info",
+            ok=bool(res.get("ok")),
+            note=(f"new={res.get('new_records', 0)} "
+                  f"total={res.get('total_in_store', 0)}"),
+            payload=res,
+        )
+    except Exception as e:
+        print(f"  WARN: _health.write_status failed: "
+              f"{type(e).__name__}: {e}")
+
     return 0 if res.get("ok") else 1
 
 

@@ -1354,6 +1354,23 @@ def main():
     print(f"\nSaved {len(new_records)} predictions -> {LOG_PATH}")
     print(f"Total predictions in log: {len(log['predictions'])}")
 
+    try:
+        from scripts._health import write_status
+        write_status(
+            workflow="predictions",
+            ok=bool(new_records),
+            note=(f"{len(new_records)} new predictions, "
+                  f"{len(log['predictions'])} in log"),
+            payload={
+                "new":   int(len(new_records)),
+                "total": int(len(log["predictions"])),
+                "symbols": [r.get("symbol") for r in new_records],
+            },
+        )
+    except Exception as e:
+        print(f"  WARN: _health.write_status failed: "
+              f"{type(e).__name__}: {e}")
+
 
 if __name__ == "__main__":
     main()

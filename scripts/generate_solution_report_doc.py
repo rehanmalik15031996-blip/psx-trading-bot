@@ -2036,6 +2036,172 @@ def build_doc_model() -> list[dict]:
             "workflow."},
 
         {"kind": "pagebreak"},
+
+        # =======================================================
+        # 10.7 — Iteration April 30: data freshness guarantee
+        # and workflow self-monitoring. Closes the latent failures
+        # found by the April 30 workflow audit.
+        # =======================================================
+        {"kind": "h", "level": 2,
+         "text": "10.7  Iteration April 30: data freshness "
+                  "guarantee and workflow self-monitoring"},
+        {"kind": "p", "text":
+            "An end-to-end audit of every GitHub Actions workflow "
+            "run on the production repo over the last 30 days "
+            "exposed five quiet failure modes that were silently "
+            "degrading the bot. Three were timing problems "
+            "(predictions reading stale macro because the "
+            "macro-series cron ran 15 minutes too late, the "
+            "morning KIBOR snapshot only running once a day "
+            "after PSX close, no intraday data at all between "
+            "09:30 and 16:30 PKT). One was a permissions bug "
+            "(the news-shock retrigger had been failing every "
+            "run with HTTP 403 because GITHUB_TOKEN lacked "
+            "actions:write). One was inactivity-induced "
+            "dormancy (three weekly / weekend workflows had not "
+            "fired on schedule for over 60 days because GitHub "
+            "deactivates inactive crons). And underpinning all "
+            "of them was the lack of a self-monitoring layer — "
+            "no panel or file showed 'last successful refresh' "
+            "per source, so any of the above could break and "
+            "the analyst would only notice via a degraded "
+            "prediction days later."},
+
+        {"kind": "h", "level": 3,
+         "text": "Re-timed pre-open chain"},
+        {"kind": "p", "text":
+            "macro_series.yml moves from 09:30 PKT to 06:55 PKT "
+            "so commodity / FX parquets are committed before "
+            "predictions read them. macro_kpis.yml gains a second "
+            "08:30 PKT cron (in addition to its 17:00 PKT EOD "
+            "run) so any overnight KIBOR / T-bill repricing — "
+            "exactly the situation that fired the April 28 "
+            "MPC kibor_shock driver — lands on disk before the "
+            "prediction pipeline starts. predictions.yml moves "
+            "from 09:15 to 09:20 PKT to leave a 10-minute gap "
+            "for the new health-check workflow to gate the run. "
+            "The full pre-open chain is now 06:55 macro_series, "
+            "07:00 news_scoring batch 1, 08:30 macro_kpis "
+            "morning, 09:00 overnight globals, 09:10 health "
+            "check, 09:20 predictions. Every link in the chain "
+            "leaves at least five minutes of slack for the next."},
+
+        {"kind": "h", "level": 3,
+         "text": "Balanced mid-session sweep"},
+        {"kind": "p", "text":
+            "A new script, scripts/refresh_live_market.py, "
+            "wraps three existing connectors — "
+            "PSXMarketWatchConnector, PSXCircuitBreakersConnector, "
+            "and SCStradeFIPIConnector — and writes timestamped "
+            "snapshots to data/intraday/marketwatch.parquet, "
+            "data/intraday/circuit_breakers.parquet, and "
+            "data/intraday/fipi_intraday.parquet. The new "
+            "intraday_session.yml workflow runs it twice during "
+            "the trading session — 11:30 PKT (90 minutes after "
+            "open) and 13:30 PKT (90 minutes before close) — and "
+            "follows each sweep with a small news_scoring batch "
+            "and check_news_shocks call. If a mid-session shock "
+            "fires, predictions.yml is dispatched immediately "
+            "without waiting for the regular 13:00 PKT news cron, "
+            "so the analyst sees a refreshed forecast within "
+            "minutes of a market-moving headline. None of this "
+            "introduces new paid sources — every connector "
+            "already existed and was sitting unused outside of "
+            "manual runs."},
+
+        {"kind": "h", "level": 3,
+         "text": "Fixed the news-shock 403"},
+        {"kind": "p", "text":
+            "news_scoring.yml's 'Dispatch predictions on shock' "
+            "step had been quietly failing every run with "
+            "'HTTP 403: Resource not accessible by integration'. "
+            "The default GITHUB_TOKEN cannot trigger another "
+            "workflow without the actions:write scope, which is "
+            "not granted by default. Adding actions:write to the "
+            "permissions block fixes the dispatch — confirmed by "
+            "manual trigger after the fix. The same permission is "
+            "added to the new intraday_session.yml so its shock "
+            "retrigger works on day one."},
+
+        {"kind": "h", "level": 3,
+         "text": "Self-monitoring and SLA gate"},
+        {"kind": "p", "text":
+            "A new module, scripts/_health.py, exposes a single "
+            "write_status helper that every refresh script now "
+            "calls at the end of its main(). It writes "
+            "data/_health/<workflow>.json with a timestamp, ok "
+            "flag, human-readable note, and a small payload "
+            "summarising what was refreshed; it also appends a "
+            "row to a rolling 90-day history parquet used for the "
+            "System Health sparkline. config/data_slas.py holds "
+            "the per-workflow freshness SLAs (amber / red "
+            "thresholds, weekday-only flag). scripts/health_check.py "
+            "loads every status file and exits non-zero if any "
+            "workflow has breached its red SLA — and "
+            "health_check.yml runs that script twice every "
+            "weekday (08:40 PKT and 16:05 PKT). Because GitHub "
+            "automatically emails the repo owner whenever a "
+            "scheduled workflow fails, a stale macro feed at "
+            "08:40 reaches the owner's inbox before the 09:20 "
+            "prediction run consumes it."},
+
+        {"kind": "h", "level": 3,
+         "text": "Per-workflow SLAs"},
+        {"kind": "table",
+         "headers": ["Workflow", "Amber after", "Red after", "Note"],
+         "rows": [
+            ["macro_series",   "26h", "48h",
+              "Brent / WTI / gold / copper / cotton / BTC / FX, weekdays."],
+            ["macro_kpis",     "26h", "48h",
+              "SBP rates / KIBOR / KSE-100 / CPI, weekdays."],
+            ["overnight",      "26h", "48h",
+              "S and P / Nikkei / FTSE / VIX / DXY, weekdays."],
+            ["news_scoring",    "7h", "12h",
+              "Claude-scored news + shock check."],
+            ["predictions",    "26h", "48h",
+              "5-day predictions, weekdays."],
+            ["eod",            "26h", "48h",
+              "OHLCV + final FIPI + scorecard, weekdays."],
+            ["intraday_session", "4h",  "6h",
+              "Live MarketWatch + circuits + FIPI proxy, "
+              "session-only."],
+            ["material_info",  "26h", "48h",
+              "PSX corporate notices, weekdays."],
+            ["fundamentals",    "8d",  "14d",
+              "yfinance fundamentals, weekly Sunday."],
+            ["financial_results", "8d", "14d",
+              "Director's reports + filings, weekly + earnings."],
+        ]},
+
+        {"kind": "h", "level": 3,
+         "text": "UI surfaces"},
+        {"kind": "p", "text":
+            "Two visible additions in the Streamlit app: a new "
+            "30-pixel freshness strip rendered above every page "
+            "summarising the worst-current-badge and naming any "
+            "RED / AMBER offenders, and a dedicated System Health "
+            "tab showing one card per workflow with last-success "
+            "timestamp, last note, badge, and the SLA reference "
+            "table. A 30-day run-frequency chart at the bottom of "
+            "the tab makes it obvious if a scheduled workflow has "
+            "stopped firing. Together these two surfaces ensure "
+            "the analyst notices a stale feed within seconds of "
+            "opening the app, instead of hours later when the "
+            "prediction quality degrades."},
+
+        {"kind": "h", "level": 3,
+         "text": "What this iteration does NOT change"},
+        {"kind": "p", "text":
+            "No change to the seven-lens verdict synthesizer, "
+            "the prediction critic, the news-shock detector, the "
+            "MPC alert, or any of the iteration 10.5 / 10.6 "
+            "logic. No new paid data source, no new external "
+            "dependency. The chatbot tool surface and the daily "
+            "PDF layout are unchanged. The only new UI element "
+            "is the freshness strip, which is unobtrusive when "
+            "everything is green."},
+
+        {"kind": "pagebreak"},
     ]
 
     # ----------------------------------------------------- A. GLOSSARY

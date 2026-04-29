@@ -305,6 +305,22 @@ def main() -> int:
     if not args.skip_cpi:
         out["cpi"] = refresh_cpi()
         print(f"[cpi]        {json.dumps(out['cpi'])}")
+
+    try:
+        from scripts._health import write_status
+        ok_count = sum(1 for k, v in out.items()
+                        if isinstance(v, dict) and v.get("ok"))
+        total = len(out) or 1
+        write_status(
+            workflow="macro_kpis",
+            ok=(ok_count == total),
+            note=f"{ok_count}/{total} sub-sources refreshed",
+            payload=out,
+        )
+    except Exception as e:
+        print(f"  WARN: _health.write_status failed: "
+              f"{type(e).__name__}: {e}")
+
     return 0
 
 

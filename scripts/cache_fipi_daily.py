@@ -99,6 +99,13 @@ def main():
 
     row = snapshot_today()
     if not row:
+        try:
+            from scripts._health import write_status
+            write_status(workflow="eod", ok=False,
+                          note="FIPI snapshot returned no row",
+                          payload={})
+        except Exception:
+            pass
         sys.exit(1)
     print(f"FIPI snapshot for {row['date']}:")
     for k, v in row.items():
@@ -107,6 +114,20 @@ def main():
         print("(dry-run) not writing.")
         return
     append_row(row)
+
+    try:
+        from scripts._health import write_status
+        write_status(
+            workflow="eod",
+            ok=True,
+            note=(f"FIPI snapshot for {row.get('date')}: "
+                  f"foreign_net="
+                  f"{row.get('foreign_net_pkr_mn', 0):+.1f} mn"),
+            payload=row,
+        )
+    except Exception as e:
+        print(f"  WARN: _health.write_status failed: "
+              f"{type(e).__name__}: {e}")
 
 
 if __name__ == "__main__":

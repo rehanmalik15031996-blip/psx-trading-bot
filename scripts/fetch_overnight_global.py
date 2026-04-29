@@ -93,6 +93,20 @@ def main():
         if pd.notna(v):
             print(f"  {col:<20s} = {v:.2f}")
 
+    try:
+        from scripts._health import write_status
+        write_status(
+            workflow="overnight",
+            ok=True,
+            note=f"{len(merged)} rows, last {last_row['date'].date()}",
+            payload={"rows": int(len(merged)),
+                       "last_date": str(last_row["date"].date()),
+                       "tickers": list(TICKERS.keys())},
+        )
+    except Exception as e:
+        print(f"  WARN: _health.write_status failed: "
+              f"{type(e).__name__}: {e}")
+
 
 if __name__ == "__main__":
     main()

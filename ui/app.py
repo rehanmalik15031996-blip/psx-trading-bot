@@ -3815,6 +3815,16 @@ def main():
         "and an advisor that grounds every answer in live data."
     )
 
+    # 30-pixel data freshness strip. Stays subtle when everything is
+    # green; lights up amber / red when a feed is breaching its SLA.
+    # See `ui/system_health.py` for the SLA logic and the dedicated
+    # System Health tab below.
+    try:
+        from ui import system_health
+        system_health.render_freshness_strip()
+    except Exception:
+        pass
+
     render_top_strip()
     render_onboarding()
 
@@ -3830,6 +3840,7 @@ def main():
         "News",           # scored news feed
         "Ask Advisor",    # chatbot
         "Strategy Tester",  # backtest
+        "System Health",  # data freshness + workflow status
     ])
     with tabs[0]: render_today_tab()
     with tabs[1]: render_portfolio_tab()
@@ -3841,6 +3852,13 @@ def main():
     with tabs[7]: render_news_tab()
     with tabs[8]: render_chat_tab()
     with tabs[9]: render_backtest_tab()
+    with tabs[10]:
+        try:
+            from ui import system_health
+            system_health.render()
+        except Exception as e:
+            st.error(f"Could not load System Health tab: "
+                     f"{type(e).__name__}: {e}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,121 @@
+name: Intraday session refresh (live PSX + extra news)
+
+# Closes the intraday data gap from the April 30 audit. PSX trades
+# 09:32-15:30 PKT but until this workflow existed the bot only saw
+# the EOD parquet from yesterday between 09:30 (predictions) and
+# 16:30 (EOD). Two mid-session sweeps now run:
+#
+#   11:30 PKT (06:30 UTC) — first sweep, 90 minutes after open.
+#                           Captures opening-range high/low/turnover
+#                           and any morning news flow.
+#   13:30 PKT (08:30 UTC) — second sweep, 90 minutes before close.
+#                           Captures the afternoon-session reversal
+#                           and any post-13:00 news shocks.
+#
+# Each run pulls:
+#   - PSX MarketWatch full snapshot (every listed symbol with OHLCV)
+#   - PSX circuit-breaker locked stocks (upper / lower)
+#   - SCStrade FIPI running aggregate
+#   - A small news-scoring batch + check_news_shocks (so a mid-day
+#     shock can dispatch predictions.yml without waiting for the
+#     scheduled 13:00 PKT news_scoring run).
+
+on:
+  schedule:
+    - cron: '30 6 * * 1-5'      # 11:30 PKT, Mon-Fri
+    - cron: '30 8 * * 1-5'      # 13:30 PKT, Mon-Fri
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write   # required so `gh workflow run predictions.yml`
+                     # below can dispatch another workflow when a
+                     # shock fires. See news_scoring.yml for the same
+                     # rationale.
+
+concurrency:
+  group: intraday-session
+  cancel-in-progress: false
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Live PSX snapshot
+        run: python scripts/refresh_live_market.py
+        # Each source is wrapped in try/except in the script, so a
+        # circuit-breaker scrape failure does not abort MarketWatch.
+
+      - name: Score fresh headlines (small intraday batch)
+        run: python scripts/score_news_sentiment.py --per-feed 5 --batch 8
+        # Smaller batch than the morning / midday news_scoring runs.
+        # The intent here is "is anything new and high-impact?" — the
+        # comprehensive sweep stays at 07:00, 13:00, 18:00 PKT.
+
+      - name: Detect intraday news shocks
+        id: shock
+        run: |
+          set +e
+          python scripts/check_news_shocks.py
+          rc=$?
+          if [ "$rc" -eq 7 ]; then
+            echo "shock=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          elif [ "$rc" -eq 0 ]; then
+            echo "shock=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          else
+            exit "$rc"
+          fi
+
+      - name: Commit intraday data
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/intraday/marketwatch.parquet \
+                  data/intraday/circuit_breakers.parquet \
+                  data/intraday/fipi_intraday.parquet \
+                  data/news/scored_news.parquet \
+                  data/news/shock_log.json \
+                  data/_health/intraday_session.json \
+                  data/_health/news_scoring.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "data: intraday session $(date -u +%FT%H%MZ)"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
+
+      - name: Dispatch predictions on shock
+        if: steps.shock.outputs.shock == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Mid-session shock detected — dispatching predictions."
+          gh workflow run predictions.yml --ref "${GITHUB_REF#refs/heads/}"

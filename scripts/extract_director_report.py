@@ -569,6 +569,25 @@ def _cli() -> int:
     print(f"errors ({len(res['errors'])}):")
     for e in res["errors"][:20]:
         print(f"  - {e}")
+
+    try:
+        from scripts._health import write_status
+        write_status(
+            workflow="financial_results",
+            ok=bool(res.get("ok")),
+            note=(f"new={res.get('new_records', 0)} "
+                  f"total={res.get('total_in_store', 0)} "
+                  f"errors={len(res.get('errors') or [])}"),
+            payload={
+                "new":   int(res.get("new_records") or 0),
+                "total": int(res.get("total_in_store") or 0),
+                "errors": list((res.get("errors") or [])[:20]),
+            },
+        )
+    except Exception as e:
+        print(f"  WARN: _health.write_status failed: "
+              f"{type(e).__name__}: {e}")
+
     return 0 if res["ok"] else 1
 
 

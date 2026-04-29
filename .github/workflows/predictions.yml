@@ -1,14 +1,23 @@
 name: Generate predictions
 
-# Runs after overnight globals are refreshed and before PSX opens.
-# 04:15 UTC = 09:15 PKT = 15 minutes before PSX opens.
-# Uses the latest overnight cache + scored news + local data to generate
-# fresh 5-day predictions for the 15-stock universe, and commits the
-# updated predictions_log.json.
+# Runs after overnight globals + macro series + macro KPIs morning
+# refresh + the daily health check have all completed.
+# 04:20 UTC = 09:20 PKT = 12 minutes before PSX opens.
+#
+# Pre-open chain order (PKT):
+#   06:55 macro_series       (commodities + FX)
+#   07:00 news_scoring       (batch 1)
+#   08:30 macro_kpis         (morning SBP / KIBOR / T-bills snapshot)
+#   09:00 overnight          (US / Asia / FX globals)
+#   09:10 health_check       (fails build if any feed is stale)
+#   09:20 predictions        <-- here, reads everything above
+#
+# Was 09:15 PKT but bumped 5 minutes so the 09:10 health-check has
+# time to complete before predictions consume the data.
 
 on:
   schedule:
-    - cron: '15 4 * * 1-5'     # 09:15 PKT, Mon-Fri
+    - cron: '20 4 * * 1-5'     # 09:20 PKT, Mon-Fri
   workflow_dispatch:
 
 permissions:

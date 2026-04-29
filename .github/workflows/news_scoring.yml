@@ -17,6 +17,12 @@ on:
 
 permissions:
   contents: write
+  actions: write   # required so `gh workflow run predictions.yml` (the
+                     # shock-retrigger step at the bottom of this file) can
+                     # dispatch another workflow. Without `actions: write`
+                     # the default GITHUB_TOKEN returns HTTP 403 with
+                     # "Resource not accessible by integration" and the
+                     # shock retrigger silently never fires.
 
 concurrency:
   group: news-scoring

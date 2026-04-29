@@ -89,6 +89,22 @@ def main() -> int:
         f"{total_ok}/{len(symbols)} symbols written, {total_rows:,} total rows. "
         f"Parquet files in data/ohlcv/"
     )
+
+    try:
+        from scripts._health import write_status
+        write_status(
+            workflow="eod",
+            ok=(total_ok >= int(0.8 * len(symbols))),
+            note=(f"OHLCV refresh: {total_ok}/{len(symbols)} symbols, "
+                  f"{total_rows:,} rows"),
+            payload={"symbols_ok":    int(total_ok),
+                       "symbols_total": int(len(symbols)),
+                       "rows_total":    int(total_rows)},
+        )
+    except Exception as e:
+        console.print(f"[yellow]WARN:[/yellow] _health.write_status "
+                       f"failed: {type(e).__name__}: {e}")
+
     return 0
 
 
