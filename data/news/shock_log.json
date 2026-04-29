@@ -99,6 +99,27 @@
       ],
       "scored_at": "",
       "detected_at": "2026-04-29T19:53:48+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-04-29::BEARISH::23",
+      "title": "Broad-market bearish shock: 23 HIGH-confidence articles avg sentiment -0.62",
+      "sentiment": -0.6230434782608695,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 23,
+      "sample_titles": [
+        "KSE-100 index retreats 2,588 points in a seller dominated session",
+        "Pakistan PM Oil Import Costs Up 167% Since Iran War Began - Crude Oil Prices Today | OilPrice.com",
+        "Pakistan stocks extend losses as KSE-100 slips below 166,000 points - Dunya News",
+        "PSX stays bearish, loses 2,588 more points - | Associated Press Of Pakistan",
+        "US Stocks Fall as Oil Jumps, Iran Tensions Rise Before Earnings"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-04-29T20:06:11+00:00"
     }
   ]
 }
