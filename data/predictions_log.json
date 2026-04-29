@@ -5045,13 +5045,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:56+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 571.6,
+        "actual_return_pct": 1.77,
+        "actual_return_net_pct": 1.028,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"HIGH\",\n  \"expected_return_5d_low_pct\": -1.5,\n  \"expected_return_5d_mid_pct\": 4.2,\n  \"expected_return_5d_high_pct\": 9.8,\n  \"suggested_action\": \"BUY\",\n  \"suggested_stop_pkr\": 512.0,\n  \"suggested_target_pkr\": 603.0,\n  \"rationale\": \"APL is BULLISH on a convergence of value tailwinds, sector momentum, and recovering earnings with high-quality balance sheet backing a 19% fair-value upside. Technically, the stock trades 2.75% above its 200-day MA with RSI at 48 (neutral but inflection-ready) and sits firmly above all moving averages, supporting a base for renewed momentum. Fundamentally, APL trades at 5.17x P/E, 31% below the OMC sector median, while posting RECOVERING earnings (YoY +10.9%, reversing a prior -32.8% trough) with a stellar 97/100 quality score (ROE 24.7%, D/E 0.17). Macro tailwinds are material: Brent crude rallied +9.7% in 5d, driving refining margin revaluation gains (+1 sector score), while SBP FX reserves at USD 15.1bn ease L/C confirmation risk (+1 stock score); the sector as a whole carries a +2 tailwind. Institutional flows remain mixed (big fish -9.5mn today) but retail is chasing (+9.5mn), and OMC volume at 0.7× average suggests compressed intraday volatility ahead of a move. The primary risk is that frozen OMC margins (flagged in management outlook) may not expand if crude slides back, and geopolitical sentiment (-0.30 macro tilt) could weigh on sentiment near-term; a break below 540 would invalidate the b"
     },
@@ -5215,13 +5220,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 32.01,
+        "actual_return_pct": 0.82,
+        "actual_return_net_pct": 0.22,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"LOW\",\n  \"expected_return_5d_low_pct\": -8.5,\n  \"expected_return_5d_mid_pct\": -1.2,\n  \"expected_return_5d_high_pct\": +6.0,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 28.58,\n  \"suggested_target_pkr\": 33.85,\n  \"rationale\": \"EPCL is held at NEUTRAL amid deeply conflicting signals that do not support a directional swing in either direction over 5 days. On the macro side, cooling CPI (7.3% YoY) and rising Brent (+9.7% in 5d) deliver a STRONG TAILWIND (+5 stock-level score) that should structurally benefit a high-leverage conglomerate; however, this is a slow-moving, 6-24 month signal and does not override short-term technicals. Technically, the stock has fallen 6.86% in 5 days with RSI14 at 22.4 (oversold), suggesting mean-reversion potential, but price has fallen below its 20d SMA (34.75), breaking the uptrend established over 21 days (+7.77%). Most critically, earnings have collapsed year-over-year (EPS -500%), the Quality Score is JUNK (11/100), and the P/B-based fair value (30.47 PKR) suggests the stock is already 4% overvalued despite the recent selloff—a value-trap setup. Institutional investors are actively selling (Big Fish net -9.5 mn PKR today), contradicting any bullish momentum claim. A Material Information filing dated 2-trading-days ago (2026-04-27) adds volatility risk, and the stock may gap 3-7% on any earnings-related news. Risk/reward is unfavorable: upside is capped by junk quality and earnings erosio"
     },
@@ -5388,13 +5398,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 88.2,
+        "actual_return_pct": -0.44,
+        "actual_return_net_pct": -1.001,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 4.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 79.7,\n  \"suggested_target_pkr\": 92.5,\n  \"rationale\": \"FABL is NEUTRAL over the next 5 days because valuation headwinds (SELL_VALUE signal, -13% fair-value gap) and deteriorating earnings momentum (YoY -5.97%, down 23.96pp from prior quarter) offset near-term technical strength and sector tailwinds. Momentum is positive — the stock ranks 3rd in a 15-stock universe and sits in the top 5 Phase-1 basket, with a 20-day momentum of +10.85% and RSI 47.5 near midpoint, suggesting room to trade higher — but the underlying fundamentals are eroding. Macro tailwinds for Banking (Copper +9.0%, FX reserves rebuilding) support the sector, but FABL's low leverage (D/E 0.17) dampens the interest-rate and credit-cycle impulse; moreover, cooling CPI (7.3% YoY) signals potential future rate cuts that will compress NIMs. Most critically, big-fish institutional flows turned negative yesterday (-9.5 mn PKR, mutual funds exiting), contradicting retail enthusiasm — this is a red flag for momentum exhaustion. The 5-year EPS CAGR of +25.21% remains robust and quality is genuinely HIGH (ROE 19.08%), but earnings are contracting *now*, not growing, which breaks the bull case. Upside exists to 92–93 PKR on technical oversold mean-reversion in RSI, but the risk of a flush below 80 "
     },
@@ -5561,13 +5576,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 48.75,
+        "actual_return_pct": 0.64,
+        "actual_return_net_pct": 0.067,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -8.5,\n  \"expected_return_5d_mid_pct\": -1.2,\n  \"expected_return_5d_high_pct\": 6.5,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 43.6,\n  \"suggested_target_pkr\": 52.0,\n  \"rationale\": \"FCCL is NEUTRAL on a 5-day horizon despite accelerating earnings (+62% YoY) because valuation has decoupled sharply from intrinsic worth and macro tailwinds are being overwhelmed by institutional selling and technical weakness. The stock trades at 48.44 PKR against a fair value of 29.29 PKR (39.5% overvaluation, HIGH confidence), signaling a structural repricing risk that outweighs the +1 sector tailwind from cooling CPI and improving industrial demand (copper up 9% in 21d). Technicals show RSI at 53.6 (mixed), price 8% below the 200-day MA, and a recent 5-day drawdown of 6.4% — momentum is stalled despite 21-day strength (+28%), and the stock ranks 13th of 15 in the momentum universe. Macro context remains a mild tailwind: CPI at 7.3% YoY opens space for rate cuts, and cement benefits from stronger copper-signaled construction demand; however, Brent crude jumped +9.7% in 5 days, raising furnace-oil and freight costs by an estimated -2pp on sector margins. Most critically, big-fish institutional investors (foreign + funds + banks) have turned net sellers (-9.5 mn PKR today), while retail chases, and a Material Information disclosure filed 2026-04-27 (1 day old) adds 50% volatility uncertainty. The"
     },
@@ -5729,13 +5749,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 222.92,
+        "actual_return_pct": -0.7,
+        "actual_return_net_pct": -1.261,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 4.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 204.0,\n  \"suggested_target_pkr\": 235.0,\n  \"rationale\": \"HUBC is NEUTRAL over 5 days: a macro-driven tailwind (Brent +9.7% in 5d, FX reserves normalising, +3 sector score) is offset by a rich valuation (SELL_VALUE, -25.7% fair value gap) and sharp earnings erosion (-34% YoY, reversing prior 21.7% growth). Price has climbed 8.7% above sma200 into overbought territory (RSI 55.7, 21d momentum +15.5%), while institutional investors (big-fish net -9.5 mn PKR today) are selling into strength. Management's fresh capex and EV charging expansion guidance is encouraging but carries PPA termination risk and does not arrest the post-earnings drift. The macro tailwind (fuel-cost pass-through under PPA indexation, circular-debt settlement boosting dividends) justifies holding rather than selling, but entry at 224.5 lacks the margin of safety required for a 5-day BUY; the stock is a candidate for patient accumulation on any pullback to 200-210 PKR.\",\n  \"key_drivers\": [\n    \"Brent +9.7% in 5d → furnace-oil PPA pass-through tailwind under sector rule (macro impact +3)\",\n    \"SBP FX reserves at USD 15.1 bn → signalling circular-debt settlement, dividend recovery normalisation\",\n    \"Price +8.7% above sma200, RSI 55.7 → technically extended; late-cycle pullback risk with"
     },
@@ -5904,13 +5929,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 84.39,
+        "actual_return_pct": 0.56,
+        "actual_return_net_pct": -0.001,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -6.5,\n  \"expected_return_5d_mid_pct\": -1.8,\n  \"expected_return_5d_high_pct\": 3.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 75.5,\n  \"suggested_target_pkr\": 87.5,\n  \"rationale\": \"KOHC is rated NEUTRAL with MEDIUM conviction on the next 5 days, balancing sector tailwinds against deteriorating earnings momentum and rich valuation. Technicals show a downtrend (price -14.78% below sma200, RSI 49.6, 5d return -8.31%) that has momentum lagging (rank 12/15 in the universe), and overnight global cues are FLAT with normal VIX, offering little support for a quick rebound. The macro backdrop has modestly improved for cement: cooling CPI (7.3% YoY) opens room for SBP cuts, and industrial-cycle proxies (copper +9.0% in 21d) suggest construction demand remains intact, yielding a +1 sector tailwind. However, earnings momentum has sharply decelerated (YoY 30.2% vs prior 52.76%, -22.6pp), a red flag for post-earnings drift that typically persists 4–8 weeks; combined with the recent -2.13% 1d move and -8.31% 5d move, mean-reversion sentiment is weak. Intrinsic value analysis flags a SELL_VALUE signal (HIGH confidence): fair value 70.9 PKR vs current 83.92 PKR implies -15.5% downside, driven by P/E × 3y-avg EPS method. Although KOHC's quality score is very HIGH (90.2/100), the SELL_VALUE + earnings deceleration combination overrides value-trap concerns and argues for caution in the short ter"
     },
@@ -6079,13 +6109,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 398.48,
+        "actual_return_pct": -1.94,
+        "actual_return_net_pct": -2.501,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 3.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 365.73,\n  \"suggested_target_pkr\": 420.0,\n  \"rationale\": \"MCB is a NEUTRAL 5-day call because momentum is mixed and earnings are eroding, offsetting the stock's strong quality and fair macro tailwinds. Technically, the stock sits near its 52-week high (-9.1%), has recovered +12.4% in 21 days, and is ranked 4th in a 15-stock universe with RSI 46.5 suggesting room to run, but the 1d and 5d returns are flat/negative and OBV/price divergence is not yet confirmed. Fundamentally, MCB trades at fair value (400.4 PKR estimate vs 406.37 current; FAIR signal with HIGH confidence), has exceptional quality (ROE 17.4%, D/E 0.09), but earnings are in EROSION mode (YoY -7.6%, accelerating downward -4.7pp), which typically precedes post-earnings drift and dampens short-term upside. Macro conditions are constructively tilted: SBP reserves rebuilding to USD 15.1bn de-risks the balance-of-payments, and Brent's +9.7% move in 5d signals global growth, both supporting bank loan demand; MCB's low leverage amplifies the benefit of rate stability. However, CPI at 7.3% YoY opens a door to rate cuts, which compress NIMs — a headwind for banking margins. The biggest risk is that earnings erosion is accelerating, which could trigger a gap down if Q1 results disappoint; big-fish in"
     },
@@ -6253,13 +6288,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 491.45,
+        "actual_return_pct": -0.89,
+        "actual_return_net_pct": -1.451,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 4.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 450.0,\n  \"suggested_target_pkr\": 520.0,\n  \"rationale\": \"MEBL is a NEUTRAL call due to a fundamental overvaluation (SELL_VALUE signal: -39% downside on a 6-24m horizon) that directly conflicts with positive short-term momentum and macro tailwinds. The stock is ranked #2 in a 15-stock momentum universe and has delivered +12.6% over 21 days, supported by SBP FX reserve rebuilding and copper-driven emerging-market growth signals—both tailwinds for a CASA-rich tier-1 bank. However, earnings momentum has sharply eroded (YoY=-11.66% vs prior +20.19%), and the stock trades at P/B +118% above sector median while at a 39% premium to fair value, creating a classic rich-momentum-but-poor-value setup. The RSI at 39 and distance from 52-week high of -4.46% suggest the stock is approaching overbought territory without fundamental support. Macro tailwinds (+2 score) are modest and offset by CPI still elevated at 7.3%, which risks SBP rate cuts that would compress NIMs. Short-term momentum may carry the stock higher, but the earnings erosion and valuation disconnect argue for a HOLD rather than adding exposure. If the stock falls below 450 PKR or material information confirms earnings recovery, the risk/reward flips.\",\n  \"key_drivers\": [\n    \"Momentum rank #2 in 15-st"
     },
@@ -6426,13 +6466,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 80.73,
+        "actual_return_pct": -1.15,
+        "actual_return_net_pct": -1.711,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -6.5,\n  \"expected_return_5d_mid_pct\": -1.2,\n  \"expected_return_5d_high_pct\": +3.8,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 74.5,\n  \"suggested_target_pkr\": 85.0,\n  \"rationale\": \"MLCF is trapped between a bearish valuation signal (SELL_VALUE, -30% downside to fair value of 57.21 PKR) and a moderately positive earnings acceleration (66.9% YoY), leaving a NEUTRAL short-term bias. Technically, the stock is oversold (RSI 48, down 11.3% in 5 days, trading 18% below the 200-day MA) and could bounce, but institutional investors are actively selling (-9.5 mn PKR big-fish net today), signaling skepticism despite the strong earnings print. The macro backdrop is mildly supportive: cooling CPI (7.3% YoY) opens the door to rate cuts, which would ease financing costs for leveraged cement operators, and copper/industrial demand signals remain positive. However, a sharp 9.7% Brent spike in 5 days raises furnace-oil and freight costs, offsetting some margin upside. The stock's valuation premium (P/E at sector median, P/B -17% cheap) and quality score (85.5) suggest it should be a long-term accumulation candidate, but the 5-day horizon faces competing headwinds: the stock is rich on a 6–24-month discounted-cash-flow basis, big-fish institutional selling is present, and momentum rank is dead last (15/15). Absent a near-term earnings surprise or a sharp rate-cut signal, the expected return i"
     },
@@ -6598,13 +6643,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 74.98,
+        "actual_return_pct": -4.99,
+        "actual_return_net_pct": -5.551,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"HIGH\",\n  \"expected_return_5d_low_pct\": -2.5,\n  \"expected_return_5d_mid_pct\": 4.2,\n  \"expected_return_5d_high_pct\": 8.8,\n  \"suggested_action\": \"BUY\",\n  \"suggested_stop_pkr\": 71.0,\n  \"suggested_target_pkr\": 82.5,\n  \"rationale\": \"NPL is BULLISH on the back of a strong convergence of sector tailwinds, accelerating earnings, and valuation support. Technically, the stock has recovered 25% in 21 days and trades 41% above its 200-day MA, confirming an intact uptrend with RSI 58.3 (non-extended). Fundamentally, P/E and P/B are both 8–14% below sector median, earnings momentum is accelerating at +31.8% YoY (vs +23.1% prior quarter), and quality score is HIGH (89.8), signaling genuine cheap-quality value rather than a value trap. Macro tailwinds are STRONG: Brent crude has spiked +9.7% in 5 days, which directly lifts fuel-cost pass-through earnings for furnace-oil plants under PPA indexation; meanwhile, SBP FX reserves at USD 15.1 bn typically precede circular-debt settlements that normalize cash flow and resume dividend payouts. Big Fish are net selling today (-9.5 mn PKR), but this is a lightweight position in a sector that is rotating on macro (Power sector volume 1.1× average). Fair value is 79.66 PKR vs current 78.92 PKR (HIGH confidence, 0.94% upside as a slow 6–24 month signal; this frames risk symmetrically). The overnight gap prior is FLAT, and VIX is normal (17.8), so no global headwind overrides the domestic tailwind. The k"
     },
@@ -6771,13 +6821,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 309.99,
+        "actual_return_pct": -2.66,
+        "actual_return_net_pct": -3.221,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 2.8,\n  \"expected_return_5d_high_pct\": 7.2,\n  \"suggested_action\": \"ADD\",\n  \"suggested_stop_pkr\": 291.0,\n  \"suggested_target_pkr\": 335.0,\n  \"rationale\": \"OGDC is BULLISH on a strong 5-day Brent rally (+9.7%) and STRONG sector tailwind (+5), which directly lifts E&P revenue and cash flow. Technically, the stock trades 15.4% above its 200-day MA in an uptrend (RSI 61.4, sma20 above sma50), with 21-day momentum at +20.8%, confirming near-term bullish momentum. Fundamentally, the stock is fairly valued (P/E 6.71 vs sector median 5.47) with HIGH quality (ROE 16.7%, score 85.5), though intrinsic value signals SELL_VALUE at -10.7% — a slow signal that conflicts with short-term technicals. The macro backdrop is supportive: Brent's 63-day rally (+50.5%) and SBP reserve rebuild (+FX cushion) ease debt servicing pressure, and oil import cost anxiety (weekly bill $800m) actually favours domestic E&P margins by strengthening the demand case for local production. However, earnings momentum shows EROSION (YoY -6.97%, down from +67.89%), and big-fish institutional flows turned SELLING today (-9.5 mn PKR), which conflicts with retail buying and risks a pullback if institutional selling persists. The forced curtailment risk (3,384 BOE/day + 152 MMcf/day) remains a ceiling on upside despite high Brent prices.\",\n  \"key_drivers\": [\n    \"Brent crude +9.7% in 5d directly"
     },
@@ -6942,13 +6997,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 104.0,
+        "actual_return_pct": -0.4,
+        "actual_return_net_pct": -0.961,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -6.5,\n  \"expected_return_5d_mid_pct\": -1.8,\n  \"expected_return_5d_high_pct\": +3.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 94.0,\n  \"suggested_target_pkr\": 108.5,\n  \"rationale\": \"PABC is rated NEUTRAL on a 5-day horizon due to conflicting technical and fundamental signals that argue for patience rather than entry. Price momentum has turned sharply negative (1d=-2.92%, 5d=-7.52%) despite a strong 21-day run (+19.61%), and RSI is settling at neutral 55.9, suggesting consolidation rather than directional clarity. Fundamentally, the stock is fairly valued at current levels (fair_value=90.63 PKR implies -13.2% downside on intrinsic basis), but quality is excellent (ROE 23.76%, D/E 0.5, quality score 98.5/100), which partially offsets the valuation headwind. The critical red flag is earnings momentum: EPS is eroding sharply (-14.56% YoY vs +21.58% prior year, an acceleration miss of -36.14pp), indicating post-peak profitability despite a strong 3-year CAGR of 24.52%. Macro backdrop is mixed — Brent's +9.7% surge in 5 days creates a -1 headwind for energy-intensive aluminium manufacturing, offsetting the +1 tailwind from improving FX reserves (supply-chain relief). Institutional flows turned negative today (-9.5 mn PKR big-fish net selling), conflicting with retail enthusiasm, which suggests consensus is fragmenting. The highest risk is that earnings erosion accelerates further"
     },
@@ -7119,13 +7179,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 667.92,
+        "actual_return_pct": -0.16,
+        "actual_return_net_pct": -0.721,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": true,
+        "target_triggered": true
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"BEARISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -6.5,\n  \"expected_return_5d_mid_pct\": -2.8,\n  \"expected_return_5d_high_pct\": 1.2,\n  \"suggested_action\": \"AVOID\",\n  \"suggested_stop_pkr\": 734.0,\n  \"suggested_target_pkr\": 590.0,\n  \"rationale\": \"POL is BEARISH over 5 days despite strong macro tailwinds in crude (Brent +9.7% in 5d, +50.5% in 63d), because the stock's intrinsic value (422.88 PKR) sits 36.8% below the current price of 669.0 PKR with HIGH confidence, signaling significant fundamental overvaluation. Momentum is mixed: the stock is up 1d (+1.39%) and 5d (+2.47%) but RSI is neutral at 52.9, price sits 9.55% below its 52w high, and critically, earnings momentum is DECELERATING sharply (YoY growth collapsed from 39.3% to 0.89%, a -38.4pp deceleration). The macro backdrop is contradictory—while oil prices rally hard and the sector carries a STRONG TAILWIND (+5 score) from Brent and FX reserves, this tailwind is already priced in; institutional investors (BIG FISH) are net selling at -9.5 mn PKR, and the stock's 11.74% dividend yield combined with a 58.5% payout ratio signals the company is sustaining returns on fading earnings, not growth. The overnight global prior is FLAT (+0.29%), and PSX faces headwinds from SBP rate hike hawkishness (policy corridor 10.5–12.5%, CPI 7.3% YoY). Valuation collapse and earnings deceleration trump the commodity bounce; a reversal would require either a sharp earnings-growth reacceleration (highl"
     },
@@ -7293,13 +7358,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 217.89,
+        "actual_return_pct": -3.36,
+        "actual_return_net_pct": -3.921,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"HIGH\",\n  \"expected_return_5d_low_pct\": -2.5,\n  \"expected_return_5d_mid_pct\": 4.2,\n  \"expected_return_5d_high_pct\": 8.8,\n  \"suggested_action\": \"BUY\",\n  \"suggested_stop_pkr\": 204.9,\n  \"suggested_target_pkr\": 243.0,\n  \"rationale\": \"PPL is BULLISH on a strong macro tailwind and attractive valuation in an Oil & Gas E&P sector experiencing a STRONG TAILWIND (+5 score) driven by a 9.7% 5-day Brent rally that directly lifts E&P revenue per barrel. The stock's RSI of 48.1 and positive 20d momentum of 12.90% confirm the uptrend, while a fresh bullish divergence in 21d momentum (+14.64%) versus 63d momentum (-16.45%) signals mean reversion is underway. Fundamentally, PPL trades at P/E 5.47 and P/B 0.86, both in line with or below sector peers, and fair value is 229.25 PKR (1.68% upside), supported by a HIGH quality score of 90.4 (ROE 18%, zero leverage). Macro-wise, Brent's +9.68% 5d move is the dominant driver; coupled with SBP FX reserves rebuilding at USD 15.1bn (easing circular-debt settlement risk), institutional flows are negative today (-9.5 mn PKR from big fish), but this appears reactive to yesterday's 1.36% selloff rather than fundamental deterioration, and retail (+9.46 mn PKR) is stepping in. The primary risk is earnings momentum has decelerated sharply (from 78.83% YoY to 18.78%), and if Brent reverses below 95 USD/bbl or geopolitical tension subsides, the 5d upside collapses; a break below 204.9 PKR would confirm reversa"
     },
@@ -7462,13 +7532,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 366.51,
+        "actual_return_pct": -4.37,
+        "actual_return_net_pct": -4.931,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"BULLISH\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 2.8,\n  \"expected_return_5d_high_pct\": 8.2,\n  \"suggested_action\": \"ADD\",\n  \"suggested_stop_pkr\": 347.0,\n  \"suggested_target_pkr\": 415.0,\n  \"rationale\": \"PSO is BULLISH on a combination of sector tailwinds (Brent +9.7% in 5d driving refining margin expansion) and a recent earnings recovery (YoY +96.7% after prior -89.8% contraction), which validates management's optimism on white oil and jet fuel segments. Technically, the stock has bounced +16.4% over 21 days and currently trades at RSI 58.3 just below the 50-day MA (370.02), signalling incipient uptrend momentum, though the 200-day MA (426.35) remains 10% above current price, capping near-term enthusiasm. Fundamentally, PSO trades at P/E 9.76 (31% above sector median, rich) but P/B 0.69 (22% below median, cheap) with fair value at 560 PKR (46% upside on a slow 6-24m horizon), suggesting deep value despite near-term technical caution; however, the Quality Score of 42.7/100 (LOW band) and high D/E of 1.82 imply the value signal is partially a trap—operational leverage is high. Macro tailwinds score +2 (Brent inventory revaluation gains + SBP FX reserve relief from L/C normalization) support the sector, though CPI 7.3% YoY and policy rate 11.5% (neutral/tightening) keep growth headwinds in play. The key risk is that institutional flows turned negative today (big fish -9.5 mn PKR net selling vs retai"
     },
@@ -7636,13 +7711,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-04-29T17:09:57+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-04-29",
+        "actual_end_price_pkr": 87.03,
+        "actual_return_pct": -4.53,
+        "actual_return_net_pct": -5.091,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"LOW\",\n  \"expected_return_5d_low_pct\": -5.2,\n  \"expected_return_5d_mid_pct\": -0.8,\n  \"expected_return_5d_high_pct\": 3.5,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 82.04,\n  \"suggested_target_pkr\": 97.24,\n  \"rationale\": \"SEARL is rated NEUTRAL for the next 5 days despite a modest macro tailwind (+1 on pharma sector), because valuation is deeply challenged, technical momentum is weak, and institutional flows are negative. The stock trades at 91.16 PKR but has a fair-value estimate of only 12.21 PKR under P/E-based pharma methodology (LOW confidence), suggesting a severe SELL_VALUE signal (-86.61% downside); however, this intrinsic method lacks credibility given the stock's 500% YoY earnings recovery and a quality score of just 40.3, indicating a potential value trap. On the technical side, RSI is neutral (48.8), the stock ranks 14th of 15 in momentum, and it sits -14.11% below its 200-day average, having fallen -4.16% over 5 days and -26.28% over 63 days — the negative 5d/21d return divergence (5d=-4.16%, 21d=+14.54%) signals near-term exhaustion after a sharp rebound. Macro tailwinds (CPI cooling, FX reserve stability) are offset by a 9.7% Brent spike in 5 days, which raises packaging and freight costs that DRAP price caps prevent from being fully passed through. Big-fish institutional flows turned negative today (-9.5 mn PKR), countering retail strength, a warning signal for the next 1–2 days. Management guidance "
     }
