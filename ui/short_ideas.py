@@ -87,6 +87,96 @@ def _render_disclaimer(disclaimer: str) -> None:
     )
 
 
+_STATUS_ICON = {
+    "ACTIVE":   "+",
+    "PARTIAL":  "~",
+    "STALE":    "~",
+    "MISSING":  "x",
+    "BY_DESIGN": "-",
+}
+
+
+def _render_coverage_panel(cov: dict) -> None:
+    """Show the analyst exactly which datasets feed the short_score.
+
+    The user asked an explicit question — "is this short solution
+    connected with all the datasets?" — so this panel exists to give a
+    transparent, verifiable answer every time the tab refreshes. Each
+    row carries an availability flag computed at scoring time, so a
+    stale parquet is reported honestly rather than glossed over.
+    """
+    if not cov:
+        return
+    summary = cov.get("summary") or {}
+    direct = cov.get("direct") or []
+    via_synth = cov.get("via_synthesizer") or []
+    via_preds = cov.get("via_predictions") or []
+    not_directly = cov.get("not_directly") or []
+
+    expanded = False
+    label = (
+        f"Datasets considered  —  "
+        f"{summary.get('direct_count', 0)} direct, "
+        f"{summary.get('via_synth_count', 0)} via synthesizer, "
+        f"{summary.get('via_predictions_count', 0)} via the LLM "
+        f"strategist, "
+        f"{summary.get('not_directly_count', 0)} not directly weighted"
+    )
+    with st.expander(label, expanded=expanded):
+        st.caption(
+            "The short_score is computed from the bot's existing "
+            "live data feeds. The table below is the complete list "
+            "of how each dataset reaches the score, with a live "
+            "availability flag. ACTIVE = data is fresh; STALE = "
+            "data is older than expected; MISSING = parquet not yet "
+            "written; BY_DESIGN = intentionally excluded."
+        )
+
+        def _table(rows):
+            if not rows:
+                return None
+            tbl = []
+            for r in rows:
+                stat = (r.get("status") or "").upper()
+                tbl.append({
+                    "": _STATUS_ICON.get(stat, "?"),
+                    "Dataset":   r.get("name"),
+                    "Status":    stat,
+                    "How it scores": r.get("weight"),
+                    "Note":      r.get("note"),
+                })
+            return pd.DataFrame(tbl)
+
+        st.markdown("**Direct — weighted in a named bucket**")
+        df = _table(direct)
+        if df is not None:
+            st.dataframe(df, hide_index=True,
+                          use_container_width=True)
+
+        st.markdown(
+            "**Indirect via the verdict synthesizer (30-pt bucket)**"
+        )
+        df = _table(via_synth)
+        if df is not None:
+            st.dataframe(df, hide_index=True,
+                          use_container_width=True)
+
+        st.markdown(
+            "**Indirect via the LLM strategist (25-pt prediction bucket)**"
+        )
+        df = _table(via_preds)
+        if df is not None:
+            st.dataframe(df, hide_index=True,
+                          use_container_width=True)
+
+        if not_directly:
+            st.markdown("**Not directly weighted — and why**")
+            df = _table(not_directly)
+            if df is not None:
+                st.dataframe(df, hide_index=True,
+                              use_container_width=True)
+
+
 def _render_regime_banner(regime: dict) -> None:
     if not regime:
         return
@@ -166,12 +256,20 @@ def _render_drilldown(c: dict) -> None:
         sub = c.get("subscores") or {}
         st.markdown("**Score breakdown**")
         st.markdown(
-            f"- Synthesizer: {sub.get('synth', 0):.1f} / 30\n"
-            f"- Prediction: {sub.get('prediction', 0):.1f} / 25\n"
-            f"- News: {sub.get('news', 0):.1f} / 15\n"
-            f"- Technical: {sub.get('technical', 0):.1f} / 15\n"
-            f"- Macro: {sub.get('macro', 0):.1f} / 10\n"
-            f"- Intraday: {sub.get('intraday', 0):.1f} / 5"
+            f"- Synthesizer (Value/Quality/Momentum/Macro/News/Flow/Mgmt): "
+            f"{sub.get('synth', 0):.1f} / 30\n"
+            f"- Prediction (LLM 5-day forecast): "
+            f"{sub.get('prediction', 0):.1f} / 25\n"
+            f"- News (per-symbol 7d sentiment): "
+            f"{sub.get('news', 0):.1f} / 15\n"
+            f"- Technical (RSI / SMA / momentum + intraday RS): "
+            f"{sub.get('technical', 0):.1f} / 15\n"
+            f"- Macro (sector headwind + industry KPI): "
+            f"{sub.get('macro', 0):.1f} / 10\n"
+            f"- Intraday (lower-circuit hits): "
+            f"{sub.get('intraday', 0):.1f} / 5\n"
+            f"- Critic (deterministic affirmation): "
+            f"{sub.get('critic', 0):.1f} / 3"
         )
     with col3:
         if c.get("suggested_entry_pkr"):
@@ -191,6 +289,11 @@ def _render_drilldown(c: dict) -> None:
     cw = c.get("concentration_warning")
     if cw:
         st.warning(f"Concentration cap: {cw}")
+
+    guards = c.get("guards") or {}
+    if guards:
+        for g_key, g_msg in guards.items():
+            st.warning(f"**Pre-event guard ({g_key}):** {g_msg}")
 
     st.markdown("**Bearish drivers**")
     drivers = c.get("drivers") or []
@@ -247,6 +350,7 @@ def render() -> None:
 
     _render_disclaimer(res.get("disclaimer", ""))
     _render_regime_banner(res.get("regime", {}))
+    _render_coverage_panel(res.get("dataset_coverage") or {})
 
     candidates = res.get("candidates") or []
     if not candidates:
