@@ -13,6 +13,22 @@
       "is_macro_shock": false,
       "scored_at": "2026-04-29T07:33:57+00:00",
       "detected_at": "2026-04-29T08:36:45+00:00"
+    },
+    {
+      "article_id": "b9404416388c360b",
+      "title": "Pakistan's weekly oil bill reached $800m amid Middle East war: PM Shehbaz",
+      "sentiment": -0.55,
+      "confidence": "HIGH",
+      "category": "MACRO",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "scored_at": "2026-04-29T13:11:12+00:00",
+      "detected_at": "2026-04-29T13:11:39+00:00"
     }
   ]
 }
