@@ -58,6 +58,7 @@ from data.store import load_ohlcv
 
 OUT_DIR = PROJECT_ROOT / "data" / "backtest"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
+WALKFORWARD_PATH = OUT_DIR / "walkforward_predictions.parquet"
 
 # ----------------------------------------------------------------------
 # Helpers
@@ -386,6 +387,41 @@ def run_prediction_backtest(window: WindowSpec) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def run_walkforward_backtest(window: WindowSpec) -> pd.DataFrame:
+    """Load the walk-forward rules predictions parquet and filter to
+    ``window``.
+
+    The parquet is produced by ``scripts/walkforward_predictions.py``
+    and already contains the columns expected by
+    :func:`_summarize_predictions` (``direction``, ``conviction``,
+    ``direction_hit``, ``realized_pct``, ``abs_error_pct``,
+    ``fully_realized``, ``symbol``, ``sector``, ``asof``).
+    """
+    if not WALKFORWARD_PATH.exists():
+        return pd.DataFrame()
+    try:
+        df = pd.read_parquet(WALKFORWARD_PATH)
+    except Exception as e:
+        print(f"[backtest] could not read walkforward parquet: "
+              f"{type(e).__name__}: {e}")
+        return pd.DataFrame()
+    if df.empty:
+        return df
+    df["_d"] = pd.to_datetime(df["asof"], errors="coerce").dt.date
+    mask = ((df["_d"] >= window.window_start)
+            & (df["_d"] <= window.window_end))
+    df = df[mask].drop(columns=["_d"]).reset_index(drop=True)
+    if "expected_minus_realized" not in df.columns:
+        try:
+            df["expected_minus_realized"] = (
+                df["expected_mid_pct"].astype(float)
+                - df["realized_pct"].astype(float)
+            ).round(3)
+        except Exception:
+            df["expected_minus_realized"] = None
+    return df
+
+
 # ----------------------------------------------------------------------
 # Aggregations & report
 # ----------------------------------------------------------------------
@@ -519,7 +555,57 @@ def _executive_summary(summary: dict) -> list[str]:
     """
     sig = summary.get("signal_backtest") or {}
     pred = summary.get("prediction_backtest") or {}
+    wf = summary.get("walkforward_backtest") or {}
     findings: list[str] = []
+
+    # Walk-forward rules headline (the fair, large-n sample)
+    if wf.get("n_predictions"):
+        wf_hit = wf.get("overall_direction_hit_rate_pct", 0)
+        wf_n   = wf.get("n_predictions", 0)
+        by_dir_wf = wf.get("by_direction") or {}
+        bear_wf   = by_dir_wf.get("BEARISH") or {}
+        bull_wf   = by_dir_wf.get("BULLISH") or {}
+        bear_bits = (
+            f"BEARISH {bear_wf['direction_hit_rate_pct']:.1f}% "
+            f"(n={bear_wf['n']}, mean realized "
+            f"{bear_wf['mean_realized_pct']:+.2f}%); "
+            if bear_wf.get("n", 0) >= 10 else "")
+        bull_bits = (
+            f"BULLISH {bull_wf['direction_hit_rate_pct']:.1f}% "
+            f"(n={bull_wf['n']}, mean realized "
+            f"{bull_wf['mean_realized_pct']:+.2f}%); "
+            if bull_wf.get("n", 0) >= 10 else "")
+        verdict = (
+            "the **deterministic engine is profitable** at this "
+            "window — keep the rules-only fallback in production."
+            if wf_hit >= 55 else
+            "the **deterministic engine is below random** at this "
+            "window — the rules need re-calibration; the LLM "
+            "judgement layer is doing the real lifting."
+            if wf_hit < 50 else
+            "the **deterministic engine is roughly coin-flip** at "
+            "this window — fine as a fallback but not a primary "
+            "signal source.")
+        findings.append(
+            f"**Walk-forward rules backtest (fair sample, n={wf_n}):** "
+            f"overall direction hit rate "
+            f"**{wf_hit:.1f}%**. {bear_bits}{bull_bits}{verdict}"
+        )
+
+        # Compare LLM (small n) vs rules (large n)
+        if (pred.get("n_predictions") or 0) >= 5:
+            llm_hit = pred.get("overall_direction_hit_rate_pct", 0)
+            delta   = llm_hit - wf_hit
+            if abs(delta) >= 10:
+                cmp = (
+                    f"**LLM vs rules gap:** the live LLM sample "
+                    f"hits **{llm_hit:.1f}%** "
+                    f"(n={pred['n_predictions']}) vs the rules "
+                    f"engine **{wf_hit:.1f}%** "
+                    f"(n={wf_n}) — a {abs(delta):.1f}-point "
+                    f"{'edge for the LLM' if delta > 0 else 'gap against the LLM (likely sampling noise — n=' + str(pred['n_predictions']) + ' is too small to draw conclusions)'}."
+                )
+                findings.append(cmp)
 
     # Live LLM prediction findings
     if pred.get("n_predictions"):
@@ -668,14 +754,20 @@ def _write_markdown(summary: dict, window: WindowSpec) -> Path:
 
     sig = summary.get("signal_backtest") or {}
     pred = summary.get("prediction_backtest") or {}
+    wf = summary.get("walkforward_backtest") or {}
 
     lines: list[str] = [
         f"# Phase-1 backtest — {window.window_start} to {window.window_end}",
         "",
-        "Generated by `scripts/phase1_backtest.py`. Two engines:",
+        "Generated by `scripts/phase1_backtest.py`. Engines covered:",
         "  1. Per-dataset point-in-time signal accuracy (all 35 stocks).",
         "  2. Live LLM prediction accuracy (16 stocks with logged "
-        "predictions).",
+        "predictions in the window).",
+        "  2b. **Walk-forward rules backtest** — every (date, symbol) "
+        "in the window scored by the deterministic rules engine "
+        "against point-in-time data (~1,400 predictions vs ~46 from "
+        "the live LLM log). Generated by "
+        "`scripts/walkforward_predictions.py`.",
         "",
         f"Window: **{window.window_start} → {window.window_end}** "
         f"({(window.window_end - window.window_start).days} calendar days, "
@@ -792,6 +884,93 @@ def _write_markdown(summary: dict, window: WindowSpec) -> Path:
             "_No predictions found in window._",
         ]
 
+    # ---- Section 2b: Walk-forward rules backtest -------------------
+    if wf.get("n_predictions"):
+        lines += [
+            "",
+            "---",
+            "",
+            "## 2b. Engine 2b — Walk-forward rules backtest",
+            "",
+            f"Predictions in window: **{wf['n_predictions']}** "
+            f"(fully realized: {wf.get('n_fully_realized')}, "
+            f"partial: {wf.get('n_partial')}). The full universe "
+            f"(35 stocks) is scored on every trading date — a much "
+            "larger and fairer sample than the live LLM log.",
+            "",
+            f"Overall direction-hit rate: "
+            f"**{wf.get('overall_direction_hit_rate_pct', 0):.2f}%**.  ",
+            f"Overall MAE (expected vs realized): "
+            f"**{wf.get('overall_mae_pct') or '—'}**.",
+            "",
+            "**Methodology caveats** (read these before quoting):",
+            "",
+            "1. **Latest-only fundamentals.** The synthesizer's "
+            "value/quality lenses use the latest fundamentals "
+            "parquet — small lookahead bias (fundamentals barely "
+            "move in 60 days).",
+            "2. **Sparse historical news.** The scored-news parquet "
+            "has ~1 article/day before 2026-04-23 vs ~80/day after. "
+            "The rules engine ignores news (so this caveat affects "
+            "the LLM walk-forward, not this rules walk-forward), but "
+            "Engine 1 IC readings on the news signal will improve "
+            "as coverage densifies.",
+            "3. **Phase-1 LightGBM lookahead avoided.** The LightGBM "
+            "ranking signal was trained on data covering this "
+            "window. The walk-forward replaces it with a "
+            "deterministic 60-day momentum cross-section so the "
+            "results are clean — at the cost of slightly "
+            "under-stating the strategy's true accuracy when the "
+            "trained model is also working.",
+            "4. **Rules engine vs LLM judgement.** The rules engine "
+            "is calibrated to be conservative (~30% NEUTRAL share). "
+            "It tests the bot's deterministic logic, not the LLM's "
+            "judgement layer. If the LLM walk-forward is later "
+            "approved, the same harness is re-run with "
+            "`predict_with_claude` swapped in.",
+            "",
+            "### By predicted direction (rules)",
+            "",
+            "| Direction | n | Direction hit % | Mean realized % | "
+            "MAE % |",
+            "|---|---|---|---|---|",
+        ]
+        for d, s in (wf.get("by_direction") or {}).items():
+            lines.append(
+                f"| {d or '—'} | {s['n']} | "
+                f"{s['direction_hit_rate_pct']:.2f} | "
+                f"{s['mean_realized_pct']:+.3f} | "
+                f"{s.get('mae_pct') or '—'} |"
+            )
+
+        lines += ["", "### By conviction (rules)", "",
+                   "| Conviction | n | Direction hit % | MAE % |",
+                   "|---|---|---|---|"]
+        for c, s in (wf.get("by_conviction") or {}).items():
+            lines.append(
+                f"| {c or '—'} | {s['n']} | "
+                f"{s['direction_hit_rate_pct']:.2f} | "
+                f"{s.get('mae_pct') or '—'} |"
+            )
+
+        lines += ["", "### By symbol (rules — top 10 + bottom 10)",
+                   "",
+                   "| Symbol | n | Hit % | Mean realized % |",
+                   "|---|---|---|---|"]
+        sym_rows = (wf.get("by_symbol") or [])
+        for r in sym_rows[:10]:
+            lines.append(
+                f"| {r['symbol']} | {r['n']} | "
+                f"{r['hit_pct']} | {r['mean_realized']} |"
+            )
+        if len(sym_rows) > 20:
+            lines.append("| ... | ... | ... | ... |")
+            for r in sym_rows[-10:]:
+                lines.append(
+                    f"| {r['symbol']} | {r['n']} | "
+                    f"{r['hit_pct']} | {r['mean_realized']} |"
+                )
+
     lines += [
         "",
         "---",
@@ -824,8 +1003,12 @@ def _write_markdown(summary: dict, window: WindowSpec) -> Path:
         "signals + realized returns",
         "- `data/backtest/phase1_predictions.parquet` — every LLM "
         "prediction with realized vs expected",
+        "- `data/backtest/walkforward_predictions.parquet` — "
+        "every (date, symbol) pair scored by the deterministic "
+        "rules engine point-in-time",
         "- `data/backtest/phase1_summary.json` — machine-readable "
-        "summary of all aggregates",
+        "summary of all aggregates (incl. `walkforward_backtest` "
+        "block)",
     ]
 
     path.write_text("\n".join(lines), encoding="utf-8")
@@ -845,6 +1028,14 @@ def main() -> int:
     parser.add_argument("--as-of",  type=str, default=None,
                         help="Anchor date YYYY-MM-DD (default today)")
     parser.add_argument("--forward-days", type=int, default=5)
+    parser.add_argument(
+        "--use-walkforward", dest="use_walkforward",
+        action=argparse.BooleanOptionalAction, default=None,
+        help=("Include the walk-forward rules backtest (Engine 2b). "
+              "Default: auto — included when "
+              "data/backtest/walkforward_predictions.parquet exists. "
+              "Use --no-use-walkforward to skip."),
+    )
     args = parser.parse_args()
 
     asof = (datetime.strptime(args.as_of, "%Y-%m-%d").date()
@@ -868,6 +1059,34 @@ def main() -> int:
     print(f"[backtest]   {len(pred_df)} prediction rows -> "
           f"phase1_predictions.parquet")
 
+    use_wf = (args.use_walkforward
+              if args.use_walkforward is not None
+              else WALKFORWARD_PATH.exists())
+    wf_df = pd.DataFrame()
+    if use_wf:
+        print("[backtest] running Engine 2b (walk-forward rules) ...")
+        wf_df = run_walkforward_backtest(window)
+        print(f"[backtest]   {len(wf_df)} walk-forward rows in window")
+    elif args.use_walkforward is False:
+        print("[backtest] skipping Engine 2b (--no-use-walkforward)")
+    else:
+        print(f"[backtest] skipping Engine 2b — "
+              f"{WALKFORWARD_PATH.name} not found "
+              f"(run scripts/walkforward_predictions.py first)")
+
+    # Combined view (LLM + rules) for the headline scorecard. Both
+    # frames share the column shape required by _summarize_predictions.
+    combined_df = pd.DataFrame()
+    if not pred_df.empty or not wf_df.empty:
+        pred_df_s = pred_df.copy()
+        if not pred_df_s.empty and "source" not in pred_df_s.columns:
+            pred_df_s["source"] = "live_llm"
+        if not wf_df.empty and "source" not in wf_df.columns:
+            wf_df = wf_df.copy()
+            wf_df["source"] = "walkforward_rules"
+        combined_df = pd.concat([pred_df_s, wf_df],
+                                  ignore_index=True, sort=False)
+
     summary = {
         "as_of":   asof.isoformat(),
         "window_start": window.window_start.isoformat(),
@@ -877,6 +1096,12 @@ def main() -> int:
         "forward_days": window.forward_days,
         "signal_backtest":     _summarize_signals(sig_df),
         "prediction_backtest": _summarize_predictions(pred_df),
+        "walkforward_backtest":
+            _summarize_predictions(wf_df) if not wf_df.empty
+            else {"n_predictions": 0},
+        "prediction_backtest_combined":
+            _summarize_predictions(combined_df) if not combined_df.empty
+            else {"n_predictions": 0},
     }
     # Latest-run snapshot used by the UI...
     (OUT_DIR / "phase1_summary.json").write_text(
@@ -905,12 +1130,22 @@ def main() -> int:
     print(f"   universe forward-5d up: "
           f"{sig.get('fwd_5d_pos_pct', 0):.1f}%")
     print()
-    print(f"Engine 2: {pred.get('n_predictions', 0)} predictions "
-          f"({pred.get('n_fully_realized', 0)} fully realized, "
-          f"{pred.get('n_partial', 0)} partial).")
+    print(f"Engine 2 (live LLM): {pred.get('n_predictions', 0)} "
+          f"predictions ({pred.get('n_fully_realized', 0)} fully "
+          f"realized, {pred.get('n_partial', 0)} partial).")
     print(f"   overall direction hit rate: "
           f"{pred.get('overall_direction_hit_rate_pct', 0):.2f}%")
     print(f"   overall MAE: {pred.get('overall_mae_pct', '—')}%")
+    wf_sum = summary.get("walkforward_backtest") or {}
+    if wf_sum.get("n_predictions"):
+        print()
+        print(f"Engine 2b (walk-forward rules): "
+              f"{wf_sum['n_predictions']} predictions "
+              f"({wf_sum.get('n_fully_realized', 0)} fully realized, "
+              f"{wf_sum.get('n_partial', 0)} partial).")
+        print(f"   overall direction hit rate: "
+              f"{wf_sum.get('overall_direction_hit_rate_pct', 0):.2f}%")
+        print(f"   overall MAE: {wf_sum.get('overall_mae_pct', '—')}%")
     return 0
 
 

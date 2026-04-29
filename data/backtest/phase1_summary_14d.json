@@ -234,5 +234,517 @@
         "mean_realized": -6.06
       }
     ]
+  },
+  "walkforward_backtest": {
+    "n_predictions": 349,
+    "n_fully_realized": 243,
+    "n_partial": 106,
+    "overall_direction_hit_rate_pct": 45.27,
+    "overall_mae_pct": 4.489,
+    "by_direction": {
+      "BEARISH": {
+        "n": 147,
+        "direction_hit_rate_pct": 58.5,
+        "mean_realized_pct": -0.196,
+        "mae_pct": 5.014
+      },
+      "BULLISH": {
+        "n": 85,
+        "direction_hit_rate_pct": 38.82,
+        "mean_realized_pct": -0.593,
+        "mae_pct": 5.132
+      },
+      "NEUTRAL": {
+        "n": 117,
+        "direction_hit_rate_pct": 33.33,
+        "mean_realized_pct": 0.394,
+        "mae_pct": 3.362
+      }
+    },
+    "by_conviction": {
+      "HIGH": {
+        "n": 89,
+        "direction_hit_rate_pct": 53.93,
+        "mae_pct": 5.355
+      },
+      "LOW": {
+        "n": 117,
+        "direction_hit_rate_pct": 33.33,
+        "mae_pct": 3.362
+      },
+      "MEDIUM": {
+        "n": 143,
+        "direction_hit_rate_pct": 49.65,
+        "mae_pct": 4.872
+      }
+    },
+    "by_symbol": [
+      {
+        "symbol": "ATRL",
+        "n": 9,
+        "hit_pct": 88.9,
+        "mean_realized": 4.93
+      },
+      {
+        "symbol": "KAPCO",
+        "n": 9,
+        "hit_pct": 88.9,
+        "mean_realized": -1.52
+      },
+      {
+        "symbol": "KOHC",
+        "n": 11,
+        "hit_pct": 81.8,
+        "mean_realized": -3.62
+      },
+      {
+        "symbol": "MLCF",
+        "n": 11,
+        "hit_pct": 81.8,
+        "mean_realized": -5.39
+      },
+      {
+        "symbol": "EFERT",
+        "n": 9,
+        "hit_pct": 77.8,
+        "mean_realized": -2.52
+      },
+      {
+        "symbol": "PABC",
+        "n": 11,
+        "hit_pct": 72.7,
+        "mean_realized": -2.51
+      },
+      {
+        "symbol": "SEARL",
+        "n": 11,
+        "hit_pct": 72.7,
+        "mean_realized": -2.15
+      },
+      {
+        "symbol": "FCCL",
+        "n": 11,
+        "hit_pct": 72.7,
+        "mean_realized": -1.95
+      },
+      {
+        "symbol": "DGKC",
+        "n": 9,
+        "hit_pct": 66.7,
+        "mean_realized": -2.47
+      },
+      {
+        "symbol": "TRG",
+        "n": 9,
+        "hit_pct": 66.7,
+        "mean_realized": -0.71
+      },
+      {
+        "symbol": "POL",
+        "n": 11,
+        "hit_pct": 63.6,
+        "mean_realized": 0.89
+      },
+      {
+        "symbol": "COLG",
+        "n": 9,
+        "hit_pct": 55.6,
+        "mean_realized": 0.54
+      },
+      {
+        "symbol": "FFC",
+        "n": 9,
+        "hit_pct": 55.6,
+        "mean_realized": -0.73
+      },
+      {
+        "symbol": "NPL",
+        "n": 11,
+        "hit_pct": 54.5,
+        "mean_realized": 1.15
+      },
+      {
+        "symbol": "APL",
+        "n": 11,
+        "hit_pct": 54.5,
+        "mean_realized": 1.29
+      },
+      {
+        "symbol": "MEBL",
+        "n": 11,
+        "hit_pct": 45.5,
+        "mean_realized": 0.24
+      },
+      {
+        "symbol": "ENGROH",
+        "n": 9,
+        "hit_pct": 44.4,
+        "mean_realized": 0.28
+      },
+      {
+        "symbol": "PSO",
+        "n": 11,
+        "hit_pct": 36.4,
+        "mean_realized": 1.58
+      },
+      {
+        "symbol": "HUBC",
+        "n": 11,
+        "hit_pct": 36.4,
+        "mean_realized": 1.66
+      },
+      {
+        "symbol": "HBL",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": -0.71
+      },
+      {
+        "symbol": "LUCK",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": -0.5
+      },
+      {
+        "symbol": "INDU",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": 1.03
+      },
+      {
+        "symbol": "KEL",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": -0.07
+      },
+      {
+        "symbol": "LOTCHEM",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": 5.64
+      },
+      {
+        "symbol": "FABL",
+        "n": 11,
+        "hit_pct": 27.3,
+        "mean_realized": -2.27
+      },
+      {
+        "symbol": "OGDC",
+        "n": 11,
+        "hit_pct": 27.3,
+        "mean_realized": 1.8
+      },
+      {
+        "symbol": "BAHL",
+        "n": 9,
+        "hit_pct": 22.2,
+        "mean_realized": 1.47
+      },
+      {
+        "symbol": "UBL",
+        "n": 9,
+        "hit_pct": 22.2,
+        "mean_realized": 7.71
+      },
+      {
+        "symbol": "SYS",
+        "n": 9,
+        "hit_pct": 22.2,
+        "mean_realized": -0.73
+      },
+      {
+        "symbol": "MARI",
+        "n": 9,
+        "hit_pct": 22.2,
+        "mean_realized": -0.6
+      },
+      {
+        "symbol": "FATIMA",
+        "n": 11,
+        "hit_pct": 18.2,
+        "mean_realized": -2.29
+      },
+      {
+        "symbol": "NBP",
+        "n": 9,
+        "hit_pct": 11.1,
+        "mean_realized": 5.39
+      },
+      {
+        "symbol": "EPCL",
+        "n": 11,
+        "hit_pct": 9.1,
+        "mean_realized": -4.42
+      },
+      {
+        "symbol": "MCB",
+        "n": 11,
+        "hit_pct": 9.1,
+        "mean_realized": -0.65
+      },
+      {
+        "symbol": "PPL",
+        "n": 11,
+        "hit_pct": 9.1,
+        "mean_realized": 0.2
+      }
+    ]
+  },
+  "prediction_backtest_combined": {
+    "n_predictions": 395,
+    "n_fully_realized": 243,
+    "n_partial": 152,
+    "overall_direction_hit_rate_pct": 46.33,
+    "overall_mae_pct": 4.331,
+    "by_direction": {
+      "BEARISH": {
+        "n": 163,
+        "direction_hit_rate_pct": 61.96,
+        "mean_realized_pct": -0.561,
+        "mae_pct": 4.73
+      },
+      "BULLISH": {
+        "n": 91,
+        "direction_hit_rate_pct": 37.36,
+        "mean_realized_pct": -0.787,
+        "mae_pct": 5.246
+      },
+      "NEUTRAL": {
+        "n": 141,
+        "direction_hit_rate_pct": 34.04,
+        "mean_realized_pct": -0.001,
+        "mae_pct": 3.28
+      }
+    },
+    "by_conviction": {
+      "HIGH": {
+        "n": 92,
+        "direction_hit_rate_pct": 53.26,
+        "mae_pct": 5.443
+      },
+      "LOW": {
+        "n": 124,
+        "direction_hit_rate_pct": 33.06,
+        "mae_pct": 3.387
+      },
+      "MEDIUM": {
+        "n": 179,
+        "direction_hit_rate_pct": 51.96,
+        "mae_pct": 4.414
+      }
+    },
+    "by_symbol": [
+      {
+        "symbol": "ATRL",
+        "n": 9,
+        "hit_pct": 88.9,
+        "mean_realized": 4.93
+      },
+      {
+        "symbol": "KAPCO",
+        "n": 9,
+        "hit_pct": 88.9,
+        "mean_realized": -1.52
+      },
+      {
+        "symbol": "KOHC",
+        "n": 14,
+        "hit_pct": 85.7,
+        "mean_realized": -3.43
+      },
+      {
+        "symbol": "MLCF",
+        "n": 14,
+        "hit_pct": 85.7,
+        "mean_realized": -5.54
+      },
+      {
+        "symbol": "FCCL",
+        "n": 14,
+        "hit_pct": 78.6,
+        "mean_realized": -1.83
+      },
+      {
+        "symbol": "PABC",
+        "n": 14,
+        "hit_pct": 78.6,
+        "mean_realized": -2.89
+      },
+      {
+        "symbol": "EFERT",
+        "n": 9,
+        "hit_pct": 77.8,
+        "mean_realized": -2.52
+      },
+      {
+        "symbol": "SEARL",
+        "n": 14,
+        "hit_pct": 71.4,
+        "mean_realized": -3.1
+      },
+      {
+        "symbol": "DGKC",
+        "n": 9,
+        "hit_pct": 66.7,
+        "mean_realized": -2.47
+      },
+      {
+        "symbol": "TRG",
+        "n": 9,
+        "hit_pct": 66.7,
+        "mean_realized": -0.71
+      },
+      {
+        "symbol": "APL",
+        "n": 14,
+        "hit_pct": 57.1,
+        "mean_realized": 1.18
+      },
+      {
+        "symbol": "POL",
+        "n": 14,
+        "hit_pct": 57.1,
+        "mean_realized": 1.02
+      },
+      {
+        "symbol": "COLG",
+        "n": 9,
+        "hit_pct": 55.6,
+        "mean_realized": 0.54
+      },
+      {
+        "symbol": "FFC",
+        "n": 9,
+        "hit_pct": 55.6,
+        "mean_realized": -0.73
+      },
+      {
+        "symbol": "MEBL",
+        "n": 14,
+        "hit_pct": 50.0,
+        "mean_realized": 0.22
+      },
+      {
+        "symbol": "NPL",
+        "n": 12,
+        "hit_pct": 50.0,
+        "mean_realized": 0.23
+      },
+      {
+        "symbol": "ENGROH",
+        "n": 9,
+        "hit_pct": 44.4,
+        "mean_realized": 0.28
+      },
+      {
+        "symbol": "HUBC",
+        "n": 14,
+        "hit_pct": 35.7,
+        "mean_realized": 0.97
+      },
+      {
+        "symbol": "FABL",
+        "n": 14,
+        "hit_pct": 35.7,
+        "mean_realized": -1.91
+      },
+      {
+        "symbol": "LOTCHEM",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": 5.64
+      },
+      {
+        "symbol": "INDU",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": 1.03
+      },
+      {
+        "symbol": "HBL",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": -0.71
+      },
+      {
+        "symbol": "KEL",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": -0.07
+      },
+      {
+        "symbol": "LUCK",
+        "n": 9,
+        "hit_pct": 33.3,
+        "mean_realized": -0.5
+      },
+      {
+        "symbol": "PSO",
+        "n": 14,
+        "hit_pct": 28.6,
+        "mean_realized": -0.06
+      },
+      {
+        "symbol": "OGDC",
+        "n": 14,
+        "hit_pct": 28.6,
+        "mean_realized": 0.66
+      },
+      {
+        "symbol": "BAHL",
+        "n": 9,
+        "hit_pct": 22.2,
+        "mean_realized": 1.47
+      },
+      {
+        "symbol": "UBL",
+        "n": 9,
+        "hit_pct": 22.2,
+        "mean_realized": 7.71
+      },
+      {
+        "symbol": "SYS",
+        "n": 9,
+        "hit_pct": 22.2,
+        "mean_realized": -0.73
+      },
+      {
+        "symbol": "MARI",
+        "n": 9,
+        "hit_pct": 22.2,
+        "mean_realized": -0.6
+      },
+      {
+        "symbol": "EPCL",
+        "n": 14,
+        "hit_pct": 21.4,
+        "mean_realized": -4.04
+      },
+      {
+        "symbol": "FATIMA",
+        "n": 11,
+        "hit_pct": 18.2,
+        "mean_realized": -2.29
+      },
+      {
+        "symbol": "NBP",
+        "n": 9,
+        "hit_pct": 11.1,
+        "mean_realized": 5.39
+      },
+      {
+        "symbol": "MCB",
+        "n": 14,
+        "hit_pct": 7.1,
+        "mean_realized": -0.91
+      },
+      {
+        "symbol": "PPL",
+        "n": 14,
+        "hit_pct": 7.1,
+        "mean_realized": -0.93
+      }
+    ]
   }
 }

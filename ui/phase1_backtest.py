@@ -335,6 +335,81 @@ def _render_prediction_breakdowns(summary: dict) -> None:
 # --- public entrypoint ------------------------------------------------------
 
 
+def _engine2_source_picker(summary: dict) -> tuple[str, dict]:
+    """Let the analyst pick which Engine-2 sample drives the headline
+    scorecard / breakdowns: live LLM log (small but real LLM calls),
+    walk-forward rules (large but deterministic), or combined.
+
+    Returns ``(label, summary_view)`` where ``summary_view`` is a
+    *shallow-copied* summary with ``prediction_backtest`` rewritten to
+    the chosen sample so the existing render helpers don't need to
+    change.
+    """
+    wf = summary.get("walkforward_backtest") or {}
+    combined = summary.get("prediction_backtest_combined") or {}
+    pred = summary.get("prediction_backtest") or {}
+
+    # Only show the picker when at least one alternative source exists
+    if not (wf.get("n_predictions") or combined.get("n_predictions")):
+        return "Live LLM log", summary
+
+    options: list[str] = []
+    if pred.get("n_predictions"):
+        options.append(f"Live LLM log (n={pred['n_predictions']})")
+    if wf.get("n_predictions"):
+        options.append(f"Walk-forward rules (n={wf['n_predictions']})")
+    if combined.get("n_predictions"):
+        options.append(f"Combined (n={combined['n_predictions']})")
+
+    default_idx = 0
+    if wf.get("n_predictions") and wf.get("n_predictions", 0) >= 200:
+        default_idx = next(
+            (i for i, o in enumerate(options)
+             if o.startswith("Walk-forward")), 0)
+
+    picked = st.radio(
+        "Engine 2 source",
+        options=options,
+        index=default_idx,
+        horizontal=True,
+        help=("Choose which prediction sample drives the scorecard "
+              "and breakdowns. The live LLM log is small (n~46) "
+              "because the bot only started logging on 2026-04-23. "
+              "The walk-forward rules sample is much larger "
+              "(n~1,400) — every (date, symbol) pair is scored "
+              "deterministically against point-in-time data."),
+        key="phase1_engine2_source")
+
+    summary_view = dict(summary)
+    if picked.startswith("Walk-forward"):
+        summary_view["prediction_backtest"] = wf
+        st.info(
+            "**Walk-forward rules backtest active.** Every (date, "
+            "symbol) pair in the window scored by the deterministic "
+            "rules engine against point-in-time inputs. The LLM "
+            "judgement layer is **not** exercised in this sample — "
+            "this measures the bot's deterministic logic only. "
+            "Caveats: latest-only fundamentals, sparse historical "
+            "news (rules engine ignores news so this only affects "
+            "Engine 1's news IC), Phase-1 LightGBM signal replaced "
+            "with a deterministic 60-day momentum cross-section to "
+            "avoid training-data lookahead.",
+            icon="⚙",
+        )
+        return "Walk-forward rules", summary_view
+    if picked.startswith("Combined"):
+        summary_view["prediction_backtest"] = combined
+        st.info(
+            "**Combined view.** Live LLM predictions and walk-forward "
+            "rules predictions are pooled for the headline scorecard. "
+            "Useful for a one-number summary; for like-for-like "
+            "comparisons pick a single source.",
+            icon="🔀",
+        )
+        return "Combined", summary_view
+    return "Live LLM log", summary
+
+
 def _window_picker() -> tuple[int | None, dict | None]:
     """Render the window picker and return (window_days, loaded_summary)."""
     archived = _list_archived_windows()
@@ -404,10 +479,14 @@ def render() -> None:
     st.markdown("### Phase-1 backtest — accuracy review")
     st.caption(
         "Rigorous accuracy review of the bot's predictions vs realized "
-        "PSX prices. Two engines: per-dataset signal IC across all 35 "
-        "stocks (point-in-time), and live LLM prediction hit-rate on "
-        "the 16 stocks with logged predictions. Re-run the harness "
-        "after each new prediction batch to refresh."
+        "PSX prices. Engines covered: (1) per-dataset signal IC across "
+        "all 35 stocks point-in-time, (2) live LLM prediction hit-rate "
+        "on the 16 stocks with logged predictions, and (2b) **walk-"
+        "forward rules backtest** — every (date, symbol) pair scored "
+        "deterministically against point-in-time data (~1,400 sample "
+        "vs ~46 from the LLM log). Re-run the harness after each new "
+        "prediction batch to refresh; re-run "
+        "`scripts/walkforward_predictions.py` to refresh Engine 2b."
     )
 
     archived = _list_archived_windows()
@@ -466,7 +545,13 @@ def render() -> None:
                               f"{type(e).__name__}: {e}")
 
     st.divider()
-    _render_headline(summary)
+
+    # Pick which Engine-2 sample drives the scorecard / breakdowns.
+    # Returns the (possibly rewritten) summary that downstream render
+    # helpers consume.
+    source_label, summary_for_engine2 = _engine2_source_picker(summary)
+
+    _render_headline(summary_for_engine2)
     st.divider()
     _render_findings(summary)
     st.divider()
@@ -480,7 +565,8 @@ def render() -> None:
         _render_comparison(archived)
 
     st.divider()
-    _render_prediction_breakdowns(summary)
+    st.markdown(f"#### Engine 2 breakdowns — *{source_label}*")
+    _render_prediction_breakdowns(summary_for_engine2)
     st.divider()
 
     st.caption(

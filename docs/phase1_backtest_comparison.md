@@ -127,7 +127,115 @@ The Engine 2 conclusions from the 14-day report stand for the
 
 ---
 
-## Phase-2 priorities (re-confirmed by the 2-month run)
+## Engine 2b — walk-forward rules backtest (the fair sample)
+
+The 46-prediction LLM sample is heavily concentrated in the last week
+of the 2-month window, so quoting "93.75% sell hit rate" is a coin
+flip on a tiny sample. To get a **fair sample** the deterministic
+rules engine (`scripts/generate_predictions.py::predict_with_rules`)
+was re-run point-in-time on every (trading date, symbol) pair across
+the 60-day window — **1,469 predictions** — by
+`scripts/walkforward_predictions.py`.
+
+### Headline numbers
+
+| Metric | Live LLM (n=46, 5 sessions) | Walk-forward rules (n=1,469, 41 sessions) |
+|---|---|---|
+| Overall direction hit rate | **54.3%** | **38.5%** |
+| BEARISH hit rate | 93.75% (n=16) | 46.6% (n=766) |
+| BULLISH hit rate | 16.67% (n=6) | 38.5% (n=299) |
+| NEUTRAL hit rate | 37.5% (n=24) | 23.3% (n=404) |
+| MAE (expected vs realized) | 3.13% | 6.44% |
+| HIGH conviction hit | 33.3% (n=3) | 42.1% (n=553) |
+| MEDIUM conviction hit | 61.1% (n=36) | 46.7% (n=512) |
+| LOW conviction hit | 28.6% (n=7) | 23.3% (n=404) |
+
+### What this tells us — three concrete findings
+
+**Finding 1 — The 93.75% BEARISH hit rate from the LLM was sample
+noise, not skill.** On a fair 766-call BEARISH sample, the rules
+engine hit only 46.6% with a *positive* mean realized return
+(+1.23%). In other words, the deterministic engine has been calling
+shorts in a market that was actually going *up* on average. The
+LLM's 93.75% number reflects the regime-change tailwind during a
+single week (last week of April), not a durable edge.
+
+**Finding 2 — There is a ~16-point gap between the LLM and the
+rules engine** (54.3% LLM vs 38.5% rules). At face value this looks
+like the LLM judgement layer is adding real edge. But with n=46 vs
+n=1,469 the comparison is **lopsided**: the LLM sample is too small
+to be statistically meaningful. The honest read is "the LLM has
+*not yet been disproved*; it might add edge but we need a fair
+sample of equal size before quoting a number." The next step is to
+run an LLM walk-forward with the same harness (swap
+`predict_with_rules` for `predict_with_claude`) over a budgeted
+subset — see Phase-2 priorities.
+
+**Finding 3 — Conviction calibration is broken on both samples.**
+HIGH conviction hits 42% on the rules engine vs MEDIUM at 47% — i.e.
+the engine is *more* often wrong when it claims to be more sure.
+The MAE confirms it: HIGH-conviction MAE is 7.94% vs MEDIUM 6.22%.
+Same pattern in the live LLM sample (HIGH 33% vs MEDIUM 61%). This
+must be fixed before we can trust HIGH-conviction calls in
+production.
+
+### Per-symbol stand-outs (rules walk-forward)
+
+Best-performing names over the 41-session walk-forward (n≥40 each):
+
+| Symbol | n | Hit % | Mean realized % |
+|---|---|---|---|
+| KAPCO | 41 | 63.4 | −0.49 |
+| COLG | 41 | 61.0 | −0.34 |
+| ATRL | 41 | 61.0 | +2.82 |
+| MLCF | 43 | 58.1 | −1.47 |
+| KEL | 41 | 56.1 | 0.00 |
+
+Worst-performing names (rules engine consistently wrong):
+
+| Symbol | n | Hit % | Mean realized % |
+|---|---|---|---|
+| PPL | 43 | **4.7** | +0.37 |
+| NBP | 41 | 14.6 | −2.11 |
+| EPCL | 43 | 18.6 | −0.20 |
+| FABL | 43 | 20.9 | −0.01 |
+| SYS | 41 | 22.0 | +1.74 |
+| OGDC | 43 | 23.3 | +1.30 |
+
+The rules engine has a structural problem with **PPL** (4.7% hit on
+43 calls) — the engine was bearish but the stock drifted up. **PPL,
+MCB, OGDC, NBP** were also flagged as 0%-hit on the live LLM sample,
+so the issue is not LLM-specific — it's a feature problem. These
+names have either weak technical-momentum signals or sector
+characteristics that the bot misreads (banking deleveraging cycle,
+oil-price decoupling). Phase-2 must override the rules engine on
+these specific names until the underlying model is repaired.
+
+### Methodology caveats (important for context)
+
+1. **Latest-only fundamentals.** The synthesizer's value/quality
+   lenses use today's fundamentals snapshot — slight lookahead bias
+   (fundamentals barely move in 60 days).
+2. **News intentionally excluded.** The rules engine ignores the
+   news signal. The sparse historical news coverage
+   (~1 article/day pre-April-23, ~80/day after) therefore does not
+   bias this walk-forward — it would only matter for an LLM
+   walk-forward.
+3. **Phase-1 LightGBM lookahead avoided.** The LightGBM ranking
+   signal was trained on data covering this window; the
+   walk-forward replaces it with a deterministic 60-day momentum
+   cross-section. This *under-states* the true strategy accuracy
+   when the trained model is also working — accept this as a
+   conservatism.
+4. **Rules engine is conservative by design.** It issues 28% NEUTRAL
+   predictions (n=404 / 1,469). Removing those (and treating
+   NEUTRAL hits using the |move| < 1.5% rule) the directional
+   accuracy on the 1,065 directional calls is 44.4%. Still below
+   random — confirming the regime-mismatch reading from Engine 1.
+
+---
+
+## Phase-2 priorities (re-confirmed by walk-forward + 2-month run)
 
 1. **Regime detector.** A small rolling-IC monitor that classifies
    the current regime as MOMENTUM / MEAN-REVERSION / MIXED based
@@ -139,10 +247,12 @@ The Engine 2 conclusions from the 14-day report stand for the
    IC magnitudes >0.35 over 60 days; they deserve more weight than
    smaller commodities.
 
-3. **HIGH conviction recalibration.** HIGH-conv calls have HIGHER
-   MAE than MEDIUM. Either tighten the criteria to issue a HIGH
-   call, or downgrade the prior on HIGH conviction so it requires
-   stronger multi-source agreement.
+3. **HIGH conviction recalibration (now with strong evidence).**
+   HIGH-conv calls hit 42% on the 553-call walk-forward sample vs
+   MEDIUM at 47%. HIGH-conv MAE 7.94% vs MEDIUM 6.22%. Either
+   tighten the criteria to issue a HIGH call, or downgrade the
+   prior so HIGH requires stronger multi-source agreement (e.g.
+   ≥2 lenses agreeing AND momentum confirmation).
 
 4. **Date-version fundamentals + management tone.** Engine 1
    currently can't backtest these because the parquets are
@@ -151,9 +261,17 @@ The Engine 2 conclusions from the 14-day report stand for the
    IC-tested.
 
 5. **Per-name strategy review for the 0% bucket.** `MCB`, `PPL`,
-   `PSO`, `NPL` — the bot has been wrong on every prediction. Use
-   a sector-aware override or freeze predictions on these names
-   until the underlying model is repaired.
+   `PSO`, `NPL`, `NBP`, `OGDC` — wrong on the LLM sample AND the
+   walk-forward. Use a sector-aware override or freeze predictions
+   on these names until the underlying model is repaired.
+
+6. **LLM walk-forward (Phase-2.5).** With the rules walk-forward
+   showing 38.5% on n=1,469, the next step is to run a budgeted
+   LLM walk-forward over the same dates to confirm whether the
+   LLM judgement layer adds real edge or whether the 54.3% live
+   LLM number is sampling noise. Same harness; swap
+   `predict_with_rules` → `predict_with_claude` and budget for
+   ~1,400 API calls.
 
 ---
 
@@ -161,9 +279,13 @@ The Engine 2 conclusions from the 14-day report stand for the
 
 - `data/backtest/phase1_signals.parquet` — latest run (60-day, 1,487 rows)
 - `data/backtest/phase1_predictions.parquet` — every LLM prediction
-- `data/backtest/phase1_summary.json` — latest run summary (60-day)
+- `data/backtest/walkforward_predictions.parquet` — every (date, symbol)
+  pair scored by deterministic rules (n=1,469)
+- `data/backtest/phase1_summary.json` — latest run summary (60-day,
+  now includes `walkforward_backtest` + `prediction_backtest_combined`)
 - `data/backtest/phase1_summary_14d.json` — archived 14-day summary
 - `data/backtest/phase1_summary_60d.json` — archived 60-day summary
 - `docs/phase1_backtest_2026-04-10_to_2026-04-24.md` — 14-day report
 - `docs/phase1_backtest_2026-02-23_to_2026-04-24.md` — 60-day report
+  (now includes Section 2b walk-forward rules backtest)
 - `docs/phase1_backtest_comparison.md` — this document
