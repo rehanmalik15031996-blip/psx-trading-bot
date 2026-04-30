@@ -428,6 +428,27 @@
       ],
       "scored_at": "",
       "detected_at": "2026-04-30T15:30:13+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-04-30::BEARISH::20",
+      "title": "Broad-market bearish shock: 20 HIGH-confidence articles avg sentiment -0.69",
+      "sentiment": -0.69,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 20,
+      "sample_titles": [
+        "Bears continue to dominate PSX as KSE-100 loses 2,800 points",
+        "PSX stays bearish, loses over 2,829 points - | Associated Press Of Pakistan",
+        "PSX Closing Bell: Bears Win - Mettis Global",
+        "PSX slumps as KSE-100 loses 3,672 points amid rising oil prices - ARY News",
+        "Pakistan\u2019s Oil Shock: $800M weekly bill, PM Shehbaz Sharif warns of US-Iran war fallout; Mediation push faces heat - Org"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-04-30T17:53:19+00:00"
     }
   ]
 }
