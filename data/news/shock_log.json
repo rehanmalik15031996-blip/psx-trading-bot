@@ -335,6 +335,78 @@
       ],
       "scored_at": "",
       "detected_at": "2026-04-30T12:01:56+00:00"
+    },
+    {
+      "article_id": "5509a6bd140d90e1",
+      "title": "'No Signal For Resolution' As US Mulls Iran Military Options",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T13:10:25+00:00",
+      "detected_at": "2026-04-30T13:10:41+00:00"
+    },
+    {
+      "article_id": "493096c162d93c90",
+      "title": "Borrowing Now More Expensive in Pakistan After Increase in SBP Interest Rate - ProPakistani",
+      "sentiment": -0.45,
+      "confidence": "HIGH",
+      "category": "POLICY",
+      "affected_symbols": [
+        "HBL",
+        "MCB",
+        "MEBL",
+        "NBP",
+        "UBL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T13:10:25+00:00",
+      "detected_at": "2026-04-30T13:10:41+00:00"
+    },
+    {
+      "article_id": "e90055f9b9a909fd",
+      "title": "Hormuz crisis can triple Pakistan\u2019s oil import bill - The News Pakistan",
+      "sentiment": -0.5,
+      "confidence": "HIGH",
+      "category": "GEOPOLITICS",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T13:10:25+00:00",
+      "detected_at": "2026-04-30T13:10:41+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-04-30::BEARISH::34",
+      "title": "Broad-market bearish shock: 34 HIGH-confidence articles avg sentiment -0.61",
+      "sentiment": -0.6088235294117647,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 34,
+      "sample_titles": [
+        "PSX plunges over 3,000 points during intraday trade as bears maintain control",
+        "Govt raises Rs1.339 trillion in T-bill auction as yields climb after SBP rate hike",
+        "Oil surges to 4-year high, stocks slip after Trump blockade warning",
+        "PSX plunges over 4,800 points during early trading hours",
+        "Production curbs hit OGDCL profit"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-04-30T13:10:41+00:00"
     }
   ]
 }
