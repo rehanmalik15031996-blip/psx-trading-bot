@@ -120,6 +120,167 @@
       ],
       "scored_at": "",
       "detected_at": "2026-04-29T20:06:11+00:00"
+    },
+    {
+      "article_id": "5d8c424ad7111432",
+      "title": "Oil surges to 4-year high, stocks slip after Trump blockade warning",
+      "sentiment": -0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "532956769b5ee406",
+      "title": "Production curbs hit OGDCL profit",
+      "sentiment": -0.35,
+      "confidence": "HIGH",
+      "category": "COMPANY",
+      "affected_symbols": [
+        "OGDC"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "6f81f5b5af093435",
+      "title": "Brent oil rises 7% on report US considering military options to break Iran deadlock",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "d588c15269a51d1f",
+      "title": "LUCK posts Rs68bn profit with steady growth",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMPANY",
+      "affected_symbols": [
+        "LUCK"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "1919381aa9b2e283",
+      "title": "Oil prices climb to four-year high above $120 after report that Trump is considering further military action in Iran",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "GLOBAL",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "80e83f52f7204c7a",
+      "title": "Prime Minister Sharif flags oil shock as Iran-US war hits economy; Pakistan mediation bid questioned amid energy crisis - Organiser",
+      "sentiment": -0.65,
+      "confidence": "HIGH",
+      "category": "GEOPOLITICS",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "2be3be260b0f61a4",
+      "title": "'Pakistan bleeding \u20b976,000 crore weekly': PM Shehbaz Sharif raises alarm over soaring oil import bill amid - The Economic Times",
+      "sentiment": -0.7,
+      "confidence": "HIGH",
+      "category": "MACRO",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "a3d9e5a65a50ee7d",
+      "title": "PSX slides over 4,000 points amid US-Iran escalation fears, oil tops $120 - Profit by Pakistan Today",
+      "sentiment": -0.75,
+      "confidence": "HIGH",
+      "category": "GEOPOLITICS",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "0b8735d5242d0e51",
+      "title": "Pakistan\u2019s oil bill jumps to $800 million a week as Middle East conflict hits growth, PM says - Profit by Pakistan Today",
+      "sentiment": -0.5,
+      "confidence": "HIGH",
+      "category": "GEOPOLITICS",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T09:36:45+00:00",
+      "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-04-30::BEARISH::17",
+      "title": "Broad-market bearish shock: 17 HIGH-confidence articles avg sentiment -0.50",
+      "sentiment": -0.5,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 17,
+      "sample_titles": [
+        "PSX plunges over 3,000 points during intraday trade as bears maintain control",
+        "Govt raises Rs1.339 trillion in T-bill auction as yields climb after SBP rate hike",
+        "Oil surges to 4-year high, stocks slip after Trump blockade warning",
+        "PSX plunges over 4,800 points during early trading hours",
+        "Production curbs hit OGDCL profit"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-04-30T09:37:43+00:00"
     }
   ]
 }
