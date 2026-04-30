@@ -1,17 +1,17 @@
 {
   "workflow": "predictions",
   "ok": true,
-  "note": "16 new predictions, 62 in log",
-  "as_of": "2026-04-29T20:10:49+00:00",
+  "note": "35 new predictions, 97 in log",
+  "as_of": "2026-04-30T09:46:43+00:00",
   "github": {
-    "run_id": "25131127986",
-    "run_number": "10",
+    "run_id": "25158387048",
+    "run_number": "11",
     "ref": "refs/heads/main",
-    "sha": "c3031d392d3f9f9389bd16480c2633750ef784d6"
+    "sha": "fa4a768d6dc979289a80ac4b702ff137b11d6083"
   },
   "payload": {
-    "new": 16,
-    "total": 62,
+    "new": 35,
+    "total": 97,
     "symbols": [
       "HUBC",
       "PABC",
@@ -28,7 +28,26 @@
       "SEARL",
       "MCB",
       "MEBL",
-      "PSO"
+      "PSO",
+      "HBL",
+      "UBL",
+      "BAHL",
+      "NBP",
+      "MARI",
+      "LUCK",
+      "DGKC",
+      "FFC",
+      "EFERT",
+      "FATIMA",
+      "KAPCO",
+      "KEL",
+      "ATRL",
+      "ENGROH",
+      "LOTCHEM",
+      "SYS",
+      "TRG",
+      "INDU",
+      "COLG"
     ]
   }
 }
