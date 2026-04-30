@@ -281,6 +281,60 @@
       ],
       "scored_at": "",
       "detected_at": "2026-04-30T09:37:43+00:00"
+    },
+    {
+      "article_id": "e055ad842227e5e0",
+      "title": "PSX slumps as KSE-100 loses 3,672 points amid rising oil prices - ARY News",
+      "sentiment": -0.7,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T12:01:29+00:00",
+      "detected_at": "2026-04-30T12:01:56+00:00"
+    },
+    {
+      "article_id": "0cb0f7f0027f08ac",
+      "title": "Pakistan\u2019s Oil Shock: $800M weekly bill, PM Shehbaz Sharif warns of US-Iran war fallout; Mediation push faces heat - Organiser",
+      "sentiment": -0.65,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-04-30T12:01:29+00:00",
+      "detected_at": "2026-04-30T12:01:56+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-04-30::BEARISH::26",
+      "title": "Broad-market bearish shock: 26 HIGH-confidence articles avg sentiment -0.57",
+      "sentiment": -0.5673076923076923,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 26,
+      "sample_titles": [
+        "PSX plunges over 3,000 points during intraday trade as bears maintain control",
+        "Govt raises Rs1.339 trillion in T-bill auction as yields climb after SBP rate hike",
+        "Oil surges to 4-year high, stocks slip after Trump blockade warning",
+        "PSX plunges over 4,800 points during early trading hours",
+        "Production curbs hit OGDCL profit"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-04-30T12:01:56+00:00"
     }
   ]
 }
