@@ -246,6 +246,193 @@ def render() -> None:
     st.divider()
     _render_history_chart()
 
+    st.divider()
+    render_universe_manager()
+
+
+# --------------------------------------------------------------------------
+# Universe manager — pick / preview / promote KSE-100 candidate stocks
+# --------------------------------------------------------------------------
+# The user explicitly asked: "we had a pipeline for best ranking and even
+# add new stock if it is under KSE-100" — surface that pipeline as a
+# first-class panel so the analyst can:
+#   1. See the full candidate pool + which slots are filled today
+#   2. Preview the AUC-ranking (dry-run of scripts/select_universe.py)
+#   3. Promote a new candidate by re-running the selector
+
+
+def _read_universe_ranking_cache() -> dict | None:
+    """Latest ranking cached at ``data/universe_ranking.json`` (or None)."""
+    p = ROOT / "data" / "universe_ranking.json"
+    if not p.exists():
+        return None
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def render_universe_manager() -> None:
+    """Universe-management panel — current universe + candidate pool +
+    re-rank action.
+
+    Renders inside the System Health tab so the analyst has one place
+    to inspect both data freshness and universe composition. Uses
+    ``scripts/select_universe.py --dry-run`` to preview a re-rank
+    without overwriting ``config/universe.py``.
+    """
+    st.markdown("### Universe Manager")
+    st.caption(
+        "The bot trades a 35-stock KSE-100-mirroring universe — "
+        "7 user-required tickers + 28 flex slots picked by AUC ranking. "
+        "Use this panel to inspect the candidate pool, preview a "
+        "re-rank, and promote a new name into the universe."
+    )
+
+    try:
+        from config.candidates import (
+            CANDIDATE_POOL, REQUIRED_TICKERS, sector_of_candidate,
+        )
+        from config.universe import symbols as _universe_syms
+    except Exception as e:
+        st.warning(f"Could not load universe config: {e}")
+        return
+
+    current = set(_universe_syms())
+    required = set(REQUIRED_TICKERS)
+    pool_syms = [c[0] for c in CANDIDATE_POOL]
+
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Universe (live)", len(current))
+    c2.metric("Required (locked)", len(required))
+    c3.metric("Candidate pool", len(pool_syms))
+    in_universe_from_pool = sum(1 for s in pool_syms if s in current)
+    c4.metric("Pool → universe", in_universe_from_pool)
+
+    cache = _read_universe_ranking_cache()
+    if cache:
+        as_of = cache.get("as_of") or "—"
+        st.caption(
+            f"Last AUC re-ranking: **{as_of}** "
+            f"({cache.get('n_evaluated', '?')} candidates evaluated)"
+        )
+    else:
+        st.caption(
+            "No cached re-ranking on disk yet. Click **Preview re-rank** "
+            "below to generate one."
+        )
+
+    # ---- Candidate-pool table — current status per name
+    pool_rows = []
+    for sym, sec in CANDIDATE_POOL:
+        status = ("In universe" if sym in current
+                   else "Required" if sym in required
+                   else "Waiting")
+        rank_info = (cache or {}).get("by_symbol", {}).get(sym, {})
+        pool_rows.append({
+            "Symbol":        sym,
+            "Sector":        sec,
+            "Status":        status,
+            "AUC":           rank_info.get("auc"),
+            "Rank":          rank_info.get("rank"),
+            "Reason":        rank_info.get("reason") or "",
+        })
+    # Required tickers (those NOT in the candidate pool):
+    for sym in required:
+        if sym not in {p[0] for p in CANDIDATE_POOL}:
+            pool_rows.insert(0, {
+                "Symbol": sym, "Sector": sector_of_candidate(sym) or "—",
+                "Status": "Required", "AUC": None, "Rank": None,
+                "Reason": "[user-required]",
+            })
+
+    import pandas as pd
+    df = pd.DataFrame(pool_rows)
+    if "AUC" in df.columns:
+        df = df.sort_values(
+            ["Status", "AUC"], ascending=[True, False],
+            na_position="last",
+        )
+    st.dataframe(df, hide_index=True, use_container_width=True)
+
+    # ---- Actions
+    st.markdown("##### Actions")
+    cA, cB = st.columns(2)
+    with cA:
+        if st.button(
+            "Preview re-rank (dry-run)",
+            use_container_width=True,
+            help="Runs the selector with --dry-run and writes the "
+                 "ranking to data/universe_ranking.json. Does NOT "
+                 "modify config/universe.py.",
+        ):
+            _run_universe_select(dry_run=True)
+    with cB:
+        if st.button(
+            "Re-rank AND apply (writes config/universe.py)",
+            use_container_width=True,
+            type="secondary",
+            help="Runs the selector for real. Updates "
+                 "config/universe.py with the new flex slots. "
+                 "Restart Streamlit afterwards for the change to "
+                 "take effect.",
+        ):
+            _run_universe_select(dry_run=False)
+
+
+def _run_universe_select(*, dry_run: bool) -> None:
+    """Invoke ``scripts/select_universe.py`` and stream output."""
+    import subprocess
+    import sys as _sys
+
+    args = [_sys.executable, str(ROOT / "scripts" / "select_universe.py")]
+    if dry_run:
+        args.append("--dry-run")
+
+    title = "Previewing re-rank…" if dry_run else "Re-ranking and applying…"
+    with st.spinner(title):
+        try:
+            res = subprocess.run(
+                args, capture_output=True, text=True,
+                timeout=900, cwd=str(ROOT),
+            )
+        except subprocess.TimeoutExpired:
+            st.error("Universe selector timed out (>15 min).")
+            return
+        except FileNotFoundError:
+            st.error(
+                "scripts/select_universe.py not found — is the repo "
+                "properly checked out?"
+            )
+            return
+        except Exception as e:
+            st.error(f"{type(e).__name__}: {e}")
+            return
+
+    if res.returncode == 0:
+        if dry_run:
+            st.success(
+                "Re-ranking complete (dry-run). Scroll up — the "
+                "candidate-pool table now shows AUC + rank for "
+                "each name. Click **Re-rank AND apply** when ready."
+            )
+        else:
+            st.success(
+                "Universe updated. **Restart Streamlit** for the "
+                "change to take effect (the price cache is keyed on "
+                "the universe at startup)."
+            )
+        out_tail = (res.stdout or "").strip().splitlines()[-15:]
+        if out_tail:
+            st.code("\n".join(out_tail), language="text")
+    else:
+        err_tail = (
+            (res.stderr or res.stdout or "").strip()
+            .splitlines()[-15:]
+        )
+        st.error("Selector failed:\n```\n"
+                 + "\n".join(err_tail) + "\n```")
+
 
 def _render_grid(rows: list[dict]) -> None:
     cols = st.columns(2)

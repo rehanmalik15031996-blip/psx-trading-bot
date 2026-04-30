@@ -560,8 +560,20 @@ def get_user_portfolio() -> dict:
 # --------------------------------------------------------------------------
 # TOOL 9: recommend new buys
 # --------------------------------------------------------------------------
-def recommend_new_buys(max_ideas: int = 5) -> dict:
-    """Today's BUY candidates: top-N by Phase 1 rule + reasons."""
+def recommend_new_buys(max_ideas: int = 5,
+                          *, with_rationale: bool = True) -> dict:
+    """Today's BUY candidates: top-N by Phase 1 rule + reasons.
+
+    When ``with_rationale=True`` (default) every idea is enriched with
+    a structured explanation block from
+    :func:`brain.buy_explainer.explain_buy` — drivers, risks, "why
+    now", confidence percentage, and a trade plan. The Find Ideas tab
+    renders this as expandable cards instead of a bare table.
+
+    Setting ``with_rationale=False`` returns the lightweight dict
+    used by the chatbot tool schema (the LLM doesn't need the full
+    rationale; it can call ``explain_buy`` itself when asked).
+    """
     ranking = get_universe_ranking()
     signal = get_strategy_signal()
     if "error" in ranking:
@@ -571,19 +583,117 @@ def recommend_new_buys(max_ideas: int = 5) -> dict:
     cautious = not signal.get("market_risk_on", True)
     pool = (signal.get("selected_symbols")
             or signal.get("would_pick_if_market_filter_off") or [])[:top_n]
+    top5_set = set(signal.get("selected_symbols") or [])
+
+    # Shared inputs (one fetch per request — saves repeated FIPI scrapes)
+    macro_impact = None
+    fipi = None
+    scored_news_df = None
+    if with_rationale:
+        try:
+            macro_impact = get_macro_impact_today()
+        except Exception:
+            macro_impact = None
+        try:
+            fipi = get_fipi_flows()
+        except Exception:
+            fipi = None
+        try:
+            from ui.news_sentiment import load_scored_news
+            scored_news_df = load_scored_news(max_age_hours=24 * 7)
+        except Exception:
+            scored_news_df = None
+
+    # Today's predictions (already-computed forecast + entry/stop/target)
+    todays_pred_index: dict[str, dict] = {}
+    if with_rationale:
+        try:
+            tp = get_todays_predictions(max_items=50)
+            for row in (tp.get("predictions") or []):
+                todays_pred_index[row.get("symbol")] = row
+        except Exception:
+            pass
+
     ideas = []
     for sym in pool:
         s = get_technical_snapshot(sym)
         pr = get_price(sym)
-        ideas.append({
+        idea: dict = {
             "symbol": sym,
+            "sector": sector_of(sym) or "Other",
             "close_pkr": pr.get("close_pkr"),
             "mom_150d_log_ret": s.get("momentum", {}).get("150d_log_ret"),
             "rvol_20d_ann": s.get("volatility", {}).get("rvol_20d_ann"),
             "rsi_14": s.get("rsi_14"),
-            "dist_from_52w_high_pct": s.get("ranges", {}).get("dist_from_52w_high_pct"),
+            "dist_from_52w_high_pct":
+                s.get("ranges", {}).get("dist_from_52w_high_pct"),
             "trend": s.get("trend"),
-        })
+        }
+
+        if with_rationale:
+            try:
+                from brain.buy_explainer import explain_buy as _explain_buy
+                # Per-symbol news aggregate from the scored-news cache
+                news: dict | None = None
+                if scored_news_df is not None and not scored_news_df.empty:
+                    try:
+                        sub = scored_news_df
+                        if "affected_symbols" in sub.columns:
+                            sub = sub[sub["affected_symbols"].apply(
+                                lambda x: sym in (x or []) if x is not None
+                                else False)]
+                        if len(sub) and "score" in sub.columns:
+                            top_idx = sub["score"].abs().idxmax()
+                            news = {
+                                "n_articles": int(len(sub)),
+                                "aggregate_score":
+                                    float(sub["score"].mean()),
+                                "top_headline":
+                                    str(sub.loc[top_idx, "title"])
+                                    if "title" in sub.columns else "",
+                            }
+                    except Exception:
+                        news = None
+                # Management outlook (one-row latest filing)
+                try:
+                    from ui import dashboard_data as _dash
+                    mgmt = _dash.latest_management_outlook(symbol=sym) or {}
+                except Exception:
+                    mgmt = None
+
+                fcst = todays_pred_index.get(sym, {})
+                rationale = _explain_buy(
+                    sym,
+                    technical_snapshot=s,
+                    macro_impact=macro_impact,
+                    news=news,
+                    fipi=fipi,
+                    management_outlook=mgmt,
+                    in_phase1_top5=sym in top5_set,
+                    direction=fcst.get("direction") or "BULLISH",
+                    conviction=fcst.get("conviction") or "MEDIUM",
+                    suggested_action=(fcst.get("suggested_action")
+                                       or "BUY"),
+                    price_pkr=pr.get("close_pkr"),
+                    sector=idea["sector"],
+                    forecast_dict=fcst,
+                )
+                idea["rationale"] = rationale
+            except Exception as e:
+                idea["rationale"] = {
+                    "symbol": sym,
+                    "verdict": "BUY",
+                    "headline": (
+                        f"BUY (no rationale block — "
+                        f"{type(e).__name__}: {e})"
+                    ),
+                    "thesis": "",
+                    "key_drivers": [],
+                    "key_risks": [],
+                    "confidence_pct": 50,
+                }
+        ideas.append(idea)
+
     return {
         "as_of": ranking["as_of"],
         "market_risk_on": not cautious,

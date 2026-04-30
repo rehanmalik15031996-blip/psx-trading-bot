@@ -417,6 +417,59 @@ def main() -> int:
 
     final_path = write_universe(picks, required_entries, dry_run=args.dry_run)
 
+    # ------------------------------------------------------------------
+    # Cache the ranking to data/universe_ranking.json so the Streamlit
+    # UI's Universe Manager panel can display per-candidate AUC + rank
+    # without re-running the selector.
+    # ------------------------------------------------------------------
+    try:
+        import json
+        from datetime import datetime, timezone
+        cache_path = PROJECT_ROOT / "data" / "universe_ranking.json"
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        ranked_pool = sorted(pool_results, key=lambda x: -x["auc"])
+        by_symbol = {}
+        picked_syms = {p["symbol"] for p in picks}
+        for i, r in enumerate(ranked_pool, 1):
+            by_symbol[r["symbol"]] = {
+                "auc":    round(float(r["auc"]), 4),
+                "acc":    round(float(r["acc"]), 4),
+                "rank":   i,
+                "sector_grouped": r["sector_grouped"],
+                "rows_used":      int(r["rows_used"]),
+                "picked":         r["symbol"] in picked_syms,
+                "reason": (r.get("skipped_reason") or
+                            ("picked" if r["symbol"] in picked_syms
+                             else "ranked-but-capped")),
+            }
+        for r in req_results:
+            by_symbol[r["symbol"]] = {
+                "auc":    round(float(r["auc"]), 4),
+                "acc":    round(float(r["acc"]), 4),
+                "rank":   None,
+                "sector_grouped": r["sector_grouped"],
+                "rows_used":      int(r["rows_used"]),
+                "picked":         True,
+                "reason":         "user-required",
+            }
+        cache = {
+            "as_of": datetime.now(timezone.utc).isoformat(),
+            "n_evaluated": len(pool_results) + len(req_results),
+            "n_required":  len(req_results),
+            "n_flex_slots": len(picks),
+            "dry_run":      bool(args.dry_run),
+            "by_symbol":    by_symbol,
+        }
+        cache_path.write_text(
+            json.dumps(cache, indent=2, default=str),
+            encoding="utf-8",
+        )
+        console.print(
+            f"\n[dim]Cached ranking → {cache_path.relative_to(PROJECT_ROOT)}[/dim]"
+        )
+    except Exception as e:
+        console.print(f"[yellow]Could not cache ranking: {e}[/yellow]")
+
     console.print(f"\n[bold]Final {len(required_entries) + len(picks)}-stock "
                    f"universe:[/bold]")
     for e in required_entries:

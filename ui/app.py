@@ -573,26 +573,71 @@ def render_sidebar():
 
         # -- Data controls
         st.markdown("### Data")
-        if st.button("Pull latest from GitHub", use_container_width=True,
-                     help="Runs `git pull` to fetch data committed by the "
-                          "daily CI workflows, then clears the price cache."):
-            _do_git_pull()
 
-        if st.button("Refresh prices from PSX DPS",
-                      use_container_width=True,
-                      help="Pulls today's OHLCV for the full universe "
-                           "directly from PSX DPS (bypasses GitHub). Use "
-                           "right after market close if the EOD workflow "
-                           "hasn't run yet. Takes ~60 seconds."):
-            _do_backfill()
+        # Primary: the one-click "I want everything fresh" button. Runs
+        # the same pipeline the daily CI runs, in-process, so the UI
+        # reloads with today's full dataset without waiting for the
+        # next cron tick on GitHub.
+        if st.button(
+            "🔄 Refresh ALL data (run workflows locally)",
+            use_container_width=True,
+            type="primary",
+            help="Runs the full local refresh chain in sequence: "
+                 "EOD prices → FIPI flows → macro series → macro "
+                 "KPIs → material info. Takes ~2-3 minutes. Best "
+                 "option when you want today's data right now and "
+                 "do NOT want to wait for GitHub Actions.",
+        ):
+            _do_run_all_local(skip_slow=True)
 
-        if st.button("Clear in-memory cache", use_container_width=True,
-                      help="Forces tools.py to reload parquet files. Use "
-                           "after manually editing data/ on disk."):
-            tools.refresh_cache()
-            st.success("Cache cleared.")
-            time.sleep(0.4)
-            st.rerun()
+        # Sub-option: also include the slow fundamentals refresh.
+        with st.expander("Advanced refresh options", expanded=False):
+            if st.button(
+                "Run ALL workflows including slow ones (~10 min)",
+                use_container_width=True,
+                help="Same as above, plus the quarterly fundamentals "
+                     "refresh (~5 min). Use this when a company has "
+                     "just released results.",
+            ):
+                _do_run_all_local(skip_slow=False)
+
+            if st.button(
+                "Trigger workflows on GitHub (cloud)",
+                use_container_width=True,
+                help="Dispatches all data workflows on GitHub Actions. "
+                     "Use this to trigger the cloud-side commits so the "
+                     "production Streamlit Cloud app gets the new data. "
+                     "Requires a GITHUB_TOKEN with `workflow:write`.",
+            ):
+                _do_dispatch_github_workflows(only_fast=True)
+
+            if st.button(
+                "Pull latest from GitHub",
+                use_container_width=True,
+                help="Runs `git pull` to fetch data committed by the "
+                     "daily CI workflows, then clears the price cache.",
+            ):
+                _do_git_pull()
+
+            if st.button(
+                "Refresh prices only (PSX DPS, ~60s)",
+                use_container_width=True,
+                help="Pulls today's OHLCV for the full universe "
+                     "directly from PSX DPS. Use right after market "
+                     "close if the EOD workflow hasn't run yet.",
+            ):
+                _do_backfill()
+
+            if st.button(
+                "Clear in-memory cache",
+                use_container_width=True,
+                help="Forces tools.py to reload parquet files. Use "
+                     "after manually editing data/ on disk.",
+            ):
+                tools.refresh_cache()
+                st.success("Cache cleared.")
+                time.sleep(0.4)
+                st.rerun()
 
         # -- Freshness panel
         with st.expander("Data freshness", expanded=False):
@@ -693,6 +738,236 @@ def _do_backfill():
             st.error("No symbols refreshed.")
         time.sleep(0.8)
         st.rerun()
+
+
+# --------------------------------------------------------------------------
+# Run all data workflows — local refresh chain + optional GitHub dispatch
+# --------------------------------------------------------------------------
+# These two helpers power the "Refresh data" sidebar panel. ``_do_run_all_local``
+# runs the same scripts the GitHub Actions run, but in-process — useful when
+# the analyst is offline or wants the freshest possible data without
+# waiting for the next CI cron. ``_do_dispatch_github_workflows`` triggers
+# the cloud workflows so the daily/CI commits land on main and the
+# production deployment on Streamlit Cloud picks them up.
+
+# The list mirrors the ``.github/workflows/*.yml`` schedule — newest /
+# fastest first so the analyst can stop early if the data they need is
+# already done.
+_LOCAL_REFRESH_PIPELINE: list[tuple[str, str, str]] = [
+    # (display_name, script_path, short_description)
+    ("EOD prices",
+     "scripts/backfill.py",
+     "Pulls today's close for the full universe from PSX DPS"),
+    ("FIPI flows",
+     "scripts/cache_fipi_daily.py",
+     "Caches today's FIPI / institutional flows"),
+    ("Macro series",
+     "scripts/refresh_macro_series.py",
+     "Brent, gold, copper, USD/PKR, KSE-100, etc."),
+    ("Macro KPIs",
+     "scripts/refresh_macro_kpis.py",
+     "SBP rates, KIBOR, T-bill, FX reserves, CPI"),
+    ("Material info",
+     "scripts/refresh_material_info.py",
+     "PSX material-info disclosures (event-driven)"),
+    ("Fundamentals",
+     "scripts/refresh_fundamentals.py",
+     "Quarterly fundamentals from PSX (slow — ~5 min)"),
+]
+
+# GitHub workflow filenames in dispatch order (fastest first). This matches
+# the schedules in .github/workflows/.
+_GITHUB_WORKFLOWS: list[tuple[str, str, str]] = [
+    ("End of day (OHLCV + FIPI + check predictions)", "eod.yml", "fast"),
+    ("Macro series", "macro_series.yml", "fast"),
+    ("Macro KPIs", "macro_kpis.yml", "fast"),
+    ("Material info", "material_info.yml", "fast"),
+    ("News scoring", "news_scoring.yml", "fast"),
+    ("Intraday session", "intraday_session.yml", "fast"),
+    ("Overnight (global cues)", "overnight.yml", "fast"),
+    ("Health check", "health_check.yml", "fast"),
+    ("Predictions (LLM brief)", "predictions.yml", "slow"),
+    ("Fundamentals (quarterly)", "fundamentals.yml", "slow"),
+    ("Financial results (event)", "financial_results.yml", "event"),
+]
+
+
+def _do_run_all_local(skip_slow: bool = True) -> None:
+    """Run the local refresh chain and stream progress to the sidebar.
+
+    Equivalent to the daily CI workflows but executed in-process so the
+    analyst sees fresh data without waiting for the next cron tick.
+    Each step is best-effort — a failure prints a warning but does not
+    abort the chain (so that e.g. a transient PSX DPS blip does not
+    block the macro refresh).
+    """
+    import subprocess
+    pipeline = [s for s in _LOCAL_REFRESH_PIPELINE
+                if not (skip_slow and "Fundamentals" in s[0])]
+
+    with st.spinner("Running the full data refresh chain locally…"):
+        bar = st.progress(0.0)
+        log_lines: list[str] = []
+        for i, (name, script, desc) in enumerate(pipeline):
+            log_lines.append(f"▶  **{name}** — {desc}")
+            placeholder = st.empty()
+            placeholder.markdown(
+                "  \n".join(log_lines[-12:]),
+                unsafe_allow_html=False,
+            )
+            try:
+                res = subprocess.run(
+                    [sys.executable, str(PROJECT_ROOT / script)],
+                    capture_output=True, text=True,
+                    timeout=900,  # 15 min hard cap per step
+                    cwd=str(PROJECT_ROOT),
+                )
+                if res.returncode == 0:
+                    tail = (res.stdout or "").strip().splitlines()[-1:]
+                    log_lines[-1] = (
+                        f"✓ **{name}** "
+                        f"({tail[0][:80] if tail else 'ok'})"
+                    )
+                else:
+                    err = (res.stderr or res.stdout
+                            or "no output").strip().splitlines()
+                    log_lines[-1] = (
+                        f"✗ **{name}** failed: "
+                        f"{err[-1][:120] if err else 'unknown error'}"
+                    )
+            except subprocess.TimeoutExpired:
+                log_lines[-1] = f"⏱ **{name}** timed out (>15 min)"
+            except FileNotFoundError:
+                log_lines[-1] = (
+                    f"○ **{name}** skipped — script not found")
+            except Exception as e:
+                log_lines[-1] = (
+                    f"✗ **{name}** raised "
+                    f"{type(e).__name__}: {e}")
+            placeholder.markdown(
+                "  \n".join(log_lines[-12:]),
+                unsafe_allow_html=False,
+            )
+            bar.progress((i + 1) / len(pipeline))
+        bar.empty()
+
+    tools.refresh_cache()
+    n_ok = sum(1 for line in log_lines if line.startswith("✓"))
+    n_fail = sum(1 for line in log_lines if line.startswith("✗"))
+    if n_fail == 0:
+        st.success(
+            f"All {n_ok} steps completed. Cache cleared — UI will "
+            "reload with fresh data."
+        )
+    else:
+        st.warning(
+            f"{n_ok} ok, {n_fail} failed. Check the log above; "
+            "the UI is still using whatever data did refresh."
+        )
+    time.sleep(0.8)
+    st.rerun()
+
+
+def _do_dispatch_github_workflows(only_fast: bool = True) -> None:
+    """Trigger every GitHub Actions workflow via workflow_dispatch.
+
+    Uses the canonical token from :func:`_read_canonical_token`. Each
+    dispatch is a single API call (~50ms) so triggering all 11 takes
+    well under a second. The actual workflow runs happen on GitHub's
+    runners over the next 5-30 minutes; the analyst should follow up
+    with **Pull latest from GitHub** once the runs complete (or wait
+    for the cron-driven daily commit).
+    """
+    import urllib.request
+    import urllib.error
+
+    tok = _read_canonical_token()
+    if not tok:
+        st.error(
+            "No GitHub token available — set **GITHUB_TOKEN** in "
+            "Streamlit Cloud secrets or your local `.env`."
+        )
+        return
+
+    # Resolve the repo from the git remote
+    import subprocess
+    try:
+        remote = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            capture_output=True, text=True, timeout=10,
+            cwd=str(PROJECT_ROOT),
+        ).stdout.strip()
+        # Parse owner/repo from URL
+        cleaned = remote.replace("https://", "").replace(".git", "")
+        if "@" in cleaned:
+            cleaned = cleaned.split("@", 1)[1]
+        parts = cleaned.split("/")
+        owner, repo = parts[-2], parts[-1]
+    except Exception as e:
+        st.error(f"Could not resolve git remote: {e}")
+        return
+
+    workflows = [w for w in _GITHUB_WORKFLOWS
+                 if not (only_fast and w[2] != "fast")]
+
+    with st.spinner(
+        f"Dispatching {len(workflows)} GitHub workflows on "
+        f"`{owner}/{repo}`…"
+    ):
+        log_lines: list[str] = []
+        placeholder = st.empty()
+        ok = 0
+        fail = 0
+        for name, fname, _ in workflows:
+            url = (f"https://api.github.com/repos/{owner}/{repo}/"
+                   f"actions/workflows/{fname}/dispatches")
+            req = urllib.request.Request(
+                url,
+                data=b'{"ref":"main"}',
+                method="POST",
+                headers={
+                    "Authorization": f"Bearer {tok}",
+                    "Accept": "application/vnd.github+json",
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Content-Type": "application/json",
+                },
+            )
+            try:
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    if 200 <= resp.status < 300:
+                        log_lines.append(f"✓ {name} dispatched")
+                        ok += 1
+                    else:
+                        log_lines.append(
+                            f"✗ {name}: HTTP {resp.status}")
+                        fail += 1
+            except urllib.error.HTTPError as e:
+                # Common case: 404 = workflow doesn't exist on main
+                # OR doesn't have workflow_dispatch trigger.
+                detail = e.read().decode("utf-8", errors="replace")[:160]
+                log_lines.append(
+                    f"✗ {name}: HTTP {e.code} — {detail}"
+                )
+                fail += 1
+            except Exception as e:
+                log_lines.append(
+                    f"✗ {name}: {type(e).__name__}: {e}"
+                )
+                fail += 1
+            placeholder.markdown("  \n".join(log_lines[-12:]))
+
+    if fail == 0:
+        st.success(
+            f"All {ok} workflows dispatched. Runs typically complete "
+            "within 5-30 minutes; click **Pull latest from GitHub** "
+            "after the runs finish to fetch the new data."
+        )
+    else:
+        st.warning(
+            f"{ok} ok, {fail} failed. Check the log above. Common "
+            "causes: workflow file missing on `main`, or the token "
+            "lacks `workflow:write` scope."
+        )
 
 
 def _read_canonical_token() -> str | None:
@@ -2513,6 +2788,150 @@ def render_watchlist_tab():
 # --------------------------------------------------------------------------
 # SCANNER TAB
 # --------------------------------------------------------------------------
+def _verdict_color(verdict: str) -> str:
+    v = (verdict or "").upper()
+    if v == "BUY":
+        return "#14532d"
+    if v == "SHORT":
+        return "#7f1d1d"
+    if v == "AVOID":
+        return "#7f1d1d"
+    if v == "WATCH":
+        return "#854d0e"
+    return "#3f3f46"
+
+
+def _render_buy_idea_card(row: dict, idx: int) -> None:
+    """Render one BUY idea as a richly-explained expandable card.
+
+    The structured rationale comes from
+    :func:`brain.buy_explainer.explain_buy` (called inside
+    ``ui.tools.recommend_new_buys``). If the rationale block is
+    missing for any reason we fall back to a thin summary so the
+    card still renders.
+    """
+    sym = row.get("symbol", "?")
+    sector = row.get("sector") or "Other"
+    rationale = row.get("rationale") or {}
+    verdict = rationale.get("verdict") or "BUY"
+    confidence = rationale.get("confidence_pct") or 50
+    headline = rationale.get("headline") or f"{verdict} — {sym}"
+    color = _verdict_color(verdict)
+
+    # Header — compact metric strip + verdict pill
+    head_cols = st.columns([2.4, 1, 1, 1, 1])
+    with head_cols[0]:
+        st.markdown(
+            f'<div style="background:{color};color:#fff;padding:8px 12px;'
+            f'border-radius:8px;display:inline-block;'
+            f'font-weight:600;letter-spacing:0.4px;">'
+            f'{verdict} · `{sym}` · {sector}'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+    head_cols[1].metric("Close (PKR)",
+                          f"{row.get('close_pkr', 0):.2f}"
+                          if row.get("close_pkr") is not None else "—")
+    head_cols[2].metric("Confidence", f"{confidence}%")
+    mom = row.get("mom_150d_log_ret")
+    head_cols[3].metric("150d momentum",
+                          f"{mom*100:+.1f}%" if mom is not None else "—")
+    head_cols[4].metric("RSI-14",
+                          f"{row.get('rsi_14', 0):.0f}"
+                          if row.get("rsi_14") is not None else "—")
+    st.markdown(f"_{headline}_")
+
+    with st.expander(
+        f"Read the full thesis for {sym}",
+        expanded=(idx == 0),  # auto-expand the top idea
+    ):
+        thesis = rationale.get("thesis") or ""
+        if thesis:
+            st.markdown(thesis)
+
+        why_now = rationale.get("why_now")
+        if why_now:
+            st.info(f"**Why now.** {why_now}", icon="🕒")
+
+        # Drivers + risks side by side
+        cd1, cd2 = st.columns(2)
+        with cd1:
+            drivers = rationale.get("key_drivers") or []
+            if drivers:
+                st.markdown(":green[**Drivers (what supports this buy)**]")
+                for d in drivers[:6]:
+                    weight = d.get("weight", "")
+                    icon = ("🟢" if weight == "STRONG"
+                             else "🟡" if weight == "MODERATE"
+                             else "⚪")
+                    st.markdown(
+                        f"{icon} **{d.get('factor', '?')}** "
+                        f"`[{weight.lower()}]`  \n"
+                        f"<span style='font-size:0.92em;color:#cbd5e1;'>"
+                        f"{d.get('explanation', '')}</span>  \n"
+                        f"<span style='font-size:0.78em;opacity:0.5;'>"
+                        f"source: <code>{d.get('source', '—')}</code>"
+                        f"</span>",
+                        unsafe_allow_html=True,
+                    )
+            else:
+                st.caption("No material drivers active.")
+        with cd2:
+            risks = rationale.get("key_risks") or []
+            if risks:
+                st.markdown(":red[**Risks (what could break it)**]")
+                for r in risks[:6]:
+                    weight = r.get("weight", "")
+                    icon = ("🔴" if weight == "STRONG"
+                             else "🟠" if weight == "MODERATE"
+                             else "⚪")
+                    st.markdown(
+                        f"{icon} **{r.get('factor', '?')}** "
+                        f"`[{weight.lower()}]`  \n"
+                        f"<span style='font-size:0.92em;color:#cbd5e1;'>"
+                        f"{r.get('explanation', '')}</span>  \n"
+                        f"<span style='font-size:0.78em;opacity:0.5;'>"
+                        f"source: <code>{r.get('source', '—')}</code>"
+                        f"</span>",
+                        unsafe_allow_html=True,
+                    )
+            else:
+                st.caption("No material risks flagged.")
+
+        tp = rationale.get("trade_plan") or {}
+        if tp and tp.get("entry_pkr") is not None:
+            st.markdown("##### Trade plan (5-day horizon)")
+            tp_cols = st.columns(4)
+            tp_cols[0].metric("Entry (PKR)", f"{tp.get('entry_pkr'):.2f}")
+            tp_cols[1].metric(
+                "Stop (PKR)",
+                f"{tp.get('stop_pkr'):.2f}"
+                if tp.get('stop_pkr') is not None else "—",
+            )
+            tp_cols[2].metric(
+                "Target (PKR)",
+                f"{tp.get('target_pkr'):.2f}"
+                if tp.get('target_pkr') is not None else "—",
+            )
+            tp_cols[3].metric(
+                "Reward / Risk",
+                f"{tp.get('reward_risk_ratio'):.2f}"
+                if tp.get('reward_risk_ratio') is not None else "—",
+            )
+
+        ds = rationale.get("datasets_used") or []
+        if ds:
+            st.caption(
+                "**Datasets that fed this call:** "
+                + ", ".join(f"`{d}`" for d in ds)
+            )
+
+        as_of = rationale.get("as_of") or ""
+        if as_of:
+            st.caption(f"_Computed at {as_of}_")
+    st.divider()
+
+
 def render_scanner_tab():
     section_header(
         "Find Ideas",
@@ -2588,7 +3007,13 @@ def render_scanner_tab():
 
     st.divider()
 
-    st.markdown("### Top buy ideas (detailed)")
+    st.markdown("### Top buy ideas — full rationale")
+    st.caption(
+        "Every idea below carries a structured explanation: drivers "
+        "(what supports the buy), risks (what could break it), a "
+        "confidence percentage calibrated against the 60-day "
+        "walk-forward, and the trade plan. Click a card to drill in."
+    )
     ideas = recs.top_buys(max_ideas=5)
     if ideas.get("cautious_note"):
         st.warning(ideas["cautious_note"])
@@ -2596,9 +3021,9 @@ def render_scanner_tab():
     if not rows:
         st.info("No buy candidates pass the filters today.")
         return
-    idf = pd.DataFrame(rows)
-    idf.columns = [c.replace("_", " ").title() for c in idf.columns]
-    st.dataframe(idf, hide_index=True, use_container_width=True)
+
+    for idx, row in enumerate(rows):
+        _render_buy_idea_card(row, idx)
 
 
 # --------------------------------------------------------------------------

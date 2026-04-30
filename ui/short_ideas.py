@@ -238,11 +238,158 @@ def _render_table(candidates: list[dict]) -> str | None:
     )
 
 
+def _build_short_explainer(c: dict) -> dict | None:
+    """Build a structured short-side rationale via brain.buy_explainer.
+
+    We re-use the same explainer the buy side uses (mirrored as
+    ``explain_sell``) so the language and weight icons are
+    consistent across the Buy and Short pages.
+    """
+    try:
+        from brain.buy_explainer import explain_sell
+        from ui import tools as _tools
+    except Exception:
+        return None
+    sym = c.get("symbol")
+    if not sym:
+        return None
+    try:
+        snap = _tools.get_technical_snapshot(sym)
+    except Exception:
+        snap = None
+    try:
+        macro_impact = _tools.get_macro_impact_today()
+    except Exception:
+        macro_impact = None
+    try:
+        fipi = _tools.get_fipi_flows()
+    except Exception:
+        fipi = None
+    # News: pull aggregate from the scored-news cache
+    news = None
+    try:
+        from ui.news_sentiment import load_scored_news
+        df = load_scored_news(max_age_hours=24 * 7)
+        if df is not None and not df.empty and "affected_symbols" in df.columns:
+            sub = df[df["affected_symbols"].apply(
+                lambda x: sym in (x or []) if x is not None else False)]
+            if len(sub) and "score" in sub.columns:
+                top_idx = sub["score"].abs().idxmax()
+                news = {
+                    "n_articles": int(len(sub)),
+                    "aggregate_score": float(sub["score"].mean()),
+                    "top_headline":
+                        str(sub.loc[top_idx, "title"])
+                        if "title" in sub.columns else "",
+                }
+    except Exception:
+        news = None
+    # Management outlook
+    mgmt = None
+    try:
+        from ui import dashboard_data as _dash
+        mgmt = _dash.latest_management_outlook(symbol=sym)
+    except Exception:
+        mgmt = None
+
+    return explain_sell(
+        sym,
+        technical_snapshot=snap,
+        macro_impact=macro_impact,
+        news=news,
+        fipi=fipi,
+        management_outlook=mgmt,
+        short_score=int(c.get("short_score") or 0),
+        short_breakdown=c.get("subscores") or {},
+        direction="BEARISH",
+        conviction=(c.get("conviction") or "MEDIUM"),
+        price_pkr=c.get("current_price_pkr"),
+        sector=c.get("sector") or "Other",
+    )
+
+
+def _render_explainer_panel(rationale: dict | None) -> None:
+    if not rationale:
+        return
+    verdict = (rationale.get("verdict") or "").upper()
+    bg = "#7f1d1d" if verdict == "SHORT" else "#854d0e"
+    st.markdown(
+        f'<div style="background:{bg};color:#fff;padding:10px 14px;'
+        f'border-radius:8px;display:inline-block;'
+        f'font-weight:600;letter-spacing:0.4px;">'
+        f'{verdict} · confidence {rationale.get("confidence_pct", 0)}%'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+    if rationale.get("headline"):
+        st.markdown(f"_{rationale['headline']}_")
+
+    if rationale.get("thesis"):
+        st.markdown(rationale["thesis"])
+    if rationale.get("why_now"):
+        st.info(f"**Why now.** {rationale['why_now']}", icon="🕒")
+
+    cd1, cd2 = st.columns(2)
+    with cd1:
+        drivers = rationale.get("key_drivers") or []
+        if drivers:
+            st.markdown(":red[**Bearish drivers (why this can fall)**]")
+            for d in drivers[:6]:
+                weight = d.get("weight", "")
+                icon = ("🔴" if weight == "STRONG"
+                         else "🟠" if weight == "MODERATE"
+                         else "⚪")
+                st.markdown(
+                    f"{icon} **{d.get('factor', '?')}** "
+                    f"`[{weight.lower()}]`  \n"
+                    f"<span style='font-size:0.92em;color:#cbd5e1;'>"
+                    f"{d.get('explanation', '')}</span>  \n"
+                    f"<span style='font-size:0.78em;opacity:0.5;'>"
+                    f"source: <code>{d.get('source', '—')}</code></span>",
+                    unsafe_allow_html=True,
+                )
+        else:
+            st.caption("No bearish drivers active.")
+    with cd2:
+        risks = rationale.get("key_risks") or []
+        if risks:
+            st.markdown(
+                ":green[**Squeeze risks (what could make this rip back)**]"
+            )
+            for r in risks[:6]:
+                weight = r.get("weight", "")
+                icon = ("🟢" if weight == "STRONG"
+                         else "🟡" if weight == "MODERATE"
+                         else "⚪")
+                st.markdown(
+                    f"{icon} **{r.get('factor', '?')}** "
+                    f"`[{weight.lower()}]`  \n"
+                    f"<span style='font-size:0.92em;color:#cbd5e1;'>"
+                    f"{r.get('explanation', '')}</span>  \n"
+                    f"<span style='font-size:0.78em;opacity:0.5;'>"
+                    f"source: <code>{r.get('source', '—')}</code></span>",
+                    unsafe_allow_html=True,
+                )
+        else:
+            st.caption(
+                "No counter-signals — but PSX retail shorting still "
+                "carries borrow / SSF eligibility constraints; see the "
+                "eligibility note below."
+            )
+
+
 def _render_drilldown(c: dict) -> None:
     if not c:
         return
     st.divider()
     st.markdown(f"### {c['symbol']} — short drill-down")
+
+    # ---- Plain-English thesis (NEW) — built from brain.buy_explainer
+    rationale = _build_short_explainer(c)
+    _render_explainer_panel(rationale)
+
+    st.markdown("---")
+    st.markdown("#### Mechanics — how the score was built")
 
     col1, col2, col3 = st.columns([1.1, 1.3, 1.6])
     with col1:
@@ -295,14 +442,18 @@ def _render_drilldown(c: dict) -> None:
         for g_key, g_msg in guards.items():
             st.warning(f"**Pre-event guard ({g_key}):** {g_msg}")
 
-    st.markdown("**Bearish drivers**")
-    drivers = c.get("drivers") or []
-    if drivers:
-        for d in drivers:
-            st.markdown(f"- {d}")
-    else:
-        st.caption("No specific drivers — score is from a single "
-                    "weak signal.")
+    # The original "Bearish drivers" bullets — keep them as a raw,
+    # source-of-truth list (the explainer above re-frames them in
+    # plain English; some users prefer the bare list).
+    with st.expander("Raw bearish drivers (source-of-truth list)",
+                       expanded=False):
+        drivers = c.get("drivers") or []
+        if drivers:
+            for d in drivers:
+                st.markdown(f"- {d}")
+        else:
+            st.caption("No specific drivers — score is from a single "
+                        "weak signal.")
 
     elig = c.get("eligibility") or {}
     st.markdown("**Eligibility hint**")
