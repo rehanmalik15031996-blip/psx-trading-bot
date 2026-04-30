@@ -407,6 +407,27 @@
       ],
       "scored_at": "",
       "detected_at": "2026-04-30T13:10:41+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-04-30::BEARISH::36",
+      "title": "Broad-market bearish shock: 36 HIGH-confidence articles avg sentiment -0.60",
+      "sentiment": -0.601388888888889,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 36,
+      "sample_titles": [
+        "PSX plunges over 3,000 points during intraday trade as bears maintain control",
+        "Govt raises Rs1.339 trillion in T-bill auction as yields climb after SBP rate hike",
+        "Oil surges to 4-year high, stocks slip after Trump blockade warning",
+        "PSX plunges over 4,800 points during early trading hours",
+        "Production curbs hit OGDCL profit"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-04-30T15:30:13+00:00"
     }
   ]
 }
