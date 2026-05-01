@@ -537,6 +537,78 @@
       "is_broad_market": false,
       "scored_at": "2026-05-01T10:58:16+00:00",
       "detected_at": "2026-05-01T10:58:27+00:00"
+    },
+    {
+      "article_id": "a94e0b6972d02bad",
+      "title": "Pakistan's weekly oil bill triples to $800m amid Iran war - MSN",
+      "sentiment": -0.55,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-01T11:42:37+00:00",
+      "detected_at": "2026-05-01T11:42:45+00:00"
+    },
+    {
+      "article_id": "6a4aa00cac50e151",
+      "title": "Pakistan oil bill triples as India cushions Iran war shock - MSN",
+      "sentiment": -0.5,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-01T11:42:37+00:00",
+      "detected_at": "2026-05-01T11:42:45+00:00"
+    },
+    {
+      "article_id": "eb8f29d5371cb1ff",
+      "title": "Borrowing Now More Expensive in Pakistan After Increase in SBP Interest Rate - ProPakistani",
+      "sentiment": -0.45,
+      "confidence": "HIGH",
+      "category": "POLICY",
+      "affected_symbols": [
+        "FATIMA",
+        "HBL",
+        "LUCK",
+        "MCB",
+        "NBP",
+        "UBL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-01T11:42:37+00:00",
+      "detected_at": "2026-05-01T11:42:45+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-01::BEARISH::16",
+      "title": "Broad-market bearish shock: 16 HIGH-confidence articles avg sentiment -0.54",
+      "sentiment": -0.540625,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 16,
+      "sample_titles": [
+        "Oil retreats after hitting four-year high",
+        "Fuel hits Rs400 per litre as govt passes on global impact",
+        "War can cost Pakistan $10b to $68b",
+        "Oil Import Bill Soars, Straining Pakistan\u2019s Forex Reserves - Pakistan Today",
+        "KSE-100 sheds 2,830 points on escalating geopolitical tensions - The News Pakistan"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-01T11:42:45+00:00"
     }
   ]
 }
