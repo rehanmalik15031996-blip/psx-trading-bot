@@ -2,12 +2,12 @@
   "workflow": "macro_kpis",
   "ok": true,
   "note": "3/3 sub-sources refreshed",
-  "as_of": "2026-05-01T09:22:44+00:00",
+  "as_of": "2026-05-01T15:35:31+00:00",
   "github": {
-    "run_id": "25209471770",
-    "run_number": "9",
+    "run_id": "25220615384",
+    "run_number": "10",
     "ref": "refs/heads/main",
-    "sha": "f510dcfebd0dfac975c9c9ce30f2644e214da9a5"
+    "sha": "dc20a473f7c3d0dd648c6678e8eda49ea691712e"
   },
   "payload": {
     "sbp_rates": {
