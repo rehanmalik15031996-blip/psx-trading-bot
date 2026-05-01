@@ -2,12 +2,12 @@
   "workflow": "predictions",
   "ok": true,
   "note": "35 new predictions, 132 in log",
-  "as_of": "2026-05-01T11:51:26+00:00",
+  "as_of": "2026-05-01T16:23:00+00:00",
   "github": {
-    "run_id": "25213072956",
-    "run_number": "20",
+    "run_id": "25222107598",
+    "run_number": "21",
     "ref": "refs/heads/main",
-    "sha": "2d26224c5655cda0473f1aeff46cab4da00e27b3"
+    "sha": "b30682c78acf1046f57f37ae64bd24373417b0f9"
   },
   "payload": {
     "new": 35,
