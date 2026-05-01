@@ -522,6 +522,21 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-01T09:13:53+00:00"
+    },
+    {
+      "article_id": "f5a42f74215397f8",
+      "title": "Chevron Profit Beats Estimates on War-Driven Surge in Oil Prices",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-01T10:58:16+00:00",
+      "detected_at": "2026-05-01T10:58:27+00:00"
     }
   ]
 }
