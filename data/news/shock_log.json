@@ -449,6 +449,79 @@
       ],
       "scored_at": "",
       "detected_at": "2026-04-30T17:53:19+00:00"
+    },
+    {
+      "article_id": "cf07529df64296e5",
+      "title": "Oil climbs as Iran standoff persists, Hormuz shut and US blockade squeeze supply",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "FFC",
+        "LUCK",
+        "OGDC",
+        "POL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-01T09:13:13+00:00",
+      "detected_at": "2026-05-01T09:13:53+00:00"
+    },
+    {
+      "article_id": "3eea7486b4eaf4e5",
+      "title": "Oil retreats after hitting four-year high",
+      "sentiment": -0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-01T09:13:13+00:00",
+      "detected_at": "2026-05-01T09:13:53+00:00"
+    },
+    {
+      "article_id": "59fb67e96efe9417",
+      "title": "Fuel hits Rs400 per litre as govt passes on global impact",
+      "sentiment": -0.4,
+      "confidence": "HIGH",
+      "category": "MACRO",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-01T09:13:13+00:00",
+      "detected_at": "2026-05-01T09:13:53+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-01::BEARISH::13",
+      "title": "Broad-market bearish shock: 13 HIGH-confidence articles avg sentiment -0.55",
+      "sentiment": -0.55,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 13,
+      "sample_titles": [
+        "Oil retreats after hitting four-year high",
+        "Fuel hits Rs400 per litre as govt passes on global impact",
+        "War can cost Pakistan $10b to $68b",
+        "Oil Import Bill Soars, Straining Pakistan\u2019s Forex Reserves - Pakistan Today",
+        "KSE-100 sheds 2,830 points on escalating geopolitical tensions - The News Pakistan"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-01T09:13:53+00:00"
     }
   ]
 }
