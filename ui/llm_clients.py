@@ -1,21 +1,42 @@
 """Unified Claude + Gemini chat client with tool calling.
 
-Both providers expose a `chat(messages, tools, system)` method that returns a
-dict with either `{text: str}` (final answer) or `{tool_calls: [...]}` (asking
-us to execute tools). The higher-level `run_chat` function implements the
-tool-use loop: keep calling the model, executing tool calls, and feeding
-results back until the model produces a final text answer.
+Both providers expose a ``run_chat(history, system, max_tokens)`` method that
+returns ``{text, trace}``. The Claude client also accepts a ``thinking``
+parameter so the master-strategist layer (``brain/master_strategist.py``) can
+use Claude's extended-thinking mode — Claude is encouraged to spend a
+configurable token budget on internal reasoning before producing the final
+answer. That mode is what turns Claude from "narrow worker on a few
+subtasks" into the **top-layer master mind** that ingests every signal the
+bot has, reasons across them, and tells us what to do.
 
-Supported models (defaults):
-  * Anthropic Claude: claude-haiku-4-5     ($0.25 / $1.25 per M tokens)
-  * Google Gemini   : gemini-2.5-flash     (~free tier, ~$0.10 / $0.40)
+Model tiers (cost / capability)
+-------------------------------
+
+  * **Reasoning tier** (default for the master strategist + chatbot)
+    ``claude-sonnet-4-5`` — flagship-tier reasoning at ~$3 / $15 per M
+    tokens, supports extended thinking up to 64k token budget. This is
+    the model the user told us to make the "good thinking model".
+
+  * **Heavy-reasoning tier** (optional override)
+    ``claude-opus-4-5`` — when the user explicitly wants the deepest
+    analysis (e.g. the End-of-Quarter strategist run). 5-10x the cost
+    of Sonnet, used sparingly.
+
+  * **Utility tier** (small subtasks: news scoring, simple chat)
+    ``claude-haiku-4-5`` — ~$0.25 / $1.25 per M tokens. Retained as a
+    fallback / cheap-call provider.
+
+Other providers:
+  * Google Gemini : ``gemini-2.5-flash`` (~$0.10 / $0.40 per M tokens)
+  * GitHub Models : ``openai/gpt-4o-mini`` (free tier with rate limits)
 
 API keys read from environment:
   * ANTHROPIC_API_KEY
   * GOOGLE_API_KEY  (or GEMINI_API_KEY)
+  * GITHUB_TOKEN    (or GH_TOKEN)
 
-If no key is available, the module returns a clear error so the UI can prompt
-the user to set one.
+If no key is available, the module returns a clear error so the UI can
+prompt the user to set one.
 """
 
 from __future__ import annotations
@@ -30,7 +51,36 @@ from ui.tools import (
 )
 
 
-DEFAULT_CLAUDE_MODEL = "claude-haiku-4-5"
+# --- Claude tier defaults ---------------------------------------------------
+# DEFAULT_CLAUDE_MODEL is the model the chatbot uses out-of-the-box. Promoted
+# 2026-05-01 from claude-haiku-4-5 → claude-sonnet-4-5 so the analyst gets a
+# real reasoning model on every chat answer (the user asked for the "good
+# thinking model" by default, not Haiku).
+DEFAULT_CLAUDE_MODEL = "claude-sonnet-4-5"
+
+# Master-strategist defaults: the top-layer orchestrator in
+# brain/master_strategist.py uses Sonnet 4.5 with a 12k-token thinking budget.
+# Opus is available as a "deep dive" override.
+MASTER_STRATEGIST_MODEL = "claude-sonnet-4-5"
+MASTER_STRATEGIST_DEEP_MODEL = "claude-opus-4-5"
+MASTER_STRATEGIST_THINKING_BUDGET = 12_000
+
+# Cheap Haiku model — kept available for utility calls (news scoring,
+# brain/overlay.py emergency-exit fallback, etc.) where reasoning depth
+# does not justify the Sonnet cost premium.
+HAIKU_MODEL = "claude-haiku-4-5"
+
+# Curated list shown in the sidebar dropdown. Sonnet 4.5 sits at the top so
+# clicking through is a one-liner upgrade; Opus is gated by the master
+# strategist's "deep dive" toggle.
+CLAUDE_MODEL_CHOICES = [
+    "claude-sonnet-4-5",      # default — reasoning + extended thinking
+    "claude-opus-4-5",        # heaviest reasoning, expensive
+    "claude-sonnet-4-5-20250929",
+    "claude-opus-4-1-20250805",
+    "claude-haiku-4-5",       # fast + cheap utility tier
+]
+
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 DEFAULT_GITHUB_MODEL = "openai/gpt-4o-mini"
 GITHUB_MODELS_BASE_URL = "https://models.github.ai/inference"
@@ -66,9 +116,10 @@ these rules at all times:
 3. **Be specific.** Quote prices to 2 decimals in PKR, percentages to 1-2
    decimals. Reference dates (as-of field) so the user knows how fresh the
    data is.
-4. **Stay within the universe.** The system only trades 15 PSX blue chips.
-   `list_universe` returns the full set. If a user asks about a symbol outside
-   this universe, explain that the bot has no data for it.
+4. **Stay within the universe.** The system only trades the curated set of
+   PSX blue chips defined in `config/universe.py`. `list_universe` returns
+   the full set. If a user asks about a symbol outside this universe,
+   explain that the bot has no data for it.
 5. **Don't give legal or investment advice.** The user is running paper trades
    and making their own decisions. Phrase recommendations as "the Phase 1 rule
    suggests X because Y" or "a trailing stop at Z PKR would limit downside
@@ -173,33 +224,107 @@ class ClaudeClient:
         self._client = Anthropic(api_key=self.api_key)
 
     def run_chat(self, history: list[dict], system: str = SYSTEM_PROMPT,
-                 max_tokens: int = 1024) -> dict:
+                 max_tokens: int = 1024,
+                 thinking_budget: int | None = None,
+                 max_tool_iterations: int = MAX_TOOL_ITERATIONS) -> dict:
         """Run one user turn through the Claude tool-use loop.
 
-        `history` is a list of {role, content} dicts in Claude format.
-        Returns {"text": str, "trace": list_of_tool_calls}.
+        Parameters
+        ----------
+        history : list of ``{role, content}`` dicts in Claude format.
+        system : system prompt.
+        max_tokens : upper bound on the model's response (per turn).
+        thinking_budget : when set (>=1024), enables Claude's extended
+            thinking mode with the given internal-reasoning token
+            budget. Required for Sonnet 4.5+ master-strategist runs.
+            Anthropic requires ``thinking_budget < max_tokens``; we
+            silently bump ``max_tokens`` if the caller passed too small
+            a value so the call still succeeds.
+        max_tool_iterations : safety cap on the tool-use loop.
+
+        Returns ``{"text": str, "trace": list_of_tool_calls,
+                   "thinking": str, "stop_reason": str, "usage": dict}``.
+        ``thinking`` is the concatenated internal-reasoning summary
+        from all turns (empty string when ``thinking_budget`` is
+        ``None`` or the model didn't emit one).
         """
         self._ensure()
         messages = list(history)
         trace: list[dict] = []
+        thinking_chunks: list[str] = []
+        last_usage: dict[str, Any] = {}
+        last_stop_reason: str = ""
 
-        for _ in range(MAX_TOOL_ITERATIONS):
+        # Build the per-call kwargs once. ``thinking`` and ``max_tokens``
+        # have to be re-validated on every call because the master
+        # strategist sometimes increases the budget mid-loop.
+        extra_kwargs: dict[str, Any] = {}
+        if thinking_budget and thinking_budget >= 1024:
+            # Anthropic requires budget_tokens < max_tokens. Give the
+            # model headroom for its actual response on top of thinking.
+            response_room = max(2048, max_tokens)
+            effective_max = max(thinking_budget + response_room, max_tokens)
+            extra_kwargs["thinking"] = {
+                "type": "enabled",
+                "budget_tokens": int(thinking_budget),
+            }
+            # Extended thinking requires temperature=1 (Anthropic
+            # constraint as of Sonnet 4.5).
+            extra_kwargs["temperature"] = 1.0
+        else:
+            effective_max = max_tokens
+
+        for _ in range(max_tool_iterations):
             resp = self._client.messages.create(
                 model=self.model,
-                max_tokens=max_tokens,
+                max_tokens=effective_max,
                 system=system,
                 tools=TOOL_SCHEMAS_ANTHROPIC,
                 messages=messages,
+                **extra_kwargs,
             )
+            last_stop_reason = getattr(resp, "stop_reason", "") or ""
+            usage = getattr(resp, "usage", None)
+            if usage is not None:
+                # Pydantic model on the SDK; capture the most recent
+                # usage so the strategist can log cost.
+                try:
+                    last_usage = (usage.model_dump()
+                                  if hasattr(usage, "model_dump")
+                                  else dict(usage))
+                except Exception:
+                    last_usage = {}
+
+            # Pull thinking blocks out of the response (always — the
+            # SDK returns them inline with text + tool_use blocks).
+            for b in resp.content:
+                btype = getattr(b, "type", "")
+                if btype == "thinking":
+                    t = getattr(b, "thinking", "") or ""
+                    if t:
+                        thinking_chunks.append(t)
+                elif btype == "redacted_thinking":
+                    # Encrypted by Anthropic; record a marker so the
+                    # caller knows reasoning happened.
+                    thinking_chunks.append("[redacted thinking block]")
 
             if resp.stop_reason != "tool_use":
                 text = "".join(
                     getattr(b, "text", "") for b in resp.content
                     if getattr(b, "type", "") == "text"
                 ).strip()
-                return {"text": text, "trace": trace}
+                return {
+                    "text": text, "trace": trace,
+                    "thinking": "\n\n".join(thinking_chunks).strip(),
+                    "stop_reason": last_stop_reason,
+                    "usage": last_usage,
+                }
 
-            # Collect all tool_use blocks and dispatch them
+            # Append the assistant message verbatim — IMPORTANT: when
+            # extended thinking is on, we must keep the thinking blocks
+            # in the assistant turn we send back, otherwise Anthropic
+            # rejects the next call (the thinking signature is what
+            # ties tool_use blocks back to the original reasoning).
             assistant_blocks = [dict(b.model_dump() if hasattr(b, "model_dump")
                                      else b) for b in resp.content]
             messages.append({"role": "assistant", "content": assistant_blocks})
@@ -219,7 +344,13 @@ class ClaudeClient:
                 })
             messages.append({"role": "user", "content": tool_results})
 
-        return {"text": "(too many tool iterations — stopping)", "trace": trace}
+        return {
+            "text": "(too many tool iterations — stopping)",
+            "trace": trace,
+            "thinking": "\n\n".join(thinking_chunks).strip(),
+            "stop_reason": last_stop_reason,
+            "usage": last_usage,
+        }
 
 
 # ==========================================================================

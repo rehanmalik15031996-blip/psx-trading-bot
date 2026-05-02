@@ -1,0 +1,48 @@
+name: Validate playbook
+
+# Type-check data/playbook/cases.json (and _events.json) on every push
+# or PR that touches the playbook layer. Catches:
+#   * malformed JSON, duplicate IDs, missing required fields
+#   * unknown trigger kinds (typos like 'driver_rate_down' instead of
+#     'driver:rate_down')
+#   * percentage-shaped reactions that should be fractional
+#     (|value| > 1.0 means somebody pasted '+5%' instead of '0.05')
+#
+# The validator is the same code the live Master Strategist uses, so a
+# green CI here means cases.json is loadable in production.
+
+on:
+  push:
+    paths:
+      - 'data/playbook/**'
+      - 'brain/playbook.py'
+      - '.github/workflows/validate_playbook.yml'
+  pull_request:
+    paths:
+      - 'data/playbook/**'
+      - 'brain/playbook.py'
+      - '.github/workflows/validate_playbook.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate playbook cases
+        run: python -m brain.playbook --validate
+
+      - name: List loaded cases (for logs)
+        if: always()
+        run: python -m brain.playbook --list

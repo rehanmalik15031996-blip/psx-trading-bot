@@ -1,0 +1,85 @@
+{
+  "as_of": "2026-05-01T18:00:00+00:00",
+  "model": "claude-sonnet-4-5+fallback",
+  "thinking_budget": 0,
+  "headline": "Phase-1 holds 3 names (regime=CAUTION, exposure x0.75)",
+  "risk_stance": "CAUTIOUS",
+  "conviction": "LOW",
+  "narrative": "LLM strategist unavailable (no ANTHROPIC_API_KEY). This is the rule-based fallback \u2014 it mirrors the Phase-1 mechanical signal scaled by the regime exposure multiplier and surfaces no opinion of its own.",
+  "agrees_with_phase1": true,
+  "phase1_disagreement_note": "",
+  "actions": [
+    {
+      "symbol": "HUBC",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "",
+      "target_weight_pct": 25.0,
+      "reason": "Phase-1 selected (mechanical), regime=CAUTION",
+      "contributing_signals": [
+        "strategy_signal: selected list = ['HUBC', 'MEBL', 'OGDC']",
+        "regime: CAUTION (x0.75 exposure)"
+      ]
+    },
+    {
+      "symbol": "MEBL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "",
+      "target_weight_pct": 25.0,
+      "reason": "Phase-1 selected (mechanical), regime=CAUTION",
+      "contributing_signals": [
+        "strategy_signal: selected list = ['HUBC', 'MEBL', 'OGDC']",
+        "regime: CAUTION (x0.75 exposure)"
+      ]
+    },
+    {
+      "symbol": "OGDC",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "",
+      "target_weight_pct": 25.0,
+      "reason": "Phase-1 selected (mechanical), regime=CAUTION",
+      "contributing_signals": [
+        "strategy_signal: selected list = ['HUBC', 'MEBL', 'OGDC']",
+        "regime: CAUTION (x0.75 exposure)"
+      ]
+    }
+  ],
+  "key_drivers": [
+    "Phase-1 picks: HUBC, MEBL, OGDC",
+    "Regime: CAUTION (multiplier x0.75)"
+  ],
+  "key_risks": [
+    "LLM strategist unavailable \u2014 qualitative risks not surfaced."
+  ],
+  "macro_lens": "Macro lens not available without LLM reasoning. See data/_health/macro_kpis.json for the raw KPIs.",
+  "behavioural_lens": "Behavioural lens not available without LLM reasoning. FIPI net 5d = -1234.5.",
+  "fallback_used": true,
+  "raw_llm_text": "",
+  "thinking_trace": "",
+  "briefing_summary": {
+    "regime": {
+      "regime": "CAUTION",
+      "exposure_multiplier": 0.75,
+      "universe_ret_5d": -0.04,
+      "breadth_pct_up": 35.0
+    },
+    "strategy_signal": {
+      "as_of": "2026-05-01",
+      "market_risk_on": true,
+      "selected": [
+        "HUBC",
+        "MEBL",
+        "OGDC"
+      ],
+      "ranked_top": []
+    },
+    "macro_drivers_count": 1,
+    "fipi_5d_net": -1234.5,
+    "n_short_candidates": 1,
+    "n_buy_ideas": 1,
+    "n_predictions": 2,
+    "portfolio_positions": 0
+  }
+}

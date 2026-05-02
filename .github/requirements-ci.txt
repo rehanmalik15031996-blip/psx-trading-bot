@@ -22,3 +22,6 @@ openai>=1.40.0,<2.0.0           # GitHub Models OpenAI-compatible client
 
 # Director's-report extraction (PDF rendering for vision LLM input)
 pymupdf>=1.24.0,<2.0.0
+
+# Mutual Funds Equity Holdings parser (AHL monthly PDF)
+pdfplumber>=0.11.0,<1.0.0

@@ -1,32 +1,67 @@
 # PSX Trading Bot — Plan D
 
-An evidence-based, low-turnover monthly momentum strategy for the Pakistan Stock
-Exchange (PSX), with an LLM-driven defensive overlay for macro regime detection
-and emergency exits.
+An evidence-based, low-turnover monthly momentum strategy for the Pakistan
+Stock Exchange (PSX), wrapped in a 12-tab analyst dashboard, sitting under
+a **Master Strategist top layer** — Claude Sonnet 4.5 with extended-thinking
+reasoning across every signal the bot has — that publishes one auditable
+top-of-stack call per day.
 
-This is **version 2** of the bot. The original ML-heavy design (per-stock
-LightGBM + CatBoost + 70-feature daily 5-day direction classifier) was audited
+The codebase implements **exactly the kind of system the published research
+on PSX recommends**: deterministic rules-first (because PSX is weak-form
+inefficient and adaptive, not efficient), with explicit fundamental,
+technical, macro, news, flow, and management lenses reconciled into one
+auditable verdict per stock. On top of that, Claude reads the entire
+briefing — the mechanical Phase-1 signal, the 7-lens verdicts, the macro
+impact engine, FIPI flows, news sentiment, predictions log, earnings
+calendar, material information, and the user's own portfolio — and tells
+you what to do, with citations to the contributing signals and an explicit
+flag whenever it overrides the mechanical rule.
+
+This is **version 2**. The original ML-heavy design (per-stock LightGBM +
+CatBoost + 70-feature daily 5-day direction classifier) was audited
 end-to-end and shown to be net-of-cost unprofitable — see
-`psx_strategy_v2.md` for the forensic report. The v2 system is deterministic,
-rule-based, and simple enough to reason about line-by-line.
+`psx_strategy_v2.md` for the forensic report. The v2 system is
+deterministic, rule-based, and simple enough to reason about line by line.
 
-It trades a **curated universe of 15 fundamental PSX blue chips**, auto-selected
-by `scripts/select_universe.py` from the KSE-30 / KMI-30 pool with sector caps.
-The universe has two layers:
+It trades a **curated 35-stock KSE-100-mirroring universe** (expanded from
+the original 15-stock set on 2026-04-30). Two layers:
 
 - **7 user-required tickers** pinned in `config/candidates.py::REQUIRED_TICKERS`
   — currently `HUBC, PABC, MLCF, OGDC, FABL, PPL, NPL`.
-- **9 flex slots** ranked by training AUC with sector-diversity caps.
-  Regenerate quarterly with `python scripts/select_universe.py`.
+- **28 flex slots** chosen to span the live KSE-100 sector composition
+  (Banking ~22%, Cement ~14%, Oil & Gas E&P ~12%, Power ~11%, Fertilizer ~9%,
+  OMC/Refining ~9%, Conglomerate/Chem ~9%, Technology ~6%, Pharma/Consumer/
+  Auto/Misc ~12%). Regenerate quarterly with
+  `python scripts/select_universe.py`.
 
 ## Strategy in one paragraph
 
-On the **last trading day of every month**, rank the universe by 150-day
-log-return, drop the most volatile 30% (by 20-day realized vol), and if the
-universe's average 150-day momentum is positive, hold the top 5 equal-weighted
-for the month. If universe momentum is negative — **go to cash**. An optional
-LLM overlay scales exposure down in CAUTION/CRISIS macro regimes and triggers
-emergency exits on severe company-specific news. That's it.
+On the **last trading day of every month**, rank the 35-stock universe by
+150-day log-return, drop the most volatile 30% (by 20-day realized vol),
+and if the universe's average 150-day momentum is positive, hold the top 5
+equal-weighted for the month. If universe momentum is negative — **go to
+cash**. An optional LLM overlay scales exposure down in CAUTION / CRISIS
+macro regimes and triggers emergency exits on severe company-specific news.
+That's it.
+
+The mechanical strategy is the **trading core**. Layered on top is a
+deterministic 7-lens analyst stack (Value / Quality / Momentum / Macro /
+News / Flow / Management) that produces ONE reconciled verdict per stock
+for the dashboard, the daily PDF brief, the chatbot, and a parallel
+short-side scorer.
+
+Sitting on top of all of that is the **Master Strategist** — see
+`brain/master_strategist.py`. Claude Sonnet 4.5, in extended-thinking
+mode (12k token internal reasoning budget), reads the full briefing and
+publishes a single JSON decision with: a one-line headline, a risk-stance
+bucket (`AGGRESSIVE / NORMAL / CAUTIOUS / DEFENSIVE / CASH`), conviction
+(`LOW / MEDIUM / HIGH`), a 3-6 sentence narrative, a macro lens, a
+behavioural lens (PSX is well-documented as emotion-driven and herding-
+prone — this paragraph reads it explicitly), a list of concrete actions
+with `target_weight_pct`, and — critically — a `contributing_signals`
+array on every action that names which underlying signals justified it.
+The strategist is allowed to override Phase-1, but only with the
+override flagged and the reason spelled out.
 
 ## What it does each trading day
 
@@ -45,42 +80,59 @@ inspection + paper P&L updates. Expected turnover is ~15-25 trades/year.
 
 ```mermaid
 flowchart LR
-    subgraph Ingest
-      A1[connectors/psx_historical.py<br/>PSX DPS EOD]
-      A2[scripts/backfill_macro.py<br/>yfinance]
-      A3[connectors/rss_news.py<br/>RSS feeds]
+    subgraph Ingest["GitHub Actions / connectors"]
+      A1[psx_historical / psx_portal / psx_terminal<br/>OHLCV + circuit breakers + announcements]
+      A2[yfinance_commodities / sbp / mettis<br/>Macro series + KIBOR/T-bill/FX/CPI]
+      A3[rss_news / intl_news + score_news_sentiment<br/>Scored PSX news feed]
+      A4[yfinance_fundamentals / psx_results<br/>Fundamentals + financial results PDFs]
+      A5[scstrade FIPI flows]
     end
 
-    subgraph Storage
-      S1["data/ohlcv/*.parquet"]
-      S2["data/macro/*.parquet"]
-      S3["data/paper_portfolio.json"]
+    subgraph Storage["data/ — committed to git"]
+      S1["ohlcv/*.parquet · macro/*.parquet"]
+      S2["news/scored_news.parquet · flows/fipi_daily.parquet"]
+      S3["fundamentals/*.parquet · results/*.parquet"]
+      S4["predictions_log.json · backtest/phase1_*.parquet"]
+      S5["user_portfolio.json · paper_portfolio.json"]
     end
 
-    subgraph Brain_v2
-      B1[brain/features.py<br/>momentum + vol]
-      B2[brain/strategy.py<br/>monthly rule]
-      B3[brain/overlay.py<br/>LLM regime + exits]
-      B4[brain/paper_portfolio.py<br/>state]
-      B5[brain/backtest_v2.py<br/>end-to-end sim]
+    subgraph Brain["brain/ — deterministic engines"]
+      B1[strategy.py<br/>Phase-1 monthly rule]
+      B2[overlay.py<br/>LLM regime + emergency exit]
+      B3[macro_impact.py<br/>sector × macro rule book]
+      B4[valuation.py · quality.py<br/>Value + Quality lenses]
+      B5[verdict_synthesizer.py<br/>7-lens reconciliation]
+      B6[short_candidates.py<br/>composite short score]
+      B7[ranker.py · prediction_critic.py<br/>optional ML + LLM critic]
     end
 
-    subgraph Output
-      O1[reports/YYYY-MM-DD.md]
-      O2[reports/backtest_v2_*.md]
+    subgraph Surfaces["Where the user actually sees it"]
+      U1[Streamlit UI · 12 tabs]
+      U2[scripts/generate_predictions.py<br/>daily LLM predictions]
+      U3[ui/daily_report.py<br/>analyst PDF brief]
+      U4[Ask Advisor chatbot<br/>~40 read-only tools]
     end
 
     A1 --> S1
-    A2 --> S2
+    A2 --> S1
+    A3 --> S2
+    A4 --> S3
+    A5 --> S2
     S1 --> B1
-    S2 --> B1
-    B1 --> B2
-    B2 --> B3
-    A3 --> B3
-    B3 --> B4
-    B4 --> S3
-    B3 --> O1
-    B5 --> O2
+    S1 --> B3
+    S3 --> B4
+    S2 --> B5
+    S3 --> B5
+    B1 --> B5
+    B3 --> B5
+    B4 --> B5
+    B5 --> U1
+    B5 --> U3
+    B6 --> U1
+    B7 --> U2
+    B2 --> B1
+    U1 --> U4
+    U2 --> S4
 ```
 
 ## Project layout
@@ -88,47 +140,110 @@ flowchart LR
 ```
 pakistan stock market/
 ├── config/
-│   ├── universe.py                 # The stocks the bot trades
-│   └── candidates.py               # REQUIRED_TICKERS + CANDIDATE_POOL
-├── connectors/                     # Data source connectors
+│   ├── universe.py                 # The 35 stocks the bot trades
+│   ├── candidates.py               # REQUIRED_TICKERS + CANDIDATE_POOL
+│   ├── costs.py                    # PSX round-trip cost model
+│   ├── short_eligibility.py        # Conservative short-side eligibility
+│   ├── sbp_mpc_calendar.py         # Known + estimated MPC dates
+│   └── data_slas.py                # Per-feed freshness SLAs
+├── connectors/                     # 17 data-source connectors (BaseConnector)
 │   ├── psx_historical.py           # PSX DPS EOD time-series
-│   ├── rss_news.py                 # Dawn, Business Recorder, etc.
+│   ├── psx_portal.py               # Circuit breakers, announcements,
+│   │                               #   indices, MarketWatch
+│   ├── psx_results.py              # Financial results PDFs
+│   ├── psx_terminal.py             # Real-time PSX terminal feed
+│   ├── sbp.py                      # SBP policy rate + KIBOR + T-bill
+│   ├── mettis_global.py            # Mettis market data
+│   ├── flows.py                    # FIPI / LIPI flows (SCStrade)
+│   ├── yfinance_commodities.py     # Brent / coal / cotton / gold
+│   ├── yfinance_fundamentals.py    # Per-stock fundamentals
+│   ├── rss_news.py / intl_news.py  # PSX + global news
 │   └── ...
-├── data/
+├── data/                           # All committed to git (audit trail)
 │   ├── ohlcv/                      # Per-symbol Parquet (5y daily bars)
-│   ├── macro/                      # yfinance macro series
-│   └── paper_portfolio.json        # Persistent virtual book
+│   ├── macro/                      # yfinance + SBP macro series
+│   ├── news/                       # Scored news feed
+│   ├── fundamentals/               # Per-stock fundamentals snapshots
+│   ├── results/                    # Financial-results extracts
+│   ├── flows/fipi_daily.parquet    # Daily FIPI cache
+│   ├── backtest/                   # Phase-1 walk-forward outputs
+│   ├── _health/                    # Per-feed freshness JSON + history
+│   ├── predictions_log.json        # Append-only LLM predictions + actuals
+│   ├── user_portfolio.json         # User's real holdings
+│   ├── paper_portfolio.json        # Bot's virtual book
+│   ├── _strategist/                # One JSON per day from brain/master_strategist.py
+│   ├── playbook/cases.json         # Curated 'situation -> reaction' case library
+│   ├── playbook/_events.json       # Active in-window external events (IMF, elections, ...)
+│   ├── flows/mutual_fund_holdings.parquet  # Per (month, fund, symbol) AHL MF holdings
+│   ├── flows/mf_top_holdings_summary.parquet # Per (month, symbol) summary w/ MoM column
+│   └── raw/mf_holdings/*.pdf       # Source AHL Mutual Funds Equity Holdings PDFs
 ├── brain/
-│   ├── features.py                 # Momentum + volatility helpers
+│   ├── master_strategist.py        # ⭐ Top-of-stack Claude (reads EVERY signal)
+│   ├── playbook.py                 # Curated 'situation -> reaction' case library matcher
+│   ├── mf_flows.py                 # Mutual-fund "smart money" flow signals (AHL data)
 │   ├── strategy.py                 # Deterministic monthly momentum rule
-│   ├── overlay.py                  # LLM defensive overlay
-│   ├── paper_portfolio.py          # Paper-trading portfolio
+│   ├── overlay.py                  # LLM defensive overlay (regime + exits)
+│   ├── macro_impact.py             # Sector × macro rule book + amplifier
+│   ├── valuation.py                # Sector-aware fair value
+│   ├── quality.py                  # 0-100 quality + earnings-momentum
+│   ├── sector_ratios.py            # Sector medians for ratio context
+│   ├── earnings_calendar.py        # Predicted earnings + 5d blackout
+│   ├── verdict_synthesizer.py      # 7-lens reconciliation per stock
+│   ├── short_candidates.py         # Composite short score + guards
+│   ├── prediction_critic.py        # Post-LLM consistency checks
+│   ├── buy_explainer.py            # Auditable buy-side rationale
+│   ├── ranker.py                   # Phase-2 cross-sectional LightGBM (gated)
+│   ├── features.py                 # Momentum + volatility helpers
 │   ├── backtest_v2.py              # Honest end-to-end backtest
+│   ├── paper_portfolio.py          # Paper-trading portfolio
 │   └── _legacy/                    # Archived v1 ML stack (not imported)
-├── ui/                             # Streamlit UI (chat + portfolio + scanner)
-│   ├── app.py                      # Entry point: streamlit run ui/app.py
-│   ├── tools.py                    # Tool-call layer (single source of truth)
-│   ├── llm_clients.py              # Claude + Gemini with tool-calling loops
-│   ├── portfolio.py                # User portfolio CRUD (JSON-backed)
-│   └── recommendations.py          # Position analysis + scanner tables
+├── ui/                             # Streamlit UI (12 tabs)
+│   ├── app.py                      # Entry point: streamlit run streamlit_app.py
+│   ├── tools.py                    # ~40 read-only tools (chatbot truth layer)
+│   ├── llm_clients.py              # Claude + Gemini + GitHub Models loops
+│   ├── dashboard_data.py           # Today-tab aggregator
+│   ├── daily_report.py             # PDF brief generator (16 sections)
+│   ├── system_health.py            # Data freshness + workflow status
+│   ├── short_ideas.py              # Bearish picks tab
+│   ├── phase1_backtest.py          # Strategy-tester panel
+│   ├── recommendations.py          # Position analysis + scanner
+│   ├── portfolio.py / watchlist.py / trade_journal.py
+│   ├── overnight.py                # Overnight global-risk prior
+│   ├── news_sentiment.py / explainers.py
+│   └── __init__.py
 ├── scripts/
-│   ├── select_universe.py          # Quarterly: pick the universe
+│   ├── select_universe.py          # Quarterly universe refresh
 │   ├── backfill.py                 # Pull 5y OHLCV for universe
-│   ├── backfill_macro.py           # Pull 5y macro series
-│   ├── generate_report_v2.py       # Daily runner (Plan D)
-│   ├── generate_predictions.py     # Daily LLM/rule predictions for the 6 req tickers
-│   ├── check_predictions.py        # Scorecard: hit rate vs realised 5d returns
-│   ├── daily_pipeline.py           # Top-level orchestrator
-│   ├── audit_strategy.py           # Audit: data & calibration
-│   ├── audit_baselines.py          # Audit: simple rules w/ costs
-│   ├── audit_low_turnover.py       # Audit: monthly/quarterly rules
-│   ├── audit_deep.py               # Audit: stability & significance
-│   ├── tune_stops.py               # Sweep stop / top_n params
+│   ├── refresh_*.py                # Per-feed refresh jobs (called by Actions)
+│   ├── score_news_sentiment.py     # Batch-score RSS via Claude Haiku
+│   ├── generate_predictions.py     # Daily LLM predictions
+│   ├── check_predictions.py        # Scorecard vs realised 5d returns
+│   ├── extract_director_report.py  # PSX directors-report PDF parser
+│   ├── ingest_ahl_mf_holdings.py   # AHL Mutual Funds Equity Holdings PDF ingestion
+│   ├── ingest_macro_history.py     # 5-year backfill: SBP rate, KIBOR, T-bills, CPI, FX, KSE-100, FIPI
+│   ├── audit_production_config.py  # Live-config audit + grid search
+│   ├── audit_low_turnover.py       # Broader rule grid
+│   ├── audit_deep.py               # Stability + monkey-test
+│   ├── validate_ranker.py          # Phase-2 deployment-gate
+│   ├── phase1_backtest.py          # Walk-forward harness for the UI panel
+│   ├── replay_briefing.py          # Reconstruct the strategist briefing for any historical date
+│   ├── historical_test_playbook.py # 3-mode (baseline / +macro / +MF) playbook regression test
+│   ├── health_check.py             # Per-feed SLA enforcement
 │   └── _legacy/                    # Archived v1 scripts
-├── reports/
-│   ├── YYYY-MM-DD.md               # Daily runner output
-│   └── backtest_v2_*.md            # Backtest runs
+├── .github/workflows/              # 14 GitHub Actions (13 scheduled + 1 path-triggered)
+│   ├── eod.yml                     # 16:30 PKT — OHLCV + FIPI + scorecard
+│   ├── predictions.yml             # 09:20 PKT — per-ticker 5-day forecasts
+│   ├── master_strategist.yml       # 09:30 PKT — Claude top-of-stack call
+│   ├── validate_playbook.yml       # On push/PR touching data/playbook/**
+│   ├── overnight.yml               # 09:00 PKT — overnight globals
+│   ├── news_scoring.yml            # 3x/day — score RSS news
+│   ├── macro_series.yml / macro_kpis.yml
+│   ├── fundamentals.yml / financial_results.yml / material_info.yml
+│   ├── ingest_mf_holdings.yml      # 5th of each month 09:00 PKT — pull AHL MF Holdings
+│   ├── intraday_session.yml
+│   └── health_check.yml            # Pre-open SLA gate
 ├── psx_strategy_v2.md              # Plan D design doc + audit findings
+├── Pakistan Stock Market Research Factors.docx  # Behavioral/macro research
 └── README.md                       # This file
 ```
 
@@ -168,6 +283,59 @@ python scripts\generate_predictions.py
 python scripts\check_predictions.py
 ```
 
+## The 7-lens analyst stack (`brain/verdict_synthesizer.py`)
+
+Every stock the bot covers is independently scored by 7 lenses — each
+producing a signed integer in `[-3, +3]` with a one-line reason — and
+then **deterministically reconciled** into ONE verdict per stock with
+explicit conflict-resolution rules.
+
+| Lens | Module | What it answers |
+|---|---|---|
+| **Value** | `brain/valuation.py` | Sector-aware fair value (DDM for banks/utilities, P/B for E&Ps, 3-yr-avg P/E for cement, blends elsewhere) → BUY_VALUE / FAIR / SELL_VALUE |
+| **Quality** | `brain/quality.py` | 0-100 from ROE / leverage / earnings stability / revenue & EPS growth, sector-anchored for banks & utilities |
+| **Momentum** | strategy + `brain/features.py` | RSI / MACD / OBV / 5d / 21d / 150d returns |
+| **Macro** | `brain/macro_impact.py` | Sector tailwind/headwind from policy rate, Brent, USD/PKR, coal, cotton, gold, circular-debt — leverage-amplified per stock |
+| **News** | `ui/news_sentiment.py` | Scored news with confidence, ticker-tagged |
+| **Flow** | `connectors/flows.py` + tools | FIPI / LIPI institutional positioning ("smart money" signal flagged in PSX research) |
+| **Management** | `extract_director_report.py` | Director's-report tone + growth plans |
+
+Output:
+
+```python
+Verdict(
+    symbol="HUBC", sector="Power",
+    action="BUY", direction="BULLISH", conviction="HIGH", score=11,
+    contributions=[LensContribution("Value", +2, "DDM upside +18%"), ...],
+    conflicts=["Macro is bullish but news is bearish — net positive"],
+    resolution_log=["Weighted technicals + flow heavily for 5d call", ...],
+)
+```
+
+This solves the classic "Value says SELL, Momentum says BUY — what do I
+do?" problem with **one call the analyst can defend**, even if the LLM
+strategist is unavailable.
+
+## Short-side scoring (`brain/short_candidates.py`)
+
+A composite 0-100 `short_score` that mirrors the bullish pipeline:
+
+| Bucket | Max | Source |
+|---|---|---|
+| Verdict synthesizer (bearish lens lean) | 30 | `brain/verdict_synthesizer.py` |
+| 5-day prediction expected return (if BEARISH) | 25 | `data/predictions_log.json` |
+| News sentiment over trailing 7 days | 15 | `data/news/scored_news.parquet` |
+| Technical breakdown + intraday relative weakness | 15 | `connectors/psx_terminal.py` |
+| Macro headwind + industry KPI weakness | 10 | `brain/macro_impact.py` |
+| Intraday lower-circuit hit in last 5 sessions | 5 | `connectors/psx_portal.py` |
+
+With **pre-event guards** (earnings within 5d → cap conviction at MEDIUM;
+SBP MPC within 7d for rate-sensitive sectors → cap at MEDIUM) and a
+**regime adjustment** (downgrade shorts one notch when KSE-100 is in a
+clean uptrend — flagging the most common retail mistake). A
+concentration cap mirrors the long side: 3+ candidates in the same
+sector → lowest-scoring is downgraded with `concentration_warning`.
+
 ## Daily predictions + scorecard
 
 `generate_predictions.py` produces a dated 5-trading-day forecast for every
@@ -201,9 +369,17 @@ close and the hit rate becomes visible after the first full week.
 | `--model`  | Data used | Quality |
 |------------|-----------|---------|
 | `rule`     | Momentum (4 horizons), vol, RSI, SMA trend, FIPI, policy rate, Brent for E&P | Fast, deterministic, no news semantics |
-| `claude`   | All of the above + news headlines, sector flows, macro narrative | Uses `claude-haiku-4-5`, requires `ANTHROPIC_API_KEY` |
+| `claude`   | All of the above + news headlines, sector flows, macro narrative | Uses `claude-sonnet-4-5` with a small extended-thinking budget (override via `PSX_PREDICT_MODEL` / `PSX_PREDICT_THINKING_BUDGET=0`); requires `ANTHROPIC_API_KEY` |
 | `gemini`   | Same as Claude | Uses `gemini-2.5-flash`, requires `GOOGLE_API_KEY` |
 | `auto`     | Picks Claude > Gemini > rule based on which keys are set | Default |
+
+Every prediction is also **fact-checked by `brain/prediction_critic.py`**
+before it's written to disk — a small set of deterministic post-LLM checks
+that catch internally inconsistent calls (e.g. `direction=BULLISH,
+conviction=HIGH` with `key_drivers=["RSI 28 oversold", "5d return -8%"]`).
+Severity escalates from `info` → `warn` (downgrade conviction) → `fail`
+(force HOLD, conviction LOW), with the trigger reason stamped into a
+`critic_notes` field so the analyst can see exactly what was caught.
 
 ```powershell
 $env:ANTHROPIC_API_KEY = "sk-ant-..."
@@ -310,22 +486,36 @@ Recommended: schedule alongside `cache_fipi_daily.py` — run
 the 24h macro tilt fresh.
 
 
-## Deployment — GitHub Actions as your data janitor, Streamlit on your laptop
+## Deployment — GitHub Actions as your data janitor, Streamlit Cloud (free) for the UI
 
-The daily data pipeline runs as **four scheduled GitHub Actions workflows**
-that fetch, score, and commit updated data back to the repo. Your local
-Streamlit UI just runs `git pull` (or clicks the sidebar button) to see
-the latest data. No servers to manage, no cloud UI hosting, no port
-forwarding.
+The daily data pipeline runs as **11 scheduled GitHub Actions workflows**
+that fetch, score, and commit updated data back to the repo. Your
+deployed Streamlit Cloud app (or local clone with `git pull`) sees fresh
+data within minutes. No servers to manage, no cloud UI hosting cost.
+
+The architectural choice that makes this fit on Streamlit Cloud's free
+tier: the UI **never** trains a model on demand — it only reads
+pre-computed parquets / JSON. That's why `requirements.txt` deliberately
+leaves out `lightgbm`, `catboost`, `torch`, `transformers`, `vectorbt`,
+and `shap`. Use `requirements-full.txt` if you also want to train models
+or run the full backtest locally.
 
 ### Schedule (all times UTC; cron is `m h DOM MON DOW`, DOW 1-5 = Mon-Fri)
 
 | Workflow | Cron | PKT time | What it does |
 |----------|------|----------|--------------|
-| `overnight.yml`      | `0 4 * * 1-5` | 09:00 Mon-Fri | Refresh S&P 500, VIX, Nikkei, HSI, FTSE, DXY, EEM closes from yfinance → `data/macro/overnight_global.parquet` |
-| `predictions.yml`    | `15 4 * * 1-5` | 09:15 Mon-Fri | Generate 5-day predictions for all 15 universe stocks with Claude → `data/predictions_log.json` |
-| `eod.yml`            | `30 11 * * 1-5` | 16:30 Mon-Fri | Append today's FIPI flow snapshot + score yesterday's predictions |
-| `news_scoring.yml`   | `0 2,8,13 * * 1-5` | 07:00 / 13:00 / 18:00 | Batch-score fresh RSS headlines with Claude Haiku → `data/news/scored_news.parquet` |
+| `macro_series.yml`     | `55 1 * * 1-5`     | 06:55 | Refresh commodities + FX (Brent / coal / cotton / gold / USD/PKR) |
+| `news_scoring.yml`     | `0 2,8,13 * * 1-5` | 07:00 / 13:00 / 18:00 | Batch-score fresh PSX + global news → `data/news/scored_news.parquet` |
+| `macro_kpis.yml`       | `30 3 * * 1-5`     | 08:30 | Morning SBP / KIBOR / T-bill snapshot |
+| `overnight.yml`        | `0 4 * * 1-5`      | 09:00 | S&P 500, VIX, Nikkei, HSI, FTSE, DXY, EEM closes |
+| `health_check.yml`     | `10 4 * * 1-5`     | 09:10 | Pre-open SLA gate — fails the build if any feed is stale |
+| `predictions.yml`      | `20 4 * * 1-5`     | 09:20 | Generate 5-day predictions for required tickers via Claude Sonnet 4.5 → `data/predictions_log.json` |
+| `master_strategist.yml`| `30 4 * * 1-5`     | 09:30 | Top-of-stack Claude reasoning over **every** signal → `data/_strategist/<date>.json` + `latest.json` |
+| `intraday_session.yml` | hourly during PKT session | 10:00–15:30 | Snapshot intraday session metrics |
+| `material_info.yml`    | `30 11 * * 1-5`    | 16:30 | PSX material-information disclosures |
+| `eod.yml`              | `30 11 * * 1-5`    | 16:30 | Refresh OHLCV + FIPI flows + score yesterday's predictions; auto-dispatches `financial_results.yml` on earnings days |
+| `fundamentals.yml`     | weekly             | Mon AM | Refresh per-stock fundamentals snapshots |
+| `financial_results.yml`| dispatched         | event-driven | Extract financial-results PDFs (triggered by `eod.yml`) |
 
 ### One-time setup (~10 minutes)
 
@@ -453,8 +643,10 @@ that's your permanent audit trail.
 
 ## Interactive UI (chat + portfolio + scanner)
 
-The UI is a Streamlit app that pairs a Claude-Haiku, Gemini-Flash, or free
-GitHub Models chatbot with the Plan D backend. Launch with:
+The UI is a Streamlit app that pairs a Claude Sonnet 4.5 (default),
+Gemini-Flash, or free GitHub Models chatbot with the Plan D backend, and
+surfaces the Master Strategist's daily call at the top of the Today tab.
+Launch with:
 
 ```powershell
 streamlit run ui\app.py
@@ -462,29 +654,56 @@ streamlit run ui\app.py
 
 Then open http://localhost:8501 in your browser.
 
-### Four tabs
+### Twelve tabs
 
-- **Chat** — ask anything about your positions, today's picks, or the market.
-  Example prompts:
-  - *"I bought MCB at 380 on 2026-03-15, 100 shares. Should I hold?"*
-  - *"What are today's top 5 buy candidates and why?"*
-  - *"Look at my whole portfolio and tell me which names to trim first."*
+| # | Tab | What it shows |
+|---|---|---|
+| 1 | **Today** | Narrative morning brief — **Master Strategist top-of-stack call (Claude Sonnet 4.5 with extended thinking)**, market mood, what to do, alerts, top movers, downloadable analyst PDF. |
+| 2 | **My Holdings** | Live positions, sector allocation, suggested trailing stop, close-to-journal flow, realised P&L history. |
+| 3 | **Forecast** | 5-day predictions for every universe stock with entry / stop / target, structured rationale, and the rolling scorecard. |
+| 4 | **Reports** | Director's-report extracts → management outlook + growth plans + risks. |
+| 5 | **Fair Value** | Sector-aware intrinsic value, quality score, earnings momentum for every stock. |
+| 6 | **Watchlist** | Tracked symbols with target prices and alerts. |
+| 7 | **Find Ideas** | Universe ranked by momentum strength + fundamental verdict. |
+| 8 | **Short Ideas** | Composite-scored bearish picks with pre-event guards and concentration cap. |
+| 9 | **News** | AI-scored PSX news feed with sentiment + tickers. |
+| 10 | **Ask Advisor** | Chat with Claude / Gemini / GitHub Models — every answer is grounded in ~40 read-only tool calls. |
+| 11 | **Strategy Tester** | On-demand Plan-D Phase-1 backtest with per-symbol prediction accuracy. |
+| 12 | **System Health** | Per-feed freshness vs SLA, workflow run status, last-update timestamps. |
 
-  The bot has tool access to live prices, momentum ranks, the Phase 1 signal,
-  the market regime, your portfolio, and historical bars. It **cannot** make
-  up numbers — every answer cites real data pulled from our engine.
+The chatbot tool layer (`ui/tools.py`) exposes ~40 read-only functions to
+the LLM — `list_universe`, `get_price`, `get_technical_snapshot`,
+`get_universe_ranking`, `get_strategy_signal`, `get_market_regime`,
+`analyze_position`, `recommend_new_buys`, `get_fipi_flows`,
+`get_macro_snapshot`, `get_value_signal`, `get_quality_score`,
+`get_management_outlook`, `get_bots_verdict`, `get_short_candidates`, … —
+with a system prompt that forbids inventing numbers. Every answer is
+traceable to a tool call.
 
-- **Portfolio** — enter real holdings (symbol, entry price, qty, date). The
-  app shows live P&L, suggested 12% trailing stops, and a HOLD / SELL / TRIM
-  recommendation per position derived from the Phase 1 rule. Your portfolio
-  lives in `data/user_portfolio.json`, **separate** from the bot's own paper
-  portfolio.
+### Daily PDF brief (analyst-facing)
 
-- **Scanner** — full universe ranked by 150d momentum, with today's
-  Phase 1 picks highlighted. Good for hunting fresh buy ideas.
+The Today tab has a **"Download today's brief"** button that builds a
+single-file PDF with these sections:
 
-- **Backtest** — run the full Plan D Phase 1 backtest on demand and view the
-  equity curve against buy-and-hold.
+1. Header: date, market mood, one-line narrative
+2. What to do today: top action card
+3. Things to watch: alerts
+4. **Macro Radar** — industry KPIs, active drivers, per-sector
+   tailwind/headwind verdicts with one-line reasons
+5. **Bot's Verdict** — ONE unified call per stock, reconciling all
+   seven lenses with explicit conflict-resolution rules
+6. Forecast table for every stock
+7. Top news in the last 24h
+8. Material-information disclosures (last 14 days)
+9. Per-stock detail cards with rationale, drivers, risks, ratios
+10. Management outlook (Director's reports)
+11. Portfolio snapshot, watchlist, top movers, quality leaders
+12. Earnings calendar (next 21 days)
+13. Footer: data freshness + disclaimers
+
+Generated by `ui/daily_report.py` (reportlab). Forwardable to anyone via
+WhatsApp / email / print — every recommendation traces back to a
+specific data point.
 
 ### API keys and chat providers
 
@@ -493,7 +712,7 @@ The UI supports three providers — pick one from the sidebar radio.
 | Provider | Cost | Rate limits | Default model | Env var |
 |---|---|---|---|---|
 | **GitHub Models** (default) | **free** | 15 RPM / 150 RPD (Low tier) | `openai/gpt-4o-mini` | `GITHUB_TOKEN` |
-| Claude | paid | none | `claude-haiku-4-5` | `ANTHROPIC_API_KEY` |
+| Claude | paid | none | `claude-sonnet-4-5` (extended thinking) — `claude-opus-4-5` for "deep dive", `claude-haiku-4-5` for cheap utility | `ANTHROPIC_API_KEY` |
 | Gemini | paid | none | `gemini-2.5-flash` | `GEMINI_API_KEY` |
 
 Copy `.env.example` → `.env` and fill in whichever you want to use, then
@@ -561,41 +780,417 @@ The LLM is **only** used for:
 
 It does **not** generate buy signals. Entry is mechanical.
 
+## The Master Strategist (top-of-stack Claude reasoning)
+
+`brain/master_strategist.py` is the **top layer** of the stack. Once a
+day, it gathers every signal the bot has into a single briefing —
+
+- Phase-1 mechanical strategy result (top-5 picks + market-on/off flag)
+- 7-lens verdict synthesizer for every name in the universe
+- Macro impact engine output (per-sector tailwind/headwind + drivers)
+- Predictions log + cumulative scorecard
+- FIPI flows, scored sentiment, overnight global signals
+- Earnings calendar + 5-day blackout flags
+- Material information + management outlook (Director's Reports)
+- Value / quality / earnings-momentum books
+- Long-side BUY ideas + short-side composite candidates
+- The user's own portfolio + watchlist + trade journal
+
+— and hands it to **Claude Sonnet 4.5 in extended-thinking mode** with a
+12,000-token internal reasoning budget. Claude reads the whole document,
+reasons across it (the "thinking" phase Anthropic exposes for Sonnet/Opus
+4 models), then publishes a structured JSON decision:
+
+```json
+{
+  "headline":   "STAY DEFENSIVE — Phase-1 cash, FIPI -1.2 bn / 5d, IMF noise",
+  "risk_stance":"CAUTIOUS",
+  "conviction": "HIGH",
+  "narrative":  "...3-6 sentence plain-English read for the analyst...",
+  "agrees_with_phase1": true,
+  "macro_lens":      "...one paragraph reconciling rate / FX / circular debt...",
+  "behavioural_lens":"...one paragraph reading PSX herding / breadth / flows...",
+  "key_drivers":     ["macro_impact: Power +3 STRONG TAILWIND ...", "..."],
+  "key_risks":       ["fipi_flows: net 5d -1234 PKR mn ...", "..."],
+  "actions": [
+    {
+      "symbol": "HUBC", "bucket": "ADD", "conviction": "HIGH",
+      "sector": "Power", "target_weight_pct": 22.0,
+      "reason": "Circular-debt resolution + verdict BUY HIGH + earnings momentum",
+      "contributing_signals": [
+        "macro_impact: circular_debt_resolution STRONG (+3 Power)",
+        "verdict_universe: HUBC action=BUY conviction=HIGH",
+        "predictions: HUBC mid +2.4% (clears cost threshold)"
+      ]
+    }
+  ]
+}
+```
+
+Hard rules the strategist must respect (enforced in the system prompt):
+
+1. **Phase-1 is the trade book.** If the mechanical rule says CASH, the
+   default is CASH. Claude can override, but only with `agrees_with_phase1`
+   set false and a one-sentence note explaining which signal forced it.
+2. **Cite your sources.** Every action must list ≥2 contributing signals
+   from the briefing — no hallucinated tickers, no invented prices.
+3. **Behavioural lens.** PSX is well-documented as weak-form-inefficient
+   and emotion-driven (see *Pakistan Stock Market Research Factors.docx*);
+   the strategist must explicitly read herding / FIPI flow / breadth
+   alignment before issuing aggressive calls.
+4. **Cost discipline.** ~0.56% round-trip + 15% CGT means a BUY/ADD only
+   makes sense at expected gross 5d return ≥1.6%; otherwise downgrade.
+5. **Pre-event guards.** Earnings within 5 days → no fresh BUY/ADD.
+6. **Concentration discipline.** ≤2 names per sector in the action list.
+
+### Where to run it
+
+| Surface                                      | What it does                                                                               |
+| ---                                          | ---                                                                                        |
+| **Today tab → "Master Strategist" card**     | Loads `data/_strategist/latest.json`. Click **Re-run** for a fresh call.                   |
+| **Re-run** button (Sonnet 4.5, 12k thinking) | Default — ~20-60s, ~$0.10-0.20 per call.                                                   |
+| **Deep dive** toggle                         | Escalates to Claude Opus 4.5 with a 24k thinking budget. Slower, ~10x cost. Use sparingly. |
+| `python scripts/run_master_strategist.py`    | Cron-friendly CLI. `--deep` and `--thinking N` available.                                  |
+| `.github/workflows/master_strategist.yml`    | Daily 09:30 PKT (10 min after the predictions workflow). Commits the decision back.        |
+
+### Cost notes
+
+Sonnet 4.5 with a 12k thinking budget runs ~$0.10-0.20 per daily call
+(input pricing $3 / M tokens, output $15 / M tokens, thinking counts as
+output). At one call per trading day that's roughly $2-5/month — cheap
+for a flagship-tier reasoning pass over the entire signal stack.
+
+Opus 4.5 (`--deep`) is ~10× the cost; use it only for the quarterly
+strategic review or when you genuinely want the heaviest reasoning.
+
+### Without an API key
+
+If `ANTHROPIC_API_KEY` is unset, `decide_today()` returns a deterministic
+**rule-based fallback** that mirrors the Phase-1 selection scaled by the
+regime exposure multiplier. The Today-tab card still renders; it just
+won't have qualitative narrative or a behavioural lens.
+
+## The Playbook (institutional memory)
+
+The Master Strategist is a strong reasoner, but reasoning from scratch
+every day throws away one of PSX's biggest structural edges: behavioural
+patterns *recur*. Rate-cut rallies, circular-debt resolution Power
+rallies, IMF-approval bumps, FX shocks, FIPI capitulations — these are
+named, repeatable setups, not noise. The Pakistan Stock Market Research
+Factors document makes this explicit: PSX is weak-form-inefficient and
+emotion-driven, which is exactly the regime where situation/reaction
+memory pays off.
+
+`brain/playbook.py` + `data/playbook/cases.json` is that memory. It's a
+**curated case library** — each entry is a "situation pattern → observed
+market reaction" record with citations. At every Master Strategist run, a
+deterministic matcher scores every case against today's live briefing
+(active drivers, regime, FIPI flow, news sentiment, breadth, Phase-1
+state, earnings blackouts, in-window external events) and injects the
+top-K analogues into the strategist's prompt. Claude is required to
+either name the analogue it leans on (citing it in
+`contributing_signals`) or explain why none fits.
+
+### What's in a case
+
+```json
+{
+  "id": "circular_debt_resolution_large",
+  "category": "macro_event",
+  "title": "Power-sector circular debt cleared via banking syndicate (>= Rs 500bn)",
+  "pattern": "Government brokers a structured settlement of power-sector ...",
+  "trigger_signals": ["driver:circular_debt_resolution"],
+  "min_triggers": 1,
+  "historical_instances": [
+    {
+      "date": "2025-12-15",
+      "context": "Rs 1.225 trillion clearance backed by 18 banks ...",
+      "reactions": {
+        "HUBC": {"d1": 0.022, "d5": 0.071, "d21": 0.118},
+        "KEL":  {"d1": 0.018, "d5": 0.055, "d21": 0.094},
+        "PSO":  {"d1": 0.014, "d5": 0.041, "d21": 0.082}
+      },
+      "source": "..."
+    }
+  ],
+  "playbook": "Within 2 trading days: BUY HUBC and KEL on the Power IPP cash-unlock. Within 5 days: ADD PSO ... Hold 30-45 days; trim into the run-up to the next quarterly results.",
+  "what_breaks_it": "Resolution announced but financing structure unclear OR SBP pushback on bank NIM concession.",
+  "confidence": "MEDIUM",
+  "research_basis": "Pakistan Stock Market Research Factors.docx — Power Sector / Circular Debt section."
+}
+```
+
+Reactions are **fractional returns** (`0.071` = +7.1%), not percentages.
+The validator catches >|1.0| values to make this hard to get wrong.
+
+### Trigger kinds (the matcher's primitive language)
+
+| Kind | Example | Fires when |
+| --- | --- | --- |
+| `driver:<tag>` | `driver:rate_down` | The macro-impact engine emits the tag (any magnitude) |
+| `driver:<tag>:STRONG` | `driver:circular_debt_resolution:STRONG` | Same, but only at STRONG magnitude |
+| `regime:<NAME>` | `regime:CAUTION` | `get_market_regime()` returned the named regime |
+| `fipi_5d_lt:<num>` | `fipi_5d_lt:-1500` | FIPI net 5d (PKR mn) below threshold |
+| `fipi_5d_gt:<num>` | `fipi_5d_gt:500` | FIPI net 5d (PKR mn) above threshold |
+| `sentiment_lt:<num>` | `sentiment_lt:-0.4` | Scored sentiment tilt below threshold (range −1..+1) |
+| `breadth_lt:<num>` | `breadth_lt:30` | Universe % up below threshold |
+| `universe_5d_lt:<num>` | `universe_5d_lt:-0.05` | Universe 5d return below threshold (fractional) |
+| `phase1:<CASH\|RISK_ON>` | `phase1:CASH` | Phase-1 mechanical rule state |
+| `earnings_blackouts_gte:<N>` | `earnings_blackouts_gte:2` | ≥N universe names within 5d earnings blackout |
+| `event:<key>` | `event:imf_sba_or_eff_approval` | Active event in `data/playbook/_events.json` (within `decay_days`) |
+| `sector:<Name>` | `sector:Power` | Context tag — never fires standalone, used for ranking |
+| `mf_accumulation_streak_gte:<N>` | `mf_accumulation_streak_gte:3` | At least one stock has a ≥N month MF accumulation streak (per-stock) |
+| `mf_distribution_streak_gte:<N>` | `mf_distribution_streak_gte:3` | Per-stock distribution streak ≥N months |
+| `mf_n_funds_initiating_30d_gte:<N>` | `mf_n_funds_initiating_30d_gte:3` | At least one stock had ≥N funds initiate a fresh position MoM |
+| `mf_n_funds_increasing_30d_gte:<N>` | `mf_n_funds_increasing_30d_gte:5` | ≥N funds raised positions in a single stock MoM |
+| `mf_holding_change_30d_pct_gte/lte:<X>` | `mf_holding_change_30d_pct_gte:1.0` | Per-stock 30-day change in % of free float (or % of equity AUMs) above/below X |
+| `mf_holding_change_180d_pct_gte/lte:<X>` | `mf_holding_change_180d_pct_gte:2.0` | Same, 180-day window |
+| `mf_universe_n_funds_increasing_gte:<N>` | `mf_universe_n_funds_increasing_gte:200` | Universe-wide count of (fund × symbol) pairs that increased MoM |
+| `mf_universe_n_top_accumulated_gte:<N>` | `mf_universe_n_top_accumulated_gte:5` | ≥N names appear on the top-accumulated list (180d or 30d MoM) |
+| `mf_universe_n_top_distributed_gte:<N>` | `mf_universe_n_top_distributed_gte:5` | ≥N names appear on the top-distributed list |
+| `mf_data_freshness_lte:<N>` | `mf_data_freshness_lte:60` | Latest AHL report is ≤N days old. **All other MF triggers self-veto when >60 days stale.** |
+
+A case requires **all** of its triggers to fire by default. Set
+`min_triggers: N` for partial-match (`N` of the listed triggers must
+fire). Cases are ranked by `n_triggers_fired × confidence_weight +
+recency_bonus` and the top 4 are returned (override via
+`PSX_PLAYBOOK_TOP_K`).
+
+### Adding events (IMF approvals, elections, SBP-decision days)
+
+External event-driven cases (IMF approvals, elections, budget days, SBP
+MPS days) reference `event:<key>` triggers. Active events live in
+`data/playbook/_events.json` and follow the same decay-window pattern as
+`data/macro/circular_debt_events.json`:
+
+```json
+{
+  "events": [
+    {
+      "key": "imf_sba_or_eff_approval",
+      "date": "2026-09-10",
+      "decay_days": 14,
+      "description": "IMF Executive Board approves $7bn EFF.",
+      "source": "IMF press release URL"
+    }
+  ]
+}
+```
+
+The matcher activates the event the day its `date` arrives and stops
+firing it after `decay_days` (default 14). Future-dated events are
+silently held until they arrive; past-decayed events are silently
+dropped.
+
+### Adding cases
+
+1. Append a new object to the `cases` array in
+   `data/playbook/cases.json`. Read the existing entries — they're the
+   reference style.
+2. Run `python -m brain.playbook --validate` (also runs in CI on
+   touched cases.json files). The validator type-checks every field,
+   catches duplicate IDs, rejects unknown trigger kinds, and rejects
+   percentage-shaped reactions (anything with `|value| > 1.0`).
+3. Run `python -m brain.playbook --list` to see your case in the
+   loaded library.
+4. The next Master Strategist run picks it up automatically — no
+   restart needed.
+
+### What's NOT in this layer (yet)
+
+- **Auto-mined retrospectives** (Layer 3 in the plan). A scheduled
+  script will eventually walk `data/predictions_log.json` +
+  `data/_strategist/*.json` + the price history to surface
+  statistically-real patterns (e.g. "when `risk_stance=DEFENSIVE` for
+  ≥3 consecutive days AND `FIPI net 5d < -1bn` → universe mean 21d
+  return = -X%, n=Y") and write them to
+  `data/playbook/retrospectives.json`. Holding off until ≥6 months of
+  Master Strategist run history exists — sample sizes are too thin
+  before that.
+- **Vector / embedding retrieval**. PSX news / reports are sparse and
+  noisy enough that a structured case library outperforms a vector
+  store at this scale (~30-100 cases). Revisit if the case count
+  passes ~500.
+
+### Honesty caveats for curators
+
+- Reactions in `historical_instances` for older instances (2022-2024)
+  are **best-effort estimates** based on the research doc's claims and
+  PSX EOD parquets — they have NOT all been programmatically
+  re-verified against `data/ohlcv/`. The 2025-12-15 circular-debt
+  instance is the most credible (recent, directly cited). If you're
+  going to lean heavily on a case in production, backfill its
+  reactions from the parquets first.
+- The matcher is intentionally simple (deterministic tag matching +
+  recency / confidence weighting). It does NOT do similarity-of-degree
+  ("today's PKR move is 4.2%, the case threshold is 5%, but it's
+  close enough"). Add such cases by lowering the trigger threshold,
+  not by hoping the matcher is fuzzy.
+
+## The institutional-flows lens (`brain/mf_flows.py`)
+
+Pakistani PSX has one local-flow source so good that ignoring it is a
+mistake: **Arif Habib Limited's monthly Mutual Funds Equity Holdings
+report**. AHL publishes ~mid-month a free PDF disclosing every PSX
+equity mutual fund's per-stock holdings (% of fund AUM and number of
+shares) plus a top-30 universe summary with month-over-month change in
+% of equity AUMs. That's effectively a real-time map of *who is buying
+what* across ~80 funds and ~95 stocks — the cleanest "smart money"
+signal on the tape.
+
+`brain/mf_flows.py` derives 13 per-stock signals (number of funds
+holding, MoM increasing / decreasing / initiating / exiting counts,
+30/90/180-day aggregate holding change, accumulation / distribution
+streaks, current % of free float, data freshness in days) plus
+universe-level helpers (`top_accumulated`, `top_distributed`,
+`n_funds_increasing_universe`, `data_freshness_days`,
+`universe_summary`).
+
+Six new playbook cases consume them (`mf_accumulation_strong`,
+`mf_distribution_strong`, `mf_initiation_cluster`,
+`mf_capitulation_with_value`, `mf_smart_money_divergence`, and the
+universe-level `mf_universe_distribution_broad` which fires on the AHL
+summary's own MoM column without requiring per-fund detail). All MF
+triggers are **freshness-gated** — every MF trigger except
+`mf_data_freshness_lte` itself silently returns False when the latest
+report is more than 60 days old, so we never re-fire 6-month-old
+patterns against today's market.
+
+The Master Strategist briefing now carries a `mf_holdings` block with
+the universe summary plus per-stock signals for the Phase-1 selected
+names and the top accumulated / distributed names. The strategist
+prompt teaches Claude how to weigh the MF lens (rule **4b.
+Institutional flows lens** in `STRATEGIST_SYSTEM`) and the Today tab
+renders a compact MF Flows card inside the Master Strategist card.
+
+### Sources
+
+| Data | Source | Format | Depth |
+|---|---|---|---|
+| AHL Mutual Funds Equity Holdings | `arifhabibltd.com/api/research/open?path=178/<hash>.pdf` (publicly accessible) | PDF, 5-90 pages depending on month | Monthly back to 2021+; 24 months tracked |
+| SBP policy rate | Karandaaz portal CSV + curated `SBP_DECISIONS` | parquet `data/macro/sbp_rates.parquet` + `_policy_rate_history.json` | 2020 → present (5y) |
+| KIBOR / T-bills | SBP `ecodata` HTML / XLSX | parquet | 2020 → present |
+| CPI | OpenData PK XLSX (PBS-derived) | `data/macro/cpi_pakistan.parquet` | 2020 → present (monthly) |
+| FX reserves | Karandaaz weekly + SBP `forex.pdf` fallback | `data/macro/sbp_rates.parquet` (`reserves_*` cols) | Weekly, 2020 → present |
+| KSE-100 | `yfinance ^KSE` (until Sep-2021) + daily PSX DPS | `data/macro/kse100.parquet` | OHLCV |
+| FIPI/LIPI | SCStrade scrape | `data/flows/fipi_daily.parquet` | Forward-only after 2026-04 |
+
+### Cron
+
+* `.github/workflows/ingest_mf_holdings.yml` — runs **5th of each
+  month at 09:00 PKT** (after AHL typically publishes mid-month).
+  Discovers and downloads any new monthly report URLs, re-parses what
+  is on disk, upserts into the two flow parquets, and validates the
+  schema. Idempotent; skips PDFs that aren't actually MF-Holdings
+  reports (the AHL `path=178` namespace is shared with MSCI Index
+  Reviews, KSE-100 Profitability, PSX Performance, etc.).
+* `.github/workflows/macro_series.yml` covers the daily / weekly macro
+  refresh; `scripts/ingest_macro_history.py` is a one-off backfill,
+  not on cron.
+
+### Historical replay + 3-mode regression test
+
+Every change to the playbook or the MF / macro pipelines is regression-
+tested by `scripts/historical_test_playbook.py`. It walks 52 dates
+(19 named macro events + 8 MF-stress dates around AHL publication
+windows + 25 random unbiased weekday dates from 2021-2026), reconstructs
+the briefing for each date with `scripts/replay_briefing.py`, and runs
+the matcher in **three modes**:
+
+1. **Baseline** — only universe-derived signals (returns, breadth);
+   macro KPI parquets and MF parquets are masked.
+2. **With macro** — macro KPI levels (KIBOR, T-bills, CPI, FX-reserves)
+   flow into the matcher; MF still off.
+3. **With MF + macro** — production setup; both layers on.
+
+Each match is then scored HIT / MISS / GAP / NULL against the actual
+forward 5-day and 21-day universe returns. Most-recent run
+(`data/_health/playbook_historical_test.md`):
+
+| Bucket | Mode | HIT | MISS | GAP | NULL | Precision | Recall on sig moves |
+|---|---|---|---|---|---|---|---|
+| Named (curated) | Baseline | 9 | 7 | 0 | 3 | 56.2% | 100.0% (7/7) |
+| Named (curated) | + macro | 9 | 7 | 0 | 3 | 56.2% | 100.0% |
+| Named (curated) | + MF + macro | 9 | 7 | 0 | 3 | 56.2% | 100.0% |
+| MF-stress | Baseline | 1 | 2 | 3 | 2 | 33.3% | 50.0% (3/6) |
+| MF-stress | + macro | 1 | 2 | 3 | 2 | 33.3% | 50.0% |
+| MF-stress | + MF + macro | **7** | **0** | **0** | **1** | **100.0%** | **100.0% (6/6)** |
+| Random (unbiased) | Baseline | 6 | 5 | 0 | 14 | 54.5% | 100.0% (4/4) |
+| Random (unbiased) | + macro | 6 | 5 | 0 | 14 | 54.5% | 100.0% |
+| Random (unbiased) | + MF + macro | 8 | 5 | 0 | 12 | 61.5% | 100.0% |
+| **Combined** | Baseline | 16 | 14 | 3 | 19 | 53.3% | 82.4% (14/17) |
+| **Combined** | + macro | 16 | 14 | 3 | 19 | 53.3% | 82.4% |
+| **Combined** | **+ MF + macro** | **24** | **12** | **0** | **16** | **66.7%** | **100.0% (17/17)** |
+
+Headline reading:
+
+* Combined precision goes from **53% → 67%** when the MF lens is added,
+  beating the plan's hypothesised ≥65% target.
+* MF-stress precision goes from **33% → 100%** — every meaningful flow
+  event in the test set is now correctly typed.
+* Recall on significant moves goes from **82% → 100%** — every
+  significant 5d / 21d move in the 52-date sample now triggers at
+  least one analogue.
+* The "+ macro" column shows no lift over baseline because the
+  existing playbook cases trigger primarily on driver tags, not on
+  level thresholds; the macro KPIs are nonetheless persisted in
+  parquets so future cases can use level-based triggers.
+
+Re-run after any playbook / signal change with:
+
+```powershell
+python scripts/historical_test_playbook.py
+```
+
 ## Backtest headline
 
-`python -m brain.backtest_v2` — `reports/backtest_v2_core.md`
+Re-run on the 35-stock universe with `scripts/audit_production_config.py`
+(grid search + production-config snapshot, written to
+`data/backtest/audit_production_35.json`):
 
 ```
-Period: 2021-04-26 → 2026-04-23 (4.90 years)
+History: 2021-04-26 → 2026-04-29 (1240 trading rows, ~5 years)
+Cost   : 40 bps round-trip
 
-                     Strategy   Buy & Hold   Delta
-CAGR                 +18.18%    +19.54%      -1.36%
-Sharpe               0.92       0.88         +0.04
-Sortino              0.96       —
-Calmar               0.85       —
-Max drawdown         -21.4%     -32.3%       +10.8pp
-% 1Y windows > B&H   35.2%
+PRODUCTION (top-5 / 150d momentum / vol<70 / market filter on, no stops)
+  CAGR     +17.74%
+  Sharpe   1.16
+  Sortino  1.10
+  Calmar   1.27
+  MaxDD   -13.99%
 
-Total closed trades  45
-Win rate             62.2%
-Avg return/trade     +10.9%
-Avg hold             73.6 days
-Profit factor        4.62
+Buy & Hold equal-weight
+  CAGR     +21.65%
+  Sharpe   1.04
+  MaxDD   -28.18%
 ```
 
-Cost sensitivity (Sharpe collapses gracefully, not catastrophically):
+Other notable points in the parameter sweep (all monthly, market filter on,
+40 bps round-trip):
 
-| Round-trip | CAGR | Sharpe | Max DD |
-|---:|---:|---:|---:|
-| 20 bps | +18.6% | 0.94 | -21.4% |
-| 40 bps | +18.2% | 0.92 | -21.4% |
-| 60 bps | +17.7% | 0.91 | -21.5% |
-| 80 bps | +17.3% | 0.89 | -21.7% |
-| 100 bps | +16.9% | 0.87 | -21.9% |
+| top_n | mom_window | vol_cap | CAGR | Sharpe | MaxDD | Calmar |
+|---:|---:|---:|---:|---:|---:|---:|
+| 5 | 150 | 0.70 | **+17.7%** | **1.16** | **−14.0%** | 1.27 | **(production)** |
+| 3 | 150 | 0.70 | +19.2% | 1.18 | −13.1% | 1.47 |
+| 7 | 150 | none | +22.8% | 1.36 | −12.8% | 1.78 |
+| 3 | 200 | 0.60 | +20.2% | 1.23 | −12.4% | 1.63 |
+| —  | B&H eq-wt | — | +21.7% | 1.04 | −28.2% | 0.77 |
+
+Three things to take from this:
+
+1. **Buy-and-hold improved Sharpe 0.88 → 1.04** when the universe grew
+   15 → 35. The wider basket diversifies away ~4pp of MaxDD.
+   The benchmark is a tougher bar now than the v1-era audit assumed.
+2. **The production rule cuts the drawdown in half** (−14.0% vs −28.2%)
+   and beats B&H on Sharpe. It gives up ~4pp of CAGR for that — the
+   explicit cost of drawdown protection.
+3. The "headline-best" wider variant (top-7 / 150d / no vol cap) needs
+   a walk-forward stability test before promotion — that's queued for
+   the new quarterly `validate_ranker.yml` workflow.
 
 We are **deliberately** flat for the 2021-22 period (universe momentum
-negative → 100% cash), which is why the rule "misses" early PSX returns.
-That's the same mechanism that cut the 2025-26 drawdown from -32% to -21%.
+negative → 100% cash). That's the same mechanism that kept drawdowns
+shallow during the 2026-Q1 Strait of Hormuz selloff.
 
 See `psx_strategy_v2.md` for the full audit trail (autocorrelated targets,
 miscalibrated probabilities, transaction-cost math, monte-carlo significance
@@ -659,18 +1254,20 @@ python scripts\daily_pipeline.py --dry-run       # don't touch paper portfolio
 
 ## Realistic expectations
 
-Over a 3-5 year horizon on our universe with 40 bps round-trip costs:
+Over a 3-5 year horizon on the 35-stock universe with 40 bps round-trip costs:
 
-- **CAGR: 15-20%** (not 30%+ — those numbers came from a cherry-picked window)
-- **Sharpe: 0.9 - 1.1**
-- **Max drawdown: -15% to -22%** (vs buy-and-hold -32%)
-- **Win rate: 60-65%** on closed trades
-- **~15-25 trades/year** total
+- **CAGR: 17-20%** (production config measured at +17.7% on 5y window)
+- **Sharpe: 1.10 - 1.20**
+- **Max drawdown: −13% to −18%** (vs buy-and-hold −28%)
+- **Win rate: ~60%** on closed trades
+- **~20-25 trades/year** total
 
-**The rule underperforms buy-and-hold in strong bull years** (e.g. 2023: rule
-+16% vs B&H +47%). The 150-day market filter takes time to flip back on after
-a drawdown. That is the *price* of drawdown protection, and it is what keeps
-capital intact through the 2022 PKR crisis and 2025-26 drawdown.
+**The rule underperforms buy-and-hold in strong bull years** (e.g. the
+2024-26 SBP rate-cut rally: B&H +21.7% vs rule +17.7%). The 150-day
+market filter takes time to flip back on after a drawdown. That is the
+*price* of drawdown protection, and it is what keeps capital intact
+through the 2022 PKR crisis, the 2025-04 drawdown, and the 2026-Q1
+Strait of Hormuz selloff.
 
 ## Important limitations
 

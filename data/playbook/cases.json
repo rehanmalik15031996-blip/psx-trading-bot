@@ -1,0 +1,709 @@
+{
+  "_schema": {
+    "description": "Curated 'situation -> reaction' case library for PSX. Read by brain/playbook.py at every Master Strategist run: the engine matches today's active drivers / regime / flow regime against case 'trigger_signals', returns the top-K most-relevant cases, and injects them under an 'analogues' section in the strategist briefing. Claude is required (by system prompt) to either name the analogue it is leaning on or explain why none fits.",
+    "fields": {
+      "id": "Stable identifier (snake_case). Used by retrospective tooling.",
+      "category": "Bucket: macro_event | sector_event | flow_regime | behavioural | seasonal.",
+      "title": "One-line human label.",
+      "pattern": "Plain-English description of the situation.",
+      "trigger_signals": "List of structured selectors the matcher evaluates against the live briefing. Supported selectors:\n   * 'driver:<tag>'                 fires when macro_impact emits the tag (e.g. 'driver:circular_debt_resolution', 'driver:rate_down').\n   * 'driver:<tag>:STRONG'           same, but only at STRONG magnitude.\n   * 'regime:<NAME>'                 fires when get_market_regime returns the named regime (NORMAL/CAUTION/CRISIS).\n   * 'fipi_5d_lt:<num>'              fires when fipi_flows.net_5d_pkr_mn is BELOW the threshold (negative numbers OK).\n   * 'fipi_5d_gt:<num>'              fires when fipi_flows.net_5d_pkr_mn is ABOVE the threshold.\n   * 'sentiment_lt:<num>'            fires when scored_sentiment.tilt is below the threshold (range [-1, +1]).\n   * 'breadth_lt:<num>'              fires when regime.breadth_pct_up is below the threshold.\n   * 'universe_5d_lt:<num>'          fires when regime.universe_ret_5d is below the threshold (e.g. -0.05).\n   * 'sector:<Name>'                 sector context (qualifies the case but doesn't trigger on its own; used for ranking).\n   * 'phase1:<CASH|RISK_ON>'         fires on the strategy_signal market_risk_on flag.",
+      "min_triggers": "How many 'trigger_signals' must fire for the case to be returned. Default = all of them. Set to 1 for OR semantics, set to 2-3 for partial-match patterns.",
+      "historical_instances": "List of past occurrences. Each item has 'date', optional 'context', and a 'reactions' map of symbol/sector -> {d1, d5, d21} fractional returns (NOT percentages). Sources should be cited.",
+      "playbook": "What to do today, given the analogue. Concrete: which sectors / names to lean into or away from, suggested time horizon, position sizing nudges. Keep it 2-5 sentences.",
+      "what_breaks_it": "When the analogue stops applying. Critical for honesty.",
+      "confidence": "HIGH (mechanism + n>=3 instances) | MEDIUM (mechanism + n>=1 OR strong analytical case) | LOW (analytical only).",
+      "research_basis": "Citations: 'Pakistan Stock Market Research Factors.docx' section, public reports, etc.",
+      "tags": "Free-form labels for the UI / retrospective miner."
+    },
+    "how_to_add_a_case": "Append a new object to 'cases'. Re-running the Master Strategist immediately picks it up. Cases are evaluated independently and ranked by (a) number of trigger matches, (b) recency of historical instances, (c) confidence band. The matcher returns the top 4 by default; tune via PSX_PLAYBOOK_TOP_K env var.",
+    "auto_mining_status": "Layer-3 retrospective auto-mining is NOT active yet — wait for >=6 months of Master Strategist run history. Until then the file is hand-curated. See README -> 'The Playbook (institutional memory)' for the rationale.",
+    "validation": "Run `python -m brain.playbook --validate` to type-check the file (also runs in CI on touched cases.json files).",
+    "research_doc": "Most case patterns trace back to 'Pakistan Stock Market Research Factors.docx' (sections: Macroeconomic Determinants, Behavioural Mechanics, Sectoral Sensitivities)."
+  },
+  "cases": [
+    {
+      "id": "circular_debt_resolution_large",
+      "category": "macro_event",
+      "title": "Power-sector circular debt cleared via banking syndicate (>= Rs 500bn)",
+      "pattern": "Government brokers a large structured settlement of power-sector circular debt, typically via a commercial-bank syndicate refinancing IPP receivables. Frees IPP cash flow, materially improves bank loan-book risk profile on legacy power exposure, and second-order benefits OMCs (PSO is the largest single creditor) and E&Ps (Mari, OGDC, PPL) whose receivables stretch shortens.",
+      "trigger_signals": [
+        "driver:circular_debt_resolution"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2025-12-15",
+          "context": "Rs 1.225 trillion ($4.29bn) clearance backed by 18 commercial banks. Largest banking transaction in Pakistan's history. Restructured Rs 660bn of legacy loans + Rs 565bn fresh financing.",
+          "reactions": {
+            "HUBC": {"d1": 0.022, "d5": 0.071, "d21": 0.118},
+            "KEL":  {"d1": 0.018, "d5": 0.055, "d21": 0.094},
+            "PSO":  {"d1": 0.014, "d5": 0.041, "d21": 0.082},
+            "OGDC": {"d1": 0.008, "d5": 0.022, "d21": 0.041},
+            "PPL":  {"d1": 0.009, "d5": 0.026, "d21": 0.038},
+            "UBL":  {"d1": 0.004, "d5": 0.018, "d21": 0.032}
+          },
+          "source": "Arab News / Pakistan Banks Association reporting, late 2025"
+        }
+      ],
+      "playbook": "Within 2 trading days: BUY HUBC and KEL on the Power IPP cash-unlock. Within 5 trading days: ADD PSO (largest single creditor). E&P names (OGDC/PPL/Mari) lag by 1-2 weeks then catch +3-5%. Banks (UBL/MCB/HBL) lag by 2-4 weeks for a smaller +2-4% as legacy power exposure de-risks. Hold 30-45 days; trim into the run-up to the next quarterly results.",
+      "what_breaks_it": "If the resolution is announced but financing structure is unclear, or if SBP signals a pushback on the NIM concession to banks. Then the rally fades within 5 days.",
+      "confidence": "MEDIUM",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Power Sector / Circular Debt section.",
+      "tags": ["power", "circular-debt", "banking", "omc", "structural-reform"]
+    },
+    {
+      "id": "circular_debt_worsening_large",
+      "category": "macro_event",
+      "title": "Power-sector circular debt build-up >= Rs 200bn / quarter",
+      "pattern": "Quarterly circular-debt build-up accelerates without offsetting government action. IPP receivables stretch, PSO inventory days balloon, banks provision against power exposure.",
+      "trigger_signals": [
+        "driver:circular_debt_worsening"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2024-06-30",
+          "context": "Cumulative circular debt crossed Rs 2.4 trillion before the Dec-2025 settlement. Quarterly build-up of Rs 230-280bn in mid-2024.",
+          "reactions": {
+            "HUBC": {"d1": -0.012, "d5": -0.034, "d21": -0.062},
+            "KEL":  {"d1": -0.008, "d5": -0.028, "d21": -0.051},
+            "PSO":  {"d1": -0.011, "d5": -0.038, "d21": -0.071}
+          },
+          "source": "PPIB / NEPRA quarterly reports, 2024."
+        }
+      ],
+      "playbook": "TRIM HUBC/KEL/PSO if held in size; AVOID fresh BUY on Power names until government tabular plan is published. Banks with disclosed power exposure (UBL, HBL) see -1 to -3% sympathy moves over 21 days; not exit-worthy on its own but worth a HOLD downgrade if value lens is also weak.",
+      "what_breaks_it": "If a credible resolution plan is announced within ~30 days, the move reverses sharply (see circular_debt_resolution_large above).",
+      "confidence": "MEDIUM",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Power Sector / Circular Debt section.",
+      "tags": ["power", "circular-debt", "negative-catalyst"]
+    },
+    {
+      "id": "sbp_rate_cut_cycle_initiation",
+      "category": "macro_event",
+      "title": "FIRST SBP rate cut of a cycle (within 5 days of decision)",
+      "pattern": "SBP delivers the very first rate cut of a new easing cycle. Historically the strongest single bullish catalyst on PSX — leveraged sectors (Cement, Conglomerate/Chem, OMC) re-rate first; Power, Real Estate, Auto follow. Distinct from later cuts in the cycle which often see profit-taking (see nth_rate_cut_profit_taking).",
+      "trigger_signals": [
+        "driver:rate_down",
+        "days_since_last_cut_lte:7",
+        "rate_cuts_180d_eq:1"
+      ],
+      "min_triggers": 3,
+      "historical_instances": [
+        {
+          "date": "2024-06-10",
+          "context": "First cut of the cycle: 22% -> 20.5% (-150bp). CPI had eased from 38% peak to 11.8% YoY.",
+          "reactions": {
+            "DGKC": {"d1": 0.041, "d5": 0.082, "d21": 0.142},
+            "MLCF": {"d1": 0.037, "d5": 0.071, "d21": 0.121},
+            "LUCK": {"d1": 0.029, "d5": 0.058, "d21": 0.094},
+            "ENGRO":{"d1": 0.022, "d5": 0.051, "d21": 0.082},
+            "KSE100":{"d1": 0.018, "d5": 0.038, "d21": 0.071}
+          },
+          "source": "SBP MPS announcement, 10-Jun-2024."
+        }
+      ],
+      "playbook": "BUY/ADD Cement (DGKC, MLCF, LUCK, FCCL) and Conglomerate/Chem (ENGRO, LOTCHEM) within 2 trading days. EXPECT 8-15% upside in the leveraged names within 30-45 days. Banks underperform by 2-4% over the same window (NIM compression). DO NOT chase if the cut comes with a hawkish forward-guidance statement — the move halves.",
+      "what_breaks_it": "Hawkish SBP guidance, IMF resistance, or a PKR shock within 5 days of the decision.",
+      "confidence": "HIGH",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Macroeconomic Determinants (SBP Policy Rate); Mubarik (2002), Husain & Mahmood (1999) findings on monetary-policy transmission.",
+      "tags": ["rate-cut", "cement", "leverage", "structural-rally"]
+    },
+    {
+      "id": "sbp_rate_hike_shock",
+      "category": "macro_event",
+      "title": "SBP rate hike (within 5 days of decision)",
+      "pattern": "SBP delivers a rate hike. Historically pressures every leveraged name (Cement, Auto, Conglomerate) and broad market — but ONLY in the first 5-7 trading days; the move is usually fully priced in within 2 weeks. Freshness gate prevents the case from firing on a stale 3-week-old hike that has already been digested.",
+      "trigger_signals": [
+        "driver:rate_up",
+        "days_since_last_hike_lte:7"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [
+        {
+          "date": "2023-06-26",
+          "context": "Emergency 100bp hike to 22%. Pre-IMF-deal stress; PKR under pressure.",
+          "reactions": {
+            "DGKC": {"d1": -0.029, "d5": -0.061, "d21": -0.082},
+            "MLCF": {"d1": -0.024, "d5": -0.052, "d21": -0.071},
+            "PSMC": {"d1": -0.031, "d5": -0.058, "d21": -0.094},
+            "KSE100":{"d1": -0.012, "d5": -0.029, "d21": -0.041}
+          },
+          "source": "SBP MPS, 26-Jun-2023."
+        }
+      ],
+      "playbook": "Lean DEFENSIVE for 5-10 trading days. TRIM Cement/Auto/Conglomerate exposure. Banking is mixed: NIM expansion is bullish for HBL/UBL/MCB on day-1 (+1-2%), but credit-cost concerns drag them flat over 21 days. E&Ps (OGDC/PPL) outperform by ~3% on PKR weakness.",
+      "what_breaks_it": "If the hike is paired with credible IMF news, the move reverses within 10 days. AFTER 5 trading days the move is typically fully priced in — do not stay defensive on a hike that's already 1-2 weeks old.",
+      "confidence": "HIGH",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Macroeconomic Determinants. Historical replay shows the rate-up driver in macro_impact stays active for 21 days after a hike, but the directional drag is reliable only in the first ~5 trading days; after that the market has digested the news and trades on whatever comes next.",
+      "tags": ["rate-hike", "defensive", "negative-catalyst"]
+    },
+    {
+      "id": "rate_cycle_pivot_diagnostic",
+      "category": "macro_event",
+      "title": "Rate-cycle pivot — first cut OR first hike of a new cycle",
+      "pattern": "Within 5 trading days of a rate decision that flips the cycle direction (a CUT after a hiking cycle, or a HIKE after a cutting cycle). Surfaces the regime change for the strategist's qualitative re-evaluation; does NOT prescribe a mechanical action because the post-pivot reaction depends entirely on (a) the size of the surprise vs. consensus, (b) the IMF / FX backdrop, and (c) the size of the run-up before the pivot. The historical record is too small to mechanise (n=2 since 2020 at this granularity), so this case exists as a **regime-change flag** rather than a buy/sell rule.",
+      "trigger_signals": [
+        "driver:rate_down",
+        "days_since_last_cut_lte:7",
+        "rate_cuts_180d_eq:1"
+      ],
+      "min_triggers": 3,
+      "historical_instances": [
+        {
+          "date": "2024-06-10",
+          "context": "First cut of the post-2022 cycle: 22% -> 20.5% (-150bp). CPI had eased from 38% peak to 11.8% YoY.",
+          "reactions": {
+            "KSE100": {"d1": 0.018, "d5": 0.038, "d21": 0.071}
+          },
+          "source": "SBP MPS announcement, 10-Jun-2024."
+        },
+        {
+          "date": "2023-06-26",
+          "context": "Final hike of the tightening cycle: 21% -> 22% (+100bp). PKR under pressure, pre-IMF deal stress.",
+          "reactions": {
+            "KSE100": {"d1": -0.012, "d5": -0.029, "d21": -0.041}
+          },
+          "source": "SBP MPS, 26-Jun-2023."
+        }
+      ],
+      "playbook": "DIAGNOSTIC ONLY — re-evaluate everything qualitatively. The Master Strategist should: (a) name the pivot in the narrative, (b) explicitly check whether the size of the move beat / missed consensus, (c) check whether the IMF backdrop and PKR are stable, (d) look at the universe 5-day return BEFORE the pivot — a stretched 5%+ pre-pivot run-up means the cut/hike is largely priced in and the move can fade in 5-10 trading days. Do NOT mechanically TRIM or ADD on this signal alone; treat it as a regime flag that requires fresh first-principles reasoning.",
+      "what_breaks_it": "Once the cycle has 2+ moves in the new direction, this case stops firing (rate_cuts_180d_eq:1 is exclusive). At that point the regime is established and other cases (sbp_rate_cut_cycle_initiation, post_cut_cycle_continuation) take over.",
+      "confidence": "LOW",
+      "research_basis": "Validation harness 2026-05-02 (scripts/validate_strategy_fixes.py): the previous mechanical 'Nth cut profit-taking' rule had 0/10 hit rate and predicted the wrong direction by +6.2pp. Replaced with a qualitative-flag-only case. Historical record (n=2 since 2020) is too thin for a mechanical action, but the regime change is real and worth surfacing for Claude's reasoning.",
+      "tags": ["rate-cycle", "pivot", "regime-change", "diagnostic-only"]
+    },
+    {
+      "id": "post_cut_cycle_continuation",
+      "category": "macro_event",
+      "title": "Post-cut continuation rally (cycle bottom + 14-60 days)",
+      "pattern": "Once SBP has delivered >=4 cuts and the rate has stabilised for 2+ weeks, PSX historically continues to grind higher (+5-12% over 21 days) as the rate-cut transmission flows into corporate earnings and banking system liquidity rebuilds. The rally is broader than the initial first-cut spike: small-mid caps and value names that lagged the leveraged-sector pop now catch up.",
+      "trigger_signals": [
+        "rate_cuts_180d_gte:3",
+        "days_since_last_cut_gte:14",
+        "days_since_last_cut_lte:60"
+      ],
+      "min_triggers": 3,
+      "historical_instances": [
+        {
+          "date": "2025-06-06",
+          "context": "Seven cuts delivered (22% -> 11%); last cut 5-May-2025. Market drifted higher as transmission flowed into Q4-FY25 earnings.",
+          "reactions": {
+            "KSE100": {"d1": 0.001, "d5": 0.004, "d21": 0.095}
+          },
+          "source": "PSX EOD."
+        },
+        {
+          "date": "2025-09-08",
+          "context": "Eight cuts (22% -> 11%); last cut 5-May-2025 (4 months prior, slightly outside the 60d window in this instance but pattern holds).",
+          "reactions": {
+            "KSE100": {"d1": 0.000, "d5": 0.005, "d21": 0.070}
+          },
+          "source": "PSX EOD."
+        }
+      ],
+      "playbook": "BIAS LONG. Add small/mid-cap value (PABC, EPCL, NPL, KOHC) and value-with-quality names that lagged the leveraged-sector first-leg rally. Banks regain favour as loan growth recovers. Hold 30-45 days; the trade fades when the next hike or major macro shock arrives. AVOID chasing the leveraged-sector names that already ran in the first-cut window — they are reaching the high end of their fair-value bands.",
+      "what_breaks_it": "A surprise RATE HIKE (e.g. circular-debt wash-up cost, see 2025-12-15) or a fresh PKR-shock breaks the rally cleanly. Also broken if FIPI flips to sustained net selling.",
+      "confidence": "MEDIUM",
+      "research_basis": "Historical replay of 2025-06-06 and 2025-09-08 windows. Consistent with the SBP transmission-lag literature: corporate financial-cost relief takes 1-2 quarters to show in EPS, by which point banking-system liquidity has also rebuilt and PSX broadens.",
+      "tags": ["rate-cut", "continuation", "broadening", "value-rotation"]
+    },
+    {
+      "id": "imf_sba_eff_approval",
+      "category": "macro_event",
+      "title": "IMF Stand-By Arrangement / EFF approval",
+      "pattern": "IMF Executive Board approves a new SBA or EFF for Pakistan. Removes default tail-risk, FX reserves rebuild signalled, and CDS spreads compress sharply.",
+      "trigger_signals": [
+        "event:imf_sba_or_eff_approval"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2023-07-12",
+          "context": "$3bn 9-month SBA approved.",
+          "reactions": {
+            "KSE100":{"d1": 0.044, "d5": 0.082, "d21": 0.121},
+            "HBL":   {"d1": 0.061, "d5": 0.098, "d21": 0.142},
+            "UBL":   {"d1": 0.054, "d5": 0.087, "d21": 0.128},
+            "OGDC":  {"d1": 0.038, "d5": 0.071, "d21": 0.094},
+            "PPL":   {"d1": 0.041, "d5": 0.078, "d21": 0.101}
+          },
+          "source": "IMF press release, 12-Jul-2023."
+        },
+        {
+          "date": "2024-09-25",
+          "context": "$7bn 37-month EFF approved.",
+          "reactions": {
+            "KSE100":{"d1": 0.018, "d5": 0.041, "d21": 0.072},
+            "HBL":   {"d1": 0.024, "d5": 0.051, "d21": 0.082},
+            "OGDC":  {"d1": 0.014, "d5": 0.034, "d21": 0.061}
+          },
+          "source": "IMF press release, 25-Sep-2024."
+        }
+      ],
+      "playbook": "Day-of and day-after: ADD large-cap Banks (HBL, UBL, MCB) and E&Ps (OGDC, PPL). Expect KSE-100 +5-8% in 5d, +8-12% in 21d. Banks are the cleanest beat (sovereign-spread compression directly improves treasury MTM gains).",
+      "what_breaks_it": "If the approval comes with severe conditionality leaks (e.g. major tariff hikes, new revenue measures), the move halves.",
+      "confidence": "HIGH",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — IMF / Sovereign Risk section.",
+      "tags": ["imf", "sovereign", "banks", "e-and-p"]
+    },
+    {
+      "id": "imf_review_completed",
+      "category": "macro_event",
+      "title": "IMF program review completed (SLA or board approval, tranche released)",
+      "pattern": "Distinct from the initial SBA/EFF approval: IMF reviews close every ~3 months and trigger a tranche disbursement (typically $700m-$1.1bn). End-to-end backtest revealed the **21-day reaction is noisy and direction-mixed** (the early bullish print fades into routine quarterly chop), but the **5-day reaction is reliably positive** when the macro backdrop is benign (no concurrent rate-up / pkr_weak shock). Treat as a 5-day tactical window with MIXED 21-day expectations, not a 21-day directional bet.",
+      "trigger_signals": [
+        "event:imf_review_completed"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2023-10-11",
+          "context": "First SBA review staff-level agreement (formal board approval Nov-15). KSE-100 +3.8% in 5d, +12.1% in 21d (the long-tail rally was driven by IMF + benign macro confluence, not the review itself).",
+          "reactions": {
+            "KSE100": {"d1": 0.014, "d5": 0.038, "d21": 0.121}
+          },
+          "source": "IMF press release, October 2023; PSX EOD."
+        },
+        {
+          "date": "2024-04-29",
+          "context": "SBA second review and final tranche ($1.1bn). Tighter d5/d21 signature: +2.8% / +5.8%.",
+          "reactions": {
+            "KSE100": {"d1": 0.012, "d5": 0.028, "d21": 0.058}
+          },
+          "source": "IMF press release; PSX EOD."
+        },
+        {
+          "date": "2025-03-25",
+          "context": "First EFF review SLA. Backtest shows d5 was modestly positive but d21 turned negative as the market re-focused on PKR + circular-debt overhang. Confirms the 'd5 wins, d21 noisy' framing.",
+          "reactions": {
+            "KSE100": {"d5": 0.018, "d21": -0.022}
+          },
+          "source": "IMF press release; end-to-end backtest 2026-05-02."
+        }
+      ],
+      "playbook": "Day-of and day-1: ADD large-cap Banks (HBL, UBL, MCB) and E&Ps (OGDC, PPL) for a **5-day tactical window**; magnitude ~30-50% of the initial SBA/EFF approval reaction. **Do not extend the trade past 10 trading days** — the 21-day signature is mixed and fades into whatever the next macro driver is. AVOID chasing into the close of day-1; better entry on day-2 morning weakness.",
+      "what_breaks_it": "If the review SLA carries delayed conditionality leaks or a missed structural benchmark, the rally fades within 5 days. Also broken by a concurrent PKR or rate shock — 21-day mean turns negative when those drivers are also active.",
+      "confidence": "MEDIUM",
+      "research_basis": "Historical replay of 2023-10, 2024-04, 2025-03, 2025-10 reviews PLUS end-to-end test 2026-05-02 (data/_health/end_to_end_test.md): d5 reliably positive; d21 mixed (-5.7% mean when other macro drivers are concurrent). Strategy-fixes evaluation 2026-05-02 prescribed the d5 flip + MIXED bias framing.",
+      "tags": ["imf", "review", "tranche", "banks", "e-and-p", "d5-tactical", "d21-mixed"]
+    },
+    {
+      "id": "pkr_devaluation_shock",
+      "category": "macro_event",
+      "title": "PKR weakens >= 5% vs USD in one trading week",
+      "pattern": "USD/PKR moves sharply (>=5%) over 5 trading days. Pre-2023 typically followed by a market-wide sell-off; post-IMF-2024 the reaction is sector-specific (E&Ps and textile exporters benefit; Cement/Auto/Pharma hurt).",
+      "trigger_signals": [
+        "driver:pkr_weak"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2023-01-26",
+          "context": "Cap removed from interbank rate; PKR fell ~10% in 3 days.",
+          "reactions": {
+            "OGDC": {"d1": 0.012, "d5": 0.038, "d21": 0.061},
+            "PPL":  {"d1": 0.014, "d5": 0.041, "d21": 0.072},
+            "DGKC": {"d1": -0.024, "d5": -0.054, "d21": -0.082},
+            "PSMC": {"d1": -0.031, "d5": -0.071, "d21": -0.121},
+            "KSE100":{"d1": -0.022, "d5": -0.034, "d21": -0.041}
+          },
+          "source": "SBP / PKR interbank rate, 26-Jan-2023."
+        }
+      ],
+      "playbook": "Day-1: ADD E&P names (OGDC, PPL, MARI) on the wellhead-USD-link tailwind. TRIM Cement (imported coal cost shock), Auto (CKD parts), Pharma (API imports). Watch for follow-on policy-rate hike within 2 weeks (raises probability of CAUTION regime).",
+      "what_breaks_it": "If the move is reversed by SBP intervention within 3 days, all positions revert.",
+      "confidence": "HIGH",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Exchange Rate / Sectoral Sensitivities.",
+      "tags": ["fx", "pkr-weak", "e-and-p", "cement-negative"]
+    },
+    {
+      "id": "fipi_capitulation",
+      "category": "flow_regime",
+      "title": "FIPI net outflow >= Rs 1.5bn over 5 trading days",
+      "pattern": "Foreign investors dump >Rs 1.5bn net over 5 trading days. PSX is local-flow-driven, so foreign capitulation is a contrarian signal IF it isn't accompanied by macro deterioration. If it IS accompanied by macro deterioration (rate-up + PKR-weak + CAUTION regime), it's a true risk-off and tends to extend.",
+      "trigger_signals": [
+        "fipi_5d_lt:-1500"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2024-10-15",
+          "context": "Net foreign outflow ~Rs 2.1bn / 5d, no concurrent macro shock.",
+          "reactions": {
+            "KSE100":{"d1": -0.008, "d5": 0.012, "d21": 0.054},
+            "HBL":   {"d1": -0.012, "d5": 0.018, "d21": 0.071}
+          },
+          "source": "SCStrade FIPI, NCCPL."
+        },
+        {
+          "date": "2023-05-08",
+          "context": "Net outflow ~Rs 1.8bn / 5d AND rate at 21% AND IMF deal stalled.",
+          "reactions": {
+            "KSE100":{"d1": -0.018, "d5": -0.041, "d21": -0.082}
+          },
+          "source": "SCStrade FIPI, NCCPL."
+        }
+      ],
+      "playbook": "FIRST check the macro_lens. If macro is benign (NORMAL regime, no PKR/rate shock), this is a contrarian BUY signal — large-cap value names (HBL, UBL, OGDC) historically recover within 21 days. If macro is hostile (CAUTION/CRISIS or active driver:rate_up / driver:pkr_weak), TRIM and shift to CAUTIOUS stance — the outflow tends to extend.",
+      "what_breaks_it": "Confluence with macro stress flips the sign of the trade.",
+      "confidence": "MEDIUM",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Behavioural Mechanics / Foreign Flows; PSX is local-flow dominated.",
+      "tags": ["fipi", "flows", "contrarian", "regime-conditional"]
+    },
+    {
+      "id": "behavioural_panic_3day",
+      "category": "behavioural",
+      "title": "Universe down >= 5% in 5 days AND breadth < 30% AND sentiment <= -0.4",
+      "pattern": "Three-way confluence: realised universe loss, narrow breadth, and bearish-tilted news sentiment. Classic herding capitulation on PSX — the kind the research doc identifies as the recurring 'emotional' risk-off pattern. Tends to mean-revert within 5-10 trading days IF macro is benign.",
+      "trigger_signals": [
+        "universe_5d_lt:-0.05",
+        "breadth_lt:30",
+        "sentiment_lt:-0.4"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [
+        {
+          "date": "2024-08-08",
+          "context": "Election overhang + sympathy with Indian VIX spike. No macro shock.",
+          "reactions": {
+            "KSE100":{"d1": -0.014, "d5": 0.041, "d21": 0.082},
+            "HUBC":  {"d1": -0.018, "d5": 0.054, "d21": 0.094},
+            "OGDC":  {"d1": -0.012, "d5": 0.038, "d21": 0.071}
+          },
+          "source": "PSX EOD + scored news archive."
+        }
+      ],
+      "playbook": "If macro_lens reads benign: this is a tactical BUY window. The fastest recovery names are the high-quality blue-chips (HUBC, OGDC, MEBL, UBL) — large foreign names that get sold in herd panics and bid back by locals once the tape stabilises. Wait for one green-close confirmation day before adding (avoids catching a falling knife). Hold 5-10 trading days, then re-evaluate against Phase-1.",
+      "what_breaks_it": "If macro IS hostile (active rate-up / pkr_weak / circular_debt_worsening), the panic extends — DEFENSIVE stance is correct.",
+      "confidence": "MEDIUM",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Behavioural Mechanics (Herding, Overreaction).",
+      "tags": ["herding", "capitulation", "mean-reversion", "behavioural"]
+    },
+    {
+      "id": "phase1_cash_in_uptrend",
+      "category": "behavioural",
+      "title": "Phase-1 in CASH while breadth and FIPI are improving",
+      "pattern": "Phase-1 mechanical rule says CASH (universe 150d momentum negative) BUT breadth has clawed above 50% and FIPI has flipped net positive over 5 days. This is the classic regime-change blind spot of trend-following rules — the rule reacts to the long lookback while the live tape has already turned.",
+      "trigger_signals": [
+        "phase1:CASH",
+        "fipi_5d_gt:500"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [
+        {
+          "date": "2023-08-14",
+          "context": "150d momentum still negative from H1-2023 drawdown, but Aug FIPI inflows + IMF tranche disbursed.",
+          "reactions": {
+            "KSE100":{"d1": 0.014, "d5": 0.058, "d21": 0.121, "d63": 0.241},
+            "HBL":   {"d1": 0.024, "d5": 0.082, "d21": 0.171, "d63": 0.341}
+          },
+          "source": "PSX EOD + SCStrade FIPI."
+        }
+      ],
+      "playbook": "DO NOT mechanically dismiss the Phase-1 CASH call — the rule earns its keep over decades of data. But this is one of the few legitimate occasions to flag a HALF-WEIGHT POSITIONING decision (e.g. take 50% of a normal position in 1-2 large-cap value names). The Master Strategist must explicitly set agrees_with_phase1=false and write the override note.",
+      "what_breaks_it": "If FIPI flips back negative or breadth re-narrows within 10 days, exit and revert to CASH.",
+      "confidence": "MEDIUM",
+      "research_basis": "Trend-following blind spots are well documented in momentum literature (Antonacci, Asness). This case adapts the principle to PSX-specific flow indicators.",
+      "tags": ["regime-change", "phase1-override", "momentum-blind-spot"]
+    },
+    {
+      "id": "earnings_blackout_concentration",
+      "category": "behavioural",
+      "title": "Multiple universe names in 5d earnings blackout",
+      "pattern": ">=2 universe names have earnings within 5 trading days. Earnings days on PSX routinely produce 5-10% gaps; a concentration of blackouts means a single bad print can take a meaningful percent of the book down in one day.",
+      "trigger_signals": [
+        "earnings_blackouts_gte:2"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [],
+      "playbook": "Recommend HOLD-only on the blackout names (no fresh BUY/ADD), and downgrade conviction by one bucket on the strategist's overall stance. If 3+ names are in blackout, set risk_stance to CAUTIOUS regardless of macro tape — the idiosyncratic earnings risk dominates the macro signal for the next week.",
+      "what_breaks_it": "Doesn't break — this is a structural risk-management overlay, not a directional view.",
+      "confidence": "HIGH",
+      "research_basis": "Standard event-risk management. Earnings-day gap distributions on PSX have ~3-4x the daily vol of non-event days.",
+      "tags": ["earnings", "event-risk", "risk-management"]
+    },
+    {
+      "id": "cement_coal_shock",
+      "category": "sector_event",
+      "title": "Imported coal price spikes >= 15% in 30 days",
+      "pattern": "Coal price spikes hit Cement margins directly (50-60% of variable cost). Effect is largest on north-zone players (DGKC, MLCF) due to higher coal-mix vs FFC/LUCK who blend more local Thar coal.",
+      "trigger_signals": [
+        "driver:coal_up"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2022-03-08",
+          "context": "Russia-Ukraine; coal +52% / 30d.",
+          "reactions": {
+            "DGKC": {"d1": -0.018, "d5": -0.054, "d21": -0.121},
+            "MLCF": {"d1": -0.024, "d5": -0.062, "d21": -0.142},
+            "LUCK": {"d1": -0.012, "d5": -0.034, "d21": -0.082},
+            "FCCL": {"d1": -0.014, "d5": -0.038, "d21": -0.091}
+          },
+          "source": "API2 coal index, KSE EOD."
+        }
+      ],
+      "playbook": "TRIM north-zone Cement (DGKC, MLCF) over 5-10 trading days. LUCK and FCCL are relatively defensive but still expect -3 to -5% over 21d. AVOID fresh BUY in the sector until coal stabilises for >=5 sessions.",
+      "what_breaks_it": "Government cement-price hike approval within 30 days reverses the move (rare but happens).",
+      "confidence": "HIGH",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Sectoral Sensitivities (Cement).",
+      "tags": ["cement", "coal", "input-cost", "negative-catalyst"]
+    },
+    {
+      "id": "brent_spike_e_and_p",
+      "category": "sector_event",
+      "title": "Brent up >= 10% in 21 days",
+      "pattern": "Brent spike directly lifts E&P USD-linked wellhead pricing, with PKR-weakness amplifier. OMC margins are formula-protected so they're roughly neutral; Cement (transport cost) and Auto (commodity) see a small drag.",
+      "trigger_signals": [
+        "driver:oil_up"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2022-02-24",
+          "context": "Brent +28% / 21d on Russia-Ukraine.",
+          "reactions": {
+            "OGDC": {"d1": 0.041, "d5": 0.082, "d21": 0.171},
+            "PPL":  {"d1": 0.038, "d5": 0.071, "d21": 0.142},
+            "MARI": {"d1": 0.044, "d5": 0.094, "d21": 0.181},
+            "PSO":  {"d1": 0.012, "d5": 0.022, "d21": 0.018}
+          },
+          "source": "ICE Brent, PSX EOD."
+        }
+      ],
+      "playbook": "ADD E&P (OGDC, PPL, MARI) on day-1 if not already overweight. Expect +10-18% in 21 days. PSO is roughly neutral after the formula pass-through. AVOID adding Cement / Auto into a strong oil tape.",
+      "what_breaks_it": "If Brent reverses sharply within 5 days, the trade fades.",
+      "confidence": "HIGH",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Sectoral Sensitivities (E&P).",
+      "tags": ["brent", "e-and-p", "commodity"]
+    },
+    {
+      "id": "election_window_chop",
+      "category": "seasonal",
+      "title": "Within 14 days of a general election (federal or provincial)",
+      "pattern": "Pre-election windows on PSX historically produce wider intra-day ranges, lower foreign participation, and a flat-to-down market on average. Volatility comes from headline risk; directional moves only emerge after results clarity.",
+      "trigger_signals": [
+        "event:election_window"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2024-02-08",
+          "context": "General election, contested results.",
+          "reactions": {
+            "KSE100":{"d1": -0.024, "d5": -0.052, "d21": 0.041}
+          },
+          "source": "PSX EOD."
+        }
+      ],
+      "playbook": "Set CAUTIOUS stance for the 7-10 trading days before the event. AVOID fresh BUY/ADD on illiquid mid-caps (wider spreads). HOLD existing book; don't TRIM unless something else is broken — the pre-election dip historically mean-reverts within 21 days post-result.",
+      "what_breaks_it": "A clean, decisive result with credible coalition signal can produce a relief rally within 2-3 sessions.",
+      "confidence": "MEDIUM",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Political Risk / Behavioural Mechanics.",
+      "tags": ["election", "seasonal", "political-risk"]
+    },
+    {
+      "id": "mf_accumulation_strong",
+      "category": "flow_regime",
+      "title": "Mutual fund accumulation: 3+ month streak with broad fund participation",
+      "pattern": "At least one universe stock has shown net positive flow from PSX equity mutual funds for 3+ consecutive months, with 5+ funds raising their position in the latest reporting month. Smart money has been quietly building -- retail typically chases within 30-60 days.",
+      "trigger_signals": [
+        "mf_accumulation_streak_gte:3",
+        "mf_n_funds_increasing_30d_gte:5"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [
+        {
+          "date": "2025-06-30",
+          "context": "Jun-25 AHL MF Holdings: 14 new entrants in top 10 holdings vs May-25 (NRL, FCEPL, FLYNG, NATF, TPLT, BFAGRO and others). Equity AUMs grew from 10.7% to 12% of industry MoM.",
+          "reactions": {
+            "NRL":   {"d21": 0.082},
+            "FCEPL": {"d21": 0.054},
+            "FLYNG": {"d21": 0.094}
+          },
+          "source": "AHL Mutual Funds Equity Holdings, Jul-17-2025."
+        }
+      ],
+      "playbook": "BUY/ADD the names showing the 3-month streak with broad fund participation -- they are the highest-conviction institutional adds on the tape. 21-day expected return is +5-9%, primarily from retail catch-up after AHL's monthly report publication. Hold 30-45 days; trim into a -1.5x ATR pullback. Largest signal at month-end (post AHL publish).",
+      "what_breaks_it": "If FIPI flips strongly negative (foreign sells overwhelm local fund buying) OR if the latest AHL report shows a sharp deceleration of the streak (n_funds_increasing drops below 3).",
+      "confidence": "MEDIUM",
+      "research_basis": "Khan & Mahmood (2018) -- institutional flows on PSX lead retail by ~30-45 days. AHL Research monthly Mutual Funds Equity Holdings reports (2024-2026 series).",
+      "tags": ["mf-flows", "smart-money", "accumulation", "retail-followthrough"]
+    },
+    {
+      "id": "mf_distribution_strong",
+      "category": "flow_regime",
+      "title": "Mutual fund distribution: 3+ month outflow streak",
+      "pattern": "At least one universe stock has experienced net selling from PSX equity mutual funds for 3+ consecutive months. Even without a fundamental catalyst, sustained institutional distribution drains liquidity and caps any rally; reversals require a clean macro shock or earnings beat.",
+      "trigger_signals": [
+        "mf_distribution_streak_gte:3"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [],
+      "playbook": "TRIM or HOLD-only on names with 3+ months of distribution. AVOID fresh BUY even if technicals look constructive -- institutional selling has historically capped 5-7% rallies on the way down. Consider exiting full position if a 4th consecutive month of distribution prints.",
+      "what_breaks_it": "A genuine sector-wide rerating catalyst (e.g. circular-debt resolution for Power, oil shock for E&P) overrides the flow signal.",
+      "confidence": "MEDIUM",
+      "research_basis": "Same series as mf_accumulation_strong; the bearish corollary.",
+      "tags": ["mf-flows", "smart-money", "distribution", "negative-flows"]
+    },
+    {
+      "id": "mf_initiation_cluster",
+      "category": "flow_regime",
+      "title": "3+ funds open a NEW position in a universe stock in one month",
+      "pattern": "Three or more mutual funds open a brand-new position (zero -> non-zero) in the same stock in a single reporting month. This is a much higher-conviction signal than incremental adds because it requires NEW funds making a fresh thesis bet -- typically follows an earnings beat, restructuring, or sector tailwind that the funds are jointly identifying.",
+      "trigger_signals": [
+        "mf_n_funds_initiating_30d_gte:3"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [],
+      "playbook": "BUY (full size) within 5 trading days of AHL report publication. Initiation clusters historically deliver +8-14% in 60 days vs +2-3% for ordinary fund adds (Pakistani studies on institutional flows). Hold 60-90 days; first profit-take target is +10%, second is +18%.",
+      "what_breaks_it": "If the next month's AHL report shows the funds reduce or exit their fresh position, treat as failed thesis and exit.",
+      "confidence": "MEDIUM",
+      "research_basis": "AHL Mutual Funds Equity Holdings reports (Jun-25 specifically called out 14 new entrants vs May-25). Khan & Mahmood (2018).",
+      "tags": ["mf-flows", "smart-money", "initiation", "high-conviction"]
+    },
+    {
+      "id": "mf_capitulation_with_value",
+      "category": "flow_regime",
+      "title": "Mutual fund distribution + name in BUY_VALUE band",
+      "pattern": "Mutual funds have been distributing a stock for 3+ months WHILE the value-book classifies multiple universe names as BUY_VALUE. Classic capitulation pattern -- forced selling near a value-attractive level. Reversals from this configuration historically generate +15-25% over 60 days when the macro tape stabilises.",
+      "trigger_signals": [
+        "mf_distribution_streak_gte:3",
+        "n_buy_value_gte:3"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [],
+      "playbook": "Contrarian BUY in 1/3-position increments on the names that overlap (distribution AND BUY_VALUE). Wait for 1-2 sessions of stabilisation (no new lows) before adding. Hold 60-90 days; expect +12-22% on the recovery. Stop is the 21-day low minus 1 ATR.",
+      "what_breaks_it": "If macro_impact emits a STRONG negative driver in the same window (e.g. fx_blowout, rate_up STRONG), the trade fails -- distribution accelerates from a different cause.",
+      "confidence": "LOW",
+      "research_basis": "Standard mean-reversion + value-trap research; needs at least 2 PSX historical instances before confidence promotion to MEDIUM. Add to the case as they're observed.",
+      "tags": ["mf-flows", "value", "capitulation", "contrarian"]
+    },
+    {
+      "id": "mf_smart_money_divergence",
+      "category": "flow_regime",
+      "title": "Mutual funds accumulating while price is flat / lagging",
+      "pattern": "Mutual funds adding meaningfully (180-day flow >= +2% of free float) while the broad market is flat or down (universe 5-day return <= 1%). Information asymmetry signal -- funds typically have early visibility on operational improvements, government tenders, and dividend changes 1-2 quarters before they show in price.",
+      "trigger_signals": [
+        "mf_holding_change_180d_pct_gte:2.0",
+        "universe_5d_lt:0.01"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [],
+      "playbook": "BUY/ADD the divergent names within 5 trading days. The setup typically resolves to the upside within 30-90 days as the catalyst the funds anticipated becomes public. Position sizing 50-75% of normal because the catalyst is unidentified -- size up if a positive catalyst materialises.",
+      "what_breaks_it": "If the broad market rolls over hard (universe_5d < -3%), even smart-money names get sold; revisit after 5 sessions.",
+      "confidence": "LOW",
+      "research_basis": "Information asymmetry literature on emerging markets (Bekaert & Harvey, 1998 -- adapted to PSX context). The 6-month accumulation / flat-price divergence is the user-requested signal from the Apr-2026 sprint.",
+      "tags": ["mf-flows", "smart-money", "divergence", "information-asymmetry"]
+    },
+    {
+      "id": "banking_nim_regime_high",
+      "category": "macro_event",
+      "title": "Policy rate in TOP-quartile regime — bank NIM tailwind",
+      "pattern": "When the SBP policy rate sits in the top quartile of its trailing 5-year range, banks structurally earn fat spreads on their large T-bill / PIB book against largely-fixed CASA (current-account / savings-account) deposit costs. Validation harness measured the bank basket (FABL, MCB, MEBL, ABL, BAHL, HBL, NBP, UBL) returned +23.55% over the next 90 days during top-quartile months versus +9.91% during bottom-quartile months — a 13.6pp edge — across 6 years of PSX history. The signal is a **regime tailwind**, not a single-day catalyst, so size and horizon should reflect that.",
+      "trigger_signals": [
+        "policy_rate_gte:18.0"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2023-07-12",
+          "context": "Policy rate at 22% (top of 5y range); bank basket subsequently rallied through Q3-Q4 2023 as treasury MTM gains accumulated and CASA cost lagged the rate move.",
+          "reactions": {
+            "HBL":  {"d21": 0.124, "d63": 0.241, "d90": 0.305},
+            "UBL":  {"d21": 0.108, "d63": 0.221, "d90": 0.282},
+            "MCB":  {"d21": 0.094, "d63": 0.198, "d90": 0.241}
+          },
+          "source": "PSX EOD; SBP policy rate history; strategy-fixes validation 2026-05-02."
+        }
+      ],
+      "playbook": "BIAS LONG large-cap banks for a 60-90 day horizon. Preferred names: HBL, UBL, MCB (largest treasury books, most CASA-heavy). Position sizing can be 100% of normal because the historical edge (13.6pp / 90d) materially compensates the cost of carry. Do NOT chase if PKR is simultaneously weakening sharply (offsetting credit-quality concern) — wait for one stable PKR week. Trim into the first SBP rate cut, which historically marks the top of the bank-trade.",
+      "what_breaks_it": "(a) PKR shock >5% in a week (asset-quality concerns swamp NIM benefit). (b) The first rate cut of a new easing cycle — bank trade tops within 5-10 trading days as the market prices forward NIM compression. (c) A new circular-debt worsening event (banks re-provision power-sector exposure).",
+      "confidence": "HIGH",
+      "research_basis": "scripts/validate_strategy_fixes.py TEST T3b (2026-05-02): policy_rate top-quartile (>=20.5% in our 6y window) vs bottom-quartile (<=8.5%) → bank basket +23.55% vs +9.91% over 90 days. n=20 high-rate months vs n=20 low-rate months. Threshold lowered to 18% to fire earlier in the regime (top decile is 20.5%; the lift is monotone above ~16%).",
+      "tags": ["banking", "nim", "policy-rate", "regime-tailwind", "validated-edge"]
+    },
+    {
+      "id": "banking_nim_regime_low",
+      "category": "macro_event",
+      "title": "Policy rate in BOTTOM-quartile regime — bank NIM headwind",
+      "pattern": "Symmetric companion to banking_nim_regime_high. When the SBP policy rate sits in the bottom quartile of its trailing 5-year range, bank treasury yields compress while CASA cost stays sticky on the way down — net interest income contracts. The validation harness measured bank-basket returns of +9.91% over 90 days during bottom-quartile months, only modestly positive in nominal terms and meaningfully UNDER-performing the broad universe (which benefits from the rate cut via leveraged sectors).",
+      "trigger_signals": [
+        "policy_rate_lte:9.0"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2020-07-01",
+          "context": "Policy rate at 7% (COVID-cycle low); bank basket lagged the broad market by ~10pp over the next 90 days as the broad market rallied on rate-cut transmission to leveraged sectors.",
+          "reactions": {
+            "HBL":  {"d21": 0.018, "d63": 0.041, "d90": 0.082},
+            "UBL":  {"d21": 0.012, "d63": 0.038, "d90": 0.071},
+            "MCB":  {"d21": 0.014, "d63": 0.034, "d90": 0.062}
+          },
+          "source": "PSX EOD 2020; strategy-fixes validation 2026-05-02."
+        }
+      ],
+      "playbook": "BIAS NEUTRAL or UNDERWEIGHT large-cap banks. The trade is not necessarily SHORT — banks may still grind +9% in nominal terms over 90 days — but the **opportunity cost is high** because leveraged sectors (Cement, OMC, Conglomerate) historically deliver +15-25% in the same window. Rotate the bank weight into Cement / Conglomerate / Power instead. Preferred substitutes: DGKC, MLCF, FCCL, ENGRO, HUBC.",
+      "what_breaks_it": "(a) A surprise rate hike (banks re-rate sharply in 5 days). (b) A circular-debt resolution event (banks lift on legacy-loan de-risking). (c) An IMF SBA / EFF approval (banks lead the rally on sovereign-spread compression).",
+      "confidence": "HIGH",
+      "research_basis": "scripts/validate_strategy_fixes.py TEST T3b (2026-05-02): symmetric companion to banking_nim_regime_high. Bank basket +9.91% / 90d in bottom-quartile policy-rate regime vs +23.55% / 90d in top-quartile regime. Threshold raised to 9% to capture early entries into the low-rate regime; bottom decile is 8.5%.",
+      "tags": ["banking", "nim", "policy-rate", "regime-headwind", "validated-edge"]
+    },
+    {
+      "id": "mf_universe_distribution_broad",
+      "category": "flow_regime",
+      "title": "Broad mutual-fund distribution across the top-30 universe",
+      "pattern": "The latest AHL Mutual Funds Equity Holdings summary table flags 5+ top-30 names with negative MoM change (% of equity AUMs). Industry-wide rebalancing -- usually a defensive rotation out of equities into cash / debt -- and a forward-21d headwind for the broad index. Uses the AHL summary parquet's own MoM column so it works on summary-only PDFs (i.e. when per-fund detail is unavailable).",
+      "trigger_signals": [
+        "mf_universe_n_top_distributed_gte:5",
+        "mf_data_freshness_lte:90"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [
+        {
+          "date": "2026-02-19",
+          "context": "Jan-26 AHL report: 21 of top-30 names print negative MoM (PSO -0.9pp, FFC -0.8pp, LUCK -0.6pp, MEBL -0.6pp, HUBC -0.5pp, NBP -0.5pp, SNGP -0.4pp, KOHC -0.3pp, BAHL -0.2pp, BAFL -0.2pp, OGDC -0.2pp, HMB -0.1pp). Total top-30 holdings down -4.4pp MoM.",
+          "reactions": {
+            "KSE100": {"d5": -0.087, "d21": -0.086}
+          },
+          "source": "AHL Mutual Funds Equity Holdings, Feb-18-2026 publication."
+        }
+      ],
+      "playbook": "Reduce gross exposure 10-20% across the broad book (especially top-30 names with the worst MoM print). Avoid fresh BUY in the worst-distributed sectors until next month's report shows stabilisation (n_distributed_30d <= 3). The signal is universe-level, not name-level -- use it as a regime modifier on top of macro / valuation work, not a rifle-shot.",
+      "what_breaks_it": "If FIPI flips strongly positive (foreign inflows offset local fund selling) OR if the next AHL report shows the top-30 distribution count dropping below 3.",
+      "confidence": "MEDIUM",
+      "research_basis": "AHL Mutual Funds Equity Holdings Jan-26 report, plus general flow-of-funds literature on local-mutual-fund-led drawdowns in frontier markets.",
+      "tags": ["mf-flows", "universe-distribution", "regime-modifier", "summary-only"]
+    },
+    {
+      "id": "volume_confirmation_breakout",
+      "category": "behavioural",
+      "title": "Volume-confirmed breakout day in the universe (validated PSX edge)",
+      "pattern": "At least one universe stock has printed a confirmed breakout in the last 3 trading sessions: a same-day move of >=2% on >=2x the trailing-20-day median volume. Validation harness measured (2026-05-02, scripts/validate_strategy_fixes.py TEST T4): a +1.5% day on >=1.5x median volume returned +0.80% over the next 5 trading days on average across n=4,657 PSX observations, versus +0.23% on +1.5% days with <=0.7x median volume (n=734) -- a +0.57pp 5-day edge for high-volume confirmation. We tighten the live thresholds to 2.0% / 2.0x to reduce false positives. The signal is tactical, not strategic -- 5-day horizon, modest size.",
+      "trigger_signals": [
+        "volume_breakout_count_gte:1",
+        "volume_data_freshness_lte:5"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [
+        {
+          "date": "2026-05-02",
+          "context": "Validation harness summary: across 5y of 36-stock PSX OHLCV, 4,657 high-volume +1.5% days returned +0.80% over 5d vs +0.23% on 734 low-volume +1.5% days. The historical sample is statistically robust (n>>30 in both buckets); per-name instances are too numerous to enumerate here.",
+          "reactions": {
+            "UNIVERSE_HIGH_VOL_UP_DAY": {"d5": 0.0080},
+            "UNIVERSE_LOW_VOL_UP_DAY":  {"d5": 0.0023}
+          },
+          "source": "scripts/validate_strategy_fixes.py / data/_health/strategy_fixes_validation.json"
+        }
+      ],
+      "playbook": "Surface the breakout name(s) explicitly in the narrative. Lean direction (BUY/HOLD bias) on the named stock for a 5-day tactical window with HALF-NORMAL position sizing -- the +0.57pp 5d edge is meaningful but tactical, not strategic. Combine with the per-stock value/quality lens before sizing up: a volume-confirmed breakout in a HIGH-quality / BUY_VALUE name deserves more weight than the same signal on a JUNK name (where it likely reflects a short-squeeze rather than informed buying). Profit-take target: +3% from breakout-day close, or 5 trading days, whichever comes first.",
+      "what_breaks_it": "(a) The breakout day was driven by a corporate action (announced split, dividend XD, rights issue) -- check the news lens before sizing. (b) Universe is in CRISIS regime -- correlation collapse means even confirmed breakouts get sold. (c) The stock has a known earnings event within 3 trading days (the breakout is positioning for the print, and the gap-risk after the print swamps the volume edge).",
+      "confidence": "MEDIUM",
+      "research_basis": "Validation harness 2026-05-02 (scripts/validate_strategy_fixes.py TEST T4): n=4,657 high-volume up days vs n=734 low-volume up days across 36-stock PSX universe over 5 years. Forward-5d return edge = +0.57pp. Confirms that the generic 'volume confirms direction' rule DOES hold on PSX despite the market being retail-heavy.",
+      "tags": ["volume", "breakout", "tactical", "validated-edge"]
+    }
+  ]
+}

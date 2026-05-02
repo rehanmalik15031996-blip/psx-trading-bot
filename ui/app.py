@@ -408,10 +408,116 @@ def section_header(title: str, what: str,
 
 
 # --------------------------------------------------------------------------
+# Freshness colour helper (used by MF flows card + top-strip data ages)
+# --------------------------------------------------------------------------
+def _freshness_color(days: float | int | None) -> str:
+    """Streamlit colour name for a 'days since last refresh' value.
+
+    Thresholds chosen to match the playbook's MF freshness gate (60d):
+        ≤ 7    → green   (warm)
+        ≤ 30   → orange  (cooling)
+        ≤ 60   → red     (cold but still usable)
+        > 60   → red     (self-vetoed by the playbook)
+        None   → gray
+    """
+    if days is None:
+        return "gray"
+    try:
+        d = float(days)
+    except Exception:
+        return "gray"
+    if d <= 7:
+        return "green"
+    if d <= 30:
+        return "orange"
+    return "red"
+
+
+def _freshness_emoji(days: float | int | None) -> str:
+    c = _freshness_color(days)
+    return {"green": "🟢", "orange": "🟡",
+            "red": "🔴", "gray": "⚪"}.get(c, "⚪")
+
+
+def _freshness_html_dot(days: float | int | None) -> str:
+    """Inline HTML coloured dot for use inside markdown badges."""
+    color_map = {"green": "#22c55e", "orange": "#f59e0b",
+                 "red": "#ef4444", "gray": "#9ca3af"}
+    hex_ = color_map.get(_freshness_color(days), "#9ca3af")
+    return (f'<span style="display:inline-block;width:10px;height:10px;'
+            f'border-radius:50%;background:{hex_};'
+            f'margin-right:6px;vertical-align:middle;"></span>')
+
+
+# --------------------------------------------------------------------------
 # Persistent top strip — always visible above the tabs
 # --------------------------------------------------------------------------
+_BANNER_STANCE_COLORS = {
+    "AGGRESSIVE": ("#136f3a", "#d6f5e1"),
+    "NORMAL":     ("#0f5cad", "#dceaff"),
+    "CAUTIOUS":   ("#a5751c", "#fff1cf"),
+    "DEFENSIVE":  ("#a83c1a", "#ffe1d5"),
+    "CASH":       ("#7a1010", "#ffd5d5"),
+}
+
+
+def _render_strategist_stance_banner() -> None:
+    """One-line strip with today's Master Strategist stance + top BUYs.
+
+    Lifts the canonical decision above the tab bar so it's visible on
+    every screen, not just inside the Today tab. Silently no-ops when
+    no strategist run has been cached yet."""
+    try:
+        from brain import master_strategist as ms
+        decision = ms.load_cached() or {}
+    except Exception:
+        return
+    if not decision:
+        return
+    stance = (decision.get("risk_stance") or "NORMAL").upper()
+    conv = (decision.get("conviction") or "MEDIUM").upper()
+    fg, bg = _BANNER_STANCE_COLORS.get(stance, ("#222", "#eee"))
+    actions = decision.get("actions") or []
+    buys = [a for a in actions
+            if (a.get("bucket") or "").upper() in ("BUY", "ADD")]
+    sells = [a for a in actions
+             if (a.get("bucket") or "").upper() in ("AVOID", "SHORT", "TRIM")]
+
+    def _fmt(items: list[dict], cap: int = 4) -> str:
+        return ", ".join(
+            (it.get("symbol") or "").upper()
+            for it in items[:cap]
+            if it.get("symbol")
+        )
+
+    buys_str = _fmt(buys) or "—"
+    sells_str = _fmt(sells) or "—"
+    headline = (decision.get("headline") or "").strip()
+    headline_short = (headline[:140] + "…") if len(headline) > 140 else headline
+    st.markdown(
+        f'<div style="display:flex;flex-wrap:wrap;align-items:center;'
+        f'gap:10px;padding:8px 12px;border-radius:10px;'
+        f'background:#10141c;border:1px solid #2b3140;margin-bottom:6px;">'
+        f'<span style="background:{bg};color:{fg};padding:4px 12px;'
+        f'border-radius:14px;font-weight:700;font-size:0.9em;">'
+        f'STRATEGIST · {stance} · {conv}</span>'
+        f'<span style="opacity:0.85"><b style="color:#7be59c">BUY:</b> '
+        f'{buys_str}</span>'
+        f'<span style="opacity:0.85"><b style="color:#ff8a8a">AVOID/SHORT:</b> '
+        f'{sells_str}</span>'
+        f'<span style="opacity:0.55;font-size:0.85em;">'
+        f'{headline_short}</span>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+
+
 def render_top_strip():
-    """Quick-look strip: regime, overnight gap prior, portfolio P&L, data age."""
+    """Quick-look strip: strategist stance, regime, overnight gap, portfolio,
+    and data age. The strategist stance is added FIRST so the canonical
+    top-of-stack call is visible above every tab — the user no longer
+    has to scroll into the Today tab to see what the bot's plan is."""
+    _render_strategist_stance_banner()
     try:
         regime = tools.get_market_regime()
     except Exception:
@@ -481,22 +587,48 @@ def render_top_strip():
         fresh = dash.data_freshness()
         ohlcv = fresh.get("OHLCV directory", {}) or {}
         preds = fresh.get("Predictions log", {}) or {}
+        # MF-flow freshness — colour-coded against the same playbook
+        # gate used downstream (≤7d warm, ≤30d cooling, >30d cold).
+        try:
+            from brain import mf_flows
+            mf_summary = mf_flows.universe_summary() or {}
+            mf_days = mf_summary.get("data_freshness_days")
+        except Exception:
+            mf_days = None
 
         def _short(info: dict) -> str:
             if not info.get("exists"):
                 return ":red[missing]"
             tdb = info.get("trading_days_behind")
             if tdb is None:
-                return f"{info.get('age_hours', 0)}h"
-            color = ("green" if tdb <= 1 else "orange"
-                     if tdb <= 3 else "red")
+                # Fall back to age_hours; mark red if the file is >24h old.
+                hrs = info.get("age_hours", 0)
+                color = "green" if hrs <= 24 else (
+                    "orange" if hrs <= 72 else "red")
+                return f":{color}[{hrs:.0f}h]"
+            # trading_days_behind: 0 same-day, 1-2 OK, 3-5 stale, >5 broken
+            color = ("green" if tdb <= 1
+                     else "orange" if tdb <= 3
+                     else "red")
             latest = info.get("latest_data_date") or "?"
-            return f":{color}[{latest}]"
+            return f":{color}[{latest}]  ({tdb}td)"
+
+        def _mf_short(days: float | int | None) -> str:
+            if days is None:
+                return ":gray[no MF data]"
+            color = _freshness_color(days)
+            return f":{color}[{days} d ago]"
 
         st.markdown(
             "**Latest data**  \n"
             f"Prices:  {_short(ohlcv)}  \n"
-            f"Predictions:  {_short(preds)}"
+            f"Predictions:  {_short(preds)}  \n"
+            f"MF flows:  {_mf_short(mf_days)}",
+            help=("Colour gate (same across the app):  "
+                  "🟢 fresh ≤1 trading day / ≤7 calendar days,  "
+                  "🟡 cooling ≤3 td / ≤30 d,  "
+                  "🔴 cold >3 td / >30 d. The playbook silently vetoes "
+                  "MF triggers when MF flows go red."),
         )
 
     st.divider()
@@ -1131,14 +1263,22 @@ def render_onboarding() -> None:
             not st.session_state.get("force_onboarding"):
         return
 
+    try:
+        from config.universe import UNIVERSE
+        n_universe = len(UNIVERSE)
+    except Exception:
+        n_universe = 35
+
     st.markdown(
         '<div class="psx-onboard">'
         '<h2>Welcome to PSX Advisor</h2>'
-        '<p>This tool watches 15 PSX stocks for you, scores them with '
-        'a 13-layer model (price action, fundamentals, news, '
+        f'<p>This tool watches {n_universe} PSX stocks for you and '
+        'pipes every signal — price action, fundamentals, news, '
         'overnight global cues, intrinsic value, quality, earnings '
-        'momentum, and an LLM strategist on top), and tells you what '
-        'to do — in plain English.</p>'
+        'momentum, mutual-fund flows, and a deterministic playbook of '
+        'historical analogues — into a top-of-stack <b>Master '
+        'Strategist</b> (Claude Sonnet 4.5) that produces one daily '
+        'call: stance, conviction, and per-stock BUY / HOLD / SELL.</p>'
         '<p><b>A 30-second tour:</b></p>'
         '<ul>'
         '<li><b>Today</b> — your morning brief: one screen, one '
@@ -1345,6 +1485,9 @@ def render_today_tab():
     # ---------------------------------------------------- PDF download
     _render_pdf_download(brief, mood, narrative, action, alerts)
 
+    # ---------------------------------------------------- Master Strategist
+    _render_master_strategist_card()
+
     # ---------------------------------------------------- 3 hero columns
     c1, c2, c3 = st.columns([1.1, 1, 1])
     with c1:
@@ -1363,12 +1506,12 @@ def render_today_tab():
     # answers that directly.
     _today_macro_radar(brief.get("macro_impact", {}))
 
-    # ---------------------------------------------------- Bot's Verdict
-    # The unified, conflict-resolved call across all seven lenses
-    # (Value / Quality / Momentum / Macro / News / Flow / Management).
-    # Surfaces the ONE answer the analyst should act on, plus a
-    # transparent breakdown so they can audit the reasoning.
-    _today_bots_verdict()
+    # NOTE: The 7-lens "Bot's Verdict" block used to live here, but it
+    # competed visually with the Master Strategist card above and made
+    # the same page tell two stories at once. It now lives on the
+    # **Fair Value** tab, which is the natural home for a
+    # value/quality/momentum-blended view. The Master Strategist
+    # remains the canonical top-of-stack call on Today.
 
     # ---------------------------------------------------- Alerts
     if alerts:
@@ -1413,10 +1556,560 @@ def render_today_tab():
         _card_big_fish_flows()
 
 
+# ----------------------------- Master Strategist (top-of-stack Claude)
+
+# All cross-tab strategist-overlay logic lives in `ui/strategist_overlay.py`
+# so sibling tab modules (e.g. `ui/short_ideas.py`) can use the same
+# helpers without circular-importing this file.
+from ui import strategist_overlay as _strat_overlay
+
+
+def _strategist_actions_by_symbol() -> dict[str, dict]:
+    return _strat_overlay.actions_by_symbol()
+
+
+def _strategist_view_for(sym: str) -> dict | None:
+    return _strat_overlay.view_for(sym)
+
+
+def _render_strategist_overlay(sym: str,
+                                 local_action: str = "",
+                                 *,
+                                 inline: bool = False) -> None:
+    _strat_overlay.render(sym, local_action=local_action, inline=inline)
+
+
+_STANCE_COLORS = {
+    "AGGRESSIVE": ("#136f3a", "#d6f5e1"),
+    "NORMAL":     ("#0f5cad", "#dceaff"),
+    "CAUTIOUS":   ("#a5751c", "#fff1cf"),
+    "DEFENSIVE":  ("#a83c1a", "#ffe1d5"),
+    "CASH":       ("#7a1010", "#ffd5d5"),
+}
+
+
+def _render_master_strategist_card() -> None:
+    """Top-layer Claude reasoning over EVERY signal the bot has.
+
+    See ``brain/master_strategist.py`` — this card surfaces the
+    cached decision and lets the analyst rerun on demand. The
+    decision is cached per day so the page renders instantly even
+    when ``ANTHROPIC_API_KEY`` is unset (rule-based fallback).
+    """
+    from brain import master_strategist as ms
+
+    with st.container(border=True):
+        title_col, btn_col, deep_col = st.columns([3, 1, 1])
+        with title_col:
+            st.markdown("### Master Strategist — Claude reasoning across every signal")
+        with btn_col:
+            run_now = st.button(
+                "Re-run", key="ms_rerun_btn",
+                help=("Call Claude Sonnet 4.5 (extended-thinking on) on a "
+                      "fresh briefing. Takes 20-60s. Result is cached for "
+                      "the rest of the day."))
+        with deep_col:
+            deep = st.toggle(
+                "Deep dive", key="ms_deep_toggle",
+                value=False,
+                help=("Escalate to Claude Opus 4.5 with a 24k-token "
+                      "thinking budget — much slower and ~10x the cost. "
+                      "Use only when you want the heaviest reasoning."))
+
+        decision: dict | None = None
+        if run_now:
+            with st.spinner(
+                    "Claude is reading every signal and reasoning…"):
+                try:
+                    decision = ms.decide_today(deep=deep)
+                except Exception as e:
+                    st.error(f"Master strategist failed: "
+                              f"{type(e).__name__}: {e}")
+                    return
+        else:
+            decision = ms.load_cached()
+
+        if not decision:
+            st.info("No strategist run yet today. Click **Re-run** to call "
+                     "Claude. (Falls back to a deterministic rule-based "
+                     "summary if no ANTHROPIC_API_KEY is set.)")
+            return
+
+        stance = (decision.get("risk_stance") or "NORMAL").upper()
+        fg, bg = _STANCE_COLORS.get(stance, ("#222", "#eee"))
+        conv = decision.get("conviction") or "MEDIUM"
+        headline = decision.get("headline") or "(no headline)"
+        agrees = decision.get("agrees_with_phase1", True)
+        flag = "agrees with Phase-1" if agrees else "OVERRIDES Phase-1"
+        fb = decision.get("fallback_used")
+        model_label = decision.get("model") or "?"
+
+        st.markdown(
+            f'<div style="display:flex;gap:10px;align-items:center;margin-top:6px;">'
+            f'<span style="background:{bg};color:{fg};padding:5px 12px;'
+            f'border-radius:14px;font-weight:600;">'
+            f'{stance}</span>'
+            f'<span style="background:#eef;color:#225;padding:5px 12px;'
+            f'border-radius:14px;font-weight:600;">'
+            f'conviction {conv}</span>'
+            f'<span style="opacity:0.75;">{flag} · {model_label}'
+            f'{" · fallback" if fb else ""}</span>'
+            f'</div>',
+            unsafe_allow_html=True,
+        )
+        with st.expander("What do these labels mean?", expanded=False):
+            st.markdown(
+                "**Risk stance** (portfolio-level posture)\n"
+                "- **AGGRESSIVE** — lean into momentum, full exposure.\n"
+                "- **NORMAL** — follow the Phase-1 rule book.\n"
+                "- **CAUTIOUS** — trim concentration, avoid new entries.\n"
+                "- **DEFENSIVE** — cut to half exposure, hold core only.\n"
+                "- **CASH** — exit equities, sit out the move.\n"
+                "\n"
+                "**Conviction** (how strong the case is)\n"
+                "- **HIGH** — three or more independent lenses agree "
+                "(e.g. macro + flows + playbook).\n"
+                "- **MEDIUM** — two lenses or one strong driver.\n"
+                "- **LOW** — single signal; treat as a watch list "
+                "rather than an action.\n"
+                "\n"
+                "**Per-stock bucket** (in the Actions list below)\n"
+                "- **BUY / ADD** — open or top up.\n"
+                "- **HOLD / WATCH** — keep what you have, no new size.\n"
+                "- **TRIM** — reduce size on rallies.\n"
+                "- **AVOID / SHORT** — do not buy; consider exit or hedge."
+            )
+        st.markdown(f"**{headline}**")
+        narrative = decision.get("narrative") or ""
+        if narrative:
+            st.markdown(narrative)
+
+        if not agrees:
+            note = (decision.get("phase1_disagreement_note") or "").strip()
+            if note:
+                st.warning(f"Phase-1 override: {note}")
+
+        actions = decision.get("actions") or []
+        if actions:
+            st.markdown("#### Actions")
+            for a in actions:
+                bucket = a.get("bucket", "HOLD")
+                conv_a = a.get("conviction", "MEDIUM")
+                sym = a.get("symbol") or "—"
+                sec = a.get("sector") or ""
+                tw = a.get("target_weight_pct")
+                tw_s = f" · {tw:.0f}%" if isinstance(tw, (int, float)) else ""
+                reason = a.get("reason", "")
+                sigs = a.get("contributing_signals") or []
+                line = (f"**{bucket}**  `{sym}`  ({conv_a}{tw_s}"
+                        f"{' · ' + sec if sec else ''})  — {reason}")
+                with st.expander(line, expanded=False):
+                    if sigs:
+                        for s in sigs:
+                            st.markdown(f"- {s}")
+                    else:
+                        st.caption("(no contributing signals listed)")
+
+        with st.expander("Macro lens, behavioural lens, drivers & risks"):
+            ml = decision.get("macro_lens", "")
+            bl = decision.get("behavioural_lens", "")
+            if ml:
+                st.markdown(f"**Macro lens.** {ml}")
+            if bl:
+                st.markdown(f"**Behavioural lens.** {bl}")
+            kd = decision.get("key_drivers") or []
+            kr = decision.get("key_risks") or []
+            if kd:
+                st.markdown("**Key drivers**")
+                for d in kd:
+                    st.markdown(f"- {d}")
+            if kr:
+                st.markdown("**Key risks**")
+                for r in kr:
+                    st.markdown(f"- {r}")
+
+        # Show the playbook analogues the matcher fed to Claude.
+        bs = decision.get("briefing_summary") or {}
+        analogue_ids = bs.get("playbook_analogue_ids") or []
+        fired_meta = bs.get("playbook_analogue_fired") or {}
+        if analogue_ids:
+            with st.expander(
+                    f"Playbook analogues used ({len(analogue_ids)} matched)"):
+                st.caption(
+                    "Each card shows the **plain-English triggers** "
+                    "that fired today (raw trigger string in grey for "
+                    "auditing), the historical reaction set, and the "
+                    "playbook action the matcher recommends."
+                )
+                _render_playbook_analogues(analogue_ids, fired_meta)
+        else:
+            with st.expander("Playbook analogues (none matched today)"):
+                st.caption(
+                    "The deterministic matcher in `brain/playbook.py` "
+                    "found no historical 'situation -> reaction' case "
+                    "in `data/playbook/cases.json` analogous to today's "
+                    "regime / drivers / flows. Claude is reasoning from "
+                    "first principles for this run.")
+
+        # Mutual-fund "smart money" flows lens (AHL Equity Holdings)
+        _render_mf_flows_card()
+
+        thinking = decision.get("thinking_trace") or ""
+        if thinking:
+            with st.expander("Claude's internal reasoning (audit log)"):
+                st.code(thinking, language="markdown")
+
+
+def _render_mf_flows_card() -> None:
+    """Show the AHL Mutual Funds Equity Holdings lens: top accumulated
+    and top distributed names, with data freshness so the analyst can
+    see when the underlying parquet was last refreshed."""
+    try:
+        from brain import mf_flows
+    except Exception as e:
+        st.caption(f"_(MF flows lens unavailable: {e})_")
+        return
+
+    summary = mf_flows.universe_summary()
+    fresh = summary.get("data_freshness_days")
+    n_inc = summary.get("n_funds_increasing_universe")
+    if fresh is None and n_inc is None:
+        return  # parquet missing -- silent skip
+
+    with st.expander("Mutual fund flows (AHL smart money)",
+                       expanded=False):
+        cols = st.columns(3)
+        with cols[0]:
+            fresh_emoji = _freshness_emoji(fresh)
+            st.metric(
+                "Data freshness",
+                (f"{fresh_emoji} {fresh} d ago"
+                 if fresh is not None else "—"),
+                help=("Days since the latest AHL Mutual Funds Equity "
+                      "Holdings report. Colour gate: 🟢 ≤7 d (warm), "
+                      "🟡 ≤30 d (cooling), 🔴 >30 d (cold). The "
+                      "playbook silently vetoes MF triggers when the "
+                      "freshness exceeds 60 days, so anything red here "
+                      "means MF cases will not fire today."),
+            )
+            if fresh is not None and fresh > 60:
+                st.caption(
+                    ":red[MF triggers self-vetoed (>60 d stale)]")
+        with cols[1]:
+            st.metric("Funds raising positions (MoM)",
+                       f"{n_inc:,}" if n_inc is not None else "—",
+                       help="Across all funds and all stocks; rough "
+                            "proxy for institutional bullishness.")
+        with cols[2]:
+            n_acc = len(summary.get("top_accumulated_180d") or [])
+            n_dis = len(summary.get("top_distributed_180d") or [])
+            st.metric("Concentration",
+                       f"{n_acc} acc / {n_dis} dist",
+                       help="Number of universe stocks in the 6-month "
+                            "top-accumulated / top-distributed lists.")
+
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown("**Top accumulated (6-month)**")
+            top_acc = summary.get("top_accumulated_180d") or []
+            if top_acc:
+                import pandas as pd
+                df = pd.DataFrame(top_acc).rename(columns={
+                    "symbol":          "Symbol",
+                    "change_pct_pts":  "Δ (pp)",
+                    "current_pct":     "Current %",
+                })
+                st.dataframe(df.head(10), hide_index=True,
+                              use_container_width=True)
+            else:
+                st.caption("_(insufficient history for 180-day window — "
+                            "need at least two reports of the same metric "
+                            "kind on disk)_")
+        with c2:
+            st.markdown("**Top distributed (6-month)**")
+            top_dis = summary.get("top_distributed_180d") or []
+            if top_dis:
+                import pandas as pd
+                df = pd.DataFrame(top_dis).rename(columns={
+                    "symbol":          "Symbol",
+                    "change_pct_pts":  "Δ (pp)",
+                    "current_pct":     "Current %",
+                })
+                st.dataframe(df.head(10), hide_index=True,
+                              use_container_width=True)
+            else:
+                st.caption("_(no distribution names this period)_")
+
+        # Also show the 30-day MoM table when 180-day is empty
+        if not top_acc and not top_dis:
+            st.markdown("**30-day MoM (from latest report's own column)**")
+            c3, c4 = st.columns(2)
+            with c3:
+                top_30a = summary.get("top_accumulated_30d") or []
+                if top_30a:
+                    import pandas as pd
+                    df = pd.DataFrame(top_30a).rename(columns={
+                        "symbol":          "Symbol",
+                        "change_pct_pts":  "Δ (pp)",
+                        "current_pct":     "Current %",
+                    })
+                    st.dataframe(df.head(10), hide_index=True,
+                                  use_container_width=True)
+                else:
+                    st.caption("_(no 30-day accumulators)_")
+            with c4:
+                top_30d = summary.get("top_distributed_30d") or []
+                if top_30d:
+                    import pandas as pd
+                    df = pd.DataFrame(top_30d).rename(columns={
+                        "symbol":          "Symbol",
+                        "change_pct_pts":  "Δ (pp)",
+                        "current_pct":     "Current %",
+                    })
+                    st.dataframe(df.head(10), hide_index=True,
+                                  use_container_width=True)
+                else:
+                    st.caption("_(no 30-day distributors)_")
+
+        st.caption(
+            "Source: Arif Habib Limited — Mutual Funds Equity Holdings "
+            "monthly report. Refreshed by `scripts/ingest_ahl_mf_holdings.py` "
+            "via the `ingest_mf_holdings` GitHub Action (5th of each month).")
+
+
+def _explain_trigger(trigger: str) -> str:
+    """Translate one playbook trigger string into a human-readable line.
+
+    Trigger strings come straight from ``brain/playbook.py``'s
+    ``_eval_trigger`` and look like:
+
+      - ``driver:rate_down``                   → "Macro driver: rate cut"
+      - ``driver:rate_down:STRONG``            → "Macro driver: rate cut (strong move)"
+      - ``regime:RISK_ON``                     → "Market regime is RISK-ON"
+      - ``phase1:CASH``                        → "Phase-1 rule says CASH"
+      - ``policy_rate_lte:11``                 → "SBP policy rate ≤ 11%"
+      - ``mf_universe_n_top_distributed_gte:5``→ "≥ 5 stocks in MF distribution list"
+
+    Falls back to the raw string if we cannot parse it so nothing is
+    silently swallowed.
+    """
+    try:
+        kind, raw_value = trigger.split(":", 1)
+    except ValueError:
+        return f"`{trigger}`"
+    kind = kind.strip().lower()
+    raw_value = raw_value.strip()
+
+    # ---- Driver tags (most common case) ----
+    DRIVER_LABELS = {
+        "rate_down": "Policy-rate cut",
+        "rate_up": "Policy-rate hike",
+        "imf_review": "IMF programme review milestone",
+        "circular_debt_resolution": "Circular-debt resolution",
+        "fx_crunch": "FX-reserves crunch",
+        "fx_strong": "FX-reserves rebuilding",
+        "oil_up": "Brent crude rising",
+        "oil_down": "Brent crude falling",
+        "gold_up": "Gold rising",
+        "gold_down": "Gold falling",
+        "usdpkr_up": "PKR weakening vs USD",
+        "usdpkr_down": "PKR strengthening vs USD",
+        "cpi_cooling": "CPI inflation cooling",
+        "cpi_heating": "CPI inflation rising",
+        "kibor_down": "KIBOR easing",
+        "kibor_up": "KIBOR rising",
+    }
+    if kind == "driver":
+        if ":" in raw_value:
+            tag, mag = raw_value.split(":", 1)
+            label = DRIVER_LABELS.get(tag.lower(), tag.replace("_", " "))
+            return f"Macro driver: {label} ({mag.lower()} move)"
+        label = DRIVER_LABELS.get(raw_value.lower(),
+                                   raw_value.replace("_", " "))
+        return f"Macro driver: {label}"
+
+    if kind == "regime":
+        return f"Market regime is {raw_value.upper()}"
+    if kind == "phase1":
+        return f"Phase-1 rule says {raw_value.upper()}"
+    if kind == "event":
+        return f"Active event flag: {raw_value.replace('_', ' ')}"
+    if kind == "sector":
+        return f"Sector context: {raw_value}"
+    if kind == "earnings_blackouts_gte":
+        return f"≥ {raw_value} stock(s) in an earnings-blackout window"
+
+    # ---- Numeric thresholds — table-driven ----
+    NUMERIC_LABELS: dict[str, tuple[str, str, str]] = {
+        # kind                       (human label,             unit, op)
+        "fipi_5d_lt":               ("Net FIPI 5d", " PKR mn", "<"),
+        "fipi_5d_gt":               ("Net FIPI 5d", " PKR mn", ">"),
+        "sentiment_lt":             ("News sentiment 24h",     "", "<"),
+        "sentiment_gt":             ("News sentiment 24h",     "", ">"),
+        "breadth_lt":               ("Universe breadth",       "", "<"),
+        "breadth_gt":               ("Universe breadth",       "", ">"),
+        "universe_5d_lt":           ("Universe 5d return",     "%", "<"),
+        "universe_5d_gt":           ("Universe 5d return",     "%", ">"),
+        "policy_rate_lte":          ("SBP policy rate",        "%", "≤"),
+        "policy_rate_gte":          ("SBP policy rate",        "%", "≥"),
+        "kibor3m_lte":              ("3-month KIBOR",          "%", "≤"),
+        "kibor3m_gte":              ("3-month KIBOR",          "%", "≥"),
+        "tbill3m_lte":              ("3-month T-bill",         "%", "≤"),
+        "tbill3m_gte":              ("3-month T-bill",         "%", "≥"),
+        "usdpkr_lte":               ("USD/PKR",                "",  "≤"),
+        "usdpkr_gte":               ("USD/PKR",                "",  "≥"),
+        "brent_lte":                ("Brent crude",            " USD/bbl", "≤"),
+        "brent_gte":                ("Brent crude",            " USD/bbl", "≥"),
+        "gold_lte":                 ("Gold",                   " USD/oz", "≤"),
+        "gold_gte":                 ("Gold",                   " USD/oz", "≥"),
+        "cpi_yoy_lte":              ("CPI YoY",                "%", "≤"),
+        "cpi_yoy_gte":              ("CPI YoY",                "%", "≥"),
+        "fx_reserves_lt_bn":        ("FX reserves",            " USD bn", "<"),
+        "fx_reserves_gt_bn":        ("FX reserves",            " USD bn", ">"),
+        "kse100_5d_lte":            ("KSE-100 5d return",      "%", "≤"),
+        "kse100_5d_gte":            ("KSE-100 5d return",      "%", "≥"),
+        "kse100_21d_lte":           ("KSE-100 21d return",     "%", "≤"),
+        "kse100_21d_gte":           ("KSE-100 21d return",     "%", "≥"),
+        "rate_cuts_180d_eq":        ("Rate cuts in last 180d", "",  "="),
+        "rate_cuts_180d_gte":       ("Rate cuts in last 180d", "",  "≥"),
+        "rate_cuts_180d_lte":       ("Rate cuts in last 180d", "",  "≤"),
+        "rate_hikes_180d_eq":       ("Rate hikes in last 180d","",  "="),
+        "rate_hikes_180d_gte":      ("Rate hikes in last 180d","",  "≥"),
+        "rate_hikes_180d_lte":      ("Rate hikes in last 180d","",  "≤"),
+        "rate_cuts_90d_gte":        ("Rate cuts in last 90d",  "",  "≥"),
+        "rate_hikes_90d_gte":       ("Rate hikes in last 90d", "",  "≥"),
+        "days_since_last_cut_lte":  ("Days since last rate cut",  "d", "≤"),
+        "days_since_last_cut_gte":  ("Days since last rate cut",  "d", "≥"),
+        "days_since_last_hike_lte": ("Days since last rate hike", "d", "≤"),
+        "days_since_last_hike_gte": ("Days since last rate hike", "d", "≥"),
+        "days_since_last_rate_change_lte":
+            ("Days since last SBP move", "d", "≤"),
+        "days_since_last_rate_change_gte":
+            ("Days since last SBP move", "d", "≥"),
+        "universe_pe_lte":          ("Universe P/E",           "",  "≤"),
+        "universe_pe_gte":          ("Universe P/E",           "",  "≥"),
+        "universe_pb_lte":          ("Universe P/B",           "",  "≤"),
+        "universe_pb_gte":          ("Universe P/B",           "",  "≥"),
+        "n_below_fair_value_gte":   ("Stocks below fair value", "",  "≥"),
+        "n_buy_value_gte":          ("BUY_VALUE candidates",   "",  "≥"),
+        "n_quality_high_gte":       ("HIGH-quality stocks",    "",  "≥"),
+        "n_quality_low_gte":        ("LOW/JUNK-quality stocks","",  "≥"),
+        "n_eps_accelerating_gte":   ("Stocks w/ accelerating EPS","","≥"),
+        "n_eps_decelerating_gte":   ("Stocks w/ decelerating EPS","","≥"),
+        "mf_universe_n_funds_increasing_gte":
+            ("Funds raising MF positions (MoM)", "", "≥"),
+        "mf_universe_n_top_accumulated_gte":
+            ("Stocks in MF accumulation list", "", "≥"),
+        "mf_universe_n_top_distributed_gte":
+            ("Stocks in MF distribution list", "", "≥"),
+        "mf_data_freshness_lte":    ("MF report age",          " d", "≤"),
+    }
+    if kind in NUMERIC_LABELS:
+        label, unit, op = NUMERIC_LABELS[kind]
+        return f"{label} {op} {raw_value}{unit}"
+
+    # ---- Calendar ----
+    if kind == "month_in":
+        return f"Calendar month is one of: {raw_value}"
+    if kind == "day_of_week_in":
+        return f"Day of week is one of: {raw_value}"
+    if kind == "last_n_trading_days_of_month":
+        return f"In the last {raw_value} trading days of the month"
+    if kind == "ramadan":
+        return "Ramadan window (Hijri calendar)"
+    if kind == "pre_ramadan_window":
+        return f"≤ {raw_value} days before Ramadan starts"
+    if kind == "post_eid_window":
+        return f"≤ {raw_value} days after Eid"
+    if kind == "high_vol_islamic_month":
+        return f"High-vol Islamic month: {raw_value}"
+
+    # ---- MF per-stock variants ("for") ----
+    if kind.startswith("mf_") and "_for" in kind:
+        # Format: mf_<metric>_for:SYMBOL,N → e.g.
+        # 'mf_accumulation_streak_for:OGDC,3'
+        return f"MF per-stock check: {kind} ({raw_value})"
+
+    # Anything else — show raw, but cleaned up.
+    return f"`{kind}: {raw_value}`"
+
+
+def _render_playbook_analogues(analogue_ids: list[str],
+                                 fired_meta: dict | None = None) -> None:
+    """Render the matched cases inline so the analyst can audit
+    *why* a case fired and what the historical reactions actually
+    were. Cases are read fresh from disk so curators can see edits
+    immediately without re-running Claude.
+
+    ``fired_meta`` (optional) is the per-id ``{fired_triggers,
+    match_score, confidence}`` dict persisted on the cached decision
+    by ``brain/master_strategist._briefing_summary``. When present we
+    render the actual triggers that fired in plain English so the
+    analyst doesn't have to read the JSON to understand what hit."""
+    try:
+        from brain import playbook as pb
+    except Exception as e:
+        st.warning(f"Playbook unavailable: {e}")
+        return
+    cases_by_id = {c.id: c for c in pb.load_cases()}
+    fired_meta = fired_meta or {}
+    for cid in analogue_ids:
+        case = cases_by_id.get(cid)
+        if case is None:
+            st.caption(f"_(case `{cid}` no longer in cases.json)_")
+            continue
+        meta = fired_meta.get(cid) or {}
+        score = meta.get("match_score")
+        score_str = (f", match score {score:.2f}"
+                     if isinstance(score, (int, float)) else "")
+        st.markdown(
+            f"**`{case.id}`** — {case.title}  "
+            f"_(confidence {case.confidence}{score_str}, "
+            f"category {case.category})_")
+        st.markdown(f"- **Pattern.** {case.pattern}")
+        st.markdown(f"- **Playbook.** {case.playbook}")
+        if case.what_breaks_it:
+            st.markdown(f"- **Breaks if.** {case.what_breaks_it}")
+
+        # Plain-English fired-trigger list — the most useful single
+        # piece of information for "why did this case match today?".
+        fired = meta.get("fired_triggers") or []
+        if fired:
+            st.markdown("- **Triggers that fired today:**")
+            for t in fired:
+                st.markdown(f"    - {_explain_trigger(t)}  "
+                             f"<span style='opacity:0.45;font-size:0.78em;'>"
+                             f"<code>{t}</code></span>",
+                             unsafe_allow_html=True)
+
+        if case.historical_instances:
+            st.markdown("- **Historical instances:**")
+            for inst in sorted(case.historical_instances,
+                                key=lambda i: i.date, reverse=True)[:3]:
+                rx_summary = ", ".join(
+                    f"{sym} d21={(r.get('d21') or r.get('d5') or 0)*100:+.1f}%"
+                    for sym, r in list((inst.reactions or {}).items())[:4]
+                )
+                st.markdown(f"    - **{inst.date}** — {inst.context[:160]}")
+                if rx_summary:
+                    st.markdown(f"      _{rx_summary}_")
+        if case.research_basis:
+            st.caption(f"Research basis: {case.research_basis}")
+        st.divider()
+
+
 # ----------------------------- Today-tab cards (plain English)
 def _today_action_card(action: dict) -> None:
     with st.container(border=True):
-        st.markdown("### What to do today")
+        st.markdown("### Best 5-day per-symbol forecast")
+        st.caption(
+            "Single-stock view from the daily Haiku forecast log "
+            "(`data/predictions_log.json`). For the portfolio-level "
+            "call across every signal, scroll up to **Master "
+            "Strategist** — when the two disagree, the Strategist is "
+            "authoritative because it sees flows, playbook analogues "
+            "and macro context that the per-symbol model does not."
+        )
         sym = action.get("symbol")
         if not sym:
             st.markdown(":blue[**Stay patient.**] No high-conviction "
@@ -1517,16 +2210,17 @@ def _today_portfolio_card(pf: dict, js: dict) -> None:
         )
 
 
-def _today_bots_verdict() -> None:
+def _bots_verdict_block() -> None:
     """The Bot's Verdict — a unified, conflict-resolved call across
     all seven lenses (Value, Quality, Momentum, Macro, News, Flow,
     Management).
 
-    The analyst's repeated complaint was: 'every tab tells a different
-    story — Value says SELL on the same stock Momentum says BUY'.
-    This panel runs the deterministic synthesiser in
-    ``brain.verdict_synthesizer`` to produce ONE call per stock, with
-    a transparent breakdown so the conflict resolution is visible.
+    Lives on the **Fair Value** tab so it sits next to the long-term
+    DDM/quality view it complements. The Master Strategist (top-of-
+    stack Claude reasoning) remains the canonical call on Today; this
+    block is the deterministic 7-lens cross-check used to spot
+    lens-disagreements and to explain *why* the strategist's verdict
+    looks the way it does.
     """
     try:
         from brain.verdict_synthesizer import synthesize_universe
@@ -1538,15 +2232,18 @@ def _today_bots_verdict() -> None:
     if not rows:
         return
 
-    st.markdown("### The Bot's Verdict")
+    st.markdown("### The Bot's Verdict — 7-lens deterministic cross-check")
     st.caption(
-        "One unified call per stock, blending **seven lenses** "
+        "One reconciled call per stock, blending **seven lenses** "
         "(Value · Quality · Momentum · Macro · News · Flow · "
         "Management). When lenses disagree, the conflict is "
-        "highlighted and resolved with an explicit rule. This is the "
-        "answer to use when different tabs seem to tell different "
-        "stories — the synthesiser already did the reconciliation. "
-        "Click any row to see the full lens breakdown."
+        "highlighted and resolved with an explicit rule. This is a "
+        "**diagnostic** — when it disagrees with the Master "
+        "Strategist banner at the top of the page, the strategist is "
+        "authoritative (it sees flows, playbook analogues and macro "
+        "context that this synthesiser does not). Use this block to "
+        "audit *why* a stock got its score. Click any row for the "
+        "full lens breakdown."
     )
 
     # ----- Top summary table -------------------------------------------
@@ -1580,12 +2277,24 @@ def _today_bots_verdict() -> None:
     st.dataframe(df, hide_index=True, use_container_width=True,
                   column_config={
                       "Score": st.column_config.NumberColumn(
-                          "Score", help="Composite score across lenses",
+                          "Score",
+                          help=("Composite -21 to +21 across the seven "
+                                "lenses (Value, Quality, Momentum, "
+                                "Macro, News, Flow, Management). "
+                                "Rough mapping: ≥+8 BUY, +3..+7 "
+                                "HOLD-bullish, -3..+2 NEUTRAL, "
+                                "-7..-4 HOLD-bearish, ≤-8 AVOID/SHORT. "
+                                "This is the Verdict synthesizer, not "
+                                "the Master Strategist — see the "
+                                "stance banner above for the canonical "
+                                "call when the two disagree."),
                           format="%+d"),
                       "Conflicts": st.column_config.NumberColumn(
                           "Conflicts",
                           help=("Number of lens-pair disagreements; "
-                                "0 means full agreement"),
+                                "0 means full agreement, ≥3 means "
+                                "the lenses are pulling in opposite "
+                                "directions — read the drill-down."),
                           format="%d"),
                   })
 
@@ -2503,7 +3212,11 @@ def _render_position_card(idx: int, row: dict):
                 f"### {sym} — :{color}[{action}]  "
                 f"`{sector_of(sym) or '—'}`"
             )
-            st.caption(row.get("reasoning", ""))
+            st.caption(
+                "Phase-1 trail-stop / momentum view — "
+                + (row.get("reasoning", "") or "")
+            )
+            _render_strategist_overlay(sym, local_action=action)
         with hdr_c2:
             pnl = row.get("unrealized_pnl_pkr")
             ret = row.get("unrealized_return_pct")
@@ -2681,7 +3394,7 @@ def render_watchlist_tab():
         "Stocks you're keeping an eye on but don't own yet. Set a target "
         "price and the bot will tell you when it's hit.",
         how_to_read=[
-            "Add any of your 15 universe stocks here.",
+            "Add any stock from the universe here.",
             "Set a **target price** to get a visual cue when the stock "
             "trades through your level.",
             "The chatbot reads this list — ask *'how is my watchlist "
@@ -2840,6 +3553,7 @@ def _render_buy_idea_card(row: dict, idx: int) -> None:
                           f"{row.get('rsi_14', 0):.0f}"
                           if row.get("rsi_14") is not None else "—")
     st.markdown(f"_{headline}_")
+    _render_strategist_overlay(sym, local_action=verdict)
 
     with st.expander(
         f"Read the full thesis for {sym}",
@@ -3123,6 +3837,7 @@ def render_predictions_tab():
             f"action **{action_str}**"
             + (f" · net **{net_pct:+.2f}%**" if net_pct is not None else "")
         )
+        _render_strategist_overlay(pick, local_action=action_str)
         if p.get("rationale"):
             st.markdown(f"_{p['rationale']}_")
 
@@ -3648,6 +4363,11 @@ def render_value_tab():
         st.warning("No value rows — fundamentals cache may be empty.")
         return
 
+    # Strategist actions cached once for the whole table so the user
+    # always sees the canonical top-of-stack call alongside the value /
+    # quality view.
+    strat_by_sym = _strategist_actions_by_symbol()
+
     # Build display frame: value + quality + earnings momentum + event
     df_rows = []
     for r in rows:
@@ -3658,6 +4378,11 @@ def render_value_tab():
         d = ev.get("days_until")
         ev_str = (f"{ev.get('next_event_date_utc')} ({d}d)"
                   if d is not None and d <= 21 else "—")
+        sv = strat_by_sym.get((sym or "").upper()) or {}
+        strat_call = sv.get("bucket") or "—"
+        strat_conv = sv.get("conviction") or ""
+        strat_str = (f"{strat_call} · {strat_conv}"
+                     if strat_call != "—" and strat_conv else strat_call)
         df_rows.append({
             "Sym": sym,
             "Sector": r.get("sector", "")[:14],
@@ -3669,6 +4394,7 @@ def render_value_tab():
             "Q Score": q.get("quality_score"),
             "Q Band": q.get("band", "—"),
             "EPS Mom": em.get("flag", "—"),
+            "Strategist": strat_str,
             "Next Event": ev_str,
             "Method": r.get("method", "")[:50],
         })
@@ -3690,10 +4416,19 @@ def render_value_tab():
     st.caption(
         "Combined view: **Value Sig** = fair-value signal, **Q Score** = "
         "quality 0-100 (HIGH/MED/LOW/JUNK), **EPS Mom** = earnings "
-        "trajectory, **Next Event** = predicted result-day. The classic "
-        "edge play is BUY_VALUE + HIGH quality + ACCELERATING/RECOVERING "
-        "earnings + no event window. Avoid BUY_VALUE + JUNK = trap."
+        "trajectory, **Strategist** = today's Master Strategist call "
+        "for the same stock, **Next Event** = predicted result-day. "
+        "The classic edge play is BUY_VALUE + HIGH quality + "
+        "ACCELERATING/RECOVERING earnings + no event window + "
+        "Strategist BUY. Avoid BUY_VALUE + JUNK = trap."
     )
+
+    # 7-lens deterministic synthesiser — moved here from the Today tab
+    # so the multi-lens diagnostic sits next to the long-term value
+    # view it complements.
+    st.divider()
+    _bots_verdict_block()
+    st.divider()
 
     # ------------------------------------------------------- per-stock detail
     st.markdown("#### Inspect a single stock")
@@ -4043,7 +4778,7 @@ CHAT_EXAMPLES = [
     "What are today's top 5 buy candidates and why?",
     "Look at my whole portfolio and tell me which names to trim first.",
     "What's the current market regime and should I be cautious?",
-    "Show me the momentum ranking of all 15 stocks.",
+    "Show me the momentum ranking of every stock in the universe.",
     "What's on my watchlist and anything near a target price?",
     "How have my closed trades performed? Any patterns?",
 ]

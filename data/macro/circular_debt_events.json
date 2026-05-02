@@ -1,0 +1,65 @@
+{
+  "_schema": {
+    "description": "Curated log of Pakistan power-sector circular-debt events. Read by brain/macro_impact.py to fire the circular_debt_resolution / circular_debt_worsening driver across Power, E&P, OMC/Refining, Banking, and Conglomerate/Chem sector rules.",
+    "fields": {
+      "date": "ISO date when the event was announced (YYYY-MM-DD).",
+      "type": "Either 'resolution' (positive event) or 'worsening' (negative event).",
+      "amount_pkr_bn": "Optional PKR-billion size of the settlement / build-up. Used in the driver's `move` string; safe to omit.",
+      "decay_days": "Optional. How many days after the event date the driver continues to fire. Default 60. Magnitude decays from STRONG (first 14 days) to MODERATE (mid-window) to MILD (tail).",
+      "description": "One-sentence human-readable summary the macro engine surfaces in the dashboard / PDF brief.",
+      "source": "Optional URL or citation."
+    },
+    "how_to_add_an_event": "Append a new object to `events`. The most recent in-window event always wins so a partial worsening followed by a clean-up correctly flips the sign. Future-dated events are ignored until their date arrives. The file is allowed to be empty (`{\"events\": []}`) — the driver simply stays silent.",
+    "research_basis": "See 'Pakistan Stock Market Research Factors.docx' (Power Sector / Circular Debt section) for the structural background."
+  },
+  "events": [
+    {
+      "date": "2022-06-30",
+      "type": "worsening",
+      "amount_pkr_bn": 240,
+      "decay_days": 60,
+      "description": "Quarterly circular-debt build-up of Rs 240bn in Q4-FY22 driven by elevated furnace-oil pricing, T&D losses, and unrecovered tariff differential subsidies. Cumulative stock crossed Rs 2.4 trillion.",
+      "source": "Power Division / Auditor General reports, FY22 closing review."
+    },
+    {
+      "date": "2023-03-31",
+      "type": "worsening",
+      "amount_pkr_bn": 195,
+      "decay_days": 60,
+      "description": "Q3-FY23 build-up of Rs 195bn; gas-supply curtailments to RLNG-fired IPPs amplified inefficient-merit-order dispatching costs.",
+      "source": "Power Division quarterly briefing, May 2023."
+    },
+    {
+      "date": "2024-06-30",
+      "type": "worsening",
+      "amount_pkr_bn": 280,
+      "decay_days": 60,
+      "description": "FY24 closing build-up of ~Rs 280bn pushed cumulative circular debt to record Rs 2.7 trillion before the Dec-2025 banking-syndicate clearance. PSO inventory days ballooned to 60+ on furnace-oil receivables stretch.",
+      "source": "PPIB / NEPRA quarterly reports, July 2024."
+    },
+    {
+      "date": "2024-12-31",
+      "type": "worsening",
+      "amount_pkr_bn": 215,
+      "decay_days": 45,
+      "description": "Q2-FY25 build-up of Rs 215bn with HUBC and KEL flagging receivables risk in board commentary. Banks (UBL, MCB, HBL) took small uplift in power-sector loan provisioning.",
+      "source": "Listed-company quarterly filings + NEPRA briefing, Feb 2025."
+    },
+    {
+      "date": "2025-09-30",
+      "type": "worsening",
+      "amount_pkr_bn": 165,
+      "decay_days": 45,
+      "description": "Q1-FY26 build-up of Rs 165bn (smaller post-Dec-2025 settlement reset) but enough to reset PSO and HUBC receivables clocks ahead of next quarterly results.",
+      "source": "Power Division briefing, Oct 2025."
+    },
+    {
+      "date": "2025-12-15",
+      "type": "resolution",
+      "amount_pkr_bn": 1225,
+      "decay_days": 60,
+      "description": "Rs 1.225 trillion ($4.29 bn) circular-debt clearance backed by 18 commercial banks — restructured Rs 660 bn of existing loans plus Rs 565 bn fresh financing to clear overdue payments to power producers. Characterised as the largest banking transaction in Pakistan's history. Material lift for HUBC, KEL, and other IPP receivables; PSO is the largest single creditor and benefits proportionally; banks took a small NIM concession on the new financing in exchange for de-risking their legacy power-sector exposure.",
+      "source": "Arab News / Pakistan Banks Association reporting, late 2025"
+    }
+  ]
+}

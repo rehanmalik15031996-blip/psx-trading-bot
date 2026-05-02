@@ -1,4 +1,17 @@
-# Local secrets — NEVER commit
+# Local secrets — NEVER commit.
+#
+# Note: the *token* and *secret* globs below are intentionally broad. They
+# will silently exclude ANY new file whose name contains "token" or
+# "secret" — including files you might want to commit. Two safe escape
+# hatches:
+#   1. Streamlit Cloud — paste the contents of .streamlit/secrets.toml.example
+#      into Settings → Secrets in the Streamlit Cloud UI. Streamlit holds them
+#      in its own encrypted store and surfaces them to the app as
+#      st.secrets[...] AND os.environ[...].
+#   2. Local — keep your real values in .env (already excluded).
+# If you NEED to track a file whose name matches these globs, add an
+# explicit `!` exception below them (see secrets.toml.example for the
+# pattern).
 .env
 .env.*
 env (1)
@@ -65,3 +78,7 @@ _commit_msg.txt
 # any time. We commit the structured `data/results/reports.parquet`
 # (the LLM-extracted outlook + plans + risks) but NOT the source PDFs.
 data/results/raw/
+# Cached raw AHL Mutual Funds Equity Holdings + Market Performance
+# PDFs (~600 KB each, re-downloadable from AHL Research). The
+# structured outputs in `data/flows/*.parquet` are committed.
+data/raw/

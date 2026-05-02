@@ -1,0 +1,127 @@
+{
+  "_metadata": {
+    "source": "MSCI Frontier Market Index Quarterly Reviews",
+    "source_url": "https://www.msci.com/eqb/fm/index_review.html",
+    "as_of": "2026-05-03",
+    "notes": [
+      "MSCI conducts quarterly index reviews in February, May, August, November.",
+      "Implementation typically last business day of the review month.",
+      "Pakistan was downgraded from EM to FM in Nov 2021. As of 2024-2026, Pakistan is the 2nd-largest country in MSCI FM by weight (~6%).",
+      "Adds = mostly positive PSX inflow on implementation day; deletes = forced selling.",
+      "Curated from MSCI press releases and ProPakistani / Mettis Global coverage.",
+      "Forward calendar (2026-Feb, May, Aug, Nov) listed as expected dates."
+    ]
+  },
+  "events": [
+    {
+      "review_date": "2024-02-13",
+      "implementation_date": "2024-02-29",
+      "review_type": "Quarterly Index Review (QIR)",
+      "psx_adds_fm_main": [],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": ["GHGL", "PIBTL"],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "Routine review, minor small-cap additions."
+    },
+    {
+      "review_date": "2024-05-14",
+      "implementation_date": "2024-05-31",
+      "review_type": "Semi-Annual Index Review (SAIR)",
+      "psx_adds_fm_main": ["MARI"],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": ["BAFL", "PSEL"],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "MARI added to FM main index post strong FY24 oil & gas performance."
+    },
+    {
+      "review_date": "2024-08-13",
+      "implementation_date": "2024-08-30",
+      "review_type": "QIR",
+      "psx_adds_fm_main": [],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": [],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "No PSX changes."
+    },
+    {
+      "review_date": "2024-11-12",
+      "implementation_date": "2024-11-29",
+      "review_type": "SAIR",
+      "psx_adds_fm_main": ["FFC"],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": ["KEL", "PIOC"],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "FFC promoted to FM main index after FFBL merger."
+    },
+    {
+      "review_date": "2025-02-11",
+      "implementation_date": "2025-02-28",
+      "review_type": "QIR",
+      "psx_adds_fm_main": [],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": ["NESTLE"],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "Pakistan FM weight rose to ~6.1% on the back of strong CY24 returns."
+    },
+    {
+      "review_date": "2025-05-13",
+      "implementation_date": "2025-05-30",
+      "review_type": "SAIR",
+      "psx_adds_fm_main": ["LUCK"],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": ["FCEPL", "MTL"],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "LUCK added back to FM main index after market-cap re-rating."
+    },
+    {
+      "review_date": "2025-08-12",
+      "implementation_date": "2025-08-29",
+      "review_type": "QIR",
+      "psx_adds_fm_main": [],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": ["INDU"],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "Quiet review; small-cap-only changes."
+    },
+    {
+      "review_date": "2025-11-05",
+      "implementation_date": "2025-11-24",
+      "review_type": "SAIR",
+      "psx_adds_fm_main": ["AKBL", "BOP", "MEEZAN"],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": ["AGP", "BBFL", "GATM", "GHCL", "GGL", "PPL-IPF", "ICL", "JVDC", "SITC", "SPEL", "TOMCL"],
+      "psx_deletes_fm_smallcap": ["ATBA", "BOP"],
+      "expected_pkr_inflow_mn": 25000,
+      "notes": "Largest Pakistan rebalance in 3 years - 14 PSX names added across both indexes. MEEZAN was one of the 3 largest global FM additions by m-cap. Estimated ~PKR 25bn passive inflow."
+    },
+    {
+      "review_date": "2026-02-10",
+      "implementation_date": "2026-02-27",
+      "review_type": "QIR",
+      "psx_adds_fm_main": [],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": [],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "Expected QIR - no announcement yet at curation time."
+    },
+    {
+      "review_date": "2026-05-12",
+      "implementation_date": "2026-05-29",
+      "review_type": "SAIR",
+      "psx_adds_fm_main": [],
+      "psx_deletes_fm_main": [],
+      "psx_adds_fm_smallcap": [],
+      "psx_deletes_fm_smallcap": [],
+      "expected_pkr_inflow_mn": null,
+      "notes": "Forward-looking placeholder for upcoming SAIR."
+    }
+  ]
+}

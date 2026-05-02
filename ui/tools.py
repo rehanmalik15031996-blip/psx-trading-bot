@@ -309,7 +309,7 @@ def get_technical_snapshot(symbol: str) -> dict:
 # TOOL 4: universe ranking (Phase 1 view)
 # --------------------------------------------------------------------------
 def get_universe_ranking() -> dict:
-    """Phase 1 ranking of all 15 stocks by 150d momentum, with vol filter status."""
+    """Phase 1 ranking of every universe stock by 150d momentum, with vol filter status."""
     cfg = StrategyConfig()
     wide = _wide()
     if wide.empty:
@@ -881,13 +881,86 @@ def get_sector_volume_heatmap(top_k: int = 5,
 # --------------------------------------------------------------------------
 # TOOL: SBP policy rate + yield curve
 # --------------------------------------------------------------------------
+def _policy_rate_parquet_fallback() -> dict | None:
+    """Read the most recent row from data/macro/sbp_rates.parquet so the
+    Master Strategist always has *some* macro number to reason with even
+    when sbp.org.pk is unreachable. Returns None if the parquet is also
+    missing or unreadable.
+
+    The strategy-fixes evaluation showed the live SBP fetch silently
+    `ReadTimeout`s on poor networks; this fallback removes that single
+    point of failure without changing live-success behaviour."""
+    try:
+        from pathlib import Path as _P
+        import pandas as _pd
+        p = _P(__file__).resolve().parents[1] / "data" / "macro" / "sbp_rates.parquet"
+        if not p.exists():
+            return None
+        df = _pd.read_parquet(p)
+        if df.empty or "date" not in df.columns:
+            return None
+        df["date"] = _pd.to_datetime(df["date"]).dt.tz_localize(None)
+        snap = df.sort_values("date").iloc[-1]
+        as_of_iso = snap["date"].date().isoformat() if hasattr(snap["date"], "date") else str(snap["date"])[:10]
+
+        def _g(col, *, scale=1.0):
+            v = snap.get(col)
+            try:
+                return float(v) * scale if v is not None and not _pd.isna(v) else None
+            except (TypeError, ValueError):
+                return None
+
+        kibor = {
+            "1M": None, "3M": _g("kibor_3m_pct"),
+            "6M": _g("kibor_6m_pct"), "12M": _g("kibor_12m_pct"),
+        }
+        tbill = {
+            "1M": _g("tbill_1m_pct"), "3M": _g("tbill_3m_pct"),
+            "6M": _g("tbill_6m_pct"), "12M": _g("tbill_12m_pct"),
+        }
+        pib = {
+            "3Y": _g("pib_3y_pct"), "5Y": _g("pib_5y_pct"),
+            "10Y": _g("pib_10y_pct"),
+        }
+        sbp_res = _g("reserves_sbp_usd_mn")
+        bank_res = _g("reserves_banks_usd_mn")
+        total_res = _g("reserves_total_usd_mn")
+        return {
+            "as_of": as_of_iso,
+            "policy_rate_pct": _g("policy_rate_pct"),
+            "corridor": {"floor": _g("floor_pct"), "ceiling": _g("ceiling_pct")},
+            "kibor": {k: v for k, v in kibor.items() if v is not None},
+            "tbill_yields_pct": {k: v for k, v in tbill.items() if v is not None},
+            "pib_yields_pct":   {k: v for k, v in pib.items()   if v is not None},
+            "reserves_usd_mn": {
+                "sbp":   sbp_res,
+                "banks": bank_res,
+                "total": total_res,
+            },
+            "interpretation": _interpret_rate(_g("policy_rate_pct")),
+            "source": "data/macro/sbp_rates.parquet (offline fallback)",
+            "fallback_used": True,
+        }
+    except Exception:
+        return None
+
+
 def get_policy_rate() -> dict:
-    """Current SBP policy rate, corridor, and yield curve (KIBOR / T-Bill / PIB)."""
+    """Current SBP policy rate, corridor, and yield curve (KIBOR / T-Bill / PIB).
+
+    Tries the live SBP M2M dashboard first, falls back to the persisted
+    `data/macro/sbp_rates.parquet` snapshot when the live fetch fails.
+    The fallback ensures the Master Strategist never gets a NULL rate
+    on a bad-network day."""
     def _run():
         try:
             from connectors.sbp import SBPPolicyRateConnector
             r = SBPPolicyRateConnector().fetch()
             if not r.ok or not r.records:
+                fb = _policy_rate_parquet_fallback()
+                if fb is not None:
+                    fb["live_error"] = r.error or "SBP fetch failed"
+                    return fb
                 return {"error": r.error or "SBP fetch failed"}
             snap = r.records[0]
             return {
@@ -903,6 +976,10 @@ def get_policy_rate() -> dict:
                 "source": "sbp.org.pk",
             }
         except Exception as e:
+            fb = _policy_rate_parquet_fallback()
+            if fb is not None:
+                fb["live_error"] = f"SBP fetch raised: {type(e).__name__}: {e}"
+                return fb
             return {"error": f"SBP fetch raised: {type(e).__name__}: {e}"}
 
     return _cached("sbp_rate", _run)
@@ -1676,7 +1753,7 @@ def dispatch(name: str, args: dict | None) -> dict:
 TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
     {
         "name": "list_universe",
-        "description": ("List the 15 PSX stocks the bot trades, with sectors. "
+        "description": ("List every PSX stock the bot trades, with sectors. "
                         "Use this to remind the user which symbols are supported."),
         "input_schema": {"type": "object", "properties": {}},
     },
@@ -1704,7 +1781,7 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
     },
     {
         "name": "get_universe_ranking",
-        "description": ("Full ranking of all 15 universe stocks by 150-day momentum "
+        "description": ("Full ranking of every universe stock by 150-day momentum "
                         "with volatility filter status. Use for 'what are the "
                         "leaders' questions."),
         "input_schema": {"type": "object", "properties": {}},
@@ -1944,13 +2021,13 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
     },
     {
         "name": "get_universe_value_book",
-        "description": ("Run the fair-value model on all 15 stocks and "
-                        "return them sorted from most-undervalued to most-"
-                        "overvalued. Each row has fair_value, upside_pct, "
-                        "signal, confidence, sector, and method. Use this "
-                        "for 'what's cheap right now', 'find me deep value "
-                        "picks', 'which stocks should I sell on valuation', "
-                        "or any portfolio-wide value question."),
+        "description": ("Run the fair-value model on every universe stock "
+                        "and return them sorted from most-undervalued to "
+                        "most-overvalued. Each row has fair_value, "
+                        "upside_pct, signal, confidence, sector, and method. "
+                        "Use this for 'what's cheap right now', 'find me "
+                        "deep value picks', 'which stocks should I sell on "
+                        "valuation', or any portfolio-wide value question."),
         "input_schema": {"type": "object", "properties": {}},
     },
     {
@@ -1998,7 +2075,7 @@ TOOL_SCHEMAS_ANTHROPIC: list[dict] = [
     },
     {
         "name": "get_universe_earnings_momentum",
-        "description": ("Earnings-momentum flags for all 15 stocks."),
+        "description": ("Earnings-momentum flags for every universe stock."),
         "input_schema": {"type": "object", "properties": {}},
     },
     {

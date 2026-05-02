@@ -1,0 +1,146 @@
+name: Phase-2 ranker re-validation
+
+# Quarterly A/B test of the optional cross-sectional LightGBM ranker
+# (brain/ranker.py) against the live Phase-1 mechanical rule
+# (brain/strategy.py).
+#
+# Why this exists
+# ---------------
+# The ranker is gated by an explicit deployment rule:
+#   * CAGR(ranker)   >= CAGR(phase1)   + 2.0 percentage points
+#   * MaxDD(ranker)  no worse than MaxDD(phase1) + 3 pp
+#   * Sharpe(ranker) >= Sharpe(phase1)
+# Last verdict on the 15-stock universe (2026-04-24) was DO NOT DEPLOY.
+# The universe expanded to 35 stocks on 2026-04-30 and the audit numbers
+# moved meaningfully (B&H Sharpe 0.88 → 1.04). The re-test should run on
+# a quarterly cadence so we either flip the gate to PASS as soon as it
+# does, or keep an honest dated record that we tried and the signal is
+# still not there.
+#
+# What it does
+# ------------
+#   1. Checks out the repo with write access.
+#   2. Installs the FULL local requirements (lightgbm + rich + ta + the
+#      rest), since the ranker needs them. The other workflows use the
+#      slim CI requirements; this is the one job that intentionally
+#      pays the install cost.
+#   3. Runs scripts/validate_ranker.py — purged walk-forward CV with a
+#      20-day embargo, then A/B backtest of Phase-1 vs Phase-1+ranker
+#      over the OOS window.
+#   4. Writes the verdict to models/ranker_enabled.json (with metrics
+#      side-by-side) and a dated markdown report to reports/.
+#   5. Commits both files back to main so the dashboard's "ranker
+#      gate" status badge in the System Health tab updates.
+#
+# Cadence: 03:30 UTC on the 1st of every Jan/Apr/Jul/Oct (quarterly).
+# Plus workflow_dispatch for manual re-runs.
+
+on:
+  schedule:
+    - cron: '30 3 1 1,4,7,10 *'
+  workflow_dispatch:
+    inputs:
+      start:
+        description: 'Override backtest start date (YYYY-MM-DD)'
+        required: false
+        default: ''
+      top_n:
+        description: 'Override top_n for the A/B (default uses StrategyConfig)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: validate-ranker
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: 'requirements-full.txt'
+
+      - name: Install full deps (lightgbm + rich + ta + ...)
+        run: |
+          python -m pip install --upgrade pip
+          # CPU-only torch (transformers in requirements-full.txt depends on it).
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-full.txt
+
+      - name: Run Phase-2 deployment-gate validator
+        id: validate
+        run: |
+          set +e
+          ARGS=""
+          if [ -n "${{ github.event.inputs.start }}" ]; then
+            ARGS="$ARGS --start ${{ github.event.inputs.start }}"
+          fi
+          if [ -n "${{ github.event.inputs.top_n }}" ]; then
+            ARGS="$ARGS --top-n ${{ github.event.inputs.top_n }}"
+          fi
+          python scripts/validate_ranker.py $ARGS
+          # Exit code 0 = PASS (deploy), 1 = FAIL (keep Phase 1).
+          # Both are "successful" workflow outcomes from CI's
+          # perspective — we always want to commit the verdict.
+          echo "validator_exit=$?" >> "$GITHUB_OUTPUT"
+        env:
+          PYTHONIOENCODING: utf-8
+
+      - name: Commit verdict + report
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add models/ranker_enabled.json \
+                  models/ranker_v2.pkl \
+                  reports/validate_ranker_*.md 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No verdict changes (validator may have errored before write)."
+            exit 0
+          fi
+          VERDICT="DO NOT DEPLOY"
+          if [ "${{ steps.validate.outputs.validator_exit }}" = "0" ]; then
+            VERDICT="DEPLOY"
+          fi
+          git commit -m "ranker: quarterly re-validation $(date -u +%F) — $VERDICT"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing on latest main..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
+
+      - name: Surface the verdict in the workflow summary
+        if: always()
+        run: |
+          {
+            echo "## Phase-2 ranker re-validation"
+            echo ""
+            if [ -f models/ranker_enabled.json ]; then
+              echo '```json'
+              cat models/ranker_enabled.json
+              echo '```'
+            else
+              echo "_models/ranker_enabled.json missing — validator did not write a verdict._"
+            fi
+            echo ""
+            LATEST=$(ls -t reports/validate_ranker_*.md 2>/dev/null | head -n 1 || true)
+            if [ -n "$LATEST" ]; then
+              echo "Latest report: \`$LATEST\`"
+              echo ""
+              cat "$LATEST"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

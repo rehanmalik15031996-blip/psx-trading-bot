@@ -1,0 +1,47 @@
+{
+  "_schema": {
+    "description": "Static Hijri-calendar reference used by brain/playbook.py for the 'ramadan', 'pre_ramadan_window:N', 'post_eid_window:N', 'islamic_month_in:N' and related calendar triggers. Hardcoded so we don't take a dependency on a Hijri converter and so the ranges are auditable.",
+    "fields": {
+      "ramadan_windows": "Hijri month 9 (Ramadan) Gregorian start/end. Source: Saudi Supreme Court / Pakistan Ministry of Religious Affairs official announcements. Update yearly.",
+      "eid_ul_fitr": "Day after Ramadan ends. Marks 'post_eid_window:N' triggers.",
+      "eid_ul_adha": "10th day of Hijri month 12 (Zil-Hajj). PSX is closed; market reopens with risk-on/off based on slaughter-economy demand and global cues.",
+      "ashura": "10th day of Hijri month 1 (Muharram). Public holiday in Pakistan; the 5d window around Ashura historically shows elevated PSX volatility.",
+      "high_vol_islamic_months_gregorian_starts": "Gregorian start dates for Hijri months 2 (Safar), 11 (Zil-Qad), 12 (Zil-Hajj) — the months PSX research identifies as highest-volatility (see https://bereview.pk/journal/index.php/ber/article/view/179). Each entry is a {start, end, hijri_month_number} object."
+    },
+    "research_basis": "Islamic Calendar Anomalies on KSE-100: Ramadan = positive returns + lower volatility (multiple PSX studies). Safar / Zil-Qad / Zil-Hajj = elevated volatility (GARCH/ARCH evidence).",
+    "maintenance": "Append the next year's row each January. Existing dates verified against the Saudi Umm al-Qura calendar and Pakistan's Federal Ministry of Religious Affairs announcements where available. Treated as approximate (+/- 1 day) since moon-sighting can shift the announced start; the 'pre_ramadan_window' / 'post_eid_window' triggers absorb the uncertainty by widening the window."
+  },
+  "ramadan_windows": [
+    {"start": "2023-03-23", "end": "2023-04-21"},
+    {"start": "2024-03-11", "end": "2024-04-09"},
+    {"start": "2025-03-01", "end": "2025-03-30"},
+    {"start": "2026-02-18", "end": "2026-03-19"},
+    {"start": "2027-02-08", "end": "2027-03-09"},
+    {"start": "2028-01-28", "end": "2028-02-26"},
+    {"start": "2029-01-16", "end": "2029-02-14"},
+    {"start": "2030-01-06", "end": "2030-02-04"}
+  ],
+  "eid_ul_fitr": [
+    "2023-04-22", "2024-04-10", "2025-03-31", "2026-03-20",
+    "2027-03-10", "2028-02-27", "2029-02-15", "2030-02-05"
+  ],
+  "eid_ul_adha": [
+    "2023-06-29", "2024-06-17", "2025-06-07", "2026-05-27",
+    "2027-05-17", "2028-05-05", "2029-04-25", "2030-04-14"
+  ],
+  "ashura": [
+    "2023-07-28", "2024-07-17", "2025-07-06", "2026-06-26",
+    "2027-06-16", "2028-06-04", "2029-05-25", "2030-05-14"
+  ],
+  "high_vol_islamic_months_gregorian_starts": [
+    {"hijri_month": 2,  "name": "Safar",   "start": "2024-08-06", "end": "2024-09-04"},
+    {"hijri_month": 2,  "name": "Safar",   "start": "2025-07-26", "end": "2025-08-24"},
+    {"hijri_month": 2,  "name": "Safar",   "start": "2026-07-15", "end": "2026-08-13"},
+    {"hijri_month": 11, "name": "Zil-Qad", "start": "2024-05-09", "end": "2024-06-06"},
+    {"hijri_month": 11, "name": "Zil-Qad", "start": "2025-04-28", "end": "2025-05-26"},
+    {"hijri_month": 11, "name": "Zil-Qad", "start": "2026-04-17", "end": "2026-05-16"},
+    {"hijri_month": 12, "name": "Zil-Hajj","start": "2024-06-07", "end": "2024-07-06"},
+    {"hijri_month": 12, "name": "Zil-Hajj","start": "2025-05-27", "end": "2025-06-25"},
+    {"hijri_month": 12, "name": "Zil-Hajj","start": "2026-05-17", "end": "2026-06-15"}
+  ]
+}

@@ -125,7 +125,15 @@ def _parse_json(raw: str) -> dict | None:
 
 
 def _anthropic_call(system: str, user: str, model: str = "claude-haiku-4-5",
-                    max_tokens: int = 300) -> str | None:
+                    max_tokens: int = 300,
+                    thinking_budget: int | None = None) -> str | None:
+    """Lightweight one-shot call. ``thinking_budget`` (>=1024) enables
+    Claude's extended-thinking mode on Sonnet/Opus 4 — required when
+    we want the regime classifier to actually reason rather than
+    pattern-match. Anthropic requires ``budget_tokens < max_tokens``;
+    we widen ``max_tokens`` automatically when needed. Extended
+    thinking also requires ``temperature=1``.
+    """
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if not api_key:
         return None
@@ -135,11 +143,20 @@ def _anthropic_call(system: str, user: str, model: str = "claude-haiku-4-5",
         return None
     try:
         client = Anthropic(api_key=api_key)
+        kwargs: dict = {}
+        if thinking_budget and thinking_budget >= 1024:
+            kwargs["thinking"] = {
+                "type": "enabled",
+                "budget_tokens": int(thinking_budget),
+            }
+            kwargs["temperature"] = 1.0
+            max_tokens = max(max_tokens, int(thinking_budget) + 1024)
         resp = client.messages.create(
             model=model,
             max_tokens=max_tokens,
             system=system,
             messages=[{"role": "user", "content": user}],
+            **kwargs,
         )
         return "".join(b.text for b in resp.content if hasattr(b, "text"))
     except Exception:
@@ -201,16 +218,29 @@ def regime_multiplier(
     macro_context: dict,
     universe_snapshot: dict,
     market_news: list[dict] | None = None,
-    model: str = "claude-haiku-4-5",
+    model: str = "claude-sonnet-4-5",
+    thinking_budget: int = 4_000,
 ) -> RegimeDecision:
     """Classify macro/market regime → exposure multiplier.
+
+    The regime call is the strategic decision that scales exposure for
+    the whole portfolio for the entire month — exactly the kind of
+    multi-source reasoning that justifies a real reasoning model.
+    Default escalated 2026-05-01 from Haiku 4.5 → Sonnet 4.5 with a
+    4k extended-thinking budget so the model genuinely reads the
+    macro + universe + news inputs together rather than pattern-
+    matching against the prompt.
 
     Inputs:
       macro_context : dict with usdpkr, policy_rate, brent, fipi_net, etc.
       universe_snapshot : dict with universe_ret_5d, universe_ret_21d,
                           kse100_change_5d, breadth_pct_up, etc.
-      market_news : list of recent market-wide headlines (dicts with title,
-                    score, source).
+      market_news : list of recent market-wide headlines (dicts with
+                    title, score, source).
+      model : override (fallback to Haiku saves cost on
+              high-frequency tests, e.g. backtests).
+      thinking_budget : 0 = disable extended thinking (fast/cheap call);
+                        >=1024 = enable on Sonnet/Opus 4.
     """
     universe_5d = universe_snapshot.get("universe_ret_5d")
 
@@ -218,6 +248,8 @@ def regime_multiplier(
         REGIME_SYSTEM,
         _format_regime_prompt(macro_context, universe_snapshot, market_news or []),
         model=model,
+        max_tokens=600,
+        thinking_budget=thinking_budget,
     )
     if raw is None:
         return _rule_based_regime(macro_context, universe_5d)

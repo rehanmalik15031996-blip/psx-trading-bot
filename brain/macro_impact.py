@@ -50,6 +50,10 @@ SBP_RATES_PATH   = PROJECT_ROOT / "data" / "macro" / "sbp_rates.parquet"
 KSE100_PATH      = PROJECT_ROOT / "data" / "macro" / "kse100.parquet"
 CPI_PATH         = PROJECT_ROOT / "data" / "macro" / "cpi_pakistan.parquet"
 MACRO_SERIES_DIR = PROJECT_ROOT / "data" / "macro"
+# Hand-curated circular-debt events (resolutions / worsening). Empty file
+# is fine — the driver simply stays silent. See `_load_circular_debt_events`
+# below for the schema.
+CIRCULAR_DEBT_PATH = PROJECT_ROOT / "data" / "macro" / "circular_debt_events.json"
 
 
 # ---------------------------------------------------------------------------
@@ -185,6 +189,22 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                              "NIMs stay elevated."),
         "cpi_easing":  (-1, "Cooling CPI opens the door to rate cuts — "
                              "NIMs face compression risk."),
+        # Circular-debt events ---------------------------------------
+        # Net positive: banks are paid a guaranteed lower lending rate
+        # (~150 bps below their normal book) on the new financing, which
+        # is a small drag on incremental NIM, but the de-risking of their
+        # legacy power-sector exposure (Rs 660 bn restructured in the
+        # Dec-2025 deal) and the freeing-up of sovereign-guarantee
+        # headroom is materially positive for the credit outlook.
+        "circular_debt_resolution": (+1, "De-risks bank loan books with "
+                                          "sizeable IPP / energy exposure and "
+                                          "frees up sovereign-guarantee "
+                                          "headroom (small NIM drag on the "
+                                          "new financing is more than offset "
+                                          "by the credit-quality upgrade)."),
+        "circular_debt_worsening":  (-1, "Power-sector loan-book provisioning "
+                                          "risk rises and sovereign-guarantee "
+                                          "capacity gets eaten."),
     },
     "Cement": {
         "rate_up":   (-3, "Sector is highly leveraged: financial costs "
@@ -261,6 +281,15 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                                   "settlement pressure — cash flow lift."),
         "kse100_up":   (+1, "Risk-on flows support sector multiples."),
         "kse100_down": (-1, "Risk-off flows compress sector multiples."),
+        # Circular-debt events ---------------------------------------
+        "circular_debt_resolution": (+2, "E&Ps are second-line beneficiaries: "
+                                          "receivables from the gas-power "
+                                          "chain free up, working-capital "
+                                          "compresses, and dividend-paying "
+                                          "capacity returns."),
+        "circular_debt_worsening":  (-2, "E&P receivables stretch back out — "
+                                          "earnings quality and dividend "
+                                          "cover both deteriorate."),
     },
     "OMC/Refining": {
         "rate_up":   (-1, "Inventory financing costs rise; OMCs carry "
@@ -290,6 +319,15 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "kse100_up":   (+1, "Cyclical exposure benefits from broad "
                              "market strength."),
         "kse100_down": (-1, "Cyclical exposure suffers when market sells."),
+        # Circular-debt events ---------------------------------------
+        "circular_debt_resolution": (+2, "PSO is the largest single creditor "
+                                          "to the power sector — any "
+                                          "settlement materially improves OMC "
+                                          "working capital, financial costs, "
+                                          "and the case for special dividends."),
+        "circular_debt_worsening":  (-2, "OMC receivables (esp. PSO) stretch "
+                                          "and short-term financing costs "
+                                          "rise."),
     },
     "Power": {
         "rate_up":   (-1, "Long-term project debt costs rise; new capex "
@@ -323,6 +361,19 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                                   "flow normalises and dividends resume."),
         "kse100_down": (-1, "Risk-off flows hit dividend-yield names "
                              "less, but still negative on the margin."),
+        # Circular-debt events ---------------------------------------
+        "circular_debt_resolution": (+3, "Power sector is the primary "
+                                          "beneficiary of any circular-debt "
+                                          "settlement — IPP receivables clear, "
+                                          "deferred dividends resume, and the "
+                                          "equity re-rates as cash flow "
+                                          "normalises (the Dec-2025 Rs 1.225 "
+                                          "trn clearance is the live "
+                                          "playbook)."),
+        "circular_debt_worsening":  (-3, "Power sector cash flow is the "
+                                          "first to deteriorate when circular "
+                                          "debt builds — receivables balloon "
+                                          "and IPP dividends are skipped."),
     },
     "Conglomerate/Chem": {
         "rate_up":   (-2, "Petrochemical balance sheets are typically "
@@ -409,6 +460,17 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "reserves_recovery":(+1, "Imports normalise."),
         "cpi_easing":  (+1, "Cooling CPI raises odds of rate cuts — "
                              "direct financial-cost relief."),
+        # Circular-debt events ---------------------------------------
+        # EPCL and other gas-fed petrochem plants benefit indirectly:
+        # SNGPL / SSGC supply reliability improves once their own
+        # receivables clear.
+        "circular_debt_resolution": (+1, "Indirect lift via SNGPL / SSGC "
+                                          "supply reliability once their "
+                                          "receivables from the power chain "
+                                          "are cleared."),
+        "circular_debt_worsening":  (-1, "Gas-supply reliability for "
+                                          "petrochem plants deteriorates as "
+                                          "the chain's receivables stretch."),
     },
 }
 
@@ -495,6 +557,79 @@ def _record_rate_observation(rate_pct: float | None) -> Optional[float]:
     if not earlier:
         return None
     return earlier[-1]
+
+
+def _load_circular_debt_events() -> list[dict]:
+    """Read the curated circular-debt event log.
+
+    Returns a list of dicts of the form::
+
+        {
+          "date": "2025-12-15",
+          "type": "resolution" | "worsening",
+          "amount_pkr_bn": 1225,             # optional
+          "decay_days": 60,                  # how long the driver fires
+          "description": "Rs 1.225 trn ($4.29 bn) clearance backed by 18 banks",
+          "sectors_override": null           # optional: restrict to a subset
+        }
+
+    Why a curated file instead of derived from price data:
+
+    Circular-debt resolution is an **announcement event** — there is no
+    market-data series we can z-score. The Dec-2025 Rs 1.225 trillion
+    clearance, the 2024 partial settlements, and the Sep-2026 follow-up
+    discussions are each a discrete news shock that re-rates the entire
+    Power / E&P / OMC complex within hours. We surface them through
+    this file so the analyst (or, in future, a news-classifier
+    workflow) can stamp the event once and the macro engine fires the
+    driver for ``decay_days`` afterward.
+
+    The file is allowed to be missing or empty — the driver simply
+    stays silent. Schema validation is lenient on purpose.
+    """
+    if not CIRCULAR_DEBT_PATH.exists():
+        return []
+    try:
+        raw = json.loads(CIRCULAR_DEBT_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    events = raw.get("events") if isinstance(raw, dict) else raw
+    if not isinstance(events, list):
+        return []
+    return [e for e in events if isinstance(e, dict) and e.get("date")
+            and e.get("type") in ("resolution", "worsening")]
+
+
+def _active_circular_debt_event(today: Optional[datetime] = None) -> Optional[dict]:
+    """Return the most recent circular-debt event still inside its
+    ``decay_days`` window, or None.
+
+    If multiple events overlap (e.g. a partial worsening followed by a
+    resolution two weeks later), the most recent one wins — that
+    matches how the market actually reads the tape.
+    """
+    events = _load_circular_debt_events()
+    if not events:
+        return None
+    now = (today or datetime.now(timezone.utc)).date()
+    candidates: list[tuple[int, dict]] = []
+    for e in events:
+        try:
+            d = datetime.fromisoformat(str(e["date"])[:10]).date()
+        except Exception:
+            continue
+        days_since = (now - d).days
+        if days_since < 0:
+            continue                          # future-dated event, ignore
+        decay = int(e.get("decay_days", 60) or 60)
+        if days_since > decay:
+            continue                          # event has fully decayed
+        candidates.append((days_since, e))
+    if not candidates:
+        return None
+    # Most recent wins (smallest days_since).
+    candidates.sort(key=lambda x: x[0])
+    return candidates[0][1] | {"days_since_event": candidates[0][0]}
 
 
 def _load_kpi_snapshot() -> dict:
@@ -1074,6 +1209,47 @@ def detect_drivers(
                 context="Inflation cooling — opens room for SBP rate "
                          "cuts that benefit leveraged sectors.",
             ))
+
+    # ---- Circular-debt event (Power / E&P / OMC / Banking complex)
+    # Read from a curated event log (`data/macro/circular_debt_events.json`).
+    # The 2025-12-15 Rs 1.225 trillion clearance is the canonical recent
+    # event the file ships with — see _load_circular_debt_events for the
+    # full schema.
+    cd = _active_circular_debt_event()
+    if cd is not None:
+        days_since = int(cd.get("days_since_event", 0))
+        decay = int(cd.get("decay_days", 60) or 60)
+        amt = cd.get("amount_pkr_bn")
+        # Magnitude decays linearly: full strength for the first 14
+        # days, then degrades to MILD at the back of the window. We
+        # don't downgrade below MILD because event-driven re-ratings on
+        # PSX often take 4-8 weeks to fully play out (the Dec-2025
+        # clearance is the live example).
+        if days_since <= 14:
+            mag = "STRONG"
+        elif days_since <= max(14, decay // 2):
+            mag = "MODERATE"
+        else:
+            mag = "MILD"
+
+        if cd["type"] == "resolution":
+            tag = "circular_debt_resolution"
+            human = "Circular-debt resolution"
+        else:
+            tag = "circular_debt_worsening"
+            human = "Circular-debt worsening"
+
+        amt_str = f"PKR {amt:,.0f} bn — " if isinstance(amt, (int, float)) else ""
+        move = (f"{amt_str}event +{days_since}d "
+                f"(decay window {decay}d)")
+        ctx = str(cd.get("description") or "")
+        drivers.append(Driver(
+            name=human,
+            tag=tag,
+            move=move,
+            magnitude=mag,
+            context=ctx,
+        ))
 
     return drivers
 

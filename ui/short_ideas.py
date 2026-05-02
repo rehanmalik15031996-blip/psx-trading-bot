@@ -31,6 +31,8 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from ui import strategist_overlay
+
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -194,14 +196,22 @@ def _render_table(candidates: list[dict]) -> str | None:
     symbol (or None)."""
     if not candidates:
         return None
+    strat_by_sym = strategist_overlay.actions_by_symbol()
     rows = []
     for c in candidates:
+        sym = c["symbol"]
+        sv = strat_by_sym.get(sym.upper()) or {}
+        strat_call = sv.get("bucket") or "—"
+        strat_conv = sv.get("conviction") or ""
+        strat_str = (f"{strat_call} · {strat_conv}"
+                     if strat_call != "—" and strat_conv else strat_call)
         rows.append({
-            "Symbol":    c["symbol"],
+            "Symbol":    sym,
             "Sector":    c.get("sector") or "—",
             "Score":     c["short_score"],
             "Conviction": c.get("conviction"),
             "Verdict":   c.get("verdict_action") or "—",
+            "Strategist": strat_str,
             "5d pred":   (f"{c.get('predicted_return_5d_pct'):+.1f}%"
                           if c.get("predicted_return_5d_pct")
                               is not None else "—"),
@@ -383,6 +393,14 @@ def _render_drilldown(c: dict) -> None:
         return
     st.divider()
     st.markdown(f"### {c['symbol']} — short drill-down")
+
+    # Master Strategist overlay — surfaces the canonical top-of-stack
+    # call so the user can see at a glance whether Claude agrees with
+    # the bearish view (validation) or disagrees (warning, because the
+    # strategist sees flows and playbook context this tab does not).
+    # The Short Ideas action is intrinsically bearish, so we pass
+    # "SHORT" so the disagreement banner fires when Claude is bullish.
+    strategist_overlay.render(c["symbol"], local_action="SHORT")
 
     # ---- Plain-English thesis (NEW) — built from brain.buy_explainer
     rationale = _build_short_explainer(c)

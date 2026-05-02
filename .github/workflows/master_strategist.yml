@@ -1,0 +1,135 @@
+name: Master Strategist
+
+# Top-of-stack Claude reasoning over EVERY signal the bot has.
+#
+# This runs AFTER predictions land (which themselves run after EOD,
+# overnight, macro_kpis, news_scoring, and the health check), so the
+# strategist sees a consistent same-day view across:
+#   * Phase-1 mechanical strategy
+#   * 7-lens verdict synthesizer
+#   * macro impact + circular-debt driver
+#   * predictions log + scorecard
+#   * FIPI flows, sentiment, overnight globals
+#   * earnings calendar, material info, management outlook
+#   * value/quality/earnings-momentum books
+#
+# The job calls Claude Sonnet 4.5 in extended-thinking mode (~12k
+# token reasoning budget) and writes the structured decision to
+# data/_strategist/<YYYY-MM-DD>.json + latest.json so the dashboard
+# and PDF brief render it instantly.
+#
+# Cadence: 09:30 PKT Mon-Fri (10 min after predictions). Adjust if
+# you change the predictions cron above.
+
+on:
+  schedule:
+    - cron: '30 4 * * 1-5'     # 09:30 PKT, Mon-Fri
+  workflow_dispatch:
+    inputs:
+      deep:
+        description: 'Use Opus 4.5 + 24k thinking budget (heavyweight)'
+        required: false
+        default: 'false'
+      thinking:
+        description: 'Override thinking budget (tokens, default 12000)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: master-strategist
+  cancel-in-progress: false
+
+jobs:
+  strategist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Run Master Strategist
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.deep }}" = "true" ]; then
+            ARGS="$ARGS --deep"
+          fi
+          if [ -n "${{ github.event.inputs.thinking }}" ]; then
+            ARGS="$ARGS --thinking ${{ github.event.inputs.thinking }}"
+          fi
+          python scripts/run_master_strategist.py $ARGS
+
+      - name: Commit decision
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/_strategist/*.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No strategist changes."
+            exit 0
+          fi
+          git commit -m "strategist: master decision $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing on latest main..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
+
+      - name: Surface decision in workflow summary
+        if: always()
+        run: |
+          {
+            echo "## Master Strategist"
+            echo ""
+            if [ -f data/_strategist/latest.json ]; then
+              python - <<'PY'
+          import json, pathlib
+          d = json.loads(pathlib.Path("data/_strategist/latest.json").read_text())
+          print(f"**Headline:** {d.get('headline','-')}\n")
+          print(f"- **Stance:** `{d.get('risk_stance','-')}` (conviction "
+                f"`{d.get('conviction','-')}`)")
+          print(f"- **Model:** `{d.get('model','-')}` "
+                f"(thinking budget `{d.get('thinking_budget','-')}`)")
+          print(f"- **Agrees with Phase-1:** "
+                f"`{d.get('agrees_with_phase1', '?')}`")
+          print(f"- **Fallback used:** `{d.get('fallback_used', '?')}`")
+          print()
+          print(f"> {d.get('narrative','')[:600]}")
+          print()
+          actions = d.get("actions") or []
+          if actions:
+              print(f"### Actions ({len(actions)})\n")
+              print("| Bucket | Symbol | Conviction | Weight | Reason |")
+              print("|---|---|---|---|---|")
+              for a in actions:
+                  tw = a.get("target_weight_pct")
+                  tw_s = f"{tw:.1f}%" if isinstance(tw, (int, float)) else "—"
+                  print(f"| {a.get('bucket','HOLD')} | "
+                        f"`{a.get('symbol') or '—'}` | "
+                        f"{a.get('conviction','MEDIUM')} | "
+                        f"{tw_s} | {(a.get('reason') or '')[:80]} |")
+          PY
+            else
+              echo "_data/_strategist/latest.json missing — strategist did not write a decision._"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

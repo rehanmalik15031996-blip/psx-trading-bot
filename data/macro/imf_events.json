@@ -1,0 +1,114 @@
+{
+  "_schema": {
+    "description": "Curated log of Pakistan-relevant IMF events. Read by both brain/macro_impact.py (to surface IMF as a macro driver) and brain/playbook.py via data/playbook/_events.json mirroring (to fire the imf_sba_eff_approval / imf_review_completed playbook cases). The two backing files are kept in sync by scripts/sync_imf_events_to_playbook.py.",
+    "fields": {
+      "date": "ISO date (YYYY-MM-DD) the event was announced (IMF press release date or SLA announcement date).",
+      "type": "One of: 'sba_approval', 'eff_approval', 'review_sla', 'review_board_approval', 'tranche_disbursed', 'program_lapsed'.",
+      "amount_usd_mn": "USD-million size of the program (for approvals) or tranche (for reviews/disbursements). Optional.",
+      "decay_days": "Optional. How many days the event continues to fire as an active driver. Default 21 for reviews, 60 for approvals.",
+      "description": "One-sentence human-readable summary.",
+      "source": "URL to the IMF press release or news source."
+    },
+    "how_to_add_an_event": "Append a new object to `events`. Run scripts/sync_imf_events_to_playbook.py after editing to mirror into data/playbook/_events.json so the playbook matcher fires the corresponding case (event:imf_sba_or_eff_approval / event:imf_review_completed).",
+    "research_basis": "Pakistan-IMF program history 2019-2026. Used by playbook cases imf_sba_eff_approval and imf_review_completed (the latter retuned to d5+MIXED in the 2026-05-02 strategy fixes evaluation).",
+    "validated": "scripts/validate_strategy_fixes.py confirmed (2026-05-02) that the d5 reaction is reliably positive while d21 is mixed and direction-dependent on concurrent macro drivers."
+  },
+  "events": [
+    {
+      "date": "2019-07-03",
+      "type": "eff_approval",
+      "amount_usd_mn": 6000,
+      "decay_days": 60,
+      "description": "IMF Executive Board approves $6bn 39-month Extended Fund Facility for Pakistan.",
+      "source": "https://www.imf.org/en/News/Articles/2019/07/03/pr19326-pakistan-imf-executive-board-approves-39-month-eff-arrangement"
+    },
+    {
+      "date": "2020-04-16",
+      "type": "tranche_disbursed",
+      "amount_usd_mn": 1386,
+      "decay_days": 21,
+      "description": "IMF approves $1.386bn emergency Rapid Financing Instrument disbursement for Pakistan (COVID-19).",
+      "source": "https://www.imf.org/en/News/Articles/2020/04/16/pr20167-pakistan-imf-executive-board-approves-rapid-financing-instrument"
+    },
+    {
+      "date": "2021-03-24",
+      "type": "review_board_approval",
+      "amount_usd_mn": 500,
+      "decay_days": 21,
+      "description": "IMF completes 2nd-5th combined EFF reviews; ~$500m disbursement.",
+      "source": "https://www.imf.org/en/News/Articles/2021/03/24/pr2185-pakistan-imf-executive-board-completes-the-combined-second-through-fifth-reviews"
+    },
+    {
+      "date": "2022-08-29",
+      "type": "review_board_approval",
+      "amount_usd_mn": 1170,
+      "decay_days": 21,
+      "description": "IMF completes 7th-8th combined EFF reviews; ~$1.17bn tranche, ending 18-month gap.",
+      "source": "https://www.imf.org/en/News/Articles/2022/08/29/pr22291-pakistan-imf-executive-board-completes-the-combined-seventh-and-eighth-reviews"
+    },
+    {
+      "date": "2023-06-29",
+      "type": "review_sla",
+      "amount_usd_mn": 3000,
+      "decay_days": 14,
+      "description": "Staff-level agreement on the new 9-month $3bn SBA, replacing the lapsed EFF. Bridge to the formal board approval two weeks later.",
+      "source": "https://www.imf.org/en/News/Articles/2023/06/29/pr23241-pakistan-and-imf-staff-reach-staff-level-agreement"
+    },
+    {
+      "date": "2023-07-12",
+      "type": "sba_approval",
+      "amount_usd_mn": 3000,
+      "decay_days": 60,
+      "description": "IMF Executive Board approves $3bn 9-month Stand-By Arrangement for Pakistan; immediate $1.2bn disbursement.",
+      "source": "https://www.imf.org/en/News/Articles/2023/07/12/pr23272-pakistan-imf-executive-board-approves-9-month-stand-by-arrangement"
+    },
+    {
+      "date": "2023-11-15",
+      "type": "review_board_approval",
+      "amount_usd_mn": 700,
+      "decay_days": 21,
+      "description": "IMF completes 1st SBA review; ~$700m tranche disbursed.",
+      "source": "https://www.imf.org/en/News/Articles/2023/11/15/pr23399-pakistan-imf-executive-board-completes-first-review-under-stand-by-arrangement"
+    },
+    {
+      "date": "2024-04-29",
+      "type": "review_board_approval",
+      "amount_usd_mn": 1100,
+      "decay_days": 21,
+      "description": "IMF completes 2nd and final SBA review; ~$1.1bn final tranche disbursed.",
+      "source": "https://www.imf.org/en/News/Articles/2024/04/29/pr24149-pakistan-imf-executive-board-completes-second-and-final-review-under-stand-by-arrangement"
+    },
+    {
+      "date": "2024-09-25",
+      "type": "eff_approval",
+      "amount_usd_mn": 7000,
+      "decay_days": 60,
+      "description": "IMF Executive Board approves new $7bn 37-month Extended Fund Facility for Pakistan; immediate $1bn disbursement.",
+      "source": "https://www.imf.org/en/News/Articles/2024/09/25/pr24351-pakistan-imf-executive-board-approves-37-month-extended-fund-facility-arrangement"
+    },
+    {
+      "date": "2025-03-25",
+      "type": "review_sla",
+      "amount_usd_mn": 1000,
+      "decay_days": 14,
+      "description": "Staff-level agreement on 1st EFF review (~$1bn tranche pending board approval).",
+      "source": "https://www.imf.org/en/News/Articles/2025/03/25/pr-pakistan-imf-staff-reach-staff-level-agreement"
+    },
+    {
+      "date": "2025-05-09",
+      "type": "review_board_approval",
+      "amount_usd_mn": 1023,
+      "decay_days": 21,
+      "description": "IMF completes 1st EFF review; $1.023bn tranche disbursed plus $1.4bn Resilience and Sustainability Facility access.",
+      "source": "https://www.imf.org/en/News/Articles/2025/05/09/pr-pakistan-imf-executive-board-completes-first-review-under-eff"
+    },
+    {
+      "date": "2025-10-25",
+      "type": "review_board_approval",
+      "amount_usd_mn": 1100,
+      "decay_days": 21,
+      "description": "IMF completes 2nd EFF review; ~$1.1bn tranche disbursed.",
+      "source": "https://www.imf.org/en/News/Articles/2025/10/25/pr-pakistan-imf-executive-board-completes-second-review-under-eff"
+    }
+  ]
+}

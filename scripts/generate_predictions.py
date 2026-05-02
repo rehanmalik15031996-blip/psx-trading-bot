@@ -813,11 +813,33 @@ def build_briefing(ctx: dict) -> str:
 # LLM calls — Claude
 # ==========================================================================
 def predict_with_claude(briefing: str, sym: str, close: float) -> dict:
+    """Per-ticker 5-day prediction.
+
+    Default model upgraded 2026-05-01 from Haiku 4.5 → Sonnet 4.5 with
+    a small 2k-token extended-thinking budget. Sonnet on a per-ticker
+    briefing produces noticeably better-calibrated price ranges and
+    catches macro / news contradictions Haiku missed (e.g. "BUY on
+    HUBC because momentum is +6%" while ignoring a circular-debt
+    headline). Set ``PSX_PREDICT_MODEL`` to override (e.g.
+    ``claude-haiku-4-5`` for cheap test runs); set
+    ``PSX_PREDICT_THINKING_BUDGET=0`` to disable extended thinking.
+    """
     from anthropic import Anthropic
     client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    model = os.environ.get("PSX_PREDICT_MODEL", "claude-sonnet-4-5")
+    try:
+        budget = int(os.environ.get("PSX_PREDICT_THINKING_BUDGET", "2000"))
+    except ValueError:
+        budget = 2000
+    kwargs: dict = {}
+    max_tokens = 1500
+    if budget >= 1024 and model.startswith(("claude-sonnet-4", "claude-opus-4")):
+        kwargs["thinking"] = {"type": "enabled", "budget_tokens": budget}
+        kwargs["temperature"] = 1.0
+        max_tokens = max(max_tokens, budget + 1024)
     resp = client.messages.create(
-        model="claude-haiku-4-5",
-        max_tokens=1500,
+        model=model,
+        max_tokens=max_tokens,
         system=PREDICTION_SYSTEM_PROMPT,
         messages=[{
             "role": "user",
@@ -828,6 +850,7 @@ def predict_with_claude(briefing: str, sym: str, close: float) -> dict:
                 f"Return the JSON prediction now."
             ),
         }],
+        **kwargs,
     )
     text = "".join(getattr(b, "text", "") for b in resp.content
                    if getattr(b, "type", "") == "text").strip()
@@ -1178,7 +1201,7 @@ def generate_one(sym: str, provider: str) -> dict:
     try:
         if provider == "claude":
             pred, raw_text = predict_with_claude(briefing, sym, close)
-            model = "claude-haiku-4-5"
+            model = os.environ.get("PSX_PREDICT_MODEL", "claude-sonnet-4-5")
         elif provider == "gemini":
             pred, raw_text = predict_with_gemini(briefing, sym, close)
             model = "gemini-2.5-flash"

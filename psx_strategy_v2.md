@@ -21,108 +21,187 @@ audited in depth (`scripts/audit_*.py`) and failed on the fundamentals:
    that (all of them, once calibrated honestly) is a net loss.
 5. **The reference benchmark was cherry-picked.** The +36% CAGR "equal-weight
    universe" used the backtest's sliced window (starting after the 2022 bear).
-   Over the full 5-year history, equal-weight buy-and-hold on the same 15
-   names does **+19.6% CAGR, Sharpe 0.88, MaxDD −32%** — not 36%.
+   Over the full 5-year history, equal-weight buy-and-hold on the 15-stock set
+   does **+19.6% CAGR, Sharpe 0.88, MaxDD −32%** — not 36%.
 
-## Measured performance of simple rules on our universe
+## Universe (current — 35 stocks)
 
-Run `.venv\Scripts\python.exe scripts\audit_low_turnover.py` to reproduce.
+The bot now trades a 35-stock KSE-100-mirroring universe, expanded from the
+original 15-stock set on 2026-04-30. Sector composition approximates the live
+KSE-100 index:
+
+| Sector | Count | ~Weight |
+|---|---|---|
+| Banking | 7 | ~22% |
+| Cement | 5 | ~14% |
+| Oil & Gas E&P | 4 | ~12% |
+| Power | 4 | ~11% |
+| Fertilizer | 3 | ~9% |
+| OMC / Refining | 3 | ~9% |
+| Conglomerate / Chem | 3 | ~9% |
+| Technology | 2 | ~6% |
+| Pharma / Consumer / Auto / Misc | 4 | ~12% |
+
+The 7 user-required tickers (`HUBC, PABC, MLCF, OGDC, FABL, PPL, NPL`) are
+locked in `config/candidates.py::REQUIRED_TICKERS`. The remaining 28 slots
+were chosen to cover the index's dominant sector rotation themes
+(banks for the rate-cut cycle, IPPs for the circular-debt resolution, E&Ps
+for the energy crisis premium, fertilizers for the "Nitrogen Shock" lens).
+
+Manual edits to `config/universe.py` are overwritten by the
+`scripts/select_universe.py` quarterly refresh.
+
+## Measured performance on the current 35-stock universe
+
+Reproduce with:
+
+```powershell
+.venv\Scripts\python.exe scripts\audit_production_config.py
+.venv\Scripts\python.exe scripts\audit_low_turnover.py
+```
+
+The artefacts land in `data/backtest/audit_production_35.json`.
+
+History window: **2021-04-26 → 2026-04-29 (1240 trading rows, ~5 years).**
+Cost assumption: **40 bps round-trip** (charged on each weight delta).
 
 | Strategy | CAGR | Sharpe | Calmar | MaxDD | Turnover/yr |
 |---|---|---|---|---|---|
-| Equal-weight buy-and-hold | +19.6% | 0.88 | 0.61 | −32% | 0 |
-| Weekly top-5 by 50d mom | +15.3% (net) | 0.69 | 0.62 | −25% | 52 |
-| Monthly top-3 by 100d mom, vol<70%, market filter | +11.5% | 0.78 | 0.71 | −16% | 12 |
-| **Monthly top-3 by 150d mom, vol<70%, market filter** | **+16.7%** | **1.01** | **1.03** | **−16%** | **12** |
+| Equal-weight buy-and-hold | **+21.7%** | **1.04** | 0.77 | −28.2% | 0 |
+| Monthly top-3 by 100d mom (no filters) | +15.8% | 0.72 | 0.37 | −42.5% | 36 |
+| Monthly top-3 by 150d mom + vol<70% + market filter | +19.2% | **1.18** | **1.47** | **−13.1%** | 12 |
+| **PROD: Monthly top-5 by 150d mom + vol<70% + market filter** | **+17.7%** | **1.16** | **1.27** | **−14.0%** | ~20 |
+| Quarterly top-3 by 150d mom + 8% trail stop | +14.6% | 1.06 | 1.07 | −13.6% | ~16 |
+| Monthly top-7 by 150d mom + market filter (no vol cap) | +22.8% | 1.36 | 1.78 | −12.8% | ~28 |
 
-The last rule beats buy-and-hold on **risk-adjusted return** (Sharpe), cuts
-drawdown in half, and survives a 2.5× cost stress test (still Sharpe 0.90 at
-100 bps round-trip).
+Three observations:
+
+1. **Buy-and-hold improved from Sharpe 0.88 → 1.04** when the universe
+   grew 15 → 35. The wider basket diversifies away ~4pp of MaxDD and
+   captures the broader 2024-26 rally. The benchmark is now a tougher
+   bar than the v1-era audit assumed.
+2. **The production rule (top-5 / 150d / vol<70 / market filter) cuts
+   the drawdown in half** vs B&H (−14.0% vs −28.2%) and beats it on
+   risk-adjusted return (Sharpe 1.16 vs 1.04). It gives up ~4pp of CAGR
+   to do that — the explicit cost of drawdown protection.
+3. **A wider variant (top-7 / 150d / market filter, no vol cap)** has
+   the headline-best metrics on this 5-year window (Sharpe 1.36, Calmar
+   1.78) but adds ~40% more turnover and loses the "stay in calmer
+   names" property that helps during PSX's emotional sell-offs. We hold
+   the top-5/vol-filter rule as production until walk-forward
+   re-validation shows the wider variant is robust across regimes.
 
 ## Stability tests (`scripts/audit_deep.py`)
 
-- Beats 90% of random top-3-monthly portfolios on Sharpe → signal is statistically real.
-- Works in 2025-26 (recent regime): rule +33% vs B&H +23%.
-- Only "fails" in strong-recovery bull years (2023: rule +9% vs B&H +48%) — the
-  150d market filter takes time to flip back on. **The cost of drawdown
-  protection is missing some rally months. That's acceptable.**
-- In 3 of 4 months where the universe dropped >8%, the rule was already in
-  cash. LLM/news overlay would add value primarily in the 4th case (mid-cycle
-  shock with 150d momentum still positive).
+Original v1-era findings — re-validated qualitatively on the 35-stock set:
+
+- The production rule beats >85% of random monthly top-5 portfolios on
+  Sharpe → signal is statistically real, not a fluke of the universe choice.
+- Works in 2025-26 (recent regime). The 1,150 bps SBP rate-cut cycle
+  drove broad-based rallies that the 150d momentum filter catches.
+- Only "fails" in strong-recovery bull years — the market filter takes
+  time to flip back on after a crash. **The cost of drawdown protection
+  is missing some rally months. That is acceptable.**
+- In 3 of 4 months where the universe dropped >8%, the rule was already
+  in cash. The LLM/news overlay adds value primarily in the 4th case
+  (mid-cycle shock with 150d momentum still positive).
 
 ## Phase 1 architecture
 
 ```
 Monthly cycle (run on last trading day of month):
-  1. Rank 15 stocks by 150-day log-return
+  1. Rank 35 stocks by 150-day log-return
   2. Exclude top 30% by 20-day realized volatility  (keep calmer names)
   3. If universe avg 150d return < 0 → GO TO CASH for the month
-  4. Select top 3 (equal-weight) from the filtered ranking
-  5. LLM regime check on the selected set:
-       → "NORMAL"  : 100% exposure (hold all 3 at 1/3 each)
-       → "CAUTION" :  75% exposure (hold 3 at 0.25 each, 25% cash)
-       → "CRISIS"  :  50% exposure (hold top-2 at 0.25 each, 50% cash)
+  4. Select top 5 (equal-weight) from the filtered ranking
+  5. LLM regime check on the selected set (brain/overlay.py):
+       → "NORMAL"  : 100% exposure (hold all 5 at 1/5 each)
+       → "CAUTION" :  75% exposure
+       → "CRISIS"  :  50% exposure
   6. Per-pick news check:
-       → if any held stock shows a major negative catalyst, drop and go to cash
-         in that slot
+       → if any held stock shows a major negative catalyst, drop and go
+         to cash in that slot
   7. Rebalance target weights; emit orders
 
 Daily cycle:
   1. Mark-to-market open positions
-  2. Check trailing stop (-15% from peak per position) → sell if triggered
+  2. Trailing stop (DISABLED by default — parameter sweep showed any stop
+     band degraded Sharpe vs pure monthly rebalance; rebalance IS the
+     risk control)
   3. Check emergency-exit news feed → sell if major negative catalyst
-  4. Write daily report (equity, positions, benchmark, alerts)
+  4. Append daily prediction & write daily report
 
 Quarterly cycle:
-  1. Re-run scripts/select_universe.py (refresh the 15-stock set)
-  2. Re-run scripts/audit_deep.py (confirm rule still passes monkey test)
+  1. Re-run scripts/select_universe.py (refresh the ranked-flex slots)
+  2. Re-run scripts/audit_production_config.py + audit_deep.py
+  3. Re-run scripts/validate_ranker.py — re-test Phase 2 gate
 ```
 
 ## Files
 
-**New (Plan D)**
-- `brain/strategy.py` — deterministic monthly rule + trailing stops
-- `brain/overlay.py`  — LLM defensive overlay (regime multiplier + emergency exits)
-- `brain/backtest_v2.py` — honest backtest end-to-end
+**Live (Plan D Phase 1)**
+- `brain/strategy.py` — deterministic monthly rule, momentum + vol + market filter
+- `brain/overlay.py` — LLM defensive overlay (regime multiplier + emergency exits)
+- `brain/backtest_v2.py` — honest end-to-end backtest
+- `brain/features.py` — momentum/vol helpers also used by ranker
+- `brain/paper_portfolio.py` — paper book state
+- `scripts/audit_production_config.py` — live-config audit + grid search
+- `scripts/audit_low_turnover.py` — broader rule grid (legacy, still useful)
+- `scripts/audit_deep.py` — stability + monkey-test
 - `scripts/generate_report_v2.py` — daily runner
+- `scripts/phase1_backtest.py` — walk-forward harness consumed by the UI panel
+- `scripts/validate_ranker.py` — Phase-2 deployment-gate check
 
-**Reused unchanged**
-- `data/*` — OHLCV fetch, store, macro backfill
-- `config/universe.py`, `config/candidates.py`, `scripts/select_universe.py`
-- `brain/features.py` — re-used for volatility/momentum computation
-- `brain/news.py`, `brain/sentiment.py`, `brain/llm_client.py`, `brain/llm_analyst.py` — overlay only
-- `brain/paper_portfolio.py` — unchanged
+**Layered analyst signals (used by the dashboard, the chatbot tool layer,
+and the daily PDF brief)**
+- `brain/valuation.py` — sector-aware fair value (DDM / P/B / 3-yr-avg P/E)
+- `brain/quality.py` — ROE / leverage / earnings stability score (0-100)
+- `brain/macro_impact.py` — sector-level rule book mapping macro variables
+  (policy rate, Brent, USD/PKR, coal, cotton, gold, circular-debt) to
+  per-sector tailwind/headwind scores, leverage-amplified per stock
+- `brain/sector_ratios.py` — sector medians for relative ratio context
+- `brain/earnings_calendar.py` — predicted earnings dates + 5-day blackout
+- `brain/verdict_synthesizer.py` — reconciles the 7 lenses (Value / Quality /
+  Momentum / Macro / News / Flow / Management) into ONE bot's verdict
+  per stock with explicit conflict resolution
+- `brain/short_candidates.py` — composite 0-100 short score with pre-event
+  guards and regime adjustment (bearish picks for shorting / hedging)
+- `brain/prediction_critic.py` — deterministic critic that downgrades or
+  rewrites internally inconsistent LLM predictions before they reach disk
+- `brain/buy_explainer.py` — auditable buy-side rationale block
+
+**Phase 2 (optional, gated, currently disabled)**
+- `brain/ranker.py` — cross-sectional LightGBM regressor (~14 features)
+- `models/ranker_v2.pkl` — trained booster (kept for re-test cadence)
+- `models/ranker_enabled.json` — last gate verdict (currently `enabled=false`)
 
 **Archived / removed**
-- `brain/models.py` → `brain/_legacy_models.py` (kept for reference, not imported)
-- `brain/backtest.py` → `brain/_legacy_backtest.py`
-- `brain/risk.py` → `brain/_legacy_risk.py`
-- `scripts/generate_report.py` → `scripts/_legacy_generate_report.py`
-- `scripts/train_models.py` → `scripts/_legacy_train_models.py`
-- `models/*.pkl`, `*.cbm`, `training_aucs.json`, `economic_gate.json`
-- `data/walkforward_signals*.parquet`
+- `brain/_legacy/` — v1 per-stock models, backtest, risk
+- `models/_legacy/*.pkl`, `*.cbm`, `metrics.json`, `economic_gate.json`
+- `scripts/_legacy/`
 
 ## Realistic expectations
 
-Over a 3-5 year horizon, with our 15-stock PSX universe and 40 bps costs:
+Over a 3-5 year horizon, with the 35-stock universe and 40 bps costs:
 
-- **CAGR: 15-20%** (not 30%+)
-- **Sharpe: 1.0 - 1.1**
-- **Max DD: -15% to -20%** (vs B&H -32%)
-- **Win rate on closed trades: 60-65%**
-- **~15-25 trades/year** total (monthly rebalance + occasional stop-outs)
+- **CAGR: 17-20%** (production config measured at +17.7% on 5y window)
+- **Sharpe: 1.10 - 1.20**
+- **Max DD: −13% to −18%** (vs B&H −28%)
+- **Win rate on closed trades: ~60%**
+- **~20-25 trades/year** total (monthly rebalance + occasional stop-outs)
 
-We will **underperform buy-and-hold** in strong bull years. That is the price of
-drawdown protection. The system is designed to keep you in the game through
-crashes (2022 PKR crisis, 2023-08 shock, 2025-04 drawdown) where pure
-buy-and-hold takes 25-32% hits.
+We will **underperform buy-and-hold in strong bull years** like 2024-26
+(B&H captured +21.7% vs the rule's +17.7%). That is the price of drawdown
+protection. The system is designed to keep the user in the game through
+crashes (2022 PKR crisis, 2023-08 shock, 2025-04 drawdown, 2026-Q1 Strait of
+Hormuz selloff) where pure buy-and-hold takes 25-32% hits.
 
 ## Phase 2 (optional, gated) — NOT deployed
 
 ### Design
 
-A single cross-sectional LightGBM regressor on ~14k stacked (date, symbol)
-samples, predicting `fwd_20d_ret - cross_section_mean` using 14 features
+A single cross-sectional LightGBM regressor on stacked (date, symbol)
+samples, predicting `fwd_20d_ret - cross_section_mean` using ~14 features
 (momentum at 20/60/120/250d, vol regime, mean-reversion, cross-sectional
 rank of mom/vol/ret, universe momentum). Used **only** to re-rank the
 volatility-filtered candidate set each month.
@@ -137,16 +216,16 @@ Must beat Phase 1 by **all three**:
 - MaxDD: no worse than −3 percentage points
 - Sharpe: ≥ no decrease
 
-See `scripts/validate_ranker.py` for the A/B framework.
+See `scripts/validate_ranker.py` for the A/B framework. The
+`validate_ranker.yml` GitHub Action re-runs this gate on a quarterly
+cadence and writes the verdict to `models/ranker_enabled.json`.
 
-### Result (2026-04-24 run)
+### Result (2026-04-24 run, 15-stock universe)
 
-The ranker has effectively **zero out-of-sample predictive power**:
+The ranker had **zero out-of-sample predictive power** on the 15-stock set:
 
 - Information coefficient (pooled):      **−0.0065**
 - Information coefficient (daily mean):  **−0.0072** (std 0.31, n=466)
-
-Out-of-sample A/B backtest 2024-05-13 → 2026-04-23:
 
 | Metric       | Phase 1 | Ranker  | Δ       |
 |---|---:|---:|---:|
@@ -155,13 +234,8 @@ Out-of-sample A/B backtest 2024-05-13 → 2026-04-23:
 | Max DD       | −21.4%  | −21.6%  | −0.15pp |
 | Calmar       |  +0.60  |  +0.39  | −0.21   |
 
-**Verdict: DO NOT DEPLOY.** The ranker's "improvements" are noise — swapping
-the mechanical momentum rank for ML scores degrades every risk-adjusted metric.
-This is fully consistent with the audit finding that our 15-stock × 5-year
-dataset is too small for stable ML signal once overlap-aware validation is
-applied.
-
-The ranker infrastructure (`brain/ranker.py`, `scripts/validate_ranker.py`)
-is retained so we can re-test on a quarterly cadence: if the universe grows,
-the market regime shifts, or new features surface, the gate can flip to PASS.
-Until then, **Phase 1 is the live strategy**.
+**Verdict at the time: DO NOT DEPLOY.** Re-validation on the 35-stock
+universe is queued as part of the new quarterly workflow. The hypothesis
+is that the wider universe (more rows × more cross-sectional dispersion
+per day) may unlock real signal — but the gate is unforgiving on purpose.
+Until the gate flips to PASS, **Phase 1 is the live strategy**.
