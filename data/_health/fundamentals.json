@@ -1,17 +1,17 @@
 {
   "workflow": "fundamentals",
   "ok": true,
-  "note": "16/16 symbols refreshed",
-  "as_of": "2026-04-29T20:14:44+00:00",
+  "note": "35/35 symbols refreshed",
+  "as_of": "2026-05-03T08:26:44+00:00",
   "github": {
-    "run_id": "25131473600",
-    "run_number": "1",
+    "run_id": "25274228087",
+    "run_number": "2",
     "ref": "refs/heads/main",
-    "sha": "ff6a33e0597723b9272d3d320d570eac8021eb8c"
+    "sha": "48038881d66742185e0c55bf4958d63d45ffbe66"
   },
   "payload": {
     "failed": [],
-    "total": 16,
-    "refreshed": 16
+    "total": 35,
+    "refreshed": 35
   }
 }
