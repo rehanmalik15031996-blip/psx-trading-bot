@@ -35,6 +35,7 @@ BT_DIR = ROOT / "data" / "backtest"
 SUMMARY_PATH = BT_DIR / "phase1_summary.json"
 SIGNALS_PATH = BT_DIR / "phase1_signals.parquet"
 PREDS_PATH = BT_DIR / "phase1_predictions.parquet"
+WALKFORWARD_PATH = BT_DIR / "walkforward_predictions.parquet"
 
 
 # --- helpers ----------------------------------------------------------------
@@ -97,6 +98,165 @@ def _badge(label: str, value: str, color: str, sub: str = "") -> str:
         f'<div style="font-size:11px;opacity:0.85;margin-top:4px;">{sub}'
         f'</div></div>'
     )
+
+
+# --- universe baseline + regime diagnostic ----------------------------------
+@st.cache_data(show_spinner=False, ttl=600)
+def _walkforward_universe_stats() -> dict | None:
+    """Read the walk-forward parquet once and return regime context:
+
+    * fraction of universe 5d windows that were positive
+    * fraction that fell inside the NEUTRAL band (|<1.5%|)
+    * window mtime so we can detect staleness
+    """
+    if not WALKFORWARD_PATH.exists():
+        return None
+    try:
+        df = pd.read_parquet(WALKFORWARD_PATH,
+                              columns=["realized_pct", "asof"])
+    except Exception:
+        return None
+    if df.empty or "realized_pct" not in df.columns:
+        return None
+    r = df["realized_pct"].dropna()
+    if r.empty:
+        return None
+    return {
+        "n":                int(len(r)),
+        "pct_positive":     round(float((r > 0).mean()) * 100.0, 1),
+        "pct_negative":     round(float((r < 0).mean()) * 100.0, 1),
+        "pct_neutral_band": round(float((r.abs() < 1.5).mean())
+                                    * 100.0, 1),
+        "median_abs_pct":   round(float(r.abs().median()), 2),
+        "window_start":     str(df["asof"].min()) if "asof" in df.columns
+                              else None,
+        "window_end":       str(df["asof"].max()) if "asof" in df.columns
+                              else None,
+        "mtime":            datetime.fromtimestamp(
+            WALKFORWARD_PATH.stat().st_mtime),
+    }
+
+
+# Date the Tier-0 + Tier-1 playbook patches landed. Walk-forward parquets
+# generated before this date measure the OLD playbook and should be
+# regenerated for an apples-to-apples view.
+PLAYBOOK_PATCH_CUTOFF = datetime(2026, 5, 3)
+
+
+def _render_reading_guide(summary_for_engine2: dict,
+                            source_label: str) -> None:
+    """Context block that lands ABOVE the headline scorecard so a
+    reader doesn't see "39% hit rate" without the regime + baseline
+    context. Three honest framings:
+
+      1. **Random baseline** — what would a coin-flip get on this
+         particular sample? (Universe positive %.)
+      2. **Regime sign** — when the mean realized return for BEARISH
+         calls is *positive*, the market itself was moving the wrong
+         way; that's a regime tell, not a model tell.
+      3. **Freshness** — was this parquet generated against the
+         pre-patch playbook?
+    """
+    pred = summary_for_engine2.get("prediction_backtest") or {}
+    if not pred.get("n_predictions"):
+        return
+
+    by_dir = pred.get("by_direction") or {}
+    bear = by_dir.get("BEARISH") or {}
+    bull = by_dir.get("BULLISH") or {}
+    neut = by_dir.get("NEUTRAL") or {}
+
+    uni = _walkforward_universe_stats()
+
+    bullets: list[str] = []
+
+    # Random baseline contextualisation. A 47% bear hit rate is
+    # essentially random when the universe is 47% positive.
+    if uni:
+        pos = uni["pct_positive"]
+        neg = uni["pct_negative"]
+        bear_hit = bear.get("direction_hit_rate_pct")
+        bull_hit = bull.get("direction_hit_rate_pct")
+        bear_edge = (bear_hit - neg) if bear_hit is not None else None
+        bull_edge = (bull_hit - pos) if bull_hit is not None else None
+        bullets.append(
+            f"**Random baseline in this window:** universe was "
+            f"**{pos}% positive / {neg}% negative** over the matched 5d "
+            "windows. So a coin-flip BEARISH call would hit "
+            f"~{neg}% of the time, and a coin-flip BULLISH call "
+            f"~{pos}%. "
+            + (f"Realized edge: BEARISH {bear_edge:+.1f}pp, "
+               f"BULLISH {bull_edge:+.1f}pp vs that baseline."
+               if bear_edge is not None and bull_edge is not None
+               else "")
+        )
+
+    # Regime tell from mean_realized signs.
+    bear_mean = bear.get("mean_realized_pct")
+    bull_mean = bull.get("mean_realized_pct")
+    if bear_mean is not None and bull_mean is not None:
+        if bear_mean > 0 and bull_mean < 0:
+            bullets.append(
+                f"**Adversarial regime detected.** BEARISH calls had "
+                f"mean realized **{bear_mean:+.2f}%** (market went UP "
+                f"when system said sell); BULLISH calls had mean "
+                f"realized **{bull_mean:+.2f}%** (market went DOWN "
+                "when system said buy). This is a mean-reversion "
+                "window where momentum signals invert — a known "
+                "weakness of the trend-following rules engine that "
+                "the LLM judgement layer is supposed to catch."
+            )
+
+    # NEUTRAL bar mismatch with PSX volatility.
+    if uni and neut.get("n", 0) > 0:
+        n_pct = uni["pct_neutral_band"]
+        med = uni["median_abs_pct"]
+        bullets.append(
+            f"**NEUTRAL bar is tight for PSX.** A NEUTRAL call only "
+            f"counts as a HIT when |realized 5d| < 1.5%, but only "
+            f"**{n_pct}%** of universe 5d windows actually fall in "
+            f"that band (median |5d return| = {med}%). So NEUTRAL "
+            f"hit-rate is mathematically capped near {n_pct}% even "
+            "for a perfect forecaster — a low NEUTRAL number here "
+            "is the threshold, not the model."
+        )
+
+    # Freshness — was this parquet generated before the playbook
+    # patches landed?
+    if uni and uni["mtime"] < PLAYBOOK_PATCH_CUTOFF and source_label in (
+            "Walk-forward rules", "Combined"):
+        ago_days = (datetime.now() - uni["mtime"]).days
+        bullets.append(
+            f"**Parquet predates the Tier-0 + Tier-1 patches** "
+            f"(generated {uni['mtime']:%Y-%m-%d}, {ago_days}d ago). "
+            "The numbers above measure the OLD playbook. Regenerate "
+            "with `python scripts/walkforward_predictions.py "
+            f"--window {max(uni.get('n', 60) // 35, 30)}` to see the "
+            "new behaviour. The 24-month free backtest panel above "
+            "already reflects the patches."
+        )
+
+    # Methodology cross-reference so the reader doesn't assume the
+    # 24m panel and this panel are measuring the same thing.
+    bullets.append(
+        "**This panel and the 24-month panel measure different "
+        "things.** Above: *event-trigger precision* — when a "
+        "playbook case fires, did the universe move in the case's "
+        "predicted direction? Below: *per-stock-per-day directional "
+        "accuracy* — for every (symbol, day) pair, was the forecast "
+        "right? Both legitimate, very different denominators."
+    )
+
+    if bullets:
+        st.markdown(
+            "<div style='background:#1e293b;color:#e2e8f0;"
+            "padding:14px 18px;border-radius:10px;border-left:"
+            "4px solid #38bdf8;margin-bottom:12px;'>"
+            "<strong style='color:#7dd3fc;font-size:13px;'>READ "
+            "THIS FIRST — what these numbers mean</strong></div>",
+            unsafe_allow_html=True)
+        for b in bullets:
+            st.markdown(f"- {b}")
 
 
 # --- panels -----------------------------------------------------------------
@@ -550,6 +710,12 @@ def render() -> None:
     # Returns the (possibly rewritten) summary that downstream render
     # helpers consume.
     source_label, summary_for_engine2 = _engine2_source_picker(summary)
+
+    # Reading guide — explains why "47% bear hit" is roughly random
+    # in this regime, why NEUTRAL is capped, and whether the parquet
+    # is stale relative to tonight's patches. Lands ABOVE the
+    # scorecard so the headline numbers can't be read in isolation.
+    _render_reading_guide(summary_for_engine2, source_label)
 
     _render_headline(summary_for_engine2)
     st.divider()
