@@ -10,12 +10,22 @@ market being retail-heavy. We surface this as:
   - universe summary in `universe_summary(symbols, lookback_days=3)`
 
 Both are tolerant of missing OHLCV (returns empty dict / zero counts).
+
+Both helpers accept an optional ``as_of`` argument (added 2026-05-03 for
+the historical replay / Tier-1 backtest). When supplied, the OHLCV
+dataframe is sliced to rows on or before ``as_of`` and freshness is
+computed against that anchor instead of today. This makes the volume
+case backtestable without touching the live behaviour.
 """
 from __future__ import annotations
 
+from datetime import date, datetime
 from pathlib import Path
+from typing import Union
 
 import pandas as pd
+
+AsOf = Union[str, date, datetime, pd.Timestamp, None]
 
 ROOT = Path(__file__).resolve().parents[1]
 OHLCV_DIR = ROOT / "data" / "ohlcv"
@@ -40,11 +50,29 @@ def _load_ohlcv(symbol: str) -> pd.DataFrame | None:
     return df.set_index("date").sort_index()
 
 
+def _to_anchor(as_of: AsOf) -> pd.Timestamp:
+    """Normalise as_of to a tz-naive midnight Timestamp. None -> today."""
+    if as_of is None:
+        return pd.Timestamp.now().normalize().tz_localize(None)
+    if isinstance(as_of, pd.Timestamp):
+        return as_of.normalize().tz_localize(None) if as_of.tz else as_of.normalize()
+    if isinstance(as_of, datetime):
+        return pd.Timestamp(as_of.date())
+    if isinstance(as_of, date):
+        return pd.Timestamp(as_of)
+    return pd.Timestamp(as_of).normalize().tz_localize(None)
+
+
 def signals_for(symbol: str,
                 return_threshold_pct: float = DEFAULT_RETURN_THRESHOLD_PCT,
                 volume_ratio: float = DEFAULT_VOLUME_RATIO,
-                lookback_days: int = DEFAULT_LOOKBACK_DAYS) -> dict:
+                lookback_days: int = DEFAULT_LOOKBACK_DAYS,
+                as_of: AsOf = None) -> dict:
     """Per-stock volume signal for the most recent N trading days.
+
+    When ``as_of`` is provided, the OHLCV dataframe is sliced to rows
+    on or before that date so the function is replay-safe (no
+    look-ahead bias).
 
     Returns::
 
@@ -65,7 +93,11 @@ def signals_for(symbol: str,
     if "close" not in df.columns or "volume" not in df.columns:
         return {"symbol": symbol.upper(), "error": "missing close/volume cols"}
 
+    anchor = _to_anchor(as_of)
     df = df[["close", "volume"]].copy()
+    df = df[df.index <= anchor]
+    if df.empty:
+        return {"symbol": symbol.upper(), "error": "no OHLCV at/before as_of"}
     df["ret_pct"] = df["close"].pct_change() * 100
     df["vol_ratio_20d"] = df["volume"] / df["volume"].rolling(20, min_periods=10).median()
     df["confirmed_up"] = (
@@ -76,8 +108,7 @@ def signals_for(symbol: str,
     last = df.iloc[-1]
     window = df.tail(lookback_days)
     breakout_days = window[window["confirmed_up"]]
-    today = pd.Timestamp.now().normalize().tz_localize(None)
-    age = (today - df.index[-1]).days
+    age = (anchor - df.index[-1]).days
 
     return {
         "symbol": symbol.upper(),
@@ -94,8 +125,13 @@ def signals_for(symbol: str,
 
 def universe_summary(symbols: list[str],
                      lookback_days: int = DEFAULT_LOOKBACK_DAYS,
+                     as_of: AsOf = None,
                      **kwargs) -> dict:
     """Universe-level volume confirmation rollup.
+
+    When ``as_of`` is provided, the per-stock signals are computed
+    against that anchor date and freshness is measured from it (replay
+    safe, no look-ahead bias).
 
     Returns::
 
@@ -109,11 +145,13 @@ def universe_summary(symbols: list[str],
           "per_stock": { "HUBC": {...}, ... }
         }
     """
+    anchor = _to_anchor(as_of)
     per_stock: dict[str, dict] = {}
     breakout_names: list[str] = []
     last_dates: list[pd.Timestamp] = []
     for sym in symbols:
-        sig = signals_for(sym, lookback_days=lookback_days, **kwargs)
+        sig = signals_for(sym, lookback_days=lookback_days,
+                           as_of=anchor, **kwargs)
         per_stock[sym.upper()] = sig
         if sig.get("had_breakout_3d"):
             breakout_names.append(sym.upper())
@@ -124,14 +162,13 @@ def universe_summary(symbols: list[str],
                 pass
     if last_dates:
         most_recent = max(last_dates)
-        today = pd.Timestamp.now().normalize().tz_localize(None)
-        freshness = int((today - most_recent).days)
-        as_of = most_recent.date().isoformat()
+        freshness = int((anchor - most_recent).days)
+        as_of_str = most_recent.date().isoformat()
     else:
         freshness = None
-        as_of = None
+        as_of_str = None
     return {
-        "as_of": as_of,
+        "as_of": as_of_str,
         "n_universe": len(symbols),
         "n_confirmed_breakouts_3d": len(breakout_names),
         "breakout_names": breakout_names,

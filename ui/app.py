@@ -4897,11 +4897,19 @@ def render_backtest_tab():
     section_header(
         "Strategy Tester",
         "How would the bot's strategy have performed in the past? "
-        "Run it over real PSX history and see the equity curve. The "
-        "Phase-1 panel below shows how recent predictions actually "
-        "scored against realized prices.",
+        "Three panels, increasing in cost-to-run: the **24-month free "
+        "playbook backtest** (top, $0, runs nightly via GitHub "
+        "Actions); the **Phase-1 prediction-accuracy review** (middle, "
+        "uses live LLM predictions); and the **interactive equity-"
+        "curve simulator** (bottom, runs the production strategy on "
+        "real PSX history).",
         how_to_read=[
-            "**Phase-1 backtest (top)** — accuracy review of the "
+            "**24-month free backtest (top)** — Mon/Wed/Fri walk over "
+            "the past 2 years, no LLM. Shows how the playbook alone "
+            "would have performed, the cumulative alpha vs buy-and-"
+            "hold, and which cases carry their weight. Reflects the "
+            "latest Tier-0 + Tier-1 patches.",
+            "**Phase-1 backtest (middle)** — accuracy review of the "
             "bot's last two weeks of predictions vs actual PSX prices, "
             "across all 35 stocks and every dataset.",
             "**Equity curve** = how PKR 100 invested at the start "
@@ -4915,6 +4923,19 @@ def render_backtest_tab():
             "Past performance is not a guarantee of future returns.",
         ],
     )
+
+    # 24-month free backtest panel — rules-engine-only walk over the
+    # past 24 months. Surfaces the Tier-0 + Tier-1 patch results so
+    # the analyst can see headline precision / recall / alpha / case
+    # attribution without leaving the UI.
+    try:
+        from ui import free_backtest_panel as _fbt
+        _fbt.render()
+    except Exception as e:
+        st.warning(f"24-month backtest panel unavailable: "
+                    f"{type(e).__name__}: {e}")
+
+    st.divider()
 
     # Phase-1 rigorous backtest panel — recent predictions vs reality
     try:

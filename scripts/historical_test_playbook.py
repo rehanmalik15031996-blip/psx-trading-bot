@@ -143,6 +143,15 @@ CASE_EXPECTED_DIRECTION: dict[str, str] = {
     "mf_capitulation_with_value":      "UP",   # contrarian
     "mf_smart_money_divergence":       "UP",
     "mf_universe_distribution_broad":  "DOWN",
+    # Phase-E volume + Tier-1 add-ons (added 2026-05-03 — these
+    # cases were defaulting to FLAT scoring which understated the
+    # case's directional bias). Banking NIM cases scored at the
+    # universe level even though their actual bias is on the bank
+    # basket — UP/DOWN is a coarse but defensible labelling.
+    "volume_confirmation_breakout":    "UP",
+    "banking_nim_regime_high":         "UP",
+    "banking_nim_regime_low":          "DOWN",
+    "rate_cycle_pivot_diagnostic":     "FLAT",
 }
 
 

@@ -1,0 +1,122 @@
+{
+  "as_of": "2024-06-10",
+  "_replay": true,
+  "regime": {
+    "regime": "CAUTION",
+    "exposure_multiplier": 1.0,
+    "universe_ret_5d": -0.029796647678014734,
+    "universe_ret_21d": 0.004734295734494841,
+    "breadth_pct_up": 13.88888888888889
+  },
+  "strategy_signal": {
+    "market_risk_on": true,
+    "selected": [],
+    "as_of": "2024-06-10"
+  },
+  "macro_impact": {
+    "drivers": [
+      {
+        "tag": "rate_down",
+        "magnitude": "STRONG"
+      }
+    ]
+  },
+  "policy_rate": {
+    "policy_rate_pct": 20.5
+  },
+  "industry_kpis": {
+    "kpis": {
+      "policy_rate_pct": 20.5,
+      "kibor_3m_pct": 20.643,
+      "tbill_3m_pct": 20.14,
+      "cpi_yoy_pct": 12.6,
+      "reserves_total_usd_mn": 14584.0,
+      "kse100_ret_5d": -0.052065053338720246,
+      "kse100_ret_21d": -0.06047885891110738
+    }
+  },
+  "macro_snapshot": {
+    "indicators": {
+      "usdpkr": {
+        "last": 278.4526062011719
+      },
+      "brent": {
+        "last": 81.62999725341797
+      },
+      "gold": {
+        "last": 2307.699951171875
+      }
+    }
+  },
+  "fipi_flows": {
+    "net_5d_pkr_mn": null
+  },
+  "scored_sentiment": {
+    "tilt": null
+  },
+  "earnings_calendar": {
+    "blackout_now": []
+  },
+  "value_book": {
+    "rows": []
+  },
+  "quality_book": {
+    "rows": []
+  },
+  "earnings_momentum": {
+    "rows": []
+  },
+  "predictions": {
+    "predictions": [],
+    "_summarised_others": [],
+    "_compression_note": "0 full predictions + 0 summarised (mid + bias only) to save context tokens"
+  },
+  "short_candidates": {
+    "candidates": []
+  },
+  "top_buys": {
+    "ideas": []
+  },
+  "portfolio": {
+    "positions": []
+  },
+  "mf_holdings": {
+    "as_of": "2024-06-10",
+    "data_freshness_days": null,
+    "top_accumulated_180d": [],
+    "top_distributed_180d": [],
+    "top_accumulated_30d": [],
+    "top_distributed_30d": [],
+    "n_funds_increasing_universe": null
+  },
+  "_replay_events": [],
+  "_cycle_override": {
+    "rate_cuts_180d": 1,
+    "rate_hikes_180d": 0,
+    "rate_cuts_90d": 1,
+    "rate_hikes_90d": 0,
+    "kibor3m_change_30d_bps": null,
+    "days_since_last_cut": 0,
+    "days_since_last_hike": 350,
+    "days_since_last_rate_change": 0
+  },
+  "_replay_universe": {
+    "n_symbols": 36,
+    "ret_150d": 0.3390599767590288,
+    "market_risk_on": true
+  },
+  "_compression_summary": {
+    "top_k_full_detail_symbols": [],
+    "n_top_k": 0,
+    "fields_compressed": [
+      "verdict_universe",
+      "predictions",
+      "value_book",
+      "quality_book",
+      "earnings_momentum",
+      "management_outlook",
+      "short_candidates"
+    ],
+    "note": "Per-stock full detail kept ONLY for top-K actionable names above; other names appear as one-line summaries in '_others'. This compresses the briefing by ~50% to keep critical macro / playbook context within the LLM's effective attention window."
+  }
+}

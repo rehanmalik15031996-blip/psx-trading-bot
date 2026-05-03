@@ -1,6 +1,6 @@
 {
   "_schema": {
-    "description": "Curated log of in-window external events the playbook matcher uses for its 'event:<key>' triggers. Read by brain/playbook.py at every Master Strategist run. The most recent in-window event for a given key wins; future-dated events are ignored until their date arrives. The file is allowed to be empty (`{\"events\": []}`) \u2014 affected cases simply stay silent.",
+    "description": "Curated log of in-window external events the playbook matcher uses for its 'event:<key>' triggers. Read by brain/playbook.py at every Master Strategist run. The most recent in-window event for a given key wins; future-dated events are ignored until their date arrives. The file is allowed to be empty (`{\"events\": []}`) — affected cases simply stay silent.",
     "fields": {
       "key": "Stable identifier referenced by playbook cases via 'event:<key>'. Examples: 'imf_sba_or_eff_approval', 'election_window', 'sbp_decision_day', 'budget_announcement'.",
       "date": "ISO date the event was announced or occurred (YYYY-MM-DD).",
@@ -9,7 +9,7 @@
       "source": "Optional URL or citation."
     },
     "how_to_add_an_event": "Append a new object to `events`. The matcher activates it immediately (no rebuild needed). Past-dated events outside their decay window are silently ignored; future-dated events are silently ignored until their date.",
-    "research_basis": "Pakistan Stock Market Research Factors.docx \u2014 Macroeconomic Determinants / Political Risk sections."
+    "research_basis": "Pakistan Stock Market Research Factors.docx — Macroeconomic Determinants / Political Risk sections."
   },
   "events": [
     {
@@ -23,7 +23,7 @@
     {
       "key": "imf_review_completed",
       "date": "2020-04-16",
-      "decay_days": 21,
+      "decay_days": 5,
       "description": "IMF approves $1.386bn emergency Rapid Financing Instrument disbursement for Pakistan (COVID-19).",
       "source": "https://www.imf.org/en/News/Articles/2020/04/16/pr20167-pakistan-imf-executive-board-approves-rapid-financing-instrument",
       "_origin": "data/macro/imf_events.json"
@@ -31,7 +31,7 @@
     {
       "key": "imf_review_completed",
       "date": "2021-03-24",
-      "decay_days": 21,
+      "decay_days": 5,
       "description": "IMF completes 2nd-5th combined EFF reviews; ~$500m disbursement.",
       "source": "https://www.imf.org/en/News/Articles/2021/03/24/pr2185-pakistan-imf-executive-board-completes-the-combined-second-through-fifth-reviews",
       "_origin": "data/macro/imf_events.json"
@@ -39,7 +39,7 @@
     {
       "key": "imf_review_completed",
       "date": "2022-08-29",
-      "decay_days": 21,
+      "decay_days": 5,
       "description": "IMF completes 7th-8th combined EFF reviews; ~$1.17bn tranche, ending 18-month gap.",
       "source": "https://www.imf.org/en/News/Articles/2022/08/29/pr22291-pakistan-imf-executive-board-completes-the-combined-seventh-and-eighth-reviews",
       "_origin": "data/macro/imf_events.json"
@@ -47,7 +47,7 @@
     {
       "key": "imf_review_completed",
       "date": "2023-06-29",
-      "decay_days": 14,
+      "decay_days": 5,
       "description": "Staff-level agreement on the new 9-month $3bn SBA, replacing the lapsed EFF. Bridge to the formal board approval two weeks later.",
       "source": "https://www.imf.org/en/News/Articles/2023/06/29/pr23241-pakistan-and-imf-staff-reach-staff-level-agreement",
       "_origin": "data/macro/imf_events.json"
@@ -63,7 +63,7 @@
     {
       "key": "imf_review_completed",
       "date": "2023-11-15",
-      "decay_days": 21,
+      "decay_days": 5,
       "description": "IMF completes 1st SBA review; ~$700m tranche disbursed.",
       "source": "https://www.imf.org/en/News/Articles/2023/11/15/pr23399-pakistan-imf-executive-board-completes-first-review-under-stand-by-arrangement",
       "_origin": "data/macro/imf_events.json"
@@ -71,7 +71,7 @@
     {
       "key": "imf_review_completed",
       "date": "2024-04-29",
-      "decay_days": 21,
+      "decay_days": 5,
       "description": "IMF completes 2nd and final SBA review; ~$1.1bn final tranche disbursed.",
       "source": "https://www.imf.org/en/News/Articles/2024/04/29/pr24149-pakistan-imf-executive-board-completes-second-and-final-review-under-stand-by-arrangement",
       "_origin": "data/macro/imf_events.json"
@@ -87,7 +87,7 @@
     {
       "key": "imf_review_completed",
       "date": "2025-03-25",
-      "decay_days": 14,
+      "decay_days": 5,
       "description": "Staff-level agreement on 1st EFF review (~$1bn tranche pending board approval).",
       "source": "https://www.imf.org/en/News/Articles/2025/03/25/pr-pakistan-imf-staff-reach-staff-level-agreement",
       "_origin": "data/macro/imf_events.json"
@@ -95,7 +95,7 @@
     {
       "key": "imf_review_completed",
       "date": "2025-05-09",
-      "decay_days": 21,
+      "decay_days": 5,
       "description": "IMF completes 1st EFF review; $1.023bn tranche disbursed plus $1.4bn Resilience and Sustainability Facility access.",
       "source": "https://www.imf.org/en/News/Articles/2025/05/09/pr-pakistan-imf-executive-board-completes-first-review-under-eff",
       "_origin": "data/macro/imf_events.json"
@@ -103,7 +103,7 @@
     {
       "key": "imf_review_completed",
       "date": "2025-10-25",
-      "decay_days": 21,
+      "decay_days": 5,
       "description": "IMF completes 2nd EFF review; ~$1.1bn tranche disbursed.",
       "source": "https://www.imf.org/en/News/Articles/2025/10/25/pr-pakistan-imf-executive-board-completes-second-review-under-eff",
       "_origin": "data/macro/imf_events.json"

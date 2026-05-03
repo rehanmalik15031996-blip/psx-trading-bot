@@ -99,6 +99,14 @@ VALID_TRIGGER_KINDS = {
     "days_since_last_cut_lte", "days_since_last_cut_gte",
     "days_since_last_hike_lte", "days_since_last_hike_gte",
     "days_since_last_rate_change_lte", "days_since_last_rate_change_gte",
+    # Cycle context — magnitude of the most recent decision (bps).
+    # Distinguishes a 25-50bp tap from a 100-200bp shock; required by
+    # the Tier-0 patch that tightened `sbp_rate_hike_shock` to fire
+    # only on hikes >=100bps (the 25bp threshold was firing on
+    # routine adjustments that historically produced no defensive
+    # follow-through).
+    "last_hike_bps_gte", "last_hike_bps_lte",
+    "last_cut_bps_gte",  "last_cut_bps_lte",
     # Phase C — valuation aggregates (universe / sector level)
     "universe_pe_lte", "universe_pe_gte",
     "universe_pb_lte", "universe_pb_gte",
@@ -488,7 +496,14 @@ def _cycle_context(window_days: int = 180, *,
            "kibor3m_change_30d_bps": None,
            "days_since_last_cut": None,
            "days_since_last_hike": None,
-           "days_since_last_rate_change": None}
+           "days_since_last_rate_change": None,
+           # Magnitude (bps) of the most recent decision in each
+           # direction. Positive numbers; cases that need to know
+           # "was it a 50bp tap or a 200bp shock?" use these via
+           # last_hike_bps_gte / last_cut_bps_gte triggers (Tier-0
+           # patch 2026-05-03 — see `sbp_rate_hike_shock`).
+           "last_hike_bps": None,
+           "last_cut_bps": None}
 
     parsed: list[tuple[date, float]] = list(history_entries or [])
     if not parsed and POLICY_RATE_HISTORY_PATH.exists():
@@ -520,6 +535,8 @@ def _cycle_context(window_days: int = 180, *,
         last_cut: date | None = None
         last_hike: date | None = None
         last_change: date | None = None
+        last_cut_delta: float | None = None  # signed, % (e.g. -1.50)
+        last_hike_delta: float | None = None # signed, % (e.g. +1.00)
         for i in range(1, len(parsed)):
             d, r = parsed[i]
             prev_r = parsed[i - 1][1]
@@ -531,17 +548,21 @@ def _cycle_context(window_days: int = 180, *,
             if d < cut_180:
                 if delta <= -0.25:
                     last_cut = d
+                    last_cut_delta = delta
                 elif delta >= 0.25:
                     last_hike = d
+                    last_hike_delta = delta
                 continue
             if delta <= -0.25:
                 out["rate_cuts_180d"] += 1
                 last_cut = d
+                last_cut_delta = delta
                 if d >= cut_90:
                     out["rate_cuts_90d"] += 1
             elif delta >= 0.25:
                 out["rate_hikes_180d"] += 1
                 last_hike = d
+                last_hike_delta = delta
                 if d >= cut_90:
                     out["rate_hikes_90d"] += 1
         if last_cut is not None:
@@ -550,6 +571,11 @@ def _cycle_context(window_days: int = 180, *,
             out["days_since_last_hike"] = (anchor - last_hike).days
         if last_change is not None:
             out["days_since_last_rate_change"] = (anchor - last_change).days
+        if last_cut_delta is not None:
+            # Stored as positive bps magnitude (the sign is implicit).
+            out["last_cut_bps"] = int(round(abs(last_cut_delta) * 100))
+        if last_hike_delta is not None:
+            out["last_hike_bps"] = int(round(abs(last_hike_delta) * 100))
 
     if SBP_RATES_PATH.exists() and history_entries is None:
         try:
@@ -1046,6 +1072,22 @@ def _eval_trigger(trigger: str, facts: dict) -> bool:
                 "days_since_last_hike_lte", "days_since_last_hike_gte",
                 "days_since_last_rate_change_lte",
                 "days_since_last_rate_change_gte"):
+        try:
+            n = int(value)
+        except ValueError:
+            return False
+        field = "_".join(kind.split("_")[:-1])  # strip trailing _lte/_gte
+        v = cycle.get(field)
+        if v is None:
+            return False
+        return (v <= n) if kind.endswith("_lte") else (v >= n)
+
+    # ---- Cycle: magnitude gates (last_hike_bps_gte:100 etc) -------
+    # Returns False when the field is None (no decision in lookback)
+    # — matches the days_since_* convention so the trigger only fires
+    # when there IS a recent decision of the requested magnitude.
+    if kind in ("last_hike_bps_gte", "last_hike_bps_lte",
+                "last_cut_bps_gte",  "last_cut_bps_lte"):
         try:
             n = int(value)
         except ValueError:

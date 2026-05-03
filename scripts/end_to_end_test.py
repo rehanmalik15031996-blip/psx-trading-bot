@@ -273,8 +273,85 @@ def rs_no_err(rows: list[dict]):
 # ---------------------------------------------------------------------------
 # 7) Markdown report
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# 7b) "Follow the playbook" P&L vs buy-and-hold
+# ---------------------------------------------------------------------------
+def simulate_strategy_pnl(rows: list[dict],
+                            start: date, end: date) -> dict:
+    """Simulate a defensive 'follow the playbook' strategy on weekly windows.
+
+    Strategy rules (deliberately simple so results are interpretable):
+      * Default position: 100% long the universe (passive).
+      * Override to **cash** for the next 5 trading days if any case with
+        expected direction DOWN or FLAT fires on the Friday close.
+      * Stay long in UP / no-signal / NULL states.
+
+    Sampling: only Fridays, so each ``fwd_5d`` covers the next Mon-Fri and
+    consecutive windows do not overlap. Compounds returns to give a single
+    cumulative number comparable to a "buy-and-hold the universe" benchmark.
+
+    The point is NOT to claim alpha (one strategy on one slice is not a
+    significance test), but to give the analyst a *concrete* sense of
+    whether the playbook's defensive triggers help or hurt vs doing
+    nothing.
+    """
+    weekly = [r for r in rows
+                if r.get("verdict") != "ERR"
+                and isinstance(r.get("fwd_5d"), (int, float))
+                and date.fromisoformat(r["as_of"]).weekday() == 4]
+    if not weekly:
+        return {"n_windows": 0}
+
+    sys_cum = 1.0
+    bh_cum  = 1.0
+    n_long  = 0
+    n_hits  = 0
+    n_avoided_dd = 0
+    weekly_records: list[dict] = []
+    for r in weekly:
+        fwd = float(r["fwd_5d"])
+        outs = ((r.get("modes") or {}).get("with_mf_macro", {})
+                  .get("case_outcomes") or [])
+        case_dirs = [CASE_EXPECTED_DIRECTION.get(o["id"], "?") for o in outs]
+        bearish = any(d in ("DOWN", "FLAT") for d in case_dirs)
+        sys_ret = 0.0 if bearish else fwd
+        sys_cum *= (1.0 + sys_ret)
+        bh_cum  *= (1.0 + fwd)
+        if not bearish:
+            n_long += 1
+        if sys_ret > 0:
+            n_hits += 1
+        if bearish and fwd < 0:
+            n_avoided_dd += 1
+        weekly_records.append({
+            "date": r["as_of"],
+            "position": "cash" if bearish else "long",
+            "fwd_5d_pct": fwd * 100.0,
+            "sys_ret_pct": sys_ret * 100.0,
+            "bh_ret_pct":  fwd * 100.0,
+            "case_signals": case_dirs,
+        })
+
+    n = len(weekly)
+    return {
+        "n_windows": n,
+        "system_cum_pct": (sys_cum - 1.0) * 100.0,
+        "bh_cum_pct":     (bh_cum  - 1.0) * 100.0,
+        "alpha_pct":      (sys_cum - bh_cum) * 100.0,
+        "pct_time_long":  n_long / n * 100.0,
+        "n_cash_weeks":   n - n_long,
+        "n_avoided_drawdown_weeks": n_avoided_dd,
+        "system_hit_rate_pct": n_hits / n * 100.0,
+        "weekly_records": weekly_records,
+    }
+
+
+# ---------------------------------------------------------------------------
+# 7c) Render the markdown report
+# ---------------------------------------------------------------------------
 def render(rows: list[dict], headline: dict, by_case: list[dict],
-            by_month: list[dict], preds: dict | None) -> str:
+            by_month: list[dict], preds: dict | None,
+            pnl: dict | None = None) -> str:
     lines: list[str] = []
     lines.append(f"# End-to-end model test\n\n")
     lines.append(f"_Run at {datetime.now().isoformat(timespec='seconds')}_\n\n")
@@ -357,6 +434,38 @@ def render(rows: list[dict], headline: dict, by_case: list[dict],
                       f"{m['sig']} | {prec} | {rec} |\n")
     lines.append("\n")
 
+    # ---------- P&L sim ----------
+    lines.append("## 'Follow the playbook' P&L vs buy-and-hold\n\n")
+    if not pnl or not pnl.get("n_windows"):
+        lines.append("_No weekly P&L windows scored (need Friday samples with "
+                      "valid fwd_5d returns)._\n\n")
+    else:
+        lines.append("Strategy: default 100% long the universe; go to **cash** "
+                      "for the next 5 trading days when any case with expected "
+                      "direction DOWN or FLAT fires on the Friday close. "
+                      "Sampled on consecutive Fridays so windows do not "
+                      "overlap.\n\n")
+        lines.append("| Metric | Value |\n|---|---|\n")
+        lines.append(f"| Weekly windows | {pnl['n_windows']} |\n")
+        lines.append(f"| **Buy-and-hold cumulative return** | "
+                      f"{pnl['bh_cum_pct']:+.1f}% |\n")
+        lines.append(f"| **Playbook strategy cumulative return** | "
+                      f"{pnl['system_cum_pct']:+.1f}% |\n")
+        lines.append(f"| **Alpha (system - BH)** | "
+                      f"{pnl['alpha_pct']:+.1f}% |\n")
+        lines.append(f"| Time invested (% of weeks long) | "
+                      f"{pnl['pct_time_long']:.1f}% |\n")
+        lines.append(f"| Cash weeks (defensive) | "
+                      f"{pnl.get('n_cash_weeks', 0)} |\n")
+        lines.append(f"| Cash weeks where market actually fell | "
+                      f"{pnl.get('n_avoided_drawdown_weeks', 0)} |\n")
+        lines.append(f"| System weekly hit-rate (>0 return) | "
+                      f"{pnl['system_hit_rate_pct']:.1f}% |\n")
+        lines.append("\n")
+        lines.append("_Caveat: this is one path on one strategy on one slice. "
+                      "It is illustrative, not a significance test. Drawdown-"
+                      "avoidance count is the most decision-relevant number._\n\n")
+
     # ---------- predictions log ----------
     lines.append("## LLM predictions log (per-symbol 5-day forecasts)\n\n")
     if preds is None:
@@ -423,20 +532,36 @@ def render(rows: list[dict], headline: dict, by_case: list[dict],
 # 8) Main
 # ---------------------------------------------------------------------------
 def main() -> int:
-    start = date(2025, 5, 1)
-    end   = date(2026, 4, 1)
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--start", default="2025-05-01",
+                     help="Start date YYYY-MM-DD (default 2025-05-01).")
+    ap.add_argument("--end", default="2026-04-01",
+                     help="End date YYYY-MM-DD (default 2026-04-01).")
+    ap.add_argument("--out", default=None,
+                     help="Override output markdown path.")
+    args = ap.parse_args()
+
+    start = date.fromisoformat(args.start)
+    end   = date.fromisoformat(args.end)
+
+    out_path = Path(args.out) if args.out else OUT_PATH
+    json_out = out_path.with_suffix(".json")
+
     rows  = run_year(start, end)
     headline = aggregate(rows)
     by_case  = per_case_stats(rows)
     by_month = per_month_stats(rows)
     preds    = predictions_summary()
+    pnl      = simulate_strategy_pnl(rows, start, end)
 
-    md = render(rows, headline, by_case, by_month, preds)
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUT_PATH.write_text(md, encoding="utf-8")
-    JSON_OUT.write_text(json.dumps({
+    md = render(rows, headline, by_case, by_month, preds, pnl)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(md, encoding="utf-8")
+    json_out.write_text(json.dumps({
         "headline": headline, "by_case": by_case,
         "by_month": by_month, "predictions": preds,
+        "pnl": pnl,
     }, indent=2, default=str), encoding="utf-8")
 
     print()
@@ -459,8 +584,19 @@ def main() -> int:
         print(f"  {c['n_fired']:>3}x  {c['id']:<35}  hit={hr:<5}  mean_21d={m21}")
     n_orphan = sum(1 for c in by_case if c['n_fired'] == 0)
     print(f"\nOrphan cases (never fired): {n_orphan} of {len(by_case)}")
-    print(f"\nReport saved : {OUT_PATH}")
-    print(f"JSON saved   : {JSON_OUT}")
+    print()
+    print("P&L (weekly non-overlapping windows):")
+    if pnl.get("n_windows"):
+        print(f"  Windows               : {pnl['n_windows']}")
+        print(f"  Buy-and-hold cum ret  : {pnl['bh_cum_pct']:+.1f}%")
+        print(f"  Playbook cum ret      : {pnl['system_cum_pct']:+.1f}%")
+        print(f"  Alpha vs BH           : {pnl['alpha_pct']:+.1f}%")
+        print(f"  Time invested         : {pnl['pct_time_long']:.0f}%")
+        print(f"  System hit rate (>0)  : {pnl['system_hit_rate_pct']:.1f}%")
+    else:
+        print("  (no P&L windows scored)")
+    print(f"\nReport saved : {out_path}")
+    print(f"JSON saved   : {json_out}")
     return 0
 
 

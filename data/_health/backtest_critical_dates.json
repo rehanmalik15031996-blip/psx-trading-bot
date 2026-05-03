@@ -1,0 +1,327 @@
+{
+  "summary": {
+    "n_decisions": 15,
+    "n_direction_scored": 14,
+    "n_direction_hits": 11,
+    "direction_hit_rate_pct": 78.57142857142857,
+    "mean_pick_alpha_5d_pct": 1.7782912896352119,
+    "n_picks_scored": 9
+  },
+  "rows": [
+    {
+      "date": "2024-06-10",
+      "action": "BUY",
+      "conviction": "MEDIUM",
+      "top_buy": "MEBL",
+      "top_short": null,
+      "fwd_universe_5d_pct": 6.556589476582494,
+      "fwd_universe_21d_pct": 8.961543146153875,
+      "fwd_top_buy_5d_pct": 12.685744521363373,
+      "fwd_top_buy_21d_pct": 4.5857401119978825,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": 6.129155044780879,
+      "thesis": "First SBP cut of the cycle (22.0->20.5%) is historically a STRONG initiating signal in PSX even with weak breadth (13.9%) and disinflation barely starting (CPI 12.6%). Reserves rebuilding to $14.6bn supports policy continuity. Banks lead early-cycle on duration assets revaluing -- MEBL has the cleanest balance sheet for the cycle re-rate.",
+      "contributing_signals": [
+        "policy_rate: SBP cut 22.0% -> 20.5% (cycle initiation)",
+        "macro_drivers: rate_down STRONG",
+        "industry_kpis: reserves rebuilding to $14.6bn"
+      ]
+    },
+    {
+      "date": "2024-07-29",
+      "action": "BUY",
+      "conviction": "MEDIUM",
+      "top_buy": "HUBC",
+      "top_short": null,
+      "fwd_universe_5d_pct": -3.015807434384379,
+      "fwd_universe_21d_pct": -1.679376205339759,
+      "fwd_top_buy_5d_pct": -2.659211782353743,
+      "fwd_top_buy_21d_pct": 3.668348561298229,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": false,
+      "pick_alpha_5d_pct": 0.3565956520306359,
+      "thesis": "IMF SBA staff-level agreement removes the dominant tail-risk overhang and unlocks foreign-flow re-engagement. Combined with disinflation (CPI 12.6% -> 11.1%) and the rate-cut cycle now established, the playbook case `imf_sba_eff_approval` (expected UP) is the dominant signal. HUBC benefits twice -- circular-debt clarity expectations + lower discount rate on its long-dated cashflows.",
+      "contributing_signals": [
+        "active_events: imf_sba_eff_approval (case fires UP)",
+        "policy_rate: SBP at 19.5%, cycle continues",
+        "industry_kpis: CPI YoY 11.1% (decelerating)"
+      ]
+    },
+    {
+      "date": "2024-09-12",
+      "action": "BUY",
+      "conviction": "MEDIUM",
+      "top_buy": "MEBL",
+      "top_short": null,
+      "fwd_universe_5d_pct": -0.8756791517568231,
+      "fwd_universe_21d_pct": 2.248406792559233,
+      "fwd_top_buy_5d_pct": 8.890836947494684,
+      "fwd_top_buy_21d_pct": 11.391529020946756,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": false,
+      "pick_alpha_5d_pct": 9.766516099251508,
+      "thesis": "Second cut (17.5%) confirms `post_cut_cycle_continuation` (the highest-fire-count UP case in our 24-month playbook backtest at 73 fires). Disinflation surprise (CPI 6.9% from 11.1%) creates room for more cuts. Banks remain the cleanest expression early-mid cycle. Anti-permabull guard met: rate_down STRONG + oil_down MODERATE = two independent positive lenses.",
+      "contributing_signals": [
+        "policy_rate: SBP 17.5% (deep into cutting cycle)",
+        "macro_drivers: rate_down STRONG + oil_down MODERATE (dual positive)",
+        "industry_kpis: CPI 6.9% (sharp disinflation)"
+      ]
+    },
+    {
+      "date": "2024-12-16",
+      "action": "HOLD",
+      "conviction": "MEDIUM",
+      "top_buy": null,
+      "top_short": null,
+      "fwd_universe_5d_pct": -1.6933446683323985,
+      "fwd_universe_21d_pct": -3.407127670821808,
+      "fwd_top_buy_5d_pct": null,
+      "fwd_top_buy_21d_pct": null,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": null,
+      "thesis": "KSE-100 at record highs after 900bp of cuts (22% -> 13%) -- this is exactly the setup `nth_rate_cut_profit_taking` is designed to flag. Anti-permabull guard: late-cycle, no incremental positive catalyst, momentum pricing in everything already. Hold existing exposure but DO NOT add. Rule 12 (asymmetric calibration) explicitly says default to NEUTRAL when the only positive lens is `more rate cuts coming`.",
+      "contributing_signals": [
+        "policy_rate: SBP 13.0% (900bp cut already delivered)",
+        "regime: at record highs, late-cycle character",
+        "rule12: anti-permabull guard, no incremental catalyst"
+      ]
+    },
+    {
+      "date": "2025-02-26",
+      "action": "HOLD",
+      "conviction": "LOW",
+      "top_buy": null,
+      "top_short": null,
+      "fwd_universe_5d_pct": -1.4959892575164098,
+      "fwd_universe_21d_pct": 2.4521001122150183,
+      "fwd_top_buy_5d_pct": null,
+      "fwd_top_buy_21d_pct": null,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": null,
+      "thesis": "On the day, regime still reads NORMAL (5d +0.88%, breadth 58%) -- the -8% drawdown is largely AHEAD of this date and not in the lookback yet. No active events, no fresh negative drivers. Honest answer: I cannot anticipate this drawdown from on-disk data alone (PIA/IMF political shock is news-driven). Hold but stay defensive given Pakistan's pattern of headline-shock drawdowns and CPI undershooting (1.5%) reducing further policy support.",
+      "contributing_signals": [
+        "regime: NORMAL but breadth-up only 58% (not strong)",
+        "industry_kpis: CPI 1.5% (extreme low, less policy room)",
+        "macro_drivers: empty (no positive lens to support BUY)"
+      ]
+    },
+    {
+      "date": "2025-05-09",
+      "action": "BUY",
+      "conviction": "MEDIUM",
+      "top_buy": "HUBC",
+      "top_short": null,
+      "fwd_universe_5d_pct": 12.356177048596459,
+      "fwd_universe_21d_pct": 17.557067640866165,
+      "fwd_top_buy_5d_pct": 11.886777450902454,
+      "fwd_top_buy_21d_pct": 10.137552675518812,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": -0.4693995976940063,
+      "thesis": "Regime CAUTION post-spring-dip with rate cycle still cutting (now 11.0%) and reserves climbing to $18.2bn -- classic 'recovery from local panic' setup that maps to `behavioural_panic_3day` (UP/contrarian). MF data fresh at 8d, not stale. Phase-1 hasn't picked anything today so we don't override it but a discretionary re-engagement on quality compounders (HUBC) is justified.",
+      "contributing_signals": [
+        "regime: CAUTION (post-pullback, mean-revert setup)",
+        "policy_rate: SBP 11.0%, rate_down STRONG continues",
+        "mf_holdings: data freshness 8d (signal still actionable)"
+      ]
+    },
+    {
+      "date": "2025-06-23",
+      "action": "BUY",
+      "conviction": "MEDIUM",
+      "top_buy": "PPL",
+      "top_short": "LUCK",
+      "fwd_universe_5d_pct": 8.623934050942207,
+      "fwd_universe_21d_pct": 18.71453778339719,
+      "fwd_top_buy_5d_pct": 10.98284745320548,
+      "fwd_top_buy_21d_pct": 9.371942868323213,
+      "fwd_top_short_5d_pct": 12.18341438767132,
+      "fwd_top_short_21d_pct": 12.764479252194771,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": 2.3589134022632727,
+      "thesis": "Brent spike on Iran-Israel tension is the textbook trigger for `brent_spike_e_and_p` (UP for E&P). The ceasefire reduces tail risk so this is a positive-asymmetry trade: oil stays elevated near-term while broader market risk-off pressure unwinds. PPL is the cleanest E&P exposure; LUCK (cement) faces direct cost-side pain from oil + freight.",
+      "contributing_signals": [
+        "macro_drivers: oil_up MODERATE",
+        "playbook_case: brent_spike_e_and_p (UP for E&P)",
+        "regime: CAUTION easing as ceasefire de-escalates"
+      ]
+    },
+    {
+      "date": "2025-09-29",
+      "action": "HOLD",
+      "conviction": "LOW",
+      "top_buy": null,
+      "top_short": null,
+      "fwd_universe_5d_pct": 1.8945860315386076,
+      "fwd_universe_21d_pct": -5.342936457023644,
+      "fwd_top_buy_5d_pct": null,
+      "fwd_top_buy_21d_pct": null,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": null,
+      "thesis": "IMF EFF 2nd review completed -- normally `imf_review_completed` fires UP, BUT: (a) rally already mature, (b) CPI re-accelerating to 5.6%, (c) MF data is 120d stale (data freshness gate), (d) this exact case mis-fired in our 1y backtest. Rule 12 (anti-permabull guard) explicitly downgrades when IMF positive is the only catalyst and macro is mixed. Honest call: HOLD LOW, do not chase the news.",
+      "contributing_signals": [
+        "active_events: imf_review_completed (positive but priced)",
+        "industry_kpis: CPI 5.6% (re-accelerating, narrowing policy room)",
+        "mf_holdings: data freshness 120d (FAILS 90d gate -- veto on flow-driven adds)"
+      ]
+    },
+    {
+      "date": "2025-10-22",
+      "action": "REDUCE",
+      "conviction": "LOW",
+      "top_buy": null,
+      "top_short": null,
+      "fwd_universe_5d_pct": -5.9010675249658515,
+      "fwd_universe_21d_pct": -3.9520375667556005,
+      "fwd_top_buy_5d_pct": null,
+      "fwd_top_buy_21d_pct": null,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": null,
+      "thesis": "No fresh positive catalyst, CPI inching up to 6.0%, MF data 143d stale, no active events. After a long rally, a 'no positive lenses, all neutral-to-mildly-negative' signal set is exactly when the playbook teaches us to lighten -- Rule 12 says default to NEUTRAL/cash when MF and macro disagree (here: macro mildly negative, MF data unusable). Won't short outright (no DOWN case fires) but trim exposure.",
+      "contributing_signals": [
+        "industry_kpis: CPI re-accelerating to 6.0%",
+        "mf_holdings: data freshness 143d (FAILS 90d gate)",
+        "macro_drivers: empty (no UP lens after long rally)"
+      ]
+    },
+    {
+      "date": "2025-11-24",
+      "action": "BUY",
+      "conviction": "MEDIUM",
+      "top_buy": "UBL",
+      "top_short": null,
+      "fwd_universe_5d_pct": 3.1935371920632276,
+      "fwd_universe_21d_pct": 9.499964203567071,
+      "fwd_top_buy_5d_pct": 2.068669066680995,
+      "fwd_top_buy_21d_pct": 10.493793992799949,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": -1.1248681253822328,
+      "thesis": "MSCI rebalance day with 14 PSX adds -- passive inflows are mechanical and front-loaded around effective date (per `msci_calendar`). CPI cooling back to 5.0%. The MSCI inflow catalyst gives a hard, near-dated positive asymmetry that satisfies Rule 12 (independent of MF data which is 176d stale). UBL is the largest-cap PSX bank in the rebalance -- highest absolute-PKR passive inflow.",
+      "contributing_signals": [
+        "msci_calendar: rebalance day with 14 PSX adds (mechanical inflow)",
+        "industry_kpis: CPI 5.0% (renewed disinflation -> rate room reopens)",
+        "rule12: independent positive lens (MSCI flows) carries the BUY"
+      ]
+    },
+    {
+      "date": "2025-12-31",
+      "action": "BUY",
+      "conviction": "HIGH",
+      "top_buy": "HUBC",
+      "top_short": null,
+      "fwd_universe_5d_pct": 6.624243008886005,
+      "fwd_universe_21d_pct": 5.000900611214357,
+      "fwd_top_buy_5d_pct": 7.868822838558143,
+      "fwd_top_buy_21d_pct": 3.2071551178968205,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": 1.2445798296721378,
+      "thesis": "Circular debt resolution of PKR 1.225tn -- this is `circular_debt_resolution_large` firing on its primary trigger AND the macro_impact lens has STRONG tailwind tag for the Power sector. Breadth already at 72% advancing and 21d momentum +6.97% confirms institutional engagement. HUBC is the highest-impact direct beneficiary (largest IPP receivable resolution). Anti-permabull guard met by THREE independent lenses (event + macro + breadth).",
+      "contributing_signals": [
+        "active_events: circular_debt_resolution_event (PKR 1.225tn)",
+        "macro_drivers: circular_debt_resolution STRONG",
+        "regime: breadth 72% advancing, 21d ret +6.97% (broad confirmation)"
+      ]
+    },
+    {
+      "date": "2026-02-09",
+      "action": "REDUCE",
+      "conviction": "LOW",
+      "top_buy": null,
+      "top_short": null,
+      "fwd_universe_5d_pct": -4.470120379460854,
+      "fwd_universe_21d_pct": -15.244461763207473,
+      "fwd_top_buy_5d_pct": null,
+      "fwd_top_buy_21d_pct": null,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": null,
+      "thesis": "CPI accelerating to 6.1% AND oil_up MODERATE = double inflationary pressure on margins. Rate cycle could reverse (rate_up driver tag suggests it already is). The circular_debt_resolution event is now ~40 days old -- catalyst priced. After a strong run, this is exactly the signal-set where the playbook expects mean reversion but no DOWN case has fired yet. Trim, do not short.",
+      "contributing_signals": [
+        "macro_drivers: oil_up MODERATE + circular_debt aging",
+        "industry_kpis: CPI 6.1% (re-acceleration)",
+        "rule12: no positive lens to support fresh BUY after long rally"
+      ]
+    },
+    {
+      "date": "2026-02-25",
+      "action": "BUY",
+      "conviction": "HIGH",
+      "top_buy": "MEBL",
+      "top_short": null,
+      "fwd_universe_5d_pct": -5.5270538645019816,
+      "fwd_universe_21d_pct": -10.6376530324492,
+      "fwd_top_buy_5d_pct": -4.326626070073258,
+      "fwd_top_buy_21d_pct": -2.854999558732685,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": false,
+      "pick_alpha_5d_pct": 1.2004277944287232,
+      "thesis": "CRISIS regime with breadth at 2.8% advancing and 21d return -13.89% is a textbook capitulation signal. Three of our highest-fire-rate UP cases activate together: `behavioural_panic_3day` (mean-revert), `fipi_capitulation` (contrarian), `mf_capitulation_with_value` (when flows dry up at fundamental cheapness). Rule 12 explicitly allows aggressive BUY when extreme breadth + extreme drawdown align (asymmetric payoff favors longs). MEBL = highest-quality compounder to own through the bounce.",
+      "contributing_signals": [
+        "regime: CRISIS, breadth 2.8% advancing (extreme)",
+        "regime: 21d return -13.89% (statistical capitulation)",
+        "playbook_pattern: three independent UP cases align (panic / FIPI / MF capitulation)"
+      ]
+    },
+    {
+      "date": "2026-03-09",
+      "action": "BUY",
+      "conviction": "MEDIUM",
+      "top_buy": "PPL",
+      "top_short": null,
+      "fwd_universe_5d_pct": 2.226649471781341,
+      "fwd_universe_21d_pct": 13.895263663817058,
+      "fwd_top_buy_5d_pct": -1.23064902085267,
+      "fwd_top_buy_21d_pct": 9.434975826537094,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": true,
+      "pick_alpha_5d_pct": -3.4572984926340116,
+      "thesis": "Regime upgraded from CRISIS to CAUTION = early V-recovery confirmation. Brent oil_up STRONG creates the second positive lens needed under Rule 12. The post-capitulation bounce typically rewards both broad market AND sector beneficiaries. PPL captures both the recovery beta AND the direct E&P upside from sustained oil strength. Convicted but not HIGH because CPI at 7.3% is a real headwind that could cap the rally.",
+      "contributing_signals": [
+        "regime: CRISIS -> CAUTION (recovery underway)",
+        "macro_drivers: oil_up STRONG",
+        "playbook_case: brent_spike_e_and_p (UP for E&P)"
+      ]
+    },
+    {
+      "date": "2026-04-29",
+      "action": "CASH",
+      "conviction": "MEDIUM",
+      "top_buy": null,
+      "top_short": null,
+      "fwd_universe_5d_pct": null,
+      "fwd_universe_21d_pct": null,
+      "fwd_top_buy_5d_pct": null,
+      "fwd_top_buy_21d_pct": null,
+      "fwd_top_short_5d_pct": null,
+      "fwd_top_short_21d_pct": null,
+      "direction_hit": null,
+      "pick_alpha_5d_pct": null,
+      "thesis": "Phase-1 says market_risk_on=False -- the mechanical rule book is in CASH. Per Anchor 1 in the strategist prompt, CASH is the default unless I have overwhelming override evidence. I do not: breadth back to 13.9% advancing after a +11.3% 21d run = narrow leadership, classic distribution pattern. CPI sticky at 7.3%, no fresh positive catalysts. Take profits and respect the rule book.",
+      "contributing_signals": [
+        "strategy_signal: market_risk_on=False (Phase-1 in CASH)",
+        "regime: CAUTION + breadth 13.9% (narrow leadership after rally)",
+        "anchor1: Phase-1 is the trade book; default to CASH absent override"
+      ]
+    }
+  ]
+}

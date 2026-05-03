@@ -97,19 +97,33 @@ HISTORICAL_EVENTS: list[dict] = [
     # (also bullish, distinct from the initial approval). The market
     # reacts on the SLA date — board approval is a formality 4-6 weeks
     # later that adds little new information.
-    {"date": "2023-10-11", "key": "imf_review_completed", "decay_days": 21,
+    # IMF review SLAs — decay shortened from 21 -> 5 days (Tier-0 patch
+    # 2026-05-03). Per the case docstring, the 5-day reaction is the
+    # only reliably positive window; a 21-day decay caused 18 fires
+    # over the 24-month replay with a 5.6% hit rate (the early bullish
+    # print routinely faded as "what next" macro drivers re-asserted).
+    # Aligns with the playbook's own guidance: "Do not extend the
+    # trade past 10 trading days."
+    {"date": "2023-10-11", "key": "imf_review_completed", "decay_days": 5,
      "description": "IMF first SBA review SLA (board approval Nov-15) — $700m tranche."},
-    {"date": "2024-03-20", "key": "imf_review_completed", "decay_days": 21,
+    {"date": "2024-03-20", "key": "imf_review_completed", "decay_days": 5,
      "description": "IMF SBA second review SLA (board approval 29-Apr) — $1.1bn tranche."},
-    {"date": "2025-03-25", "key": "imf_review_completed", "decay_days": 21,
+    {"date": "2025-03-25", "key": "imf_review_completed", "decay_days": 5,
      "description": "IMF EFF first review SLA ($1bn tranche)."},
-    {"date": "2025-09-25", "key": "imf_review_completed", "decay_days": 21,
+    {"date": "2025-09-25", "key": "imf_review_completed", "decay_days": 5,
      "description": "IMF EFF second review SLA."},
     # Political
     {"date": "2024-02-08", "key": "election_window", "decay_days": 14,
      "description": "Pakistan general election."},
-    # Structural
-    {"date": "2025-12-15", "key": "circular_debt_resolution_event", "decay_days": 60,
+    # Structural — decay shortened from 60 -> 7 days (Tier-0 patch
+    # 2026-05-03). The case `circular_debt_resolution_large` is a
+    # 2-5 day "buy-the-news" trigger, not a 60-day standing call;
+    # leaving the event active for 60 days re-fired the case every
+    # Mon/Wed/Fri (~27 fires per event) and turned a 76% precision
+    # case into a 32% precision case. The case is still expected to
+    # be HELD 30-45 days per its `playbook` text — that's the trader's
+    # holding window, not the system's re-firing window.
+    {"date": "2025-12-15", "key": "circular_debt_resolution_event", "decay_days": 7,
      "description": "Rs 1.225 trn power circular-debt clearance."},
     # FX shocks
     {"date": "2023-01-26", "key": "pkr_devaluation_event", "decay_days": 21,
@@ -208,10 +222,21 @@ def _kpi_at(as_of: date) -> dict:
             df = df.copy()
             df["date"] = pd.to_datetime(df["date"]).dt.date
             df = df[df["date"] <= as_of].sort_values("date")
+            # Freshness gate (Tier-1 fix 2026-05-03). The on-disk
+            # kse100 parquet currently has a 2021-09 -> 2026-04 gap;
+            # without this check, every replay date in that window
+            # gets the same stale -6% return clamped to 2021-09-30.
+            # When the latest in-window row is more than 7 calendar
+            # days behind as_of, drop the parquet and let the
+            # universe-proxy fallback in replay_briefing populate
+            # ret_5d / ret_21d from the OHLCV directory instead.
             if len(df) >= 22:
-                s = df["kse100_close"].astype(float)
-                kpis["kse100_ret_5d"]  = _pct_change(s, 5)
-                kpis["kse100_ret_21d"] = _pct_change(s, 21)
+                latest_d = df["date"].iloc[-1]
+                age_days = (as_of - latest_d).days
+                if age_days <= 7:
+                    s = df["kse100_close"].astype(float)
+                    kpis["kse100_ret_5d"]  = _pct_change(s, 5)
+                    kpis["kse100_ret_21d"] = _pct_change(s, 21)
     return kpis
 
 
@@ -500,6 +525,23 @@ def replay_briefing(as_of: date) -> dict:
     except Exception:
         mf_payload = {}
 
+    # Volume confirmation signals (Tier-1 patch 2026-05-03). The
+    # production builder uses ranked_top + selected from Phase-1; in
+    # the replay we don't have those rankings yet, so we fan out across
+    # every symbol that has an OHLCV parquet (the same universe the
+    # snapshot above is built from). That gives the universe-level
+    # breakout count the playbook trigger keys off.
+    try:
+        from brain import volume_signals
+        vol_syms = sorted(p.stem for p in OHLCV_DIR.glob("*.parquet"))
+        volume_payload = volume_signals.universe_summary(
+            vol_syms, as_of=as_of)
+        # Strip the per-stock dict to keep the briefing payload small;
+        # the trigger evaluator only reads the universe-level fields.
+        volume_payload.pop("per_stock", None)
+    except Exception as e:
+        volume_payload = {"error": f"{type(e).__name__}: {e}"}
+
     return {
         "as_of": as_of.isoformat(),
         "_replay": True,
@@ -534,6 +576,7 @@ def replay_briefing(as_of: date) -> dict:
         "top_buys": {"ideas": []},
         "portfolio": {"positions": []},
         "mf_holdings": mf_payload,
+        "volume_signals": volume_payload,
         "_replay_events": events,
         "_cycle_override": cycle_override,
         "_replay_universe": {
