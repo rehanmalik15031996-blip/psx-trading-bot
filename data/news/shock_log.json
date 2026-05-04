@@ -629,6 +629,25 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-01T16:14:24+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-04::BEARISH::3",
+      "title": "Broad-market bearish shock: 3 HIGH-confidence articles avg sentiment -0.47",
+      "sentiment": -0.4666666666666666,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 3,
+      "sample_titles": [
+        "Business leaders oppose 286% gas tariff hike",
+        "IMF flags Pakistan risks amid MENAP slowdown",
+        "PSX Market Crash | KSE 100 Index Drop 3200 Points | Pakistan Stocks Fall - Aaj English TV"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-04T10:25:43+00:00"
     }
   ]
 }
