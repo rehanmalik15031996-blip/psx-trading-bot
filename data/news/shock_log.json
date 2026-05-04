@@ -648,6 +648,70 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-04T10:25:43+00:00"
+    },
+    {
+      "article_id": "ca8007dfcece5326",
+      "title": "Stocks Whipsaw With Oil on Renewed Mideast Tension: Markets Wrap",
+      "sentiment": -0.4,
+      "confidence": "HIGH",
+      "category": "GLOBAL",
+      "affected_symbols": [
+        "OGDC",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-04T12:14:11+00:00",
+      "detected_at": "2026-05-04T12:14:29+00:00"
+    },
+    {
+      "article_id": "29ca2d6ae0993376",
+      "title": "Refineries brave Rs24bn loss in April - The News Pakistan",
+      "sentiment": -0.45,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-04T12:14:11+00:00",
+      "detected_at": "2026-05-04T12:14:29+00:00"
+    },
+    {
+      "article_id": "82ded447de7c557e",
+      "title": "Pakistan pays record premium for oil imports following Hormuz crisis - Inspenet",
+      "sentiment": -0.5,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-04T12:14:11+00:00",
+      "detected_at": "2026-05-04T12:14:29+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-04::BEARISH::8",
+      "title": "Broad-market bearish shock: 8 HIGH-confidence articles avg sentiment -0.43",
+      "sentiment": -0.43125,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 8,
+      "sample_titles": [
+        "Business leaders oppose 286% gas tariff hike",
+        "IMF flags Pakistan risks amid MENAP slowdown",
+        "PSX Market Crash | KSE 100 Index Drop 3200 Points | Pakistan Stocks Fall - Aaj English TV",
+        "Pakistan's short-term FX liabilities near $31bn",
+        "Pakistan's short-term FX liabilities near $31bn - Mettis Global"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-04T12:14:29+00:00"
     }
   ]
 }
