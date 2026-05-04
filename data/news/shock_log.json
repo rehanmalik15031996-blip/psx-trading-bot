@@ -712,6 +712,22 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-04T12:14:29+00:00"
+    },
+    {
+      "article_id": "a22ab8feb8565ebd",
+      "title": "Global oil prices climb back above $110 a barrel after disputed report of Iran strike on U.S. warship",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-04T15:33:25+00:00",
+      "detected_at": "2026-05-04T15:33:37+00:00"
     }
   ]
 }
