@@ -728,6 +728,44 @@
       "is_broad_market": false,
       "scored_at": "2026-05-04T15:33:25+00:00",
       "detected_at": "2026-05-04T15:33:37+00:00"
+    },
+    {
+      "article_id": "f9f7f0bfd8f7b67b",
+      "title": "Oil Surges After Iran Strikes Energy Facility in UAE\u2019s Fujairah",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-04T18:05:28+00:00",
+      "detected_at": "2026-05-04T18:05:45+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-04::BEARISH::9",
+      "title": "Broad-market bearish shock: 9 HIGH-confidence articles avg sentiment -0.38",
+      "sentiment": -0.3833333333333333,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 9,
+      "sample_titles": [
+        "Pakistan's short-term FX liabilities near $31bn",
+        "Pakistan's short-term FX liabilities near $31bn - Mettis Global",
+        "Stocks Whipsaw With Oil on Renewed Mideast Tension: Markets Wrap",
+        "Refineries brave Rs24bn loss in April - The News Pakistan",
+        "Pakistan pays record premium for oil imports following Hormuz crisis - Inspenet"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-04T18:05:45+00:00"
     }
   ]
 }
