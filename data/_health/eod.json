@@ -1,23 +1,23 @@
 {
   "workflow": "eod",
   "ok": true,
-  "note": "FIPI snapshot for 2026-05-04: foreign_net=+1.8 mn",
-  "as_of": "2026-05-04T17:18:43+00:00",
+  "note": "FIPI snapshot for 2026-05-05: foreign_net=+0.8 mn",
+  "as_of": "2026-05-05T17:10:40+00:00",
   "github": {
-    "run_id": "25332698931",
-    "run_number": "9",
+    "run_id": "25390757935",
+    "run_number": "10",
     "ref": "refs/heads/main",
-    "sha": "420bbe41ad3e9419181932495155d10a6eefd810"
+    "sha": "e00865d2b9aa84a9f56d8ba7f4149d9106b3591d"
   },
   "payload": {
-    "date": "2026-05-04",
-    "foreign_net_pkr_mn": 1.77,
-    "local_net_pkr_mn": -1.76,
+    "date": "2026-05-05",
+    "foreign_net_pkr_mn": 0.8,
+    "local_net_pkr_mn": -0.8,
     "foreign_regime": "net_buying",
     "n_participants": 9,
     "n_sectors": 10,
-    "top_sector_name": "All other Sectors",
-    "top_sector_net_usd_mn": 0.67,
-    "captured_at_utc": "2026-05-04T17:18:43"
+    "top_sector_name": "Fertilizer",
+    "top_sector_net_usd_mn": 0.35,
+    "captured_at_utc": "2026-05-05T17:10:40"
   }
 }
