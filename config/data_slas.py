@@ -56,15 +56,20 @@ SLAS: list[Sla] = [
     Sla("news_scoring",   7 * HOUR,  12 * HOUR, False,
          "Claude-scored news + shock check — weekdays 07:00 / "
          "13:00 / 18:00 PKT."),
-    Sla("predictions",   26 * HOUR,  48 * HOUR, True,
+    # Red threshold is 80h (not 48h) for these three daily weekday jobs.
+    # The Mon-morning health check runs at ~08:40 PKT and sees the last
+    # successful run from Friday (09:20 / 16:30 PKT), which is ~64-72h
+    # old — safely under 80h. Anything over 80h means at least one full
+    # weekday was skipped, which is a genuine alert.
+    Sla("predictions",   26 * HOUR,  80 * HOUR, True,
          "5-day stock predictions — weekdays 09:20 PKT."),
-    Sla("eod",           26 * HOUR,  48 * HOUR, True,
+    Sla("eod",           26 * HOUR,  80 * HOUR, True,
          "OHLCV + final FIPI + scorecard — weekdays 16:30 PKT."),
     Sla("intraday_session", 4 * HOUR, 6 * HOUR, True,
          "Live MarketWatch + circuit breakers + FIPI proxy — "
          "weekdays 11:30 PKT and 13:30 PKT.",
          intraday_only=True),
-    Sla("material_info", 26 * HOUR,  48 * HOUR, True,
+    Sla("material_info", 26 * HOUR,  80 * HOUR, True,
          "PSX corporate notices — weekdays 17:30 PKT."),
     Sla("fundamentals",   8 * DAY,   14 * DAY,  False,
          "yfinance fundamentals — Sundays 07:00 PKT."),

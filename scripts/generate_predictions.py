@@ -824,8 +824,16 @@ def predict_with_claude(briefing: str, sym: str, close: float) -> dict:
     ``claude-haiku-4-5`` for cheap test runs); set
     ``PSX_PREDICT_THINKING_BUDGET=0`` to disable extended thinking.
     """
+    import httpx
     from anthropic import Anthropic
-    client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    # Hard 90-second read timeout per request.  Without this, a single
+    # stalled API call will block the entire 35-symbol loop until
+    # GitHub Actions kills the job at the workflow timeout limit.
+    # The connect timeout is kept short (10s) because a connection that
+    # takes >10s is almost certainly a network issue, not slow inference.
+    _http = httpx.Client(timeout=httpx.Timeout(90.0, connect=10.0))
+    client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"],
+                       http_client=_http)
     model = os.environ.get("PSX_PREDICT_MODEL", "claude-sonnet-4-5")
     try:
         budget = int(os.environ.get("PSX_PREDICT_THINKING_BUDGET", "2000"))

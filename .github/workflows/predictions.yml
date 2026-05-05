@@ -30,9 +30,18 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # 35 symbols × ~30s/call (Sonnet, no thinking) = ~17 min.
+    # Was 25 min, bumped to 40 to absorb API latency spikes.
+    timeout-minutes: 40
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      # Disable extended thinking in CI. Sonnet 4.5 without thinking
+      # takes ~5-15s per symbol vs ~30-90s with thinking — keeps the
+      # total job well inside the 40-min budget. Deep per-ticker
+      # reasoning is handled by the Master Strategist which runs once
+      # per day with a 12k token thinking budget and its own 15-min
+      # timeout. Per-ticker extended thinking is redundant.
+      PSX_PREDICT_THINKING_BUDGET: "0"
     steps:
       - uses: actions/checkout@v4
         with:
