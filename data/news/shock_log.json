@@ -802,6 +802,27 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-05T09:28:22+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-05::BEARISH::6",
+      "title": "Broad-market bearish shock: 6 HIGH-confidence articles avg sentiment -0.40",
+      "sentiment": -0.39999999999999997,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 6,
+      "sample_titles": [
+        "PSX slips in volatile trade as selling returns amid global tensions",
+        "PSX slips in volatile trade as selling returns amid global tensions - Profit by Pakistan Today",
+        "HSBC\u2019s darkest scenario: stock markets down 35% and oil at $145",
+        "Pakistan Trade Deficit Widens as Imports Surge",
+        "Emerging Markets Update | Asia Stocks Drop as Oil Prices Stay Elevated Near $100 | Dawn News English - Dawn"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-05T11:07:28+00:00"
     }
   ]
 }
