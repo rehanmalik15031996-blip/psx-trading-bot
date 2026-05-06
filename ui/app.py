@@ -93,6 +93,31 @@ st.set_page_config(
 )
 
 
+# ---------------------------------------------------------------------------
+# Auto-sync: pull the latest data from GitHub on every cold start.
+# Streamlit Community Cloud re-uses a running process between user visits
+# and does NOT automatically pull new git commits pushed by GitHub Actions.
+# This block runs a lightweight `git pull` once per hour so the app always
+# reads the freshest parquet/JSON files without requiring a manual reboot.
+# ---------------------------------------------------------------------------
+@st.cache_data(ttl=3600, show_spinner=False)
+def _auto_git_pull() -> str:
+    """Pull latest commits from origin/main. Returns a status string."""
+    import subprocess
+    try:
+        result = subprocess.run(
+            ["git", "pull", "--ff-only", "origin", "main"],
+            capture_output=True, text=True,
+            cwd=str(Path(__file__).resolve().parent.parent),
+            timeout=30,
+        )
+        return result.stdout.strip() or result.stderr.strip() or "ok"
+    except Exception as e:
+        return f"git pull skipped: {e}"
+
+_auto_git_pull()
+
+
 # --------------------------------------------------------------------------
 # Session state
 # --------------------------------------------------------------------------
