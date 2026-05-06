@@ -223,8 +223,8 @@ def build_briefing() -> dict:
         # Per-stock signals for the universe (Phase-1 selected names)
         per_stock_signals: dict[str, dict] = {}
         sig = briefing.get("strategy_signal") or {}
-        sym_list = list((sig.get("ranked_top") or [])
-                          + (sig.get("selected") or []))
+        sym_list = list((sig.get("selected_symbols") or sig.get("ranked_top") or [])
+                          + (sig.get("would_pick_if_market_filter_off") or sig.get("selected") or []))
         seen: set[str] = set()
         for sym in sym_list:
             if not isinstance(sym, str) or sym in seen:
@@ -251,7 +251,8 @@ def build_briefing() -> dict:
         from brain import volume_signals
         sig = briefing.get("strategy_signal") or {}
         vol_syms = list(dict.fromkeys(
-            (sig.get("ranked_top") or []) + (sig.get("selected") or [])
+            (sig.get("selected_symbols") or sig.get("ranked_top") or [])
+            + (sig.get("would_pick_if_market_filter_off") or sig.get("selected") or [])
         ))
         if not vol_syms:
             from config.universe import symbols as universe_symbols
@@ -459,8 +460,8 @@ def _compress_heavy_fields(briefing: dict) -> dict:
     sees them but doesn't burn 50% of its context window on them.
 
     Top-K selection rules (union, deduped):
-      * strategy_signal.selected (Phase-1 picks)
-      * strategy_signal.ranked_top (model-ranked top)
+      * strategy_signal.selected_symbols (Phase-1 picks with market filter)
+      * strategy_signal.would_pick_if_market_filter_off (picks ignoring market filter)
       * portfolio.holdings (positions we already own)
       * watchlist
       * mf_holdings.top_accumulated_180d / top_distributed_180d
@@ -548,7 +549,8 @@ def _select_top_k_symbols(briefing: dict) -> set[str]:
 
     sig = briefing.get("strategy_signal") or {}
     if isinstance(sig, dict):
-        for k in ("selected", "ranked_top"):
+        for k in ("selected_symbols", "would_pick_if_market_filter_off",
+                   "selected", "ranked_top"):
             for s in (sig.get(k) or []):
                 if isinstance(s, str):
                     syms.add(s)
@@ -663,8 +665,11 @@ def _briefing_summary(briefing: dict) -> dict:
                           "regime", "exposure_multiplier",
                           "universe_ret_5d", "universe_ret_21d", "breadth_pct_up"),
         "strategy_signal": _pluck(briefing.get("strategy_signal"),
-                                    "as_of", "market_risk_on", "selected",
-                                    "reason", "ranked_top"),
+                                    "as_of", "market_risk_on",
+                                    "selected_symbols", "would_pick_if_market_filter_off",
+                                    "recommended_action", "rationale",
+                                    # legacy key aliases kept for backwards compat
+                                    "selected", "ranked_top"),
         "macro_drivers_count": len((briefing.get("macro_impact") or {})
                                     .get("drivers", []) or []),
         "fipi_5d_net": (briefing.get("fipi_flows") or {}).get("net_5d_pkr_mn"),
@@ -883,7 +888,7 @@ def _fallback_decision(briefing: dict, model: str) -> MasterDecision:
     keep the surface usable when the API is unavailable.
     """
     sig = briefing.get("strategy_signal") or {}
-    selected = sig.get("selected") or []
+    selected = sig.get("selected_symbols") or sig.get("selected") or []
     market_on = bool(sig.get("market_risk_on"))
     regime = briefing.get("regime") or {}
     regime_name = (regime.get("regime") or "NORMAL").upper()

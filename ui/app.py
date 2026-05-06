@@ -4057,6 +4057,37 @@ def render_reports_tab():
         ],
     )
 
+    # --- Strategist banner -----------------------------------------------
+    try:
+        from brain import master_strategist as _ms_r
+        _dec_r = _ms_r.load_cached() or {}
+        if _dec_r and not _dec_r.get("fallback_used"):
+            _stance_r = (_dec_r.get("risk_stance") or "NORMAL").upper()
+            _ml = (_dec_r.get("macro_lens") or "").strip()
+            _kr = _dec_r.get("key_risks") or []
+            _fg_r, _bg_r = _BANNER_STANCE_COLORS.get(_stance_r, ("#222", "#eee"))
+            with st.expander(
+                f"🤖 Master Strategist on Reports  ·  {_stance_r}  "
+                f"({_dec_r.get('conviction','?')}) — click to expand",
+                expanded=False,
+            ):
+                if _ml:
+                    st.markdown("**Macro & sector context from today's briefing:**")
+                    st.markdown(_ml)
+                if _kr:
+                    st.markdown("**Key risks the model flagged:**")
+                    for _r in _kr:
+                        st.markdown(f"- {_r}")
+                st.caption(
+                    f"Based on the {_dec_r.get('model','?')} strategist run at "
+                    f"{(_dec_r.get('as_of') or '')[:16]} UTC. "
+                    "This model read the same Director's Reports shown below, "
+                    "plus macro data, flows, and predictions."
+                )
+    except Exception:
+        pass
+    # --- end strategist banner -------------------------------------------
+
     rows = dash.latest_management_outlook(top_k=20).get("rows") or []
     if not rows:
         st.info(
@@ -4568,6 +4599,42 @@ def render_value_tab():
         "weight position sizing, not as a 5-day timing tool."
     )
 
+    # --- Strategist view on this specific stock --------------------------
+    _sv_fv = strat_by_sym.get((pick or "").upper()) or {}
+    if _sv_fv:
+        _bkt_fv = (_sv_fv.get("bucket") or "—").upper()
+        _con_fv = (_sv_fv.get("conviction") or "").upper()
+        _rsn_fv = (_sv_fv.get("reason") or "").strip()
+        _csig_fv = _sv_fv.get("contributing_signals") or []
+        _bkt_color = (
+            "green" if _bkt_fv in ("BUY", "ADD")
+            else "red" if _bkt_fv in ("AVOID", "SHORT", "TRIM")
+            else "blue"
+        )
+        with st.expander(
+            f"🤖 Master Strategist on {pick}  ·  "
+            f":{_bkt_color}[{_bkt_fv}]  ({_con_fv})",
+            expanded=True,
+        ):
+            if _rsn_fv:
+                st.markdown(f"**Reasoning:** {_rsn_fv}")
+            if _csig_fv:
+                st.markdown("**Signals that drove this call:**")
+                for _s in _csig_fv:
+                    st.markdown(f"- {_s}")
+    elif strat_by_sym:
+        try:
+            from brain import master_strategist as _ms_fv
+            _d_fv = _ms_fv.load_cached() or {}
+            _overall = f"{_d_fv.get('risk_stance','?')} · {_d_fv.get('conviction','?')}"
+        except Exception:
+            _overall = "unavailable"
+        st.caption(
+            f"🤖 Master Strategist has no specific action on **{pick}** today. "
+            f"Overall stance: {_overall}."
+        )
+    # --- end strategist view ---------------------------------------------
+
     st.markdown(f"**Method:** {rec.get('method', '—')}")
     if rec.get("warnings"):
         st.warning(" · ".join(rec["warnings"]))
@@ -4717,6 +4784,36 @@ def render_news_tab():
             "GitHub Action.",
         ],
     )
+
+    # --- Strategist banner -----------------------------------------------
+    try:
+        from brain import master_strategist as _ms_n
+        _dec_n = _ms_n.load_cached() or {}
+        if _dec_n and not _dec_n.get("fallback_used"):
+            _stance_n = (_dec_n.get("risk_stance") or "NORMAL").upper()
+            _bl = (_dec_n.get("behavioural_lens") or "").strip()
+            _kd = _dec_n.get("key_drivers") or []
+            with st.expander(
+                f"🤖 Master Strategist on News  ·  {_stance_n}  "
+                f"({_dec_n.get('conviction','?')}) — click to expand",
+                expanded=False,
+            ):
+                if _bl:
+                    st.markdown("**How the model reads current sentiment & flows:**")
+                    st.markdown(_bl)
+                if _kd:
+                    st.markdown("**Key drivers behind today's stance:**")
+                    for _d in _kd:
+                        st.markdown(f"- {_d}")
+                st.caption(
+                    f"Based on the {_dec_n.get('model','?')} strategist run at "
+                    f"{(_dec_n.get('as_of') or '')[:16]} UTC. "
+                    "This model scored the same news headlines shown below "
+                    "as part of its briefing."
+                )
+    except Exception:
+        pass
+    # --- end strategist banner -------------------------------------------
 
     hours = st.slider("Lookback (hours)", min_value=6, max_value=168,
                        value=48, step=6)
