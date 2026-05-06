@@ -1,25 +1,25 @@
 {
   "workflow": "news_scoring",
   "ok": true,
-  "note": "scored 40 new of 160 fetched",
-  "as_of": "2026-05-05T18:04:03+00:00",
+  "note": "scored 89 new of 157 fetched",
+  "as_of": "2026-05-06T10:11:06+00:00",
   "github": {
-    "run_id": "25393418786",
-    "run_number": "29",
+    "run_id": "25429102434",
+    "run_number": "30",
     "ref": "refs/heads/main",
-    "sha": "4b7c14db3901bd20bf39c6797b2f861799da0624"
+    "sha": "ea6f697effda5576b14c0378bbe021c471eef4a2"
   },
   "payload": {
-    "scored": 40,
-    "fetched": 160,
+    "scored": 89,
+    "fetched": 157,
     "by_category": {
-      "MACRO": 12,
-      "OTHER": 6,
-      "POLICY": 5,
-      "COMPANY": 5,
-      "GLOBAL": 5,
-      "COMMODITY": 4,
-      "GEOPOLITICS": 3
+      "COMPANY": 18,
+      "POLICY": 18,
+      "MACRO": 18,
+      "GLOBAL": 13,
+      "COMMODITY": 12,
+      "GEOPOLITICS": 7,
+      "OTHER": 3
     }
   }
 }

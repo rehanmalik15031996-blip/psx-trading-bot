@@ -862,6 +862,106 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-05T11:53:04+00:00"
+    },
+    {
+      "article_id": "a0a877f57c463fa8",
+      "title": "Banking sector expands 17.8pc during calendar year 2025",
+      "sentiment": 0.4,
+      "confidence": "HIGH",
+      "category": "MACRO",
+      "affected_symbols": [
+        "HBL",
+        "MCB",
+        "NBP"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T10:10:08+00:00",
+      "detected_at": "2026-05-06T10:11:06+00:00"
+    },
+    {
+      "article_id": "ea7fef4d58967385",
+      "title": "Oil falls to $103, KSE-100 jumps nearly 3% on diplomatic hopes",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T10:10:08+00:00",
+      "detected_at": "2026-05-06T10:11:06+00:00"
+    },
+    {
+      "article_id": "ea7fef4d58967385",
+      "title": "Oil falls to $103, KSE-100 jumps nearly 3% on diplomatic hopes",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T10:10:08+00:00",
+      "detected_at": "2026-05-06T10:11:06+00:00"
+    },
+    {
+      "article_id": "26fe1c62a784c464",
+      "title": "Oil falls to $103, KSE-100 jumps nearly 3% on diplomatic hopes - Mettis Global",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T10:10:08+00:00",
+      "detected_at": "2026-05-06T10:11:06+00:00"
+    },
+    {
+      "article_id": "8528ce7b94223d47",
+      "title": "Stocks Rally, Oil Falls as Iran Deal Hopes Mount: Markets Wrap",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "GLOBAL",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T10:10:08+00:00",
+      "detected_at": "2026-05-06T10:11:06+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-06::BEARISH::3",
+      "title": "Broad-market bearish shock: 3 HIGH-confidence articles avg sentiment -0.45",
+      "sentiment": -0.45,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 3,
+      "sample_titles": [
+        "Federation of Pakistan Chamb\u00aders of Commerce and Industry flags worsening trade imbalance",
+        "Middle East tensions pose downside risks to Pakistan's financial stability: SBP - Geo News",
+        "Metldown at PSX as KSE-100 loses over 4,000 points - Dawn"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-06T10:11:06+00:00"
     }
   ]
 }
