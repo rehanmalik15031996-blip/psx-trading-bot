@@ -494,6 +494,14 @@ def render() -> None:
                   f"{type(e).__name__}: {e}")
         return
 
+    # rank_shorts() runs the full universe through 7 scoring engines
+    # and takes ~40-60s on first call. Cache for 5 minutes so tab switches
+    # don't re-run the heavy computation on every interaction.
+    @st.cache_data(ttl=300, show_spinner=False)
+    def _cached_rank_shorts(min_conviction: str, max_results: int) -> dict:
+        return rank_shorts(min_conviction=min_conviction,
+                           max_results=max_results)
+
     c1, c2 = st.columns([1, 3])
     with c1:
         min_conv = st.selectbox(
@@ -508,10 +516,10 @@ def render() -> None:
         max_n = st.slider("Max results", min_value=5, max_value=30,
                             value=20, step=5)
 
-    with st.spinner("Ranking shorts across the universe..."):
+    with st.spinner("Ranking shorts across the universe… (first load ~40s, then cached)"):
         try:
-            res = rank_shorts(min_conviction=min_conv,
-                                max_results=int(max_n))
+            res = _cached_rank_shorts(min_conviction=min_conv,
+                                      max_results=int(max_n))
         except Exception as e:
             st.error(f"Could not compute short candidates: "
                       f"{type(e).__name__}: {e}")
@@ -542,6 +550,17 @@ def render() -> None:
     cmh[0].metric("High conviction shorts", len(high))
     cmh[1].metric("Medium conviction shorts", len(med))
     cmh[2].metric("Watch list (low)", len(low))
+
+    # Explain low-conviction results so users don't think "no stocks" = bug
+    if not high and not med and low:
+        st.info(
+            "**All candidates are WATCH tier (low conviction).** This is "
+            "normal — a HIGH or MEDIUM short requires 3+ independent bearish "
+            "signals stacking (bearish prediction + negative news + technical "
+            "breakdown + macro headwind). Today the universe only has weak "
+            "single-signal bearish leans. These are worth monitoring but not "
+            "sizing into."
+        )
 
     st.divider()
     st.markdown(f"### Ranked candidates  ({len(candidates)} total)")

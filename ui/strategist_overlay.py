@@ -97,13 +97,24 @@ def render(sym: str,
         local_dir = action_to_direction(local_action)
         strat_dir = bucket_to_direction(bucket)
         if local_dir and strat_dir and local_dir != strat_dir:
-            st.warning(
-                f"This tab says **{local_action}** but the Master "
-                f"Strategist says **{bucket}**. The Strategist is the "
-                f"top-of-stack call (it sees flows, playbook analogues "
-                f"and macro context this tab does not). When in doubt, "
-                f"follow the Strategist."
-            )
+            if strat_dir == "WATCH" and local_dir == "BULL":
+                # Strategist is cautious (WATCH) while tab is bullish —
+                # softer info-level nudge, not a hard warning.
+                st.info(
+                    f"This tab says **{local_action}** but the Master "
+                    f"Strategist says **WATCH** (not a buy yet). The "
+                    f"Strategist sees flows, playbook context, and macro "
+                    f"data this tab does not — treat as a caution flag "
+                    f"before sizing up."
+                )
+            else:
+                st.warning(
+                    f"This tab says **{local_action}** but the Master "
+                    f"Strategist says **{bucket}**. The Strategist is the "
+                    f"top-of-stack call (it sees flows, playbook analogues "
+                    f"and macro context this tab does not). When in doubt, "
+                    f"follow the Strategist."
+                )
 
 
 def action_to_direction(action: str) -> str:
@@ -124,4 +135,7 @@ def bucket_to_direction(bucket: str) -> str:
         return "BULL"
     if b in ("AVOID", "SHORT", "TRIM"):
         return "BEAR"
+    # WATCH is a cautious hold — not neutral in intent
+    if b == "WATCH":
+        return "WATCH"
     return "NEUTRAL"

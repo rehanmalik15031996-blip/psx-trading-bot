@@ -478,10 +478,15 @@ def _render_strategist_stance_banner() -> None:
     conv = (decision.get("conviction") or "MEDIUM").upper()
     fg, bg = _BANNER_STANCE_COLORS.get(stance, ("#222", "#eee"))
     actions = decision.get("actions") or []
-    buys = [a for a in actions
-            if (a.get("bucket") or "").upper() in ("BUY", "ADD")]
-    sells = [a for a in actions
-             if (a.get("bucket") or "").upper() in ("AVOID", "SHORT", "TRIM")]
+    fallback = decision.get("fallback_used", False)
+    buys  = [a for a in actions if (a.get("bucket") or "").upper() in ("BUY", "ADD")]
+    trims = [a for a in actions if (a.get("bucket") or "").upper() == "TRIM"]
+    avoids = [a for a in actions if (a.get("bucket") or "").upper() in ("AVOID", "SHORT")]
+    # Cash veto: if market action exists with no symbol, surface it
+    cash_veto = any(
+        not a.get("symbol") and (a.get("bucket") or "").upper() in ("HOLD", "WATCH", "CASH")
+        for a in actions
+    ) or stance == "CASH"
 
     def _fmt(items: list[dict], cap: int = 4) -> str:
         return ", ".join(
@@ -490,10 +495,24 @@ def _render_strategist_stance_banner() -> None:
             if it.get("symbol")
         )
 
-    buys_str = _fmt(buys) or "—"
-    sells_str = _fmt(sells) or "—"
+    buys_str  = _fmt(buys) or ("CASH ONLY" if cash_veto else "—")
+    trims_str = _fmt(trims) or ""
+    avoids_str = _fmt(avoids) or ""
     headline = (decision.get("headline") or "").strip()
     headline_short = (headline[:140] + "…") if len(headline) > 140 else headline
+    fallback_chip = (
+        '<span style="background:#555;color:#eee;padding:2px 8px;'
+        'border-radius:10px;font-size:0.78em;margin-left:4px;">rule-based</span>'
+        if fallback else ""
+    )
+    trim_part = (
+        f'<span style="opacity:0.85"><b style="color:#f5c542">TRIM:</b> '
+        f'{trims_str}</span>' if trims_str else ""
+    )
+    avoid_part = (
+        f'<span style="opacity:0.85"><b style="color:#ff8a8a">SHORT/AVOID:</b> '
+        f'{avoids_str}</span>' if avoids_str else ""
+    )
     st.markdown(
         f'<div style="display:flex;flex-wrap:wrap;align-items:center;'
         f'gap:10px;padding:8px 12px;border-radius:10px;'
@@ -501,10 +520,11 @@ def _render_strategist_stance_banner() -> None:
         f'<span style="background:{bg};color:{fg};padding:4px 12px;'
         f'border-radius:14px;font-weight:700;font-size:0.9em;">'
         f'STRATEGIST · {stance} · {conv}</span>'
+        f'{fallback_chip}'
         f'<span style="opacity:0.85"><b style="color:#7be59c">BUY:</b> '
         f'{buys_str}</span>'
-        f'<span style="opacity:0.85"><b style="color:#ff8a8a">AVOID/SHORT:</b> '
-        f'{sells_str}</span>'
+        f'{trim_part}'
+        f'{avoid_part}'
         f'<span style="opacity:0.55;font-size:0.85em;">'
         f'{headline_short}</span>'
         f'</div>',
@@ -3704,15 +3724,26 @@ def render_scanner_tab():
             return ["background-color: #4f3f1f; color: white"] * len(row)
         return [""] * len(row)
 
+    # Add strategist column so users see the top-of-stack call inline
+    _strat_scanner = _strategist_actions_by_symbol()
+    df["Strategist"] = df["symbol"].apply(
+        lambda s: (
+            "{} · {}".format(
+                (_strat_scanner.get((s or "").upper()) or {}).get("bucket", "—"),
+                (_strat_scanner.get((s or "").upper()) or {}).get("conviction", ""),
+            ).rstrip(" ·").strip() or "—"
+        ) if _strat_scanner else "—"
+    )
+
     display = df[[
         "rank", "symbol", "sector", "mom_150d_log_ret",
         "rvol_20d_ann", "vol_percentile", "passes_vol_filter",
-        "phase1_pick", "would_be_pick",
+        "phase1_pick", "would_be_pick", "Strategist",
     ]].copy()
     display.columns = [
         "Rank", "Symbol", "Sector", "Mom (150d log)",
         "RVol (20d ann)", "Vol %ile", "Vol filter OK",
-        "Today pick", "Would-be pick",
+        "Today pick", "Would-be pick", "Strategist",
     ]
     st.dataframe(
         display.style.apply(lambda r: _style(df.iloc[r.name]), axis=1),
@@ -4066,10 +4097,11 @@ def render_reports_tab():
             _ml = (_dec_r.get("macro_lens") or "").strip()
             _kr = _dec_r.get("key_risks") or []
             _fg_r, _bg_r = _BANNER_STANCE_COLORS.get(_stance_r, ("#222", "#eee"))
+            _auto_expand_r = _stance_r in ("CAUTIOUS", "DEFENSIVE", "CASH")
             with st.expander(
                 f"🤖 Master Strategist on Reports  ·  {_stance_r}  "
-                f"({_dec_r.get('conviction','?')}) — click to expand",
-                expanded=False,
+                f"({_dec_r.get('conviction','?')})",
+                expanded=_auto_expand_r,
             ):
                 if _ml:
                     st.markdown("**Macro & sector context from today's briefing:**")
@@ -4793,10 +4825,11 @@ def render_news_tab():
             _stance_n = (_dec_n.get("risk_stance") or "NORMAL").upper()
             _bl = (_dec_n.get("behavioural_lens") or "").strip()
             _kd = _dec_n.get("key_drivers") or []
+            _auto_expand_n = _stance_n in ("CAUTIOUS", "DEFENSIVE", "CASH")
             with st.expander(
                 f"🤖 Master Strategist on News  ·  {_stance_n}  "
-                f"({_dec_n.get('conviction','?')}) — click to expand",
-                expanded=False,
+                f"({_dec_n.get('conviction','?')})",
+                expanded=_auto_expand_n,
             ):
                 if _bl:
                     st.markdown("**How the model reads current sentiment & flows:**")
