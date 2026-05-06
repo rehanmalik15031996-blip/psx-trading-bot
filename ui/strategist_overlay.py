@@ -98,22 +98,43 @@ def render(sym: str,
         strat_dir = bucket_to_direction(bucket)
         if local_dir and strat_dir and local_dir != strat_dir:
             if strat_dir == "WATCH" and local_dir == "BULL":
-                # Strategist is cautious (WATCH) while tab is bullish —
-                # softer info-level nudge, not a hard warning.
                 st.info(
-                    f"This tab says **{local_action}** but the Master "
-                    f"Strategist says **WATCH** (not a buy yet). The "
-                    f"Strategist sees flows, playbook context, and macro "
-                    f"data this tab does not — treat as a caution flag "
-                    f"before sizing up."
+                    f"**Why the difference?** This tab says **{local_action}** "
+                    f"(5-day trade signal) but the Master Strategist says "
+                    f"**WATCH** (portfolio-level caution). These answer "
+                    f"different questions — the Strategist sees flows, "
+                    f"playbook history, and macro context this tab does not. "
+                    f"Treat WATCH as a reason to size smaller, not to ignore "
+                    f"the trade entirely."
+                )
+            elif local_dir == "BULL" and strat_dir == "BEAR":
+                st.warning(
+                    f"**Signals conflict.** This tab says **{local_action}** "
+                    f"(5-day: bullish short-term) but the Master Strategist "
+                    f"says **{bucket}** (portfolio: bearish long-term). These "
+                    f"can both be right simultaneously — a stock can bounce "
+                    f"this week and still be a long-term sell. "
+                    f"**For trades lasting more than a week, follow the "
+                    f"Strategist.** For a quick 5-day flip, the Forecast "
+                    f"signal applies."
+                )
+            elif local_dir == "BEAR" and strat_dir == "BULL":
+                st.info(
+                    f"**Signals conflict.** This tab says **{local_action}** "
+                    f"(5-day: bearish short-term) but the Master Strategist "
+                    f"says **{bucket}** (portfolio: bullish long-term). The "
+                    f"stock may face short-term pressure while remaining "
+                    f"attractive for the portfolio. **For portfolio decisions, "
+                    f"follow the Strategist.** If you're day-trading this "
+                    f"week, respect the Forecast signal."
                 )
             else:
                 st.warning(
-                    f"This tab says **{local_action}** but the Master "
-                    f"Strategist says **{bucket}**. The Strategist is the "
-                    f"top-of-stack call (it sees flows, playbook analogues "
-                    f"and macro context this tab does not). When in doubt, "
-                    f"follow the Strategist."
+                    f"**Signals conflict.** This tab says **{local_action}** "
+                    f"but the Master Strategist says **{bucket}**. They answer "
+                    f"different questions (5-day trade vs portfolio position). "
+                    f"The Strategist is the final decision layer — follow it "
+                    f"for anything beyond a short-term trade."
                 )
 
 

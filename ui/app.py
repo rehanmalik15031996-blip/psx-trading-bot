@@ -1722,7 +1722,21 @@ def _render_master_strategist_card() -> None:
                 "- **BUY / ADD** — open or top up.\n"
                 "- **HOLD / WATCH** — keep what you have, no new size.\n"
                 "- **TRIM** — reduce size on rallies.\n"
-                "- **AVOID / SHORT** — do not buy; consider exit or hedge."
+                "- **AVOID / SHORT** — do not buy; consider exit or hedge.\n"
+                "\n"
+                "---\n"
+                "**Why does this sometimes disagree with the Forecast tab?**\n\n"
+                "The **Forecast** tab answers: *'Will this stock go up in the "
+                "next 5 days?'* It is a short-term trade signal.\n\n"
+                "The **Master Strategist** answers: *'Should this stock be in "
+                "my portfolio?'* It considers fair value, quality, "
+                "institutional flows, macro tailwinds, and playbook history "
+                "— a much longer horizon.\n\n"
+                "A stock can be **HOLD on Forecast** (flat next 5 days) and "
+                "**BUY here** (undervalued, strong business, worth owning) at "
+                "the same time. **When they disagree, this Strategist view is "
+                "the final decision.** Use Forecast only to time your entry "
+                "— wait for a bullish 5-day signal before sizing in."
             )
         st.markdown(f"**{headline}**")
         narrative = decision.get("narrative") or ""
@@ -3817,6 +3831,14 @@ def render_predictions_tab():
             "**Scorecard at the bottom** — how the bot's calls have "
             "actually performed (rolling 30 days). Be sceptical until "
             "you have at least 60 scored predictions.",
+            "**Forecast vs Master Strategist** — you may see a stock "
+            "listed as HOLD here but BUY on the Today page (or vice "
+            "versa). This is normal: Forecast answers *'should I trade "
+            "this stock in the next 5 days?'* while the Master "
+            "Strategist answers *'should this stock be in my "
+            "portfolio?'* They use different time horizons and data. "
+            "When they conflict, **follow the Master Strategist** — it "
+            "was built to be the final decision layer.",
         ],
     )
     st.caption(
