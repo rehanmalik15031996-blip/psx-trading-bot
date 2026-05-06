@@ -1334,10 +1334,17 @@ def get_todays_predictions(max_items: int = 20,
     if not preds:
         return {"error": "predictions_log.json has no entries"}
 
-    as_of = max((p.get("data_snapshot", {}).get("as_of_price_date") or "")
-                  for p in preds)
-    latest = [p for p in preds
-                if p.get("data_snapshot", {}).get("as_of_price_date") == as_of]
+    # Use generated_at (actual generation time) to find today's batch.
+    # Fall back to data_snapshot.as_of_price_date for older log entries
+    # that pre-date the generated_at field.
+    def _pred_date(p: dict) -> str:
+        ga = (p.get("generated_at") or "")[:10]
+        if ga:
+            return ga
+        return (p.get("data_snapshot", {}).get("as_of_price_date") or "")
+
+    as_of = max(_pred_date(p) for p in preds)
+    latest = [p for p in preds if _pred_date(p) == as_of]
     rt_cost = round_trip_cost_pct()
 
     # Older predictions in the log were generated before the macro-
