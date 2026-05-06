@@ -962,6 +962,42 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-06T10:11:06+00:00"
+    },
+    {
+      "article_id": "df2d072549365d26",
+      "title": "Oil stocks sink as Brent trades below $100",
+      "sentiment": -0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T12:20:03+00:00",
+      "detected_at": "2026-05-06T12:20:15+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-06::BEARISH::4",
+      "title": "Broad-market bearish shock: 4 HIGH-confidence articles avg sentiment -0.43",
+      "sentiment": -0.42500000000000004,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 4,
+      "sample_titles": [
+        "Federation of Pakistan Chamb\u00aders of Commerce and Industry flags worsening trade imbalance",
+        "Middle East tensions pose downside risks to Pakistan's financial stability: SBP - Geo News",
+        "Metldown at PSX as KSE-100 loses over 4,000 points - Dawn",
+        "Oil stocks sink as Brent trades below $100"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-06T12:20:15+00:00"
     }
   ]
 }
