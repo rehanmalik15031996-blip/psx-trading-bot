@@ -33172,13 +33172,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 601.33,
+        "actual_return_pct": 1.01,
+        "actual_return_net_pct": 0.382,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"MEDIUM\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 4.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 560.0,\n  \"suggested_target_pkr\": 615.0,\n  \"rationale\": \"APL presents a NEUTRAL stance with MEDIUM conviction despite recent strong momentum, as multiple conflicting signals prevent a high-confidence directional call. Technically, the stock is overbought with RSI at 73.8, trading 8.6% above its 200-day SMA after a +16.9% rally in 21 days, and the Bollinger %B is not provided but the stretched positioning warrants caution on further upside in the immediate 5-day window. Fundamentally, APL trades at a 17% premium to its intrinsic fair value (HIGH confidence SELL_VALUE signal), which is a meaningful valuation headwind even though the company exhibits HIGH quality (97/100) and RECOVERING earnings momentum (+10.9% YoY vs prior -32.8%). Macro signals are mixed: the sector verdict is TAILWIND (+1) driven by FX reserve relief and broad KSE-100 strength offsetting Brent's -14.3% drop in 5 days, but the Brent decline poses inventory loss and margin compression risks that typically materialize over 2-4 weeks for OMCs. The dominant risk is mean reversion from overbought levels combined with the rich valuation—any negative sector-specific news or continued Brent weakness could trigger a 5-8% correction, flipping the near-term setup bearish.\",\n  \"key_drivers\": [\n   "
     },
@@ -33360,13 +33365,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 904.89,
+        "actual_return_pct": 0.51,
+        "actual_return_net_pct": -0.051,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -33553,13 +33563,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 172.81,
+        "actual_return_pct": 1.86,
+        "actual_return_net_pct": 1.104,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -33726,13 +33741,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 1083.25,
+        "actual_return_pct": -0.65,
+        "actual_return_net_pct": -1.211,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -33924,13 +33944,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 192.46,
+        "actual_return_pct": 9.63,
+        "actual_return_net_pct": 7.709,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -34097,13 +34122,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 200.37,
+        "actual_return_pct": 1.68,
+        "actual_return_net_pct": 0.951,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -34283,13 +34313,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 284.32,
+        "actual_return_pct": 3.49,
+        "actual_return_net_pct": 2.49,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -34474,13 +34509,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 33.54,
+        "actual_return_pct": 0.87,
+        "actual_return_net_pct": 0.263,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       },
       "_llm_raw": "```json\n{\n  \"direction\": \"NEUTRAL\",\n  \"conviction\": \"LOW\",\n  \"expected_return_5d_low_pct\": -3.5,\n  \"expected_return_5d_mid_pct\": 0.8,\n  \"expected_return_5d_high_pct\": 4.2,\n  \"suggested_action\": \"HOLD\",\n  \"suggested_stop_pkr\": 31.20,\n  \"suggested_target_pkr\": 34.50,\n  \"rationale\": \"We assign a NEUTRAL call with LOW conviction for EPCL despite the +2.50% one-day pop, as multiple layers present conflicting signals that make a directional short-term call unreliable. Technically, RSI is oversold at 36.3 and price sits 5.1% above the 200-day moving average with momentum turning positive on the 1-day and 5-day horizons, but the 21-day momentum remains negative at -7.74%, indicating a choppy regime rather than a clean trend; the lack of volume confirmation (OBV data absent) and proximity to an earnings event (11 days out, EVENT WINDOW) add execution risk. Fundamentally, EPCL trades at a JUNK quality score of 11/100 with negative ROE of -16.66%, high debt-to-equity of 2.41, and EROSION earnings momentum (YoY -500%), creating a classic value-trap setup despite the stock appearing 8% below fair value; management outlook is cautious (tone +0.10, LOW guidance) citing slow commodity price recovery and production losses. The macro layer is NEUTRAL (sector score 0, stock score 0) with Brent's -14.3% five-day drop narrowing PVC margins offset by stabilizing FX reserves, while the overnight global risk is benign (S&P +0.81%, VIX 17.4 normal, EM ETF +2.03%) but Big Fish institutional flows show"
     },
@@ -34663,13 +34703,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 90.66,
+        "actual_return_pct": 3.6,
+        "actual_return_net_pct": 2.583,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -34836,13 +34881,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 140.41,
+        "actual_return_pct": 5.78,
+        "actual_return_net_pct": 4.436,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -35033,13 +35083,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 52.33,
+        "actual_return_pct": 9.61,
+        "actual_return_net_pct": 7.692,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -35203,13 +35258,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 529.45,
+        "actual_return_pct": 2.72,
+        "actual_return_net_pct": 1.835,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -35396,13 +35456,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 298.2,
+        "actual_return_pct": 4.57,
+        "actual_return_net_pct": 3.408,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -35586,13 +35651,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 220.57,
+        "actual_return_pct": 2.86,
+        "actual_return_net_pct": 1.954,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -35755,13 +35825,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 2086.69,
+        "actual_return_pct": -0.21,
+        "actual_return_net_pct": -0.771,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -35947,13 +36022,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 27.28,
+        "actual_return_pct": 1.07,
+        "actual_return_net_pct": 0.433,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -36134,13 +36214,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 7.99,
+        "actual_return_pct": 4.44,
+        "actual_return_net_pct": 3.297,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -36332,13 +36417,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 86.15,
+        "actual_return_pct": 9.05,
+        "actual_return_net_pct": 7.216,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -36518,13 +36608,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 27.97,
+        "actual_return_pct": 7.0,
+        "actual_return_net_pct": 5.473,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -36716,13 +36811,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 439.61,
+        "actual_return_pct": 7.46,
+        "actual_return_net_pct": 5.864,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -36912,13 +37012,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 650.54,
+        "actual_return_pct": 2.12,
+        "actual_return_net_pct": 1.325,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -37101,13 +37206,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 416.19,
+        "actual_return_pct": 3.17,
+        "actual_return_net_pct": 2.218,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -37290,13 +37400,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 491.51,
+        "actual_return_pct": 1.69,
+        "actual_return_net_pct": 0.96,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -37487,13 +37602,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 86.66,
+        "actual_return_pct": 9.85,
+        "actual_return_net_pct": 7.896,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -37681,13 +37801,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 193.54,
+        "actual_return_pct": 9.89,
+        "actual_return_net_pct": 7.93,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -37869,13 +37994,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 78.48,
+        "actual_return_pct": 6.03,
+        "actual_return_net_pct": 4.649,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -38063,13 +38193,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 328.39,
+        "actual_return_pct": 5.45,
+        "actual_return_net_pct": 4.156,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -38252,13 +38387,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 108.32,
+        "actual_return_pct": 5.23,
+        "actual_return_net_pct": 3.969,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -38444,13 +38584,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 663.6,
+        "actual_return_pct": 0.2,
+        "actual_return_net_pct": -0.361,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -38636,13 +38781,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 232.72,
+        "actual_return_pct": 7.76,
+        "actual_return_net_pct": 6.119,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -38827,13 +38977,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 372.15,
+        "actual_return_pct": 4.52,
+        "actual_return_net_pct": 3.365,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -39015,13 +39170,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 90.49,
+        "actual_return_pct": 4.89,
+        "actual_return_net_pct": 3.68,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -39180,13 +39340,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 154.16,
+        "actual_return_pct": 4.34,
+        "actual_return_net_pct": 3.212,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -39353,13 +39518,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 54.33,
+        "actual_return_pct": 4.54,
+        "actual_return_net_pct": 3.382,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -39542,13 +39712,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-06T17:09:58+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-06",
+        "actual_end_price_pkr": 415.6,
+        "actual_return_pct": 7.92,
+        "actual_return_net_pct": 6.255,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     }
   ]
