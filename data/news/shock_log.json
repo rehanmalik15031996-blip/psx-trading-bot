@@ -1089,6 +1089,26 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-06T18:06:39+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-06::BULLISH::4",
+      "title": "Broad-market bullish shock: 4 HIGH-confidence articles avg sentiment +0.46",
+      "sentiment": 0.4625,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BULLISH",
+      "n_articles": 4,
+      "sample_titles": [
+        "Pakistan stocks surge by nearly 7,000 points amid US-Iran peace deal hopes - Arab News",
+        "PSX surges nearly 7,000 points on hopes of US-Iran breakthrough - Profit by Pakistan Today",
+        "Bullish momentum at bourse, KSE-100 gains over 4% amid US-Iran peace hopes - Business Recorder",
+        "ME peace deal hopes ignite strong PSX rally - The Express Tribune"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-06T22:48:23+00:00"
     }
   ]
 }
