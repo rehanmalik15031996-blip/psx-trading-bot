@@ -998,6 +998,76 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-06T12:20:15+00:00"
+    },
+    {
+      "article_id": "2df4600242b7bce4",
+      "title": "OPEC Output Falls to New 36-Year Low on Iran War, Survey Shows",
+      "sentiment": -0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T15:54:48+00:00",
+      "detected_at": "2026-05-06T15:55:09+00:00"
+    },
+    {
+      "article_id": "36faa90cbb64f5c5",
+      "title": "PSX surges over 5,600 points as investors cheer easing Hormuz supply concerns - Profit by Pakistan Today",
+      "sentiment": 0.5,
+      "confidence": "HIGH",
+      "category": "GLOBAL",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T15:54:48+00:00",
+      "detected_at": "2026-05-06T15:55:09+00:00"
+    },
+    {
+      "article_id": "027227e1b5e4cee9",
+      "title": "KSE-100 gains over 3,900 points amid US-Iran peace hopes - Business Recorder",
+      "sentiment": 0.45,
+      "confidence": "HIGH",
+      "category": "GEOPOLITICS",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-06T15:54:48+00:00",
+      "detected_at": "2026-05-06T15:55:09+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-06::BEARISH::5",
+      "title": "Broad-market bearish shock: 5 HIGH-confidence articles avg sentiment -0.41",
+      "sentiment": -0.41000000000000003,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 5,
+      "sample_titles": [
+        "Federation of Pakistan Chamb\u00aders of Commerce and Industry flags worsening trade imbalance",
+        "Middle East tensions pose downside risks to Pakistan's financial stability: SBP - Geo News",
+        "Metldown at PSX as KSE-100 loses over 4,000 points - Dawn",
+        "Oil stocks sink as Brent trades below $100",
+        "OPEC Output Falls to New 36-Year Low on Iran War, Survey Shows"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-06T15:55:09+00:00"
     }
   ]
 }
