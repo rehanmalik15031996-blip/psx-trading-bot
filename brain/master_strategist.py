@@ -951,21 +951,50 @@ def _fallback_decision(briefing: dict, model: str) -> MasterDecision:
 # JSON parser (tolerant of fences and prose preamble)
 # ---------------------------------------------------------------------------
 def _parse_json(raw: str) -> dict | None:
+    """Extract the first valid JSON object from the LLM response.
+
+    Handles three common patterns:
+    1. Clean JSON: ``{...}``
+    2. Fenced JSON: ``` ```json\\n{...}\\n``` ```
+    3. Truncated JSON (max_tokens hit mid-response): tries each ``}``
+       from right-to-left until a valid parse succeeds, so a long
+       narrative field cut off mid-string doesn't discard the whole
+       decision.
+    """
     if not raw:
         return None
     s = raw.strip()
+    # Strip code fences
     if s.startswith("```"):
+        # str.strip("`") removes ALL backtick chars from both ends
         s = s.strip("`")
         if s.startswith("json"):
             s = s[4:]
         s = s.strip()
-    i, j = s.find("{"), s.rfind("}")
-    if i < 0 or j < 0 or j <= i:
+    i = s.find("{")
+    if i < 0:
         return None
-    try:
-        return json.loads(s[i:j + 1])
-    except json.JSONDecodeError:
-        return None
+    # Fast path: try the outermost braces first (complete response)
+    j = s.rfind("}")
+    if j > i:
+        try:
+            return json.loads(s[i:j + 1])
+        except json.JSONDecodeError:
+            pass
+    # Slow path: response may have been truncated by max_tokens.
+    # Walk ``}`` positions from right to left and try each prefix so
+    # a cut-off narrative string doesn't prevent us from recovering the
+    # structural fields (headline, risk_stance, actions, etc.).
+    for j in sorted(
+        [k for k in range(len(s)) if s[k] == "}"], reverse=True
+    ):
+        if j <= i:
+            break
+        try:
+            return json.loads(s[i:j + 1])
+        except json.JSONDecodeError:
+            continue
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -974,7 +1003,7 @@ def _parse_json(raw: str) -> dict | None:
 def decide_today(
     deep: bool = False,
     thinking_budget: int | None = None,
-    max_tokens: int = 6_000,
+    max_tokens: int = 8_000,
     write_cache: bool = True,
 ) -> dict:
     """Build the briefing, call Claude (extended-thinking on), parse,
@@ -1078,7 +1107,7 @@ def decide_today(
     if not parsed:
         decision = _fallback_decision(briefing, model)
         decision.headline = "LLM returned unparseable response — fallback active"
-        decision.raw_llm_text = (result.get("text") or "")[:2000]
+        decision.raw_llm_text = (result.get("text") or "")[:6000]
         decision.thinking_trace = (result.get("thinking") or "")[:4000]
         out = decision.as_dict()
         if write_cache:
