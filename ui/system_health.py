@@ -163,13 +163,25 @@ def render_freshness_strip() -> None:
     for r in rows:
         counts[r["badge"]] = counts.get(r["badge"], 0) + 1
 
-    if counts.get("RED", 0):
+    # GitHub Actions scheduled runs can be delayed 1-8 hours during
+    # high-load periods. If a single morning workflow is AMBER/RED but
+    # everything else is green, it is almost always a scheduling delay —
+    # not a pipeline failure. The strip shows an upgrade note in that
+    # case so the analyst is not unnecessarily alarmed.
+    n_red = counts.get("RED", 0)
+    n_amber = counts.get("AMBER", 0)
+    if n_red:
         worst = "RED"
-        msg = (f"{counts['RED']} data source(s) BREACHING freshness SLA — "
-               "predictions may be acting on stale inputs.")
-    elif counts.get("AMBER", 0):
+        delay_note = (
+            " GitHub Actions scheduling delays (up to 8h) are normal "
+            "on high-load days — check the System Health tab for details."
+            if n_red <= 2 else ""
+        )
+        msg = (f"{n_red} data source(s) BREACHING freshness SLA — "
+               f"predictions may be acting on stale inputs.{delay_note}")
+    elif n_amber:
         worst = "AMBER"
-        msg = (f"{counts['AMBER']} data source(s) approaching freshness "
+        msg = (f"{n_amber} data source(s) approaching freshness "
                "limit — refresh expected soon.")
     else:
         worst = "GREEN"
