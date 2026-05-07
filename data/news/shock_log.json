@@ -1204,6 +1204,26 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-07T15:56:14+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-07::BULLISH::4",
+      "title": "Broad-market bullish shock: 4 HIGH-confidence articles avg sentiment +0.51",
+      "sentiment": 0.5125,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BULLISH",
+      "n_articles": 4,
+      "sample_titles": [
+        "PSX extends rally as KSE-100 gains nearly 1,200 points",
+        "PSX continues with bullish trend, gains over 1,189 more points - | Associated Press Of Pakistan",
+        "KSE-100 extends gains, rises over 1,000 points amid positive market sentiment - The Express Tribune",
+        "KSE-100 climbs over 9% as Pakistan-brokered ceasefire ignites historic rally - Business Recorder"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-07T18:16:35+00:00"
     }
   ]
 }
