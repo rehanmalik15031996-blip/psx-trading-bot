@@ -1183,6 +1183,27 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-07T12:23:12+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-07::BULLISH::10",
+      "title": "Broad-market bullish shock: 10 HIGH-confidence articles avg sentiment +0.47",
+      "sentiment": 0.4749999999999999,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BULLISH",
+      "n_articles": 10,
+      "sample_titles": [
+        "Pakistan to get $200 million climate financing under IMF Resilience and Sustainability Facility, says finance minister",
+        "Bulls stage 6,962-point recovery rally",
+        "Government to end untargeted subsidies",
+        "IMF Board expected to clear $200m for Pakistan amid climate finance push",
+        "Pakistan set for IMF board review on May 8"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-07T15:56:14+00:00"
     }
   ]
 }
