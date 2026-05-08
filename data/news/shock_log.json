@@ -1224,6 +1224,23 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-07T18:16:35+00:00"
+    },
+    {
+      "article_id": "2705034a06d1aa4e",
+      "title": "Oil prices jump on renewed US-Iran hostilities",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "OGDC",
+        "POL",
+        "PPL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-08T07:09:04+00:00",
+      "detected_at": "2026-05-08T07:09:52+00:00"
     }
   ]
 }
