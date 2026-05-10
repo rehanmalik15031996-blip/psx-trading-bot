@@ -1,12 +1,12 @@
 {
-  "computed_utc": "2026-05-03T08:26:44+00:00",
+  "computed_utc": "2026-05-10T08:33:13+00:00",
   "by_sector": {
     "Power": {
       "n": 4,
-      "pe_med": 4.79,
-      "pb_med": 0.87,
-      "yield_med": 10.03,
-      "payout_med": 52.6,
+      "pe_med": 4.99,
+      "pb_med": 0.91,
+      "yield_med": 10.71,
+      "payout_med": 49.3,
       "members": [
         "HUBC",
         "KAPCO",
@@ -16,8 +16,8 @@
     },
     "Misc": {
       "n": 1,
-      "pe_med": 6.91,
-      "pb_med": 1.64,
+      "pe_med": 7.44,
+      "pb_med": 1.77,
       "yield_med": 0.0,
       "payout_med": 0.0,
       "members": [
@@ -26,9 +26,9 @@
     },
     "Cement": {
       "n": 5,
-      "pe_med": 7.77,
-      "pb_med": 1.32,
-      "yield_med": 0.98,
+      "pe_med": 8.49,
+      "pb_med": 1.44,
+      "yield_med": 0.9,
       "payout_med": 7.6,
       "members": [
         "DGKC",
@@ -40,10 +40,10 @@
     },
     "Oil & Gas E&P": {
       "n": 4,
-      "pe_med": 5.63,
-      "pb_med": 1.64,
-      "yield_med": 4.97,
-      "payout_med": 43.75,
+      "pe_med": 6.1,
+      "pb_med": 1.67,
+      "yield_med": 4.24,
+      "payout_med": 40.65,
       "members": [
         "MARI",
         "OGDC",
@@ -53,10 +53,10 @@
     },
     "Banking": {
       "n": 7,
-      "pe_med": 6.22,
-      "pb_med": 1.17,
-      "yield_med": 8.39,
-      "payout_med": 54.8,
+      "pe_med": 6.49,
+      "pb_med": 1.19,
+      "yield_med": 7.71,
+      "payout_med": 56.6,
       "members": [
         "BAHL",
         "FABL",
@@ -69,9 +69,9 @@
     },
     "OMC/Refining": {
       "n": 3,
-      "pe_med": 5.29,
+      "pe_med": 5.34,
       "pb_med": 0.64,
-      "yield_med": 2.8,
+      "yield_med": 2.74,
       "payout_med": 24.8,
       "members": [
         "APL",
@@ -81,9 +81,9 @@
     },
     "Conglomerate/Chem": {
       "n": 3,
-      "pe_med": 13.95,
-      "pb_med": 1.55,
-      "yield_med": 9.52,
+      "pe_med": 14.46,
+      "pb_med": 1.95,
+      "yield_med": 9.12,
       "payout_med": 100.0,
       "members": [
         "ENGROH",
@@ -93,8 +93,8 @@
     },
     "Pharma": {
       "n": 1,
-      "pe_med": 50.2,
-      "pb_med": 1.5,
+      "pe_med": 54.31,
+      "pb_med": 1.62,
       "yield_med": 0.0,
       "payout_med": 0.0,
       "members": [
@@ -103,10 +103,10 @@
     },
     "Fertilizer": {
       "n": 3,
-      "pe_med": 8.63,
-      "pb_med": 2.76,
-      "yield_med": 6.41,
-      "payout_med": 63.3,
+      "pe_med": 9.22,
+      "pb_med": 2.92,
+      "yield_med": 5.63,
+      "payout_med": 51.9,
       "members": [
         "EFERT",
         "FATIMA",
@@ -115,9 +115,9 @@
     },
     "Technology": {
       "n": 2,
-      "pe_med": 9.24,
-      "pb_med": 2.54,
-      "yield_med": 0.69,
+      "pe_med": 9.78,
+      "pb_med": 2.7,
+      "yield_med": 0.65,
       "payout_med": 13.35,
       "members": [
         "SYS",
@@ -126,18 +126,18 @@
     },
     "Autos": {
       "n": 1,
-      "pe_med": 7.32,
-      "pb_med": 2.19,
-      "yield_med": 9.19,
-      "payout_med": 67.3,
+      "pe_med": 6.86,
+      "pb_med": 2.05,
+      "yield_med": 9.86,
+      "payout_med": 67.6,
       "members": [
         "INDU"
       ]
     },
     "Consumer": {
       "n": 1,
-      "pe_med": 14.49,
-      "pb_med": 6.88,
+      "pe_med": 14.5,
+      "pb_med": 7.31,
       "yield_med": 5.33,
       "payout_med": 77.2,
       "members": [
