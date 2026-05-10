@@ -748,75 +748,105 @@ def render_sidebar():
 
         st.divider()
 
-        # -- Data controls
+        # ---------------------------------------------------------------
+        # DATA SECTION — structured into three clear tiers so users
+        # know exactly which button to press in each situation.
+        # ---------------------------------------------------------------
         st.markdown("### Data")
 
-        # Primary: the one-click "I want everything fresh" button. Runs
-        # the same pipeline the daily CI runs, in-process, so the UI
-        # reloads with today's full dataset without waiting for the
-        # next cron tick on GitHub.
+        # ---- TIER 1: get data GitHub already produced ------------------
+        st.caption("**Step 1 — sync data GitHub already committed**")
         if st.button(
-            "🔄 Refresh ALL data (run workflows locally)",
+            "⬇️ Pull latest from GitHub",
             use_container_width=True,
             type="primary",
-            help="Runs the full local refresh chain in sequence: "
-                 "EOD prices → FIPI flows → macro series → macro "
-                 "KPIs → material info. Takes ~2-3 minutes. Best "
-                 "option when you want today's data right now and "
-                 "do NOT want to wait for GitHub Actions.",
+            help="Runs `git pull` to fetch any data files committed by "
+                 "GitHub Actions since your last sync. Always try this "
+                 "first — it's instant and free.",
         ):
-            _do_run_all_local(skip_slow=True)
+            _do_git_pull()
 
-        # Sub-option: also include the slow fundamentals refresh.
-        with st.expander("Advanced refresh options", expanded=False):
+        # ---- TIER 2: tell GitHub to run workflows now ------------------
+        st.caption("**Step 2 — trigger fresh data on GitHub (cloud)**")
+
+        tok = _read_canonical_token()
+        if not tok:
+            st.warning(
+                "No GitHub token found. Add **GITHUB_TOKEN** to your "
+                "`.env` file or Streamlit Cloud secrets to enable "
+                "one-click workflow dispatch.",
+                icon="🔑",
+            )
+        else:
+            col_a, col_b = st.columns(2)
+            with col_a:
+                if st.button(
+                    "▶ Run all workflows",
+                    use_container_width=True,
+                    help="Dispatches every fast workflow on GitHub Actions "
+                         "(EOD, macro, news, predictions, strategist). "
+                         "Data appears after ~10-20 min; then click "
+                         "'Pull latest' to sync here.",
+                ):
+                    _do_dispatch_github_workflows(only_fast=True)
+            with col_b:
+                if st.button(
+                    "▶ Predictions only",
+                    use_container_width=True,
+                    help="Re-runs only the LLM predictions workflow. "
+                         "Useful mid-session when the forecast is stale "
+                         "but other data is already fresh.",
+                ):
+                    _do_dispatch_single_workflow("predictions.yml",
+                                                  "Predictions (LLM brief)")
+
+            # Individual workflow buttons in an expander
+            with st.expander("Trigger a specific workflow", expanded=False):
+                for wf_name, wf_file, _ in _GITHUB_WORKFLOWS:
+                    if st.button(f"▶ {wf_name}",
+                                 key=f"wf_{wf_file}",
+                                 use_container_width=True):
+                        _do_dispatch_single_workflow(wf_file, wf_name)
+
+        # ---- TIER 3: run scripts locally (offline / immediate) ---------
+        with st.expander("Run locally (offline / immediate)", expanded=False):
+            st.caption(
+                "Runs the data scripts directly on this machine — no "
+                "GitHub needed. Good when you want data *right now* and "
+                "can't wait for GitHub Actions (~2-3 min)."
+            )
             if st.button(
-                "Run ALL workflows including slow ones (~10 min)",
+                "🔄 Refresh all data locally",
                 use_container_width=True,
-                help="Same as above, plus the quarterly fundamentals "
-                     "refresh (~5 min). Use this when a company has "
-                     "just released results.",
+                help="EOD prices → FIPI → macro series → macro KPIs → "
+                     "material info. Skips the slow fundamentals step.",
+            ):
+                _do_run_all_local(skip_slow=True)
+            if st.button(
+                "🔄 Include fundamentals (~10 min)",
+                use_container_width=True,
             ):
                 _do_run_all_local(skip_slow=False)
-
-            if st.button(
-                "Trigger workflows on GitHub (cloud)",
-                use_container_width=True,
-                help="Dispatches all data workflows on GitHub Actions. "
-                     "Use this to trigger the cloud-side commits so the "
-                     "production Streamlit Cloud app gets the new data. "
-                     "Requires a GITHUB_TOKEN with `workflow:write`.",
-            ):
-                _do_dispatch_github_workflows(only_fast=True)
-
-            if st.button(
-                "Pull latest from GitHub",
-                use_container_width=True,
-                help="Runs `git pull` to fetch data committed by the "
-                     "daily CI workflows, then clears the price cache.",
-            ):
-                _do_git_pull()
-
             if st.button(
                 "Refresh prices only (PSX DPS, ~60s)",
                 use_container_width=True,
-                help="Pulls today's OHLCV for the full universe "
-                     "directly from PSX DPS. Use right after market "
-                     "close if the EOD workflow hasn't run yet.",
             ):
                 _do_backfill()
-
             if st.button(
                 "Clear in-memory cache",
                 use_container_width=True,
-                help="Forces tools.py to reload parquet files. Use "
-                     "after manually editing data/ on disk.",
+                help="Forces tools.py to reload parquet files.",
             ):
                 tools.refresh_cache()
                 st.success("Cache cleared.")
                 time.sleep(0.4)
                 st.rerun()
 
-        # -- Freshness panel
+        # ---- Workflow status panel (live from GitHub API) ---------------
+        with st.expander("Workflow status (GitHub)", expanded=False):
+            _render_workflow_status_panel()
+
+        # ---- Data freshness panel --------------------------------------
         with st.expander("Data freshness", expanded=False):
             st.caption(
                 "The **green/orange/red dot** is based on how recent "
@@ -829,8 +859,6 @@ def render_sidebar():
                 if not info.get("exists"):
                     st.markdown(f"- **{name}** — _missing_")
                     continue
-                # Color code by trading-days behind, falling back to
-                # mtime age if we couldn't infer a data date.
                 tdb = info.get("trading_days_behind")
                 if tdb is None:
                     age = info.get("age_hours", 0)
@@ -841,7 +869,7 @@ def render_sidebar():
                 else:
                     color = ("green" if tdb <= 1 else "orange"
                              if tdb <= 3 else "red")
-                    latest = info.get("latest_data_date") or "?"
+                    latest_d = info.get("latest_data_date") or "?"
                     if tdb == 0:
                         gap = "today"
                     elif tdb == 1:
@@ -849,7 +877,7 @@ def render_sidebar():
                     else:
                         gap = f"{tdb} trading days ago"
                     label = (
-                        f":{color}[data through **{latest}** ({gap})]  \n"
+                        f":{color}[data through **{latest_d}** ({gap})]  \n"
                         f"  &nbsp;&nbsp;_file written {info['updated_at']} "
                         f"({info.get('age_hours', 0)}h ago)_"
                     )
@@ -863,8 +891,8 @@ def render_sidebar():
             reset_onboarding()
             st.rerun()
         st.caption(
-            "Data updates are committed to GitHub by the workflows in "
-            "`.github/workflows/`. Press 'Pull latest' to sync locally."
+            "Workflows run automatically Mon–Fri. Use **Pull latest** "
+            "after they finish to sync data here."
         )
 
 
@@ -1212,6 +1240,146 @@ def _read_canonical_token() -> str | None:
         pass
 
     return None
+
+
+def _do_dispatch_single_workflow(wf_file: str, wf_name: str) -> None:
+    """Dispatch a single GitHub Actions workflow by filename."""
+    import urllib.request, urllib.error, subprocess
+
+    tok = _read_canonical_token()
+    if not tok:
+        st.error("No GitHub token — set GITHUB_TOKEN in .env or Streamlit secrets.")
+        return
+    try:
+        remote = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            capture_output=True, text=True, timeout=10,
+            cwd=str(PROJECT_ROOT),
+        ).stdout.strip()
+        cleaned = remote.replace("https://", "").replace(".git", "")
+        if "@" in cleaned:
+            cleaned = cleaned.split("@", 1)[1]
+        parts = cleaned.split("/")
+        owner, repo = parts[-2], parts[-1]
+    except Exception as e:
+        st.error(f"Could not resolve git remote: {e}")
+        return
+
+    url = (f"https://api.github.com/repos/{owner}/{repo}/"
+           f"actions/workflows/{wf_file}/dispatches")
+    req = urllib.request.Request(
+        url, data=b'{"ref":"main"}', method="POST",
+        headers={
+            "Authorization": f"Bearer {tok}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+            "Content-Type": "application/json",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            if 200 <= resp.status < 300:
+                st.success(
+                    f"**{wf_name}** dispatched on GitHub. "
+                    "It typically finishes in 5-20 min — then click "
+                    "**Pull latest from GitHub** to sync the new data."
+                )
+            else:
+                st.error(f"{wf_name}: HTTP {resp.status}")
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", errors="replace")[:200]
+        st.error(f"{wf_name}: HTTP {e.code} — {detail}")
+    except Exception as e:
+        st.error(f"{wf_name}: {type(e).__name__}: {e}")
+
+
+@st.cache_data(ttl=60, show_spinner=False)
+def _fetch_workflow_runs_cached(owner: str, repo: str, tok: str) -> list[dict]:
+    """Fetch the most recent run per workflow from the GitHub API (cached 60s)."""
+    import urllib.request, json as _json
+
+    url = (f"https://api.github.com/repos/{owner}/{repo}/actions/runs"
+           f"?per_page=100&exclude_pull_requests=true")
+    req = urllib.request.Request(
+        url,
+        headers={
+            "Authorization": f"Bearer {tok}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = _json.loads(resp.read())
+    except Exception:
+        return []
+
+    seen: dict[str, dict] = {}
+    for run in data.get("workflow_runs", []):
+        name = run.get("name", "")
+        if name not in seen:
+            seen[name] = run
+    return list(seen.values())
+
+
+def _render_workflow_status_panel() -> None:
+    """Render a mini status table showing last run result per workflow."""
+    tok = _read_canonical_token()
+    if not tok:
+        st.caption("Add GITHUB_TOKEN to see live workflow status.")
+        return
+
+    import subprocess
+    try:
+        remote = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            capture_output=True, text=True, timeout=10,
+            cwd=str(PROJECT_ROOT),
+        ).stdout.strip()
+        cleaned = remote.replace("https://", "").replace(".git", "")
+        if "@" in cleaned:
+            cleaned = cleaned.split("@", 1)[1]
+        parts = cleaned.split("/")
+        owner, repo = parts[-2], parts[-1]
+    except Exception:
+        st.caption("Could not resolve git remote.")
+        return
+
+    runs = _fetch_workflow_runs_cached(owner, repo, tok)
+    if not runs:
+        st.caption("Could not fetch workflow runs (token may lack permissions).")
+        return
+
+    st.caption(f"Last run per workflow — refreshes every 60 s. "
+               f"Repo: `{owner}/{repo}`")
+
+    important = {w[0] for w in _GITHUB_WORKFLOWS}
+    rows_out = []
+    for run in runs:
+        name = run.get("name", "?")
+        if name not in important:
+            continue
+        conclusion = (run.get("conclusion") or run.get("status") or "?")
+        created = (run.get("created_at") or "")[:16].replace("T", " ")
+        icon = ("✅" if conclusion == "success"
+                else "❌" if conclusion == "failure"
+                else "🔄" if conclusion in ("in_progress", "queued")
+                else "⚪")
+        rows_out.append({"Workflow": name,
+                         "Result": f"{icon} {conclusion}",
+                         "Ran at (UTC)": created})
+
+    if rows_out:
+        import pandas as _pd
+        st.dataframe(_pd.DataFrame(rows_out), hide_index=True,
+                     use_container_width=True)
+    else:
+        st.caption("No recent runs found.")
+
+    if st.button("Refresh status", key="refresh_wf_status",
+                 use_container_width=True):
+        _fetch_workflow_runs_cached.clear()
+        st.rerun()
 
 
 def _do_git_pull():
@@ -3862,7 +4030,22 @@ def render_predictions_tab():
 
     rows = preds.get("predictions") or []
     if not rows:
-        st.info("No predictions for today yet.")
+        import datetime as _dt
+        today = _dt.date.today().isoformat()
+        as_of_date = preds.get("as_of", "")
+        if as_of_date and as_of_date < today:
+            st.info(
+                f"Showing last available predictions from **{as_of_date}** "
+                f"(PSX is closed today or the predictions workflow hasn't "
+                f"run yet). New predictions will appear automatically on "
+                f"the next trading day after market open."
+            )
+        else:
+            st.info(
+                "No predictions available yet. Click **▶ Predictions only** "
+                "in the sidebar to trigger the workflow, or wait for the "
+                "daily GitHub Action to run."
+            )
         return
 
     df = pd.DataFrame(rows)
