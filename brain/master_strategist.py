@@ -1185,7 +1185,11 @@ def _persist(decision: dict) -> None:
 def load_cached(d: datetime | None = None) -> dict | None:
     p = cache_path(d)
     if not p.exists():
-        return None
+        # Fall back to the always-latest file (covers weekends / holidays when
+        # the workflow doesn't produce a date-specific file).
+        p = CACHE_DIR / "latest.json"
+        if not p.exists():
+            return None
     try:
         return json.loads(p.read_text(encoding="utf-8"))
     except Exception:
