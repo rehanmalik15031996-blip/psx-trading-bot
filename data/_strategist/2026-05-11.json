@@ -1,107 +1,600 @@
 {
   "as_of": "2026-05-11",
-  "generated_at": "2026-05-10T22:48:50.017784+00:00",
-  "model": "cursor-claude-sonnet-4-5",
+  "as_of_local": "2026-05-11 03:55 PKT",
+  "generated_at": "2026-05-10T23:17:58.874916+00:00",
+  "model": "cursor-claude-sonnet-4-5-manual",
+  "thinking_budget": 0,
   "fallback_used": false,
+  "agrees_with_phase1": true,
+  "phase1_disagreement_note": null,
   "risk_stance": "CAUTIOUS",
   "conviction": "MEDIUM",
-  "headline": "Selective WATCH mode — US/Iran risk premium + IMF catalyst create asymmetric opportunity in E&P; avoid broad market exposure. IMF mission May 15 is the week's key event.",
-  "macro_lens": "Oil corrected sharply (-9% Brent in 5 days) after the US-Iran Strait of Hormuz spike — fear dominated fundamentals. Pakistan net benefits from lower oil (CAD relief, PKR stability) but E&P stocks will see short-term pressure. USD/PKR stable at 278 — no acute FX stress. Policy rate unchanged at 11.5%. IMF mission arrives May 15 for budget talks — a successful signal could trigger a 1-2% relief rally. Global risk-off (gold +4%, safe-haven bid) argues against aggressive positioning. Institutional buyers (insurance, big-fish) were net buyers on May 8 suggesting value emerging at current levels.",
-  "behavioural_lens": "Retail buyers net +3.9bn PKR on May 8 while foreigners sold marginally (-0.74bn). This retail-driven market is susceptible to news-driven panic — US-Iran headlines caused KSE-100 to shed ~1% on May 8. Expect volatility around any Iran/Hormuz update and the IMF arrival on May 15. Sentiment is bearish-leaning but not panicked — VIX at 17 globally suggests contained fear.",
-  "key_risks": [
-    "US-Iran escalation re-escalates → oil spike + global risk-off hit PSX hard",
-    "IMF May 15 talks produce negative signals → PKR weakness + market sell-off",
-    "Oil stays low → OGDC/PPL/ATRL/MARI earnings estimates cut",
-    "Cement sector demand remains weak → LUCK/KOHC/DGKC continue underperforming",
-    "Retail sentiment turns → thin liquidity market can gap down quickly"
-  ],
+  "headline": "CAUTIOUS — selective BUY in OGDC + ATRL (quality value + momentum), WATCH list of 5 deep-value names ahead of IMF May 15. Hold ~80% cash. Avoid SEARL/TRG/PABC.",
+  "macro_lens": "Brent corrected -9% in 5 days after the US-Iran Strait of Hormuz spike — fear faded but geopolitical risk premium persists. PKR stable at 278.43 (no FX stress). Policy rate held at 11.5% (latest SBP). Gold +4% (safe-haven bid) and global risk-off (news macro tilt -0.004, geopolitics category -0.075) argue against aggressive deployment. Universe momentum is negative (-5.1% over 150d) and breadth is narrow (14% positive today) — these are the conditions Phase-1 was designed to flag. The overnight gap prior is FLAT (+0.34%) — no strong directional bias into Monday open. IMF mission arrives May 15 for budget talks — this is the single biggest catalyst this week. A successful signal could trigger a 1-2% relief rally; failure or hawkish demands would re-test recent lows.",
+  "behavioural_lens": "Retail buyers were net +3.9bn PKR on May 8 vs foreigners marginally selling (-0.74bn). This retail-led tape is news-driven and prone to gap moves around Iran/IMF headlines. Insurance and big-fish institutional categories were net buyers — a quiet floor is forming but not yet a trend. PSX universe turnover z-score is -1.5 (below normal) — the market is in a wait-and-see mode, not panic or FOMO. Mutual fund equity AUM rose +5.6% MoM in April — institutional appetite is recovering. Dont confuse low turnover with low volatility: any IMF or Iran headline can move the index 1-2% in a single session.",
   "key_drivers": [
-    "IMF mission May 15 — single biggest week catalyst",
-    "Oil price direction — Brent $103 post-correction, watch for Hormuz updates",
-    "FIPI flows — institutional buying suggests floor; watch Monday flows",
-    "PPL new Gambat South well — modest positive for E&P sector confidence",
-    "Pakistan export data showing textile resilience (+2% to US)"
+    "IMF mission May 15 — biggest binary catalyst this week",
+    "Oil price direction post US-Iran spike (Brent $103, Hormuz watch)",
+    "FIPI flows — foreign net selling but big-fish/insurance buying",
+    "PPL Faiz X-1 well producing 3.6 bcf/d (E&P sector positive)",
+    "Pakistan textile exports to US +2% YoY (defensive bright spot)",
+    "KSE-100 -1% on May 8 from US-Iran headlines (sentiment tracker)"
   ],
+  "key_risks": [
+    "US-Iran re-escalation → oil spike + global risk-off hits PSX hard",
+    "IMF May 15 talks produce hawkish demands → PKR + market sell-off",
+    "Brent stays low → OGDC/PPL/MARI earnings estimates cut further",
+    "Cement sector demand stays weak → LUCK/KOHC/DGKC/MLCF underperform",
+    "Bank balance-sheet exposure to govt debt around IMF cycle",
+    "Thin liquidity (turnover z=-1.5) means gap-down risk on negative news",
+    "Earnings season: TRG (May 14), EPCL (May 18), KOHC (May 21) - blackouts"
+  ],
+  "narrative": "Monday May 11 opens in a CAUTIOUS environment dominated by two cross-cutting forces: (1) US-Iran geopolitical risk creating oil volatility and global risk-off, and (2) the IMF mission arriving May 15 as the dominant near-term domestic catalyst. The Phase-1 engine correctly signals risk-off — universe momentum is negative, breadth is narrow, and the overnight gap prior is FLAT. \n\nHowever, this is NOT a \"do nothing\" market. The composite verdict synthesizer (value + quality + technical + macro + flows) identifies real value pockets in HIGH-quality E&P names: OGDC (+30% upside, mom +17%, breakout confirmed) and ATRL (+21% upside, mom +20%, MF funds initiating positions) are quality value with momentum — the rare setup worth a small starter position even in this regime. Conviction is MEDIUM, not HIGH, because earnings momentum is EROSION and the market regime is risk-off.\n\nFive deep-value names sit on the WATCH list ahead of IMF: NBP (+101% upside, highest in universe, but bank/govt risk), PPL (+52%, E&P value), FATIMA (+35%, fertilizer), HUBC (+41%, but data quality unknown), KAPCO (+31%, value-trap risk). Do not commit capital to these until IMF outcome is known.\n\nThe clear AVOIDS are SEARL (overvalued, low quality), TRG (junk quality, earnings May 14), and PABC (worst momentum). LOTCHEM and COLG are TRIMS aligned with the synthesizer composite.\n\nPosition sizing: Total deployed should be ~20% (8% OGDC + 7% ATRL + 5% PPL). ~80% cash held against IMF binary risk. If IMF outcome is positive on May 15, deploy WATCH list aggressively into the relief rally. If hawkish or delayed, re-test recent lows and re-evaluate.",
+  "briefing_summary": {
+    "as_of": "2026-05-11",
+    "data_completeness": "FULL — built from brain.master_strategist.build_briefing() pulling all 38 sections (regime, value_book, quality_book, verdict_universe, mf_holdings, volume_signals, macro_impact, fipi_flows, overnight, scored_sentiment, predictions, material_information, management_outlook, earnings_momentum, earnings_calendar, playbook_facts, mufap_industry, psx_turnover, remittances, lsm_index, msci_calendar).",
+    "playbook_analogue_ids": [],
+    "playbook_analogue_fired": {},
+    "phase1_state": {
+      "market_risk_on": false,
+      "selected_symbols": [],
+      "would_pick_if_market_filter_off": [
+        "ATRL",
+        "OGDC",
+        "KEL",
+        "EPCL",
+        "MCB"
+      ],
+      "rationale": "Universe 150d momentum negative — go to cash"
+    },
+    "macro_state": {
+      "usdpkr": 278.43,
+      "brent_5d_pct": -9.19,
+      "gold_5d_pct": 4.0,
+      "policy_rate_pct": 11.5,
+      "sbp_stance": "on hold"
+    },
+    "flows_state": {
+      "fipi_foreign_net_pkr_mn": -0.74,
+      "fipi_local_net_pkr_mn": 0.75,
+      "foreign_regime": "net_selling",
+      "big_fish_regime": "institutional_buying",
+      "turnover_zscore_60d": -1.5
+    },
+    "sentiment_state": {
+      "macro_tilt_24h": -0.004,
+      "category_geopolitics": -0.075,
+      "category_global": -0.136
+    },
+    "verdict_distribution": {
+      "BUY": 6,
+      "ADD": 5,
+      "HOLD": 22,
+      "TRIM": 2,
+      "AVOID": 0
+    },
+    "value_distribution": {
+      "BUY_VALUE": 6,
+      "FAIR": 7,
+      "SELL_VALUE": 21,
+      "NO_SIGNAL": 1
+    },
+    "quality_distribution": {
+      "HIGH": 25,
+      "MEDIUM": 1,
+      "LOW": 5,
+      "JUNK": 2,
+      "UNKNOWN": 2
+    },
+    "earnings_calendar_blackouts_5d": [],
+    "earnings_calendar_upcoming": [
+      "TRG (May 14)",
+      "EPCL (May 18)",
+      "KOHC (May 21)"
+    ]
+  },
   "actions": [
     {
-      "symbol": "OGDC",
-      "bucket": "WATCH",
+      "symbol": null,
+      "sector": null,
+      "bucket": "CASH",
       "conviction": "MEDIUM",
-      "reason": "Phase-1 would-pick name. Oil geopolitical risk premium not fully priced out. E&P sector FIPI net inflow +0.26mn. Wait for Monday price action before sizing in — if oil recovers on Iran news, this is the entry point.",
+      "target_weight_pct": 80.0,
+      "reason": "Phase-1 risk_off: universe 150d momentum is -5.1% and breadth is only 14% positive. Hold majority cash (~80%) and deploy selectively only in highest-conviction value+quality names. IMF May 15 is the binary event — keep dry powder for either a relief rally or further weakness.",
       "contributing_signals": [
-        "Phase-1 would-pick #2 (score +0.35)",
-        "E&P sector FIPI net buying May 8",
-        "PPL new well positive for sector sentiment",
-        "Brent geopolitical floor ~$95-100"
+        "Phase-1 market_risk_on = False",
+        "Universe 150d log return = -5.1%",
+        "Breadth: only 14% of universe positive today",
+        "Global risk-off (gold +4%, US-Iran tensions)",
+        "IMF mission arrives May 15 — keep optionality"
       ]
     },
     {
       "symbol": "ATRL",
-      "bucket": "WATCH",
+      "sector": "OMC/Refining",
+      "bucket": "BUY",
       "conviction": "MEDIUM",
-      "reason": "Highest Phase-1 score (+0.40). Refining margins benefit from oil price spread. Defensive earnings base with domestic exposure. Monitor for breakout above recent consolidation.",
+      "target_weight_pct": 7.0,
+      "reason": "Phase-1 #2 (mom +20%). HIGH quality refiner trading at fair value. MF funds initiating positions (7 new in 30d). Mgmt outlook acknowledges Gulf risks but expects refining margins to hold via indigenous crude. Material info filed May 4 — watch for earnings update.",
       "contributing_signals": [
-        "Phase-1 would-pick #1 (score +0.40, highest in universe)",
-        "Refining margin play on oil volatility",
-        "Bullish rule-based signal +1.8%"
+        "Phase-1 #2 (mom +20% over 150d)",
+        "Quality: HIGH band",
+        "Value: FAIR with +21% upside",
+        "MF initiating: 7 new fund positions in 30d",
+        "Refining margin tailwind from oil volatility"
       ]
     },
     {
-      "symbol": "MCB",
-      "bucket": "WATCH",
-      "conviction": "LOW",
-      "reason": "Phase-1 would-pick. Banks at low valuations. IMF success May 15 = direct positive catalyst for banking sector. Wait for IMF outcome before committing capital.",
+      "symbol": "OGDC",
+      "sector": "Oil & Gas E&P",
+      "bucket": "BUY",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 8.0,
+      "reason": "OGDC is a HIGH-quality (85.5/100) E&P with 30% upside to fair value. Phase-1 ranks it #3 (mom +17%). Volume confirmed breakout in last 3 days. Geopolitical oil floor + IMF May 15 catalyst. Earnings in EROSION but value cushion is large.",
       "contributing_signals": [
-        "Phase-1 would-pick #5",
-        "IMF May 15 = bank sector catalyst",
-        "Cheap valuations vs regional peers"
+        "Value: BUY_VALUE +30% upside (HIGH confidence, P/B+P/E)",
+        "Quality: 85.5/100 HIGH band",
+        "Phase-1 momentum +17% over 150d (rank #3)",
+        "Volume confirmed 3d breakout",
+        "E&P sector FIPI net buying May 8"
       ]
     },
     {
-      "symbol": "LOTCHEM",
+      "symbol": "PPL",
+      "sector": "Oil & Gas E&P",
       "bucket": "ADD",
-      "conviction": "LOW",
-      "reason": "Only ADD signal from rule engine (+2.3% expected). Small position acceptable given LOW conviction — do not size aggressively. Lotte Chemical benefits from PTA spread and cotton downstream demand.",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 5.0,
+      "reason": "Deep value: BUY_VALUE +52% upside, HIGH quality. Phase-1 #5. New Faiz X-1 well producing 3.6 bcf/d (positive sentiment). Earnings DECELERATING but balance sheet strong.",
       "contributing_signals": [
-        "Rule-based ADD signal, score +0.35",
-        "Cotton +3.5% in 5 days — downstream positive",
-        "Only name with ADD vs all-HOLD universe"
+        "Value: BUY_VALUE +52% (HIGH confidence)",
+        "Quality: HIGH",
+        "Phase-1 #5 (mom +13%)",
+        "Faiz X-1 well sentiment driver"
       ]
     },
     {
-      "symbol": "LUCK",
-      "bucket": "AVOID",
-      "conviction": "MEDIUM",
-      "reason": "Cement sector under pressure. FIPI net selling in cement sector. Demand weak, input costs volatile. Rule engine bearish -1.3%.",
+      "symbol": "FATIMA",
+      "sector": "Fertilizer",
+      "bucket": "WATCH",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "BUY_VALUE +35% upside, HIGH quality. DECELERATING earnings is the drag. Fertilizer sector FIPI net buying May 8. Watch for any agri-policy tailwind from upcoming budget.",
       "contributing_signals": [
-        "Rule-based bearish -1.3%",
-        "Cement sector FIPI outflow",
-        "Demand weakness persists"
+        "Value: BUY_VALUE +35% upside",
+        "Quality: HIGH",
+        "Fertilizer FIPI net inflow"
+      ]
+    },
+    {
+      "symbol": "HUBC",
+      "sector": "Power",
+      "bucket": "WATCH",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "BUY_VALUE +41% upside but data quality UNKNOWN (insufficient earnings history) and Phase-1 mom -9%. Power sector dependent on circular debt resolution. Watch only.",
+      "contributing_signals": [
+        "Value: BUY_VALUE +41% upside",
+        "Quality: UNKNOWN — limited fundamentals data",
+        "Power sector circular-debt risk"
+      ]
+    },
+    {
+      "symbol": "KAPCO",
+      "sector": "Power",
+      "bucket": "WATCH",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "BUY_VALUE +31% upside, MEDIUM quality, RECOVERING earnings. Phase-1 mom -25% is a major red flag — value-trap risk in IPP sector with circular debt overhang.",
+      "contributing_signals": [
+        "Value: BUY_VALUE +31%",
+        "Earnings: RECOVERING",
+        "Phase-1 deeply negative — value-trap risk"
       ]
     },
     {
       "symbol": "NBP",
-      "bucket": "AVOID",
-      "conviction": "HIGH",
-      "reason": "Highest bearish conviction in universe (-5.2% expected). State bank, exposed to government debt rollover risk. Avoid until IMF program clarity.",
+      "sector": "Banking",
+      "bucket": "WATCH",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 0,
+      "reason": "Highest value upside in universe (+101% to fair value, BUY_VALUE HIGH confidence). HIGH quality, RECOVERING earnings. BUT Phase-1 mom -12% short-term and bank sector exposed to government balance-sheet risk around IMF May 15. Watch for IMF outcome before sizing in.",
       "contributing_signals": [
-        "Highest bearish rule score in universe",
-        "Government balance sheet risk",
-        "Foreign selling in banks sector"
+        "Value: BUY_VALUE +101% upside (highest in universe)",
+        "Quality: HIGH",
+        "Earnings: RECOVERING",
+        "Phase-1 momentum negative — wait for trend turn",
+        "IMF May 15 = direct catalyst for state-owned bank"
       ]
     },
     {
-      "symbol": null,
-      "bucket": "HOLD",
-      "conviction": "MEDIUM",
-      "reason": "Market filter active — Phase-1 universe 150-day momentum is negative. Do NOT deploy full capital. Keep 60-70% in cash/T-bills. Use any IMF-driven rally on May 15 as an opportunity to reassess positioning, not to chase.",
+      "symbol": "COLG",
+      "sector": "Consumer",
+      "bucket": "TRIM",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Composite verdict TRIM. SELL_VALUE -69% (deeply overvalued). Phase-1 mom -16%, DECELERATING earnings. Consumer discretionary squeezed by inflation lag.",
       "contributing_signals": [
-        "Phase-1 market risk_on = False",
-        "Universe 150d momentum negative",
-        "US-Iran uncertainty unresolved",
-        "Global risk-off (gold +4%, VIX elevated)"
+        "Composite verdict: TRIM",
+        "Value: SELL_VALUE -69% (severe premium to fair value)",
+        "Phase-1 negative momentum"
+      ]
+    },
+    {
+      "symbol": "LOTCHEM",
+      "sector": "Conglomerate/Chem",
+      "bucket": "TRIM",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Composite verdict TRIM. Brent correction -9% in 5d narrows PVC margins. LOW quality, EROSION earnings. Short-candidate tier (low conviction).",
+      "contributing_signals": [
+        "Composite verdict: TRIM",
+        "Brent -9% hits PVC margins",
+        "Quality: LOW",
+        "Earnings: EROSION"
+      ]
+    },
+    {
+      "symbol": "PABC",
+      "sector": "Misc",
+      "bucket": "AVOID",
+      "conviction": "HIGH",
+      "target_weight_pct": 0,
+      "reason": "Phase-1 worst in universe (mom -40%). Pred -3.9%. Earnings EROSION. No clear catalyst.",
+      "contributing_signals": [
+        "Phase-1 worst in universe (mom -40%)",
+        "Predicted return -3.9%",
+        "Earnings: EROSION"
+      ]
+    },
+    {
+      "symbol": "SEARL",
+      "sector": "Pharma",
+      "bucket": "AVOID",
+      "conviction": "HIGH",
+      "target_weight_pct": 0,
+      "reason": "SELL_VALUE -85% (price 85% above fair value). LOW quality. Phase-1 mom -25%. Pred -3.4%. No catalyst. Avoid.",
+      "contributing_signals": [
+        "Value: SELL_VALUE -85% (price way above fair value)",
+        "Quality: LOW",
+        "Phase-1 mom -25%",
+        "Predicted return -3.4%"
+      ]
+    },
+    {
+      "symbol": "TRG",
+      "sector": "Technology",
+      "bucket": "AVOID",
+      "conviction": "HIGH",
+      "target_weight_pct": 0,
+      "reason": "JUNK quality. Phase-1 mom -30% (worst tier). Pred -3.3%. Earnings EROSION. Earnings calendar shows next event May 14 — blackout risk.",
+      "contributing_signals": [
+        "Quality: JUNK",
+        "Phase-1 mom -30%",
+        "Earnings: EROSION + next results May 14"
+      ]
+    },
+    {
+      "symbol": "APL",
+      "sector": "OMC/Refining",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "RECOVERING earnings but SELL_VALUE -14%. Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-14% upside)",
+        "Quality: HIGH",
+        "Earnings: RECOVERING",
+        "Phase-1 momentum: +7.2%"
+      ]
+    },
+    {
+      "symbol": "BAHL",
+      "sector": "Banking",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "EROSION earnings, SELL_VALUE -10%. Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-10% upside)",
+        "Quality: HIGH",
+        "Earnings: EROSION",
+        "Phase-1 momentum: -21.6%"
+      ]
+    },
+    {
+      "symbol": "DGKC",
+      "sector": "Cement",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "RECOVERING earnings (good) but SELL_VALUE -99% (extreme premium). Cement risk. Composite ADD but value overrides — Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-99% upside)",
+        "Quality: LOW",
+        "Earnings: RECOVERING",
+        "Phase-1 momentum: -29.7%"
+      ]
+    },
+    {
+      "symbol": "EFERT",
+      "sector": "Fertilizer",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "EROSION earnings, SELL_VALUE -32%. Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-32% upside)",
+        "Quality: HIGH",
+        "Earnings: EROSION",
+        "Phase-1 momentum: -15.1%"
+      ]
+    },
+    {
+      "symbol": "ENGROH",
+      "sector": "Conglomerate/Chem",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Insufficient data — UNKNOWN quality. Hold.",
+      "contributing_signals": [
+        "Quality: UNKNOWN",
+        "Earnings: INSUFFICIENT_DATA",
+        "Phase-1 momentum: +8.2%"
+      ]
+    },
+    {
+      "symbol": "EPCL",
+      "sector": "Conglomerate/Chem",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Phase-1 would-pick #5. JUNK quality, EROSION earnings. Mgmt outlook acknowledges commodity correction risk. Hold.",
+      "contributing_signals": [
+        "Value: FAIR (+29% upside)",
+        "Quality: JUNK",
+        "Earnings: EROSION",
+        "Phase-1 momentum: +11.9%"
+      ]
+    },
+    {
+      "symbol": "FABL",
+      "sector": "Banking",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "EROSION earnings, SELL_VALUE -27%. Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-27% upside)",
+        "Quality: HIGH",
+        "Earnings: EROSION",
+        "Phase-1 momentum: -5.1%"
+      ]
+    },
+    {
+      "symbol": "FCCL",
+      "sector": "Cement",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "ACCELERATING earnings (good) but SELL_VALUE -37%. Cement sector demand weak. Composite ADD but value overrides — Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-37% upside)",
+        "Quality: HIGH",
+        "Earnings: ACCELERATING",
+        "Phase-1 momentum: -16.3%"
+      ]
+    },
+    {
+      "symbol": "FFC",
+      "sector": "Fertilizer",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "STEADY earnings, HIGH quality, but FAIR value. No edge.",
+      "contributing_signals": [
+        "Value: FAIR (-7% upside)",
+        "Quality: HIGH",
+        "Earnings: STEADY",
+        "Phase-1 momentum: +10.1%"
+      ]
+    },
+    {
+      "symbol": "HBL",
+      "sector": "Banking",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "ACCELERATING earnings, FAIR value. Sector risk before IMF. Hold.",
+      "contributing_signals": [
+        "Value: FAIR (+16% upside)",
+        "Quality: HIGH",
+        "Earnings: ACCELERATING",
+        "Phase-1 momentum: -1.9%"
+      ]
+    },
+    {
+      "symbol": "INDU",
+      "sector": "Autos",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Auto demand recovering but SELL_VALUE -27%. Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-27% upside)",
+        "Quality: HIGH",
+        "Earnings: STEADY",
+        "Phase-1 momentum: -9.3%"
+      ]
+    },
+    {
+      "symbol": "KEL",
+      "sector": "Power",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Phase-1 would-pick #4. SELL_VALUE -60% and LOW quality. Power sector circular debt risk. Hold only.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-60% upside)",
+        "Quality: LOW",
+        "Earnings: EROSION",
+        "Phase-1 momentum: +13.2%"
+      ]
+    },
+    {
+      "symbol": "KOHC",
+      "sector": "Cement",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "DECELERATING earnings. Earnings calendar: results May 21. Hold through earnings.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-10% upside)",
+        "Quality: HIGH",
+        "Earnings: DECELERATING",
+        "Phase-1 momentum: -22.4%"
+      ]
+    },
+    {
+      "symbol": "LUCK",
+      "sector": "Cement",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Cement sector under pressure. SELL_VALUE -23%. Hold but watch for further weakness.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-23% upside)",
+        "Quality: HIGH",
+        "Earnings: DECELERATING",
+        "Phase-1 momentum: -6.2%"
+      ]
+    },
+    {
+      "symbol": "MARI",
+      "sector": "Oil & Gas E&P",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "EROSION earnings, SELL_VALUE -43%. Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-43% upside)",
+        "Quality: HIGH",
+        "Earnings: EROSION",
+        "Phase-1 momentum: -17.9%"
+      ]
+    },
+    {
+      "symbol": "MCB",
+      "sector": "Banking",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Phase-1 would-pick #5. SELL_VALUE -14%. HIGH quality but earnings EROSION. IMF May 15 catalyst could unlock — wait.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-14% upside)",
+        "Quality: HIGH",
+        "Earnings: EROSION",
+        "Phase-1 momentum: +10.1%"
+      ]
+    },
+    {
+      "symbol": "MEBL",
+      "sector": "Banking",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "HIGH quality bank but SELL_VALUE -41%. Wait for IMF clarity.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-41% upside)",
+        "Quality: HIGH",
+        "Earnings: EROSION",
+        "Phase-1 momentum: +5.6%"
+      ]
+    },
+    {
+      "symbol": "MLCF",
+      "sector": "Cement",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Cement, ACCELERATING earnings but SELL_VALUE -28%. Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-28% upside)",
+        "Quality: HIGH",
+        "Earnings: ACCELERATING",
+        "Phase-1 momentum: -20.2%"
+      ]
+    },
+    {
+      "symbol": "NPL",
+      "sector": "Power",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Power sector defensive name. Phase-1 #1 momentum but SELL_VALUE -20% and ACCELERATING earnings. Hold existing — no fresh entry.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-20% upside)",
+        "Quality: HIGH",
+        "Earnings: ACCELERATING",
+        "Phase-1 momentum: +71.7%"
+      ]
+    },
+    {
+      "symbol": "POL",
+      "sector": "Oil & Gas E&P",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "DECELERATING earnings, SELL_VALUE -12%. Smaller E&P. Hold.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-12% upside)",
+        "Quality: HIGH",
+        "Earnings: DECELERATING",
+        "Phase-1 momentum: -11.3%"
+      ]
+    },
+    {
+      "symbol": "PSO",
+      "sector": "OMC/Refining",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "OMC sector weak, RECOVERING earnings, FAIR value. Hold.",
+      "contributing_signals": [
+        "Value: FAIR (+14% upside)",
+        "Quality: LOW",
+        "Earnings: RECOVERING",
+        "Phase-1 momentum: -28.8%"
+      ]
+    },
+    {
+      "symbol": "SYS",
+      "sector": "Technology",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "RECOVERING earnings but SELL_VALUE -56%. Tech multiples elevated.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-56% upside)",
+        "Quality: HIGH",
+        "Earnings: RECOVERING",
+        "Phase-1 momentum: +0.0%"
+      ]
+    },
+    {
+      "symbol": "UBL",
+      "sector": "Banking",
+      "bucket": "HOLD",
+      "conviction": "LOW",
+      "target_weight_pct": 0,
+      "reason": "Composite BUY but SELL_VALUE -19% conflicts. Bank sector risk before IMF. Hold over WATCH given mixed signals.",
+      "contributing_signals": [
+        "Value: SELL_VALUE (-19% upside)",
+        "Quality: HIGH",
+        "Earnings: ACCELERATING",
+        "Phase-1 momentum: +2.7%"
       ]
     }
   ],
-  "narrative": "Monday May 11 opens in a cautious environment dominated by two cross-cutting forces: (1) US-Iran geopolitical risk creating oil price volatility and global risk-off, and (2) the IMF mission arriving May 15 as a near-term domestic positive catalyst. The Phase-1 engine correctly signals CASH — universe momentum is negative and the broad market is not in a trending regime. However, selective WATCH positions in quality E&P names (OGDC, ATRL) are warranted given: institutional buying in the sector, PPL's new well positive for sentiment, and the geopolitical risk premium that keeps an oil floor in place. LOTCHEM is the only ADD signal — small position acceptable. Avoid cement (heavy FIPI outflows, demand weak) and NBP. The IMF outcome on May 15 is the week's binary risk event — positive signals could trigger a 1-2% relief rally across the board; hold cash reserves ready to deploy on that catalyst."
+  "thinking_trace": "Reasoning path:\n1. Phase-1 risk_off + universe momentum -5% → minimum-deploy regime\n2. But composite verdict synthesizer flags 6 BUYs + 5 ADDs across quality+value\n3. Filter: only consider stocks with HIGH quality + Phase-1 mom > 0 + value upside > 20%\n   → OGDC, ATRL pass (BUY, 7-8% weight)\n   → PPL passes ex Phase-1 (ADD, 5% weight)\n4. WATCH list: high-conviction value but Phase-1 negative or quality unknown\n   → NBP, FATIMA, HUBC, KAPCO\n5. AVOID: composite SELL/JUNK/extreme overvaluation\n   → SEARL, TRG, PABC\n6. TRIM: composite TRIM verdict\n   → LOTCHEM, COLG\n7. Everything else: HOLD with documented reason (no edge)\n8. Market-level: 80% CASH veto until IMF May 15 binary risk resolves\n"
 }
