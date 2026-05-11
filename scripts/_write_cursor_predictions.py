@@ -27,12 +27,35 @@ from pathlib import Path
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+import pandas as pd
+
 PER_STOCK = Path('data/_strategist/_per_stock_2026-05-11.json')
 LOG_PATH = Path('data/predictions_log.json')
+OHLCV_DIR = Path('data/ohlcv')
 TODAY = '2026-05-11'
 MODEL = 'cursor-claude-sonnet-4-5-manual'
 HORIZON = 5
 NOW = datetime.now(ZoneInfo('Asia/Karachi')).isoformat()
+
+
+def _last_close_from_ohlcv(sym: str, asof: str | None = None) -> float | None:
+    """Fallback close from data/ohlcv/<SYM>.parquet when the per-stock
+    snapshot lacks close_pkr. Returns None if file missing or empty."""
+    fp = OHLCV_DIR / f'{sym}.parquet'
+    if not fp.exists():
+        return None
+    try:
+        df = pd.read_parquet(fp)
+        if df.empty or 'close' not in df.columns:
+            return None
+        df = df.sort_values('date')
+        if asof:
+            cut = df[df['date'] <= pd.to_datetime(asof)]
+            if not cut.empty:
+                return float(cut.iloc[-1]['close'])
+        return float(df.iloc[-1]['close'])
+    except Exception:
+        return None
 
 per_stock: dict[str, dict] = json.loads(
     PER_STOCK.read_bytes().decode('utf-8', 'replace'))
@@ -636,12 +659,18 @@ if extra:
 # Build prediction records
 # ---------------------------------------------------------------------------
 records: list[dict] = []
+ohlcv_fallback_used: list[str] = []
 for sym in universe:
     if sym not in P:
         continue
     pd_data = per_stock[sym]
     p = P[sym]
     entry = float(pd_data.get('close_pkr') or 0)
+    if entry <= 0:
+        fallback = _last_close_from_ohlcv(sym, asof=pd_data.get('as_of_price_date'))
+        if fallback and fallback > 0:
+            entry = float(fallback)
+            ohlcv_fallback_used.append(sym)
     ret_low, ret_mid, ret_high = p['ret']
     stop = round(entry * (1.0 + p['stop_pct']), 2) if entry > 0 else None
     target = round(entry * (1.0 + p['target_pct']), 2) if entry > 0 else None
@@ -733,6 +762,26 @@ LOG_PATH.write_text(
 )
 print(f'\nMerged into {LOG_PATH}')
 print(f'Total predictions in log: {len(merged)}')
+
+if ohlcv_fallback_used:
+    print(f'OHLCV fallback used for: {ohlcv_fallback_used}')
+
+# -- Self-heal: ensure no row in today's batch ships with entry=0 / stop=None /
+#    target=None. The patcher is a defense-in-depth net even when the writer
+#    succeeds, so future schema regressions are caught at source.
+try:
+    from scripts._patch_pred_prices import backfill_prices, check_only
+    summary = backfill_prices(latest_only=True, dry_run=False, verbose=True)
+    if summary['patched_count']:
+        print(
+            f'[self-heal] backfilled prices for: {summary["patched"]}'
+        )
+    rc = check_only(latest_only=True)
+    if rc != 0:
+        print('[self-heal] WARNING: check_only failed after backfill — '
+              'some rows in today\'s batch still missing prices.')
+except Exception as exc:
+    print(f'[self-heal] could not run patcher: {exc!r}')
 
 # Show distribution
 counts_dir: dict[str, int] = {}
