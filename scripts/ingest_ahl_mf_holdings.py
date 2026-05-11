@@ -119,6 +119,12 @@ KNOWN_URLS: list[tuple[str, str]] = [
     ("69553ca0b34f60500c56d113", "2025-10-01"),  # Oct-2025
     ("6996b7902c2a6a5d4954b11f", "2026-01-01"),  # Jan-2026 (summary w/ MoM column)
     ("6929c23bae4e0b8d028cea63", "2025-11-01"),  # Nov-2025 (web-discovered 2026-05-03)
+    # Web-discovered 2026-05-11 — fills the Nov-2025 -> Apr-2026 gap.
+    # Auto-skip kicks in if a hash is actually a Market Performance report.
+    ("69174b26df961712509a9c38", "2025-10-01"),  # pub 2025-11-14
+    ("697cc96f2c2a6a5d49218760", "2025-12-01"),  # pub 2026-01-30
+    ("69a17f87d33a93d06bd96d15", "2026-01-01"),  # pub 2026-02-27 (alt Jan)
+    ("69cfcb1eb56b444d53036259", "2026-02-01"),  # pub 2026-04-03 (covers Feb)
 ]
 
 
