@@ -48,6 +48,10 @@ from typing import Iterable
 ROOT = Path(__file__).resolve().parent.parent
 HOLDINGS_PARQUET = ROOT / "data" / "flows" / "mutual_fund_holdings.parquet"
 SUMMARY_PARQUET = ROOT / "data" / "flows" / "mf_top_holdings_summary.parquet"
+# AMC FMR data (scripts/ingest_amc_fmr.py) -- supplements AHL data with
+# fresher per-AMC monthly Fund Manager Report holdings. Same long-format
+# (as_of_month, fund_name, symbol, pct_of_fund) so we union at load time.
+AMC_FMR_PARQUET = ROOT / "data" / "flows" / "amc_fmr_holdings.parquet"
 
 
 # ---------------------------------------------------------------------------
@@ -57,6 +61,7 @@ SUMMARY_PARQUET = ROOT / "data" / "flows" / "mf_top_holdings_summary.parquet"
 class _Cache:
     holdings_mtime: float = 0.0
     summary_mtime: float = 0.0
+    amc_fmr_mtime: float = 0.0
     holdings = None
     summary = None
 
@@ -65,20 +70,57 @@ _CACHE = _Cache()
 
 
 def _load_holdings():
-    if not HOLDINGS_PARQUET.exists():
-        return None
-    mtime = HOLDINGS_PARQUET.stat().st_mtime
-    if _CACHE.holdings is not None and mtime == _CACHE.holdings_mtime:
-        return _CACHE.holdings
+    """Load per-fund per-month holdings from BOTH the AHL parquet and the
+    AMC-direct FMR parquet, returning a single union DataFrame.
+
+    The AHL parquet provides historical breadth (~Jun-2025 and earlier);
+    the AMC FMR parquet provides recency (typically <30 days stale,
+    auto-refreshed monthly via scripts/ingest_amc_fmr.py)."""
     import pandas as pd
-    df = pd.read_parquet(HOLDINGS_PARQUET)
-    if df.empty:
+
+    paths = [p for p in (HOLDINGS_PARQUET, AMC_FMR_PARQUET) if p.exists()]
+    if not paths:
         return None
-    df["as_of_month"] = pd.to_datetime(df["as_of_month"]).dt.normalize()
-    df["pct_of_fund"] = df["pct_of_fund"].astype(float)
-    _CACHE.holdings = df
-    _CACHE.holdings_mtime = mtime
-    return df
+
+    # Cache-key is the max mtime across both files
+    max_mtime = max(p.stat().st_mtime for p in paths)
+    if _CACHE.holdings is not None and max_mtime == max(
+            _CACHE.holdings_mtime, _CACHE.amc_fmr_mtime):
+        return _CACHE.holdings
+
+    frames = []
+    for p in paths:
+        try:
+            df = pd.read_parquet(p)
+        except Exception:
+            continue
+        if df.empty:
+            continue
+        # AHL parquet has more columns than AMC FMR; project to the
+        # minimum needed set so we can concat cleanly.
+        keep = ["as_of_month", "fund_name", "symbol", "pct_of_fund"]
+        for col in keep:
+            if col not in df.columns:
+                df[col] = None
+        df = df[keep]
+        df["as_of_month"] = pd.to_datetime(df["as_of_month"]).dt.normalize()
+        df["pct_of_fund"] = df["pct_of_fund"].astype(float)
+        df["symbol"] = df["symbol"].astype(str).str.upper().str.strip()
+        df = df[df["symbol"] != ""]
+        frames.append(df)
+
+    if not frames:
+        return None
+    combined = pd.concat(frames, ignore_index=True)
+    # Dedup on (as_of_month, fund_name, symbol) -- if both sources have a
+    # row for the same fund-month-symbol, prefer the LATER mtime (i.e.
+    # AMC FMR wins over AHL since it's typically fresher and more direct).
+    combined = combined.drop_duplicates(
+        subset=["as_of_month", "fund_name", "symbol"], keep="last")
+    _CACHE.holdings = combined
+    _CACHE.holdings_mtime = HOLDINGS_PARQUET.stat().st_mtime if HOLDINGS_PARQUET.exists() else 0.0
+    _CACHE.amc_fmr_mtime = AMC_FMR_PARQUET.stat().st_mtime if AMC_FMR_PARQUET.exists() else 0.0
+    return combined
 
 
 def _load_summary():

@@ -1,0 +1,92 @@
+name: AMC Fund Manager Reports (monthly)
+
+# Scrapes monthly Fund Manager Reports (FMRs) from Pakistani AMC websites
+# (Al Meezan, Lucky Investments, NBP, ...) and parses per-fund top-10
+# equity holdings into data/flows/amc_fmr_holdings.parquet.
+#
+# Why: AHL stopped publishing per-fund detail in their public path=178
+# namespace after Jun-2025. Without this workflow, mf_data_freshness_days
+# pegs at 344+ and the institutional-flows lens silently degrades.
+#
+# Cadence: 8th of each month at 09:00 PKT (04:00 UTC). AMCs publish
+# their April FMR around the first week of May, etc.
+
+on:
+  schedule:
+    - cron: '0 4 8 * *'      # 8th of each month, 09:00 PKT
+  workflow_dispatch:
+    inputs:
+      months:
+        description: "Specific months to scrape (space-separated YYYY-MM, blank = last 6)"
+        required: false
+        default: ""
+      amcs:
+        description: "AMC slugs filter (space-separated, blank = all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ingest-amc-fmr
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+          lfs: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Scrape AMC FMRs
+        run: |
+          ARGS=""
+          if [ -n "${{ inputs.months }}" ]; then
+            ARGS="$ARGS --months ${{ inputs.months }}"
+          fi
+          if [ -n "${{ inputs.amcs }}" ]; then
+            ARGS="$ARGS --amc ${{ inputs.amcs }}"
+          fi
+          python scripts/ingest_amc_fmr.py $ARGS
+
+      - name: Validate parquet
+        run: python scripts/ingest_amc_fmr.py --validate
+
+      - name: Commit updates
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          # Parquet (parsed signal) + URL index (audit trail) are tracked.
+          # Raw PDFs stay in data/raw/ which is gitignored — re-fetched
+          # idempotently on each run.
+          git add data/flows/amc_fmr_holdings.parquet \
+                  data/flows/amc_fmr_url_index.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes (already up to date)."
+            exit 0
+          fi
+          git commit -m "data: AMC FMR refresh $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
