@@ -59501,15 +59501,15 @@
       "sector": "Power",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 75.98,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.0,
       "expected_return_5d_mid_pct": 0.3,
       "expected_return_5d_high_pct": 1.5,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 73.7,
+      "suggested_target_pkr": 77.5,
       "rationale": "Phase-1 #1 (mom +72% \u2014 outlier strong) but SELL_VALUE -20% and ACCELERATING earnings. Defensive Power name. Recent 1d -3% reversal. Hold existing, no fresh entry on the run-up.",
       "key_drivers": [
         "Phase-1 #1 (mom +72%)",
@@ -59540,7 +59540,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 75.98,
         "phase1_score": 0.7171,
         "phase1_rank": 1,
         "phase1_in_top5": true,
@@ -59562,7 +59562,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 375
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:47:59",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-ATRL",
@@ -59571,15 +59573,15 @@
       "sector": "OMC/Refining",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 903.72,
       "direction": "BULLISH",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": 0.4,
       "expected_return_5d_mid_pct": 1.5,
       "expected_return_5d_high_pct": 2.8,
       "suggested_action": "BUY",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 881.13,
+      "suggested_target_pkr": 930.83,
       "rationale": "ATRL is Phase-1 #2 (mom +20% over 150d), HIGH quality, FAIR value with +21% upside. MF funds are initiating positions \u2014 7 new fund positions in 30d. Mgmt outlook (filed Apr 30) flags Gulf risks but expects refining margins to hold via indigenous crude advantage. Material info filed May 4 \u2014 watch for Q3 earnings update.",
       "key_drivers": [
         "MF flows BULLISH: 3 new fund(s) initiating in 30d, 1 increasing vs 0 decreasing (net +1). Held by 4 fund(s); data 40d fresh.",
@@ -59615,7 +59617,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 903.72,
         "phase1_score": 0.2038,
         "phase1_rank": 2,
         "phase1_in_top5": true,
@@ -59637,7 +59639,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:47:59",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-OGDC",
@@ -59646,15 +59650,15 @@
       "sector": "Oil & Gas E&P",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 329.68,
       "direction": "BULLISH",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": 0.5,
       "expected_return_5d_mid_pct": 1.8,
       "expected_return_5d_high_pct": 3.2,
       "suggested_action": "BUY",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 321.44,
+      "suggested_target_pkr": 340.23,
       "rationale": "OGDC HIGH-quality (85.5/100) E&P with +30% upside to fair value (BUY_VALUE HIGH confidence). Phase-1 #3 with mom +17% over 150d. Volume confirmed 3d breakout. US-Iran tension has put a floor under Brent (currently $104, still elevated despite -9% mean-reversion in 5d). IMF May 15 talks could unlock further upside on a successful review (state-owned name benefits from PKR strength).",
       "key_drivers": [
         "MF flows BULLISH: 1 new fund(s) initiating in 30d, 3 increasing vs 3 decreasing (net +0). Held by 7 fund(s); data 40d fresh.",
@@ -59690,7 +59694,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 329.68,
         "phase1_score": 0.1708,
         "phase1_rank": 3,
         "phase1_in_top5": true,
@@ -59712,7 +59716,9 @@
         "mf_n_funds_increasing_30d": 3,
         "mf_n_funds_decreasing_30d": 3,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:47:59",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-KEL",
@@ -59721,15 +59727,15 @@
       "sector": "Power",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 8.11,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.0,
       "expected_return_5d_mid_pct": 0.2,
       "expected_return_5d_high_pct": 1.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 7.87,
+      "suggested_target_pkr": 8.27,
       "rationale": "Phase-1 would-pick #4. SELL_VALUE -60%, LOW quality, EROSION earnings. Power circular debt overhang. Volume breakout in 3d. Hold only.",
       "key_drivers": [
         "Phase-1 #4",
@@ -59760,7 +59766,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 8.11,
         "phase1_score": 0.1316,
         "phase1_rank": 4,
         "phase1_in_top5": true,
@@ -59782,7 +59788,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-PPL",
@@ -59791,15 +59799,15 @@
       "sector": "Oil & Gas E&P",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 229.93,
       "direction": "BULLISH",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": 0.3,
       "expected_return_5d_mid_pct": 1.4,
       "expected_return_5d_high_pct": 2.6,
       "suggested_action": "BUY",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 224.18,
+      "suggested_target_pkr": 236.83,
       "rationale": "Deep value play: BUY_VALUE +52% upside, HIGH quality. Phase-1 #5 (mom +13%). Faiz X-1 well producing 3.6 bcf/d (positive sentiment driver in news cycle). Earnings DECELERATING but balance sheet strong. Same Brent floor argument as OGDC.",
       "key_drivers": [
         "MF flows BULLISH: 1 new fund(s) initiating in 30d, 2 increasing vs 4 decreasing (net +-2). Held by 7 fund(s); data 40d fresh.",
@@ -59835,7 +59843,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 229.93,
         "phase1_score": 0.1275,
         "phase1_rank": 5,
         "phase1_in_top5": true,
@@ -59857,7 +59865,9 @@
         "mf_n_funds_increasing_30d": 2,
         "mf_n_funds_decreasing_30d": 4,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-EPCL",
@@ -59866,15 +59876,15 @@
       "sector": "Conglomerate/Chem",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 34.79,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.8,
       "expected_return_5d_mid_pct": 0.3,
       "expected_return_5d_high_pct": 1.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 33.75,
+      "suggested_target_pkr": 35.49,
       "rationale": "Phase-1 would-pick #5. JUNK quality, EROSION earnings. Mgmt outlook (Apr 30) acknowledges commodity correction risk. Earnings May 18 \u2014 pre-blackout. Volume breakout in 3d.",
       "key_drivers": [
         "Phase-1 #5",
@@ -59905,7 +59915,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 34.79,
         "phase1_score": 0.1195,
         "phase1_rank": 6,
         "phase1_in_top5": false,
@@ -59927,7 +59937,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": null
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-MCB",
@@ -59936,15 +59948,15 @@
       "sector": "Banking",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 404.57,
       "direction": "NEUTRAL",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": -0.4,
       "expected_return_5d_mid_pct": 0.4,
       "expected_return_5d_high_pct": 1.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 392.43,
+      "suggested_target_pkr": 412.66,
       "rationale": "Phase-1 would-pick #5. SELL_VALUE -14% (slight premium), HIGH quality (90.8/100 \u2014 top of universe), but EROSION earnings (-7.6%). IMF May 15 = direct catalyst. On a successful review the bank rallies +1-2%; on delay sells off -1-2%. Hold through the binary.",
       "key_drivers": [
         "HIGH quality (90.8/100)",
@@ -59976,7 +59988,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 404.57,
         "phase1_score": 0.1014,
         "phase1_rank": 7,
         "phase1_in_top5": false,
@@ -59998,7 +60010,9 @@
         "mf_n_funds_increasing_30d": 8,
         "mf_n_funds_decreasing_30d": 3,
         "mf_data_freshness_days": 344
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-FFC",
@@ -60007,15 +60021,15 @@
       "sector": "Fertilizer",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 532.94,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.5,
       "expected_return_5d_mid_pct": 0.3,
       "expected_return_5d_high_pct": 1.1,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 516.95,
+      "suggested_target_pkr": 543.6,
       "rationale": "STEADY earnings (best-in-class), HIGH quality, FAIR value with -7% (slight premium). Phase-1 mom +10% (positive). Defensive in current regime.",
       "key_drivers": [
         "MF flows BEARISH: 4 fund(s) reducing in 30d, only 1 increasing (net -3). Held by 5 fund(s); data 40d fresh.",
@@ -60042,7 +60056,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 532.94,
         "phase1_score": 0.1011,
         "phase1_rank": 8,
         "phase1_in_top5": false,
@@ -60064,7 +60078,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 4,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-ENGROH",
@@ -60073,15 +60089,15 @@
       "sector": "Conglomerate/Chem",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 279.5,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.7,
       "expected_return_5d_mid_pct": 0.3,
       "expected_return_5d_high_pct": 1.3,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 271.12,
+      "suggested_target_pkr": 285.09,
       "rationale": "Insufficient earnings data \u2014 UNKNOWN quality, NO_SIGNAL value. Phase-1 mom +8%. Hold pending more disclosure.",
       "key_drivers": [
         "MF flows BULLISH: 0 new fund(s) initiating in 30d, 4 increasing vs 1 decreasing (net +3). Held by 5 fund(s); data 40d fresh.",
@@ -60110,7 +60126,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 279.5,
         "phase1_score": 0.0822,
         "phase1_rank": 9,
         "phase1_in_top5": false,
@@ -60132,7 +60148,9 @@
         "mf_n_funds_increasing_30d": 4,
         "mf_n_funds_decreasing_30d": 1,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-APL",
@@ -60141,15 +60159,15 @@
       "sector": "OMC/Refining",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 593.6,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.0,
       "expected_return_5d_mid_pct": -0.2,
       "expected_return_5d_high_pct": 0.6,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 575.79,
+      "suggested_target_pkr": 605.47,
       "rationale": "SELL_VALUE -14%, RECOVERING earnings, HIGH quality, but Phase-1 mom +7% (positive but weak). Same OMC pressures as PSO but better fundamentals. Hold.",
       "key_drivers": [
         "MF flows BULLISH: 1 new fund(s) initiating in 30d, 1 increasing vs 0 decreasing (net +1). Held by 2 fund(s); data 40d fresh.",
@@ -60181,7 +60199,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 593.6,
         "phase1_score": 0.0721,
         "phase1_rank": 10,
         "phase1_in_top5": false,
@@ -60203,7 +60221,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-MEBL",
@@ -60212,15 +60232,15 @@
       "sector": "Banking",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 485.95,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.7,
       "expected_return_5d_mid_pct": 0.2,
       "expected_return_5d_high_pct": 1.0,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 471.37,
+      "suggested_target_pkr": 495.67,
       "rationale": "HIGH quality but SELL_VALUE -41%, EROSION earnings, Phase-1 mom +6% (weak). Sharia banking. Wait for IMF clarity.",
       "key_drivers": [
         "MF flows BULLISH: 0 new fund(s) initiating in 30d, 4 increasing vs 1 decreasing (net +3). Held by 5 fund(s); data 40d fresh.",
@@ -60249,7 +60269,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 485.95,
         "phase1_score": 0.0564,
         "phase1_rank": 11,
         "phase1_in_top5": false,
@@ -60271,7 +60291,9 @@
         "mf_n_funds_increasing_30d": 4,
         "mf_n_funds_decreasing_30d": 1,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-UBL",
@@ -60280,15 +60302,15 @@
       "sector": "Banking",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 415.22,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.6,
       "expected_return_5d_mid_pct": 0.3,
       "expected_return_5d_high_pct": 1.2,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 402.76,
+      "suggested_target_pkr": 423.52,
       "rationale": "Composite verdict BUY (synthesizer score +9), but SELL_VALUE -19% overrides. ACCELERATING earnings is positive. Phase-1 mom +3% (weak). IMF binary same as MCB.",
       "key_drivers": [
         "ACCELERATING earnings",
@@ -60319,7 +60341,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 415.22,
         "phase1_score": 0.0274,
         "phase1_rank": 12,
         "phase1_in_top5": false,
@@ -60341,7 +60363,9 @@
         "mf_n_funds_increasing_30d": 15,
         "mf_n_funds_decreasing_30d": 8,
         "mf_data_freshness_days": 344
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-SYS",
@@ -60350,15 +60374,15 @@
       "sector": "Technology",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 153.88,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.0,
       "expected_return_5d_mid_pct": 0.0,
       "expected_return_5d_high_pct": 1.0,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 149.26,
+      "suggested_target_pkr": 156.96,
       "rationale": "RECOVERING earnings but SELL_VALUE -56% (extreme tech-multiple premium). Phase-1 mom 0%. Wait for either fundamentals to catch up or price to mean-revert.",
       "key_drivers": [
         "MF flows BEARISH: 4 fund(s) reducing in 30d, only 0 increasing (net -4). Held by 4 fund(s); data 40d fresh.",
@@ -60383,7 +60407,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 153.88,
         "phase1_score": 0.0003,
         "phase1_rank": 13,
         "phase1_in_top5": false,
@@ -60405,7 +60429,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 4,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-LOTCHEM",
@@ -60414,15 +60440,15 @@
       "sector": "Conglomerate/Chem",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 27.4,
       "direction": "BEARISH",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": -2.5,
       "expected_return_5d_mid_pct": -1.2,
       "expected_return_5d_high_pct": 0.0,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 26.58,
+      "suggested_target_pkr": 27.95,
       "rationale": "Composite verdict TRIM. Brent -9% in 5d narrows PVC margins. LOW quality, EROSION earnings, Phase-1 mom -2%. On short-candidate list (low conviction).",
       "key_drivers": [],
       "key_risks": [
@@ -60449,7 +60475,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 27.4,
         "phase1_score": -0.0181,
         "phase1_rank": 14,
         "phase1_in_top5": false,
@@ -60471,7 +60497,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": null
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-HBL",
@@ -60480,15 +60508,15 @@
       "sector": "Banking",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 295.26,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.5,
       "expected_return_5d_mid_pct": 0.3,
       "expected_return_5d_high_pct": 1.1,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 286.4,
+      "suggested_target_pkr": 301.17,
       "rationale": "FAIR value with +16% upside (best valuation in big-banks). ACCELERATING earnings. HIGH quality. But Phase-1 mom -2% (flat). IMF risk dominant.",
       "key_drivers": [
         "ACCELERATING earnings",
@@ -60517,7 +60545,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 295.26,
         "phase1_score": -0.0188,
         "phase1_rank": 15,
         "phase1_in_top5": false,
@@ -60539,7 +60567,9 @@
         "mf_n_funds_increasing_30d": 2,
         "mf_n_funds_decreasing_30d": 3,
         "mf_data_freshness_days": 344
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-FATIMA",
@@ -60548,15 +60578,15 @@
       "sector": "Fertilizer",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 137.43,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.7,
       "expected_return_5d_mid_pct": 0.4,
       "expected_return_5d_high_pct": 1.5,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 133.31,
+      "suggested_target_pkr": 140.18,
       "rationale": "BUY_VALUE +35% upside, HIGH quality, DECELERATING earnings. Phase-1 mom -5%. Fertilizer FIPI net inflow May 8. Watch only.",
       "key_drivers": [
         "BUY_VALUE +35%",
@@ -60582,7 +60612,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 137.43,
         "phase1_score": -0.0475,
         "phase1_rank": 16,
         "phase1_in_top5": false,
@@ -60604,7 +60634,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-FABL",
@@ -60613,15 +60645,15 @@
       "sector": "Banking",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 89.25,
       "direction": "BEARISH",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.6,
       "expected_return_5d_mid_pct": -0.7,
       "expected_return_5d_high_pct": 0.3,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 86.57,
+      "suggested_target_pkr": 91.03,
       "rationale": "EROSION earnings, SELL_VALUE -27%, Phase-1 mom -5%. Smaller bank, IMF risk amplified.",
       "key_drivers": [],
       "key_risks": [
@@ -60645,7 +60677,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 89.25,
         "phase1_score": -0.0506,
         "phase1_rank": 17,
         "phase1_in_top5": false,
@@ -60667,7 +60699,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 1,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-LUCK",
@@ -60676,15 +60710,15 @@
       "sector": "Cement",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 445.73,
       "direction": "BEARISH",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.6,
       "expected_return_5d_mid_pct": -0.6,
       "expected_return_5d_high_pct": 0.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 432.36,
+      "suggested_target_pkr": 454.64,
       "rationale": "SELL_VALUE -23%, DECELERATING earnings. Phase-1 mom -6%. Cement demand under pressure (LSM index flat YoY).",
       "key_drivers": [
         "MF flows BULLISH: 0 new fund(s) initiating in 30d, 4 increasing vs 1 decreasing (net +3). Held by 5 fund(s); data 40d fresh.",
@@ -60713,7 +60747,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 445.73,
         "phase1_score": -0.0617,
         "phase1_rank": 18,
         "phase1_in_top5": false,
@@ -60735,7 +60769,9 @@
         "mf_n_funds_increasing_30d": 4,
         "mf_n_funds_decreasing_30d": 1,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-HUBC",
@@ -60744,15 +60780,15 @@
       "sector": "Power",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 216.53,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.0,
       "expected_return_5d_mid_pct": 0.4,
       "expected_return_5d_high_pct": 1.6,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 210.03,
+      "suggested_target_pkr": 220.86,
       "rationale": "BUY_VALUE +41% upside but UNKNOWN quality (insufficient data). Phase-1 mom -9%. Power IPP \u2014 direct circular-debt beneficiary on any fresh resolution. Watch for catalyst.",
       "key_drivers": [
         "MF flows BULLISH: 1 new fund(s) initiating in 30d, 4 increasing vs 2 decreasing (net +2). Held by 7 fund(s); data 40d fresh.",
@@ -60782,7 +60818,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 216.53,
         "phase1_score": -0.0897,
         "phase1_rank": 19,
         "phase1_in_top5": false,
@@ -60804,7 +60840,9 @@
         "mf_n_funds_increasing_30d": 4,
         "mf_n_funds_decreasing_30d": 2,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-INDU",
@@ -60813,15 +60851,15 @@
       "sector": "Autos",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 2007.8,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.7,
       "expected_return_5d_mid_pct": 0.2,
       "expected_return_5d_high_pct": 1.1,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 1947.57,
+      "suggested_target_pkr": 2047.96,
       "rationale": "STEADY earnings, HIGH quality, but SELL_VALUE -27%. Phase-1 mom -9%. Auto demand recovering but valuation rich.",
       "key_drivers": [
         "STEADY earnings",
@@ -60847,7 +60885,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 2007.8,
         "phase1_score": -0.0935,
         "phase1_rank": 20,
         "phase1_in_top5": false,
@@ -60869,7 +60907,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": null
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-POL",
@@ -60878,15 +60918,15 @@
       "sector": "Oil & Gas E&P",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 657.58,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -0.8,
       "expected_return_5d_mid_pct": 0.2,
       "expected_return_5d_high_pct": 1.2,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 637.85,
+      "suggested_target_pkr": 670.73,
       "rationale": "Smaller E&P. SELL_VALUE -12% (slight overvaluation), DECELERATING earnings, Phase-1 mom -11%. Less Brent leverage than OGDC/PPL. No edge for 5-day window.",
       "key_drivers": [
         "Brent crude support"
@@ -60917,7 +60957,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 657.58,
         "phase1_score": -0.1129,
         "phase1_rank": 21,
         "phase1_in_top5": false,
@@ -60939,7 +60979,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 344
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-NBP",
@@ -60948,15 +60990,15 @@
       "sector": "Banking",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 192.56,
       "direction": "NEUTRAL",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": -0.8,
       "expected_return_5d_mid_pct": 0.5,
       "expected_return_5d_high_pct": 1.8,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 186.78,
+      "suggested_target_pkr": 196.41,
       "rationale": "Highest value upside in universe (+101% to fair value, BUY_VALUE HIGH confidence). HIGH quality, RECOVERING earnings. BUT state-owned bank is most exposed to a hawkish IMF outcome (govt-debt balance sheet). Phase-1 mom -12% short-term. WATCH not BUY until IMF May 15 outcome is known.",
       "key_drivers": [
         "BUY_VALUE +101% upside (highest in universe)",
@@ -60986,7 +61028,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 192.56,
         "phase1_score": -0.1177,
         "phase1_rank": 22,
         "phase1_in_top5": false,
@@ -61008,7 +61050,9 @@
         "mf_n_funds_increasing_30d": 5,
         "mf_n_funds_decreasing_30d": 4,
         "mf_data_freshness_days": 344
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-EFERT",
@@ -61017,15 +61061,15 @@
       "sector": "Fertilizer",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 197.91,
       "direction": "BEARISH",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.5,
       "expected_return_5d_mid_pct": -0.6,
       "expected_return_5d_high_pct": 0.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 191.97,
+      "suggested_target_pkr": 201.87,
       "rationale": "EROSION earnings, SELL_VALUE -32%, Phase-1 mom -15%. Lagging peer.",
       "key_drivers": [],
       "key_risks": [
@@ -61047,7 +61091,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 197.91,
         "phase1_score": -0.1513,
         "phase1_rank": 23,
         "phase1_in_top5": false,
@@ -61069,7 +61113,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 2,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-FCCL",
@@ -61078,15 +61124,15 @@
       "sector": "Cement",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 51.85,
       "direction": "NEUTRAL",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.4,
       "expected_return_5d_mid_pct": -0.4,
       "expected_return_5d_high_pct": 0.6,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 50.29,
+      "suggested_target_pkr": 52.89,
       "rationale": "ACCELERATING earnings (positive) but SELL_VALUE -37% overrides. Phase-1 mom -16%. Cement demand soft.",
       "key_drivers": [
         "ACCELERATING earnings",
@@ -61117,7 +61163,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 51.85,
         "phase1_score": -0.1628,
         "phase1_rank": 24,
         "phase1_in_top5": false,
@@ -61139,7 +61185,9 @@
         "mf_n_funds_increasing_30d": 3,
         "mf_n_funds_decreasing_30d": 5,
         "mf_data_freshness_days": 344
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-COLG",
@@ -61148,15 +61196,15 @@
       "sector": "Consumer",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 1098.44,
       "direction": "BEARISH",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": -2.0,
       "expected_return_5d_mid_pct": -0.9,
       "expected_return_5d_high_pct": 0.2,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 1065.49,
+      "suggested_target_pkr": 1120.41,
       "rationale": "Composite verdict TRIM. SELL_VALUE -69% (deeply overvalued). DECELERATING earnings, Phase-1 mom -16%. Consumer discretionary squeezed by inflation lag.",
       "key_drivers": [
         "HIGH quality"
@@ -61180,7 +61228,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 1098.44,
         "phase1_score": -0.1642,
         "phase1_rank": 25,
         "phase1_in_top5": false,
@@ -61202,7 +61250,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": null
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-MARI",
@@ -61211,15 +61261,15 @@
       "sector": "Oil & Gas E&P",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 650.8,
       "direction": "BEARISH",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -2.0,
       "expected_return_5d_mid_pct": -0.8,
       "expected_return_5d_high_pct": 0.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 631.28,
+      "suggested_target_pkr": 663.82,
       "rationale": "SELL_VALUE -43% (significantly overvalued), HIGH quality but EROSION earnings, Phase-1 mom -18%. Despite E&P sector tailwind, valuation premium is too high for fresh entry.",
       "key_drivers": [
         "MF flows BULLISH: 1 new fund(s) initiating in 30d, 1 increasing vs 5 decreasing (net +-4). Held by 7 fund(s); data 40d fresh."
@@ -61250,7 +61300,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 650.8,
         "phase1_score": -0.1795,
         "phase1_rank": 26,
         "phase1_in_top5": false,
@@ -61272,7 +61322,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 5,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-MLCF",
@@ -61281,15 +61333,15 @@
       "sector": "Cement",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 88.96,
       "direction": "BEARISH",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.6,
       "expected_return_5d_mid_pct": -0.6,
       "expected_return_5d_high_pct": 0.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 86.29,
+      "suggested_target_pkr": 90.74,
       "rationale": "ACCELERATING earnings but SELL_VALUE -28%, Phase-1 mom -20%. Cement demand weak.",
       "key_drivers": [
         "MF flows BULLISH: 1 new fund(s) initiating in 30d, 0 increasing vs 0 decreasing (net +0). Held by 1 fund(s); data 40d fresh.",
@@ -61320,7 +61372,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 88.96,
         "phase1_score": -0.2023,
         "phase1_rank": 27,
         "phase1_in_top5": false,
@@ -61342,7 +61394,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-BAHL",
@@ -61351,15 +61405,15 @@
       "sector": "Banking",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 170.7,
       "direction": "BEARISH",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.5,
       "expected_return_5d_mid_pct": -0.6,
       "expected_return_5d_high_pct": 0.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 165.58,
+      "suggested_target_pkr": 174.11,
       "rationale": "EROSION earnings, SELL_VALUE -10%, Phase-1 mom -22% (worst-tier bank). IMF binary unfavourable for weak names.",
       "key_drivers": [],
       "key_risks": [
@@ -61384,7 +61438,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 170.7,
         "phase1_score": -0.2163,
         "phase1_rank": 28,
         "phase1_in_top5": false,
@@ -61406,7 +61460,9 @@
         "mf_n_funds_increasing_30d": 3,
         "mf_n_funds_decreasing_30d": 1,
         "mf_data_freshness_days": 344
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-KOHC",
@@ -61415,15 +61471,15 @@
       "sector": "Cement",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 88.06,
       "direction": "BEARISH",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": -1.8,
       "expected_return_5d_mid_pct": -0.8,
       "expected_return_5d_high_pct": 0.2,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 85.42,
+      "suggested_target_pkr": 89.82,
       "rationale": "DECELERATING earnings, SELL_VALUE -10%, Phase-1 mom -22%. Earnings calendar shows next event May 21 \u2014 pre-results blackout pressure.",
       "key_drivers": [
         "HIGH quality"
@@ -61452,7 +61508,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 88.06,
         "phase1_score": -0.2239,
         "phase1_rank": 29,
         "phase1_in_top5": false,
@@ -61474,7 +61530,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 161
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-SEARL",
@@ -61483,15 +61541,15 @@
       "sector": "Pharma",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 93.42,
       "direction": "BEARISH",
       "conviction": "HIGH",
       "expected_return_5d_low_pct": -3.0,
       "expected_return_5d_mid_pct": -1.5,
       "expected_return_5d_high_pct": 0.0,
       "suggested_action": "AVOID",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 95.76,
+      "suggested_target_pkr": 90.62,
       "rationale": "SELL_VALUE -85% (price 85% above fair value). LOW quality. Phase-1 mom -25%. Pred -3.4%. No catalyst. Avoid.",
       "key_drivers": [],
       "key_risks": [
@@ -61516,7 +61574,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 93.42,
         "phase1_score": -0.2492,
         "phase1_rank": 30,
         "phase1_in_top5": false,
@@ -61538,7 +61596,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 1,
         "mf_data_freshness_days": 344
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:00",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-KAPCO",
@@ -61547,15 +61607,15 @@
       "sector": "Power",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 27.4,
       "direction": "BEARISH",
       "conviction": "LOW",
       "expected_return_5d_low_pct": -1.8,
       "expected_return_5d_mid_pct": -0.7,
       "expected_return_5d_high_pct": 0.4,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 26.58,
+      "suggested_target_pkr": 27.95,
       "rationale": "BUY_VALUE +31% upside, MEDIUM quality, RECOVERING earnings \u2014 but Phase-1 mom -25% is a major red flag. Classic value-trap risk in IPP sector with circular-debt overhang.",
       "key_drivers": [
         "BUY_VALUE +31%",
@@ -61585,7 +61645,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 27.4,
         "phase1_score": -0.2511,
         "phase1_rank": 31,
         "phase1_in_top5": false,
@@ -61607,7 +61667,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": null
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:01",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-PSO",
@@ -61616,15 +61678,15 @@
       "sector": "OMC/Refining",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 364.97,
       "direction": "BEARISH",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": -2.2,
       "expected_return_5d_mid_pct": -1.0,
       "expected_return_5d_high_pct": 0.2,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 354.02,
+      "suggested_target_pkr": 372.27,
       "rationale": "OMC sector under structural pressure. RECOVERING earnings but FAIR value (+14% upside is small comfort). LOW quality. Phase-1 mom -29%. US-Iran oil volatility hurts inventory mark-to-market. Largest single creditor in circular debt \u2014 sentiment overhang.",
       "key_drivers": [
         "MF flows BULLISH: 2 new fund(s) initiating in 30d, 1 increasing vs 1 decreasing (net +0). Held by 4 fund(s); data 40d fresh.",
@@ -61658,7 +61720,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 364.97,
         "phase1_score": -0.2876,
         "phase1_rank": 32,
         "phase1_in_top5": false,
@@ -61680,7 +61742,9 @@
         "mf_n_funds_increasing_30d": 1,
         "mf_n_funds_decreasing_30d": 1,
         "mf_data_freshness_days": 40
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:01",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-DGKC",
@@ -61689,15 +61753,15 @@
       "sector": "Cement",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 190.31,
       "direction": "BEARISH",
       "conviction": "MEDIUM",
       "expected_return_5d_low_pct": -2.2,
       "expected_return_5d_mid_pct": -1.0,
       "expected_return_5d_high_pct": 0.2,
       "suggested_action": "HOLD",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 184.6,
+      "suggested_target_pkr": 194.12,
       "rationale": "SELL_VALUE -99% (extreme premium \u2014 price double fair value). RECOVERING earnings but LOW quality. Phase-1 mom -30%. Cement demand weak.",
       "key_drivers": [
         "RECOVERING earnings"
@@ -61728,7 +61792,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 190.31,
         "phase1_score": -0.2971,
         "phase1_rank": 33,
         "phase1_in_top5": false,
@@ -61750,7 +61814,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": 191
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:01",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-TRG",
@@ -61759,15 +61825,15 @@
       "sector": "Technology",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 55.51,
       "direction": "BEARISH",
       "conviction": "HIGH",
       "expected_return_5d_low_pct": -3.0,
       "expected_return_5d_mid_pct": -1.6,
       "expected_return_5d_high_pct": 0.0,
       "suggested_action": "AVOID",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 56.9,
+      "suggested_target_pkr": 53.84,
       "rationale": "JUNK quality. Phase-1 mom -30% (worst tier). EROSION earnings. Earnings calendar: results May 14 (3 days). Pre-print blackout risk. AVOID.",
       "key_drivers": [],
       "key_risks": [
@@ -61790,7 +61856,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 55.51,
         "phase1_score": -0.2979,
         "phase1_rank": 34,
         "phase1_in_top5": false,
@@ -61812,7 +61878,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": null
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:01",
+      "_price_backfill_source_date": "2026-05-08"
     },
     {
       "prediction_id": "2026-05-11-PABC",
@@ -61821,15 +61889,15 @@
       "sector": "Misc",
       "model": "cursor-claude-sonnet-4-5-manual",
       "horizon_trading_days": 5,
-      "entry_price_pkr": 0.0,
+      "entry_price_pkr": 107.44,
       "direction": "BEARISH",
       "conviction": "HIGH",
       "expected_return_5d_low_pct": -3.5,
       "expected_return_5d_mid_pct": -2.0,
       "expected_return_5d_high_pct": -0.5,
       "suggested_action": "AVOID",
-      "suggested_stop_pkr": null,
-      "suggested_target_pkr": null,
+      "suggested_stop_pkr": 110.13,
+      "suggested_target_pkr": 103.68,
       "rationale": "Phase-1 worst in universe (mom -40%). EROSION earnings. Pred -3.9%. No clear catalyst. AVOID.",
       "key_drivers": [],
       "key_risks": [
@@ -61853,7 +61921,7 @@
       "mpc_cap_applied": false,
       "data_snapshot": {
         "as_of_price_date": "2026-05-08",
-        "close_pkr": 0.0,
+        "close_pkr": 107.44,
         "phase1_score": -0.3994,
         "phase1_rank": 35,
         "phase1_in_top5": false,
@@ -61875,7 +61943,9 @@
         "mf_n_funds_increasing_30d": 0,
         "mf_n_funds_decreasing_30d": 0,
         "mf_data_freshness_days": null
-      }
+      },
+      "_price_backfilled_at": "2026-05-11T13:48:01",
+      "_price_backfill_source_date": "2026-05-08"
     }
   ]
 }
