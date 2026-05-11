@@ -63,10 +63,20 @@ def load_prediction_log_stats(last_n_days: int = 30) -> dict:
         return {"error": f"could not parse predictions_log.json: {e}"}
 
     preds = data.get("predictions") or []
-    scored = [p for p in preds
-              if p.get("actual") is not None
-              and isinstance(p.get("actual"), dict)
-              and p["actual"].get("actual_return_pct") is not None]
+    # Scorer (`scripts/check_predictions.py`) writes `outcome`. Older snapshots
+    # of this stats helper looked for `actual` and so always reported 0 scored
+    # even when the log was fully populated. We accept both keys for safety.
+    def _scored_block(p: dict) -> dict | None:
+        for k in ("outcome", "actual"):
+            blk = p.get(k)
+            if isinstance(blk, dict) and blk.get("actual_return_pct") is not None:
+                return blk
+        return None
+
+    scored_pairs = [(p, _scored_block(p)) for p in preds]
+    scored_pairs = [(p, b) for p, b in scored_pairs if b is not None]
+    scored = [p for p, _ in scored_pairs]
+    score_blk_by_id = {id(p): b for p, b in scored_pairs}
     if last_n_days:
         # The predictions are timestamped by prediction date; keep the most
         # recent N calendar days of SCORED predictions.
@@ -84,17 +94,20 @@ def load_prediction_log_stats(last_n_days: int = 30) -> dict:
                 "note": "No scored predictions yet. Run the EOD workflow "
                          "to populate actuals."}
 
-    dh_gross = sum(1 for p in scored if p["actual"].get("direction_hit_gross")
-                    or p["actual"].get("direction_hit"))
-    dh_net = sum(1 for p in scored if p["actual"].get("direction_hit_net"))
-    inside = sum(1 for p in scored if p["actual"].get("inside_range"))
+    def _b(p):
+        return score_blk_by_id[id(p)]
+
+    dh_gross = sum(1 for p in scored if _b(p).get("direction_hit_gross")
+                    or _b(p).get("direction_hit"))
+    dh_net = sum(1 for p in scored if _b(p).get("direction_hit_net"))
+    inside = sum(1 for p in scored if _b(p).get("inside_range"))
 
     avg_exp = sum(float(p.get("expected_return_5d_mid_pct") or 0)
                   for p in scored) / n
-    avg_act_gross = sum(float(p["actual"].get("actual_return_pct") or 0)
+    avg_act_gross = sum(float(_b(p).get("actual_return_pct") or 0)
                         for p in scored) / n
-    avg_act_net = sum(float(p["actual"].get("actual_return_net_pct")
-                             or p["actual"].get("actual_return_pct") or 0)
+    avg_act_net = sum(float(_b(p).get("actual_return_net_pct")
+                             or _b(p).get("actual_return_pct") or 0)
                        for p in scored) / n
 
     return {

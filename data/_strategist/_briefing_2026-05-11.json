@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-05-10T22:58:13+00:00",
-  "as_of_local": "2026-05-11 03:58",
+  "as_of": "2026-05-11T00:07:11+00:00",
+  "as_of_local": "2026-05-11 05:07",
   "regime": {
     "as_of": "2026-05-08",
     "regime": "NORMAL",
@@ -367,43 +367,43 @@
       },
       "brent": {
         "label": "Brent (USD/bbl)",
-        "value": 103.92,
+        "value": 104.5,
         "as_of": "2026-05-10",
-        "ret_5d": -0.0919,
-        "ret_21d": 0.0916,
-        "ret_63d": 0.5052
+        "ret_5d": -0.0869,
+        "ret_21d": 0.0977,
+        "ret_63d": 0.5136
       },
       "wti": {
         "label": "WTI (USD/bbl)",
-        "value": 97.99,
+        "value": 98.49,
         "as_of": "2026-05-10",
-        "ret_5d": -0.0792,
-        "ret_21d": 0.0147,
-        "ret_63d": 0.5225
+        "ret_5d": -0.0745,
+        "ret_21d": 0.0199,
+        "ret_63d": 0.5303
       },
       "gold": {
         "label": "Gold (USD/oz)",
-        "value": 4700.5,
+        "value": 4705.2,
         "as_of": "2026-05-10",
-        "ret_5d": 0.04,
-        "ret_21d": -0.0129,
-        "ret_63d": -0.0694
+        "ret_5d": 0.0411,
+        "ret_21d": -0.0119,
+        "ret_63d": -0.0684
       },
       "btc": {
         "label": "Bitcoin (USD)",
-        "value": 81908.0,
+        "value": 82327.0,
         "as_of": "2026-05-10",
-        "ret_5d": 0.0121,
-        "ret_21d": 0.109,
-        "ret_63d": 0.2416
+        "ret_5d": 0.0173,
+        "ret_21d": 0.1147,
+        "ret_63d": 0.2479
       },
       "copper": {
         "label": "Copper (USD/lb)",
-        "value": 6.27,
+        "value": 6.29,
         "as_of": "2026-05-10",
-        "ret_5d": 0.0823,
-        "ret_21d": 0.0684,
-        "ret_63d": 0.055
+        "ret_5d": 0.0858,
+        "ret_21d": 0.0718,
+        "ret_63d": 0.0584
       },
       "cotton": {
         "label": "Cotton (USD/lb)",
@@ -459,19 +459,19 @@
     "source": "sbp.org.pk"
   },
   "macro_impact": {
-    "as_of": "2026-05-10T22:58:21+00:00",
+    "as_of": "2026-05-11T00:07:14+00:00",
     "drivers": [
       {
         "name": "Brent crude",
         "tag": "oil_down",
-        "move": "-9.2% in 5d [stretched, z=-1.6]",
+        "move": "-8.7% in 5d [stretched, z=-1.6]",
         "magnitude": "MILD",
-        "context": "Brent at 103.92 USD/bbl. The 5d move sits -1.6σ from the 1y mean — bounce risk is elevated."
+        "context": "Brent at 104.5 USD/bbl. The 5d move sits -1.6σ from the 1y mean — bounce risk is elevated."
       },
       {
         "name": "Copper",
         "tag": "copper_up",
-        "move": "+6.8% in 21d [stretched, z=+1.7]",
+        "move": "+7.2% in 21d [stretched, z=+1.8]",
         "magnitude": "MILD",
         "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
       },
@@ -516,7 +516,7 @@
         "sector": "Banking",
         "score": 5,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
           "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
           "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
           "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
@@ -529,8 +529,8 @@
         "sector": "Cement",
         "score": 3,
         "tailwinds": [
-          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand.",
+          "+2 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-cycle proxy is strong — supportive for construction demand.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Broad-market risk-on supports cyclicals."
         ],
         "headwinds": [
@@ -542,12 +542,12 @@
         "sector": "Oil & Gas E&P",
         "score": 0,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-growth read-through is positive for energy demand.",
           "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Risk-on flows support sector multiples."
         ],
         "headwinds": [
-          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+          "-3 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
         ],
         "verdict": "NEUTRAL"
       },
@@ -559,7 +559,7 @@
           "+1 | KSE-100 momentum: +262.1% in 21d — Cyclical exposure benefits from broad market strength."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
         ],
         "verdict": "TAILWIND"
       },
@@ -570,7 +570,7 @@
           "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Lower indexation revenue."
         ],
         "verdict": "TAILWIND"
       },
@@ -581,7 +581,7 @@
           "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
         ],
         "verdict": "NEUTRAL"
       },
@@ -589,7 +589,7 @@
         "sector": "Pharma",
         "score": 2,
         "tailwinds": [
-          "+1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower input costs.",
+          "+1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Lower input costs.",
           "+1 | FX reserves: SBP USD 15.9 bn — API import flow normalises — gross margins stabilise."
         ],
         "headwinds": [],
@@ -599,7 +599,7 @@
         "sector": "Misc",
         "score": 2,
         "tailwinds": [
-          "+1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy cost relief.",
+          "+1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Energy cost relief.",
           "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise — supply-chain relief."
         ],
         "headwinds": [],
@@ -616,7 +616,7 @@
           "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Lower indexation revenue."
         ],
         "amplifier_note": "",
         "verdict": "TAILWIND"
@@ -627,7 +627,7 @@
         "sector_score": 2,
         "stock_score": 2,
         "tailwinds": [
-          "+1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy cost relief.",
+          "+1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Energy cost relief.",
           "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise — supply-chain relief."
         ],
         "headwinds": [],
@@ -640,8 +640,8 @@
         "sector_score": 3,
         "stock_score": 2,
         "tailwinds": [
-          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand.",
+          "+2 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-cycle proxy is strong — supportive for construction demand.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Broad-market risk-on supports cyclicals."
         ],
         "headwinds": [
@@ -656,12 +656,12 @@
         "sector_score": 0,
         "stock_score": 0,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-growth read-through is positive for energy demand.",
           "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Risk-on flows support sector multiples."
         ],
         "headwinds": [
-          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+          "-3 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
         ],
         "amplifier_note": "",
         "verdict": "NEUTRAL"
@@ -672,7 +672,7 @@
         "sector_score": 5,
         "stock_score": 4,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
           "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
           "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
           "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
@@ -688,12 +688,12 @@
         "sector_score": 0,
         "stock_score": 0,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-growth read-through is positive for energy demand.",
           "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Risk-on flows support sector multiples."
         ],
         "headwinds": [
-          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+          "-3 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
         ],
         "amplifier_note": "",
         "verdict": "NEUTRAL"
@@ -707,7 +707,7 @@
           "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Lower indexation revenue."
         ],
         "amplifier_note": "",
         "verdict": "TAILWIND"
@@ -718,12 +718,12 @@
         "sector_score": 0,
         "stock_score": 0,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-growth read-through is positive for energy demand.",
           "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Risk-on flows support sector multiples."
         ],
         "headwinds": [
-          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+          "-3 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
         ],
         "amplifier_note": "",
         "verdict": "NEUTRAL"
@@ -734,8 +734,8 @@
         "sector_score": 3,
         "stock_score": 3,
         "tailwinds": [
-          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand.",
+          "+2 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-cycle proxy is strong — supportive for construction demand.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Broad-market risk-on supports cyclicals."
         ],
         "headwinds": [
@@ -754,7 +754,7 @@
           "+1 | KSE-100 momentum: +262.1% in 21d — Cyclical exposure benefits from broad market strength."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
         ],
         "amplifier_note": "",
         "verdict": "TAILWIND"
@@ -768,7 +768,7 @@
           "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
         ],
         "amplifier_note": "",
         "verdict": "NEUTRAL"
@@ -779,8 +779,8 @@
         "sector_score": 3,
         "stock_score": 2,
         "tailwinds": [
-          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand.",
+          "+2 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-cycle proxy is strong — supportive for construction demand.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Broad-market risk-on supports cyclicals."
         ],
         "headwinds": [
@@ -795,7 +795,7 @@
         "sector_score": 2,
         "stock_score": 2,
         "tailwinds": [
-          "+1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower input costs.",
+          "+1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Lower input costs.",
           "+1 | FX reserves: SBP USD 15.9 bn — API import flow normalises — gross margins stabilise."
         ],
         "headwinds": [],
@@ -808,7 +808,7 @@
         "sector_score": 5,
         "stock_score": 5,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
           "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
           "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
           "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
@@ -824,7 +824,7 @@
         "sector_score": 5,
         "stock_score": 6,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
           "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
           "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
           "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
@@ -844,7 +844,7 @@
           "+1 | KSE-100 momentum: +262.1% in 21d — Cyclical exposure benefits from broad market strength."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
         ],
         "amplifier_note": "",
         "verdict": "TAILWIND"
@@ -855,7 +855,7 @@
         "sector_score": 5,
         "stock_score": 5,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
           "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
           "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
           "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
@@ -871,7 +871,7 @@
         "sector_score": 5,
         "stock_score": 4,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
           "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
           "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
           "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
@@ -887,7 +887,7 @@
         "sector_score": 5,
         "stock_score": 5,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
           "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
           "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
           "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
@@ -903,7 +903,7 @@
         "sector_score": 5,
         "stock_score": 4,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
           "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
           "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
           "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
@@ -919,12 +919,12 @@
         "sector_score": 0,
         "stock_score": 0,
         "tailwinds": [
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-growth read-through is positive for energy demand.",
           "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Risk-on flows support sector multiples."
         ],
         "headwinds": [
-          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+          "-3 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
         ],
         "amplifier_note": "",
         "verdict": "NEUTRAL"
@@ -935,8 +935,8 @@
         "sector_score": 3,
         "stock_score": 3,
         "tailwinds": [
-          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand.",
+          "+2 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-cycle proxy is strong — supportive for construction demand.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Broad-market risk-on supports cyclicals."
         ],
         "headwinds": [
@@ -951,8 +951,8 @@
         "sector_score": 3,
         "stock_score": 3,
         "tailwinds": [
-          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
-          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand.",
+          "+2 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-cycle proxy is strong — supportive for construction demand.",
           "+1 | KSE-100 momentum: +262.1% in 21d — Broad-market risk-on supports cyclicals."
         ],
         "headwinds": [
@@ -1000,7 +1000,7 @@
           "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Lower indexation revenue."
         ],
         "amplifier_note": "",
         "verdict": "TAILWIND"
@@ -1014,7 +1014,7 @@
           "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Lower indexation revenue."
         ],
         "amplifier_note": "",
         "verdict": "TAILWIND"
@@ -1029,7 +1029,7 @@
           "+1 | KSE-100 momentum: +262.1% in 21d — Cyclical exposure benefits from broad market strength."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
         ],
         "amplifier_note": "",
         "verdict": "TAILWIND"
@@ -1043,7 +1043,7 @@
           "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
         ],
         "amplifier_note": "",
         "verdict": "NEUTRAL"
@@ -1057,7 +1057,7 @@
           "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
         ],
         "headwinds": [
-          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+          "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
         ],
         "amplifier_note": "",
         "verdict": "NEUTRAL"
@@ -1125,7 +1125,7 @@
       "in_pre_window": false,
       "in_post_window": false,
       "next_mpc": "2026-06-16",
-      "days_until": 37,
+      "days_until": 36,
       "rate_sensitive_sectors": [
         "Banking",
         "Cement",
@@ -1280,20 +1280,112 @@
     "source": "scstrade.com"
   },
   "overnight": {
-    "as_of": "2026-05-10",
+    "as_of": "2026-05-11",
     "signals": {
+      "sp500": {
+        "close": 7398.93,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": 0.84,
+        "ret_5d_pct": 2.33
+      },
+      "vix": {
+        "close": 17.19,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": 0.64,
+        "ret_5d_pct": 1.18,
+        "regime": "normal"
+      },
+      "nikkei": {
+        "close": 62713.65,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": -0.19,
+        "ret_5d_pct": 3.6
+      },
+      "hangseng": {
+        "close": 26393.71,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": -0.87,
+        "ret_5d_pct": 2.39
+      },
+      "ftse": {
+        "close": 10233.1,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": -0.43,
+        "ret_5d_pct": -1.4
+      },
       "dxy": {
-        "close": 98.05,
-        "ret_1d_pct": 0.21,
-        "ret_5d_pct": -0.43
+        "close": 98.01,
+        "as_of": "2026-05-10",
+        "ret_1d_pct": 0.18,
+        "ret_5d_pct": -0.47
+      },
+      "eem": {
+        "close": 67.94,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": 2.03,
+        "ret_5d_pct": 5.94
+      },
+      "fm_etf": {
+        "close": 27.19,
+        "as_of": "2025-01-08",
+        "ret_1d_pct": 0.0,
+        "ret_5d_pct": 0.18
+      },
+      "nifty": {
+        "close": 24176.15,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": -0.62,
+        "ret_5d_pct": 0.74
+      },
+      "kospi": {
+        "close": 7498.0,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": 0.11,
+        "ret_5d_pct": 12.06
+      },
+      "sti": {
+        "close": 4921.9,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": -0.41,
+        "ret_5d_pct": 0.19
+      },
+      "shanghai": {
+        "close": 4179.95,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": -0.0,
+        "ret_5d_pct": 2.48
+      },
+      "us10y": {
+        "close": 4.36,
+        "as_of": "2026-05-08",
+        "ret_1d_pct": -0.64,
+        "ret_5d_pct": -0.32
+      },
+      "usd_inr": {
+        "close": 94.37,
+        "as_of": "2026-05-10",
+        "ret_1d_pct": 0.13,
+        "ret_5d_pct": -0.56
+      },
+      "usd_cny": {
+        "close": 6.8,
+        "as_of": "2026-05-10",
+        "ret_1d_pct": -0.02,
+        "ret_5d_pct": -0.4
+      },
+      "eur_usd": {
+        "close": 1.18,
+        "as_of": "2026-05-11",
+        "ret_1d_pct": 0.34,
+        "ret_5d_pct": 0.38
       }
     },
     "gap_prior": {
       "bias": "FLAT",
-      "expected_gap_pct": 0.34,
-      "reasoning": "intercept=+0.34% + S&P=+0.00%×+0.080 + EEM=+0.00%×+0.039 + Nikkei=+0.00%×-0.019 + HSI=+0.00%×-0.007 + DXY=+0.21%×-0.013 + VIX_dev=+0.0×-0.004 (regime=normal, level 18.0)"
+      "expected_gap_pct": 0.49,
+      "reasoning": "intercept=+0.34% + S&P=+0.84%×+0.080 + EEM=+2.03%×+0.039 + Nikkei=-0.19%×-0.019 + HSI=-0.87%×-0.007 + DXY=+0.18%×-0.013 + VIX_dev=+0.0×-0.004 (regime=normal, level 17.2)"
     },
-    "briefing_block": "OVERNIGHT GLOBAL RISK  (what happened since yesterday's PSX close)\n  as_of_date (latest US/Asia session) = 2026-05-10\n  USD Index    close=98.05      1d=+0.21%  5d=-0.43%\n\nRULES-BASED GAP PRIOR: FLAT  (expected PSX gap ~ +0.34%)\n  derivation: intercept=+0.34% + S&P=+0.00%×+0.080 + EEM=+0.00%×+0.039 + Nikkei=+0.00%×-0.019 + HSI=+0.00%×-0.007 + DXY=+0.21%×-0.013 + VIX_dev=+0.0×-0.004 (regime=normal, level 18.0)\n  NOTE: this is the *prior* for the overnight gap direction. Override only if a stock-specific driver is strong.\n\nFIPI / LIPI FLOWS (2026-05-08, 3d stale)\n  Foreign net = -0.74 mn PKR (net_selling)\n  Local net   = +0.75 mn PKR\n  Top sector flow: Banks  -0.91 mn USD",
+    "briefing_block": "OVERNIGHT GLOBAL RISK  (what happened since yesterday's PSX close)\n  as_of_date (latest US/Asia session) = 2026-05-11\n  S&P 500      close=7398.93    1d=+0.84%  5d=+2.33%\n  VIX          close=17.19      1d=+0.64%  5d=+1.18%  regime=normal\n  Nikkei 225   close=62713.65   1d=-0.19%  5d=+3.60%\n  Hang Seng    close=26393.71   1d=-0.87%  5d=+2.39%\n  FTSE 100     close=10233.10   1d=-0.43%  5d=-1.40%\n  USD Index    close=98.01      1d=+0.18%  5d=-0.47%\n  EM ETF       close=67.94      1d=+2.03%  5d=+5.94%\n  Frontier ETF close=27.19      1d=+0.00%  5d=+0.18%\n  NIFTY 50     close=24176.15   1d=-0.62%  5d=+0.74%\n  KOSPI        close=7498.00    1d=+0.11%  5d=+12.06%\n  SG Straits   close=4921.90    1d=-0.41%  5d=+0.19%\n  Shanghai Comp close=4179.95    1d=-0.00%  5d=+2.48%\n  US 10Y yield close=4.36       1d=-0.64%  5d=-0.32%\n  USD/INR      close=94.37      1d=+0.13%  5d=-0.56%\n  USD/CNY      close=6.80       1d=-0.02%  5d=-0.40%\n  EUR/USD      close=1.18       1d=+0.34%  5d=+0.38%\n\nRULES-BASED GAP PRIOR: FLAT  (expected PSX gap ~ +0.49%)\n  derivation: intercept=+0.34% + S&P=+0.84%×+0.080 + EEM=+2.03%×+0.039 + Nikkei=-0.19%×-0.019 + HSI=-0.87%×-0.007 + DXY=+0.18%×-0.013 + VIX_dev=+0.0×-0.004 (regime=normal, level 17.2)\n  NOTE: this is the *prior* for the overnight gap direction. Override only if a stock-specific driver is strong.\n\nFIPI / LIPI FLOWS (2026-05-08, 3d stale)\n  Foreign net = -0.74 mn PKR (net_selling)\n  Local net   = +0.75 mn PKR\n  Top sector flow: Banks  -0.91 mn USD",
     "fipi": {
       "date": "2026-05-08",
       "foreign_net_pkr_mn": -0.74,
@@ -1308,7 +1400,7 @@
     "cache_size": 59,
     "macro": {
       "n": 44,
-      "score": -0.004,
+      "score": -0.01,
       "hours": 24,
       "by_category": {
         "COMMODITY": 0.133,
@@ -1320,15 +1412,6 @@
     },
     "top_headlines": [
       {
-        "title": "KSE-100 sheds nearly 1% as tensions flare between US and Iran - Business Recorder",
-        "source": "Google News — KSE-100",
-        "sentiment": -0.3,
-        "confidence": "HIGH",
-        "category": "GEOPOLITICS",
-        "affected_symbols": "",
-        "one_liner": "US-Iran tensions directly cited as driver of KSE-100's ~1% decline; immediate market selloff on geopolitical risk."
-      },
-      {
         "title": "Asia markets retreat on renewed Middle East fears",
         "source": "Mettis Global — Home",
         "sentiment": -0.35,
@@ -1336,6 +1419,15 @@
         "category": "GLOBAL",
         "affected_symbols": "",
         "one_liner": "Asian equity retreat signals global risk-off; likely headwind for PSX."
+      },
+      {
+        "title": "KSE-100 sheds nearly 1% as tensions flare between US and Iran - Business Recorder",
+        "source": "Google News — KSE-100",
+        "sentiment": -0.3,
+        "confidence": "HIGH",
+        "category": "GEOPOLITICS",
+        "affected_symbols": "",
+        "one_liner": "US-Iran tensions directly cited as driver of KSE-100's ~1% decline; immediate market selloff on geopolitical risk."
       },
       {
         "title": "Australian shares fall as renewed US-Iran fire puts ceasefire in doubt",
@@ -1367,7 +1459,7 @@
     ]
   },
   "industry_kpis": {
-    "as_of": "2026-05-10T22:58:25+00:00",
+    "as_of": "2026-05-11T00:07:17+00:00",
     "kpis": {
       "tbill_3m_pct": 11.8398,
       "kibor_3m_pct": 11.675,
@@ -1388,7 +1480,7 @@
     }
   },
   "verdict_universe": {
-    "as_of": "2026-05-10T22:59:21+00:00",
+    "as_of": "2026-05-11T00:07:58+00:00",
     "n": 35,
     "OGDC": {
       "symbol": "OGDC",
@@ -1576,7 +1668,7 @@
       ],
       "conflicts": [],
       "resolution_log": [],
-      "as_of": "2026-05-10T22:58:32+00:00"
+      "as_of": "2026-05-11T00:07:22+00:00"
     },
     "ATRL": {
       "symbol": "ATRL",
@@ -1762,7 +1854,7 @@
       ],
       "conflicts": [],
       "resolution_log": [],
-      "as_of": "2026-05-10T22:59:12+00:00"
+      "as_of": "2026-05-11T00:07:51+00:00"
     },
     "MCB": {
       "symbol": "MCB",
@@ -1958,7 +2050,7 @@
       "resolution_log": [
         "Quality is HIGH but Value flags overvaluation — the business is great, the stock is expensive. HOLD if owned, do NOT add. Wait for a 10-15% pullback to intrinsic value before sizing up."
       ],
-      "as_of": "2026-05-10T22:58:48+00:00"
+      "as_of": "2026-05-11T00:07:34+00:00"
     },
     "EPCL": {
       "symbol": "EPCL",
@@ -2146,7 +2238,7 @@
       ],
       "conflicts": [],
       "resolution_log": [],
-      "as_of": "2026-05-10T22:58:43+00:00"
+      "as_of": "2026-05-11T00:07:30+00:00"
     },
     "KEL": {
       "symbol": "KEL",
@@ -2331,7 +2423,7 @@
       ],
       "conflicts": [],
       "resolution_log": [],
-      "as_of": "2026-05-10T22:59:10+00:00"
+      "as_of": "2026-05-11T00:07:50+00:00"
     },
     "_others": [
       {
@@ -3382,7 +3474,7 @@
         "symbol": "TRG",
         "sector": "Technology",
         "next_event_date_utc": "2026-05-14",
-        "days_until": 3,
+        "days_until": 2,
         "confidence": "LOW",
         "source": "sector_typical",
         "in_blackout_5d": false,
@@ -3396,7 +3488,7 @@
         "symbol": "EPCL",
         "sector": "Conglomerate/Chem",
         "next_event_date_utc": "2026-05-18",
-        "days_until": 7,
+        "days_until": 6,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3409,7 +3501,7 @@
         "symbol": "KOHC",
         "sector": "Cement",
         "next_event_date_utc": "2026-05-21",
-        "days_until": 10,
+        "days_until": 9,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3422,7 +3514,7 @@
         "symbol": "PABC",
         "sector": "Misc",
         "next_event_date_utc": "2026-05-27",
-        "days_until": 16,
+        "days_until": 15,
         "confidence": "LOW",
         "source": "sector_typical",
         "in_blackout_5d": false,
@@ -3436,7 +3528,7 @@
         "symbol": "MLCF",
         "sector": "Cement",
         "next_event_date_utc": "2026-06-01",
-        "days_until": 21,
+        "days_until": 20,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3451,7 +3543,7 @@
         "symbol": "HUBC",
         "sector": "Power",
         "next_event_date_utc": "2026-08-28",
-        "days_until": 109,
+        "days_until": 108,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3464,7 +3556,7 @@
         "symbol": "PABC",
         "sector": "Misc",
         "next_event_date_utc": "2026-05-27",
-        "days_until": 16,
+        "days_until": 15,
         "confidence": "LOW",
         "source": "sector_typical",
         "in_blackout_5d": false,
@@ -3478,7 +3570,7 @@
         "symbol": "MLCF",
         "sector": "Cement",
         "next_event_date_utc": "2026-06-01",
-        "days_until": 21,
+        "days_until": 20,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3491,7 +3583,7 @@
         "symbol": "OGDC",
         "sector": "Oil & Gas E&P",
         "next_event_date_utc": "2026-07-02",
-        "days_until": 52,
+        "days_until": 51,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3504,7 +3596,7 @@
         "symbol": "FABL",
         "sector": "Banking",
         "next_event_date_utc": "2026-07-28",
-        "days_until": 78,
+        "days_until": 77,
         "confidence": "LOW",
         "source": "sector_typical",
         "in_blackout_5d": false,
@@ -3518,7 +3610,7 @@
         "symbol": "PPL",
         "sector": "Oil & Gas E&P",
         "next_event_date_utc": "2026-06-13",
-        "days_until": 33,
+        "days_until": 32,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3531,7 +3623,7 @@
         "symbol": "NPL",
         "sector": "Power",
         "next_event_date_utc": "2026-09-07",
-        "days_until": 119,
+        "days_until": 118,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3544,7 +3636,7 @@
         "symbol": "POL",
         "sector": "Oil & Gas E&P",
         "next_event_date_utc": "2026-07-23",
-        "days_until": 73,
+        "days_until": 72,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3557,7 +3649,7 @@
         "symbol": "FCCL",
         "sector": "Cement",
         "next_event_date_utc": "2026-10-06",
-        "days_until": 148,
+        "days_until": 147,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3570,7 +3662,7 @@
         "symbol": "APL",
         "sector": "OMC/Refining",
         "next_event_date_utc": "2026-07-18",
-        "days_until": 68,
+        "days_until": 67,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3583,7 +3675,7 @@
         "symbol": "EPCL",
         "sector": "Conglomerate/Chem",
         "next_event_date_utc": "2026-05-18",
-        "days_until": 7,
+        "days_until": 6,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3596,7 +3688,7 @@
         "symbol": "KOHC",
         "sector": "Cement",
         "next_event_date_utc": "2026-05-21",
-        "days_until": 10,
+        "days_until": 9,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3609,7 +3701,7 @@
         "symbol": "SEARL",
         "sector": "Pharma",
         "next_event_date_utc": "2026-10-27",
-        "days_until": 169,
+        "days_until": 168,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3622,7 +3714,7 @@
         "symbol": "MCB",
         "sector": "Banking",
         "next_event_date_utc": "2026-07-16",
-        "days_until": 66,
+        "days_until": 65,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3635,7 +3727,7 @@
         "symbol": "MEBL",
         "sector": "Banking",
         "next_event_date_utc": "2026-07-13",
-        "days_until": 63,
+        "days_until": 62,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3648,7 +3740,7 @@
         "symbol": "PSO",
         "sector": "OMC/Refining",
         "next_event_date_utc": "2026-10-14",
-        "days_until": 156,
+        "days_until": 155,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3661,7 +3753,7 @@
         "symbol": "HBL",
         "sector": "Banking",
         "next_event_date_utc": "2026-07-20",
-        "days_until": 70,
+        "days_until": 69,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3674,7 +3766,7 @@
         "symbol": "UBL",
         "sector": "Banking",
         "next_event_date_utc": "2026-07-12",
-        "days_until": 62,
+        "days_until": 61,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3687,7 +3779,7 @@
         "symbol": "BAHL",
         "sector": "Banking",
         "next_event_date_utc": "2026-07-20",
-        "days_until": 70,
+        "days_until": 69,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3700,7 +3792,7 @@
         "symbol": "NBP",
         "sector": "Banking",
         "next_event_date_utc": "2027-03-30",
-        "days_until": 323,
+        "days_until": 322,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3713,7 +3805,7 @@
         "symbol": "MARI",
         "sector": "Oil & Gas E&P",
         "next_event_date_utc": "2026-09-13",
-        "days_until": 125,
+        "days_until": 124,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3726,7 +3818,7 @@
         "symbol": "LUCK",
         "sector": "Cement",
         "next_event_date_utc": "2026-09-15",
-        "days_until": 127,
+        "days_until": 126,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3739,7 +3831,7 @@
         "symbol": "DGKC",
         "sector": "Cement",
         "next_event_date_utc": "2026-10-10",
-        "days_until": 152,
+        "days_until": 151,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3752,7 +3844,7 @@
         "symbol": "FFC",
         "sector": "Fertilizer",
         "next_event_date_utc": "2026-06-04",
-        "days_until": 24,
+        "days_until": 23,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3765,7 +3857,7 @@
         "symbol": "EFERT",
         "sector": "Fertilizer",
         "next_event_date_utc": "2026-07-19",
-        "days_until": 69,
+        "days_until": 68,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3778,7 +3870,7 @@
         "symbol": "FATIMA",
         "sector": "Fertilizer",
         "next_event_date_utc": "2026-10-21",
-        "days_until": 163,
+        "days_until": 162,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3791,7 +3883,7 @@
         "symbol": "KAPCO",
         "sector": "Power",
         "next_event_date_utc": "2026-08-05",
-        "days_until": 86,
+        "days_until": 85,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3804,7 +3896,7 @@
         "symbol": "KEL",
         "sector": "Power",
         "next_event_date_utc": "2026-08-12",
-        "days_until": 93,
+        "days_until": 92,
         "confidence": "LOW",
         "source": "sector_typical",
         "in_blackout_5d": false,
@@ -3818,7 +3910,7 @@
         "symbol": "ATRL",
         "sector": "OMC/Refining",
         "next_event_date_utc": "2026-07-23",
-        "days_until": 73,
+        "days_until": 72,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3844,7 +3936,7 @@
         "symbol": "LOTCHEM",
         "sector": "Conglomerate/Chem",
         "next_event_date_utc": "2026-07-31",
-        "days_until": 81,
+        "days_until": 80,
         "confidence": "LOW",
         "source": "sector_typical",
         "in_blackout_5d": false,
@@ -3858,7 +3950,7 @@
         "symbol": "SYS",
         "sector": "Technology",
         "next_event_date_utc": "2027-05-11",
-        "days_until": 365,
+        "days_until": 364,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3871,7 +3963,7 @@
         "symbol": "TRG",
         "sector": "Technology",
         "next_event_date_utc": "2026-05-14",
-        "days_until": 3,
+        "days_until": 2,
         "confidence": "LOW",
         "source": "sector_typical",
         "in_blackout_5d": false,
@@ -3885,7 +3977,7 @@
         "symbol": "INDU",
         "sector": "Autos",
         "next_event_date_utc": "2026-07-08",
-        "days_until": 58,
+        "days_until": 57,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -3898,7 +3990,7 @@
         "symbol": "COLG",
         "sector": "Consumer",
         "next_event_date_utc": "2026-07-11",
-        "days_until": 61,
+        "days_until": 60,
         "confidence": "MEDIUM",
         "source": "cadence",
         "in_blackout_5d": false,
@@ -4062,270 +4154,139 @@
     "_compression_note": "2 symbols full; 13 summarised (management_outlook)"
   },
   "predictions": {
-    "as_of": "2026-05-10",
+    "as_of": "2026-05-11",
     "horizon_trading_days": 5,
     "round_trip_cost_pct": 0.561,
     "minimum_gross_for_trade_pct": 1.561,
     "n_total": 35,
     "predictions": [
       {
-        "symbol": "ATRL",
-        "sector": "OMC/Refining",
-        "direction": "BULLISH",
-        "conviction": "MEDIUM",
-        "suggested_action": "HOLD",
-        "entry_price_pkr": 903.72,
-        "suggested_stop_pkr": 831.42,
-        "suggested_target_pkr": 968.97,
-        "expected_gross_5d_pct": 1.75,
-        "round_trip_cost_pct": 0.561,
-        "expected_net_5d_pct": 1.011,
-        "clears_cost_threshold": true,
-        "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.40). Drivers (3): Strong 150d momentum +20.4%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
-        "key_drivers": [
-          "Strong 150d momentum +20.4%",
-          "Price +23.1% above 200-day SMA",
-          "Top-5 by momentum but market filter off"
-        ],
-        "key_risks": [
-          "Market breadth weak — Phase-1 in cash"
-        ],
-        "macro_tailwinds": [
-          "+1 | FX reserves: SBP USD 15.9 bn — L/C confirmation normalises — relief.",
-          "+1 | KSE-100 momentum: +264.8% in 21d — Cyclical exposure benefits from broad market strength."
-        ],
-        "macro_headwinds": [
-          "-1 | Brent crude: -7.0% in 5d — Inventory losses risk; refining margins compress."
-        ],
-        "macro_impact": {
-          "drivers": [
-            {
-              "name": "Brent crude",
-              "tag": "oil_down",
-              "move": "-7.0% in 5d",
-              "magnitude": "MODERATE",
-              "context": "Brent at 100.6 USD/bbl."
-            },
-            {
-              "name": "Copper",
-              "tag": "copper_up",
-              "move": "+9.6% in 21d",
-              "magnitude": "MODERATE",
-              "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
-            },
-            {
-              "name": "Cotton",
-              "tag": "cotton_up",
-              "move": "+15.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
-            },
-            {
-              "name": "T-bill 3M curve",
-              "tag": "tbill_above_policy",
-              "move": "3M cut-off 11.84% vs policy 11.50% (+34 bps)",
-              "magnitude": "MODERATE",
-              "context": "Money market is pricing-in further hikes; banks lock in higher yields on the new investment book."
-            },
-            {
-              "name": "T-bill 3M (5-day move)",
-              "tag": "tbill_up",
-              "move": "+74 bps in 5d to 11.84%",
-              "magnitude": "STRONG",
-              "context": "Treasury yields rising — bank investment book reprices higher."
-            },
-            {
-              "name": "FX reserves",
-              "tag": "reserves_recovery",
-              "move": "SBP USD 15.9 bn",
-              "magnitude": "MILD",
-              "context": "Reserve buffer comfortable — BoP risk muted."
-            },
-            {
-              "name": "KSE-100 momentum",
-              "tag": "kse100_up",
-              "move": "+264.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "KSE-100 at 171116 — broad market in risk-on mode."
-            }
-          ],
-          "by_sector": {
-            "sector": "OMC/Refining",
-            "score": 1,
-            "tailwinds": [
-              "+1 | FX reserves: SBP USD 15.9 bn — L/C confirmation normalises — relief.",
-              "+1 | KSE-100 momentum: +264.8% in 21d — Cyclical exposure benefits from broad market strength."
-            ],
-            "headwinds": [
-              "-1 | Brent crude: -7.0% in 5d — Inventory losses risk; refining margins compress."
-            ],
-            "verdict": "TAILWIND"
-          },
-          "by_symbol": {
-            "symbol": "ATRL",
-            "sector": "OMC/Refining",
-            "sector_score": 1,
-            "stock_score": 1,
-            "tailwinds": [
-              "+1 | FX reserves: SBP USD 15.9 bn — L/C confirmation normalises — relief.",
-              "+1 | KSE-100 momentum: +264.8% in 21d — Cyclical exposure benefits from broad market strength."
-            ],
-            "headwinds": [
-              "-1 | Brent crude: -7.0% in 5d — Inventory losses risk; refining margins compress."
-            ],
-            "amplifier_note": "",
-            "verdict": "TAILWIND"
-          },
-          "kpis": {
-            "tbill_3m_pct": 11.8398,
-            "kibor_3m_pct": 11.675,
-            "reserves_total_usd_mn": 21293.5,
-            "reserves_sbp_usd_mn": 15850.7,
-            "tbill_3m_change_1d": 0.0,
-            "kibor_3m_change_1d": 0.02000000000000135,
-            "kibor_12m_change_1d": 0.0,
-            "tbill_3m_change_5d": 0.7398000000000007,
-            "kibor_3m_change_5d": 0.07500000000000107,
-            "reserves_change_30d": 869.5,
-            "kse100_close": 171115.82,
-            "kse100_ret_5d": 0.03191307741159344,
-            "kse100_ret_21d": 2.6475303093156404,
-            "cpi_yoy_pct": 10.9,
-            "cpi_period": "April",
-            "cpi_yoy_change_pp": 3.6000000000000005
-          }
-        }
-      },
-      {
         "symbol": "OGDC",
         "sector": "Oil & Gas E&P",
         "direction": "BULLISH",
         "conviction": "MEDIUM",
-        "suggested_action": "HOLD",
-        "entry_price_pkr": 329.68,
-        "suggested_stop_pkr": 303.31,
-        "suggested_target_pkr": 349.85,
-        "expected_gross_5d_pct": 1.34,
+        "suggested_action": "BUY",
+        "entry_price_pkr": 0.0,
+        "suggested_stop_pkr": null,
+        "suggested_target_pkr": null,
+        "expected_gross_5d_pct": 1.8,
         "round_trip_cost_pct": 0.561,
-        "expected_net_5d_pct": 0.662,
-        "clears_cost_threshold": false,
-        "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.35). Drivers (4): Positive 150d momentum +17.1%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+        "expected_net_5d_pct": 1.053,
+        "clears_cost_threshold": true,
+        "rationale": "OGDC HIGH-quality (85.5/100) E&P with +30% upside to fair value (BUY_VALUE HIGH confidence). Phase-1 #3 with mom +17% over 150d. Volume confirmed 3d breakout. US-Iran tension has put a floor under Brent (currently $104, still elevated despite -9% mean-reversion in 5d). IMF May 15 talks could unlock further upside on a successful review (state-owned name benefits from PKR strength).",
         "key_drivers": [
-          "Positive 150d momentum +17.1%",
-          "Strong 20d momentum +10.2%",
-          "Price +18.1% above 200-day SMA",
-          "Top-5 by momentum but market filter off"
+          "BUY_VALUE +30% upside (HIGH confidence, P/B + P/E)",
+          "Quality 85.5/100 (HIGH band)",
+          "Phase-1 momentum +17% (rank #3)",
+          "Volume-confirmed breakout in last 3 sessions",
+          "Brent geopolitical floor ~$100"
         ],
         "key_risks": [
-          "Market breadth weak — Phase-1 in cash"
+          "Earnings momentum EROSION (yoy -7%)",
+          "IMF delay/hawkish demands → state-owned name sells off first",
+          "Brent mean-reversion to $90 if US-Iran de-escalates"
         ],
         "macro_tailwinds": [
-          "+1 | Copper: +9.6% in 21d — Industrial-growth read-through is positive for energy demand.",
-          "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
-          "+1 | KSE-100 momentum: +264.8% in 21d — Risk-on flows support sector multiples."
+          "Brent crude floor (US-Iran)",
+          "IMF May 15 (potential PKR strength)"
         ],
         "macro_headwinds": [
-          "-3 | Brent crude: -7.0% in 5d — Direct revenue hit; sector earnings fall in lockstep with crude."
+          "Earnings deceleration (yoy -7%)"
         ],
         "macro_impact": {
-          "drivers": [
-            {
-              "name": "Brent crude",
-              "tag": "oil_down",
-              "move": "-7.0% in 5d",
-              "magnitude": "MODERATE",
-              "context": "Brent at 100.6 USD/bbl."
-            },
-            {
-              "name": "Copper",
-              "tag": "copper_up",
-              "move": "+9.6% in 21d",
-              "magnitude": "MODERATE",
-              "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
-            },
-            {
-              "name": "Cotton",
-              "tag": "cotton_up",
-              "move": "+15.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
-            },
-            {
-              "name": "T-bill 3M curve",
-              "tag": "tbill_above_policy",
-              "move": "3M cut-off 11.84% vs policy 11.50% (+34 bps)",
-              "magnitude": "MODERATE",
-              "context": "Money market is pricing-in further hikes; banks lock in higher yields on the new investment book."
-            },
-            {
-              "name": "T-bill 3M (5-day move)",
-              "tag": "tbill_up",
-              "move": "+74 bps in 5d to 11.84%",
-              "magnitude": "STRONG",
-              "context": "Treasury yields rising — bank investment book reprices higher."
-            },
-            {
-              "name": "FX reserves",
-              "tag": "reserves_recovery",
-              "move": "SBP USD 15.9 bn",
-              "magnitude": "MILD",
-              "context": "Reserve buffer comfortable — BoP risk muted."
-            },
-            {
-              "name": "KSE-100 momentum",
-              "tag": "kse100_up",
-              "move": "+264.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "KSE-100 at 171116 — broad market in risk-on mode."
-            }
+          "score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
           ],
-          "by_sector": {
-            "sector": "Oil & Gas E&P",
-            "score": 0,
-            "tailwinds": [
-              "+1 | Copper: +9.6% in 21d — Industrial-growth read-through is positive for energy demand.",
-              "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
-              "+1 | KSE-100 momentum: +264.8% in 21d — Risk-on flows support sector multiples."
-            ],
-            "headwinds": [
-              "-3 | Brent crude: -7.0% in 5d — Direct revenue hit; sector earnings fall in lockstep with crude."
-            ],
-            "verdict": "NEUTRAL"
-          },
-          "by_symbol": {
-            "symbol": "OGDC",
-            "sector": "Oil & Gas E&P",
-            "sector_score": 0,
-            "stock_score": 0,
-            "tailwinds": [
-              "+1 | Copper: +9.6% in 21d — Industrial-growth read-through is positive for energy demand.",
-              "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
-              "+1 | KSE-100 momentum: +264.8% in 21d — Risk-on flows support sector multiples."
-            ],
-            "headwinds": [
-              "-3 | Brent crude: -7.0% in 5d — Direct revenue hit; sector earnings fall in lockstep with crude."
-            ],
-            "amplifier_note": "",
-            "verdict": "NEUTRAL"
-          },
-          "kpis": {
-            "tbill_3m_pct": 11.8398,
-            "kibor_3m_pct": 11.675,
-            "reserves_total_usd_mn": 21293.5,
-            "reserves_sbp_usd_mn": 15850.7,
-            "tbill_3m_change_1d": 0.0,
-            "kibor_3m_change_1d": 0.02000000000000135,
-            "kibor_12m_change_1d": 0.0,
-            "tbill_3m_change_5d": 0.7398000000000007,
-            "kibor_3m_change_5d": 0.07500000000000107,
-            "reserves_change_30d": 869.5,
-            "kse100_close": 171115.82,
-            "kse100_ret_5d": 0.03191307741159344,
-            "kse100_ret_21d": 2.6475303093156404,
-            "cpi_yoy_pct": 10.9,
-            "cpi_period": "April",
-            "cpi_yoy_change_pp": 3.6000000000000005
-          }
+          "headwinds": [
+            "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+          ]
+        }
+      },
+      {
+        "symbol": "ATRL",
+        "sector": "OMC/Refining",
+        "direction": "BULLISH",
+        "conviction": "MEDIUM",
+        "suggested_action": "BUY",
+        "entry_price_pkr": 0.0,
+        "suggested_stop_pkr": null,
+        "suggested_target_pkr": null,
+        "expected_gross_5d_pct": 1.5,
+        "round_trip_cost_pct": 0.561,
+        "expected_net_5d_pct": 0.798,
+        "clears_cost_threshold": false,
+        "rationale": "ATRL is Phase-1 #2 (mom +20% over 150d), HIGH quality, FAIR value with +21% upside. MF funds are initiating positions — 7 new fund positions in 30d. Mgmt outlook (filed Apr 30) flags Gulf risks but expects refining margins to hold via indigenous crude advantage. Material info filed May 4 — watch for Q3 earnings update.",
+        "key_drivers": [
+          "Phase-1 #2 (mom +20%)",
+          "FAIR value with +21% upside",
+          "HIGH quality band",
+          "MF initiating: 7 new fund positions in 30d",
+          "Mgmt outlook tone +0.15 (mildly positive)"
+        ],
+        "key_risks": [
+          "Refining margin compression if Brent spikes again",
+          "Material information filing may signal earnings miss",
+          "Gulf shipping insurance premium increase"
+        ],
+        "macro_tailwinds": [
+          "Indigenous crude supply",
+          "MF fund initiation cluster"
+        ],
+        "macro_headwinds": [
+          "Refining margin volatility"
+        ],
+        "macro_impact": {
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 15.9 bn — L/C confirmation normalises — relief.",
+            "+1 | KSE-100 momentum: +262.1% in 21d — Cyclical exposure benefits from broad market strength."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
+          ]
+        }
+      },
+      {
+        "symbol": "MCB",
+        "sector": "Banking",
+        "direction": "NEUTRAL",
+        "conviction": "MEDIUM",
+        "suggested_action": "HOLD",
+        "entry_price_pkr": 0.0,
+        "suggested_stop_pkr": null,
+        "suggested_target_pkr": null,
+        "expected_gross_5d_pct": 0.4,
+        "round_trip_cost_pct": 0.561,
+        "expected_net_5d_pct": -0.161,
+        "clears_cost_threshold": false,
+        "rationale": "Phase-1 would-pick #5. SELL_VALUE -14% (slight premium), HIGH quality (90.8/100 — top of universe), but EROSION earnings (-7.6%). IMF May 15 = direct catalyst. On a successful review the bank rallies +1-2%; on delay sells off -1-2%. Hold through the binary.",
+        "key_drivers": [
+          "HIGH quality (90.8/100)",
+          "Phase-1 #6 (mom +10%)",
+          "IMF positive catalyst potential"
+        ],
+        "key_risks": [
+          "SELL_VALUE -14%",
+          "EROSION earnings (yoy -7.6%)",
+          "IMF delay risk"
+        ],
+        "macro_tailwinds": [
+          "IMF success scenario",
+          "Quality leader"
+        ],
+        "macro_headwinds": [
+          "NIM compression on rate cuts",
+          "Earnings erosion"
+        ],
+        "macro_impact": {
+          "score": 5,
+          "tailwinds": [
+            "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book."
+          ],
+          "headwinds": []
         }
       },
       {
@@ -4334,252 +4295,38 @@
         "direction": "NEUTRAL",
         "conviction": "LOW",
         "suggested_action": "HOLD",
-        "entry_price_pkr": 34.79,
-        "suggested_stop_pkr": 32.01,
-        "suggested_target_pkr": 36.67,
-        "expected_gross_5d_pct": 0.75,
+        "entry_price_pkr": 0.0,
+        "suggested_stop_pkr": null,
+        "suggested_target_pkr": null,
+        "expected_gross_5d_pct": 0.3,
         "round_trip_cost_pct": 0.561,
-        "expected_net_5d_pct": 0.161,
+        "expected_net_5d_pct": -0.261,
         "clears_cost_threshold": false,
-        "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.20). Drivers (3): Positive 150d momentum +11.9%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+        "rationale": "Phase-1 would-pick #5. JUNK quality, EROSION earnings. Mgmt outlook (Apr 30) acknowledges commodity correction risk. Earnings May 18 — pre-blackout. Volume breakout in 3d.",
         "key_drivers": [
-          "Positive 150d momentum +11.9%",
-          "Price +9.9% above 200-day SMA",
-          "Top-5 by momentum but market filter off"
+          "Phase-1 #5",
+          "Volume breakout"
         ],
         "key_risks": [
-          "Market breadth weak — Phase-1 in cash"
+          "JUNK quality",
+          "EROSION earnings",
+          "Pre-earnings blackout May 18"
         ],
         "macro_tailwinds": [
-          "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
+          "Volume confirmation"
         ],
         "macro_headwinds": [
-          "-1 | Brent crude: -7.0% in 5d — Narrower margins on PVC and other oil-derivative chemicals."
+          "Quality",
+          "Earnings erosion"
         ],
         "macro_impact": {
-          "drivers": [
-            {
-              "name": "Brent crude",
-              "tag": "oil_down",
-              "move": "-7.0% in 5d",
-              "magnitude": "MODERATE",
-              "context": "Brent at 100.6 USD/bbl."
-            },
-            {
-              "name": "Copper",
-              "tag": "copper_up",
-              "move": "+9.6% in 21d",
-              "magnitude": "MODERATE",
-              "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
-            },
-            {
-              "name": "Cotton",
-              "tag": "cotton_up",
-              "move": "+15.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
-            },
-            {
-              "name": "T-bill 3M curve",
-              "tag": "tbill_above_policy",
-              "move": "3M cut-off 11.84% vs policy 11.50% (+34 bps)",
-              "magnitude": "MODERATE",
-              "context": "Money market is pricing-in further hikes; banks lock in higher yields on the new investment book."
-            },
-            {
-              "name": "T-bill 3M (5-day move)",
-              "tag": "tbill_up",
-              "move": "+74 bps in 5d to 11.84%",
-              "magnitude": "STRONG",
-              "context": "Treasury yields rising — bank investment book reprices higher."
-            },
-            {
-              "name": "FX reserves",
-              "tag": "reserves_recovery",
-              "move": "SBP USD 15.9 bn",
-              "magnitude": "MILD",
-              "context": "Reserve buffer comfortable — BoP risk muted."
-            },
-            {
-              "name": "KSE-100 momentum",
-              "tag": "kse100_up",
-              "move": "+264.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "KSE-100 at 171116 — broad market in risk-on mode."
-            }
+          "score": 0,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
           ],
-          "by_sector": {
-            "sector": "Conglomerate/Chem",
-            "score": 0,
-            "tailwinds": [
-              "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
-            ],
-            "headwinds": [
-              "-1 | Brent crude: -7.0% in 5d — Narrower margins on PVC and other oil-derivative chemicals."
-            ],
-            "verdict": "NEUTRAL"
-          },
-          "by_symbol": {
-            "symbol": "EPCL",
-            "sector": "Conglomerate/Chem",
-            "sector_score": 0,
-            "stock_score": 0,
-            "tailwinds": [
-              "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
-            ],
-            "headwinds": [
-              "-1 | Brent crude: -7.0% in 5d — Narrower margins on PVC and other oil-derivative chemicals."
-            ],
-            "amplifier_note": "",
-            "verdict": "NEUTRAL"
-          },
-          "kpis": {
-            "tbill_3m_pct": 11.8398,
-            "kibor_3m_pct": 11.675,
-            "reserves_total_usd_mn": 21293.5,
-            "reserves_sbp_usd_mn": 15850.7,
-            "tbill_3m_change_1d": 0.0,
-            "kibor_3m_change_1d": 0.02000000000000135,
-            "kibor_12m_change_1d": 0.0,
-            "tbill_3m_change_5d": 0.7398000000000007,
-            "kibor_3m_change_5d": 0.07500000000000107,
-            "reserves_change_30d": 869.5,
-            "kse100_close": 171115.82,
-            "kse100_ret_5d": 0.03191307741159344,
-            "kse100_ret_21d": 2.6475303093156404,
-            "cpi_yoy_pct": 10.9,
-            "cpi_period": "April",
-            "cpi_yoy_change_pp": 3.6000000000000005
-          }
-        }
-      },
-      {
-        "symbol": "MCB",
-        "sector": "Banking",
-        "direction": "NEUTRAL",
-        "conviction": "LOW",
-        "suggested_action": "HOLD",
-        "entry_price_pkr": 404.57,
-        "suggested_stop_pkr": 372.2,
-        "suggested_target_pkr": 421.1,
-        "expected_gross_5d_pct": 0.56,
-        "round_trip_cost_pct": 0.561,
-        "expected_net_5d_pct": -0.001,
-        "clears_cost_threshold": false,
-        "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.20). Drivers (3): Positive 150d momentum +10.1%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: STRONG TAILWIND (stock score +5). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
-        "key_drivers": [
-          "Positive 150d momentum +10.1%",
-          "Price +7.4% above 200-day SMA",
-          "Top-5 by momentum but market filter off"
-        ],
-        "key_risks": [
-          "Market breadth weak — Phase-1 in cash"
-        ],
-        "macro_tailwinds": [
-          "+1 | Copper: +9.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
-          "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
-          "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits)."
-        ],
-        "macro_headwinds": [],
-        "macro_impact": {
-          "drivers": [
-            {
-              "name": "Brent crude",
-              "tag": "oil_down",
-              "move": "-7.0% in 5d",
-              "magnitude": "MODERATE",
-              "context": "Brent at 100.6 USD/bbl."
-            },
-            {
-              "name": "Copper",
-              "tag": "copper_up",
-              "move": "+9.6% in 21d",
-              "magnitude": "MODERATE",
-              "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
-            },
-            {
-              "name": "Cotton",
-              "tag": "cotton_up",
-              "move": "+15.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
-            },
-            {
-              "name": "T-bill 3M curve",
-              "tag": "tbill_above_policy",
-              "move": "3M cut-off 11.84% vs policy 11.50% (+34 bps)",
-              "magnitude": "MODERATE",
-              "context": "Money market is pricing-in further hikes; banks lock in higher yields on the new investment book."
-            },
-            {
-              "name": "T-bill 3M (5-day move)",
-              "tag": "tbill_up",
-              "move": "+74 bps in 5d to 11.84%",
-              "magnitude": "STRONG",
-              "context": "Treasury yields rising — bank investment book reprices higher."
-            },
-            {
-              "name": "FX reserves",
-              "tag": "reserves_recovery",
-              "move": "SBP USD 15.9 bn",
-              "magnitude": "MILD",
-              "context": "Reserve buffer comfortable — BoP risk muted."
-            },
-            {
-              "name": "KSE-100 momentum",
-              "tag": "kse100_up",
-              "move": "+264.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "KSE-100 at 171116 — broad market in risk-on mode."
-            }
-          ],
-          "by_sector": {
-            "sector": "Banking",
-            "score": 5,
-            "tailwinds": [
-              "+1 | Copper: +9.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
-              "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
-              "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
-              "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
-              "+1 | KSE-100 momentum: +264.8% in 21d — Broad market strength supports bank equities via fund flows and trading book gains."
-            ],
-            "headwinds": [],
-            "verdict": "STRONG TAILWIND"
-          },
-          "by_symbol": {
-            "symbol": "MCB",
-            "sector": "Banking",
-            "sector_score": 5,
-            "stock_score": 5,
-            "tailwinds": [
-              "+1 | Copper: +9.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
-              "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
-              "+1 | T-bill 3M (5-day move): +74 bps in 5d to 11.84% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
-              "+1 | FX reserves: SBP USD 15.9 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities.",
-              "+1 | KSE-100 momentum: +264.8% in 21d — Broad market strength supports bank equities via fund flows and trading book gains."
-            ],
-            "headwinds": [],
-            "amplifier_note": "Low debt-to-equity (0.1) dampens rate-driven impact (-1 notch). MCB is a CASA-rich tier-1 bank — bigger NIM expansion on rate-up days (+1 notch).",
-            "verdict": "STRONG TAILWIND"
-          },
-          "kpis": {
-            "tbill_3m_pct": 11.8398,
-            "kibor_3m_pct": 11.675,
-            "reserves_total_usd_mn": 21293.5,
-            "reserves_sbp_usd_mn": 15850.7,
-            "tbill_3m_change_1d": 0.0,
-            "kibor_3m_change_1d": 0.02000000000000135,
-            "kibor_12m_change_1d": 0.0,
-            "tbill_3m_change_5d": 0.7398000000000007,
-            "kibor_3m_change_5d": 0.07500000000000107,
-            "reserves_change_30d": 869.5,
-            "kse100_close": 171115.82,
-            "kse100_ret_5d": 0.03191307741159344,
-            "kse100_ret_21d": 2.6475303093156404,
-            "cpi_yoy_pct": 10.9,
-            "cpi_period": "April",
-            "cpi_yoy_change_pp": 3.6000000000000005
-          }
+          "headwinds": [
+            "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+          ]
         }
       },
       {
@@ -4588,225 +4335,49 @@
         "direction": "NEUTRAL",
         "conviction": "LOW",
         "suggested_action": "HOLD",
-        "entry_price_pkr": 8.11,
-        "suggested_stop_pkr": 7.46,
-        "suggested_target_pkr": 8.61,
-        "expected_gross_5d_pct": 0.24,
+        "entry_price_pkr": 0.0,
+        "suggested_stop_pkr": null,
+        "suggested_target_pkr": null,
+        "expected_gross_5d_pct": 0.2,
         "round_trip_cost_pct": 0.561,
-        "expected_net_5d_pct": -0.321,
+        "expected_net_5d_pct": -0.361,
         "clears_cost_threshold": false,
-        "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.05). Drivers (3): Positive 150d momentum +13.2%. Risks (2): Weakening 60d momentum -6.2%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+        "rationale": "Phase-1 would-pick #4. SELL_VALUE -60%, LOW quality, EROSION earnings. Power circular debt overhang. Volume breakout in 3d. Hold only.",
         "key_drivers": [
-          "Positive 150d momentum +13.2%",
-          "Price +25.0% above 200-day SMA",
-          "Top-5 by momentum but market filter off"
+          "Phase-1 #4",
+          "Volume breakout"
         ],
         "key_risks": [
-          "Weakening 60d momentum -6.2%",
-          "Market breadth weak — Phase-1 in cash"
+          "SELL_VALUE -60%",
+          "LOW quality",
+          "EROSION earnings"
         ],
         "macro_tailwinds": [
-          "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          "Volume confirmation"
         ],
         "macro_headwinds": [
-          "-1 | Brent crude: -7.0% in 5d — Lower indexation revenue."
+          "Valuation",
+          "Quality"
         ],
         "macro_impact": {
-          "drivers": [
-            {
-              "name": "Brent crude",
-              "tag": "oil_down",
-              "move": "-7.0% in 5d",
-              "magnitude": "MODERATE",
-              "context": "Brent at 100.6 USD/bbl."
-            },
-            {
-              "name": "Copper",
-              "tag": "copper_up",
-              "move": "+9.6% in 21d",
-              "magnitude": "MODERATE",
-              "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
-            },
-            {
-              "name": "Cotton",
-              "tag": "cotton_up",
-              "move": "+15.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "Cotton strength raises raw-material cost for Pakistan textile exporters."
-            },
-            {
-              "name": "T-bill 3M curve",
-              "tag": "tbill_above_policy",
-              "move": "3M cut-off 11.84% vs policy 11.50% (+34 bps)",
-              "magnitude": "MODERATE",
-              "context": "Money market is pricing-in further hikes; banks lock in higher yields on the new investment book."
-            },
-            {
-              "name": "T-bill 3M (5-day move)",
-              "tag": "tbill_up",
-              "move": "+74 bps in 5d to 11.84%",
-              "magnitude": "STRONG",
-              "context": "Treasury yields rising — bank investment book reprices higher."
-            },
-            {
-              "name": "FX reserves",
-              "tag": "reserves_recovery",
-              "move": "SBP USD 15.9 bn",
-              "magnitude": "MILD",
-              "context": "Reserve buffer comfortable — BoP risk muted."
-            },
-            {
-              "name": "KSE-100 momentum",
-              "tag": "kse100_up",
-              "move": "+264.8% in 21d",
-              "magnitude": "STRONG",
-              "context": "KSE-100 at 171116 — broad market in risk-on mode."
-            }
+          "score": 1,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
-          "by_sector": {
-            "sector": "Power",
-            "score": 1,
-            "tailwinds": [
-              "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
-            ],
-            "headwinds": [
-              "-1 | Brent crude: -7.0% in 5d — Lower indexation revenue."
-            ],
-            "verdict": "TAILWIND"
-          },
-          "by_symbol": {
-            "symbol": "KEL",
-            "sector": "Power",
-            "sector_score": 1,
-            "stock_score": 1,
-            "tailwinds": [
-              "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
-            ],
-            "headwinds": [
-              "-1 | Brent crude: -7.0% in 5d — Lower indexation revenue."
-            ],
-            "amplifier_note": "",
-            "verdict": "TAILWIND"
-          },
-          "kpis": {
-            "tbill_3m_pct": 11.8398,
-            "kibor_3m_pct": 11.675,
-            "reserves_total_usd_mn": 21293.5,
-            "reserves_sbp_usd_mn": 15850.7,
-            "tbill_3m_change_1d": 0.0,
-            "kibor_3m_change_1d": 0.02000000000000135,
-            "kibor_12m_change_1d": 0.0,
-            "tbill_3m_change_5d": 0.7398000000000007,
-            "kibor_3m_change_5d": 0.07500000000000107,
-            "reserves_change_30d": 869.5,
-            "kse100_close": 171115.82,
-            "kse100_ret_5d": 0.03191307741159344,
-            "kse100_ret_21d": 2.6475303093156404,
-            "cpi_yoy_pct": 10.9,
-            "cpi_period": "April",
-            "cpi_yoy_change_pp": 3.6000000000000005
-          }
+          "headwinds": [
+            "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+          ]
         }
       }
     ],
     "_summarised_others": [
       {
-        "symbol": "LOTCHEM",
+        "symbol": "PPL",
         "mid_pct": null,
         "bias": "BULLISH"
       },
       {
-        "symbol": "NPL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "ENGROH",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "APL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "MEBL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "PPL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "FFC",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "SYS",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "UBL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "POL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "HBL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "HUBC",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "COLG",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "LUCK",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "FABL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "KAPCO",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "EFERT",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "MARI",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "BAHL",
-        "mid_pct": null,
-        "bias": "NEUTRAL"
-      },
-      {
-        "symbol": "INDU",
+        "symbol": "NBP",
         "mid_pct": null,
         "bias": "NEUTRAL"
       },
@@ -4816,22 +4387,57 @@
         "bias": "NEUTRAL"
       },
       {
-        "symbol": "PSO",
+        "symbol": "HUBC",
         "mid_pct": null,
         "bias": "NEUTRAL"
       },
       {
-        "symbol": "TRG",
+        "symbol": "NPL",
         "mid_pct": null,
         "bias": "NEUTRAL"
       },
       {
-        "symbol": "SEARL",
+        "symbol": "FFC",
         "mid_pct": null,
         "bias": "NEUTRAL"
       },
       {
-        "symbol": "PABC",
+        "symbol": "ENGROH",
+        "mid_pct": null,
+        "bias": "NEUTRAL"
+      },
+      {
+        "symbol": "UBL",
+        "mid_pct": null,
+        "bias": "NEUTRAL"
+      },
+      {
+        "symbol": "HBL",
+        "mid_pct": null,
+        "bias": "NEUTRAL"
+      },
+      {
+        "symbol": "MEBL",
+        "mid_pct": null,
+        "bias": "NEUTRAL"
+      },
+      {
+        "symbol": "INDU",
+        "mid_pct": null,
+        "bias": "NEUTRAL"
+      },
+      {
+        "symbol": "POL",
+        "mid_pct": null,
+        "bias": "NEUTRAL"
+      },
+      {
+        "symbol": "SYS",
+        "mid_pct": null,
+        "bias": "NEUTRAL"
+      },
+      {
+        "symbol": "APL",
         "mid_pct": null,
         "bias": "NEUTRAL"
       },
@@ -4841,31 +4447,91 @@
         "bias": "NEUTRAL"
       },
       {
-        "symbol": "KOHC",
+        "symbol": "LUCK",
         "mid_pct": null,
-        "bias": "NEUTRAL"
+        "bias": "BEARISH"
       },
       {
-        "symbol": "DGKC",
+        "symbol": "EFERT",
         "mid_pct": null,
-        "bias": "NEUTRAL"
+        "bias": "BEARISH"
       },
       {
         "symbol": "MLCF",
         "mid_pct": null,
-        "bias": "NEUTRAL"
+        "bias": "BEARISH"
       },
       {
-        "symbol": "NBP",
+        "symbol": "BAHL",
         "mid_pct": null,
-        "bias": "NEUTRAL"
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "FABL",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "KAPCO",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "MARI",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "KOHC",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "COLG",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "PSO",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "DGKC",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "LOTCHEM",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "SEARL",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "TRG",
+        "mid_pct": null,
+        "bias": "BEARISH"
+      },
+      {
+        "symbol": "PABC",
+        "mid_pct": null,
+        "bias": "BEARISH"
       }
     ],
     "_compression_note": "5 full predictions + 30 summarised (mid + bias only) to save context tokens"
   },
   "prediction_accuracy": {
-    "scored_count": 0,
-    "note": "No scored predictions yet. Run the EOD workflow to populate actuals."
+    "scored_count": 307,
+    "direction_hit_rate_gross_pct": 76.9,
+    "direction_hit_rate_net_pct": 70.0,
+    "inside_range_hit_rate_pct": 91.2,
+    "avg_expected_return_pct": -0.2,
+    "avg_actual_return_gross_pct": -0.25,
+    "avg_actual_return_net_pct": -0.86
   },
   "top_buys": {
     "as_of": "2026-05-08",
@@ -4918,16 +4584,16 @@
             {
               "factor": "Macro headwind",
               "weight": "MODERATE",
-              "explanation": "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress.",
+              "explanation": "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress.",
               "source": "brain/macro_impact.py"
             }
           ],
           "trade_plan": {
             "entry_pkr": 903.72,
-            "stop_pkr": 831.42,
-            "target_pkr": 968.97,
+            "stop_pkr": null,
+            "target_pkr": null,
             "horizon_days": 5,
-            "reward_risk_ratio": 0.9
+            "reward_risk_ratio": null
           },
           "confidence_pct": 64,
           "time_horizon": "5 trading days for the price forecast; the sector thesis is good for ~30 days.",
@@ -4938,7 +4604,7 @@
             "data/fundamentals/management_outlook.parquet",
             "scripts/generate_predictions.py (deterministic engine)"
           ],
-          "as_of": "2026-05-10 22:59 UTC"
+          "as_of": "2026-05-11 00:08 UTC"
         }
       },
       {
@@ -4979,7 +4645,7 @@
             {
               "factor": "Macro tailwind",
               "weight": "MODERATE",
-              "explanation": "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+              "explanation": "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Industrial-growth read-through is positive for energy demand.",
               "source": "brain/macro_impact.py"
             },
             {
@@ -4999,16 +4665,16 @@
             {
               "factor": "Macro headwind",
               "weight": "MODERATE",
-              "explanation": "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude.",
+              "explanation": "-3 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude.",
               "source": "brain/macro_impact.py"
             }
           ],
           "trade_plan": {
             "entry_pkr": 329.68,
-            "stop_pkr": 303.31,
-            "target_pkr": 349.85,
+            "stop_pkr": null,
+            "target_pkr": null,
             "horizon_days": 5,
-            "reward_risk_ratio": 0.76
+            "reward_risk_ratio": null
           },
           "confidence_pct": 67,
           "time_horizon": "5 trading days for the price forecast; the sector thesis is good for ~30 days.",
@@ -5019,7 +4685,7 @@
             "data/fundamentals/management_outlook.parquet",
             "scripts/generate_predictions.py (deterministic engine)"
           ],
-          "as_of": "2026-05-10 22:59 UTC"
+          "as_of": "2026-05-11 00:08 UTC"
         }
       },
       {
@@ -5062,16 +4728,16 @@
             {
               "factor": "Macro headwind",
               "weight": "MODERATE",
-              "explanation": "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue.",
+              "explanation": "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Lower indexation revenue.",
               "source": "brain/macro_impact.py"
             }
           ],
           "trade_plan": {
             "entry_pkr": 8.11,
-            "stop_pkr": 7.46,
-            "target_pkr": 8.61,
+            "stop_pkr": null,
+            "target_pkr": null,
             "horizon_days": 5,
-            "reward_risk_ratio": 0.77
+            "reward_risk_ratio": null
           },
           "confidence_pct": 46,
           "time_horizon": "5 trading days for the price forecast; the sector thesis is good for ~30 days.",
@@ -5081,7 +4747,7 @@
             "data/flows/fipi_daily.parquet",
             "scripts/generate_predictions.py (deterministic engine)"
           ],
-          "as_of": "2026-05-10 22:59 UTC"
+          "as_of": "2026-05-11 00:08 UTC"
         }
       },
       {
@@ -5124,16 +4790,16 @@
             {
               "factor": "Macro headwind",
               "weight": "MODERATE",
-              "explanation": "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals.",
+              "explanation": "-1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals.",
               "source": "brain/macro_impact.py"
             }
           ],
           "trade_plan": {
             "entry_pkr": 34.79,
-            "stop_pkr": 32.01,
-            "target_pkr": 36.67,
+            "stop_pkr": null,
+            "target_pkr": null,
             "horizon_days": 5,
-            "reward_risk_ratio": 0.68
+            "reward_risk_ratio": null
           },
           "confidence_pct": 46,
           "time_horizon": "5 trading days for the price forecast; the sector thesis is good for ~30 days.",
@@ -5144,7 +4810,7 @@
             "data/fundamentals/management_outlook.parquet",
             "scripts/generate_predictions.py (deterministic engine)"
           ],
-          "as_of": "2026-05-10 22:59 UTC"
+          "as_of": "2026-05-11 00:08 UTC"
         }
       },
       {
@@ -5160,7 +4826,7 @@
           "symbol": "MCB",
           "sector": "Banking",
           "verdict": "HOLD",
-          "headline": "HOLD (LOW) — + Long-term momentum",
+          "headline": "HOLD (MEDIUM) — + Long-term momentum",
           "thesis": "**The setup.** `MCB` (Banking) — neutral read. Drivers and risks roughly balance; no fresh trade. Last close: 404.57 PKR. Momentum: +0.7% in the last month, +10.1% in the last 7 months.\n\n**What's working:** Long-term momentum (moderate). Above 200-day SMA (moderate). Macro tailwind (moderate).\n\n**What could break it:** No material risks flagged.",
           "why_now": "Recent macro shift: Cotton, T-bill 3M (5-day move), KSE-100 momentum. The setup is fresh — act this week.",
           "key_drivers": [
@@ -5179,7 +4845,7 @@
             {
               "factor": "Macro tailwind",
               "weight": "MODERATE",
-              "explanation": "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+              "explanation": "+1 | Copper: +7.2% in 21d [stretched, z=+1.8] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
               "source": "brain/macro_impact.py"
             },
             {
@@ -5204,12 +4870,12 @@
           "key_risks": [],
           "trade_plan": {
             "entry_pkr": 404.57,
-            "stop_pkr": 372.2,
-            "target_pkr": 421.1,
+            "stop_pkr": null,
+            "target_pkr": null,
             "horizon_days": 5,
-            "reward_risk_ratio": 0.51
+            "reward_risk_ratio": null
           },
-          "confidence_pct": 52,
+          "confidence_pct": 67,
           "time_horizon": "5 trading days for the price forecast; the sector thesis is good for ~30 days.",
           "datasets_used": [
             "data/ohlcv/<sym>.parquet",
@@ -5218,37 +4884,38 @@
             "data/fundamentals/management_outlook.parquet",
             "scripts/generate_predictions.py (deterministic engine)"
           ],
-          "as_of": "2026-05-10 22:59 UTC"
+          "as_of": "2026-05-11 00:08 UTC"
         }
       }
     ]
   },
   "short_candidates": {
-    "as_of": "2026-05-10T23:00:18+00:00",
+    "as_of": "2026-05-11T00:08:47+00:00",
     "regime": {
       "regime": "NORMAL",
       "shorts_aligned": true,
       "exposure_hint": 1.0,
       "note": "Regime favours shorts — KSE-100 is in a bearish or defensive posture, so the strategist's conviction is kept at face value."
     },
-    "n_total": 1,
+    "n_total": 2,
     "candidates": [
       {
         "symbol": "LOTCHEM",
         "sector": "Conglomerate/Chem",
         "current_price_pkr": 27.4,
-        "short_score": 11.0,
+        "short_score": 14.8,
         "conviction": "LOW",
         "verdict_action": "TRIM",
-        "predicted_return_5d_pct": 2.32,
+        "predicted_return_5d_pct": -1.2,
         "drivers": [
           "Synthesizer says TRIM (composite score -4)",
+          "5-day prediction: BEARISH, mid -1.2% (MEDIUM conviction)",
           "Intraday relative weakness -1.0% vs market avg",
-          "Macro headwind for Conglomerate/Chem: -1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+          "Macro headwind for Conglomerate/Chem: -1 | Brent crude: -8.7% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
         ],
         "subscores": {
           "synth": 8.0,
-          "prediction": 0.0,
+          "prediction": 3.8,
           "news": 0.0,
           "technical": 0.0,
           "macro": 3.0,
@@ -5267,7 +4934,44 @@
         },
         "suggested_entry_pkr": 27.54,
         "suggested_stop_pkr": 28.64,
-        "suggested_target_pkr": 27.26,
+        "suggested_target_pkr": 27.21,
+        "risk_reward": 0.3
+      },
+      {
+        "symbol": "COLG",
+        "sector": "Consumer",
+        "current_price_pkr": 1098.44,
+        "short_score": 12.3,
+        "conviction": "LOW",
+        "verdict_action": "TRIM",
+        "predicted_return_5d_pct": -0.9,
+        "drivers": [
+          "Synthesizer says TRIM (composite score -4)",
+          "5-day prediction: BEARISH, mid -0.9% (MEDIUM conviction)",
+          "CPI YoY 10.9% — consumer demand squeeze"
+        ],
+        "subscores": {
+          "synth": 8.0,
+          "prediction": 2.8,
+          "news": 0.0,
+          "technical": 0.0,
+          "macro": 1.5,
+          "intraday": 0.0,
+          "critic": 0.0
+        },
+        "guards": {},
+        "eligibility": {
+          "symbol": "COLG",
+          "likely_eligible": false,
+          "squeeze_risk": false,
+          "notes": [
+            "NOT on the bot's likely-eligible list. Borrow may be unavailable or expensive — confirm with broker before sizing."
+          ],
+          "disclaimer": "Pakistan retail shorting is only available via Single Stock Futures or Securities Lending & Borrowing through NCCPL. Eligibility lists change monthly. Verify both venue and margin requirements with your broker before acting on any short recommendation produced by the bot."
+        },
+        "suggested_entry_pkr": 1103.93,
+        "suggested_stop_pkr": 1148.09,
+        "suggested_target_pkr": 1092.89,
         "risk_reward": 0.25
       }
     ],
@@ -5899,7 +5603,80 @@
       }
     }
   },
-  "playbook_analogues": [],
+  "playbook_analogues": [
+    {
+      "id": "imf_review_mission_week",
+      "title": "IMF review mission active in Islamabad (defensive posture, high binary risk)",
+      "category": "macro_event",
+      "confidence": "MEDIUM",
+      "match_score": 2.6,
+      "fired_triggers": [
+        "event:imf_mission_active",
+        "regime:NORMAL"
+      ],
+      "playbook": "Lower gross exposure to 30-40% of normal in the week BEFORE the mission. HOLD large-cap quality (MCB, UBL, FFC, OGDC) — these absorb a delay best. AVOID highly leveraged names (KAPCO, EPCL) and small caps (PABC, COLG) — they sell off most on a delay and lag on a relief rally. POST-OUTCOME: if SLA reached → BUY KSE-100 proxies + banks for a 5-10 day momentum window. If delay → wait for confirmation of a fresh mission date before re-entering. ALWAYS keep a +/-2% gap risk in mind on the morning after the press conference.",
+      "what_breaks_it": "(a) A pre-leaked outcome (PKR moves on Friday before the announcement) — the move is mostly priced in. (b) An external shock (political, geopolitical) overwhelms the IMF narrative. (c) IMF mission extended without a clear statement — the holding pattern persists and conviction degrades.",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Macroeconomic Determinants (IMF / external account). Empirical: 2024-07 delay, 2025-09 success, 2026-05 (current — mission arrives May 15).",
+      "tags": [
+        "imf",
+        "external-account",
+        "binary-event",
+        "defensive",
+        "large-cap"
+      ],
+      "historical_instances": [
+        {
+          "date": "2025-09-15",
+          "context": "IMF first EFF review mission. Turnover z-score -1.8 in the 5d ahead. Outcome: staff-level agreement reached → +1.4% next session, PKR +0.3%.",
+          "reactions": {
+            "MCB": {
+              "d1": 0.018,
+              "d5": 0.031,
+              "d21": 0.052
+            },
+            "KSE100": {
+              "d1": 0.014,
+              "d5": 0.022,
+              "d21": 0.041
+            },
+            "UBL": {
+              "d1": 0.012,
+              "d5": 0.024,
+              "d21": 0.038
+            },
+            "FFC": {
+              "d1": 0.008,
+              "d5": 0.018,
+              "d21": 0.029
+            }
+          },
+          "source": "IMF press release 2025-09-22 / Business Recorder."
+        },
+        {
+          "date": "2024-07-12",
+          "context": "IMF SBA-9 review. Conditionality dispute over PKR / power tariffs. Outcome: delay → -1.8% next session.",
+          "reactions": {
+            "PSO": {
+              "d1": -0.022,
+              "d5": -0.038,
+              "d21": -0.041
+            },
+            "KSE100": {
+              "d1": -0.018,
+              "d5": -0.024,
+              "d21": -0.011
+            },
+            "MCB": {
+              "d1": -0.014,
+              "d5": -0.018,
+              "d21": -0.008
+            }
+          },
+          "source": "Dawn / IMF post-mission statement Jul 2024."
+        }
+      ]
+    }
+  ],
   "playbook_facts": {
     "drivers": [
       "oil_down:MILD",
@@ -5917,7 +5694,10 @@
     "universe_5d": null,
     "phase1_risk_on": false,
     "earnings_blackouts": 0,
-    "active_events": [],
+    "active_events": [
+      "imf_mission_active",
+      "us_iran_tension"
+    ],
     "macro_levels": {
       "policy_rate_pct": 11.5,
       "kibor3m_pct": 11.675,

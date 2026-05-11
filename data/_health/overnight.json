@@ -1,17 +1,17 @@
 {
   "workflow": "overnight",
   "ok": true,
-  "note": "522 rows, last 2026-05-10",
-  "as_of": "2026-05-10T22:37:08+00:00",
+  "note": "526 rows, last 2026-05-11",
+  "as_of": "2026-05-10T23:47:22+00:00",
   "github": {
-    "run_id": "25641680440",
-    "run_number": "18",
-    "ref": "refs/heads/main",
-    "sha": "86d8ae251a87e9ddc8d192f8d04453854bb39180"
+    "run_id": "",
+    "run_number": "",
+    "ref": "",
+    "sha": ""
   },
   "payload": {
-    "rows": 522,
-    "last_date": "2026-05-10",
+    "rows": 526,
+    "last_date": "2026-05-11",
     "tickers": [
       "sp500",
       "vix",
@@ -20,7 +20,15 @@
       "ftse",
       "dxy",
       "fm_etf",
-      "eem"
+      "eem",
+      "nifty",
+      "kospi",
+      "sti",
+      "shanghai",
+      "us10y",
+      "usd_inr",
+      "usd_cny",
+      "eur_usd"
     ]
   }
 }

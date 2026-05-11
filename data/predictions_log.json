@@ -59493,6 +59493,2200 @@
         "stop_triggered": null,
         "target_triggered": null
       }
+    },
+    {
+      "prediction_id": "2026-05-11-NPL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "NPL",
+      "sector": "Power",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.0,
+      "expected_return_5d_mid_pct": 0.3,
+      "expected_return_5d_high_pct": 1.5,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Phase-1 #1 (mom +72% — outlier strong) but SELL_VALUE -20% and ACCELERATING earnings. Defensive Power name. Recent 1d -3% reversal. Hold existing, no fresh entry on the run-up.",
+      "key_drivers": [
+        "Phase-1 #1 (mom +72%)",
+        "ACCELERATING earnings"
+      ],
+      "key_risks": [
+        "SELL_VALUE -20%",
+        "Recent reversal",
+        "Power circular debt"
+      ],
+      "macro_tailwinds": [
+        "Strong momentum"
+      ],
+      "macro_headwinds": [
+        "Valuation",
+        "Recent reversal"
+      ],
+      "macro_impact": {
+        "score": 1,
+        "tailwinds": [
+          "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.7171,
+        "phase1_rank": 1,
+        "phase1_in_top5": true,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -20.04,
+        "qual_band": "HIGH",
+        "qual_score": 89.8,
+        "em_flag": "ACCELERATING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-ATRL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "ATRL",
+      "sector": "OMC/Refining",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": 0.4,
+      "expected_return_5d_mid_pct": 1.5,
+      "expected_return_5d_high_pct": 2.8,
+      "suggested_action": "BUY",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "ATRL is Phase-1 #2 (mom +20% over 150d), HIGH quality, FAIR value with +21% upside. MF funds are initiating positions — 7 new fund positions in 30d. Mgmt outlook (filed Apr 30) flags Gulf risks but expects refining margins to hold via indigenous crude advantage. Material info filed May 4 — watch for Q3 earnings update.",
+      "key_drivers": [
+        "Phase-1 #2 (mom +20%)",
+        "FAIR value with +21% upside",
+        "HIGH quality band",
+        "MF initiating: 7 new fund positions in 30d",
+        "Mgmt outlook tone +0.15 (mildly positive)"
+      ],
+      "key_risks": [
+        "Refining margin compression if Brent spikes again",
+        "Material information filing may signal earnings miss",
+        "Gulf shipping insurance premium increase"
+      ],
+      "macro_tailwinds": [
+        "Indigenous crude supply",
+        "MF fund initiation cluster"
+      ],
+      "macro_headwinds": [
+        "Refining margin volatility"
+      ],
+      "macro_impact": {
+        "score": 1,
+        "tailwinds": [
+          "+1 | FX reserves: SBP USD 15.9 bn — L/C confirmation normalises — relief.",
+          "+1 | KSE-100 momentum: +262.1% in 21d — Cyclical exposure benefits from broad market strength."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.2038,
+        "phase1_rank": 2,
+        "phase1_in_top5": true,
+        "phase1_in_top5_if_filter_off": true,
+        "val_signal": "FAIR",
+        "val_upside_pct": 20.68,
+        "qual_band": "HIGH",
+        "qual_score": 80.4,
+        "em_flag": "EROSION",
+        "composite_verdict": "BUY",
+        "composite_conviction": "MEDIUM",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": 0.1,
+        "mf_data_age_days": 344,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-OGDC",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "OGDC",
+      "sector": "Oil & Gas E&P",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": 0.5,
+      "expected_return_5d_mid_pct": 1.8,
+      "expected_return_5d_high_pct": 3.2,
+      "suggested_action": "BUY",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "OGDC HIGH-quality (85.5/100) E&P with +30% upside to fair value (BUY_VALUE HIGH confidence). Phase-1 #3 with mom +17% over 150d. Volume confirmed 3d breakout. US-Iran tension has put a floor under Brent (currently $104, still elevated despite -9% mean-reversion in 5d). IMF May 15 talks could unlock further upside on a successful review (state-owned name benefits from PKR strength).",
+      "key_drivers": [
+        "BUY_VALUE +30% upside (HIGH confidence, P/B + P/E)",
+        "Quality 85.5/100 (HIGH band)",
+        "Phase-1 momentum +17% (rank #3)",
+        "Volume-confirmed breakout in last 3 sessions",
+        "Brent geopolitical floor ~$100"
+      ],
+      "key_risks": [
+        "Earnings momentum EROSION (yoy -7%)",
+        "IMF delay/hawkish demands → state-owned name sells off first",
+        "Brent mean-reversion to $90 if US-Iran de-escalates"
+      ],
+      "macro_tailwinds": [
+        "Brent crude floor (US-Iran)",
+        "IMF May 15 (potential PKR strength)"
+      ],
+      "macro_headwinds": [
+        "Earnings deceleration (yoy -7%)"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+        ],
+        "headwinds": [
+          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.1708,
+        "phase1_rank": 3,
+        "phase1_in_top5": true,
+        "phase1_in_top5_if_filter_off": true,
+        "val_signal": "BUY_VALUE",
+        "val_upside_pct": 30.03,
+        "qual_band": "HIGH",
+        "qual_score": 85.5,
+        "em_flag": "EROSION",
+        "composite_verdict": "BUY",
+        "composite_conviction": "MEDIUM",
+        "volume_breakout_3d": true,
+        "mf_change_30d_pct": -0.2,
+        "mf_data_age_days": 344,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-KEL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "KEL",
+      "sector": "Power",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.0,
+      "expected_return_5d_mid_pct": 0.2,
+      "expected_return_5d_high_pct": 1.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Phase-1 would-pick #4. SELL_VALUE -60%, LOW quality, EROSION earnings. Power circular debt overhang. Volume breakout in 3d. Hold only.",
+      "key_drivers": [
+        "Phase-1 #4",
+        "Volume breakout"
+      ],
+      "key_risks": [
+        "SELL_VALUE -60%",
+        "LOW quality",
+        "EROSION earnings"
+      ],
+      "macro_tailwinds": [
+        "Volume confirmation"
+      ],
+      "macro_headwinds": [
+        "Valuation",
+        "Quality"
+      ],
+      "macro_impact": {
+        "score": 1,
+        "tailwinds": [
+          "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.1316,
+        "phase1_rank": 4,
+        "phase1_in_top5": true,
+        "phase1_in_top5_if_filter_off": true,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -59.93,
+        "qual_band": "LOW",
+        "qual_score": 44.4,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": true,
+        "mf_change_30d_pct": NaN,
+        "mf_data_age_days": 344,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-PPL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "PPL",
+      "sector": "Oil & Gas E&P",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": 0.3,
+      "expected_return_5d_mid_pct": 1.4,
+      "expected_return_5d_high_pct": 2.6,
+      "suggested_action": "BUY",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Deep value play: BUY_VALUE +52% upside, HIGH quality. Phase-1 #5 (mom +13%). Faiz X-1 well producing 3.6 bcf/d (positive sentiment driver in news cycle). Earnings DECELERATING but balance sheet strong. Same Brent floor argument as OGDC.",
+      "key_drivers": [
+        "BUY_VALUE +52% upside (HIGH confidence)",
+        "HIGH quality",
+        "Phase-1 #5 (mom +13%)",
+        "Faiz X-1 well (3.6 bcf/d) — positive news catalyst",
+        "Brent crude floor ~$100"
+      ],
+      "key_risks": [
+        "Earnings DECELERATING",
+        "Smaller market cap than OGDC — less FX-flow support",
+        "IMF delay impact (PKR weakness → Brent translation lower)"
+      ],
+      "macro_tailwinds": [
+        "Brent crude floor",
+        "New well production ramp"
+      ],
+      "macro_headwinds": [
+        "Earnings deceleration"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+        ],
+        "headwinds": [
+          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.1275,
+        "phase1_rank": 5,
+        "phase1_in_top5": true,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "BUY_VALUE",
+        "val_upside_pct": 51.57,
+        "qual_band": "HIGH",
+        "qual_score": 90.4,
+        "em_flag": "DECELERATING",
+        "composite_verdict": "BUY",
+        "composite_conviction": "MEDIUM",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-EPCL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "EPCL",
+      "sector": "Conglomerate/Chem",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.8,
+      "expected_return_5d_mid_pct": 0.3,
+      "expected_return_5d_high_pct": 1.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Phase-1 would-pick #5. JUNK quality, EROSION earnings. Mgmt outlook (Apr 30) acknowledges commodity correction risk. Earnings May 18 — pre-blackout. Volume breakout in 3d.",
+      "key_drivers": [
+        "Phase-1 #5",
+        "Volume breakout"
+      ],
+      "key_risks": [
+        "JUNK quality",
+        "EROSION earnings",
+        "Pre-earnings blackout May 18"
+      ],
+      "macro_tailwinds": [
+        "Volume confirmation"
+      ],
+      "macro_headwinds": [
+        "Quality",
+        "Earnings erosion"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [
+          "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.1195,
+        "phase1_rank": 6,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": true,
+        "val_signal": "FAIR",
+        "val_upside_pct": 28.51,
+        "qual_band": "JUNK",
+        "qual_score": 11.0,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": true,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": 7,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-MCB",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "MCB",
+      "sector": "Banking",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -0.4,
+      "expected_return_5d_mid_pct": 0.4,
+      "expected_return_5d_high_pct": 1.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Phase-1 would-pick #5. SELL_VALUE -14% (slight premium), HIGH quality (90.8/100 — top of universe), but EROSION earnings (-7.6%). IMF May 15 = direct catalyst. On a successful review the bank rallies +1-2%; on delay sells off -1-2%. Hold through the binary.",
+      "key_drivers": [
+        "HIGH quality (90.8/100)",
+        "Phase-1 #6 (mom +10%)",
+        "IMF positive catalyst potential"
+      ],
+      "key_risks": [
+        "SELL_VALUE -14%",
+        "EROSION earnings (yoy -7.6%)",
+        "IMF delay risk"
+      ],
+      "macro_tailwinds": [
+        "IMF success scenario",
+        "Quality leader"
+      ],
+      "macro_headwinds": [
+        "NIM compression on rate cuts",
+        "Earnings erosion"
+      ],
+      "macro_impact": {
+        "score": 5,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.1014,
+        "phase1_rank": 7,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": true,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -13.72,
+        "qual_band": "HIGH",
+        "qual_score": 90.8,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": 0.1,
+        "mf_data_age_days": 344,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-FFC",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "FFC",
+      "sector": "Fertilizer",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.5,
+      "expected_return_5d_mid_pct": 0.3,
+      "expected_return_5d_high_pct": 1.1,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "STEADY earnings (best-in-class), HIGH quality, FAIR value with -7% (slight premium). Phase-1 mom +10% (positive). Defensive in current regime.",
+      "key_drivers": [
+        "STEADY earnings",
+        "HIGH quality",
+        "Phase-1 +10%"
+      ],
+      "key_risks": [
+        "FAIR value with slight premium"
+      ],
+      "macro_tailwinds": [
+        "Defensive",
+        "Steady earnings"
+      ],
+      "macro_headwinds": [
+        "Slight overvaluation"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.1011,
+        "phase1_rank": 8,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "FAIR",
+        "val_upside_pct": -7.1,
+        "qual_band": "HIGH",
+        "qual_score": 98.3,
+        "em_flag": "STEADY",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-ENGROH",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "ENGROH",
+      "sector": "Conglomerate/Chem",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.7,
+      "expected_return_5d_mid_pct": 0.3,
+      "expected_return_5d_high_pct": 1.3,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Insufficient earnings data — UNKNOWN quality, NO_SIGNAL value. Phase-1 mom +8%. Hold pending more disclosure.",
+      "key_drivers": [
+        "Phase-1 +8%"
+      ],
+      "key_risks": [
+        "Quality UNKNOWN",
+        "No value signal"
+      ],
+      "macro_tailwinds": [
+        "Phase-1 weakly positive"
+      ],
+      "macro_headwinds": [
+        "Data gap"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [
+          "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.0822,
+        "phase1_rank": 9,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "NO_SIGNAL",
+        "val_upside_pct": null,
+        "qual_band": "UNKNOWN",
+        "qual_score": null,
+        "em_flag": "INSUFFICIENT_DATA",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-APL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "APL",
+      "sector": "OMC/Refining",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.0,
+      "expected_return_5d_mid_pct": -0.2,
+      "expected_return_5d_high_pct": 0.6,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "SELL_VALUE -14%, RECOVERING earnings, HIGH quality, but Phase-1 mom +7% (positive but weak). Same OMC pressures as PSO but better fundamentals. Hold.",
+      "key_drivers": [
+        "RECOVERING earnings",
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "SELL_VALUE -14%",
+        "OMC sector pressure"
+      ],
+      "macro_tailwinds": [
+        "Recovering earnings"
+      ],
+      "macro_headwinds": [
+        "OMC sector pressure",
+        "Oil volatility"
+      ],
+      "macro_impact": {
+        "score": 1,
+        "tailwinds": [
+          "+1 | FX reserves: SBP USD 15.9 bn — L/C confirmation normalises — relief.",
+          "+1 | KSE-100 momentum: +262.1% in 21d — Cyclical exposure benefits from broad market strength."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.0721,
+        "phase1_rank": 10,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -14.09,
+        "qual_band": "HIGH",
+        "qual_score": 97.0,
+        "em_flag": "RECOVERING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-MEBL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "MEBL",
+      "sector": "Banking",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.7,
+      "expected_return_5d_mid_pct": 0.2,
+      "expected_return_5d_high_pct": 1.0,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "HIGH quality but SELL_VALUE -41%, EROSION earnings, Phase-1 mom +6% (weak). Sharia banking. Wait for IMF clarity.",
+      "key_drivers": [
+        "HIGH quality",
+        "Sharia premium"
+      ],
+      "key_risks": [
+        "SELL_VALUE -41%",
+        "EROSION earnings"
+      ],
+      "macro_tailwinds": [
+        "Quality"
+      ],
+      "macro_headwinds": [
+        "Valuation premium"
+      ],
+      "macro_impact": {
+        "score": 5,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.0564,
+        "phase1_rank": 11,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -41.08,
+        "qual_band": "HIGH",
+        "qual_score": 100.0,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-UBL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "UBL",
+      "sector": "Banking",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.6,
+      "expected_return_5d_mid_pct": 0.3,
+      "expected_return_5d_high_pct": 1.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Composite verdict BUY (synthesizer score +9), but SELL_VALUE -19% overrides. ACCELERATING earnings is positive. Phase-1 mom +3% (weak). IMF binary same as MCB.",
+      "key_drivers": [
+        "ACCELERATING earnings",
+        "Composite verdict BUY",
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "SELL_VALUE -19%",
+        "IMF binary risk"
+      ],
+      "macro_tailwinds": [
+        "Earnings acceleration",
+        "IMF success potential"
+      ],
+      "macro_headwinds": [
+        "Valuation premium",
+        "IMF delay risk"
+      ],
+      "macro_impact": {
+        "score": 5,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.0274,
+        "phase1_rank": 12,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -19.07,
+        "qual_band": "HIGH",
+        "qual_score": 94.3,
+        "em_flag": "ACCELERATING",
+        "composite_verdict": "BUY",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-SYS",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "SYS",
+      "sector": "Technology",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.0,
+      "expected_return_5d_mid_pct": 0.0,
+      "expected_return_5d_high_pct": 1.0,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "RECOVERING earnings but SELL_VALUE -56% (extreme tech-multiple premium). Phase-1 mom 0%. Wait for either fundamentals to catch up or price to mean-revert.",
+      "key_drivers": [
+        "RECOVERING earnings"
+      ],
+      "key_risks": [
+        "SELL_VALUE -56%",
+        "Phase-1 flat"
+      ],
+      "macro_tailwinds": [
+        "Earnings recovery"
+      ],
+      "macro_headwinds": [
+        "Tech multiple premium"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": 0.0003,
+        "phase1_rank": 13,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -56.23,
+        "qual_band": "HIGH",
+        "qual_score": 97.3,
+        "em_flag": "RECOVERING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-LOTCHEM",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "LOTCHEM",
+      "sector": "Conglomerate/Chem",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.5,
+      "expected_return_5d_mid_pct": -1.2,
+      "expected_return_5d_high_pct": 0.0,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Composite verdict TRIM. Brent -9% in 5d narrows PVC margins. LOW quality, EROSION earnings, Phase-1 mom -2%. On short-candidate list (low conviction).",
+      "key_drivers": [],
+      "key_risks": [
+        "Composite TRIM",
+        "PVC margin pressure",
+        "LOW quality",
+        "EROSION earnings"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Brent → PVC margin compression",
+        "Composite TRIM"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [
+          "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Narrower margins on PVC and other oil-derivative chemicals."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.0181,
+        "phase1_rank": 14,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -18.18,
+        "qual_band": "LOW",
+        "qual_score": 38.7,
+        "em_flag": "EROSION",
+        "composite_verdict": "TRIM",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-HBL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "HBL",
+      "sector": "Banking",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.5,
+      "expected_return_5d_mid_pct": 0.3,
+      "expected_return_5d_high_pct": 1.1,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "FAIR value with +16% upside (best valuation in big-banks). ACCELERATING earnings. HIGH quality. But Phase-1 mom -2% (flat). IMF risk dominant.",
+      "key_drivers": [
+        "ACCELERATING earnings",
+        "FAIR value with +16% upside",
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "IMF binary risk",
+        "Phase-1 momentum flat"
+      ],
+      "macro_tailwinds": [
+        "Earnings acceleration"
+      ],
+      "macro_headwinds": [
+        "IMF delay risk"
+      ],
+      "macro_impact": {
+        "score": 5,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.0188,
+        "phase1_rank": 15,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "FAIR",
+        "val_upside_pct": 16.05,
+        "qual_band": "HIGH",
+        "qual_score": 86.4,
+        "em_flag": "ACCELERATING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-FATIMA",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "FATIMA",
+      "sector": "Fertilizer",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.7,
+      "expected_return_5d_mid_pct": 0.4,
+      "expected_return_5d_high_pct": 1.5,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "BUY_VALUE +35% upside, HIGH quality, DECELERATING earnings. Phase-1 mom -5%. Fertilizer FIPI net inflow May 8. Watch only.",
+      "key_drivers": [
+        "BUY_VALUE +35%",
+        "HIGH quality",
+        "Fertilizer FIPI inflow"
+      ],
+      "key_risks": [
+        "DECELERATING earnings",
+        "Phase-1 mildly negative"
+      ],
+      "macro_tailwinds": [
+        "Value cushion"
+      ],
+      "macro_headwinds": [
+        "Earnings deceleration"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.0475,
+        "phase1_rank": 16,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "BUY_VALUE",
+        "val_upside_pct": 34.91,
+        "qual_band": "HIGH",
+        "qual_score": 97.7,
+        "em_flag": "DECELERATING",
+        "composite_verdict": "BUY",
+        "composite_conviction": "HIGH",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-FABL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "FABL",
+      "sector": "Banking",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.6,
+      "expected_return_5d_mid_pct": -0.7,
+      "expected_return_5d_high_pct": 0.3,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "EROSION earnings, SELL_VALUE -27%, Phase-1 mom -5%. Smaller bank, IMF risk amplified.",
+      "key_drivers": [],
+      "key_risks": [
+        "SELL_VALUE -27%",
+        "EROSION earnings"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Bank IMF risk",
+        "Earnings erosion"
+      ],
+      "macro_impact": {
+        "score": 5,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.0506,
+        "phase1_rank": 17,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -27.24,
+        "qual_band": "HIGH",
+        "qual_score": 92.9,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-LUCK",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "LUCK",
+      "sector": "Cement",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.6,
+      "expected_return_5d_mid_pct": -0.6,
+      "expected_return_5d_high_pct": 0.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "SELL_VALUE -23%, DECELERATING earnings. Phase-1 mom -6%. Cement demand under pressure (LSM index flat YoY).",
+      "key_drivers": [
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "SELL_VALUE -23%",
+        "DECELERATING earnings",
+        "Cement demand weakness"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Cement sector demand"
+      ],
+      "macro_impact": {
+        "score": 3,
+        "tailwinds": [
+          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand."
+        ],
+        "headwinds": [
+          "-1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.0617,
+        "phase1_rank": 18,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -23.33,
+        "qual_band": "HIGH",
+        "qual_score": 91.8,
+        "em_flag": "DECELERATING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-HUBC",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "HUBC",
+      "sector": "Power",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.0,
+      "expected_return_5d_mid_pct": 0.4,
+      "expected_return_5d_high_pct": 1.6,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "BUY_VALUE +41% upside but UNKNOWN quality (insufficient data). Phase-1 mom -9%. Power IPP — direct circular-debt beneficiary on any fresh resolution. Watch for catalyst.",
+      "key_drivers": [
+        "BUY_VALUE +41% upside",
+        "IPP — circular debt resolution beneficiary"
+      ],
+      "key_risks": [
+        "UNKNOWN quality",
+        "Phase-1 negative"
+      ],
+      "macro_tailwinds": [
+        "Circular debt resolution potential"
+      ],
+      "macro_headwinds": [
+        "Quality unknown"
+      ],
+      "macro_impact": {
+        "score": 1,
+        "tailwinds": [
+          "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.0897,
+        "phase1_rank": 19,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "BUY_VALUE",
+        "val_upside_pct": 40.59,
+        "qual_band": "UNKNOWN",
+        "qual_score": null,
+        "em_flag": "INSUFFICIENT_DATA",
+        "composite_verdict": "ADD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-INDU",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "INDU",
+      "sector": "Autos",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.7,
+      "expected_return_5d_mid_pct": 0.2,
+      "expected_return_5d_high_pct": 1.1,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "STEADY earnings, HIGH quality, but SELL_VALUE -27%. Phase-1 mom -9%. Auto demand recovering but valuation rich.",
+      "key_drivers": [
+        "STEADY earnings",
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "SELL_VALUE -27%",
+        "Phase-1 negative"
+      ],
+      "macro_tailwinds": [
+        "Quality",
+        "Steady earnings"
+      ],
+      "macro_headwinds": [
+        "Valuation premium"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.0935,
+        "phase1_rank": 20,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -26.74,
+        "qual_band": "HIGH",
+        "qual_score": 84.2,
+        "em_flag": "STEADY",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-POL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "POL",
+      "sector": "Oil & Gas E&P",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -0.8,
+      "expected_return_5d_mid_pct": 0.2,
+      "expected_return_5d_high_pct": 1.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Smaller E&P. SELL_VALUE -12% (slight overvaluation), DECELERATING earnings, Phase-1 mom -11%. Less Brent leverage than OGDC/PPL. No edge for 5-day window.",
+      "key_drivers": [
+        "Brent crude support"
+      ],
+      "key_risks": [
+        "SELL_VALUE -12%",
+        "Earnings DECELERATING",
+        "Phase-1 momentum negative"
+      ],
+      "macro_tailwinds": [
+        "Brent crude"
+      ],
+      "macro_headwinds": [
+        "Phase-1 negative momentum",
+        "IMF binary risk"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+        ],
+        "headwinds": [
+          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.1129,
+        "phase1_rank": 21,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -12.39,
+        "qual_band": "HIGH",
+        "qual_score": 99.6,
+        "em_flag": "DECELERATING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-NBP",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "NBP",
+      "sector": "Banking",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -0.8,
+      "expected_return_5d_mid_pct": 0.5,
+      "expected_return_5d_high_pct": 1.8,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Highest value upside in universe (+101% to fair value, BUY_VALUE HIGH confidence). HIGH quality, RECOVERING earnings. BUT state-owned bank is most exposed to a hawkish IMF outcome (govt-debt balance sheet). Phase-1 mom -12% short-term. WATCH not BUY until IMF May 15 outcome is known.",
+      "key_drivers": [
+        "BUY_VALUE +101% upside (highest in universe)",
+        "RECOVERING earnings",
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "Phase-1 mom -12%",
+        "State-owned: highest IMF exposure",
+        "Govt balance-sheet risk"
+      ],
+      "macro_tailwinds": [
+        "Extreme value cushion"
+      ],
+      "macro_headwinds": [
+        "IMF binary risk (state-owned)"
+      ],
+      "macro_impact": {
+        "score": 5,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.1177,
+        "phase1_rank": 22,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "BUY_VALUE",
+        "val_upside_pct": 100.57,
+        "qual_band": "HIGH",
+        "qual_score": 83.9,
+        "em_flag": "RECOVERING",
+        "composite_verdict": "BUY",
+        "composite_conviction": "HIGH",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-EFERT",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "EFERT",
+      "sector": "Fertilizer",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.5,
+      "expected_return_5d_mid_pct": -0.6,
+      "expected_return_5d_high_pct": 0.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "EROSION earnings, SELL_VALUE -32%, Phase-1 mom -15%. Lagging peer.",
+      "key_drivers": [],
+      "key_risks": [
+        "SELL_VALUE -32%",
+        "EROSION earnings",
+        "Phase-1 mom -15%"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Earnings erosion",
+        "Phase-1 negative"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.1513,
+        "phase1_rank": 23,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -31.54,
+        "qual_band": "HIGH",
+        "qual_score": 86.0,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-FCCL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "FCCL",
+      "sector": "Cement",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.4,
+      "expected_return_5d_mid_pct": -0.4,
+      "expected_return_5d_high_pct": 0.6,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "ACCELERATING earnings (positive) but SELL_VALUE -37% overrides. Phase-1 mom -16%. Cement demand soft.",
+      "key_drivers": [
+        "ACCELERATING earnings",
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "SELL_VALUE -37%",
+        "Phase-1 negative",
+        "Cement demand weakness"
+      ],
+      "macro_tailwinds": [
+        "Earnings acceleration"
+      ],
+      "macro_headwinds": [
+        "Valuation premium"
+      ],
+      "macro_impact": {
+        "score": 3,
+        "tailwinds": [
+          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand."
+        ],
+        "headwinds": [
+          "-1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.1628,
+        "phase1_rank": 24,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -37.05,
+        "qual_band": "HIGH",
+        "qual_score": 89.0,
+        "em_flag": "ACCELERATING",
+        "composite_verdict": "ADD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-COLG",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "COLG",
+      "sector": "Consumer",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.0,
+      "expected_return_5d_mid_pct": -0.9,
+      "expected_return_5d_high_pct": 0.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Composite verdict TRIM. SELL_VALUE -69% (deeply overvalued). DECELERATING earnings, Phase-1 mom -16%. Consumer discretionary squeezed by inflation lag.",
+      "key_drivers": [
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "SELL_VALUE -69%",
+        "DECELERATING earnings",
+        "Composite TRIM"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Severe valuation premium",
+        "Composite TRIM"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.1642,
+        "phase1_rank": 25,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -68.53,
+        "qual_band": "HIGH",
+        "qual_score": 97.3,
+        "em_flag": "DECELERATING",
+        "composite_verdict": "TRIM",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-MARI",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "MARI",
+      "sector": "Oil & Gas E&P",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.0,
+      "expected_return_5d_mid_pct": -0.8,
+      "expected_return_5d_high_pct": 0.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "SELL_VALUE -43% (significantly overvalued), HIGH quality but EROSION earnings, Phase-1 mom -18%. Despite E&P sector tailwind, valuation premium is too high for fresh entry.",
+      "key_drivers": [],
+      "key_risks": [
+        "SELL_VALUE -43% (deep premium to fair value)",
+        "EROSION earnings",
+        "Phase-1 mom -18%"
+      ],
+      "macro_tailwinds": [
+        "E&P sector (mild)"
+      ],
+      "macro_headwinds": [
+        "Severe valuation premium",
+        "Earnings erosion"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-growth read-through is positive for energy demand.",
+          "+1 | FX reserves: SBP USD 15.9 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+        ],
+        "headwinds": [
+          "-3 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Direct revenue hit; sector earnings fall in lockstep with crude."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.1795,
+        "phase1_rank": 26,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -42.82,
+        "qual_band": "HIGH",
+        "qual_score": 98.9,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-MLCF",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "MLCF",
+      "sector": "Cement",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.6,
+      "expected_return_5d_mid_pct": -0.6,
+      "expected_return_5d_high_pct": 0.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "ACCELERATING earnings but SELL_VALUE -28%, Phase-1 mom -20%. Cement demand weak.",
+      "key_drivers": [
+        "ACCELERATING earnings"
+      ],
+      "key_risks": [
+        "SELL_VALUE -28%",
+        "Phase-1 mom -20%"
+      ],
+      "macro_tailwinds": [
+        "Earnings acceleration"
+      ],
+      "macro_headwinds": [
+        "Phase-1 deeply negative",
+        "Cement demand"
+      ],
+      "macro_impact": {
+        "score": 3,
+        "tailwinds": [
+          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand."
+        ],
+        "headwinds": [
+          "-1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.2023,
+        "phase1_rank": 27,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -28.34,
+        "qual_band": "HIGH",
+        "qual_score": 85.5,
+        "em_flag": "ACCELERATING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": 21,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-BAHL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "BAHL",
+      "sector": "Banking",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.5,
+      "expected_return_5d_mid_pct": -0.6,
+      "expected_return_5d_high_pct": 0.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "EROSION earnings, SELL_VALUE -10%, Phase-1 mom -22% (worst-tier bank). IMF binary unfavourable for weak names.",
+      "key_drivers": [],
+      "key_risks": [
+        "Phase-1 mom -22%",
+        "EROSION earnings",
+        "IMF binary risk"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Phase-1 momentum",
+        "Earnings erosion"
+      ],
+      "macro_impact": {
+        "score": 5,
+        "tailwinds": [
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+          "+1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.2163,
+        "phase1_rank": 28,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -10.42,
+        "qual_band": "HIGH",
+        "qual_score": 92.1,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-KOHC",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "KOHC",
+      "sector": "Cement",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -1.8,
+      "expected_return_5d_mid_pct": -0.8,
+      "expected_return_5d_high_pct": 0.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "DECELERATING earnings, SELL_VALUE -10%, Phase-1 mom -22%. Earnings calendar shows next event May 21 — pre-results blackout pressure.",
+      "key_drivers": [
+        "HIGH quality"
+      ],
+      "key_risks": [
+        "DECELERATING earnings",
+        "Phase-1 mom -22%",
+        "Pre-earnings blackout May 21"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Earnings deceleration",
+        "Phase-1 negative"
+      ],
+      "macro_impact": {
+        "score": 3,
+        "tailwinds": [
+          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand."
+        ],
+        "headwinds": [
+          "-1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.2239,
+        "phase1_rank": 29,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -10.29,
+        "qual_band": "HIGH",
+        "qual_score": 90.2,
+        "em_flag": "DECELERATING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": 10,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-SEARL",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "SEARL",
+      "sector": "Pharma",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -3.0,
+      "expected_return_5d_mid_pct": -1.5,
+      "expected_return_5d_high_pct": 0.0,
+      "suggested_action": "AVOID",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "SELL_VALUE -85% (price 85% above fair value). LOW quality. Phase-1 mom -25%. Pred -3.4%. No catalyst. Avoid.",
+      "key_drivers": [],
+      "key_risks": [
+        "Severe overvaluation",
+        "LOW quality",
+        "Phase-1 mom -25%"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Severe overvaluation",
+        "LOW quality"
+      ],
+      "macro_impact": {
+        "score": 2,
+        "tailwinds": [
+          "+1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower input costs.",
+          "+1 | FX reserves: SBP USD 15.9 bn — API import flow normalises — gross margins stabilise."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.2492,
+        "phase1_rank": 30,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -85.42,
+        "qual_band": "LOW",
+        "qual_score": 40.3,
+        "em_flag": "RECOVERING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-KAPCO",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "KAPCO",
+      "sector": "Power",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.8,
+      "expected_return_5d_mid_pct": -0.7,
+      "expected_return_5d_high_pct": 0.4,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "BUY_VALUE +31% upside, MEDIUM quality, RECOVERING earnings — but Phase-1 mom -25% is a major red flag. Classic value-trap risk in IPP sector with circular-debt overhang.",
+      "key_drivers": [
+        "BUY_VALUE +31%",
+        "RECOVERING earnings"
+      ],
+      "key_risks": [
+        "Phase-1 mom -25%",
+        "Value-trap risk",
+        "Circular debt"
+      ],
+      "macro_tailwinds": [
+        "Value cushion"
+      ],
+      "macro_headwinds": [
+        "Phase-1 deeply negative"
+      ],
+      "macro_impact": {
+        "score": 1,
+        "tailwinds": [
+          "+2 | FX reserves: SBP USD 15.9 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Lower indexation revenue."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.2511,
+        "phase1_rank": 31,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "BUY_VALUE",
+        "val_upside_pct": 31.06,
+        "qual_band": "MEDIUM",
+        "qual_score": 58.8,
+        "em_flag": "RECOVERING",
+        "composite_verdict": "ADD",
+        "composite_conviction": "MEDIUM",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-PSO",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "PSO",
+      "sector": "OMC/Refining",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.2,
+      "expected_return_5d_mid_pct": -1.0,
+      "expected_return_5d_high_pct": 0.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "OMC sector under structural pressure. RECOVERING earnings but FAIR value (+14% upside is small comfort). LOW quality. Phase-1 mom -29%. US-Iran oil volatility hurts inventory mark-to-market. Largest single creditor in circular debt — sentiment overhang.",
+      "key_drivers": [
+        "RECOVERING earnings"
+      ],
+      "key_risks": [
+        "Phase-1 mom -29%",
+        "LOW quality",
+        "Oil volatility → inventory MTM losses",
+        "Circular debt overhang"
+      ],
+      "macro_tailwinds": [
+        "Circular debt resolution potential"
+      ],
+      "macro_headwinds": [
+        "Oil volatility",
+        "Phase-1 negative momentum",
+        "LOW quality band"
+      ],
+      "macro_impact": {
+        "score": 1,
+        "tailwinds": [
+          "+1 | FX reserves: SBP USD 15.9 bn — L/C confirmation normalises — relief.",
+          "+1 | KSE-100 momentum: +262.1% in 21d — Cyclical exposure benefits from broad market strength."
+        ],
+        "headwinds": [
+          "-1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Inventory losses risk; refining margins compress."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.2876,
+        "phase1_rank": 32,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "FAIR",
+        "val_upside_pct": 13.65,
+        "qual_band": "LOW",
+        "qual_score": 42.7,
+        "em_flag": "RECOVERING",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-DGKC",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "DGKC",
+      "sector": "Cement",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.2,
+      "expected_return_5d_mid_pct": -1.0,
+      "expected_return_5d_high_pct": 0.2,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "SELL_VALUE -99% (extreme premium — price double fair value). RECOVERING earnings but LOW quality. Phase-1 mom -30%. Cement demand weak.",
+      "key_drivers": [
+        "RECOVERING earnings"
+      ],
+      "key_risks": [
+        "SELL_VALUE -99% (severe premium)",
+        "LOW quality",
+        "Phase-1 mom -30%"
+      ],
+      "macro_tailwinds": [
+        "Earnings recovery"
+      ],
+      "macro_headwinds": [
+        "Severe valuation premium",
+        "Phase-1 deeply negative"
+      ],
+      "macro_impact": {
+        "score": 3,
+        "tailwinds": [
+          "+2 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy and freight costs fall — direct margin tailwind.",
+          "+1 | Copper: +6.8% in 21d [stretched, z=+1.7] — Industrial-cycle proxy is strong — supportive for construction demand."
+        ],
+        "headwinds": [
+          "-1 | T-bill 3M curve: 3M cut-off 11.84% vs policy 11.50% (+34 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
+        ]
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.2971,
+        "phase1_rank": 33,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "SELL_VALUE",
+        "val_upside_pct": -99.17,
+        "qual_band": "LOW",
+        "qual_score": 39.9,
+        "em_flag": "RECOVERING",
+        "composite_verdict": "ADD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": null,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-TRG",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "TRG",
+      "sector": "Technology",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -3.0,
+      "expected_return_5d_mid_pct": -1.6,
+      "expected_return_5d_high_pct": 0.0,
+      "suggested_action": "AVOID",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "JUNK quality. Phase-1 mom -30% (worst tier). EROSION earnings. Earnings calendar: results May 14 (3 days). Pre-print blackout risk. AVOID.",
+      "key_drivers": [],
+      "key_risks": [
+        "JUNK quality",
+        "Phase-1 mom -30%",
+        "Earnings May 14 — blackout window"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Quality",
+        "Phase-1",
+        "Earnings blackout"
+      ],
+      "macro_impact": {
+        "score": 0,
+        "tailwinds": [],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.2979,
+        "phase1_rank": 34,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "FAIR",
+        "val_upside_pct": 270.85,
+        "qual_band": "JUNK",
+        "qual_score": 0.0,
+        "em_flag": "EROSION",
+        "composite_verdict": "HOLD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": 3,
+        "in_blackout": false
+      }
+    },
+    {
+      "prediction_id": "2026-05-11-PABC",
+      "generated_at": "2026-05-11T05:02:09.255938+05:00",
+      "symbol": "PABC",
+      "sector": "Misc",
+      "model": "cursor-claude-sonnet-4-5-manual",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 0.0,
+      "direction": "BEARISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -3.5,
+      "expected_return_5d_mid_pct": -2.0,
+      "expected_return_5d_high_pct": -0.5,
+      "suggested_action": "AVOID",
+      "suggested_stop_pkr": null,
+      "suggested_target_pkr": null,
+      "rationale": "Phase-1 worst in universe (mom -40%). EROSION earnings. Pred -3.9%. No clear catalyst. AVOID.",
+      "key_drivers": [],
+      "key_risks": [
+        "Phase-1 worst in universe",
+        "EROSION earnings"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "Phase-1 -40%",
+        "Earnings erosion"
+      ],
+      "macro_impact": {
+        "score": 2,
+        "tailwinds": [
+          "+1 | Brent crude: -9.2% in 5d [stretched, z=-1.6] — Energy cost relief.",
+          "+1 | FX reserves: SBP USD 15.9 bn — Imports normalise — supply-chain relief."
+        ],
+        "headwinds": []
+      },
+      "mpc_alert": null,
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-05-08",
+        "close_pkr": 0.0,
+        "phase1_score": -0.3994,
+        "phase1_rank": 35,
+        "phase1_in_top5": false,
+        "phase1_in_top5_if_filter_off": false,
+        "val_signal": "FAIR",
+        "val_upside_pct": -6.31,
+        "qual_band": "HIGH",
+        "qual_score": 98.5,
+        "em_flag": "EROSION",
+        "composite_verdict": "ADD",
+        "composite_conviction": "LOW",
+        "volume_breakout_3d": false,
+        "mf_change_30d_pct": null,
+        "mf_data_age_days": null,
+        "next_earnings_days": 16,
+        "in_blackout": false
+      }
     }
   ]
 }

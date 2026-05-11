@@ -107,6 +107,20 @@
       "description": "IMF completes 2nd EFF review; ~$1.1bn tranche disbursed.",
       "source": "https://www.imf.org/en/News/Articles/2025/10/25/pr-pakistan-imf-executive-board-completes-second-review-under-eff",
       "_origin": "data/macro/imf_events.json"
+    },
+    {
+      "key": "imf_mission_active",
+      "date": "2026-05-11",
+      "decay_days": 7,
+      "description": "IMF review mission arrives Islamabad May 15 for budget / EFF 3rd review talks. Active window covers the lead-up week + on-site days.",
+      "source": "Business Recorder / Dawn coverage May 2026."
+    },
+    {
+      "key": "us_iran_tension",
+      "date": "2026-05-08",
+      "decay_days": 14,
+      "description": "US-Iran ceasefire breakdown; renewed strikes and Strait of Hormuz reopening dispute. Brent +$5 in 2 sessions then mean-reverted -9% by May 10.",
+      "source": "Reuters / Profit Pakistan / Business Recorder May 2026."
     }
   ]
 }

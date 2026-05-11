@@ -5,14 +5,26 @@ systematically missing. Values are stored per US calendar date (yfinance native)
 and the briefing helper aligns them to a PSX trading date at the point of use.
 
 Tickers:
-    ^GSPC   S&P 500        - overnight US risk
-    ^VIX    CBOE VIX       - US implied vol regime
-    ^N225   Nikkei 225     - Tokyo open before PSX open
-    ^HSI    Hang Seng      - HK open before PSX open
-    ^FTSE   FTSE 100       - Europe overlap with PSX afternoon
-    DX-Y.NYB Dollar Index  - global USD strength -> EM flows
-    FM      iShares Frontier ETF - frontier EM breadth proxy
-    EEM     iShares EM ETF  - broader EM flows
+    Core (used by gap-prior model):
+      ^GSPC    S&P 500              - overnight US risk
+      ^VIX     CBOE VIX             - US implied vol regime
+      ^N225    Nikkei 225           - Tokyo open before PSX open
+      ^HSI     Hang Seng            - HK open before PSX open
+      ^FTSE    FTSE 100             - Europe overlap with PSX afternoon
+      DX-Y.NYB Dollar Index         - global USD strength -> EM flows
+      EEM      iShares EM ETF       - broader EM flows
+      FM       iShares Frontier ETF - frontier EM breadth proxy
+
+    Regional / macro (added 2026-05 — surface in briefing, not in
+    fitted gap weights yet — refit in `fit_overnight_weights.py`):
+      ^NSEI    NIFTY 50             - India equity (regional EM peer)
+      ^KS11    KOSPI                - Korea equity
+      ^STI     Singapore Straits    - SE Asia equity
+      000001.SS Shanghai Composite  - China equity (cement/refining demand)
+      ^TNX     US 10Y Treasury yield - global rates / EM risk premium
+      INR=X    USD/INR              - regional FX peer
+      CNY=X    USD/CNY              - China FX (PSX cement/textile linkage)
+      EURUSD=X EUR/USD              - non-USD funding flows
 
 Output: data/macro/overnight_global.parquet
 """
@@ -42,6 +54,15 @@ TICKERS = {
     "dxy":      "DX-Y.NYB",
     "fm_etf":   "FM",
     "eem":      "EEM",
+    # Regional EM peers + global rates + FX (added 2026-05)
+    "nifty":    "^NSEI",
+    "kospi":    "^KS11",
+    "sti":      "^STI",
+    "shanghai": "000001.SS",
+    "us10y":    "^TNX",
+    "usd_inr":  "INR=X",
+    "usd_cny":  "CNY=X",
+    "eur_usd":  "EURUSD=X",
 }
 
 OUT = ROOT / "data" / "macro" / "overnight_global.parquet"

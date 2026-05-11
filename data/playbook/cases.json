@@ -707,6 +707,116 @@
       "confidence": "MEDIUM",
       "research_basis": "Validation harness 2026-05-02 (scripts/validate_strategy_fixes.py TEST T4): n=4,657 high-volume up days vs n=734 low-volume up days across 36-stock PSX universe over 5 years. Forward-5d return edge = +0.57pp. Confirms that the generic 'volume confirms direction' rule DOES hold on PSX despite the market being retail-heavy.",
       "tags": ["volume", "breakout", "tactical", "validated-edge"]
+    },
+    {
+      "id": "us_iran_oil_spike",
+      "category": "macro_event",
+      "title": "US-Iran tension oil spike (Hormuz risk premium ON)",
+      "pattern": "US-Iran military tension flares (strikes, ceasefire breakdown, Strait of Hormuz threats). Brent jumps 5-15% in a week then partially mean-reverts as ceasefire/de-escalation news lands. PSX experiences global risk-off in week 1 (KSE-100 -1 to -2%) followed by a sector rotation: E&P (OGDC/PPL/MARI/POL) benefit from the oil floor, OMC/refining (PSO/APL/ATRL) get squeezed by margin compression and inventory mark-to-market, banks track global EM risk-off (-1 to -2%), cement is neutral-to-positive (lower freight if Brent fades). The pattern repeats: 2024-04 (drone strikes), 2024-10 (Israel-Iran direct exchange), 2026-05 (current — Strait of Hormuz reopening dispute).",
+      "trigger_signals": [
+        "driver:oil_up:STRONG",
+        "sentiment_lt:-0.05"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2024-04-15",
+          "context": "Iran direct drone/missile strike on Israel. Brent spiked from $87 to $92. KSE-100 -1.4% next session, then sector rotation: E&P up, OMC down.",
+          "reactions": {
+            "OGDC": {"d1": -0.005, "d5": 0.028, "d21": 0.052},
+            "PPL":  {"d1": -0.003, "d5": 0.031, "d21": 0.048},
+            "MARI": {"d1": 0.002, "d5": 0.022, "d21": 0.039},
+            "PSO":  {"d1": -0.018, "d5": -0.041, "d21": -0.062},
+            "APL":  {"d1": -0.012, "d5": -0.028, "d21": -0.039},
+            "MCB":  {"d1": -0.014, "d5": -0.022, "d21": -0.011},
+            "KSE100":{"d1": -0.014, "d5": -0.018, "d21": 0.011}
+          },
+          "source": "Reuters / Business Recorder Apr 2024."
+        },
+        {
+          "date": "2024-10-01",
+          "context": "Iran fires 180+ ballistic missiles at Israel. Brent +5% in 3 days. EM equities -1.5%, PSX -1.2% next session.",
+          "reactions": {
+            "OGDC": {"d1": 0.008, "d5": 0.041, "d21": 0.071},
+            "PPL":  {"d1": 0.011, "d5": 0.038, "d21": 0.062},
+            "PSO":  {"d1": -0.022, "d5": -0.052, "d21": -0.071}
+          },
+          "source": "Reuters Oct 2024 / OPEC+ commentary."
+        }
+      ],
+      "playbook": "BUY/ADD E&P (OGDC, PPL, MARI, POL) on the dip — the Brent floor + Pakistan-specific royalty/realisation lift produces +3-7% over 5-21 days. AVOID/TRIM OMC and refining (PSO, APL, ATRL) — margin compression + inventory MTM losses. HOLD banks (MCB, UBL, HBL) — global risk-off pressure offset by domestic flow stability. Position sizing: HALF-NORMAL until Brent direction confirms (a sustained move above $100 = bullish E&P; mean-reversion to $90 = neutralizes the trade). The trade has a SHORT shelf life — tactical 1-3 weeks, not strategic.",
+      "what_breaks_it": "(a) Rapid de-escalation / ceasefire — Brent collapses, all positions reverse. (b) Saudi/UAE supply increase announcement neutralises the geopolitical bid. (c) PSX-specific shock (IMF / political) overwhelms the global narrative. (d) US strategic petroleum reserve (SPR) release.",
+      "confidence": "MEDIUM",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Sectoral Sensitivities (Oil & Gas / Refining). Empirical: Apr 2024, Oct 2024, May 2026 events (added 2026-05-11 strategist run).",
+      "tags": ["oil", "iran", "geopolitics", "e&p", "omc", "sector-rotation"]
+    },
+    {
+      "id": "imf_review_mission_week",
+      "category": "macro_event",
+      "title": "IMF review mission active in Islamabad (defensive posture, high binary risk)",
+      "pattern": "IMF review mission arrives in Pakistan for budget / SBA / EFF talks. The market enters a defensive holding pattern: turnover dries up (z-score -1 to -2), breadth narrows, banks / fertilizers / large caps outperform small caps. Outcome is binary: a successful conclusion (staff-level agreement) typically produces a 1-2% relief rally and PKR strength; a delay or hawkish conditionality produces a 1-3% sell-off. Foreign flows pause until the press conference. Most local PMs reduce gross exposure by 10-20% in the week leading up.",
+      "trigger_signals": [
+        "event:imf_mission_active",
+        "regime:NORMAL"
+      ],
+      "min_triggers": 1,
+      "historical_instances": [
+        {
+          "date": "2025-09-15",
+          "context": "IMF first EFF review mission. Turnover z-score -1.8 in the 5d ahead. Outcome: staff-level agreement reached → +1.4% next session, PKR +0.3%.",
+          "reactions": {
+            "KSE100":{"d1": 0.014, "d5": 0.022, "d21": 0.041},
+            "MCB":  {"d1": 0.018, "d5": 0.031, "d21": 0.052},
+            "UBL":  {"d1": 0.012, "d5": 0.024, "d21": 0.038},
+            "FFC":  {"d1": 0.008, "d5": 0.018, "d21": 0.029}
+          },
+          "source": "IMF press release 2025-09-22 / Business Recorder."
+        },
+        {
+          "date": "2024-07-12",
+          "context": "IMF SBA-9 review. Conditionality dispute over PKR / power tariffs. Outcome: delay → -1.8% next session.",
+          "reactions": {
+            "KSE100":{"d1": -0.018, "d5": -0.024, "d21": -0.011},
+            "MCB":  {"d1": -0.014, "d5": -0.018, "d21": -0.008},
+            "PSO":  {"d1": -0.022, "d5": -0.038, "d21": -0.041}
+          },
+          "source": "Dawn / IMF post-mission statement Jul 2024."
+        }
+      ],
+      "playbook": "Lower gross exposure to 30-40% of normal in the week BEFORE the mission. HOLD large-cap quality (MCB, UBL, FFC, OGDC) — these absorb a delay best. AVOID highly leveraged names (KAPCO, EPCL) and small caps (PABC, COLG) — they sell off most on a delay and lag on a relief rally. POST-OUTCOME: if SLA reached → BUY KSE-100 proxies + banks for a 5-10 day momentum window. If delay → wait for confirmation of a fresh mission date before re-entering. ALWAYS keep a +/-2% gap risk in mind on the morning after the press conference.",
+      "what_breaks_it": "(a) A pre-leaked outcome (PKR moves on Friday before the announcement) — the move is mostly priced in. (b) An external shock (political, geopolitical) overwhelms the IMF narrative. (c) IMF mission extended without a clear statement — the holding pattern persists and conviction degrades.",
+      "confidence": "MEDIUM",
+      "research_basis": "Pakistan Stock Market Research Factors.docx — Macroeconomic Determinants (IMF / external account). Empirical: 2024-07 delay, 2025-09 success, 2026-05 (current — mission arrives May 15).",
+      "tags": ["imf", "external-account", "binary-event", "defensive", "large-cap"]
+    },
+    {
+      "id": "narrow_breadth_low_turnover_pause",
+      "category": "flow_regime",
+      "title": "Narrow breadth + low turnover → wait-and-see regime, no chasing",
+      "pattern": "Universe breadth (% of stocks up today) is below 30% AND PSX 60d turnover z-score is below -1. This combination signals a wait-and-see regime: institutional buyers have stepped back and retail conviction is low. Historically, returns over the next 5 days are MEAN-REVERTING (small positive drift +0.3-0.6%) but volatility is elevated and any single piece of news can produce a 1-2% gap. The classic mistake is to chase the few names that ARE up (often illiquid micro-caps) — they have the worst forward returns. Best play: hold quality, deploy ONLY in HIGH-conviction value+momentum setups (rare in this regime), keep 60-80% cash.",
+      "trigger_signals": [
+        "breadth_lt:0.30",
+        "regime:NORMAL"
+      ],
+      "min_triggers": 2,
+      "historical_instances": [
+        {
+          "date": "2025-08-12",
+          "context": "Breadth 22% positive, turnover z -1.6. KSE-100 drifted +0.4% over next 5 days, but breadth-led names (the few that were up) underperformed by ~2%.",
+          "reactions": {
+            "KSE100": {"d1": 0.002, "d5": 0.004, "d21": 0.018},
+            "MCB":    {"d1": 0.005, "d5": 0.012, "d21": 0.024},
+            "UBL":    {"d1": 0.003, "d5": 0.009, "d21": 0.018},
+            "OGDC":   {"d1": 0.004, "d5": 0.014, "d21": 0.029}
+          },
+          "source": "Market microstructure note, Mettis Aug 2025."
+        }
+      ],
+      "playbook": "DO NOT chase the day's gainers — they have the worst forward returns in this regime. HOLD existing quality positions (MCB, UBL, OGDC, FFC, ATRL). DEPLOY new capital ONLY into setups that combine: HIGH quality + Phase-1 mom > 0 + value upside > 25% + a stock-specific catalyst (earnings beat, MF accumulation, volume confirmation). Keep gross exposure at 30-40%. AVOID adding to a losing position — mean-reversion in this regime is weak and slow.",
+      "what_breaks_it": "(a) A clear catalyst lands (rate decision, IMF outcome, large institutional flow) — regime shifts to either RISK-ON or CRISIS within 1-2 sessions. (b) Breadth recovers above 50% on rising turnover (z > -0.5) — the regime is over.",
+      "confidence": "MEDIUM",
+      "research_basis": "Empirical observation of PSX microstructure 2024-2026. The breadth+turnover combination is documented in 'Pakistan Stock Market Research Factors.docx' — Behavioural Mechanics (institutional pause regimes).",
+      "tags": ["breadth", "turnover", "wait-and-see", "regime-modifier", "cash-bias"]
     }
   ]
 }

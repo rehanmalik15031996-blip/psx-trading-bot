@@ -1228,7 +1228,12 @@ def get_price_history(symbol: str, days: int = 90) -> dict:
 def get_overnight_signals() -> dict:
     """Latest overnight global-risk block: S&P 500, VIX, Nikkei, Hang Seng,
     FTSE, DXY, EM ETF + data-fitted PSX gap prior + weighted macro news tilt
-    (24h) + latest FIPI snapshot. Everything the live LLM briefing shows."""
+    (24h) + latest FIPI snapshot. Everything the live LLM briefing shows.
+
+    Added 2026-05: regional EM peers (NIFTY, KOSPI, STI, Shanghai), global
+    rates (US10Y), and FX (USD/INR, USD/CNY, EUR/USD) plus the FM frontier
+    ETF that was previously fetched but never surfaced.
+    """
     try:
         from ui.overnight import (build_overnight_block, gap_bias_from_overnight,
                                     load_latest_fipi, load_overnight)
@@ -1239,11 +1244,14 @@ def get_overnight_signals() -> dict:
     if "error" in raw:
         return {"error": raw["error"]}
     bias = gap_bias_from_overnight(raw)
+    _signal_keys = (
+        "sp500", "vix", "nikkei", "hangseng", "ftse", "dxy", "eem", "fm_etf",
+        "nifty", "kospi", "sti", "shanghai",
+        "us10y", "usd_inr", "usd_cny", "eur_usd",
+    )
     out = {
         "as_of": str(raw.get("as_of")),
-        "signals": {k: v for k, v in raw.items()
-                     if k in ("sp500", "vix", "nikkei", "hangseng",
-                              "ftse", "dxy", "eem")},
+        "signals": {k: v for k, v in raw.items() if k in _signal_keys},
         "gap_prior": bias,
         "briefing_block": build_overnight_block(cutoff),
     }

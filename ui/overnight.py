@@ -85,17 +85,35 @@ def load_overnight(cutoff: pd.Timestamp) -> dict:
     df = df[df["date"] <= cutoff]
     if df.empty:
         return {"error": f"no overnight data <= {cutoff.date()}"}
-    row = df.iloc[-1]
-    out: dict = {"as_of": row["date"].date().isoformat()}
-    for label in ["sp500", "vix", "nikkei", "hangseng", "ftse", "dxy", "eem"]:
+
+    # IMPORTANT: different tickers have different last-trading-day calendars
+    # (FX trades 24/7, US/Asia/Europe close at different times). Picking the
+    # absolute last row would mask all the indices that aren't open today.
+    # For each label, take its latest non-null close <= cutoff.
+    out: dict = {"as_of": df["date"].iloc[-1].date().isoformat()}
+    # Core gap-prior labels + regional EM peers + FX/rates added 2026-05.
+    # `fm_etf` was previously fetched but never surfaced — fixed now.
+    labels = [
+        "sp500", "vix", "nikkei", "hangseng", "ftse", "dxy", "eem", "fm_etf",
+        "nifty", "kospi", "sti", "shanghai",
+        "us10y", "usd_inr", "usd_cny", "eur_usd",
+    ]
+    for label in labels:
         cclose = f"{label}_close"
         c1 = f"{label}_ret_1d"
         c5 = f"{label}_ret_5d"
+        if cclose not in df.columns:
+            continue
+        sub = df[df[cclose].notna()]
+        if sub.empty:
+            continue
+        row = sub.iloc[-1]
         v = row.get(cclose)
-        if pd.isna(v):
+        if v is None or pd.isna(v):
             continue
         out[label] = {
             "close": round(float(v), 2),
+            "as_of": row["date"].date().isoformat(),
             "ret_1d_pct": (round(float(row[c1]) * 100, 2)
                            if c1 in row and pd.notna(row[c1]) else None),
             "ret_5d_pct": (round(float(row[c5]) * 100, 2)
@@ -203,7 +221,11 @@ def build_overnight_block(cutoff: pd.Timestamp) -> str:
     for label, full in [("sp500", "S&P 500"), ("vix", "VIX"),
                          ("nikkei", "Nikkei 225"), ("hangseng", "Hang Seng"),
                          ("ftse", "FTSE 100"), ("dxy", "USD Index"),
-                         ("eem", "EM ETF")]:
+                         ("eem", "EM ETF"), ("fm_etf", "Frontier ETF"),
+                         ("nifty", "NIFTY 50"), ("kospi", "KOSPI"),
+                         ("sti", "SG Straits"), ("shanghai", "Shanghai Comp"),
+                         ("us10y", "US 10Y yield"), ("usd_inr", "USD/INR"),
+                         ("usd_cny", "USD/CNY"), ("eur_usd", "EUR/USD")]:
         if label not in d:
             continue
         v = d[label]

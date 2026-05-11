@@ -358,19 +358,60 @@ decision = {
 
     'macro_lens': (
         'Brent corrected -9% in 5 days after the US-Iran Strait of Hormuz '
-        'spike — fear faded but geopolitical risk premium persists. '
+        'spike — fear faded but geopolitical risk premium persists at $104. '
         'PKR stable at 278.43 (no FX stress). Policy rate held at 11.5% '
-        '(latest SBP). Gold +4% (safe-haven bid) and global risk-off '
-        '(news macro tilt -0.004, geopolitics category -0.075) argue '
-        'against aggressive deployment. Universe momentum is negative '
-        '(-5.1% over 150d) and breadth is narrow (14% positive today) — '
-        'these are the conditions Phase-1 was designed to flag. The '
-        'overnight gap prior is FLAT (+0.34%) — no strong directional bias '
-        'into Monday open. IMF mission arrives May 15 for budget talks — '
-        'this is the single biggest catalyst this week. A successful '
-        'signal could trigger a 1-2% relief rally; failure or hawkish '
-        'demands would re-test recent lows.'
+        '(latest SBP). Gold +4% (safe-haven bid). Universe momentum is '
+        'negative (-5.1% over 150d) and breadth is narrow (14% positive '
+        'today) — these are the conditions Phase-1 was designed to flag. '
+        '\n\n'
+        'GLOBAL TAPE IS CONSTRUCTIVE (newly added intl signals): S&P 500 '
+        '+0.84% (5d +2.33%), EEM ETF +2.03% (5d +5.94% — broad EM bid), '
+        'KOSPI +12% over 5d (Korea-led tech rally), Shanghai flat. US 10Y '
+        'yield -0.64% to 4.36% (yields falling = supportive for EM '
+        'multiples). USD broadly softer (DXY +0.18%, EUR/USD +0.34%). '
+        'INDIA WEAK: NIFTY -0.62% (regional EM peer drag). HSI -0.87% '
+        '(China sentiment lukewarm). The data-fitted overnight gap prior '
+        'is FLAT (+0.49%) — slight upward tilt from S&P/EEM strength but '
+        'within noise band. \n\n'
+        'IMF mission arrives May 15 for budget talks — single biggest '
+        'catalyst this week. A successful signal could trigger a 1-2% '
+        'relief rally; failure or hawkish demands would re-test recent '
+        'lows. The constructive global backdrop modestly de-risks BUY '
+        'positions but does NOT override the Phase-1 cash veto on broad '
+        'exposure.'
     ),
+
+    'international_lens': {
+        'us_equity': {'sp500_1d_pct': 0.84, 'sp500_5d_pct': 2.33,
+                       'vix_close': 17.19, 'vix_regime': 'normal',
+                       'tilt': 'mildly_bullish'},
+        'em_complex': {'eem_1d_pct': 2.03, 'eem_5d_pct': 5.94,
+                        'fm_1d_pct': 0.0, 'tilt': 'bid'},
+        'asia_equity': {'nikkei_1d_pct': -0.19, 'nikkei_5d_pct': 3.60,
+                         'kospi_5d_pct': 12.06, 'shanghai_5d_pct': 2.48,
+                         'hsi_5d_pct': 2.39, 'sti_5d_pct': 0.19,
+                         'tilt': 'positive_ex_china'},
+        'india': {'nifty_1d_pct': -0.62, 'nifty_5d_pct': 0.74,
+                   'inr_1d_pct': 0.13, 'tilt': 'weak'},
+        'global_rates': {'us10y_close_pct': 4.36, 'us10y_1d_pct': -0.64,
+                          'tilt': 'falling_em_supportive'},
+        'fx': {'dxy_1d_pct': 0.18, 'eur_usd_1d_pct': 0.34,
+                'usd_inr_1d_pct': 0.13, 'usd_cny_1d_pct': -0.02,
+                'tilt': 'usd_softening'},
+        'commodities': {'brent_close': 104.5, 'brent_5d_pct': -9.19,
+                         'gold_5d_pct': 4.0,
+                         'tilt': 'oil_corrected_gold_safehaven_bid'},
+        'pakistan_specific': {'usdpkr': 278.43, 'usdpkr_stable': True,
+                                'policy_rate': 11.5},
+        'net_takeaway': (
+            'Constructive ex-India: US/EM/Korea bid, US10Y falling, USD '
+            'softening — supportive backdrop for EM equities. India weakness '
+            '(NIFTY -0.62%, INR mild softening) is the only regional drag. '
+            'Net: gap prior +0.49% (FLAT), no strong overnight directional '
+            'bias for PSX. Global tape WEAKLY supports the selective BUYs '
+            '(OGDC/ATRL/PPL) but does not override the cash veto.'
+        ),
+    },
 
     'behavioural_lens': (
         'Retail buyers were net +3.9bn PKR on May 8 vs foreigners marginally '
@@ -387,16 +428,19 @@ decision = {
 
     'key_drivers': [
         'IMF mission May 15 — biggest binary catalyst this week',
-        'Oil price direction post US-Iran spike (Brent $103, Hormuz watch)',
+        'Oil price direction post US-Iran spike (Brent $104, Hormuz watch)',
+        'Global EM bid: EEM +5.9% over 5d, KOSPI +12% over 5d (intl tape)',
+        'US 10Y yield falling to 4.36% (-0.64% 1d) — supportive for EM',
+        'USD softening (DXY +0.18% but EUR/USD +0.34%) — net USD weakness',
         'FIPI flows — foreign net selling but big-fish/insurance buying',
         'PPL Faiz X-1 well producing 3.6 bcf/d (E&P sector positive)',
-        'Pakistan textile exports to US +2% YoY (defensive bright spot)',
-        'KSE-100 -1% on May 8 from US-Iran headlines (sentiment tracker)',
+        'Playbook FIRED: imf_review_mission_week (defensive, large-cap bias)',
     ],
 
     'key_risks': [
         'US-Iran re-escalation → oil spike + global risk-off hits PSX hard',
         'IMF May 15 talks produce hawkish demands → PKR + market sell-off',
+        'India NIFTY -0.62% (regional EM peer drag) — watch for sympathy',
         'Brent stays low → OGDC/PPL/MARI earnings estimates cut further',
         'Cement sector demand stays weak → LUCK/KOHC/DGKC/MLCF underperform',
         'Bank balance-sheet exposure to govt debt around IMF cycle',
@@ -442,9 +486,19 @@ decision = {
                               'fipi_flows, overnight, scored_sentiment, predictions, '
                               'material_information, management_outlook, earnings_momentum, '
                               'earnings_calendar, playbook_facts, mufap_industry, '
-                              'psx_turnover, remittances, lsm_index, msci_calendar).',
-        'playbook_analogue_ids': [],
-        'playbook_analogue_fired': {},
+                              'psx_turnover, remittances, lsm_index, msci_calendar) PLUS '
+                              '8 new international tickers (NIFTY, KOSPI, STI, Shanghai, '
+                              'US10Y, USD/INR, USD/CNY, EUR/USD) PLUS 3 new playbook cases '
+                              '(us_iran_oil_spike, imf_review_mission_week, '
+                              'narrow_breadth_low_turnover_pause). The playbook fired '
+                              'imf_review_mission_week today (was empty before).',
+        'playbook_analogue_ids': ['imf_review_mission_week'],
+        'playbook_analogue_fired': {
+            'imf_review_mission_week': 'IMF review mission active in Islamabad '
+            '(arrives May 15). Defensive posture, large-cap bias, binary risk. '
+            'Reduce gross exposure to 30-40% of normal in the week BEFORE the mission. '
+            'Hold quality (MCB, UBL, FFC, OGDC). Avoid leveraged names.'
+        },
         'phase1_state': {
             'market_risk_on': False,
             'selected_symbols': [],
