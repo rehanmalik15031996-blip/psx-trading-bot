@@ -2272,20 +2272,54 @@ def _render_playbook_analogues(analogue_ids: list[str],
     match_score, confidence}`` dict persisted on the cached decision
     by ``brain/master_strategist._briefing_summary``. When present we
     render the actual triggers that fired in plain English so the
-    analyst doesn't have to read the JSON to understand what hit."""
+    analyst doesn't have to read the JSON to understand what hit.
+
+    Wrapped in a top-level try/except so a malformed strategist JSON
+    (e.g. legacy ``playbook_analogue_fired`` value as a plain string,
+    or a hand-edited cases.json with non-dict reactions) cannot take
+    down the entire Today tab and cascade-fail every other tab."""
+    try:
+        _render_playbook_analogues_inner(analogue_ids, fired_meta)
+    except Exception as e:
+        st.warning(
+            "Playbook analogue panel hit an unexpected error and was "
+            f"skipped: `{type(e).__name__}: {e}`. The rest of the "
+            "Master Strategist card still rendered. Check "
+            "`data/_strategist/latest.json` `briefing_summary"
+            ".playbook_analogue_fired` shape.")
+
+
+def _render_playbook_analogues_inner(analogue_ids: list[str],
+                                       fired_meta: dict | None = None) -> None:
     try:
         from brain import playbook as pb
     except Exception as e:
         st.warning(f"Playbook unavailable: {e}")
         return
     cases_by_id = {c.id: c for c in pb.load_cases()}
-    fired_meta = fired_meta or {}
+    if not isinstance(fired_meta, dict):
+        fired_meta = {}
     for cid in analogue_ids:
         case = cases_by_id.get(cid)
         if case is None:
             st.caption(f"_(case `{cid}` no longer in cases.json)_")
             continue
-        meta = fired_meta.get(cid) or {}
+        # Defensive: legacy / hand-written strategist JSONs may store
+        # ``playbook_analogue_fired`` values as plain strings (a free-text
+        # description) instead of the canonical
+        # ``{fired_triggers, match_score, confidence}`` dict. Coerce so we
+        # never crash the entire Today tab on a malformed payload.
+        raw_meta = fired_meta.get(cid)
+        if isinstance(raw_meta, dict):
+            meta = raw_meta
+            meta_note = ""
+        elif isinstance(raw_meta, str) and raw_meta.strip():
+            meta = {}
+            meta_note = raw_meta.strip()
+        else:
+            meta = {}
+            meta_note = ""
+
         score = meta.get("match_score")
         score_str = (f", match score {score:.2f}"
                      if isinstance(score, (int, float)) else "")
@@ -2293,6 +2327,8 @@ def _render_playbook_analogues(analogue_ids: list[str],
             f"**`{case.id}`** — {case.title}  "
             f"_(confidence {case.confidence}{score_str}, "
             f"category {case.category})_")
+        if meta_note:
+            st.markdown(f"- **Strategist note.** {meta_note}")
         st.markdown(f"- **Pattern.** {case.pattern}")
         st.markdown(f"- **Playbook.** {case.playbook}")
         if case.what_breaks_it:
@@ -2301,22 +2337,38 @@ def _render_playbook_analogues(analogue_ids: list[str],
         # Plain-English fired-trigger list — the most useful single
         # piece of information for "why did this case match today?".
         fired = meta.get("fired_triggers") or []
-        if fired:
+        if isinstance(fired, list) and fired:
             st.markdown("- **Triggers that fired today:**")
             for t in fired:
-                st.markdown(f"    - {_explain_trigger(t)}  "
+                t_str = str(t) if not isinstance(t, str) else t
+                st.markdown(f"    - {_explain_trigger(t_str)}  "
                              f"<span style='opacity:0.45;font-size:0.78em;'>"
-                             f"<code>{t}</code></span>",
+                             f"<code>{t_str}</code></span>",
                              unsafe_allow_html=True)
 
         if case.historical_instances:
             st.markdown("- **Historical instances:**")
             for inst in sorted(case.historical_instances,
                                 key=lambda i: i.date, reverse=True)[:3]:
-                rx_summary = ", ".join(
-                    f"{sym} d21={(r.get('d21') or r.get('d5') or 0)*100:+.1f}%"
-                    for sym, r in list((inst.reactions or {}).items())[:4]
-                )
+                # Defensive: a reaction value should be a dict like
+                # {"d1": .., "d5": .., "d21": ..} but a hand-edited
+                # cases.json or a future schema change could put a string
+                # here, which would crash the entire app via .get().
+                rx_parts: list[str] = []
+                rxns = inst.reactions if isinstance(inst.reactions, dict) else {}
+                for sym, r in list(rxns.items())[:4]:
+                    if not isinstance(r, dict):
+                        continue
+                    val = r.get("d21")
+                    if val is None:
+                        val = r.get("d5")
+                    if val is None:
+                        val = 0
+                    try:
+                        rx_parts.append(f"{sym} d21={float(val)*100:+.1f}%")
+                    except (TypeError, ValueError):
+                        continue
+                rx_summary = ", ".join(rx_parts)
                 st.markdown(f"    - **{inst.date}** — {inst.context[:160]}")
                 if rx_summary:
                     st.markdown(f"      _{rx_summary}_")
