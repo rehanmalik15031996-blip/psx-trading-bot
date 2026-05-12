@@ -2,12 +2,12 @@
   "workflow": "macro_series",
   "ok": true,
   "note": "7/7 series refreshed",
-  "as_of": "2026-05-12T06:47:59+00:00",
+  "as_of": "2026-05-12T10:46:00+00:00",
   "github": {
-    "run_id": "25718304817",
-    "run_number": "13",
+    "run_id": "25729469607",
+    "run_number": "14",
     "ref": "refs/heads/main",
-    "sha": "cc75fee7696db9301c6e83f3a796efe53dc964fa"
+    "sha": "29789f0558a7aa308ab531eb55b2b54b4747b080"
   },
   "payload": {
     "results": [
@@ -17,7 +17,7 @@
         "ticker": "BZ=F",
         "rows": 1602,
         "last_date": "2026-05-12",
-        "last_value": 105.7
+        "last_value": 107.45
       },
       {
         "ok": true,
@@ -25,7 +25,7 @@
         "ticker": "CL=F",
         "rows": 1601,
         "last_date": "2026-05-12",
-        "last_value": 99.83
+        "last_value": 101.37
       },
       {
         "ok": true,
@@ -33,7 +33,7 @@
         "ticker": "GC=F",
         "rows": 1601,
         "last_date": "2026-05-12",
-        "last_value": 4709.6
+        "last_value": 4703.0
       },
       {
         "ok": true,
@@ -41,15 +41,15 @@
         "ticker": "HG=F",
         "rows": 1602,
         "last_date": "2026-05-12",
-        "last_value": 6.459
+        "last_value": 6.491
       },
       {
         "ok": true,
         "key": "cotton",
         "ticker": "CT=F",
-        "rows": 1600,
-        "last_date": "2026-05-11",
-        "last_value": 87.77
+        "rows": 1601,
+        "last_date": "2026-05-12",
+        "last_value": 86.68
       },
       {
         "ok": true,
@@ -57,7 +57,7 @@
         "ticker": "BTC-USD",
         "rows": 2324,
         "last_date": "2026-05-12",
-        "last_value": 81093.797
+        "last_value": 80658.891
       },
       {
         "ok": true,
@@ -65,7 +65,7 @@
         "ticker": "PKR=X",
         "rows": 1657,
         "last_date": "2026-05-12",
-        "last_value": 278.44
+        "last_value": 278.525
       }
     ],
     "latest_dates": {
@@ -73,7 +73,7 @@
       "wti": "2026-05-12",
       "gold": "2026-05-12",
       "copper": "2026-05-12",
-      "cotton": "2026-05-11",
+      "cotton": "2026-05-12",
       "btc": "2026-05-12",
       "usdpkr": "2026-05-12"
     }
