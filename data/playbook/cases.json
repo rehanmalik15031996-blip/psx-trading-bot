@@ -477,7 +477,10 @@
       ],
       "reactions": {
         "sector_overlay": {
-          "Oil & Gas E&P": "upgrade_one"
+          "Oil & Gas E&P": "upgrade_one",
+          "Cement": "upgrade_one",
+          "OMC": "upgrade_one",
+          "Power": "downgrade_one"
         },
         "symbol_overlay": {
           "OGDC": {
@@ -485,10 +488,25 @@
           },
           "PPL": {
             "min_bucket": "ADD"
+          },
+          "PSO": {
+            "min_bucket": "HOLD"
+          },
+          "ATRL": {
+            "min_bucket": "HOLD"
+          },
+          "HUBC": {
+            "max_bucket": "HOLD"
+          },
+          "KAPCO": {
+            "max_bucket": "HOLD"
+          },
+          "NPL": {
+            "max_bucket": "HOLD"
           }
         },
         "cash_floor_pct": 30,
-        "narrative_note": "IMF program approved — E&P relief rally trade only. Banking removed from overlay (backtest 29% accuracy)."
+        "narrative_note": "IMF program approved — E&P / Cement / OMC relief lift; Power -1 notch (tariff-hike pressure on collections, verified 2024-09/10 -11% to -14% Power moves)."
       }
     },
     {
@@ -566,7 +584,7 @@
       "title": "PKR weakens >= 5% vs USD in one trading week",
       "pattern": "USD/PKR moves sharply (>=5%) over 5 trading days. Pre-2023 typically followed by a market-wide sell-off; post-IMF-2024 the reaction is sector-specific (E&Ps and textile exporters benefit; Cement/Auto/Pharma hurt).",
       "trigger_signals": [
-        "driver:pkr_weak"
+        "driver:pkr_weak:STRONG"
       ],
       "min_triggers": 1,
       "historical_instances": [
@@ -629,7 +647,7 @@
             "min_bucket": "ADD"
           }
         },
-        "narrative_note": "PKR devaluation — E&P wellhead-USD tailwind; Autos pressured by imports. Cement dropped from overlay (backtest showed 41% directional accuracy)."
+        "narrative_note": "PKR STRONG devaluation — E&P wellhead-USD tailwind; Autos pressured by imports. Cement downgrade DROPPED (again, after STRONG-only filter still scored 38% — Cement's PKR response is non-stationary)."
       }
     },
     {
@@ -890,9 +908,11 @@
       "title": "Brent up >= 10% in 21 days",
       "pattern": "Brent spike directly lifts E&P USD-linked wellhead pricing, with PKR-weakness amplifier. OMC margins are formula-protected so they're roughly neutral; Cement (transport cost) and Auto (commodity) see a small drag.",
       "trigger_signals": [
-        "driver:oil_up"
+        "driver:oil_up",
+        "breadth_gt:0.40",
+        "universe_5d_gt:-0.03"
       ],
-      "min_triggers": 1,
+      "min_triggers": 3,
       "historical_instances": [
         {
           "date": "2022-02-24",
@@ -946,7 +966,7 @@
             "min_bucket": "ADD"
           }
         },
-        "narrative_note": "Brent +10% in 21d — ADD E&P (wellhead-USD tailwind)."
+        "narrative_note": "Brent up AND market healthy (breadth >40% AND universe 5d > -3%) — clean E&P upgrade trade. (Round-2 added the breadth/regime guards: prior case fired E&P upgrade in oil-spike-as-risk-off regimes and was wrong-direction —49% accuracy.)"
       }
     },
     {
@@ -1407,21 +1427,18 @@
         "sector-rotation"
       ],
       "reactions": {
-        "sector_overlay": {
-          "Oil & Gas E&P": "upgrade_one"
-        },
         "symbol_overlay": {
           "OGDC": {
-            "min_bucket": "ADD",
-            "weight_floor_pct": 5.0
-          },
-          "PPL": {
-            "min_bucket": "ADD",
+            "min_bucket": "HOLD",
             "weight_floor_pct": 4.0
           },
-          "MARI": {
-            "min_bucket": "ADD",
+          "PPL": {
+            "min_bucket": "HOLD",
             "weight_floor_pct": 3.0
+          },
+          "MARI": {
+            "min_bucket": "HOLD",
+            "weight_floor_pct": 2.5
           },
           "PSO": {
             "max_bucket": "HOLD"
@@ -1433,7 +1450,8 @@
             "max_bucket": "HOLD"
           }
         },
-        "narrative_note": "US-Iran oil spike — ADD E&P only (sector overlay). OMC/Refining sector downgrade REMOVED (backtest 50% accuracy on 24 fires); per-symbol HOLD ceiling kept on PSO/ATRL/APL."
+        "cash_floor_pct": 40,
+        "narrative_note": "US-Iran oil spike — protect E&P core positions but no sector-wide ADD (oil-spike-as-risk-off regime would neutralise the trade). OMC/Refining ceiling at HOLD."
       }
     },
     {
@@ -1757,6 +1775,179 @@
         },
         "conviction_cap": "MEDIUM",
         "narrative_note": "IMF mission active (any regime) — moderate defensive. Cash 50%, Banks -1 notch."
+      }
+    },
+    {
+      "id": "nth_rate_cut_immediate_window",
+      "category": "macro_event",
+      "title": "Nth rate cut (>=2nd) immediate-window mega-rally (days 1-14)",
+      "pattern": "When SBP delivers a cut that is NOT the first of the cycle AND the cut lands during a benign/normal regime, the first 1-14 trading days frequently produce an explosive broad rally (5-16% on the universe equal-weighted index). The mechanism: investors front-run the policy transmission, leveraged sectors re-rate immediately, and short-covering amplifies the move. Distinct from `sbp_rate_cut_cycle_initiation` (first cut only, n=1) and `post_cut_cycle_continuation` (starts at day 14). Catches the 14-day blind spot for later cuts (e.g. the 2025-05-15 +16.34% mega-rally on the 8th cut delivered 10 days prior). 2026-05-13 catalog: this single missing case was the largest source of uncaptured upside in the 5-year backtest.",
+      "trigger_signals": [
+        "driver:rate_down",
+        "days_since_last_cut_lte:14",
+        "rate_cuts_180d_gte:2",
+        "regime:NORMAL"
+      ],
+      "min_triggers": 4,
+      "historical_instances": [
+        {
+          "date": "2025-05-15",
+          "context": "8th cut of cycle (12% -> 11%) on 2025-05-05; +16.34% universe / +21% Cement / +29% OMC over the next 5 trading days.",
+          "reactions": {
+            "KSE100": {
+              "d1": 0.024,
+              "d5": 0.163,
+              "d21": 0.023
+            }
+          },
+          "source": "PSX EOD; SBP MPC press release 5-May-2025."
+        },
+        {
+          "date": "2024-12-19",
+          "context": "5th consecutive cut (15% -> 13%) on 2024-12-16; sharp -6.82% drawdown then +9.40% over 21 days (V-bounce).",
+          "reactions": {
+            "KSE100": {
+              "d1": -0.022,
+              "d5": -0.068,
+              "d21": 0.094
+            }
+          },
+          "source": "SBP MPC press release 16-Dec-2024; PSX EOD."
+        }
+      ],
+      "playbook": "ADD broadly across leveraged-cyclical sectors (Cement, Conglomerate/Chem, Power, OMC) with 14-day horizon. Avoid haircut on incumbent positions; let winners run. Don't re-fire `post_cut_cycle_continuation` overlays until day 14+. If the same week produces a sharp intraday drawdown, stay with the position — historical 21d return is positive even when day-1 is sharply red (see 2024-12-19 instance above).",
+      "what_breaks_it": "A simultaneous PKR shock or Brent spike (>=US$ 105) neutralises the rally. Also broken if regime flips to CRISIS during the window (broad cross-sectional capitulation).",
+      "confidence": "HIGH",
+      "research_basis": "5-year per-sector catalog mining (2026-05-13). Of the top-10 universe-wide UP moves over 2021-2026, 6 fell into this window (later-cut, days 1-14, NORMAL regime). Only 1 of those 6 produced any case fire under the pre-Round-2 playbook.",
+      "tags": [
+        "rate-cut",
+        "explosive-rally",
+        "leveraged-sectors",
+        "first-2-weeks",
+        "round-2-discovery"
+      ],
+      "reactions": {
+        "sector_overlay": {
+          "Banking": "upgrade_one"
+        },
+        "symbol_overlay": {
+          "MLCF": {
+            "min_bucket": "HOLD"
+          },
+          "FCCL": {
+            "min_bucket": "HOLD"
+          },
+          "EPCL": {
+            "min_bucket": "HOLD"
+          },
+          "ENGROH": {
+            "min_bucket": "HOLD"
+          },
+          "MCB": {
+            "min_bucket": "ADD"
+          },
+          "UBL": {
+            "min_bucket": "ADD"
+          },
+          "MEBL": {
+            "min_bucket": "ADD"
+          }
+        },
+        "cash_floor_pct": 25,
+        "narrative_note": "Nth-rate-cut immediate window (days 1-14) — Banking-only sector upgrade (78% accuracy in 5y backtest, +2.08% vs-univ); leveraged sectors held at HOLD min (the broad-rally hypothesis only generalised to Banks)."
+      }
+    },
+    {
+      "id": "oil_spike_systemic_risk_off",
+      "category": "macro_event",
+      "title": "Oil spike PLUS broad sell-off (oil-up as systemic risk-off)",
+      "pattern": "When Brent spikes >=10% in 21d AND the universe equal-weighted index has fallen >=3% in 5 days AND breadth is below 30%, the oil rise is functioning as a SYSTEMIC RISK-OFF signal (geopolitical / inflation-shock / Fed hawkishness amplifier) rather than a pure commodity supply story. In this regime even E&P producers fall along with the broad market — the USD wellhead-pricing benefit is overwhelmed by the global risk-off discount applied to all PSX names. Discovered 2026-05-13 from per-sector mining: 2026-03-09 / 2026-03-17 / 2026-03-31 all had `oil_up:STRONG` AND broad capitulation; standard `brent_spike_e_and_p` UPGRADED E&P in those windows and was wrong direction (E&P -8.86% on 2026-03-17).",
+      "trigger_signals": [
+        "driver:oil_up:STRONG",
+        "universe_5d_lt:-0.03",
+        "breadth_lt:0.30"
+      ],
+      "min_triggers": 3,
+      "historical_instances": [
+        {
+          "date": "2026-03-17",
+          "context": "US-Iran tensions (event window) + IMF mission stress; Brent +12% / 21d; universe -5.93% / 5d; E&P -8.86% / 5d.",
+          "reactions": {
+            "KSE100": {
+              "d1": -0.018,
+              "d5": -0.059,
+              "d21": -0.164
+            }
+          },
+          "source": "PSX EOD; ICE Brent."
+        }
+      ],
+      "playbook": "DEFENSIVE posture: cash floor 60%, downgrade Cement / Banking / Power one notch (cyclicals get re-priced lower). Do NOT add E&P even though Brent is up — in this regime the wellhead-USD benefit is dominated by the systemic discount. Wait for breadth to recover above 40% before re-adding cyclical exposure. Hold cash 5-10 days; expect follow-on weakness for 2-3 weeks (21d return historically stays negative in this archetype).",
+      "what_breaks_it": "Brent reverses sharply or universe breadth recovers above 40% — the regime flips back to a normal `brent_spike_e_and_p` set-up where E&P can be added on the wellhead-USD trade.",
+      "confidence": "MEDIUM",
+      "research_basis": "Per-sector mining 2026-05-13: 3 of the top-10 universe-wide DOWN moves in 2026 (Mar 9/17/31) had `oil_up:STRONG` PLUS broad sell-off. Pre-Round-2 playbook fired E&P upgrade in all 3 — 0% accuracy.",
+      "tags": [
+        "oil",
+        "risk-off",
+        "systemic",
+        "brent-spike",
+        "round-2-discovery"
+      ],
+      "reactions": {
+        "cash_floor_pct": 60,
+        "sector_overlay": {
+          "Cement": "downgrade_one",
+          "Banking": "downgrade_one",
+          "Power": "downgrade_one"
+        },
+        "conviction_cap": "MEDIUM",
+        "position_size_multiplier": 0.6,
+        "narrative_note": "Oil-spike-as-systemic-risk-off — defensive 5-10d. Cash 60%, cyclicals -1 notch. E&P NOT added (wellhead benefit dominated by systemic discount in this regime)."
+      }
+    },
+    {
+      "id": "oil_demand_destruction_risk_off",
+      "category": "macro_event",
+      "title": "Oil DOWN paired with broad EM equity sell-off",
+      "pattern": "Brent down >=5% / 21d while PSX universe is also -2% / 5d and breadth is sub-30%. This is the global recession-fear regime — oil falls because global demand expectations are deteriorating; PSX falls along with EM equities as foreign flows turn risk-off. Discovered 2026-05-13: dates with `oil_down:MODERATE` AND broad sell-off had no playbook case. (2021-11-26 -4.89%, 2023-05-10 -3.52%, 2022-04-05 -3.15%.) Pre-Round-2, only `behavioural_panic_3day` would fire — but that's behavioural, not macro.",
+      "trigger_signals": [
+        "driver:oil_down",
+        "universe_5d_lt:-0.02",
+        "breadth_lt:0.30"
+      ],
+      "min_triggers": 3,
+      "historical_instances": [
+        {
+          "date": "2021-11-26",
+          "context": "Omicron-variant scare; oil -10% / week, PSX -4.89% / 5d, breadth 8%.",
+          "reactions": {
+            "KSE100": {
+              "d1": -0.012,
+              "d5": -0.049,
+              "d21": -0.044
+            }
+          },
+          "source": "PSX EOD; ICE Brent."
+        }
+      ],
+      "playbook": "MILD DEFENSIVE: cash floor 50%, downgrade Banking + Cement one notch (cyclicals exposed to global growth). DO NOT downgrade E&P even though oil is falling — Pakistan E&P has hedge contracts that smooth wellhead revenue across short oil moves. Hold 5 days. Re-evaluate if breadth recovers; the rebound from these is usually sharp (1-2 weeks once foreign flows stabilise).",
+      "what_breaks_it": "Oil reverses (supply shock) or breadth recovers above 40% — flip back to neutral cyclical posture.",
+      "confidence": "MEDIUM",
+      "research_basis": "Per-sector mining 2026-05-13. 4-6 dates over 2021-2025 with `oil_down:MODERATE` AND universe -2% / breadth low had no playbook case fire. Aggregate forward 5d (2026-05-13 catalog) was -1.8% on average.",
+      "tags": [
+        "oil",
+        "demand-destruction",
+        "risk-off",
+        "round-2-discovery"
+      ],
+      "reactions": {
+        "cash_floor_pct": 50,
+        "sector_overlay": {
+          "Banking": "downgrade_one",
+          "Cement": "downgrade_one"
+        },
+        "position_size_multiplier": 0.7,
+        "narrative_note": "Oil-down + broad sell-off (global demand-destruction regime) — defensive 5d; cash 50%, cyclicals -1 notch."
       }
     }
   ]

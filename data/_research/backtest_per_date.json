@@ -155,9 +155,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       },
       {
@@ -215,9 +217,11 @@
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -262,9 +266,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       },
       {
@@ -322,9 +328,11 @@
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -1176,9 +1184,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       },
       {
@@ -1238,9 +1248,11 @@
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -1353,18 +1365,20 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -1427,19 +1441,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -1469,6 +1476,15 @@
         ]
       },
       {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
+      },
+      {
         "case_id": "banking_nim_regime_low",
         "match_score": 1.6,
         "fired_triggers": [
@@ -1483,18 +1499,20 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -1557,19 +1575,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -1599,6 +1610,15 @@
         ]
       },
       {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
+      },
+      {
         "case_id": "banking_nim_regime_low",
         "match_score": 1.6,
         "fired_triggers": [
@@ -1613,18 +1633,20 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -1683,19 +1705,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -1725,6 +1740,15 @@
         ]
       },
       {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
+      },
+      {
         "case_id": "banking_nim_regime_low",
         "match_score": 1.6,
         "fired_triggers": [
@@ -1739,18 +1763,20 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -1809,19 +1835,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -1849,6 +1868,15 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       },
       {
         "case_id": "banking_nim_regime_low",
@@ -2761,18 +2789,20 @@
     "n_analogues": 2,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -2828,19 +2858,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -2868,6 +2891,15 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       }
     ]
   },
@@ -2943,9 +2975,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       }
     ],
@@ -2998,9 +3032,11 @@
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -3037,9 +3073,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       }
     ],
@@ -3092,9 +3130,11 @@
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -3131,9 +3171,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       }
     ],
@@ -3186,9 +3228,11 @@
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -3224,18 +3268,20 @@
     "n_analogues": 2,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -3287,19 +3333,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -3327,6 +3366,15 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       }
     ]
   },
@@ -3335,18 +3383,20 @@
     "n_analogues": 2,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -3398,19 +3448,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -3438,6 +3481,15 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       }
     ]
   },
@@ -3561,18 +3613,20 @@
     "n_analogues": 4,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -3631,28 +3685,21 @@
       "Consumer": -3.2608695652173947
     },
     "pnl_baseline_5d_pct": -1.2166473041887047,
-    "pnl_overlay_5d_pct": -1.414943694005841,
+    "pnl_overlay_5d_pct": -0.7823364433055615,
     "pnl_baseline_21d_pct": -1.8854659345495188,
-    "pnl_overlay_21d_pct": -2.4778847430266477,
+    "pnl_overlay_21d_pct": -1.2993213621512516,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5214285714285714,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.29571428571428554,
+    "cash_floor_overlay": 40.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -3680,6 +3727,15 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
@@ -3729,45 +3785,19 @@
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "OGDC",
-            "weight_from": 2.86,
-            "weight_to": 5.0,
-            "via": "weight_floor"
-          },
-          {
-            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 4.0,
             "via": "weight_floor"
           },
           {
-            "symbol": "MARI",
+            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 3.0,
             "via": "weight_floor"
+          },
+          {
+            "cash_floor_pct": 40,
+            "via": "cash_floor"
           }
         ]
       }
@@ -3778,18 +3808,20 @@
     "n_analogues": 4,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -3848,28 +3880,21 @@
       "Consumer": -3.255986068785366
     },
     "pnl_baseline_5d_pct": -1.076003849859027,
-    "pnl_overlay_5d_pct": -1.3677770442548718,
+    "pnl_overlay_5d_pct": -0.7204461354772507,
     "pnl_baseline_21d_pct": 2.165933452064335,
-    "pnl_overlay_21d_pct": 1.6080099676200899,
+    "pnl_overlay_21d_pct": 1.0504468520652563,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5214285714285714,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.29571428571428554,
+    "cash_floor_overlay": 40.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -3897,6 +3922,15 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
@@ -3946,45 +3980,19 @@
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "OGDC",
-            "weight_from": 2.86,
-            "weight_to": 5.0,
-            "via": "weight_floor"
-          },
-          {
-            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 4.0,
             "via": "weight_floor"
           },
           {
-            "symbol": "MARI",
+            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 3.0,
             "via": "weight_floor"
+          },
+          {
+            "cash_floor_pct": 40,
+            "via": "cash_floor"
           }
         ]
       }
@@ -3995,18 +4003,20 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -4065,19 +4075,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -4105,6 +4108,15 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
@@ -4153,9 +4165,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       },
       {
@@ -4212,19 +4226,21 @@
       "Consumer": -4.0235807860261925
     },
     "pnl_baseline_5d_pct": 1.4581437952898246,
-    "pnl_overlay_5d_pct": 1.263503861575909,
+    "pnl_overlay_5d_pct": 0.7399257680014973,
     "pnl_baseline_21d_pct": 2.9401754717010626,
-    "pnl_overlay_21d_pct": 3.1127200610189734,
+    "pnl_overlay_21d_pct": 1.8062862743314503,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5214285714285714,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.29571428571428554,
+    "cash_floor_overlay": 40.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -4301,45 +4317,19 @@
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "OGDC",
-            "weight_from": 2.86,
-            "weight_to": 5.0,
-            "via": "weight_floor"
-          },
-          {
-            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 4.0,
             "via": "weight_floor"
           },
           {
-            "symbol": "MARI",
+            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 3.0,
             "via": "weight_floor"
+          },
+          {
+            "cash_floor_pct": 40,
+            "via": "cash_floor"
           }
         ]
       }
@@ -4569,18 +4559,20 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -4643,19 +4635,12 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -4683,6 +4668,15 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
@@ -4930,9 +4924,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       },
       {
@@ -4992,9 +4988,11 @@
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -5066,7 +5064,7 @@
   },
   {
     "as_of": "2022-05-13",
-    "n_analogues": 3,
+    "n_analogues": 2,
     "fired": [
       {
         "id": "volume_confirmation_breakout",
@@ -5074,13 +5072,6 @@
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       },
       {
@@ -5130,11 +5121,11 @@
       "Consumer": 5.952380952380953
     },
     "pnl_baseline_5d_pct": -0.37877888730873044,
-    "pnl_overlay_5d_pct": -0.37076226802523216,
+    "pnl_overlay_5d_pct": -0.2932360434919059,
     "pnl_baseline_21d_pct": -2.751206740996677,
-    "pnl_overlay_21d_pct": -2.3299920041278175,
+    "pnl_overlay_21d_pct": -2.310183727947166,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4857142857142857,
+    "gross_overlay_5d": 0.46428571428571436,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -5146,45 +5137,6 @@
           "volume_data_freshness_lte:5"
         ],
         "changes": []
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
       },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
@@ -5229,15 +5181,8 @@
   },
   {
     "as_of": "2022-05-20",
-    "n_analogues": 2,
+    "n_analogues": 1,
     "fired": [
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ]
-      },
       {
         "id": "brent_spike_cement_margin_squeeze",
         "score": 1.6,
@@ -5285,53 +5230,14 @@
       "Consumer": -1.5645910780669126
     },
     "pnl_baseline_5d_pct": 0.006559845891189556,
-    "pnl_overlay_5d_pct": 0.035990387013654895,
+    "pnl_overlay_5d_pct": 0.05203284019599319,
     "pnl_baseline_21d_pct": -1.3369223690530256,
-    "pnl_overlay_21d_pct": -0.9384808776339956,
+    "pnl_overlay_21d_pct": -1.152083862740889,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4857142857142857,
+    "gross_overlay_5d": 0.46428571428571436,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
-      },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
         "match_score": 1.6,
@@ -5375,7 +5281,7 @@
   },
   {
     "as_of": "2022-05-27",
-    "n_analogues": 5,
+    "n_analogues": 4,
     "fired": [
       {
         "id": "sbp_rate_hike_shock",
@@ -5387,25 +5293,20 @@
         ]
       },
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -5463,11 +5364,11 @@
       "Consumer": 6.635071090047395
     },
     "pnl_baseline_5d_pct": -2.0755023552244096,
-    "pnl_overlay_5d_pct": -0.3609132149662101,
+    "pnl_overlay_5d_pct": -0.36251611648474,
     "pnl_baseline_21d_pct": -0.21506229173188612,
-    "pnl_overlay_21d_pct": 0.184232041576084,
+    "pnl_overlay_21d_pct": 0.12831189969054715,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.13499999999999993,
+    "gross_overlay_5d": 0.1285714285714285,
     "cash_floor_overlay": 70.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -5545,6 +5446,41 @@
         ]
       },
       {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
         "fired_triggers": [
@@ -5552,78 +5488,6 @@
           "volume_data_freshness_lte:5"
         ],
         "changes": []
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "WATCH",
-            "to": "TRIM",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          }
-        ]
       },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
@@ -5668,15 +5532,8 @@
   },
   {
     "as_of": "2022-06-03",
-    "n_analogues": 2,
+    "n_analogues": 1,
     "fired": [
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ]
-      },
       {
         "id": "brent_spike_cement_margin_squeeze",
         "score": 1.6,
@@ -5728,53 +5585,14 @@
       "Consumer": -2.0989001763076165
     },
     "pnl_baseline_5d_pct": 1.0735722846240374,
-    "pnl_overlay_5d_pct": 1.076450019341929,
+    "pnl_overlay_5d_pct": 0.932369623701292,
     "pnl_baseline_21d_pct": 1.0721995262878303,
-    "pnl_overlay_21d_pct": 1.1075427737066759,
+    "pnl_overlay_21d_pct": 0.9479218928103765,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4857142857142857,
+    "gross_overlay_5d": 0.46428571428571436,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
-      },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
         "match_score": 1.6,
@@ -5818,20 +5636,15 @@
   },
   {
     "as_of": "2022-06-10",
-    "n_analogues": 3,
+    "n_analogues": 2,
     "fired": [
       {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ]
-      },
-      {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       },
       {
@@ -5889,82 +5702,45 @@
       "Consumer": -9.822222222222221
     },
     "pnl_baseline_5d_pct": 0.3836219750019512,
-    "pnl_overlay_5d_pct": 0.35262577790622057,
+    "pnl_overlay_5d_pct": 0.2720801713112356,
     "pnl_baseline_21d_pct": 1.3343859706696015,
-    "pnl_overlay_21d_pct": 1.445081665601806,
+    "pnl_overlay_21d_pct": 1.3220179795756526,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5142857142857142,
+    "gross_overlay_5d": 0.4928571428571429,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
+            "from": "HOLD",
+            "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           },
           {
             "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
+            "from": "HOLD",
+            "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           },
           {
             "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
+            "from": "HOLD",
+            "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           },
           {
             "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
+            "from": "HOLD",
+            "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
@@ -6609,7 +6385,7 @@
   },
   {
     "as_of": "2022-07-22",
-    "n_analogues": 2,
+    "n_analogues": 1,
     "fired": [
       {
         "id": "behavioural_panic_3day",
@@ -6617,13 +6393,6 @@
         "fired_triggers": [
           "universe_5d_lt:-0.05",
           "breadth_lt:30"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       }
     ],
@@ -6670,11 +6439,11 @@
       "Consumer": 17.261698270849713
     },
     "pnl_baseline_5d_pct": 0.4503834443642757,
-    "pnl_overlay_5d_pct": 0.5671479611247089,
+    "pnl_overlay_5d_pct": 0.4503834443642757,
     "pnl_baseline_21d_pct": 5.029951361720062,
-    "pnl_overlay_21d_pct": 5.257820443816578,
+    "pnl_overlay_21d_pct": 5.029951361720062,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5214285714285715,
+    "gross_overlay_5d": 0.5000000000000001,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -6686,45 +6455,6 @@
           "breadth_lt:30"
         ],
         "changes": []
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
       }
     ]
   },
@@ -6744,7 +6474,7 @@
         "id": "pkr_devaluation_shock",
         "score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ]
       },
       {
@@ -6815,7 +6545,7 @@
         "case_id": "pkr_devaluation_shock",
         "match_score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ],
         "changes": [
           {
@@ -6893,7 +6623,7 @@
   },
   {
     "as_of": "2022-08-05",
-    "n_analogues": 2,
+    "n_analogues": 1,
     "fired": [
       {
         "id": "volume_confirmation_breakout",
@@ -6901,13 +6631,6 @@
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       }
     ],
@@ -6950,11 +6673,11 @@
       "Consumer": -0.47114497827892565
     },
     "pnl_baseline_5d_pct": 1.7779700854508111,
-    "pnl_overlay_5d_pct": 1.9132398418556715,
+    "pnl_overlay_5d_pct": 1.7779700854508111,
     "pnl_baseline_21d_pct": -0.13328923692407266,
-    "pnl_overlay_21d_pct": -0.09729675751461404,
+    "pnl_overlay_21d_pct": -0.13328923692407266,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5214285714285715,
+    "gross_overlay_5d": 0.5000000000000001,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -6966,45 +6689,6 @@
           "volume_data_freshness_lte:5"
         ],
         "changes": []
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
       }
     ]
   },
@@ -7342,7 +7026,7 @@
         "id": "pkr_devaluation_shock",
         "score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ]
       }
     ],
@@ -7397,7 +7081,7 @@
         "case_id": "pkr_devaluation_shock",
         "match_score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ],
         "changes": [
           {
@@ -7442,7 +7126,7 @@
         "id": "pkr_devaluation_shock",
         "score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ]
       }
     ],
@@ -7501,7 +7185,7 @@
         "case_id": "pkr_devaluation_shock",
         "match_score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ],
         "changes": [
           {
@@ -7540,16 +7224,8 @@
   },
   {
     "as_of": "2022-09-30",
-    "n_analogues": 1,
-    "fired": [
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ]
-      }
-    ],
+    "n_analogues": 0,
+    "fired": [],
     "active_events": [],
     "drivers": [
       {
@@ -7589,54 +7265,14 @@
       "Consumer": -6.130516431924882
     },
     "pnl_baseline_5d_pct": 0.9383436000980414,
-    "pnl_overlay_5d_pct": 0.9329758915869673,
+    "pnl_overlay_5d_pct": 0.9383436000980414,
     "pnl_baseline_21d_pct": -1.429944900431072,
-    "pnl_overlay_21d_pct": -1.443768353383557,
+    "pnl_overlay_21d_pct": -1.429944900431072,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5214285714285715,
+    "gross_overlay_5d": 0.5000000000000001,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
-    "playbook_overlay_log": [
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
-      }
-    ]
+    "playbook_overlay_log": []
   },
   {
     "as_of": "2022-10-07",
@@ -8786,7 +8422,7 @@
         "id": "pkr_devaluation_shock",
         "score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ]
       }
     ],
@@ -8929,7 +8565,7 @@
         "case_id": "pkr_devaluation_shock",
         "match_score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ],
         "changes": [
           {
@@ -8974,7 +8610,7 @@
         "id": "pkr_devaluation_shock",
         "score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ]
       }
     ],
@@ -9035,7 +8671,7 @@
         "case_id": "pkr_devaluation_shock",
         "match_score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ],
         "changes": [
           {
@@ -9088,7 +8724,7 @@
         "id": "pkr_devaluation_shock",
         "score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ]
       }
     ],
@@ -9158,7 +8794,7 @@
         "case_id": "pkr_devaluation_shock",
         "match_score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ],
         "changes": [
           {
@@ -9203,7 +8839,7 @@
         "id": "pkr_devaluation_shock",
         "score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ]
       }
     ],
@@ -9258,7 +8894,7 @@
         "case_id": "pkr_devaluation_shock",
         "match_score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ],
         "changes": [
           {
@@ -9303,7 +8939,7 @@
         "id": "pkr_devaluation_shock",
         "score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ]
       }
     ],
@@ -9358,7 +8994,7 @@
         "case_id": "pkr_devaluation_shock",
         "match_score": 1.6,
         "fired_triggers": [
-          "driver:pkr_weak"
+          "driver:pkr_weak:STRONG"
         ],
         "changes": [
           {
@@ -9397,7 +9033,7 @@
   },
   {
     "as_of": "2023-03-03",
-    "n_analogues": 4,
+    "n_analogues": 3,
     "fired": [
       {
         "id": "sbp_rate_hike_shock",
@@ -9421,13 +9057,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       }
     ],
@@ -9474,11 +9103,11 @@
       "Consumer": -6.59946668155863
     },
     "pnl_baseline_5d_pct": 0.3090570140109442,
-    "pnl_overlay_5d_pct": -0.04515367995952379,
+    "pnl_overlay_5d_pct": -0.023926218100630958,
     "pnl_baseline_21d_pct": -1.7339621353111783,
-    "pnl_overlay_21d_pct": -0.6985976877302407,
+    "pnl_overlay_21d_pct": -0.6458815665637034,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.15214285714285705,
+    "gross_overlay_5d": 0.14571428571428563,
     "cash_floor_overlay": 70.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -9612,45 +9241,6 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Banking:upgrade_one"
-          }
-        ]
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "WATCH",
-            "to": "TRIM",
-            "via": "sector_overlay:Autos:downgrade_one"
           }
         ]
       }
@@ -9787,7 +9377,7 @@
   },
   {
     "as_of": "2023-03-17",
-    "n_analogues": 3,
+    "n_analogues": 2,
     "fired": [
       {
         "id": "volume_confirmation_breakout",
@@ -9802,13 +9392,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       }
     ],
@@ -9859,11 +9442,11 @@
       "Consumer": -3.2820918037497204
     },
     "pnl_baseline_5d_pct": -1.8861618524387063,
-    "pnl_overlay_5d_pct": -2.215404366163397,
+    "pnl_overlay_5d_pct": -2.1167909252992962,
     "pnl_baseline_21d_pct": -0.6191676308743153,
-    "pnl_overlay_21d_pct": -0.7960145014335993,
+    "pnl_overlay_21d_pct": -0.7497965090510401,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5714285714285712,
+    "gross_overlay_5d": 0.5499999999999998,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -9926,64 +9509,18 @@
             "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
       }
     ]
   },
   {
     "as_of": "2023-03-24",
-    "n_analogues": 2,
+    "n_analogues": 1,
     "fired": [
       {
         "id": "banking_nim_regime_high",
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       }
     ],
@@ -10026,11 +9563,11 @@
       "Consumer": 0.4107153353318127
     },
     "pnl_baseline_5d_pct": 0.34831686838396647,
-    "pnl_overlay_5d_pct": 0.39136394330857704,
+    "pnl_overlay_5d_pct": 0.3799807463295076,
     "pnl_baseline_21d_pct": 2.3287165596488326,
-    "pnl_overlay_21d_pct": 2.6770356855627777,
+    "pnl_overlay_21d_pct": 2.6250719478083453,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5714285714285712,
+    "gross_overlay_5d": 0.5499999999999998,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -10084,64 +9621,18 @@
             "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
       }
     ]
   },
   {
     "as_of": "2023-03-31",
-    "n_analogues": 2,
+    "n_analogues": 1,
     "fired": [
       {
         "id": "banking_nim_regime_high",
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       }
     ],
@@ -10184,11 +9675,11 @@
       "Consumer": 3.143872778297463
     },
     "pnl_baseline_5d_pct": 0.24641112227667328,
-    "pnl_overlay_5d_pct": 0.2508488311014735,
+    "pnl_overlay_5d_pct": 0.2250249153573541,
     "pnl_baseline_21d_pct": 1.4380785081639191,
-    "pnl_overlay_21d_pct": 1.7944734987609943,
+    "pnl_overlay_21d_pct": 1.7928151134317722,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5714285714285712,
+    "gross_overlay_5d": 0.5499999999999998,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -10240,45 +9731,6 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Banking:upgrade_one"
-          }
-        ]
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
           }
         ]
       }
@@ -10500,17 +9952,19 @@
     "n_analogues": 2,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "banking_nim_regime_high",
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -10566,6 +10020,41 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
         "case_id": "banking_nim_regime_high",
         "match_score": 1.8,
         "fired_triggers": [
@@ -10613,39 +10102,6 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Banking:upgrade_one"
-          }
-        ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
       }
@@ -12221,11 +11677,11 @@
       "Consumer": -7.069119038343807
     },
     "pnl_baseline_5d_pct": 0.6920671563532529,
-    "pnl_overlay_5d_pct": 0.7566809831229406,
+    "pnl_overlay_5d_pct": 0.68268877932444,
     "pnl_baseline_21d_pct": 2.687274825821822,
-    "pnl_overlay_21d_pct": 2.6467414666136357,
+    "pnl_overlay_21d_pct": 2.444769033726463,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4050000000000002,
+    "gross_overlay_5d": 0.42500000000000027,
     "cash_floor_overlay": 30.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -12260,6 +11716,78 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MLCF",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "FCCL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "KOHC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "LUCK",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "DGKC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "APL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "PSO",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "ATRL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "HUBC",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "NPL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KAPCO",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KEL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
           },
           {
             "cash_floor_pct": 30,
@@ -12460,6 +11988,15 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
@@ -12472,13 +12009,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -12532,6 +12062,41 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
         "fired_triggers": [
@@ -12590,39 +12155,6 @@
             "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          }
-        ]
       }
     ]
   },
@@ -12630,6 +12162,15 @@
     "as_of": "2023-08-04",
     "n_analogues": 3,
     "fired": [
+      {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -12643,13 +12184,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -12703,6 +12237,41 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
         "fired_triggers": [
@@ -12759,39 +12328,6 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Banking:upgrade_one"
-          }
-        ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
       }
@@ -12861,11 +12397,11 @@
       "Consumer": -5.996343692870198
     },
     "pnl_baseline_5d_pct": -1.3083973052470288,
-    "pnl_overlay_5d_pct": -1.1332984836304425,
+    "pnl_overlay_5d_pct": -1.1798325184560703,
     "pnl_baseline_21d_pct": -4.158434405878387,
-    "pnl_overlay_21d_pct": -3.4312287137751225,
+    "pnl_overlay_21d_pct": -3.693048999503824,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4050000000000002,
+    "gross_overlay_5d": 0.42500000000000027,
     "cash_floor_overlay": 30.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -12900,6 +12436,78 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MLCF",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "FCCL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "KOHC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "LUCK",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "DGKC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "APL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "PSO",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "ATRL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "HUBC",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "NPL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KAPCO",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KEL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
           },
           {
             "cash_floor_pct": 30,
@@ -13185,7 +12793,7 @@
   },
   {
     "as_of": "2023-09-01",
-    "n_analogues": 3,
+    "n_analogues": 2,
     "fired": [
       {
         "id": "behavioural_panic_3day",
@@ -13200,13 +12808,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       }
     ],
@@ -13249,11 +12850,11 @@
       "Consumer": 7.989013330807659
     },
     "pnl_baseline_5d_pct": 0.9701911692177563,
-    "pnl_overlay_5d_pct": 1.0026287171931068,
+    "pnl_overlay_5d_pct": 0.9219544351037032,
     "pnl_baseline_21d_pct": 2.0939767227049497,
-    "pnl_overlay_21d_pct": 2.1529329445180925,
+    "pnl_overlay_21d_pct": 2.0818690991331543,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5714285714285712,
+    "gross_overlay_5d": 0.5499999999999998,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -13316,64 +12917,18 @@
             "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
       }
     ]
   },
   {
     "as_of": "2023-09-08",
-    "n_analogues": 2,
+    "n_analogues": 1,
     "fired": [
       {
         "id": "banking_nim_regime_high",
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "pkr_devaluation_shock",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
         ]
       }
     ],
@@ -13416,11 +12971,11 @@
       "Consumer": 7.609222833827323
     },
     "pnl_baseline_5d_pct": -0.08250275527425947,
-    "pnl_overlay_5d_pct": -0.1972552712418776,
+    "pnl_overlay_5d_pct": -0.18763261219704067,
     "pnl_baseline_21d_pct": 3.015494314231611,
-    "pnl_overlay_21d_pct": 3.2770138033423173,
+    "pnl_overlay_21d_pct": 3.33640364518843,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5714285714285712,
+    "gross_overlay_5d": 0.5499999999999998,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -13474,45 +13029,6 @@
             "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
-      },
-      {
-        "case_id": "pkr_devaluation_shock",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:pkr_weak"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "INDU",
-            "from": "HOLD",
-            "to": "WATCH",
-            "via": "sector_overlay:Autos:downgrade_one"
-          }
-        ]
       }
     ]
   },
@@ -13520,6 +13036,15 @@
     "as_of": "2023-09-15",
     "n_analogues": 3,
     "fired": [
+      {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -13533,13 +13058,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -13591,6 +13109,41 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
         "fired_triggers": [
@@ -13649,39 +13202,6 @@
             "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          }
-        ]
       }
     ]
   },
@@ -13689,6 +13209,15 @@
     "as_of": "2023-09-22",
     "n_analogues": 3,
     "fired": [
+      {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -13702,13 +13231,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -13760,6 +13282,41 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
         "fired_triggers": [
@@ -13818,39 +13375,6 @@
             "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          }
-        ]
       }
     ]
   },
@@ -13858,6 +13382,15 @@
     "as_of": "2023-09-29",
     "n_analogues": 3,
     "fired": [
+      {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -13871,13 +13404,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -13933,6 +13459,41 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
         "fired_triggers": [
@@ -13989,39 +13550,6 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Banking:upgrade_one"
-          }
-        ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
       }
@@ -18980,6 +18508,15 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
         "fired_triggers": [
@@ -18992,13 +18529,6 @@
         "score": 1.8,
         "fired_triggers": [
           "policy_rate_gte:18.0"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -19049,6 +18579,41 @@
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
+      {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
       {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
@@ -19106,39 +18671,6 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Banking:upgrade_one"
-          }
-        ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
       }
@@ -19484,8 +19016,18 @@
   },
   {
     "as_of": "2024-08-02",
-    "n_analogues": 2,
+    "n_analogues": 3,
     "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -19545,28 +19087,22 @@
       "Consumer": 4.387104443142564
     },
     "pnl_baseline_5d_pct": 0.021014281635014034,
-    "pnl_overlay_5d_pct": -0.013807823941954471,
+    "pnl_overlay_5d_pct": -0.03647244713919224,
     "pnl_baseline_21d_pct": 0.20408969954127687,
-    "pnl_overlay_21d_pct": 0.11440795161617341,
+    "pnl_overlay_21d_pct": 0.01854465276830268,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5499999999999998,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.45000000000000023,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
         "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
-        "case_id": "banking_nim_regime_high",
-        "match_score": 1.8,
-        "fired_triggers": [
-          "policy_rate_gte:18.0"
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
         ],
         "changes": [
           {
@@ -19610,6 +19146,70 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
+      },
+      {
+        "case_id": "banking_nim_regime_high",
+        "match_score": 1.8,
+        "fired_triggers": [
+          "policy_rate_gte:18.0"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
       }
@@ -19617,8 +19217,18 @@
   },
   {
     "as_of": "2024-08-09",
-    "n_analogues": 2,
+    "n_analogues": 3,
     "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -19674,28 +19284,22 @@
       "Consumer": 5.356565223853194
     },
     "pnl_baseline_5d_pct": -0.7642046090179007,
-    "pnl_overlay_5d_pct": -0.8908357625089576,
+    "pnl_overlay_5d_pct": -0.7631001870000106,
     "pnl_baseline_21d_pct": 0.7569347856087026,
-    "pnl_overlay_21d_pct": 0.7200915142339034,
+    "pnl_overlay_21d_pct": 0.5124361821443283,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5499999999999998,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.45000000000000023,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
         "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
-        "case_id": "banking_nim_regime_high",
-        "match_score": 1.8,
-        "fired_triggers": [
-          "policy_rate_gte:18.0"
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
         ],
         "changes": [
           {
@@ -19738,6 +19342,70 @@
             "symbol": "NBP",
             "from": "HOLD",
             "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
+      },
+      {
+        "case_id": "banking_nim_regime_high",
+        "match_score": 1.8,
+        "fired_triggers": [
+          "policy_rate_gte:18.0"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "ADD",
+            "to": "BUY",
             "via": "sector_overlay:Banking:upgrade_one"
           }
         ]
@@ -20230,8 +19898,18 @@
   },
   {
     "as_of": "2024-09-13",
-    "n_analogues": 1,
+    "n_analogues": 2,
     "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -20284,14 +19962,72 @@
       "Consumer": -2.7517050990581216
     },
     "pnl_baseline_5d_pct": -0.6825680991871326,
-    "pnl_overlay_5d_pct": -0.6825680991871326,
+    "pnl_overlay_5d_pct": -0.2958886529583165,
     "pnl_baseline_21d_pct": 1.158440135283765,
-    "pnl_overlay_21d_pct": 1.158440135283765,
+    "pnl_overlay_21d_pct": 1.4465174984032776,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5000000000000001,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.41250000000000026,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
+      {
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      },
       {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
@@ -20305,8 +20041,18 @@
   },
   {
     "as_of": "2024-09-20",
-    "n_analogues": 1,
+    "n_analogues": 2,
     "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -20355,14 +20101,72 @@
       "Consumer": 2.298481209620129
     },
     "pnl_baseline_5d_pct": -0.8209498210916046,
-    "pnl_overlay_5d_pct": -0.8209498210916046,
+    "pnl_overlay_5d_pct": -0.5771148885596743,
     "pnl_baseline_21d_pct": 1.837773058656935,
-    "pnl_overlay_21d_pct": 1.837773058656935,
+    "pnl_overlay_21d_pct": 1.6966717192209209,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5000000000000001,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.41250000000000026,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
+      {
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      },
       {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
@@ -20445,11 +20249,11 @@
       "Consumer": 9.833024118738386
     },
     "pnl_baseline_5d_pct": 0.9239420863371148,
-    "pnl_overlay_5d_pct": 0.8494567723789124,
+    "pnl_overlay_5d_pct": 1.0125748432592787,
     "pnl_baseline_21d_pct": 5.651433946683289,
-    "pnl_overlay_21d_pct": 4.726641686967812,
+    "pnl_overlay_21d_pct": 5.869447081493257,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4100000000000002,
+    "gross_overlay_5d": 0.4300000000000002,
     "cash_floor_overlay": 30.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -20543,6 +20347,78 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MLCF",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "FCCL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "KOHC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "LUCK",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "DGKC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "APL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "PSO",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "ATRL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "HUBC",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "NPL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KAPCO",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KEL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
           },
           {
             "cash_floor_pct": 30,
@@ -20627,11 +20503,11 @@
       "Consumer": 9.334017945825845
     },
     "pnl_baseline_5d_pct": 1.1537756807305122,
-    "pnl_overlay_5d_pct": 0.941065769106407,
+    "pnl_overlay_5d_pct": 1.152644670912,
     "pnl_baseline_21d_pct": 5.570455289675608,
-    "pnl_overlay_21d_pct": 4.667647930397184,
+    "pnl_overlay_21d_pct": 5.6263958492488175,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4100000000000002,
+    "gross_overlay_5d": 0.4300000000000002,
     "cash_floor_overlay": 30.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -20725,6 +20601,78 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MLCF",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "FCCL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "KOHC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "LUCK",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "DGKC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "APL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "PSO",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "ATRL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "HUBC",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "NPL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KAPCO",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KEL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
           },
           {
             "cash_floor_pct": 30,
@@ -20809,11 +20757,11 @@
       "Consumer": 14.163368000065567
     },
     "pnl_baseline_5d_pct": -0.18996851034060214,
-    "pnl_overlay_5d_pct": -0.1376068969179524,
+    "pnl_overlay_5d_pct": 0.15509763481247688,
     "pnl_baseline_21d_pct": 5.38251846473924,
-    "pnl_overlay_21d_pct": 4.55963762411585,
+    "pnl_overlay_21d_pct": 5.291972188898656,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4100000000000002,
+    "gross_overlay_5d": 0.4300000000000002,
     "cash_floor_overlay": 30.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -20907,6 +20855,78 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MLCF",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "FCCL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "KOHC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "LUCK",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "DGKC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "APL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "PSO",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "ATRL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "HUBC",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "NPL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KAPCO",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KEL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
           },
           {
             "cash_floor_pct": 30,
@@ -20991,11 +21011,11 @@
       "Consumer": 13.404177839573617
     },
     "pnl_baseline_5d_pct": 3.192554564571485,
-    "pnl_overlay_5d_pct": 2.6304288523829906,
+    "pnl_overlay_5d_pct": 3.0572243116908084,
     "pnl_baseline_21d_pct": 6.684866977188145,
-    "pnl_overlay_21d_pct": 5.574716310760886,
+    "pnl_overlay_21d_pct": 6.00996982175886,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4100000000000002,
+    "gross_overlay_5d": 0.4300000000000002,
     "cash_floor_overlay": 30.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -21089,6 +21109,78 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MLCF",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "FCCL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "KOHC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "LUCK",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "DGKC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "APL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "PSO",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "ATRL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "HUBC",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "NPL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KAPCO",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KEL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
           },
           {
             "cash_floor_pct": 30,
@@ -21173,11 +21265,11 @@
       "Consumer": 19.71655060371782
     },
     "pnl_baseline_5d_pct": 0.5210464450295198,
-    "pnl_overlay_5d_pct": 0.4624859180819334,
+    "pnl_overlay_5d_pct": 0.32005361749732064,
     "pnl_baseline_21d_pct": 4.374294216158972,
-    "pnl_overlay_21d_pct": 3.4936922713559513,
+    "pnl_overlay_21d_pct": 3.3347148615159514,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.4100000000000002,
+    "gross_overlay_5d": 0.4300000000000002,
     "cash_floor_overlay": 30.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -21271,6 +21363,78 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MLCF",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "FCCL",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "KOHC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "LUCK",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "DGKC",
+            "from": "ADD",
+            "to": "BUY",
+            "via": "sector_overlay:Cement:upgrade_one"
+          },
+          {
+            "symbol": "APL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "PSO",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "ATRL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:OMC:upgrade_one"
+          },
+          {
+            "symbol": "HUBC",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "NPL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KAPCO",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
+          },
+          {
+            "symbol": "KEL",
+            "from": "HOLD",
+            "to": "WATCH",
+            "via": "sector_overlay:Power:downgrade_one"
           },
           {
             "cash_floor_pct": 30,
@@ -21427,8 +21591,18 @@
   },
   {
     "as_of": "2024-11-08",
-    "n_analogues": 1,
+    "n_analogues": 2,
     "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -21479,14 +21653,72 @@
       "Consumer": 15.138294369443518
     },
     "pnl_baseline_5d_pct": 0.8908709535353443,
-    "pnl_overlay_5d_pct": 0.8908709535353443,
+    "pnl_overlay_5d_pct": 0.7395940883856916,
     "pnl_baseline_21d_pct": 8.929156566983702,
-    "pnl_overlay_21d_pct": 8.929156566983702,
+    "pnl_overlay_21d_pct": 7.320752990173017,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5000000000000001,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.41250000000000026,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
+      {
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      },
       {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
@@ -21500,8 +21732,18 @@
   },
   {
     "as_of": "2024-11-15",
-    "n_analogues": 1,
+    "n_analogues": 2,
     "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -21550,14 +21792,72 @@
       "Consumer": 11.996643070860413
     },
     "pnl_baseline_5d_pct": 0.9949377548049502,
-    "pnl_overlay_5d_pct": 0.9949377548049502,
+    "pnl_overlay_5d_pct": 1.0007789711937216,
     "pnl_baseline_21d_pct": 11.028299570503108,
-    "pnl_overlay_21d_pct": 11.028299570503108,
+    "pnl_overlay_21d_pct": 8.564967260485727,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5000000000000001,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.41250000000000026,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
+      {
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      },
       {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
@@ -22164,8 +22464,19 @@
   },
   {
     "as_of": "2024-12-27",
-    "n_analogues": 0,
-    "fired": [],
+    "n_analogues": 1,
+    "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      }
+    ],
     "active_events": [],
     "drivers": [
       {
@@ -22205,14 +22516,73 @@
       "Consumer": -1.2655891581195289
     },
     "pnl_baseline_5d_pct": 1.780650168805891,
-    "pnl_overlay_5d_pct": 1.780650168805891,
+    "pnl_overlay_5d_pct": 1.6209765403465815,
     "pnl_baseline_21d_pct": -0.08601926911098447,
-    "pnl_overlay_21d_pct": -0.08601926911098447,
+    "pnl_overlay_21d_pct": 0.1649071899135291,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5000000000000001,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
-    "playbook_overlay_log": []
+    "gross_overlay_5d": 0.41250000000000026,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
+    "playbook_overlay_log": [
+      {
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      }
+    ]
   },
   {
     "as_of": "2025-01-03",
@@ -22355,7 +22725,7 @@
   },
   {
     "as_of": "2025-01-10",
-    "n_analogues": 2,
+    "n_analogues": 1,
     "fired": [
       {
         "id": "post_cut_cycle_continuation",
@@ -22364,13 +22734,6 @@
           "rate_cuts_180d_gte:3",
           "days_since_last_cut_gte:14",
           "days_since_last_cut_lte:60"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -22413,11 +22776,11 @@
       "Consumer": -0.28683443353552107
     },
     "pnl_baseline_5d_pct": 0.9447898421606048,
-    "pnl_overlay_5d_pct": 0.9809361792904958,
+    "pnl_overlay_5d_pct": 0.9634661826508301,
     "pnl_baseline_21d_pct": 0.6278230283673485,
-    "pnl_overlay_21d_pct": 0.5850306460818959,
+    "pnl_overlay_21d_pct": 0.8154726351701157,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5857142857142856,
+    "gross_overlay_5d": 0.5571428571428569,
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
@@ -22479,39 +22842,6 @@
             "via": "sector_overlay:Conglomerate:upgrade_one"
           }
         ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          }
-        ]
       }
     ]
   },
@@ -22520,19 +22850,21 @@
     "n_analogues": 2,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "post_cut_cycle_continuation",
         "score": 3.6,
         "fired_triggers": [
           "rate_cuts_180d_gte:3",
           "days_since_last_cut_gte:14",
           "days_since_last_cut_lte:60"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       }
     ],
@@ -22584,6 +22916,41 @@
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
       {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
         "case_id": "post_cut_cycle_continuation",
         "match_score": 3.6,
         "fired_triggers": [
@@ -22639,39 +23006,6 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Conglomerate:upgrade_one"
-          }
-        ]
-      },
-      {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
       }
@@ -22813,8 +23147,18 @@
   },
   {
     "as_of": "2025-01-31",
-    "n_analogues": 1,
+    "n_analogues": 2,
     "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -22863,14 +23207,72 @@
       "Consumer": 0.1912469299834907
     },
     "pnl_baseline_5d_pct": -1.1248176164467394,
-    "pnl_overlay_5d_pct": -1.1248176164467394,
+    "pnl_overlay_5d_pct": -0.871462983396333,
     "pnl_baseline_21d_pct": -0.2823582459139705,
-    "pnl_overlay_21d_pct": -0.2823582459139705,
+    "pnl_overlay_21d_pct": -0.2213893559388277,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5000000000000001,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.41250000000000026,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
+      {
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      },
       {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
@@ -24293,8 +24695,18 @@
   },
   {
     "as_of": "2025-05-16",
-    "n_analogues": 1,
+    "n_analogues": 2,
     "fired": [
+      {
+        "id": "nth_rate_cut_immediate_window",
+        "score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ]
+      },
       {
         "id": "volume_confirmation_breakout",
         "score": 2.6,
@@ -24343,14 +24755,72 @@
       "Consumer": -2.1313525042288783
     },
     "pnl_baseline_5d_pct": 0.005027666715529296,
-    "pnl_overlay_5d_pct": 0.005027666715529296,
+    "pnl_overlay_5d_pct": 0.019818658249799975,
     "pnl_baseline_21d_pct": 0.6227758474023146,
-    "pnl_overlay_21d_pct": 0.6227758474023146,
+    "pnl_overlay_21d_pct": 0.7922196762671628,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.5000000000000001,
-    "cash_floor_overlay": 0.0,
-    "n_overlay_actions": 35,
+    "gross_overlay_5d": 0.41250000000000026,
+    "cash_floor_overlay": 25.0,
+    "n_overlay_actions": 36,
     "playbook_overlay_log": [
+      {
+        "case_id": "nth_rate_cut_immediate_window",
+        "match_score": 6.6,
+        "fired_triggers": [
+          "driver:rate_down",
+          "days_since_last_cut_lte:14",
+          "rate_cuts_180d_gte:2",
+          "regime:NORMAL"
+        ],
+        "changes": [
+          {
+            "symbol": "FABL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MCB",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "MEBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "HBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "UBL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "BAHL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "symbol": "NBP",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Banking:upgrade_one"
+          },
+          {
+            "cash_floor_pct": 25,
+            "via": "cash_floor"
+          }
+        ]
+      },
       {
         "case_id": "volume_confirmation_breakout",
         "match_score": 2.6,
@@ -24755,6 +25225,15 @@
     "n_analogues": 4,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "post_cut_cycle_continuation",
         "score": 3.6,
         "fired_triggers": [
@@ -24769,13 +25248,6 @@
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -24833,6 +25305,41 @@
     "cash_floor_overlay": 0.0,
     "n_overlay_actions": 35,
     "playbook_overlay_log": [
+      {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
       {
         "case_id": "post_cut_cycle_continuation",
         "match_score": 3.6,
@@ -24902,39 +25409,6 @@
         "changes": []
       },
       {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          }
-        ]
-      },
-      {
         "case_id": "mf_initiation_cluster",
         "match_score": 1.0,
         "fired_triggers": [
@@ -24950,9 +25424,11 @@
     "fired": [
       {
         "id": "brent_spike_e_and_p",
-        "score": 1.6,
+        "score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ]
       },
       {
@@ -25012,9 +25488,11 @@
     "playbook_overlay_log": [
       {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -27654,6 +28132,15 @@
     "n_analogues": 5,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "mf_accumulation_strong",
         "score": 2.6,
         "fired_triggers": [
@@ -27667,13 +28154,6 @@
         "fired_triggers": [
           "mf_universe_n_top_distributed_gte:5",
           "mf_data_freshness_lte:90"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -27739,37 +28219,12 @@
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "mf_accumulation_strong",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "mf_accumulation_streak_gte:3",
-          "mf_n_funds_increasing_30d_gte:5"
-        ],
-        "changes": []
-      },
-      {
-        "case_id": "mf_universe_distribution_broad",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "mf_universe_n_top_distributed_gte:5",
-          "mf_data_freshness_lte:90"
-        ],
-        "changes": [
-          {
-            "cash_floor_pct": 70,
-            "via": "cash_floor"
-          },
-          {
-            "position_size_multiplier": 0.85,
-            "via": "size_haircut"
-          }
-        ]
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -27795,6 +28250,33 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
+        "case_id": "mf_accumulation_strong",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "mf_accumulation_streak_gte:3",
+          "mf_n_funds_increasing_30d_gte:5"
+        ],
+        "changes": []
+      },
+      {
+        "case_id": "mf_universe_distribution_broad",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "mf_universe_n_top_distributed_gte:5",
+          "mf_data_freshness_lte:90"
+        ],
+        "changes": [
+          {
+            "cash_floor_pct": 70,
+            "via": "cash_floor"
+          },
+          {
+            "position_size_multiplier": 0.85,
+            "via": "size_haircut"
           }
         ]
       },
@@ -27826,18 +28308,20 @@
     "n_analogues": 3,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "mf_universe_distribution_broad",
         "score": 2.6,
         "fired_triggers": [
           "mf_universe_n_top_distributed_gte:5",
           "mf_data_freshness_lte:90"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -27896,28 +28380,12 @@
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "mf_universe_distribution_broad",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "mf_universe_n_top_distributed_gte:5",
-          "mf_data_freshness_lte:90"
-        ],
-        "changes": [
-          {
-            "cash_floor_pct": 70,
-            "via": "cash_floor"
-          },
-          {
-            "position_size_multiplier": 0.85,
-            "via": "size_haircut"
-          }
-        ]
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -27943,6 +28411,24 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
+        "case_id": "mf_universe_distribution_broad",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "mf_universe_n_top_distributed_gte:5",
+          "mf_data_freshness_lte:90"
+        ],
+        "changes": [
+          {
+            "cash_floor_pct": 70,
+            "via": "cash_floor"
+          },
+          {
+            "position_size_multiplier": 0.85,
+            "via": "size_haircut"
           }
         ]
       },
@@ -28282,7 +28768,7 @@
   },
   {
     "as_of": "2026-03-06",
-    "n_analogues": 6,
+    "n_analogues": 5,
     "fired": [
       {
         "id": "mf_universe_distribution_broad",
@@ -28306,13 +28792,6 @@
         "fired_triggers": [
           "universe_5d_lt:-0.05",
           "breadth_lt:30"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -28369,11 +28848,11 @@
       "Consumer": -0.6071126541149163
     },
     "pnl_baseline_5d_pct": -0.8543292125182816,
-    "pnl_overlay_5d_pct": -0.28357355016511965,
+    "pnl_overlay_5d_pct": -0.25629876375548455,
     "pnl_baseline_21d_pct": 3.161806432047011,
-    "pnl_overlay_21d_pct": 1.0854715940993782,
+    "pnl_overlay_21d_pct": 0.9485419296141032,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.16714285714285704,
+    "gross_overlay_5d": 0.14999999999999988,
     "cash_floor_overlay": 70.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
@@ -28414,39 +28893,6 @@
         "changes": []
       },
       {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          }
-        ]
-      },
-      {
         "case_id": "us_iran_oil_spike",
         "match_score": 1.3,
         "fired_triggers": [
@@ -28455,42 +28901,12 @@
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "OGDC",
-            "weight_from": 2.86,
-            "weight_to": 5.0,
-            "via": "weight_floor"
-          },
-          {
-            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 4.0,
             "via": "weight_floor"
           },
           {
-            "symbol": "MARI",
+            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 3.0,
             "via": "weight_floor"
@@ -28512,18 +28928,20 @@
     "n_analogues": 4,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "mf_universe_distribution_broad",
         "score": 2.6,
         "fired_triggers": [
           "mf_universe_n_top_distributed_gte:5",
           "mf_data_freshness_lte:90"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -28580,14 +28998,49 @@
       "Consumer": -0.12276535687083534
     },
     "pnl_baseline_5d_pct": -0.5517138902489258,
-    "pnl_overlay_5d_pct": -0.1325243180304065,
+    "pnl_overlay_5d_pct": -0.14901924255254212,
     "pnl_baseline_21d_pct": 4.9860682637081615,
-    "pnl_overlay_21d_pct": 1.6261352944781755,
+    "pnl_overlay_21d_pct": 1.5609778867953115,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.16714285714285704,
+    "gross_overlay_5d": 0.15857142857142847,
     "cash_floor_overlay": 70.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
+      {
+        "case_id": "brent_spike_e_and_p",
+        "match_score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ],
+        "changes": [
+          {
+            "symbol": "OGDC",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "PPL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "POL",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          },
+          {
+            "symbol": "MARI",
+            "from": "HOLD",
+            "to": "ADD",
+            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
       {
         "case_id": "mf_universe_distribution_broad",
         "match_score": 2.6,
@@ -28607,39 +29060,6 @@
         ]
       },
       {
-        "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
-        ],
-        "changes": [
-          {
-            "symbol": "OGDC",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "HOLD",
-            "to": "ADD",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          }
-        ]
-      },
-      {
         "case_id": "us_iran_oil_spike",
         "match_score": 1.3,
         "fired_triggers": [
@@ -28648,42 +29068,12 @@
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "OGDC",
-            "weight_from": 2.86,
-            "weight_to": 5.0,
-            "via": "weight_floor"
-          },
-          {
-            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 4.0,
             "via": "weight_floor"
           },
           {
-            "symbol": "MARI",
+            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 3.0,
             "via": "weight_floor"
@@ -28705,18 +29095,20 @@
     "n_analogues": 5,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "mf_universe_distribution_broad",
         "score": 2.6,
         "fired_triggers": [
           "mf_universe_n_top_distributed_gte:5",
           "mf_data_freshness_lte:90"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -28780,37 +29172,21 @@
       "Consumer": 1.3317845372521342
     },
     "pnl_baseline_5d_pct": -2.044134091899519,
-    "pnl_overlay_5d_pct": -0.6104086835593613,
+    "pnl_overlay_5d_pct": -0.5761417967303036,
     "pnl_baseline_21d_pct": 6.930413481192721,
-    "pnl_overlay_21d_pct": 2.038924558174877,
+    "pnl_overlay_21d_pct": 1.9520104109169254,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.15642857142857133,
+    "gross_overlay_5d": 0.14785714285714277,
     "cash_floor_overlay": 70.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "mf_universe_distribution_broad",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "mf_universe_n_top_distributed_gte:5",
-          "mf_data_freshness_lte:90"
-        ],
-        "changes": [
-          {
-            "cash_floor_pct": 70,
-            "via": "cash_floor"
-          },
-          {
-            "position_size_multiplier": 0.85,
-            "via": "size_haircut"
-          }
-        ]
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -28836,6 +29212,24 @@
             "from": "HOLD",
             "to": "ADD",
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+          }
+        ]
+      },
+      {
+        "case_id": "mf_universe_distribution_broad",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "mf_universe_n_top_distributed_gte:5",
+          "mf_data_freshness_lte:90"
+        ],
+        "changes": [
+          {
+            "cash_floor_pct": 70,
+            "via": "cash_floor"
+          },
+          {
+            "position_size_multiplier": 0.85,
+            "via": "size_haircut"
           }
         ]
       },
@@ -28887,42 +29281,12 @@
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "OGDC",
-            "weight_from": 2.86,
-            "weight_to": 5.0,
-            "via": "weight_floor"
-          },
-          {
-            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 4.0,
             "via": "weight_floor"
           },
           {
-            "symbol": "MARI",
+            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 3.0,
             "via": "weight_floor"
@@ -28944,6 +29308,15 @@
     "n_analogues": 6,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "mf_universe_distribution_broad",
         "score": 2.6,
         "fired_triggers": [
@@ -28957,13 +29330,6 @@
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -29027,46 +29393,21 @@
       "Consumer": 3.719522385842411
     },
     "pnl_baseline_5d_pct": 0.1355361740529483,
-    "pnl_overlay_5d_pct": 0.07799289257645409,
+    "pnl_overlay_5d_pct": 0.07104470431484255,
     "pnl_baseline_21d_pct": 5.8725708260081975,
-    "pnl_overlay_21d_pct": 1.8041122115956258,
+    "pnl_overlay_21d_pct": 1.7131121864442413,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.15642857142857133,
+    "gross_overlay_5d": 0.14785714285714277,
     "cash_floor_overlay": 70.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "mf_universe_distribution_broad",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "mf_universe_n_top_distributed_gte:5",
-          "mf_data_freshness_lte:90"
-        ],
-        "changes": [
-          {
-            "cash_floor_pct": 70,
-            "via": "cash_floor"
-          },
-          {
-            "position_size_multiplier": 0.85,
-            "via": "size_haircut"
-          }
-        ]
-      },
-      {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -29094,6 +29435,33 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "mf_universe_distribution_broad",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "mf_universe_n_top_distributed_gte:5",
+          "mf_data_freshness_lte:90"
+        ],
+        "changes": [
+          {
+            "cash_floor_pct": 70,
+            "via": "cash_floor"
+          },
+          {
+            "position_size_multiplier": 0.85,
+            "via": "size_haircut"
+          }
+        ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
@@ -29143,42 +29511,12 @@
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "OGDC",
-            "weight_from": 2.86,
-            "weight_to": 5.0,
-            "via": "weight_floor"
-          },
-          {
-            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 4.0,
             "via": "weight_floor"
           },
           {
-            "symbol": "MARI",
+            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 3.0,
             "via": "weight_floor"
@@ -29200,6 +29538,15 @@
     "n_analogues": 7,
     "fired": [
       {
+        "id": "brent_spike_e_and_p",
+        "score": 4.6,
+        "fired_triggers": [
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
+        ]
+      },
+      {
         "id": "mf_universe_distribution_broad",
         "score": 2.6,
         "fired_triggers": [
@@ -29213,13 +29560,6 @@
         "fired_triggers": [
           "volume_breakout_count_gte:5",
           "volume_data_freshness_lte:5"
-        ]
-      },
-      {
-        "id": "brent_spike_e_and_p",
-        "score": 1.6,
-        "fired_triggers": [
-          "driver:oil_up"
         ]
       },
       {
@@ -29290,46 +29630,21 @@
       "Consumer": 2.029663594254427
     },
     "pnl_baseline_5d_pct": 6.003490490133228,
-    "pnl_overlay_5d_pct": 1.688633724384437,
+    "pnl_overlay_5d_pct": 1.6194573621564217,
     "pnl_baseline_21d_pct": 3.778675890761243,
-    "pnl_overlay_21d_pct": 1.1398607893220525,
+    "pnl_overlay_21d_pct": 1.0798108236437318,
     "gross_baseline_5d": 0.5000000000000001,
-    "gross_overlay_5d": 0.15642857142857133,
+    "gross_overlay_5d": 0.14785714285714277,
     "cash_floor_overlay": 70.0,
     "n_overlay_actions": 36,
     "playbook_overlay_log": [
       {
-        "case_id": "mf_universe_distribution_broad",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "mf_universe_n_top_distributed_gte:5",
-          "mf_data_freshness_lte:90"
-        ],
-        "changes": [
-          {
-            "cash_floor_pct": 70,
-            "via": "cash_floor"
-          },
-          {
-            "position_size_multiplier": 0.85,
-            "via": "size_haircut"
-          }
-        ]
-      },
-      {
-        "case_id": "volume_confirmation_breakout",
-        "match_score": 2.6,
-        "fired_triggers": [
-          "volume_breakout_count_gte:5",
-          "volume_data_freshness_lte:5"
-        ],
-        "changes": []
-      },
-      {
         "case_id": "brent_spike_e_and_p",
-        "match_score": 1.6,
+        "match_score": 4.6,
         "fired_triggers": [
-          "driver:oil_up"
+          "driver:oil_up",
+          "breadth_gt:0.40",
+          "universe_5d_gt:-0.03"
         ],
         "changes": [
           {
@@ -29357,6 +29672,33 @@
             "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
           }
         ]
+      },
+      {
+        "case_id": "mf_universe_distribution_broad",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "mf_universe_n_top_distributed_gte:5",
+          "mf_data_freshness_lte:90"
+        ],
+        "changes": [
+          {
+            "cash_floor_pct": 70,
+            "via": "cash_floor"
+          },
+          {
+            "position_size_multiplier": 0.85,
+            "via": "size_haircut"
+          }
+        ]
+      },
+      {
+        "case_id": "volume_confirmation_breakout",
+        "match_score": 2.6,
+        "fired_triggers": [
+          "volume_breakout_count_gte:5",
+          "volume_data_freshness_lte:5"
+        ],
+        "changes": []
       },
       {
         "case_id": "brent_spike_cement_margin_squeeze",
@@ -29406,42 +29748,12 @@
         "changes": [
           {
             "symbol": "OGDC",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "PPL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "POL",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "MARI",
-            "from": "ADD",
-            "to": "BUY",
-            "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-          },
-          {
-            "symbol": "OGDC",
-            "weight_from": 2.86,
-            "weight_to": 5.0,
-            "via": "weight_floor"
-          },
-          {
-            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 4.0,
             "via": "weight_floor"
           },
           {
-            "symbol": "MARI",
+            "symbol": "PPL",
             "weight_from": 2.86,
             "weight_to": 3.0,
             "via": "weight_floor"

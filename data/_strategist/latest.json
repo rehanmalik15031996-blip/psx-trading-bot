@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-05-13T23:05:36.446796+00:00",
-  "as_of_local": "2026-05-14T04:05:36.446796+05:00",
-  "generated_at": "2026-05-13T23:05:36.446796+00:00",
+  "as_of": "2026-05-13T23:42:19.835283+00:00",
+  "as_of_local": "2026-05-14T04:42:19.835283+05:00",
+  "generated_at": "2026-05-13T23:42:19.835283+00:00",
   "model": "cursor-claude-sonnet-4-5-manual",
   "thinking_budget": 0,
   "fallback_used": false,
@@ -50,7 +50,7 @@
     "Cement demand still weak (LUCK/KOHC/DGKC/MLCF on the leash)",
     "Thin liquidity (turnover narrow) — gap risk on bad headlines"
   ],
-  "narrative": "Tuesday May 12 opens with yesterday's playbook validated: the dip was absorbed, E&Ps closed flat-to-green despite KSE-100 -0.36%. The strategist's three model-approved BUYs (OGDC, ATRL, PPL) all behaved as expected — OGDC +0.25%, PPL +1.11% (star) on 3.27M volume (institutional accumulation), ATRL -0.38% (the only soft name; refining margin worry materialised intraday but did NOT break the thesis). POL closed essentially flat (+0.22%) — the HOLD verdict played out cleanly.\n\nGoing into Tuesday: Brent is still elevated at ~$105 (Hormuz blockade extending after Trump's Sunday rejection of Iran's counterproposal). IMF May 15 is now 3 trading days away — keep ~80% cash. The same three BUYs (OGDC 8%, ATRL 7%, PPL 5%) remain valid; ATRL is the highest-conviction pick the user hasn't entered yet (MF funds initiating — unique flow signal). If KSE-100 gaps up >+0.5% today, don't chase. If flat-to-red, add OGDC at 324-326, PPL at 230-231. AVOID list (SEARL/TRG/PABC) unchanged.\n\nRisks: Iran de-escalation overnight (=> exit POL/PPL/MARI fast); hawkish IMF leak (=> NBP/MCB/UBL sell off); Brent retracement below $103 (=> trim E&P exposure).\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe — reduce gross exposure 10-20%. || [imf_review_mission_week] IMF mission active — moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.) || [brent_spike_e_and_p] Brent +10% in 21d — ADD E&P (wellhead-USD tailwind). || [us_iran_oil_spike] US-Iran oil spike — ADD E&P only (sector overlay). OMC/Refining sector downgrade REMOVED (backtest 50% accuracy on 24 fires); per-symbol HOLD ceiling kept on PSO/ATRL/APL.",
+  "narrative": "Tuesday May 12 opens with yesterday's playbook validated: the dip was absorbed, E&Ps closed flat-to-green despite KSE-100 -0.36%. The strategist's three model-approved BUYs (OGDC, ATRL, PPL) all behaved as expected — OGDC +0.25%, PPL +1.11% (star) on 3.27M volume (institutional accumulation), ATRL -0.38% (the only soft name; refining margin worry materialised intraday but did NOT break the thesis). POL closed essentially flat (+0.22%) — the HOLD verdict played out cleanly.\n\nGoing into Tuesday: Brent is still elevated at ~$105 (Hormuz blockade extending after Trump's Sunday rejection of Iran's counterproposal). IMF May 15 is now 3 trading days away — keep ~80% cash. The same three BUYs (OGDC 8%, ATRL 7%, PPL 5%) remain valid; ATRL is the highest-conviction pick the user hasn't entered yet (MF funds initiating — unique flow signal). If KSE-100 gaps up >+0.5% today, don't chase. If flat-to-red, add OGDC at 324-326, PPL at 230-231. AVOID list (SEARL/TRG/PABC) unchanged.\n\nRisks: Iran de-escalation overnight (=> exit POL/PPL/MARI fast); hawkish IMF leak (=> NBP/MCB/UBL sell off); Brent retracement below $103 (=> trim E&P exposure).\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe — reduce gross exposure 10-20%. || [imf_review_mission_week] IMF mission active — moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.) || [us_iran_oil_spike] US-Iran oil spike — protect E&P core positions but no sector-wide ADD (oil-spike-as-risk-off regime would neutralise the trade). OMC/Refining ceiling at HOLD. || [pre_imf_de_risk_window] IMF mission active (any regime) — moderate defensive. Cash 50%, Banks -1 notch.",
   "briefing_summary": {
     "as_of": "2026-05-14",
     "data_completeness": "ok",
@@ -309,10 +309,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -334,10 +336,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -359,16 +363,18 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
       "symbol": "PPL",
       "sector": "Oil & Gas E&P",
-      "bucket": "BUY",
+      "bucket": "ADD",
       "conviction": "MEDIUM",
       "target_weight_pct": 3.5,
       "reason": "Deep value BUY_VALUE +52% (highest in approved bucket). HIGH quality. Phase-1 #5 (mom +13%). Yesterday was the STAR of the day: +1.11% (closed at 232.49 = day high) on 3.27M volume = institutional accumulation. Faiz X-1 well 3.6 bcf/d ongoing sentiment driver.",
@@ -377,8 +383,7 @@
         "Quality: HIGH band",
         "Phase-1 #5 (mom +13%)",
         "Yesterday +1.11% on 3.27M volume — institutional bid",
-        "Faiz X-1 well 3.6 bcf/d positive newsflow",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one"
+        "Faiz X-1 well 3.6 bcf/d positive newsflow"
       ]
     },
     {
@@ -397,7 +402,7 @@
     {
       "symbol": "NBP",
       "sector": "Banking",
-      "bucket": "TRIM",
+      "bucket": "AVOID",
       "conviction": "MEDIUM",
       "target_weight_pct": 0.0,
       "reason": "Highest value upside in universe (+101% to fair value, BUY_VALUE HIGH confidence). HIGH quality, RECOVERING earnings. State-owned bank — directly exposed to IMF May 15 outcome (3 days away). Phase-1 mom -12% short-term. Deploy aggressively ONLY on a clean IMF positive print.",
@@ -407,7 +412,8 @@
         "Earnings: RECOVERING",
         "Phase-1 momentum negative — wait for trend turn",
         "IMF May 15 = direct binary catalyst for state-owned bank",
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one"
+        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -444,16 +450,18 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
       "symbol": "POL",
       "sector": "Oil & Gas E&P",
-      "bucket": "BUY",
+      "bucket": "HOLD",
       "conviction": "LOW",
       "target_weight_pct": 0.0,
       "reason": "Composite verdict not in BUY/AVOID extreme; hold.",
@@ -469,16 +477,18 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
       "symbol": "HBL",
       "sector": "Banking",
-      "bucket": "WATCH",
+      "bucket": "TRIM",
       "conviction": "LOW",
       "target_weight_pct": 0.0,
       "reason": "Composite verdict not in BUY/AVOID extreme; hold.",
@@ -494,10 +504,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -530,7 +542,7 @@
     {
       "symbol": "MEBL",
       "sector": "Banking",
-      "bucket": "WATCH",
+      "bucket": "TRIM",
       "conviction": "LOW",
       "target_weight_pct": 0.0,
       "reason": "Composite verdict not in BUY/AVOID extreme; hold.",
@@ -546,18 +558,20 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
       "symbol": "MARI",
       "sector": "Oil & Gas E&P",
-      "bucket": "BUY",
+      "bucket": "HOLD",
       "conviction": "LOW",
-      "target_weight_pct": 2.1,
+      "target_weight_pct": 2.5,
       "reason": "Composite verdict not in BUY/AVOID extreme; hold.",
       "contributing_signals": [
         "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
@@ -571,10 +585,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -596,16 +612,18 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
       "symbol": "BAHL",
       "sector": "Banking",
-      "bucket": "WATCH",
+      "bucket": "TRIM",
       "conviction": "LOW",
       "target_weight_pct": 0.0,
       "reason": "Composite verdict not in BUY/AVOID extreme; hold.",
@@ -621,10 +639,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -659,10 +679,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -684,16 +706,18 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
       "symbol": "FABL",
       "sector": "Banking",
-      "bucket": "WATCH",
+      "bucket": "TRIM",
       "conviction": "LOW",
       "target_weight_pct": 0.0,
       "reason": "Composite verdict not in BUY/AVOID extreme; hold.",
@@ -709,10 +733,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -734,16 +760,18 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
       "symbol": "MCB",
       "sector": "Banking",
-      "bucket": "HOLD",
+      "bucket": "WATCH",
       "conviction": "LOW",
       "target_weight_pct": 0.0,
       "reason": "Composite verdict not in BUY/AVOID extreme; hold.",
@@ -759,16 +787,18 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
       "symbol": "UBL",
       "sector": "Banking",
-      "bucket": "HOLD",
+      "bucket": "WATCH",
       "conviction": "LOW",
       "target_weight_pct": 0.0,
       "reason": "Composite verdict not in BUY/AVOID extreme; hold.",
@@ -784,10 +814,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -809,10 +841,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -834,10 +868,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -859,10 +895,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -884,10 +922,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -923,10 +963,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -975,10 +1017,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     },
     {
@@ -1000,10 +1044,12 @@
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:imf_review_mission_week:symbol_clamp",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:brent_spike_e_and_p:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one",
-        "playbook:us_iran_oil_spike:sector_overlay:upgrade_one"
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one",
+        "playbook:pre_imf_de_risk_window:sector_overlay:downgrade_one"
       ]
     }
   ],
@@ -1136,33 +1182,6 @@
       ]
     },
     {
-      "case_id": "brent_spike_e_and_p",
-      "match_score": 1.6,
-      "fired_triggers": [
-        "driver:oil_up"
-      ],
-      "changes": [
-        {
-          "symbol": "PPL",
-          "from": "ADD",
-          "to": "BUY",
-          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-        },
-        {
-          "symbol": "POL",
-          "from": "HOLD",
-          "to": "ADD",
-          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-        },
-        {
-          "symbol": "MARI",
-          "from": "HOLD",
-          "to": "ADD",
-          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-        }
-      ]
-    },
-    {
       "case_id": "us_iran_oil_spike",
       "match_score": 1.3,
       "fired_triggers": [
@@ -1170,21 +1189,9 @@
       ],
       "changes": [
         {
-          "symbol": "POL",
-          "from": "ADD",
-          "to": "BUY",
-          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-        },
-        {
-          "symbol": "MARI",
-          "from": "ADD",
-          "to": "BUY",
-          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
-        },
-        {
           "symbol": "MARI",
           "weight_from": 0.0,
-          "weight_to": 3.0,
+          "weight_to": 2.5,
           "via": "weight_floor"
         },
         {
@@ -1194,12 +1201,63 @@
           "via": "symbol_clamp(min=None,max=HOLD)"
         }
       ]
+    },
+    {
+      "case_id": "pre_imf_de_risk_window",
+      "match_score": 1.3,
+      "fired_triggers": [
+        "event:imf_mission_active"
+      ],
+      "changes": [
+        {
+          "symbol": "NBP",
+          "from": "TRIM",
+          "to": "AVOID",
+          "via": "sector_overlay:Banking:downgrade_one"
+        },
+        {
+          "symbol": "HBL",
+          "from": "WATCH",
+          "to": "TRIM",
+          "via": "sector_overlay:Banking:downgrade_one"
+        },
+        {
+          "symbol": "MEBL",
+          "from": "WATCH",
+          "to": "TRIM",
+          "via": "sector_overlay:Banking:downgrade_one"
+        },
+        {
+          "symbol": "BAHL",
+          "from": "WATCH",
+          "to": "TRIM",
+          "via": "sector_overlay:Banking:downgrade_one"
+        },
+        {
+          "symbol": "FABL",
+          "from": "WATCH",
+          "to": "TRIM",
+          "via": "sector_overlay:Banking:downgrade_one"
+        },
+        {
+          "symbol": "MCB",
+          "from": "HOLD",
+          "to": "WATCH",
+          "via": "sector_overlay:Banking:downgrade_one"
+        },
+        {
+          "symbol": "UBL",
+          "from": "HOLD",
+          "to": "WATCH",
+          "via": "sector_overlay:Banking:downgrade_one"
+        }
+      ]
     }
   ],
   "playbook_overlay_notes": [
     "[mf_universe_distribution_broad] Broad MF distribution across top-30 universe — reduce gross exposure 10-20%.",
     "[imf_review_mission_week] IMF mission active — moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.)",
-    "[brent_spike_e_and_p] Brent +10% in 21d — ADD E&P (wellhead-USD tailwind).",
-    "[us_iran_oil_spike] US-Iran oil spike — ADD E&P only (sector overlay). OMC/Refining sector downgrade REMOVED (backtest 50% accuracy on 24 fires); per-symbol HOLD ceiling kept on PSO/ATRL/APL."
+    "[us_iran_oil_spike] US-Iran oil spike — protect E&P core positions but no sector-wide ADD (oil-spike-as-risk-off regime would neutralise the trade). OMC/Refining ceiling at HOLD.",
+    "[pre_imf_de_risk_window] IMF mission active (any regime) — moderate defensive. Cash 50%, Banks -1 notch."
   ]
 }

@@ -26,14 +26,14 @@
   {
     "case_id": "brent_spike_e_and_p",
     "expected_direction": "UP",
-    "n_fires": 39,
-    "fire_rate_pct": 15.11627906976744,
-    "avg_univ_5d_when_fired_pct": 0.12572080891785947,
-    "avg_univ_21d_when_fired_pct": 0.8595824754601517,
-    "edge_vs_drift_5d_pct": -0.28196373733298796,
-    "edge_vs_drift_21d_pct": -0.9391232487004578,
-    "hit_rate_5d": 0.4358974358974359,
-    "hit_rate_21d": 0.5128205128205128
+    "n_fires": 37,
+    "fire_rate_pct": 14.34108527131783,
+    "avg_univ_5d_when_fired_pct": 0.12698118369438863,
+    "avg_univ_21d_when_fired_pct": 0.6975128493141134,
+    "edge_vs_drift_5d_pct": -0.2807033625564588,
+    "edge_vs_drift_21d_pct": -1.101192874846496,
+    "hit_rate_5d": 0.43243243243243246,
+    "hit_rate_21d": 0.4864864864864865
   },
   {
     "case_id": "mf_initiation_cluster",
@@ -84,18 +84,6 @@
     "hit_rate_21d": 0.391304347826087
   },
   {
-    "case_id": "pkr_devaluation_shock",
-    "expected_direction": "MIXED",
-    "n_fires": 22,
-    "fire_rate_pct": 8.527131782945736,
-    "avg_univ_5d_when_fired_pct": 0.4482071426302959,
-    "avg_univ_21d_when_fired_pct": 0.8314492556695084,
-    "edge_vs_drift_5d_pct": 0.04052259637944844,
-    "edge_vs_drift_21d_pct": -0.967256468491101,
-    "hit_rate_5d": 0.3181818181818182,
-    "hit_rate_21d": 0.6363636363636364
-  },
-  {
     "case_id": "mf_distribution_strong",
     "expected_direction": "DOWN",
     "n_fires": 19,
@@ -132,6 +120,18 @@
     "hit_rate_21d": 0.4166666666666667
   },
   {
+    "case_id": "nth_rate_cut_immediate_window",
+    "expected_direction": "?",
+    "n_fires": 9,
+    "fire_rate_pct": 3.488372093023256,
+    "avg_univ_5d_when_fired_pct": 0.09413068153989396,
+    "avg_univ_21d_when_fired_pct": 5.361148227809236,
+    "edge_vs_drift_5d_pct": -0.3135538647109535,
+    "edge_vs_drift_21d_pct": 3.5624425036486267,
+    "hit_rate_5d": 0.0,
+    "hit_rate_21d": 0.0
+  },
+  {
     "case_id": "behavioural_panic_3day",
     "expected_direction": "UP",
     "n_fires": 8,
@@ -142,6 +142,18 @@
     "edge_vs_drift_21d_pct": 5.136133551223568,
     "hit_rate_5d": 0.75,
     "hit_rate_21d": 1.0
+  },
+  {
+    "case_id": "pkr_devaluation_shock",
+    "expected_direction": "MIXED",
+    "n_fires": 8,
+    "fire_rate_pct": 3.10077519379845,
+    "avg_univ_5d_when_fired_pct": 0.7339974607557012,
+    "avg_univ_21d_when_fired_pct": 0.3567898361745418,
+    "edge_vs_drift_5d_pct": 0.3263129145048537,
+    "edge_vs_drift_21d_pct": -1.4419158879860676,
+    "hit_rate_5d": 0.375,
+    "hit_rate_21d": 0.5
   },
   {
     "case_id": "us_iran_oil_spike",

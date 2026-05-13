@@ -3,21 +3,21 @@
   "avg_univ_ret_5d_pct": 0.40768454625084743,
   "avg_univ_ret_21d_pct": 1.7987057241606095,
   "sum_baseline_5d_pct": 52.46677307294622,
-  "sum_overlay_5d_pct": 58.1173825527461,
+  "sum_overlay_5d_pct": 59.98731029945179,
   "sum_baseline_21d_pct": 231.20605051130855,
-  "sum_overlay_21d_pct": 255.70981743661255,
-  "edge_5d_total_pct": 5.650609479799883,
-  "edge_21d_total_pct": 24.503766925304006,
+  "sum_overlay_21d_pct": 252.96540709920137,
+  "edge_5d_total_pct": 7.520537226505574,
+  "edge_21d_total_pct": 21.759356587892825,
   "max_drawdown_baseline_pct": -18.721967022097676,
-  "max_drawdown_overlay_pct": -15.158056976332063,
+  "max_drawdown_overlay_pct": -14.698389911121474,
   "fires_histogram": {
     "2": 90,
-    "1": 85,
-    "3": 38,
+    "1": 87,
+    "3": 37,
     "0": 22,
     "4": 13,
     "5": 7,
-    "6": 2,
+    "6": 1,
     "7": 1
   },
   "n_zero_fire_weeks": 22,
@@ -133,7 +133,9 @@
     {
       "as_of": "2024-12-27",
       "univ_5d_pct": 3.636602556542067,
-      "fired": []
+      "fired": [
+        "nth_rate_cut_immediate_window"
+      ]
     }
   ]
 }

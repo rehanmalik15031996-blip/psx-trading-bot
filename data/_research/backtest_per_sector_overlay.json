@@ -13,11 +13,11 @@
     "case_id": "brent_spike_e_and_p",
     "sector": "Oil & Gas E&P",
     "action": "upgrade_one",
-    "n_fires": 156,
-    "avg_sector_vs_univ_5d_pct": -0.20901088013077793,
-    "avg_sector_vs_univ_21d_pct": -0.9417912345675123,
-    "directional_accuracy_5d": 0.48717948717948717,
-    "n_with_5d_data": 156
+    "n_fires": 148,
+    "avg_sector_vs_univ_5d_pct": -0.1882983040312376,
+    "avg_sector_vs_univ_21d_pct": -0.782059761442233,
+    "directional_accuracy_5d": 0.4864864864864865,
+    "n_with_5d_data": 148
   },
   {
     "case_id": "post_cut_cycle_continuation",
@@ -40,16 +40,6 @@
     "n_with_5d_data": 115
   },
   {
-    "case_id": "pkr_devaluation_shock",
-    "sector": "Oil & Gas E&P",
-    "action": "upgrade_one",
-    "n_fires": 88,
-    "avg_sector_vs_univ_5d_pct": -0.3579787243436947,
-    "avg_sector_vs_univ_21d_pct": -1.1844655523312835,
-    "directional_accuracy_5d": 0.45454545454545453,
-    "n_with_5d_data": 88
-  },
-  {
     "case_id": "post_cut_cycle_continuation",
     "sector": "Conglomerate",
     "action": "upgrade_one",
@@ -58,6 +48,16 @@
     "avg_sector_vs_univ_21d_pct": -3.8003109260430947,
     "directional_accuracy_5d": 0.4,
     "n_with_5d_data": 75
+  },
+  {
+    "case_id": "nth_rate_cut_immediate_window",
+    "sector": "Banking",
+    "action": "upgrade_one",
+    "n_fires": 63,
+    "avg_sector_vs_univ_5d_pct": 2.0784575661883227,
+    "avg_sector_vs_univ_21d_pct": 1.3461183386981104,
+    "directional_accuracy_5d": 0.7777777777777778,
+    "n_with_5d_data": 63
   },
   {
     "case_id": "sbp_rate_hike_shock",
@@ -80,13 +80,23 @@
     "n_with_5d_data": 36
   },
   {
-    "case_id": "us_iran_oil_spike",
+    "case_id": "imf_sba_eff_approval",
+    "sector": "Cement",
+    "action": "upgrade_one",
+    "n_fires": 35,
+    "avg_sector_vs_univ_5d_pct": 0.8269856713541285,
+    "avg_sector_vs_univ_21d_pct": 2.310294609254453,
+    "directional_accuracy_5d": 0.42857142857142855,
+    "n_with_5d_data": 35
+  },
+  {
+    "case_id": "pkr_devaluation_shock",
     "sector": "Oil & Gas E&P",
     "action": "upgrade_one",
     "n_fires": 32,
-    "avg_sector_vs_univ_5d_pct": -0.8916896958208735,
-    "avg_sector_vs_univ_21d_pct": -3.050161108923281,
-    "directional_accuracy_5d": 0.5,
+    "avg_sector_vs_univ_5d_pct": -0.9999280219151045,
+    "avg_sector_vs_univ_21d_pct": -2.5377433363607462,
+    "directional_accuracy_5d": 0.375,
     "n_with_5d_data": 32
   },
   {
@@ -100,14 +110,24 @@
     "n_with_5d_data": 28
   },
   {
-    "case_id": "pkr_devaluation_shock",
-    "sector": "Autos",
+    "case_id": "imf_sba_eff_approval",
+    "sector": "Power",
     "action": "downgrade_one",
-    "n_fires": 22,
-    "avg_sector_vs_univ_5d_pct": -1.0325165902808258,
-    "avg_sector_vs_univ_21d_pct": -2.989790116903798,
-    "directional_accuracy_5d": 0.5909090909090909,
-    "n_with_5d_data": 22
+    "n_fires": 28,
+    "avg_sector_vs_univ_5d_pct": -1.62821468568796,
+    "avg_sector_vs_univ_21d_pct": -1.7526224810335278,
+    "directional_accuracy_5d": 0.5714285714285714,
+    "n_with_5d_data": 28
+  },
+  {
+    "case_id": "imf_sba_eff_approval",
+    "sector": "OMC",
+    "action": "upgrade_one",
+    "n_fires": 21,
+    "avg_sector_vs_univ_5d_pct": 2.490365073777157,
+    "avg_sector_vs_univ_21d_pct": 9.20579742806886,
+    "directional_accuracy_5d": 0.7142857142857143,
+    "n_with_5d_data": 21
   },
   {
     "case_id": "imf_review_completed",
@@ -128,6 +148,16 @@
     "avg_sector_vs_univ_21d_pct": -0.3935111024004442,
     "directional_accuracy_5d": 0.25,
     "n_with_5d_data": 12
+  },
+  {
+    "case_id": "pkr_devaluation_shock",
+    "sector": "Autos",
+    "action": "downgrade_one",
+    "n_fires": 8,
+    "avg_sector_vs_univ_5d_pct": 1.2371114139226664,
+    "avg_sector_vs_univ_21d_pct": 2.101960842810998,
+    "directional_accuracy_5d": 0.375,
+    "n_with_5d_data": 8
   },
   {
     "case_id": "circular_debt_resolution_large",
