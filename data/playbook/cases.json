@@ -477,22 +477,18 @@
       ],
       "reactions": {
         "sector_overlay": {
-          "Banking": "upgrade_one",
           "Oil & Gas E&P": "upgrade_one"
         },
         "symbol_overlay": {
-          "HBL": {
+          "OGDC": {
             "min_bucket": "ADD"
           },
-          "UBL": {
-            "min_bucket": "ADD"
-          },
-          "MCB": {
+          "PPL": {
             "min_bucket": "ADD"
           }
         },
         "cash_floor_pct": 30,
-        "narrative_note": "IMF program approved — relief rally trade. ADD large-cap Banks + E&P 5d window."
+        "narrative_note": "IMF program approved — E&P relief rally trade only. Banking removed from overlay (backtest 29% accuracy)."
       }
     },
     {
@@ -558,11 +554,10 @@
       ],
       "reactions": {
         "sector_overlay": {
-          "Banking": "upgrade_one",
-          "Oil & Gas E&P": "upgrade_one"
+          "Banking": "upgrade_one"
         },
         "cash_floor_pct": 30,
-        "narrative_note": "IMF review completed — 5d tactical window. ADD Banks + E&P."
+        "narrative_note": "IMF review completed — Banking-only relief lift. E&P dropped (backtest 0% accuracy)."
       }
     },
     {
@@ -621,7 +616,6 @@
       "reactions": {
         "sector_overlay": {
           "Oil & Gas E&P": "upgrade_one",
-          "Cement": "downgrade_one",
           "Autos": "downgrade_one"
         },
         "symbol_overlay": {
@@ -635,7 +629,7 @@
             "min_bucket": "ADD"
           }
         },
-        "narrative_note": "PKR devaluation shock — E&P wellhead-USD tailwind; Cement/Auto pressured by imports."
+        "narrative_note": "PKR devaluation — E&P wellhead-USD tailwind; Autos pressured by imports. Cement dropped from overlay (backtest showed 41% directional accuracy)."
       }
     },
     {
@@ -1242,10 +1236,7 @@
         "validated-edge"
       ],
       "reactions": {
-        "sector_overlay": {
-          "Banking": "downgrade_one"
-        },
-        "narrative_note": "Policy rate bottom-quartile — Bank NIM headwind, BIAS NEUTRAL/UNDERWEIGHT."
+        "narrative_note": "Policy rate bottom-quartile — Bank NIM headwind narrative. Auto-downgrade REMOVED 2026-05-13 (backtest: banks actually outperformed +0.62% vs universe in 196 low-rate sessions; rule was wrong direction)."
       }
     },
     {
@@ -1323,8 +1314,7 @@
         "validated-edge"
       ],
       "reactions": {
-        "position_size_multiplier": 0.5,
-        "narrative_note": "Broad volume-confirmed breakouts — half-normal sizing on flagged names; 5d tactical."
+        "narrative_note": "Broad volume-confirmed breakouts — 5d tactical signal. Position-size haircut REMOVED 2026-05-13 (backtest +0.32% edge per fire; haircut was neutralising the alpha)."
       }
     },
     {
@@ -1418,9 +1408,7 @@
       ],
       "reactions": {
         "sector_overlay": {
-          "Oil & Gas E&P": "upgrade_one",
-          "OMC": "downgrade_one",
-          "Refining": "downgrade_one"
+          "Oil & Gas E&P": "upgrade_one"
         },
         "symbol_overlay": {
           "OGDC": {
@@ -1445,7 +1433,7 @@
             "max_bucket": "HOLD"
           }
         },
-        "narrative_note": "US-Iran oil spike — ADD E&P (Brent floor); TRIM/AVOID OMC/Refining (margin squeeze)."
+        "narrative_note": "US-Iran oil spike — ADD E&P only (sector overlay). OMC/Refining sector downgrade REMOVED (backtest 50% accuracy on 24 fires); per-symbol HOLD ceiling kept on PSO/ATRL/APL."
       }
     },
     {
@@ -1457,7 +1445,7 @@
         "event:imf_mission_active",
         "regime:NORMAL"
       ],
-      "min_triggers": 1,
+      "min_triggers": 2,
       "historical_instances": [
         {
           "date": "2025-09-15",
@@ -1521,12 +1509,10 @@
         "large-cap"
       ],
       "reactions": {
-        "cash_floor_pct": 85,
+        "cash_floor_pct": 60,
         "sector_overlay": {
           "Banking": "downgrade_one",
-          "Cement": "downgrade_one",
-          "Power": "downgrade_one",
-          "Conglomerate": "downgrade_one"
+          "Power": "downgrade_one"
         },
         "symbol_overlay": {
           "MCB": {
@@ -1546,17 +1532,11 @@
           },
           "EPCL": {
             "max_bucket": "AVOID"
-          },
-          "PABC": {
-            "max_bucket": "AVOID"
-          },
-          "COLG": {
-            "max_bucket": "AVOID"
           }
         },
         "conviction_cap": "MEDIUM",
-        "position_size_multiplier": 0.5,
-        "narrative_note": "IMF review mission week — defensive. Auto-trim Banks/Cement/Power one notch. Cash floor 85%. AVOID highly-leveraged + small caps (KAPCO, EPCL, PABC, COLG)."
+        "position_size_multiplier": 0.7,
+        "narrative_note": "IMF mission active — moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.)"
       }
     },
     {
@@ -1621,9 +1601,10 @@
       "title": "Universe sell-off >= -2% in 5d (mid-week safety net)",
       "pattern": "KSE-100 / universe is down >= 2% over 5 trading days WITHOUT a single identifiable macro driver firing. Indicates broad de-risking — typically pre-event (IMF, MPS, results season open) or sympathy with global EM weakness. Conservative auto-overlay kicks in: raise cash floor, half-size all new BUYs, downgrade Banks/Cement/Power one notch.",
       "trigger_signals": [
-        "universe_5d_lt:-0.02"
+        "universe_5d_lt:-0.04",
+        "breadth_lt:0.40"
       ],
-      "min_triggers": 1,
+      "min_triggers": 2,
       "historical_instances": [
         {
           "date": "2026-05-13",
@@ -1663,14 +1644,12 @@
         "universe-pause"
       ],
       "reactions": {
-        "cash_floor_pct": 70,
-        "position_size_multiplier": 0.5,
+        "cash_floor_pct": 60,
+        "position_size_multiplier": 0.7,
         "sector_overlay": {
-          "Banking": "downgrade_one",
-          "Cement": "downgrade_one",
           "Power": "downgrade_one"
         },
-        "narrative_note": "Universe in 5d sell-off — auto-defensive safety net engaged. Cash 70%, half-size new entries, Banks/Cement/Power -1 notch."
+        "narrative_note": "Universe broad sell-off (-4% 5d AND breadth <40%) — moderate defensive: cash 60%, Power -1 notch."
       }
     },
     {
@@ -1679,7 +1658,7 @@
       "title": "Brent >= $100 absolute — cement margin pressure (coal/freight)",
       "pattern": "Cement is leveraged to imported coal price + freight (both of which track Brent). When Brent breaches $100 absolute, north-zone Cement (DGKC, MLCF, KOHC) sees gross-margin compression of 200-400bps over 30-60 days. The PSX market typically lags this realisation by 5-15 sessions — there is a window to downgrade Cement BEFORE the market re-prices.",
       "trigger_signals": [
-        "brent_gte:100"
+        "brent_gte:105"
       ],
       "min_triggers": 1,
       "historical_instances": [
@@ -1772,13 +1751,12 @@
         "regime-agnostic"
       ],
       "reactions": {
-        "cash_floor_pct": 70,
+        "cash_floor_pct": 50,
         "sector_overlay": {
-          "Banking": "downgrade_one",
-          "Cement": "downgrade_one"
+          "Banking": "downgrade_one"
         },
         "conviction_cap": "MEDIUM",
-        "narrative_note": "IMF mission active (any regime) — soft defensive overlay applied."
+        "narrative_note": "IMF mission active (any regime) — moderate defensive. Cash 50%, Banks -1 notch."
       }
     }
   ]

@@ -1,0 +1,139 @@
+{
+  "n_dates": 258,
+  "avg_univ_ret_5d_pct": 0.40768454625084743,
+  "avg_univ_ret_21d_pct": 1.7987057241606095,
+  "sum_baseline_5d_pct": 52.46677307294622,
+  "sum_overlay_5d_pct": 58.1173825527461,
+  "sum_baseline_21d_pct": 231.20605051130855,
+  "sum_overlay_21d_pct": 255.70981743661255,
+  "edge_5d_total_pct": 5.650609479799883,
+  "edge_21d_total_pct": 24.503766925304006,
+  "max_drawdown_baseline_pct": -18.721967022097676,
+  "max_drawdown_overlay_pct": -15.158056976332063,
+  "fires_histogram": {
+    "2": 90,
+    "1": 85,
+    "3": 38,
+    "0": 22,
+    "4": 13,
+    "5": 7,
+    "6": 2,
+    "7": 1
+  },
+  "n_zero_fire_weeks": 22,
+  "n_gap_weeks": 2,
+  "n_missed_up_weeks": 2,
+  "gap_weeks_sample": [
+    {
+      "as_of": "2022-02-18",
+      "n_analogues": 0,
+      "fired": [],
+      "active_events": [],
+      "drivers": [],
+      "regime": "NORMAL",
+      "univ_ret_5d_pct": -4.4231468440078014,
+      "univ_ret_21d_pct": -6.868113539235038,
+      "sector_ret_5d_pct": {
+        "Power": -6.6696385527418744,
+        "Misc": -13.181961526332387,
+        "Cement": -3.3053432099283686,
+        "Oil & Gas E&P": -2.7126480017833883,
+        "Banking": -3.7237797837293454,
+        "OMC": -6.33603252730655,
+        "Conglomerate": -1.2707662210807547,
+        "Pharma": -7.0667536420961135,
+        "Fertilizer": -0.4884849192852851,
+        "Technology": -12.84232682297607,
+        "Autos": 1.28571428571429,
+        "Consumer": -9.499999999999996
+      },
+      "sector_ret_21d_pct": {
+        "Power": -10.222525988977981,
+        "Misc": -11.82592242194891,
+        "Cement": -6.5814657768656275,
+        "Oil & Gas E&P": -4.549751178527551,
+        "Banking": -8.761583095729506,
+        "OMC": -14.634759782500398,
+        "Conglomerate": -2.1989361349442587,
+        "Pharma": -17.61252446183953,
+        "Fertilizer": 4.027525009792429,
+        "Technology": -6.1762175781975905,
+        "Autos": -7.14785714285714,
+        "Consumer": -4.167500000000002
+      },
+      "pnl_baseline_5d_pct": -2.2650832326504626,
+      "pnl_overlay_5d_pct": -2.2650832326504626,
+      "pnl_baseline_21d_pct": -3.4978895875779172,
+      "pnl_overlay_21d_pct": -3.4978895875779172,
+      "gross_baseline_5d": 0.5000000000000001,
+      "gross_overlay_5d": 0.5000000000000001,
+      "cash_floor_overlay": 0.0,
+      "n_overlay_actions": 35,
+      "playbook_overlay_log": []
+    },
+    {
+      "as_of": "2025-05-02",
+      "n_analogues": 0,
+      "fired": [],
+      "active_events": [],
+      "drivers": [
+        {
+          "tag": "oil_down",
+          "magnitude": "MODERATE"
+        }
+      ],
+      "regime": "NORMAL",
+      "univ_ret_5d_pct": -6.706185632495858,
+      "univ_ret_21d_pct": 6.461465116713734,
+      "sector_ret_5d_pct": {
+        "Power": -5.837509756928247,
+        "Misc": -6.315886813390048,
+        "Cement": -6.025520109606366,
+        "Oil & Gas E&P": -5.922166422293007,
+        "Banking": -6.611412340057463,
+        "OMC": -6.789644160173096,
+        "Conglomerate": -6.797575667091508,
+        "Pharma": -18.812470252260827,
+        "Fertilizer": -4.465030798619418,
+        "Technology": -9.872700541761587,
+        "Autos": -3.8703194307697086,
+        "Consumer": -7.963001279781756
+      },
+      "sector_ret_21d_pct": {
+        "Power": 9.067672593244733,
+        "Misc": -1.609025337525427,
+        "Cement": 7.883874423287951,
+        "Oil & Gas E&P": 4.03034577631044,
+        "Banking": 7.1989992574076815,
+        "OMC": 13.88382710703934,
+        "Conglomerate": 11.273825954220744,
+        "Pharma": 6.960970966206559,
+        "Fertilizer": 7.367477927404331,
+        "Technology": -2.8071322241081162,
+        "Autos": -3.758665841106801,
+        "Consumer": 1.1778590094335906
+      },
+      "pnl_baseline_5d_pct": -3.3472860340385235,
+      "pnl_overlay_5d_pct": -3.3472860340385235,
+      "pnl_baseline_21d_pct": 3.384810110161417,
+      "pnl_overlay_21d_pct": 3.384810110161417,
+      "gross_baseline_5d": 0.5000000000000001,
+      "gross_overlay_5d": 0.5000000000000001,
+      "cash_floor_overlay": 0.0,
+      "n_overlay_actions": 35,
+      "playbook_overlay_log": []
+    }
+  ],
+  "missed_up_weeks_sample": [
+    {
+      "as_of": "2024-12-20",
+      "univ_5d_pct": 5.513310076663716,
+      "fired": []
+    },
+    {
+      "as_of": "2024-12-27",
+      "univ_5d_pct": 3.636602556542067,
+      "fired": []
+    }
+  ]
+}

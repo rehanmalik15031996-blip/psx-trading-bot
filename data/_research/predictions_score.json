@@ -1,0 +1,228 @@
+{
+  "n_scored": 237,
+  "by_direction": [
+    {
+      "direction": "BEARISH",
+      "n": 43,
+      "avg_actual_pct": 2.140639639836928,
+      "hit_rate": 0.32558139534883723
+    },
+    {
+      "direction": "BULLISH",
+      "n": 30,
+      "avg_actual_pct": 2.230486226685132,
+      "hit_rate": 0.6333333333333333
+    },
+    {
+      "direction": "NEUTRAL",
+      "n": 164,
+      "avg_actual_pct": 1.9377458789444246,
+      "hit_rate": 0.5670731707317073
+    }
+  ],
+  "by_action": [
+    {
+      "action": "ADD",
+      "n": 19,
+      "avg_actual_pct": 2.730622016543781,
+      "avg_edge_vs_hold_pct": 0.6826555041359452
+    },
+    {
+      "action": "AVOID",
+      "n": 41,
+      "avg_actual_pct": 2.285828274968084,
+      "avg_edge_vs_hold_pct": -1.142914137484042
+    },
+    {
+      "action": "BUY",
+      "n": 7,
+      "avg_actual_pct": 2.5922956061942677,
+      "avg_edge_vs_hold_pct": 1.2961478030971338
+    },
+    {
+      "action": "HOLD",
+      "n": 169,
+      "avg_actual_pct": 1.8681497969615992,
+      "avg_edge_vs_hold_pct": 0.0
+    },
+    {
+      "action": "TRIM",
+      "n": 1,
+      "avg_actual_pct": -2.711747057465952,
+      "avg_edge_vs_hold_pct": 1.355873528732976
+    }
+  ],
+  "by_model": [
+    {
+      "model": "claude-haiku-4-5",
+      "n": 128,
+      "dir_hit_pct": 51.5625,
+      "avg_action_pnl_pct": 1.114162738343595,
+      "avg_edge_vs_hold_pct": -0.15953581871764547
+    },
+    {
+      "model": "claude-sonnet-4-5",
+      "n": 71,
+      "dir_hit_pct": 60.56338028169014,
+      "avg_action_pnl_pct": 0.008866485307628038,
+      "avg_edge_vs_hold_pct": -0.12611734883789727
+    },
+    {
+      "model": "rule-based-v1",
+      "n": 38,
+      "dir_hit_pct": 44.73684210526316,
+      "avg_action_pnl_pct": 1.886151048882688,
+      "avg_edge_vs_hold_pct": 0.15565262251314424
+    }
+  ],
+  "by_conviction": [
+    {
+      "conviction": "HIGH",
+      "n": 7,
+      "n_bullish": 6,
+      "bullish_avg_actual_pct": 1.7247594561748902,
+      "n_bearish": 1,
+      "bearish_avg_actual_pct": -11.076852803471493
+    },
+    {
+      "conviction": "LOW",
+      "n": 97,
+      "n_bullish": 0,
+      "bullish_avg_actual_pct": null,
+      "n_bearish": 3,
+      "bearish_avg_actual_pct": 0.7432001414859705
+    },
+    {
+      "conviction": "MEDIUM",
+      "n": 133,
+      "n_bullish": 24,
+      "bullish_avg_actual_pct": 2.3569179193126923,
+      "n_bearish": 39,
+      "bearish_avg_actual_pct": 2.5870450485128584
+    }
+  ],
+  "by_symbol_top10_alpha": [
+    {
+      "symbol": "TRG",
+      "n": 5,
+      "dir_hit_pct": 0.0,
+      "avg_action_pnl_pct": 5.840613219823821
+    },
+    {
+      "symbol": "KEL",
+      "n": 5,
+      "dir_hit_pct": 0.0,
+      "avg_action_pnl_pct": 5.090133957111478
+    },
+    {
+      "symbol": "LUCK",
+      "n": 5,
+      "dir_hit_pct": 40.0,
+      "avg_action_pnl_pct": 2.996276540117846
+    },
+    {
+      "symbol": "FCCL",
+      "n": 9,
+      "dir_hit_pct": 33.33333333333333,
+      "avg_action_pnl_pct": 2.1789030409043852
+    },
+    {
+      "symbol": "UBL",
+      "n": 5,
+      "dir_hit_pct": 20.0,
+      "avg_action_pnl_pct": 2.1459022003782735
+    },
+    {
+      "symbol": "PPL",
+      "n": 9,
+      "dir_hit_pct": 22.22222222222222,
+      "avg_action_pnl_pct": 1.8557742189239808
+    },
+    {
+      "symbol": "APL",
+      "n": 9,
+      "dir_hit_pct": 100.0,
+      "avg_action_pnl_pct": 1.7280421976411398
+    },
+    {
+      "symbol": "OGDC",
+      "n": 9,
+      "dir_hit_pct": 55.55555555555556,
+      "avg_action_pnl_pct": 1.6898695102129275
+    },
+    {
+      "symbol": "EPCL",
+      "n": 9,
+      "dir_hit_pct": 33.33333333333333,
+      "avg_action_pnl_pct": 1.676009028280719
+    },
+    {
+      "symbol": "MLCF",
+      "n": 9,
+      "dir_hit_pct": 44.44444444444444,
+      "avg_action_pnl_pct": 1.6493630321653356
+    }
+  ],
+  "by_symbol_bot10_alpha": [
+    {
+      "symbol": "KAPCO",
+      "n": 5,
+      "dir_hit_pct": 80.0,
+      "avg_action_pnl_pct": 0.06288969330446204
+    },
+    {
+      "symbol": "EFERT",
+      "n": 5,
+      "dir_hit_pct": 80.0,
+      "avg_action_pnl_pct": 0.0573471696112926
+    },
+    {
+      "symbol": "ENGROH",
+      "n": 5,
+      "dir_hit_pct": 80.0,
+      "avg_action_pnl_pct": -0.08927052337757813
+    },
+    {
+      "symbol": "BAHL",
+      "n": 5,
+      "dir_hit_pct": 80.0,
+      "avg_action_pnl_pct": -0.12444863497155341
+    },
+    {
+      "symbol": "POL",
+      "n": 9,
+      "dir_hit_pct": 88.88888888888889,
+      "avg_action_pnl_pct": -0.1365959921725446
+    },
+    {
+      "symbol": "ATRL",
+      "n": 5,
+      "dir_hit_pct": 80.0,
+      "avg_action_pnl_pct": -0.5231655172317573
+    },
+    {
+      "symbol": "MEBL",
+      "n": 9,
+      "dir_hit_pct": 88.88888888888889,
+      "avg_action_pnl_pct": -0.6167070452237827
+    },
+    {
+      "symbol": "HUBC",
+      "n": 9,
+      "dir_hit_pct": 77.77777777777779,
+      "avg_action_pnl_pct": -1.2439975027518035
+    },
+    {
+      "symbol": "PSO",
+      "n": 9,
+      "dir_hit_pct": 66.66666666666666,
+      "avg_action_pnl_pct": -1.2695861632008816
+    },
+    {
+      "symbol": "INDU",
+      "n": 5,
+      "dir_hit_pct": 20.0,
+      "avg_action_pnl_pct": -2.6754794056050515
+    }
+  ]
+}
