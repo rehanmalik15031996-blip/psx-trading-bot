@@ -1,0 +1,29 @@
+{
+  "workflow": "strategist",
+  "ok": true,
+  "note": "MANUAL Cursor strategist; 36 actions, 4 BUY/ADD, 4 playbook overlay(s) applied",
+  "as_of": "2026-05-13T22:17:34+00:00",
+  "github": {
+    "run_id": "",
+    "run_number": "",
+    "ref": "",
+    "sha": ""
+  },
+  "payload": {
+    "fallback_used": false,
+    "model": "cursor-claude-sonnet-4-5-manual",
+    "risk_stance": "DEFENSIVE",
+    "conviction": "MEDIUM",
+    "n_actions": 36,
+    "n_buy_or_add": 4,
+    "n_overlays_applied": 4,
+    "fired_case_ids": [
+      "mf_universe_distribution_broad",
+      "imf_review_mission_week",
+      "brent_spike_e_and_p",
+      "us_iran_oil_spike"
+    ],
+    "headline": "DEFENSIVE THESIS VALIDATED \u2014 banks/cements -2.4 to -3.7% in 2d, our E&P picks held -0.9%. Stay 75% cash through IMF May 15 binary (T-1). KEEP OGDC/PPL/MARI defensive bucket. AVOID power/cement until c",
+    "manual_override": true
+  }
+}

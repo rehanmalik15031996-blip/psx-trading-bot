@@ -968,8 +968,17 @@ def parse_json_loose(text: str) -> dict:
 # ==========================================================================
 # Rule-based fallback (no LLM)
 # ==========================================================================
-def predict_with_rules(ctx: dict) -> dict:
-    """Deterministic prediction from the data bundle. No news sentiment."""
+def predict_with_rules(ctx: dict, playbook_bias: dict | None = None) -> dict:
+    """Deterministic prediction from the data bundle. No news sentiment.
+
+    `playbook_bias` is optional; when provided it should be the dict produced
+    by `brain.strategist_overlays.compute_predictor_bias(briefing)`. It
+    contains per-sector and per-symbol score deltas derived from fired
+    playbook cases — applied AFTER the technical signal so they can tilt
+    the prediction direction (e.g. when `imf_review_mission_week` fires,
+    Banking sector gets a -0.15 score bias which can flip a NEUTRAL HOLD
+    into a BEARISH AVOID for state-owned banks during pre-IMF weeks).
+    """
     price = ctx.get("price", {})
     tech = ctx.get("technical", {})
     sig = ctx.get("phase1_signal", {})
@@ -1059,6 +1068,28 @@ def predict_with_rules(ctx: dict) -> dict:
     if "Bank" in sector and rate.get("policy_rate_pct", 0) <= 11:
         drivers.append("Accommodative policy rate — banking margin risk but "
                        "volume growth tailwind")
+
+    # ----------------------------------------------------------------- playbook
+    # Apply playbook-driven sector + symbol bias deltas. Built from
+    # briefing.playbook_analogues + reactions block in cases.json. This is
+    # the layer that catches "all banks should be biased BEARISH because
+    # IMF mission is active this week" — exactly the gap that let
+    # 14 of 35 names get held through -3% sector moves on May 11-13.
+    if playbook_bias:
+        sym_now = ctx.get("symbol")
+        sec_bias = (playbook_bias.get("sector_bias") or {}).get(sector, 0.0)
+        if sec_bias:
+            score += sec_bias
+            tag = (f"Playbook overlay (sector {sector}): "
+                   f"{sec_bias:+.2f} score bias from "
+                   f"{playbook_bias.get('fired_case_ids', [])[:3]}")
+            (drivers if sec_bias > 0 else risks).append(tag)
+        sym_bias = (playbook_bias.get("symbol_bias") or {}).get(sym_now, 0.0)
+        if sym_bias:
+            score += sym_bias
+            tag = (f"Playbook overlay (symbol {sym_now}): "
+                   f"{sym_bias:+.2f} score bias")
+            (drivers if sym_bias > 0 else risks).append(tag)
 
     # Finalize
     score = max(-1.0, min(1.0, score))
@@ -1194,9 +1225,13 @@ def gather_snapshot(ctx: dict) -> dict:
     }
 
 
-def generate_one(sym: str, provider: str) -> dict:
+def generate_one(sym: str, provider: str,
+                 playbook_bias: dict | None = None) -> dict:
     print(f"\n[{sym}] gathering context...", flush=True)
     ctx = get_full_context(sym)
+    # Make sym available to per-stock helpers (predictor reads it for the
+    # playbook symbol_bias lookup).
+    ctx.setdefault("symbol", sym)
 
     price = ctx.get("price", {})
     close = float(price.get("close_pkr") or 0)
@@ -1214,12 +1249,12 @@ def generate_one(sym: str, provider: str) -> dict:
             pred, raw_text = predict_with_gemini(briefing, sym, close)
             model = "gemini-2.5-flash"
         else:
-            pred = predict_with_rules(ctx)
+            pred = predict_with_rules(ctx, playbook_bias=playbook_bias)
             model = "rule-based-v1"
     except Exception as e:
         print(f"  [{sym}] LLM call failed: {type(e).__name__}: {e} — "
               f"falling back to rules")
-        pred = predict_with_rules(ctx)
+        pred = predict_with_rules(ctx, playbook_bias=playbook_bias)
         model = "rule-based-v1"
 
     # Critic self-review: deterministic post-checks that catch the
@@ -1369,11 +1404,35 @@ def main():
     print(f"Tickers ({len(tickers)}): {', '.join(tickers)}")
     print(f"Horizon: {HORIZON_DAYS} trading days")
 
+    # Compute playbook bias ONCE per session (heavy briefing call). Passed
+    # to every per-stock predictor so the rule-based path picks up the
+    # session's fired playbook overlays (e.g. when imf_review_mission_week
+    # fires, banks get -0.15 score bias making them more likely to land
+    # BEARISH/AVOID even from a flat technical signal).
+    playbook_bias = None
+    try:
+        from brain import master_strategist as _ms
+        from brain import strategist_overlays as _ov
+        _briefing = _ms.build_briefing()
+        playbook_bias = _ov.compute_predictor_bias(_briefing)
+        if playbook_bias and (playbook_bias.get("sector_bias")
+                              or playbook_bias.get("symbol_bias")):
+            print(f"[playbook-bias] fired cases: "
+                  f"{playbook_bias.get('fired_case_ids', [])}")
+            print(f"[playbook-bias] sector_bias: "
+                  f"{playbook_bias.get('sector_bias')}")
+            print(f"[playbook-bias] symbol_bias: "
+                  f"{playbook_bias.get('symbol_bias')}")
+        else:
+            print("[playbook-bias] no fired cases — predictor runs unmodified")
+    except Exception as _e:
+        print(f"[playbook-bias] WARN: {type(_e).__name__}: {_e} — skipping bias")
+
     log = load_log()
     new_records = []
     for sym in tickers:
         start = time.time()
-        rec = generate_one(sym, provider)
+        rec = generate_one(sym, provider, playbook_bias=playbook_bias)
         if rec:
             new_records.append(rec)
         print(f"  (elapsed {time.time() - start:.1f}s)", flush=True)

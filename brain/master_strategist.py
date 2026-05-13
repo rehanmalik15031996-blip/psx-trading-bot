@@ -88,6 +88,9 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CACHE_DIR = PROJECT_ROOT / "data" / "_strategist"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
+# Imported lazily inside `_finalise_with_overlays` to avoid circular imports
+# at module load time (strategist_overlays may evolve to read briefings).
+
 
 # ---------------------------------------------------------------------------
 # Result schema
@@ -886,6 +889,12 @@ def _fallback_decision(briefing: dict, model: str) -> MasterDecision:
     BUY-bucket names, and the LLM-free regime classifier. We do not try
     to reproduce the strategist's reasoning here — the goal is just to
     keep the surface usable when the API is unavailable.
+
+    Enriched 2026-05-13: emits the FULL universe (Phase-1 selected as HOLD,
+    everything else as HOLD with weight 0) so that the deterministic
+    `strategist_overlays.apply_playbook_overlays()` step (called downstream
+    in `decide_today`) has actions to mutate. Without this, the overlay
+    has nothing to downgrade when e.g. `imf_review_mission_week` fires.
     """
     sig = briefing.get("strategy_signal") or {}
     selected = sig.get("selected_symbols") or sig.get("selected") or []
@@ -893,6 +902,30 @@ def _fallback_decision(briefing: dict, model: str) -> MasterDecision:
     regime = briefing.get("regime") or {}
     regime_name = (regime.get("regime") or "NORMAL").upper()
     multiplier = float(regime.get("exposure_multiplier") or 1.0)
+
+    # Build sector lookup for the full universe.
+    sector_lookup: dict[str, str] = {}
+    ur = briefing.get("universe_ranking") or {}
+    if isinstance(ur, dict):
+        for row in ur.get("ranking") or []:
+            if isinstance(row, dict) and row.get("symbol"):
+                sector_lookup[row["symbol"]] = row.get("sector") or "?"
+    verdicts = briefing.get("verdict_universe") or {}
+    universe_syms: list[str] = []
+    if isinstance(verdicts, dict):
+        meta_keys = {"as_of", "n", "ttl_sec", "generated_at",
+                     "_others", "_compression_note"}
+        for k, v in verdicts.items():
+            if k in meta_keys or not isinstance(v, dict):
+                continue
+            universe_syms.append(k)
+            if not sector_lookup.get(k):
+                sector_lookup[k] = v.get("sector") or "?"
+        for o in verdicts.get("_others") or []:
+            if isinstance(o, dict) and o.get("symbol"):
+                universe_syms.append(o["symbol"])
+                if not sector_lookup.get(o["symbol"]):
+                    sector_lookup[o["symbol"]] = o.get("sector") or "?"
 
     actions: list[StrategistAction] = []
     if not market_on:
@@ -907,17 +940,35 @@ def _fallback_decision(briefing: dict, model: str) -> MasterDecision:
             risk_stance = "NORMAL"
         headline = (f"Phase-1 holds {len(selected)} names "
                     f"(regime={regime_name}, exposure x{multiplier:.2f})")
-        per_w = (multiplier / max(len(selected), 1)) * 100.0
-        for sym in selected:
-            actions.append(StrategistAction(
-                symbol=sym, bucket="HOLD", conviction="MEDIUM",
-                target_weight_pct=round(per_w, 1),
-                reason=f"Phase-1 selected (mechanical), regime={regime_name}",
-                contributing_signals=[
-                    f"strategy_signal: selected list = {selected}",
-                    f"regime: {regime_name} (x{multiplier:.2f} exposure)",
-                ],
-            ))
+    per_w = (multiplier / max(len(selected), 1)) * 100.0 if selected else 0.0
+
+    # Emit Phase-1 selected names as HOLD with weight, others as HOLD wt=0
+    # so the overlay has the full universe to mutate.
+    sel_set = set(selected)
+    emitted_syms: set[str] = set()
+    for sym in selected:
+        actions.append(StrategistAction(
+            symbol=sym, sector=sector_lookup.get(sym) or "?",
+            bucket="HOLD", conviction="MEDIUM",
+            target_weight_pct=round(per_w, 1),
+            reason=f"Phase-1 selected (mechanical), regime={regime_name}",
+            contributing_signals=[
+                f"strategy_signal: selected list = {selected}",
+                f"regime: {regime_name} (x{multiplier:.2f} exposure)",
+            ],
+        ))
+        emitted_syms.add(sym)
+    for sym in universe_syms:
+        if sym in emitted_syms:
+            continue
+        actions.append(StrategistAction(
+            symbol=sym, sector=sector_lookup.get(sym) or "?",
+            bucket="HOLD", conviction="LOW",
+            target_weight_pct=0.0,
+            reason="Universe member; not Phase-1 selected. Default HOLD wt=0.",
+            contributing_signals=[],
+        ))
+        emitted_syms.add(sym)
 
     return MasterDecision(
         as_of=briefing.get("as_of") or datetime.now(timezone.utc).isoformat(),
@@ -1044,9 +1095,7 @@ def decide_today(
     if not os.environ.get("ANTHROPIC_API_KEY"):
         decision = _fallback_decision(briefing, model)
         out = decision.as_dict()
-        if write_cache:
-            _persist(out)
-        return out
+        return _finalise_with_overlays(out, briefing, write_cache)
 
     client = ClaudeClient(model=model)
 
@@ -1104,9 +1153,7 @@ def decide_today(
         decision.headline = f"LLM strategist failed ({type(e).__name__}); fallback active"
         decision.fallback_used = True
         out = decision.as_dict()
-        if write_cache:
-            _persist(out)
-        return out
+        return _finalise_with_overlays(out, briefing, write_cache)
 
     parsed = _parse_json(result.get("text") or "")
     if not parsed:
@@ -1115,9 +1162,7 @@ def decide_today(
         decision.raw_llm_text = (result.get("text") or "")[:6000]
         decision.thinking_trace = (result.get("thinking") or "")[:4000]
         out = decision.as_dict()
-        if write_cache:
-            _persist(out)
-        return out
+        return _finalise_with_overlays(out, briefing, write_cache)
 
     actions: list[StrategistAction] = []
     for a in (parsed.get("actions") or []):
@@ -1156,9 +1201,7 @@ def decide_today(
     out = decision.as_dict()
     out["usage"] = result.get("usage", {})
     out["stop_reason"] = result.get("stop_reason", "")
-    if write_cache:
-        _persist(out)
-    return out
+    return _finalise_with_overlays(out, briefing, write_cache)
 
 
 # ---------------------------------------------------------------------------
@@ -1180,6 +1223,75 @@ def _persist(decision: dict) -> None:
     except Exception:
         # Never let cache write failures break the call.
         pass
+
+
+def _finalise_with_overlays(out: dict, briefing: dict,
+                             write_cache: bool = True) -> dict:
+    """Apply playbook-driven overlays then optionally persist.
+
+    The overlay step (``brain.strategist_overlays.apply_playbook_overlays``)
+    reads ``briefing.playbook_analogues`` and the per-case ``reactions``
+    block from ``data/playbook/cases.json``, then deterministically mutates
+    ``out["actions"]`` (downgrade/upgrade buckets, raise cash floor,
+    haircut position sizes, cap conviction). It also appends a
+    ``playbook_overlay_log`` field for audit.
+
+    Wired into both the LLM-success and the fallback paths so the
+    strategist is never silently blind to a fired playbook case.
+
+    Also writes the ``data/_health/strategist.json`` badge so the dashboard
+    health page can show whether the LLM succeeded or the deterministic
+    overlay was the only source of conviction. Crashes here never break
+    the strategist — they're swallowed and surfaced in the badge.
+    """
+    overlay_log: list[dict] = []
+    try:
+        from brain import strategist_overlays as _ov  # local import
+        _ov.apply_playbook_overlays(out, briefing)
+        overlay_log = out.get("playbook_overlay_log") or []
+    except Exception as _e:
+        out.setdefault("playbook_overlay_log", [])
+        out["playbook_overlay_error"] = f"{type(_e).__name__}: {_e}"
+
+    # ---- health badge --------------------------------------------------
+    try:
+        from scripts._health import write_status as _hs
+        fb = bool(out.get("fallback_used"))
+        n_actions = len(out.get("actions") or [])
+        n_overlays = len(overlay_log)
+        n_buys = sum(
+            1 for a in (out.get("actions") or [])
+            if (a.get("bucket") or "").upper() in ("BUY", "ADD")
+        )
+        # OK = either LLM succeeded OR overlays salvaged a useful decision.
+        # The dashboard reads `ok` for green/red, and `payload` for detail.
+        ok = (not fb) or (n_overlays > 0 and n_actions > 0)
+        if fb and n_overlays > 0:
+            note = (f"FALLBACK + {n_overlays} playbook overlay(s) "
+                    f"applied; {n_actions} actions, {n_buys} BUY/ADD")
+        elif fb:
+            note = (f"FALLBACK active, no playbook overlays — "
+                    f"{n_actions} actions (LLM unavailable)")
+        else:
+            note = (f"LLM run OK; {n_actions} actions, {n_overlays} "
+                    f"overlay(s), {n_buys} BUY/ADD")
+        _hs("strategist", ok=ok, note=note, payload={
+            "fallback_used":       fb,
+            "model":               out.get("model"),
+            "risk_stance":         out.get("risk_stance"),
+            "conviction":          out.get("conviction"),
+            "n_actions":           n_actions,
+            "n_buy_or_add":        n_buys,
+            "n_overlays_applied":  n_overlays,
+            "fired_case_ids":      [c.get("case_id") for c in overlay_log],
+            "headline":            (out.get("headline") or "")[:200],
+        })
+    except Exception:
+        pass
+
+    if write_cache:
+        _persist(out)
+    return out
 
 
 def load_cached(d: datetime | None = None) -> dict | None:

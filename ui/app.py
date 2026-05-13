@@ -525,11 +525,36 @@ def _render_strategist_stance_banner() -> None:
     avoids_str = _fmt(avoids) or ""
     headline = (decision.get("headline") or "").strip()
     headline_short = (headline[:140] + "…") if len(headline) > 140 else headline
-    fallback_chip = (
-        '<span style="background:#555;color:#eee;padding:2px 8px;'
-        'border-radius:10px;font-size:0.78em;margin-left:4px;">rule-based</span>'
-        if fallback else ""
-    )
+    n_overlays = len(decision.get("playbook_overlay_log") or [])
+    if fallback and n_overlays > 0:
+        # LLM was offline but the deterministic playbook overlay produced
+        # a real decision (banks downgraded, E&P upgraded, cash floor raised
+        # etc.). Show that the call has substance even without LLM.
+        fallback_chip = (
+            '<span style="background:#664d00;color:#ffe27a;padding:2px 8px;'
+            'border-radius:10px;font-size:0.78em;margin-left:4px;'
+            'border:1px solid #b8860b;">'
+            f'rule-based + {n_overlays} playbook overlay(s)</span>'
+        )
+    elif fallback:
+        # LLM offline AND no playbook fires — banner is essentially Phase-1
+        # echo. Make it loud red so the user knows.
+        fallback_chip = (
+            '<span style="background:#7a1a1a;color:#ffd1d1;padding:2px 8px;'
+            'border-radius:10px;font-size:0.78em;margin-left:4px;'
+            'border:1px solid #c14b4b;">'
+            'LLM OFFLINE — bare fallback</span>'
+        )
+    elif n_overlays > 0:
+        # LLM ran AND playbook overlays were applied. Show subtle green chip.
+        fallback_chip = (
+            '<span style="background:#1f3a26;color:#7be59c;padding:2px 8px;'
+            'border-radius:10px;font-size:0.78em;margin-left:4px;'
+            'border:1px solid #3b6f49;">'
+            f'+{n_overlays} playbook overlay(s)</span>'
+        )
+    else:
+        fallback_chip = ""
     trim_part = (
         f'<span style="opacity:0.85"><b style="color:#f5c542">TRIM:</b> '
         f'{trims_str}</span>' if trims_str else ""

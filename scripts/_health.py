@@ -40,7 +40,7 @@ def _history_path(workflow: str) -> Path:
 VALID_WORKFLOWS: set[str] = {
     "macro_series", "macro_kpis", "overnight", "news_scoring",
     "predictions", "eod", "intraday_session", "material_info",
-    "fundamentals", "financial_results",
+    "fundamentals", "financial_results", "strategist",
 }
 
 

@@ -265,7 +265,9 @@ DEFAULT_BUCKET = {"bucket": "HOLD", "conviction": "LOW", "weight": 0.0,
 
 # ----------------------------------------------------------------- assemble
 
-def build_decision() -> dict:
+def build_decision() -> tuple[dict, dict]:
+    """Return (decision_dict, briefing_dict). Briefing returned so the
+    caller can apply playbook overlays without recomputing."""
     print(f"[strategist] building briefing for {TODAY}...")
     briefing = ms.build_briefing()
 
@@ -489,17 +491,64 @@ def build_decision() -> dict:
         "actions": actions,
         "thinking_trace": None,
     }
-    return out
+    return out, briefing
 
 
 def main() -> int:
-    out = build_decision()
+    out, briefing = build_decision()
+
+    # Apply deterministic playbook overlays (cash floor, sector overlays,
+    # symbol clamps, conviction caps). Defensive against a missing
+    # strategist_overlays module.
+    try:
+        from brain import strategist_overlays as ov
+        ov.apply_playbook_overlays(out, briefing)
+        log = out.get("playbook_overlay_log") or []
+        if log:
+            print(f"[overlays] applied {len(log)} fired playbook case(s):")
+            for c in log:
+                print(f"  - {c['case_id']} (score {c.get('match_score')}): "
+                      f"{len(c['changes'])} change(s)")
+    except Exception as e:
+        print(f"[overlays] WARN: {type(e).__name__}: {e}")
+
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     dated = OUT_DIR / f"{TODAY}.json"
     latest = OUT_DIR / "latest.json"
     payload = json.dumps(out, default=str, indent=2, ensure_ascii=False)
     dated.write_text(payload, encoding="utf-8")
     latest.write_text(payload, encoding="utf-8")
+
+    # Write strategist health badge so the System Health page knows the
+    # manual run happened (otherwise the badge stays at the last CI run
+    # which may have been the empty-fallback when Anthropic was down).
+    try:
+        from scripts._health import write_status as _hs
+        n_overlays = len(out.get("playbook_overlay_log") or [])
+        n_actions = len(out.get("actions") or [])
+        n_buys = sum(1 for a in (out.get("actions") or [])
+                     if (a.get("bucket") or "").upper() in ("BUY", "ADD"))
+        _hs("strategist", ok=True,
+            note=(f"MANUAL Cursor strategist; "
+                  f"{n_actions} actions, {n_buys} BUY/ADD, "
+                  f"{n_overlays} playbook overlay(s) applied"),
+            payload={
+                "fallback_used":      bool(out.get("fallback_used")),
+                "model":              out.get("model"),
+                "risk_stance":        out.get("risk_stance"),
+                "conviction":         out.get("conviction"),
+                "n_actions":          n_actions,
+                "n_buy_or_add":       n_buys,
+                "n_overlays_applied": n_overlays,
+                "fired_case_ids":     [
+                    c.get("case_id")
+                    for c in (out.get("playbook_overlay_log") or [])
+                ],
+                "headline":           (out.get("headline") or "")[:200],
+                "manual_override":    True,
+            })
+    except Exception as e:
+        print(f"[health] WARN: {type(e).__name__}: {e}")
 
     print(f"[strategist] wrote {dated}")
     print(f"[strategist] wrote {latest}")
