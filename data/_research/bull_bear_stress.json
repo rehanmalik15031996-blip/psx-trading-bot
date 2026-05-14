@@ -1,0 +1,241 @@
+{
+  "regime_distribution": {
+    "NEUTRAL": 109,
+    "BEAR_sustained": 29,
+    "BULL_mild": 47,
+    "BEAR_recent_drop": 31,
+    "BULL_strong": 42
+  },
+  "per_regime": {
+    "BULL_strong": {
+      "n": 42,
+      "univ_mean": 1.8751261803244497,
+      "base_mean": 0.9244031250901575,
+      "over_mean": 0.9563962342944885,
+      "edge_vs_base": 0.031993109204330954,
+      "edge_vs_univ": -0.9187299460299612,
+      "win_rate_vs_base": 0.42857142857142855,
+      "win_rate_vs_univ": 0.16666666666666666,
+      "gross_b_mean": 0.5000000000000001,
+      "gross_o_mean": 0.47788265306122446,
+      "deployment_diff_pp": -2.211734693877565,
+      "mean_fires": 2.119047619047619
+    },
+    "BULL_mild": {
+      "n": 47,
+      "univ_mean": 1.5725981347316729,
+      "base_mean": 0.7986552072278957,
+      "over_mean": 0.6605277639460272,
+      "edge_vs_base": -0.13812744328186857,
+      "edge_vs_univ": -0.9120703707856457,
+      "win_rate_vs_base": 0.44680851063829785,
+      "win_rate_vs_univ": 0.2978723404255319,
+      "gross_b_mean": 0.5000000000000001,
+      "gross_o_mean": 0.48975683890577504,
+      "deployment_diff_pp": -1.0243161094225073,
+      "mean_fires": 1.7446808510638299
+    },
+    "NEUTRAL": {
+      "n": 109,
+      "univ_mean": -0.4854025906432027,
+      "base_mean": -0.24437701277023455,
+      "over_mean": -0.21027058892179015,
+      "edge_vs_base": 0.03410642384844439,
+      "edge_vs_univ": 0.2751320017214125,
+      "win_rate_vs_base": 0.28440366972477066,
+      "win_rate_vs_univ": 0.5596330275229358,
+      "gross_b_mean": 0.4946264744429883,
+      "gross_o_mean": 0.47311271297509827,
+      "deployment_diff_pp": -2.1513761467890022,
+      "mean_fires": 1.5779816513761469
+    },
+    "BEAR_recent_drop": {
+      "n": 31,
+      "univ_mean": 1.2475508111785634,
+      "base_mean": 0.6304482525647235,
+      "over_mean": 0.5525260349473834,
+      "edge_vs_base": -0.07792221761734004,
+      "edge_vs_univ": -0.6950247762311801,
+      "win_rate_vs_base": 0.45161290322580644,
+      "win_rate_vs_univ": 0.3225806451612903,
+      "gross_b_mean": 0.5000000000000001,
+      "gross_o_mean": 0.4370046082949308,
+      "deployment_diff_pp": -6.299539170506929,
+      "mean_fires": 1.3548387096774193
+    },
+    "BEAR_sustained": {
+      "n": 29,
+      "univ_mean": -1.1465514393008016,
+      "base_mean": -0.5793708399345642,
+      "over_mean": -0.17642271882620872,
+      "edge_vs_base": 0.4029481211083555,
+      "edge_vs_univ": 0.970128720474593,
+      "win_rate_vs_base": 0.4827586206896552,
+      "win_rate_vs_univ": 0.5862068965517241,
+      "gross_b_mean": 0.5000000000000001,
+      "gross_o_mean": 0.3740270935960591,
+      "deployment_diff_pp": -12.5972906403941,
+      "mean_fires": 1.9655172413793103
+    }
+  },
+  "cumulative": {
+    "baseline_final": 164.16823293956168,
+    "overlay_final": 178.57776142756072,
+    "universe_final": 255.9333104241201
+  },
+  "max_drawdown": {
+    "baseline": 17.683939718772635,
+    "overlay": 13.869677376528927,
+    "universe": 32.71932698904311
+  },
+  "longest_bull": {
+    "weeks": 16,
+    "start": "2025-06-20",
+    "end": "2025-10-03"
+  },
+  "longest_bear": {
+    "weeks": 7,
+    "start": "2026-02-13",
+    "end": "2026-03-27"
+  },
+  "per_sector_edge": {
+    "Oil & Gas E&P": {
+      "BEAR_sustained": {
+        "n": 3,
+        "avg_edge_pp": 0.13498856926895408
+      },
+      "NEUTRAL": {
+        "n": 18,
+        "avg_edge_pp": 0.011560877153269275
+      },
+      "BULL_mild": {
+        "n": 9,
+        "avg_edge_pp": 0.6683877295617403
+      },
+      "BEAR_recent_drop": {
+        "n": 1,
+        "avg_edge_pp": 1.5022086720682837
+      },
+      "BULL_strong": {
+        "n": 5,
+        "avg_edge_pp": 2.451265974073792
+      }
+    },
+    "Cement": {
+      "NEUTRAL": {
+        "n": 23,
+        "avg_edge_pp": 1.2726502068763548
+      },
+      "BEAR_recent_drop": {
+        "n": 6,
+        "avg_edge_pp": 2.4281365949145735
+      },
+      "BEAR_sustained": {
+        "n": 10,
+        "avg_edge_pp": 1.0568874368746237
+      },
+      "BULL_mild": {
+        "n": 14,
+        "avg_edge_pp": -1.4742442574899692
+      },
+      "BULL_strong": {
+        "n": 8,
+        "avg_edge_pp": 2.2925884180902525
+      }
+    },
+    "Conglomerate": {
+      "NEUTRAL": {
+        "n": 17,
+        "avg_edge_pp": 0.7189968164644202
+      },
+      "BEAR_recent_drop": {
+        "n": 3,
+        "avg_edge_pp": -0.05386059340163207
+      },
+      "BULL_mild": {
+        "n": 10,
+        "avg_edge_pp": -1.4445063251931507
+      },
+      "BEAR_sustained": {
+        "n": 1,
+        "avg_edge_pp": 7.493280744410469
+      },
+      "BULL_strong": {
+        "n": 7,
+        "avg_edge_pp": 2.5485253960751715
+      }
+    },
+    "Autos": {
+      "NEUTRAL": {
+        "n": 12,
+        "avg_edge_pp": -1.6569397194845819
+      },
+      "BEAR_recent_drop": {
+        "n": 3,
+        "avg_edge_pp": 0.42155211508274615
+      },
+      "BULL_mild": {
+        "n": 4,
+        "avg_edge_pp": -0.5659448687140106
+      },
+      "BEAR_sustained": {
+        "n": 1,
+        "avg_edge_pp": 1.9102548049834023
+      }
+    },
+    "Banking": {
+      "NEUTRAL": {
+        "n": 35,
+        "avg_edge_pp": -0.2655978003548245
+      },
+      "BEAR_recent_drop": {
+        "n": 13,
+        "avg_edge_pp": 1.4997411286818512
+      },
+      "BULL_mild": {
+        "n": 18,
+        "avg_edge_pp": 2.4997921841200363
+      },
+      "BULL_strong": {
+        "n": 19,
+        "avg_edge_pp": 3.5733319310028766
+      },
+      "BEAR_sustained": {
+        "n": 4,
+        "avg_edge_pp": -0.5815879472658052
+      }
+    },
+    "Power": {
+      "BULL_strong": {
+        "n": 3,
+        "avg_edge_pp": -3.549454751265415
+      },
+      "BULL_mild": {
+        "n": 2,
+        "avg_edge_pp": -1.951639876697518
+      },
+      "NEUTRAL": {
+        "n": 3,
+        "avg_edge_pp": 4.5757713089630165
+      },
+      "BEAR_recent_drop": {
+        "n": 1,
+        "avg_edge_pp": -8.355197678542769
+      }
+    },
+    "OMC": {
+      "BULL_strong": {
+        "n": 3,
+        "avg_edge_pp": -0.4969928517362592
+      },
+      "BULL_mild": {
+        "n": 2,
+        "avg_edge_pp": 6.517999351881932
+      },
+      "NEUTRAL": {
+        "n": 3,
+        "avg_edge_pp": 5.584083702963276
+      }
+    }
+  }
+}
