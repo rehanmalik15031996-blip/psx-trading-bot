@@ -139,6 +139,24 @@ VALID_TRIGGER_KINDS = {
     # vs +0.23% on low-volume up days, n=4,657 vs 734).
     "volume_breakout_count_gte",
     "volume_data_freshness_lte",
+    # Phase F — intraday session shape (post-mortem 2026-05-14).
+    # `close_in_range` measures where the close sat in the day's high-low
+    # range (0% = at low, 100% = at high). <25% = distribution day signature.
+    # `intraday_range` measures total movement as % of yest close (volatility).
+    # `open_to_close` measures direction within the session (negative on a
+    # close-near-low day even if yest-close to today-close looks flat).
+    # `brent_5d_slope` is the rolling slope used to decay E&P thesis
+    # once Brent flattens at an elevated level.
+    "kse100_close_in_range_lte", "kse100_close_in_range_gte",
+    "kse100_intraday_range_gte", "kse100_intraday_range_lte",
+    "kse100_open_to_close_lte", "kse100_open_to_close_gte",
+    "brent_5d_slope_lte", "brent_5d_slope_gte",
+    # Phase F — binary-event eve gating. The day before a known
+    # binary event (e.g. IMF mission lands tomorrow) the day's tape
+    # routinely shows opening strength + closing weakness (distribution
+    # into the event). `days_to_active_event_lte` lets cases fire only
+    # in that pre-event window.
+    "days_to_active_event_lte", "days_to_active_event_gte",
 }
 
 
@@ -358,12 +376,24 @@ def _count_earnings_blackouts(briefing: dict) -> int:
 def _macro_level_facts(briefing: dict) -> dict:
     """Pull macro LEVELS (not just directional changes) out of the briefing.
     These are what feed the new policy_rate_*, kibor3m_*, usdpkr_*, brent_*,
-    cpi_yoy_*, fx_reserves_*, kse100_*d_* trigger families."""
+    cpi_yoy_*, fx_reserves_*, kse100_*d_* trigger families.
+
+    Also computes intraday session-shape facts:
+      - kse100_close_in_range_pct: 0=at low, 100=at high. <25 = distribution.
+      - kse100_intraday_range_pct: today's high-low / yesterday close
+      - kse100_open_to_close_pct: (close - open) / open * 100
+      - brent_5d_slope_pct: 5-day pct change (positive = still rising)
+    """
     out: dict = {
         "policy_rate_pct": None, "kibor3m_pct": None, "tbill3m_pct": None,
         "usdpkr": None, "brent_usd_bbl": None, "gold_usd_oz": None,
         "cpi_yoy_pct": None, "fx_reserves_total_usd_bn": None,
         "kse100_ret_5d": None, "kse100_ret_21d": None,
+        # Phase F — intraday session shape (added 2026-05-14 post-mortem):
+        "kse100_close_in_range_pct": None,
+        "kse100_intraday_range_pct": None,
+        "kse100_open_to_close_pct":  None,
+        "brent_5d_slope_pct":        None,
     }
     pr = briefing.get("policy_rate") or {}
     if isinstance(pr, dict) and pr.get("policy_rate_pct") is not None:
@@ -403,6 +433,43 @@ def _macro_level_facts(briefing: dict) -> dict:
                     out[dst] = float(block["last"])
                 except (TypeError, ValueError):
                     pass
+
+    # Phase F — intraday session-shape facts (post-mortem 2026-05-14).
+    # KSE-100 intraday metrics. Briefings may carry them via either
+    # ``kse100_intraday`` (preferred) or pre-computed in macro_snapshot.
+    intra = briefing.get("kse100_intraday") or {}
+    if isinstance(intra, dict):
+        try:
+            y_close = intra.get("yest_close")
+            t_open  = intra.get("today_open")
+            t_high  = intra.get("today_high")
+            t_low   = intra.get("today_low")
+            t_close = intra.get("today_close")
+            if y_close and t_high is not None and t_low is not None and t_high > t_low:
+                if t_close is not None:
+                    out["kse100_close_in_range_pct"] = round(
+                        (float(t_close) - float(t_low)) / (float(t_high) - float(t_low)) * 100, 2)
+                out["kse100_intraday_range_pct"] = round(
+                    (float(t_high) - float(t_low)) / float(y_close) * 100, 3)
+            if t_open and t_close is not None and float(t_open) > 0:
+                out["kse100_open_to_close_pct"] = round(
+                    (float(t_close) - float(t_open)) / float(t_open) * 100, 3)
+        except (TypeError, ValueError, ZeroDivisionError):
+            pass
+
+    # Brent 5-day slope — needed to decay the us_iran_oil_spike alpha
+    # once oil stops rising (post-mortem 2026-05-14 found alpha
+    # decays within 5-7 sessions of a flat top).
+    brent_series = briefing.get("brent_series") or []
+    if isinstance(brent_series, list) and len(brent_series) >= 6:
+        try:
+            recent = [float(x) for x in brent_series[-6:] if x is not None]
+            if len(recent) >= 6 and recent[0] > 0:
+                out["brent_5d_slope_pct"] = round(
+                    (recent[-1] - recent[0]) / recent[0] * 100, 3)
+        except (TypeError, ValueError):
+            pass
+
     return out
 
 
@@ -718,6 +785,18 @@ def _briefing_facts(briefing: dict) -> dict:
 
     facts["earnings_blackouts"] = _count_earnings_blackouts(briefing)
     facts["active_events"] = _load_active_events()
+    # Phase F — distance to nearest active event (days), so cases can
+    # gate themselves to the "eve-of-event" window. The strategist
+    # briefing may pre-populate this via ``days_to_next_event``; if
+    # absent we leave it None (case fail-safe to False above).
+    dne = briefing.get("days_to_next_event")
+    if dne is not None:
+        try:
+            facts["days_to_next_event"] = int(dne)
+        except (TypeError, ValueError):
+            facts["days_to_next_event"] = None
+    else:
+        facts["days_to_next_event"] = None
 
     # Phase C: macro levels, valuation aggregates, cycle context, calendar.
     facts["macro_levels"] = _macro_level_facts(briefing)
@@ -952,6 +1031,22 @@ def _eval_trigger(trigger: str, facts: dict) -> bool:
         # (loaded from data/playbook/_events.json).
         return value.lower() in (facts.get("active_events") or set())
 
+    if kind in ("days_to_active_event_lte", "days_to_active_event_gte"):
+        # Phase F — gate the case to a specific window relative to the
+        # nearest known active event. The briefing can pre-populate
+        # facts["days_to_next_event"] (int days; negative = past).
+        # Falls back to True if event window is unknown so cases that
+        # use this trigger fail-safe (don't lock out everything during
+        # data outages).
+        try:
+            thr = int(value)
+        except ValueError:
+            return False
+        days = facts.get("days_to_next_event")
+        if days is None:
+            return False
+        return (days <= thr) if kind.endswith("_lte") else (days >= thr)
+
     if kind == "sector":
         # Pure context tag — never fires on its own. The case has to
         # have at least one other trigger that fires.
@@ -996,6 +1091,15 @@ def _eval_trigger(trigger: str, facts: dict) -> bool:
         "kse100_5d_gte":          (macro_levels, "kse100_ret_5d",          ">="),
         "kse100_21d_lte":         (macro_levels, "kse100_ret_21d",         "<="),
         "kse100_21d_gte":         (macro_levels, "kse100_ret_21d",         ">="),
+        # Phase F — intraday session shape:
+        "kse100_close_in_range_lte": (macro_levels, "kse100_close_in_range_pct", "<="),
+        "kse100_close_in_range_gte": (macro_levels, "kse100_close_in_range_pct", ">="),
+        "kse100_intraday_range_gte": (macro_levels, "kse100_intraday_range_pct", ">="),
+        "kse100_intraday_range_lte": (macro_levels, "kse100_intraday_range_pct", "<="),
+        "kse100_open_to_close_lte":  (macro_levels, "kse100_open_to_close_pct",  "<="),
+        "kse100_open_to_close_gte":  (macro_levels, "kse100_open_to_close_pct",  ">="),
+        "brent_5d_slope_lte":        (macro_levels, "brent_5d_slope_pct",        "<="),
+        "brent_5d_slope_gte":        (macro_levels, "brent_5d_slope_pct",        ">="),
         "universe_pe_lte":        (valuation,    "universe_pe_avg",        "<="),
         "universe_pe_gte":        (valuation,    "universe_pe_avg",        ">="),
         "universe_pb_lte":        (valuation,    "universe_pb_avg",        "<="),

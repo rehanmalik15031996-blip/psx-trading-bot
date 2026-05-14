@@ -145,6 +145,116 @@ def _safe(fn, *args, **kwargs) -> Any:
         return {"error": f"{type(e).__name__}: {e}"}
 
 
+# ---------------------------------------------------------------------------
+# Phase F helpers (added 2026-05-14 post-mortem)
+# ---------------------------------------------------------------------------
+def _kse100_intraday_facts() -> dict:
+    """Return today's KSE-100 intraday OHLC and yesterday's close.
+
+    Source: ``data/macro/kse100.parquet`` which stores
+    ``date, kse100_close, kse100_change_pct, kse100_high, kse100_low``
+    (no ``kse100_open`` yet; the briefing will leave ``today_open=None``
+    until ingestion is extended).
+    """
+    import pandas as pd
+    p = PROJECT_ROOT / "data" / "macro" / "kse100.parquet"
+    if not p.exists():
+        return {}
+    df = pd.read_parquet(p)
+    if df.empty or "kse100_close" not in df.columns:
+        return {}
+    df = df.sort_values("date").tail(2).reset_index(drop=True)
+    if len(df) < 2:
+        return {}
+    y = df.iloc[0]
+    t = df.iloc[1]
+    return {
+        "yest_close":  float(y["kse100_close"]),
+        "today_close": float(t["kse100_close"]),
+        "today_high":  float(t["kse100_high"])
+                          if "kse100_high" in df.columns else None,
+        "today_low":   float(t["kse100_low"])
+                          if "kse100_low" in df.columns else None,
+        # today_open is not yet ingested. Approximate as yest_close so the
+        # open_to_close_pct trigger collapses to ((close-yest_close)/yest_close),
+        # which matches kse100_change_pct. This is conservative — the real
+        # opening auction can gap. Update once ingestion stores open.
+        "today_open":  float(y["kse100_close"]),
+    }
+
+
+def _brent_recent_series(n: int = 6) -> list:
+    """Return the last ``n`` Brent closes (oldest -> newest) for slope checks."""
+    import pandas as pd
+    p = PROJECT_ROOT / "data" / "macro" / "brent.parquet"
+    if not p.exists():
+        return []
+    df = pd.read_parquet(p)
+    if df.empty:
+        return []
+    # Try common column names
+    for col in ("close", "value", "brent_close", "Close"):
+        if col in df.columns:
+            return [float(x) for x in df[col].tail(n).tolist()
+                    if x is not None]
+    return []
+
+
+def _days_to_next_event(default_decay: int = 14) -> int | None:
+    """Distance in calendar days from today to the nearest binary event
+    window in ``data/playbook/_events.json``. Semantics:
+
+      - Return 0 if we are CURRENTLY inside any active event window
+        (start <= today <= start + decay_days). This captures the
+        "event window distribution" use case.
+      - Otherwise return the days to the next event start in the future.
+      - Return None if no future event and no active window.
+
+    Past events (outside their decay window) are ignored so case triggers
+    like ``days_to_active_event_lte:2`` fire only on the eve of, or
+    during, an event window — not the day after one has fully decayed.
+    """
+    import json
+    from datetime import date, datetime, timedelta
+    p = PROJECT_ROOT / "data" / "playbook" / "_events.json"
+    if not p.exists():
+        return None
+    try:
+        raw = json.loads(p.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    today = date.today()
+    events = raw.get("events") if isinstance(raw, dict) else raw
+    if not isinstance(events, list):
+        return None
+    future_starts: list[int] = []
+    for ev in events:
+        if not isinstance(ev, dict):
+            continue
+        start_str = (ev.get("starts_on") or ev.get("start")
+                      or ev.get("date") or ev.get("event_date"))
+        if not start_str:
+            continue
+        try:
+            start = datetime.fromisoformat(str(start_str)[:10]).date()
+        except (ValueError, TypeError):
+            continue
+        decay = ev.get("decay_days")
+        try:
+            decay = int(decay) if decay is not None else default_decay
+        except (TypeError, ValueError):
+            decay = default_decay
+        end = start + timedelta(days=decay)
+        if start <= today <= end:
+            # We are inside an active window — closest possible distance.
+            return 0
+        if start > today:
+            future_starts.append((start - today).days)
+    if not future_starts:
+        return None
+    return min(future_starts)
+
+
 def build_briefing() -> dict:
     """Pull every signal the bot has into one structured payload.
 
@@ -268,6 +378,15 @@ def build_briefing() -> dict:
     # playbook BEFORE the LLM call so Claude reasons against named
     # past evidence, not from scratch.
     try:
+        # Phase F (2026-05-14 post-mortem) — populate intraday session-shape
+        # facts so the new distribution/event-eve/brent-plateau cases can
+        # fire. We compute them BEFORE retrieve_analogues so the matcher
+        # picks them up. All fields degrade gracefully to None on missing
+        # data (cases fail-safe to no-fire).
+        briefing["kse100_intraday"] = _safe(_kse100_intraday_facts)
+        briefing["brent_series"]    = _safe(_brent_recent_series)
+        briefing["days_to_next_event"] = _safe(_days_to_next_event)
+
         briefing["playbook_analogues"] = pb.retrieve_analogues(briefing)
         briefing["playbook_facts"] = pb.summarise_facts(briefing)
     except Exception as e:
