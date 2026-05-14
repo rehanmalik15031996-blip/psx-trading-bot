@@ -1,11 +1,11 @@
 {
-  "as_of": "2026-05-14T21:52:12+00:00",
-  "model": "claude-sonnet-4-5+fallback",
+  "as_of": "2026-05-14",
+  "model": "rule-based-v2",
   "thinking_budget": 0,
-  "headline": "LLM strategist failed (AuthenticationError); fallback active",
-  "risk_stance": "CASH",
+  "headline": "NORMAL \u2014 single conviction long (OGDC)",
+  "risk_stance": "NORMAL",
   "conviction": "LOW",
-  "narrative": "LLM strategist unavailable (no ANTHROPIC_API_KEY). This is the rule-based fallback \u2014 it mirrors the Phase-1 mechanical signal scaled by the regime exposure multiplier and surfaces no opinion of its own.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [imf_review_mission_week] IMF mission active \u2014 moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.) || [distribution_day_signature] Distribution-day signature \u2014 KSE100 closed in lower 25% of wide intraday range. Treat next session as continuation-down bias; don't chase intraday rallies. || [event_eve_distribution] Event-eve distribution \u2014 pre-event de-risk. Don't chase morning bounces tomorrow; the closing tape is telling you institutions are still net sellers.",
+  "narrative": "Normal stance (LOW confidence). Top driver: kse100_up (STRONG). Tape: KSE-100 -3.4%/5d, elevated vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [imf_review_mission_week] IMF mission active \u2014 moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.) || [distribution_day_signature] Distribution-day signature \u2014 KSE100 closed in lower 25% of wide intraday range. Treat next session as continuation-down bias; don't chase intraday rallies. || [event_eve_distribution] Event-eve distribution \u2014 pre-event de-risk. Don't chase morning bounces tomorrow; the closing tape is telling you institutions are still net sellers.",
   "agrees_with_phase1": true,
   "phase1_disagreement_note": "",
   "actions": [
@@ -20,460 +20,196 @@
     },
     {
       "symbol": "OGDC",
-      "bucket": "HOLD",
-      "conviction": "LOW",
+      "bucket": "ADD",
+      "conviction": "MEDIUM",
       "sector": "Oil & Gas E&P",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
+      "target_weight_pct": 6.24,
+      "reason": "+value:BUY_VALUE; +Positive 150d momentum +19.1%; +macro(Oil & Gas E&P+3)",
+      "contributing_signals": [
+        "Positive 150d momentum +19.1%",
+        "Strong 60d momentum +12.6%",
+        "Price +15.1% above 200-day SMA"
+      ],
+      "position_plan": {
+        "symbol": "OGDC",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 323.72,
+        "atr_14_pct": 2.2,
+        "stop_loss_price": 305.55,
+        "stop_loss_pct": 5.61,
+        "target_price": 369.16,
+        "target_pct": 14.04,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 6.24,
+        "position_size_pkr": 89060.0,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.2% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 5.6% stop; target 2.5R = 14.0%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "size adjusted to 6.24% by playbook overlay"
+        ]
+      }
     },
     {
       "symbol": "ATRL",
-      "bucket": "HOLD",
-      "conviction": "LOW",
+      "bucket": "ADD",
+      "conviction": "MEDIUM",
       "sector": "OMC/Refining",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "FFC",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Fertilizer",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "ENGROH",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Conglomerate/Chem",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "EPCL",
-      "bucket": "AVOID",
-      "conviction": "LOW",
-      "sector": "Conglomerate/Chem",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
+      "target_weight_pct": 5.82,
+      "reason": "+Strong 150d momentum +21.7%; +mf_accum_2m; +macro(OMC/Refining+2)",
       "contributing_signals": [
-        "playbook:imf_review_mission_week:symbol_clamp"
-      ]
-    },
-    {
-      "symbol": "PPL",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Oil & Gas E&P",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "FATIMA",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Fertilizer",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "NBP",
-      "bucket": "AVOID",
-      "conviction": "LOW",
-      "sector": "Banking",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "KAPCO",
-      "bucket": "AVOID",
-      "conviction": "LOW",
-      "sector": "Power",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:imf_review_mission_week:symbol_clamp"
-      ]
+        "Strong 150d momentum +21.7%",
+        "Price +19.2% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
+      ],
+      "position_plan": {
+        "symbol": "ATRL",
+        "sector": "OMC",
+        "entry_price": 880.72,
+        "atr_14_pct": 2.36,
+        "stop_loss_price": 827.79,
+        "stop_loss_pct": 6.01,
+        "target_price": 1013.06,
+        "target_pct": 15.03,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 5.82,
+        "position_size_pkr": 83190.0,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.4% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 6.0% stop; target 2.5R = 15.0%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "size adjusted to 5.82% by playbook overlay"
+        ]
+      }
     },
     {
       "symbol": "MEBL",
       "bucket": "AVOID",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "sector": "Banking",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Banking+4); +mom150d=+8.1%",
       "contributing_signals": [
+        "macro(Banking+4)",
+        "mom150d=+8.1%",
         "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
         "playbook:distribution_day_signature:sector_overlay:downgrade_one",
         "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "HUBC",
-      "bucket": "TRIM",
-      "conviction": "LOW",
-      "sector": "Power",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "POL",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Oil & Gas E&P",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "KEL",
-      "bucket": "TRIM",
-      "conviction": "LOW",
-      "sector": "Power",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "TRG",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Technology",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "MARI",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Oil & Gas E&P",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "PABC",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Misc",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "HBL",
-      "bucket": "AVOID",
-      "conviction": "LOW",
-      "sector": "Banking",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "BAHL",
-      "bucket": "AVOID",
-      "conviction": "LOW",
-      "sector": "Banking",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "KOHC",
-      "bucket": "TRIM",
-      "conviction": "LOW",
-      "sector": "Cement",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "PSO",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "OMC/Refining",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "FABL",
-      "bucket": "AVOID",
-      "conviction": "LOW",
-      "sector": "Banking",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "APL",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "OMC/Refining",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
+      ],
+      "position_plan": {
+        "symbol": "MEBL",
+        "sector": "Banking",
+        "entry_price": 481.96,
+        "atr_14_pct": 1.38,
+        "stop_loss_price": 469.91,
+        "stop_loss_pct": 2.5,
+        "target_price": 512.08,
+        "target_pct": 6.25,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": 100000.0,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.4% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
     },
     {
       "symbol": "MCB",
       "bucket": "TRIM",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "sector": "Banking",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Banking+4); +mom150d=+5.6%",
       "contributing_signals": [
+        "macro(Banking+4)",
+        "mom150d=+5.6%",
         "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
         "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:distribution_day_signature:sector_overlay:downgrade_one",
         "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
+      ],
+      "position_plan": {
+        "symbol": "MCB",
+        "sector": "Banking",
+        "entry_price": 397.0,
+        "atr_14_pct": 1.59,
+        "stop_loss_price": 387.07,
+        "stop_loss_pct": 2.5,
+        "target_price": 421.81,
+        "target_pct": 6.25,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": 100000.0,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.6% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
     },
     {
-      "symbol": "EFERT",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Fertilizer",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "INDU",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Autos",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "NPL",
-      "bucket": "TRIM",
-      "conviction": "LOW",
-      "sector": "Power",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "UBL",
-      "bucket": "TRIM",
-      "conviction": "LOW",
+      "symbol": "FABL",
+      "bucket": "AVOID",
+      "conviction": "MEDIUM",
       "sector": "Banking",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Banking+4); +mom150d=+1.1%",
       "contributing_signals": [
+        "macro(Banking+4)",
+        "mom150d=+1.1%",
         "playbook:imf_review_mission_week:sector_overlay:downgrade_one",
-        "playbook:imf_review_mission_week:symbol_clamp",
         "playbook:distribution_day_signature:sector_overlay:downgrade_one",
         "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "SYS",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Technology",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "FCCL",
-      "bucket": "TRIM",
-      "conviction": "LOW",
-      "sector": "Cement",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "SEARL",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Pharma",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "LUCK",
-      "bucket": "TRIM",
-      "conviction": "LOW",
-      "sector": "Cement",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "COLG",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Consumer",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
-    },
-    {
-      "symbol": "MLCF",
-      "bucket": "TRIM",
-      "conviction": "LOW",
-      "sector": "Cement",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "DGKC",
-      "bucket": "TRIM",
-      "conviction": "LOW",
-      "sector": "Cement",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": [
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one",
-        "playbook:event_eve_distribution:sector_overlay:downgrade_one"
-      ]
-    },
-    {
-      "symbol": "LOTCHEM",
-      "bucket": "HOLD",
-      "conviction": "LOW",
-      "sector": "Conglomerate/Chem",
-      "target_weight_pct": 0.0,
-      "reason": "Universe member; not Phase-1 selected. Default HOLD wt=0.",
-      "contributing_signals": []
+      ],
+      "position_plan": {
+        "symbol": "FABL",
+        "sector": "Banking",
+        "entry_price": 88.05,
+        "atr_14_pct": 1.36,
+        "stop_loss_price": 85.81,
+        "stop_loss_pct": 2.54,
+        "target_price": 93.64,
+        "target_pct": 6.35,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": 100000.0,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.4% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.4%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
     }
   ],
   "key_drivers": [
-    "Phase-1 picks: CASH",
-    "Regime: NORMAL (multiplier x1.00)"
+    "kse100_up",
+    "copper_up",
+    "cotton_up",
+    "tbill_above_policy",
+    "reserves_recovery"
   ],
   "key_risks": [
-    "LLM strategist unavailable \u2014 qualitative risks not surfaced."
+    "Vol regime is ELEVATED \u2014 use tighter stops or smaller size."
   ],
-  "macro_lens": "Macro lens not available without LLM reasoning. See data/_health/macro_kpis.json for the raw KPIs.",
-  "behavioural_lens": "Behavioural lens not available without LLM reasoning. FIPI net 5d = None.",
+  "macro_lens": "Normal stance (LOW confidence). Top driver: kse100_up (STRONG). Tape: KSE-100 -3.4%/5d, elevated vol regime.",
+  "behavioural_lens": "",
   "fallback_used": true,
   "raw_llm_text": "",
   "thinking_trace": "",
   "briefing_summary": {
+    "as_of": "2026-05-14T23:40:49+00:00",
     "regime": {
-      "regime": "NORMAL",
-      "exposure_multiplier": 1.0
-    },
-    "strategy_signal": {
       "as_of": "2026-05-14",
-      "market_risk_on": false,
-      "selected_symbols": [],
-      "would_pick_if_market_filter_off": [
-        "ATRL",
-        "OGDC",
-        "EPCL",
-        "ENGROH",
-        "FFC"
-      ],
-      "recommended_action": "HOLD CASH",
-      "rationale": "Market filter: universe 150d mom is negative \u2014 go to cash"
+      "regime": "NORMAL",
+      "exposure_multiplier": 1.0,
+      "reason": "Rule-based: no stress markers",
+      "flags": [],
+      "indicators": {
+        "universe_ret_5d": -0.0342,
+        "universe_ret_21d": -0.0149,
+        "universe_150d_log_ret": -0.0398,
+        "breadth_pct_up_today": 25.7
+      },
+      "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
     },
-    "macro_drivers_count": 5,
-    "fipi_5d_net": null,
-    "n_short_candidates": 0,
-    "n_buy_ideas": 5,
-    "n_predictions": 5,
-    "portfolio_positions": 5,
-    "playbook_analogues_count": 4,
-    "playbook_analogue_ids": [
-      "mf_universe_distribution_broad",
-      "imf_review_mission_week",
-      "distribution_day_signature",
-      "event_eve_distribution"
-    ],
-    "playbook_analogue_fired": {
-      "mf_universe_distribution_broad": {
-        "fired_triggers": [
-          "mf_universe_n_top_distributed_gte:5",
-          "mf_data_freshness_lte:90"
-        ],
-        "match_score": 2.6,
-        "confidence": "MEDIUM"
-      },
-      "imf_review_mission_week": {
-        "fired_triggers": [
-          "event:imf_mission_active",
-          "regime:NORMAL"
-        ],
-        "match_score": 2.6,
-        "confidence": "MEDIUM"
-      },
-      "distribution_day_signature": {
-        "fired_triggers": [
-          "kse100_intraday_range_gte:0.8",
-          "kse100_close_in_range_lte:25"
-        ],
-        "match_score": 2.6,
-        "confidence": "MEDIUM"
-      },
-      "event_eve_distribution": {
-        "fired_triggers": [
-          "days_to_active_event_lte:2",
-          "kse100_open_to_close_lte:-0.3"
-        ],
-        "match_score": 2.6,
-        "confidence": "MEDIUM"
-      }
-    },
-    "mf_data_freshness_days": 43,
-    "mf_n_top_accumulated": 0,
-    "mf_n_top_distributed": 0
+    "predictions_count": 5,
+    "playbook_analogues_count": 4
   },
   "playbook_overlay_log": [
     {
@@ -503,25 +239,13 @@
       ],
       "changes": [
         {
-          "symbol": "NBP",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
           "symbol": "MEBL",
           "from": "HOLD",
           "to": "WATCH",
           "via": "sector_overlay:Banking:downgrade_one"
         },
         {
-          "symbol": "HBL",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "BAHL",
+          "symbol": "MCB",
           "from": "HOLD",
           "to": "WATCH",
           "via": "sector_overlay:Banking:downgrade_one"
@@ -534,63 +258,9 @@
         },
         {
           "symbol": "MCB",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "UBL",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "KAPCO",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Power:downgrade_one"
-        },
-        {
-          "symbol": "HUBC",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Power:downgrade_one"
-        },
-        {
-          "symbol": "KEL",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Power:downgrade_one"
-        },
-        {
-          "symbol": "NPL",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Power:downgrade_one"
-        },
-        {
-          "symbol": "MCB",
           "from": "WATCH",
           "to": "HOLD",
           "via": "symbol_clamp(min=HOLD,max=None)"
-        },
-        {
-          "symbol": "UBL",
-          "from": "WATCH",
-          "to": "HOLD",
-          "via": "symbol_clamp(min=HOLD,max=None)"
-        },
-        {
-          "symbol": "KAPCO",
-          "from": "WATCH",
-          "to": "AVOID",
-          "via": "symbol_clamp(min=None,max=AVOID)"
-        },
-        {
-          "symbol": "EPCL",
-          "from": "HOLD",
-          "to": "AVOID",
-          "via": "symbol_clamp(min=None,max=AVOID)"
         },
         {
           "position_size_multiplier": 0.7,
@@ -611,31 +281,7 @@
       ],
       "changes": [
         {
-          "symbol": "NBP",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
           "symbol": "MEBL",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "HBL",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "BAHL",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "FABL",
           "from": "WATCH",
           "to": "TRIM",
           "via": "sector_overlay:Banking:downgrade_one"
@@ -647,40 +293,10 @@
           "via": "sector_overlay:Banking:downgrade_one"
         },
         {
-          "symbol": "UBL",
-          "from": "HOLD",
-          "to": "WATCH",
+          "symbol": "FABL",
+          "from": "WATCH",
+          "to": "TRIM",
           "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "KOHC",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Cement:downgrade_one"
-        },
-        {
-          "symbol": "FCCL",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Cement:downgrade_one"
-        },
-        {
-          "symbol": "LUCK",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Cement:downgrade_one"
-        },
-        {
-          "symbol": "MLCF",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Cement:downgrade_one"
-        },
-        {
-          "symbol": "DGKC",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Cement:downgrade_one"
         }
       ]
     },
@@ -693,31 +309,7 @@
       ],
       "changes": [
         {
-          "symbol": "NBP",
-          "from": "TRIM",
-          "to": "AVOID",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
           "symbol": "MEBL",
-          "from": "TRIM",
-          "to": "AVOID",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "HBL",
-          "from": "TRIM",
-          "to": "AVOID",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "BAHL",
-          "from": "TRIM",
-          "to": "AVOID",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "FABL",
           "from": "TRIM",
           "to": "AVOID",
           "via": "sector_overlay:Banking:downgrade_one"
@@ -729,58 +321,10 @@
           "via": "sector_overlay:Banking:downgrade_one"
         },
         {
-          "symbol": "UBL",
-          "from": "WATCH",
-          "to": "TRIM",
+          "symbol": "FABL",
+          "from": "TRIM",
+          "to": "AVOID",
           "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "HUBC",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Power:downgrade_one"
-        },
-        {
-          "symbol": "KEL",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Power:downgrade_one"
-        },
-        {
-          "symbol": "NPL",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Power:downgrade_one"
-        },
-        {
-          "symbol": "KOHC",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Cement:downgrade_one"
-        },
-        {
-          "symbol": "FCCL",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Cement:downgrade_one"
-        },
-        {
-          "symbol": "LUCK",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Cement:downgrade_one"
-        },
-        {
-          "symbol": "MLCF",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Cement:downgrade_one"
-        },
-        {
-          "symbol": "DGKC",
-          "from": "WATCH",
-          "to": "TRIM",
-          "via": "sector_overlay:Cement:downgrade_one"
         }
       ]
     }

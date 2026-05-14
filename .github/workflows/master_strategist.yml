@@ -65,8 +65,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r .github/requirements-ci.txt
 
-      - name: Run Master Strategist
+      - name: Run Master Strategist (v2 multi-agent pipeline)
         run: |
+          # v2 pipeline: Agent A (Macro Reader) -> Agent B (Stock Scorer) ->
+          # Agent C (Master Strategist with per-tab guidance + stop-loss).
+          # Writes both v1 (legacy) and v2 (per-tab) caches so existing
+          # UI keeps working unchanged.
+          python -m scripts.run_strategist_v2 --llm
+
+      - name: Run legacy Master Strategist (fallback)
+        if: failure()
+        run: |
+          # If the v2 pipeline fails, fall back to the legacy single-call
+          # strategist so the dashboard still has a decision.
           ARGS=""
           if [ "${{ github.event.inputs.deep }}" = "true" ]; then
             ARGS="$ARGS --deep"
@@ -80,7 +91,7 @@ jobs:
         run: |
           git config user.name  "psx-bot"
           git config user.email "psx-bot@users.noreply.github.com"
-          git add data/_strategist/*.json 2>/dev/null || true
+          git add data/_strategist/*.json data/_health/strategist_v2.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No strategist changes."
             exit 0

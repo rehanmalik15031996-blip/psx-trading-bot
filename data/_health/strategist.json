@@ -1,8 +1,8 @@
 {
   "workflow": "strategist",
   "ok": true,
-  "note": "MANUAL Cursor strategist; 36 actions, 2 BUY/ADD, 4 playbook overlay(s) applied",
-  "as_of": "2026-05-14T00:16:40+00:00",
+  "note": "FALLBACK + 4 playbook overlay(s) applied; 6 actions, 2 BUY/ADD",
+  "as_of": "2026-05-14T23:41:47+00:00",
   "github": {
     "run_id": "",
     "run_number": "",
@@ -10,20 +10,19 @@
     "sha": ""
   },
   "payload": {
-    "fallback_used": false,
-    "model": "cursor-claude-sonnet-4-5-manual",
-    "risk_stance": "DEFENSIVE",
-    "conviction": "MEDIUM",
-    "n_actions": 36,
+    "fallback_used": true,
+    "model": "rule-based-v2",
+    "risk_stance": "NORMAL",
+    "conviction": "LOW",
+    "n_actions": 6,
     "n_buy_or_add": 2,
     "n_overlays_applied": 4,
     "fired_case_ids": [
       "mf_universe_distribution_broad",
       "imf_review_mission_week",
-      "us_iran_oil_spike",
-      "pre_imf_de_risk_window"
+      "distribution_day_signature",
+      "event_eve_distribution"
     ],
-    "headline": "CAUTIOUS \u2014 selective BUY in OGDC + ATRL + PPL (quality value with yesterday's volume confirmation). 80% cash kept ahead of IMF May 15 (3 days). Avoid SEARL/TRG/PABC. Watch NBP for IMF positive print.",
-    "manual_override": true
+    "headline": "NORMAL \u2014 single conviction long (OGDC)"
   }
 }

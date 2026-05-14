@@ -1674,6 +1674,15 @@ def render_today_tab():
     )
     st.markdown(narrative)
 
+    # Strategist v2 layer — top of Today
+    try:
+        from ui import strategist_v2 as _sv2
+        _sv2.render_today_card()
+        _sv2.render_risks_card()
+        _sv2.render_events_card()
+    except Exception as _e:
+        st.caption(f"(Strategist v2 unavailable: {_e})")
+
     # ---------------------------------------------------- Universe sparkline
     _render_universe_sparkline(brief.get("universe_index", {}))
 
@@ -3338,6 +3347,13 @@ def render_portfolio_tab():
         ],
     )
 
+    # Strategist v2 per-holding recommendations (ATR-based stops)
+    try:
+        from ui import strategist_v2 as _sv2
+        _sv2.render_portfolio_card()
+    except Exception as _e:
+        st.caption(f"(Strategist v2 unavailable: {_e})")
+
     # --- Add position
     with st.expander("Add a new position", expanded=False):
         universe = tools.list_universe()["symbols"]
@@ -3706,6 +3722,13 @@ def render_watchlist_tab():
         ],
     )
 
+    # Strategist v2 watchlist (names just below BUY threshold with triggers)
+    try:
+        from ui import strategist_v2 as _sv2
+        _sv2.render_watchlist_card()
+    except Exception as _e:
+        st.caption(f"(Strategist v2 unavailable: {_e})")
+
     with st.expander("Add a symbol", expanded=False):
         universe = tools.list_universe()["symbols"]
         syms = [s["symbol"] for s in universe]
@@ -3967,6 +3990,14 @@ def render_scanner_tab():
         ],
     )
 
+    # Strategist v2 ranked long ideas (with stop / target / size)
+    try:
+        from ui import strategist_v2 as _sv2
+        _sv2.render_long_ideas_card()
+        _sv2.render_sector_view_card()
+    except Exception as _e:
+        st.caption(f"(Strategist v2 unavailable: {_e})")
+
     try:
         sig = tools.get_strategy_signal()
         regime = tools.get_market_regime()
@@ -4086,6 +4117,14 @@ def render_predictions_tab():
             "was built to be the final decision layer.",
         ],
     )
+
+    # Strategist v2 long ideas (top of Forecast)
+    try:
+        from ui import strategist_v2 as _sv2
+        _sv2.render_long_ideas_card(max_show=5)
+    except Exception as _e:
+        st.caption(f"(Strategist v2 unavailable: {_e})")
+
     st.caption(
         "Generated daily by the `predictions` GitHub Action. The `eod` "
         "workflow scores each prediction once results are in."

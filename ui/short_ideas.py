@@ -514,6 +514,13 @@ def _render_drilldown(c: dict) -> None:
 def render() -> None:
     _section_header()
 
+    # Strategist v2: filtered short candidates with macro-sector veto
+    try:
+        from ui import strategist_v2 as _sv2
+        _sv2.render_short_ideas_card()
+    except Exception as _e:
+        st.caption(f"(Strategist v2 unavailable: {_e})")
+
     try:
         from brain.short_candidates import rank_shorts
     except Exception as e:
