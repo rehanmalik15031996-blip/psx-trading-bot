@@ -135,6 +135,14 @@ def load_overnight(cutoff: pd.Timestamp) -> dict:
 #   - Nikkei is slightly NEGATIVE (contrarian).
 #   - Hang Seng and DXY have near-zero predictive power.
 #   - Intercept is +0.34% — PSX has a persistent positive overnight drift.
+#
+# 2026-05-14 macro-audit refit: also tried extending to NIFTY/KOSPI/Shanghai/
+# FM_ETF. fm_etf stopped publishing in Jan-2025 (yfinance feed issue, gap to
+# patch later). NIFTY/KOSPI/Shanghai on a 363-row joint panel produced
+# test R2 +0.057 vs baseline +0.045 (+0.012 R2) but the test 3-class hit
+# rate dropped from 51.5% to 39.3% (-12pp). Reject the extended model;
+# keep the 6-signal baseline. Revisit once fm_etf feed is restored and
+# 2026 H2 data is in the panel.
 # ----------------------------------------------------------------------------
 FITTED_WEIGHTS = {
     "intercept":       0.3402,   # positive overnight drift

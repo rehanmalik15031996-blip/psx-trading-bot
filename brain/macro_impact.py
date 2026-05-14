@@ -127,7 +127,10 @@ def _downshift_magnitude(mag: str) -> str:
 # driver_tag is one of {"rate_up", "rate_down", "oil_up", "oil_down",
 #                       "pkr_weak", "pkr_strong", "coal_up", "coal_down",
 #                       "cotton_up", "cotton_down", "rate_high",
-#                       "rate_low"}.
+#                       "rate_low",
+#                       # 2026-05-14 macro audit additions:
+#                       "btc_risk_off", "btc_risk_on",
+#                       "geopolitical_oil_premium"}.
 # rate_high / rate_low describe the *level* (regime) and apply
 # continuously; rate_up / rate_down describe a *change* between two
 # observations.
@@ -155,6 +158,13 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                           "quality on emerging-market bank books."),
         "copper_down":(-1,"Copper weakness = global slowdown signal — "
                           "rising NPL risk."),
+        # Global risk-on/off via BTC ---------------------------------
+        "btc_risk_off": (-1, "Sharp BTC drawdown is a global liquidity "
+                              "tightening signal — EM banks face fund "
+                              "outflows and asset-quality concerns."),
+        "btc_risk_on":  (+1, "BTC rally signals loose global liquidity — "
+                              "supportive for EM bank equities on the "
+                              "margin."),
         # Industry-specific KPIs ------------------------------------
         "tbill_above_policy": (+1, "T-bill 3M trading above the policy "
                                     "rate signals the market expects "
@@ -230,6 +240,11 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                           "for construction demand."),
         "copper_down":(-1,"Industrial slowdown reads through to "
                           "construction."),
+        "btc_risk_off": (-1, "BTC drawdown signals global liquidity "
+                              "tightening — cyclicals like cement get "
+                              "compressed via EM risk-off flows."),
+        "btc_risk_on":  (+1, "BTC rally signals loose liquidity — "
+                              "cyclicals benefit from EM risk-on flows."),
         # Industry-specific KPIs ------------------------------------
         "tbill_above_policy": (-1, "T-bills above policy rate price-in "
                                     "more hikes — leverage-heavy cement "
@@ -273,6 +288,12 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                           "for energy demand."),
         "copper_down":(-1,"Industrial slowdown signal weighs on energy "
                           "demand."),
+        # Brent-WTI divergence (geopolitical premium)
+        "geopolitical_oil_premium": (+1, "Brent outpacing WTI signals a "
+                                          "geopolitical risk premium — E&Ps "
+                                          "capture the Brent premium 1:1 on "
+                                          "fully USD-linked wellhead pricing, "
+                                          "on top of the oil_up rating."),
         # Industry-specific KPIs ------------------------------------
         "reserves_stress":  (-1, "FX stress raises circular-debt risk "
                                   "(receivables from gas / power chain "
@@ -304,6 +325,13 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "pkr_weak":  ( 0, "Roughly neutral — government formula passes "
                           "through FX changes within a few weeks."),
         "pkr_strong":( 0, "Roughly neutral after pass-through."),
+        # Brent-WTI divergence (geopolitical premium)
+        "geopolitical_oil_premium": (-1, "Brent rallying faster than WTI "
+                                          "compresses refining margins — "
+                                          "product cracks lag Brent on "
+                                          "geopolitical spikes, so refiners "
+                                          "pay up for feedstock without an "
+                                          "immediate price-pass-through."),
         # Industry-specific KPIs ------------------------------------
         "kibor_up":   (-1, "Higher KIBOR raises inventory-financing cost."),
         "kibor_down": (+1, "Lower KIBOR cuts inventory-financing cost."),
@@ -875,6 +903,30 @@ def detect_drivers(
                          else "")),
         ))
 
+    # ---- WTI cross-check: Brent-WTI 5d return divergence
+    # When Brent outpaces WTI by >=2pp in 5 days *while* Brent is rallying
+    # (>=5%), the move is driven by Middle East / OPEC+ geopolitical
+    # premium (supply concern), not by demand. Pakistan E&Ps (OGDC / PPL
+    # / POL) sell at fully oil-linked rates — they capture the premium
+    # 1:1. Pakistan refiners (NRL / ATRL / PRL) see margins compress more
+    # than in a normal oil rally because product cracks lag Brent on
+    # geopolitical spikes.
+    wti = indicators.get("wti") or {}
+    wti_r5 = wti.get("ret_5d") or 0
+    spread_5d = r5 - wti_r5
+    if r5 >= 0.05 and spread_5d >= 0.02:
+        drivers.append(Driver(
+            name="Brent-WTI spread",
+            tag="geopolitical_oil_premium",
+            move=(f"Brent {r5*100:+.1f}% vs WTI {wti_r5*100:+.1f}% in 5d "
+                  f"(spread {spread_5d*100:+.1f}pp)"),
+            magnitude=("STRONG" if spread_5d >= 0.04 else "MODERATE"),
+            context="Brent outpacing WTI by 2pp+ on a rally signals "
+                     "Middle East geopolitical premium, not demand. "
+                     "Pakistan E&Ps benefit disproportionately; "
+                     "refining margins compress more than usual.",
+        ))
+
     # ---- USD/PKR
     pkr = indicators.get("usdpkr") or {}
     pr21 = pkr.get("ret_21d") or 0
@@ -1012,6 +1064,39 @@ def detect_drivers(
             move=f"{t21*100:+.1f}% in 21d" + t_note,
             magnitude=mag,
             context="Cotton easing supports textile gross margins.",
+        ))
+
+    # ---- BTC (global risk appetite / liquidity proxy)
+    # Pakistan crypto adoption is low so the direct PSX-BTC channel is
+    # weak, but BTC correlates ~0.4 with EEM on selloffs, making sharp
+    # drawdowns a useful EM risk-off proxy. Thresholds intentionally
+    # generous (>=12% in 5d or >=20% in 21d) so we only flag genuinely
+    # market-moving moves, not normal crypto noise.
+    btc = indicators.get("btc") or {}
+    b5  = btc.get("ret_5d") or 0
+    b21 = btc.get("ret_21d") or 0
+    if b5 <= -0.12 or b21 <= -0.20:
+        drivers.append(Driver(
+            name="BTC",
+            tag="btc_risk_off",
+            move=(f"{b5*100:+.1f}% in 5d" if b5 <= -0.12
+                  else f"{b21*100:+.1f}% in 21d"),
+            magnitude=("STRONG" if b5 <= -0.20 or b21 <= -0.30
+                       else "MODERATE"),
+            context="Sharp BTC drawdown signals global risk-off / "
+                     "liquidity tightening — historically correlated "
+                     "with EM equity outflows (~0.4 corr vs EEM in "
+                     "selloffs).",
+        ))
+    elif b5 >= 0.15 or b21 >= 0.25:
+        drivers.append(Driver(
+            name="BTC",
+            tag="btc_risk_on",
+            move=(f"{b5*100:+.1f}% in 5d" if b5 >= 0.15
+                  else f"{b21*100:+.1f}% in 21d"),
+            magnitude="MODERATE",
+            context="BTC rally signals risk-on / loose global liquidity "
+                     "— modest EM equity tailwind on the margin.",
         ))
 
     # ---- T-bill 3M relative to policy rate (banking NIM signal)

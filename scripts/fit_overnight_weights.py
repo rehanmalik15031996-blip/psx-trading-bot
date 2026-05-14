@@ -41,9 +41,21 @@ TRAIN_END = pd.Timestamp("2026-02-28")
 TEST_START = pd.Timestamp("2026-03-01")
 TEST_END = pd.Timestamp("2026-04-22")
 
-SIGNAL_COLS = ["sp500_ret_1d", "vix_level_dev",
-               "nikkei_ret_1d", "hangseng_ret_1d",
-               "eem_ret_1d", "dxy_ret_1d"]
+# Baseline (pre-2026-05-14) signal set — frozen for OOS comparison.
+BASELINE_SIGNAL_COLS = ["sp500_ret_1d", "vix_level_dev",
+                        "nikkei_ret_1d", "hangseng_ret_1d",
+                        "eem_ret_1d", "dxy_ret_1d"]
+
+# Extended signal set — adds 3 regional EM tickers already pulled in the
+# briefing but previously not part of the fitted gap prior.
+#
+# fm_etf_ret_1d (iShares MSCI Frontier 100 ETF) was originally planned to
+# be a 4th addition but its parquet stream has not refreshed beyond
+# 2025-01-08 (yfinance symbol issue), so we exclude it from the panel.
+# Re-add once the data feed is fixed.
+SIGNAL_COLS = BASELINE_SIGNAL_COLS + [
+    "nifty_ret_1d", "kospi_ret_1d", "shanghai_ret_1d",
+]
 
 
 def load_universe_gaps() -> pd.DataFrame:
@@ -81,7 +93,8 @@ def load_overnight_features() -> pd.DataFrame:
     ov["vix_level_dev"] = (ov["vix_close"] -
                             ov["vix_close"].rolling(60, min_periods=10).median())
     keep = ["date", "sp500_ret_1d", "vix_close", "vix_level_dev",
-            "nikkei_ret_1d", "hangseng_ret_1d", "eem_ret_1d", "dxy_ret_1d"]
+            "nikkei_ret_1d", "hangseng_ret_1d", "eem_ret_1d", "dxy_ret_1d",
+            "nifty_ret_1d", "kospi_ret_1d", "shanghai_ret_1d"]
     return ov[keep].copy()
 
 
@@ -97,7 +110,8 @@ def build_panel() -> pd.DataFrame:
                             direction="backward", allow_exact_matches=False)
     # Convert returns to % units (already in frac in parquet)
     for c in ["sp500_ret_1d", "nikkei_ret_1d", "hangseng_ret_1d",
-              "eem_ret_1d", "dxy_ret_1d"]:
+              "eem_ret_1d", "dxy_ret_1d",
+              "nifty_ret_1d", "kospi_ret_1d", "shanghai_ret_1d"]:
         if c in merged:
             merged[c] = merged[c] * 100
     return merged
@@ -180,19 +194,86 @@ def main():
         print(f"  {col:<22s} -> test MAE={mae:.3f}  3-class hit={hit*100:.1f}%  "
               f"slope={bi[1]:+.4f}")
 
-    # Save fitted weights for the ridge lam=2 model
-    b = ridge_fit(X_train, y_train, 2.0)
-    weights = {"intercept": float(b[0]),
-               **{c: float(w) for c, w in zip(SIGNAL_COLS, b[1:])},
-               "train_window": f"{TRAIN_START.date()} .. {TRAIN_END.date()}",
-               "test_window":  f"{TEST_START.date()} .. {TEST_END.date()}",
-               "n_train": len(train), "n_test": len(test),
-               "fitted_lambda": 2.0}
-    import json
+    def _fit_and_score(cols: list[str], lam: float = 2.0) -> dict:
+        Xtr = train[cols].values
+        Xte = test[cols].values
+        bb  = ridge_fit(Xtr, y_train, lam)
+        yhat_te = ridge_predict(Xte, bb)
+        return {
+            "weights": {"intercept": float(bb[0]),
+                          **{c: float(w) for c, w in zip(cols, bb[1:])}},
+            "test_r2":  float(1 - np.var(y_test - yhat_te) / np.var(y_test)),
+            "test_mae": float(np.mean(np.abs(yhat_te - y_test))),
+            "test_direction_hit": direction_hit_rate(y_test, yhat_te),
+            "signal_cols": list(cols),
+            "fitted_lambda": lam,
+        }
+
+    print("\n--- BASELINE (6-signal) vs EXTENDED (10-signal) "
+          "side-by-side ---")
+    panel_b = build_panel().dropna(
+        subset=BASELINE_SIGNAL_COLS + ["psx_median_gap"])
+    train_b = panel_b[(panel_b["date"] >= TRAIN_START) &
+                      (panel_b["date"] <= TRAIN_END)]
+    test_b = panel_b[(panel_b["date"] >= TEST_START) &
+                     (panel_b["date"] <= TEST_END)]
+    y_train_b = train_b["psx_median_gap"].values
+    y_test_b  = test_b["psx_median_gap"].values
+    Xtr_b = train_b[BASELINE_SIGNAL_COLS].values
+    Xte_b = test_b[BASELINE_SIGNAL_COLS].values
+    bb_b  = ridge_fit(Xtr_b, y_train_b, 2.0)
+    yhat_te_b = ridge_predict(Xte_b, bb_b)
+    baseline = {
+        "weights": {"intercept": float(bb_b[0]),
+                      **{c: float(w) for c, w in zip(BASELINE_SIGNAL_COLS,
+                                                     bb_b[1:])}},
+        "test_r2":  float(1 - np.var(y_test_b - yhat_te_b) / np.var(y_test_b)),
+        "test_mae": float(np.mean(np.abs(yhat_te_b - y_test_b))),
+        "test_direction_hit": direction_hit_rate(y_test_b, yhat_te_b),
+        "signal_cols": list(BASELINE_SIGNAL_COLS),
+        "fitted_lambda": 2.0,
+        "n_train": len(train_b), "n_test": len(test_b),
+    }
+    extended = _fit_and_score(SIGNAL_COLS, 2.0)
+    extended["n_train"] = len(train); extended["n_test"] = len(test)
+    print(f"  baseline (6): test R2={baseline['test_r2']:+.4f}  "
+          f"MAE={baseline['test_mae']:.3f}  "
+          f"hit={baseline['test_direction_hit']*100:.1f}%")
+    print(f"  extended(10): test R2={extended['test_r2']:+.4f}  "
+          f"MAE={extended['test_mae']:.3f}  "
+          f"hit={extended['test_direction_hit']*100:.1f}%")
+    print(f"  delta R2: {extended['test_r2'] - baseline['test_r2']:+.4f}   "
+          f"delta MAE: {extended['test_mae'] - baseline['test_mae']:+.4f}   "
+          f"delta hit: "
+          f"{(extended['test_direction_hit'] - baseline['test_direction_hit'])*100:+.1f}pp")
+    accept = (extended["test_r2"] - baseline["test_r2"] > 0.0
+              and extended["test_direction_hit"]
+                  >= baseline["test_direction_hit"] - 0.005)
+    print(f"  -> recommendation: "
+          f"{'ACCEPT extended weights' if accept else 'KEEP baseline (no improvement)'}")
+
+    # Save the chosen ridge model (lam=2) and metadata.
+    chosen = extended if accept else baseline
     out = ROOT / "reports" / "overnight_weights_fitted.json"
     out.parent.mkdir(exist_ok=True)
-    out.write_text(json.dumps(weights, indent=2), encoding="utf-8")
-    print(f"\nSaved fitted weights -> {out}")
+    import json
+    out.write_text(json.dumps({
+        **chosen["weights"],
+        "train_window": f"{TRAIN_START.date()} .. {TRAIN_END.date()}",
+        "test_window":  f"{TEST_START.date()} .. {TEST_END.date()}",
+        "n_train": chosen["n_train"], "n_test": chosen["n_test"],
+        "fitted_lambda": chosen["fitted_lambda"],
+        "signal_cols": chosen["signal_cols"],
+        "test_r2": chosen["test_r2"],
+        "test_mae": chosen["test_mae"],
+        "test_direction_hit": chosen["test_direction_hit"],
+        "baseline_test_r2": baseline["test_r2"],
+        "baseline_test_mae": baseline["test_mae"],
+        "baseline_test_direction_hit": baseline["test_direction_hit"],
+        "extended_accepted": accept,
+    }, indent=2), encoding="utf-8")
+    print(f"\nSaved fitted weights -> {out}  "
+          f"(accepted={'extended' if accept else 'baseline'})")
 
 
 if __name__ == "__main__":
