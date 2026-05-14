@@ -24,18 +24,6 @@
     "hit_rate_21d": 0.6125
   },
   {
-    "case_id": "brent_spike_e_and_p",
-    "expected_direction": "UP",
-    "n_fires": 37,
-    "fire_rate_pct": 14.34108527131783,
-    "avg_univ_5d_when_fired_pct": 0.12698118369438863,
-    "avg_univ_21d_when_fired_pct": 0.6975128493141134,
-    "edge_vs_drift_5d_pct": -0.2807033625564588,
-    "edge_vs_drift_21d_pct": -1.101192874846496,
-    "hit_rate_5d": 0.43243243243243246,
-    "hit_rate_21d": 0.4864864864864865
-  },
-  {
     "case_id": "mf_initiation_cluster",
     "expected_direction": "UP",
     "n_fires": 31,
@@ -84,16 +72,16 @@
     "hit_rate_21d": 0.391304347826087
   },
   {
-    "case_id": "mf_distribution_strong",
-    "expected_direction": "DOWN",
-    "n_fires": 19,
-    "fire_rate_pct": 7.3643410852713185,
-    "avg_univ_5d_when_fired_pct": 0.4153543138508814,
-    "avg_univ_21d_when_fired_pct": -2.229675901291399,
-    "edge_vs_drift_5d_pct": 0.007669767600033961,
-    "edge_vs_drift_21d_pct": -4.028381625452009,
-    "hit_rate_5d": 0.42105263157894735,
-    "hit_rate_21d": 0.47368421052631576
+    "case_id": "brent_spike_e_and_p",
+    "expected_direction": "UP",
+    "n_fires": 20,
+    "fire_rate_pct": 7.751937984496124,
+    "avg_univ_5d_when_fired_pct": 0.7602784653228568,
+    "avg_univ_21d_when_fired_pct": -1.6260955555272694,
+    "edge_vs_drift_5d_pct": 0.3525939190720094,
+    "edge_vs_drift_21d_pct": -3.4248012796878786,
+    "hit_rate_5d": 0.5,
+    "hit_rate_21d": 0.4
   },
   {
     "case_id": "mf_universe_distribution_broad",

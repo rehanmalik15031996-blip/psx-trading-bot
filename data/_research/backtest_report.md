@@ -6,14 +6,14 @@ Window: 2021-06-04 → 2026-05-08  (258 weekly samples)
 
 | Metric | Baseline (all-HOLD eq-wt) | With Overlay | Edge |
 |--------|--------------------------|--------------|------|
-| Σ 5d  return | +52.47% | +59.99% | +7.52% |
-| Σ 21d return | +231.21% | +252.97% | +21.76% |
-| Max drawdown (cum 5d) | -18.72% | -14.70% | +4.02% |
+| Σ 5d  return | +52.47% | +60.31% | +7.84% |
+| Σ 21d return | +231.21% | +252.45% | +21.24% |
+| Max drawdown (cum 5d) | -18.72% | -14.34% | +4.38% |
 
 Average universe forward return:  5d=+0.408%, 21d=+1.799%
 
 ## Coverage
-- Weeks with **zero** fires:  22 (9%)
+- Weeks with **zero** fires:  23 (9%)
 - **GAP weeks** (zero fires AND universe -3% 5d): 2
 - **MISSED-UP weeks** (universe +3% 5d, no bullish case fired): 2
 
@@ -23,12 +23,11 @@ Average universe forward return:  5d=+0.408%, 21d=+1.799%
 |------|-----|-------|----|-------------------|---------|--------|---------|
 | volume_confirmation_breakout | UP    |  150 | 58.1% | +0.73% | +0.32% |  54% |  57% |
 | banking_nim_regime_high | UP    |   80 | 31.0% | +0.83% | +0.42% |  55% |  61% |
-| brent_spike_e_and_p | UP    |   37 | 14.3% | +0.13% | -0.28% |  43% |  49% |
 | mf_initiation_cluster | UP    |   31 | 12.0% | +1.16% | +0.75% |  58% |  71% |
 | banking_nim_regime_low | DOWN  |   28 | 10.9% | -0.43% | -0.84% |  43% |  54% |
 | post_cut_cycle_continuation | UP    |   25 |  9.7% | +1.13% | +0.72% |  60% |  72% |
 | brent_spike_cement_margin_squeeze | DOWN  |   23 |  8.9% | -0.11% | -0.52% |  52% |  39% |
-| mf_distribution_strong | DOWN  |   19 |  7.4% | +0.42% | +0.01% |  42% |  47% |
+| brent_spike_e_and_p | UP    |   20 |  7.8% | +0.76% | +0.35% |  50% |  40% |
 | mf_universe_distribution_broad | DOWN  |   19 |  7.4% | -0.39% | -0.80% |  58% |  47% |
 | sbp_rate_hike_shock | DOWN  |   12 |  4.7% | -0.25% | -0.65% |  50% |  42% |
 | nth_rate_cut_immediate_window | ?     |    9 |  3.5% | +0.09% | -0.31% |   0% |   0% |
@@ -50,9 +49,9 @@ Average universe forward return:  5d=+0.408%, 21d=+1.799%
 | Case | Sector | Action | Fires | sec-vs-univ 5d | accuracy 5d |
 |------|--------|--------|-------|----------------|-------------|
 | banking_nim_regime_high | Banking | upgrade_one | 560 | +0.35% |  52% |
-| brent_spike_e_and_p | Oil & Gas E&P | upgrade_one | 148 | -0.19% |  49% |
 | post_cut_cycle_continuation | Cement | upgrade_one | 125 | +1.22% |  68% |
 | brent_spike_cement_margin_squeeze | Cement | downgrade_one | 115 | +0.18% |  57% |
+| brent_spike_e_and_p | Oil & Gas E&P | upgrade_one |  80 | -0.37% |  40% |
 | post_cut_cycle_continuation | Conglomerate | upgrade_one |  75 | -0.96% |  40% |
 | nth_rate_cut_immediate_window | Banking | upgrade_one |  63 | +2.08% |  78% |
 | sbp_rate_hike_shock | Cement | downgrade_one |  60 | -1.04% |  83% |

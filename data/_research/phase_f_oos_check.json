@@ -1,0 +1,75 @@
+{
+  "window": [
+    "2026-02-01",
+    "2026-05-13"
+  ],
+  "n_sessions": 12,
+  "fires_by_case": {
+    "distribution_day_signature": [
+      {
+        "as_of": "2026-04-27",
+        "next_day_pct": -0.64
+      },
+      {
+        "as_of": "2026-04-29",
+        "next_day_pct": -1.131
+      },
+      {
+        "as_of": "2026-05-04",
+        "next_day_pct": 0.484
+      },
+      {
+        "as_of": "2026-05-12",
+        "next_day_pct": -0.867
+      },
+      {
+        "as_of": "2026-05-13",
+        "next_day_pct": -0.569
+      }
+    ],
+    "event_eve_distribution": [
+      {
+        "as_of": "2026-05-08",
+        "next_day_pct": 0.0
+      },
+      {
+        "as_of": "2026-05-11",
+        "next_day_pct": -0.933
+      },
+      {
+        "as_of": "2026-05-12",
+        "next_day_pct": -0.867
+      },
+      {
+        "as_of": "2026-05-13",
+        "next_day_pct": -0.569
+      }
+    ],
+    "brent_plateau_e_and_p_decay": [
+      {
+        "as_of": "2026-05-05",
+        "next_day_pct": 4.226
+      },
+      {
+        "as_of": "2026-05-06",
+        "next_day_pct": 0.693
+      },
+      {
+        "as_of": "2026-05-07",
+        "next_day_pct": -1.029
+      },
+      {
+        "as_of": "2026-05-08",
+        "next_day_pct": 0.0
+      },
+      {
+        "as_of": "2026-05-10",
+        "next_day_pct": -0.356
+      },
+      {
+        "as_of": "2026-05-11",
+        "next_day_pct": -0.933
+      }
+    ]
+  }
+}

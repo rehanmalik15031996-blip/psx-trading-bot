@@ -1,0 +1,34 @@
+{
+  "n_rows": 14,
+  "counts": {
+    "btc_off": 1,
+    "btc_on": 3,
+    "gold_up": 1,
+    "gold_down": 2
+  },
+  "cofire_btc_off_and_gold_up": 1,
+  "btc_off_alone": 0,
+  "gold_up_alone": 0,
+  "conditional_means": {
+    "all": {
+      "n": 14,
+      "mean": 17.501214285714287
+    },
+    "00": {
+      "n": 13,
+      "mean": 18.832615384615387
+    },
+    "01": {
+      "n": 0,
+      "mean": 0
+    },
+    "10": {
+      "n": 0,
+      "mean": 0
+    },
+    "11": {
+      "n": 1,
+      "mean": 0.193
+    }
+  }
+}

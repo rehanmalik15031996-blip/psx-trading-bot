@@ -10,16 +10,6 @@
     "n_with_5d_data": 560
   },
   {
-    "case_id": "brent_spike_e_and_p",
-    "sector": "Oil & Gas E&P",
-    "action": "upgrade_one",
-    "n_fires": 148,
-    "avg_sector_vs_univ_5d_pct": -0.1882983040312376,
-    "avg_sector_vs_univ_21d_pct": -0.782059761442233,
-    "directional_accuracy_5d": 0.4864864864864865,
-    "n_with_5d_data": 148
-  },
-  {
     "case_id": "post_cut_cycle_continuation",
     "sector": "Cement",
     "action": "upgrade_one",
@@ -38,6 +28,16 @@
     "avg_sector_vs_univ_21d_pct": -2.032321189166745,
     "directional_accuracy_5d": 0.5652173913043478,
     "n_with_5d_data": 115
+  },
+  {
+    "case_id": "brent_spike_e_and_p",
+    "sector": "Oil & Gas E&P",
+    "action": "upgrade_one",
+    "n_fires": 80,
+    "avg_sector_vs_univ_5d_pct": -0.36529862669149776,
+    "avg_sector_vs_univ_21d_pct": 0.4943175518779813,
+    "directional_accuracy_5d": 0.4,
+    "n_with_5d_data": 80
   },
   {
     "case_id": "post_cut_cycle_continuation",

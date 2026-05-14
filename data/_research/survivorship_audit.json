@@ -1,0 +1,15 @@
+{
+  "universe_size": 35,
+  "parquets_on_disk": 36,
+  "non_universe_parquets": [
+    "ABL"
+  ],
+  "missing_parquets": [],
+  "selection_bias_severity": "MEDIUM",
+  "survivorship_bias_severity": "LOW",
+  "notes": [
+    "Universe was AUC-ranked over the backtest window \u2014 implicit selection bias.",
+    "Pure delisting bias is small in the blue-chip-heavy universe.",
+    "Recommended fix: random-alternative-universe sanity test."
+  ]
+}

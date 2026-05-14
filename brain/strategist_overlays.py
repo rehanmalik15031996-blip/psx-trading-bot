@@ -277,6 +277,85 @@ def apply_playbook_overlays(decision: dict, briefing: dict) -> dict:
         if case_log["changes"] or note:
             log.append(case_log)
 
+    # CRISIS AMPLIFIER (audit fix 2026-05-15 for Gap-2 magnitude problem).
+    # The 5y conditional backtest showed that during actual crash weeks
+    # (universe forward 5d <= -3%) the overlay only saved +0.41pp on
+    # average — direction correct but magnitude too mild. Root cause:
+    # individual cases each apply only a 1-notch downgrade and modest
+    # cash_floor, so when MULTIPLE defensive cases fire concurrently
+    # we still only get a 1-notch total move.
+    #
+    # Amplifier rule: if (a) the briefing's regime is CRISIS or universe
+    # has already broken -3% in the trailing 5d, AND (b) >=3 fired cases
+    # produced *defensive* changes (cash_floor / position_size_mult /
+    # downgrade_one), then BOOST the aggregate defensive posture by:
+    #   - cash_floor += 15pp (cap at 95%)
+    #   - position_size_mult *= 0.7
+    # This keeps individual cases conservative for normal regimes but
+    # amplifies them when the macro signal is already broken.
+    regime = ((briefing.get("regime") or {}).get("regime") or "").upper()
+    univ_5d = (briefing.get("regime") or {}).get("universe_ret_5d")
+    breadth = (briefing.get("regime") or {}).get("breadth_pct_up")
+    in_crisis = regime in ("CRISIS", "CAUTION")
+    if not in_crisis and univ_5d is not None:
+        try:
+            # Use the SAME -2% threshold as the replay's CAUTION classification
+            # so any backward-looking -2% drawdown can amplify.
+            in_crisis = float(univ_5d) <= -0.02
+        except (TypeError, ValueError):
+            pass
+    # Breadth corroboration: tape with <45% advancing names is also a
+    # crisis-like regime even without a sharp 5d drop.
+    if not in_crisis and breadth is not None:
+        try:
+            in_crisis = float(breadth) < 0.40
+        except (TypeError, ValueError):
+            pass
+
+    n_defensive_cases = 0
+    for case_log in log:
+        for ch in case_log.get("changes", []):
+            if ("cash_floor_pct" in ch
+                or "position_size_multiplier" in ch
+                or (isinstance(ch, dict)
+                    and "downgrade_one" in (ch.get("via") or ""))):
+                n_defensive_cases += 1
+                break
+
+    # 2+ defensive cases is enough to trigger the amplifier when the
+    # regime is already weak — that's what makes the amplifier
+    # actually reactive vs needing 3 stars to align.
+    crisis_amplified = False
+    if in_crisis and n_defensive_cases >= 2:
+        old_cf = cash_floor
+        cash_floor = min(95.0, cash_floor + 15.0)
+        old_psm = pos_size_mult
+        pos_size_mult = round(pos_size_mult * 0.7, 3)
+        crisis_amplified = True
+        log.append({
+            "case_id": "_crisis_amplifier",
+            "match_score": None,
+            "fired_triggers": [
+                f"regime:{regime or 'IMPLIED_CRISIS'}",
+                f"n_defensive_cases:{n_defensive_cases}",
+                f"universe_5d:{univ_5d}",
+            ],
+            "changes": [
+                {"cash_floor_pct": cash_floor,
+                 "was": old_cf,
+                 "via": "crisis_amplifier"},
+                {"position_size_multiplier": pos_size_mult,
+                 "was": old_psm,
+                 "via": "crisis_amplifier"},
+            ],
+        })
+        overlay_notes.append(
+            f"[crisis_amplifier] regime={regime or 'IMPLIED'} + "
+            f"{n_defensive_cases} defensive cases fired -> "
+            f"cash_floor {old_cf:.0f}% -> {cash_floor:.0f}%, "
+            f"pos_size_mult {old_psm:.2f} -> {pos_size_mult:.2f}"
+        )
+
     # Apply cash_floor to the CASH action (or insert one).
     if cash_floor > 0:
         cash_action = next(
@@ -294,9 +373,13 @@ def apply_playbook_overlays(decision: dict, briefing: dict) -> dict:
         old_w = cash_action.get("target_weight_pct") or 0
         if old_w < cash_floor:
             cash_action["target_weight_pct"] = cash_floor
+            suffix = (
+                f" | playbook cash_floor raised to {cash_floor:.0f}%"
+                + (" (crisis amplifier active)" if crisis_amplified else "")
+                + "."
+            )
             cash_action["reason"] = (
-                (cash_action.get("reason") or "")[:200]
-                + f" | playbook cash_floor raised to {cash_floor}%."
+                (cash_action.get("reason") or "")[:200] + suffix
             )
 
     # Apply position-size haircut to all BUY/ADD non-CASH actions.

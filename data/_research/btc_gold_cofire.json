@@ -1,0 +1,14 @@
+{
+  "n_joint_days": 1582,
+  "fire_counts": {
+    "btc_off": 106,
+    "btc_on": 171,
+    "gold_up": 348,
+    "gold_down": 99
+  },
+  "p_gold_up_given_btc_off": 0.3018867924528302,
+  "p_gold_down_given_btc_off": 0.14150943396226415,
+  "p_btc_off_given_gold_up": 0.09195402298850575,
+  "btc_alone_when_gold_neutral": 59,
+  "gold_alone_when_btc_neutral": 400
+}

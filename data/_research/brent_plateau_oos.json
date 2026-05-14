@@ -1,0 +1,109 @@
+{
+  "n_evaluated": 256,
+  "fires": [
+    {
+      "date": "2022-03-11",
+      "brent_slope_5d": -4.61,
+      "brent_level": 112.67,
+      "ep_fwd5d_pct": -7.005,
+      "other_fwd5d_pct": -2.324,
+      "ep_alpha_pp": -4.68
+    },
+    {
+      "date": "2022-03-18",
+      "brent_slope_5d": -4.21,
+      "brent_level": 107.93,
+      "ep_fwd5d_pct": 0.591,
+      "other_fwd5d_pct": 3.09,
+      "ep_alpha_pp": -2.499
+    },
+    {
+      "date": "2022-04-01",
+      "brent_slope_5d": -13.48,
+      "brent_level": 104.39,
+      "ep_fwd5d_pct": -1.881,
+      "other_fwd5d_pct": -4.016,
+      "ep_alpha_pp": 2.134
+    },
+    {
+      "date": "2022-04-08",
+      "brent_slope_5d": -1.54,
+      "brent_level": 102.78,
+      "ep_fwd5d_pct": 2.276,
+      "other_fwd5d_pct": 6.171,
+      "ep_alpha_pp": -3.895
+    },
+    {
+      "date": "2022-04-22",
+      "brent_slope_5d": -4.52,
+      "brent_level": 106.65,
+      "ep_fwd5d_pct": -3.382,
+      "other_fwd5d_pct": -3.822,
+      "ep_alpha_pp": 0.44
+    },
+    {
+      "date": "2022-05-13",
+      "brent_slope_5d": -0.75,
+      "brent_level": 111.55,
+      "ep_fwd5d_pct": -2.97,
+      "other_fwd5d_pct": -1.8,
+      "ep_alpha_pp": -1.17
+    },
+    {
+      "date": "2022-05-20",
+      "brent_slope_5d": 0.9,
+      "brent_level": 112.55,
+      "ep_fwd5d_pct": -1.252,
+      "other_fwd5d_pct": -0.786,
+      "ep_alpha_pp": -0.467
+    },
+    {
+      "date": "2022-06-17",
+      "brent_slope_5d": -7.29,
+      "brent_level": 113.12,
+      "ep_fwd5d_pct": -5.037,
+      "other_fwd5d_pct": -4.894,
+      "ep_alpha_pp": -0.143
+    },
+    {
+      "date": "2022-06-24",
+      "brent_slope_5d": -5.58,
+      "brent_level": 113.12,
+      "ep_fwd5d_pct": 0.851,
+      "other_fwd5d_pct": 2.595,
+      "ep_alpha_pp": -1.744
+    },
+    {
+      "date": "2022-07-01",
+      "brent_slope_5d": -1.32,
+      "brent_level": 111.63,
+      "ep_fwd5d_pct": 3.473,
+      "other_fwd5d_pct": 0.054,
+      "ep_alpha_pp": 3.419
+    },
+    {
+      "date": "2022-07-15",
+      "brent_slope_5d": -5.48,
+      "brent_level": 101.16,
+      "ep_fwd5d_pct": -3.815,
+      "other_fwd5d_pct": -6.912,
+      "ep_alpha_pp": 3.096
+    },
+    {
+      "date": "2026-03-27",
+      "brent_slope_5d": 0.34,
+      "brent_level": 112.57,
+      "ep_fwd5d_pct": 0.802,
+      "other_fwd5d_pct": -0.492,
+      "ep_alpha_pp": 1.294
+    },
+    {
+      "date": "2026-04-03",
+      "brent_slope_5d": 0.94,
+      "brent_level": 109.03,
+      "ep_fwd5d_pct": 8.346,
+      "other_fwd5d_pct": 16.415,
+      "ep_alpha_pp": -8.069
+    }
+  ]
+}

@@ -568,14 +568,12 @@
         "e-and-p",
         "d5-tactical",
         "d21-mixed",
-        "rally-suppressor"
+        "rally-suppressor",
+        "LOW_CONFIDENCE"
       ],
       "reactions": {
-        "sector_overlay": {
-          "Banking": "upgrade_one"
-        },
-        "cash_floor_pct": 30,
-        "narrative_note": "IMF review completed \u2014 Banking-only relief lift. E&P dropped (backtest 0% accuracy)."
+        "cash_floor_pct": 25,
+        "narrative_note": "IMF review completed — relief lift NOTED but no sector upgrade applied (audit 2026-05-15: case had n=2 fires and -0.96pp edge over 5y, so the 'Banking upgrade_one' reaction was removed; only the modest cash-deployment cue (cash_floor=25%) is retained until enough samples accumulate to revalidate)."
       }
     },
     {
@@ -905,14 +903,15 @@
     {
       "id": "brent_spike_e_and_p",
       "category": "sector_event",
-      "title": "Brent up >= 10% in 21 days",
-      "pattern": "Brent spike directly lifts E&P USD-linked wellhead pricing, with PKR-weakness amplifier. OMC margins are formula-protected so they're roughly neutral; Cement (transport cost) and Auto (commodity) see a small drag.",
+      "title": "Brent up >= 10% in 21 days (only in NORMAL bull tape)",
+      "pattern": "Brent spike directly lifts E&P USD-linked wellhead pricing, with PKR-weakness amplifier. OMC margins are formula-protected so they're roughly neutral; Cement (transport cost) and Auto (commodity) see a small drag. **Audit fix 2026-05-15 (post-research):** 5-year backtest showed prior version produced -0.28pp E&P alpha with 43% hit rate over n=37 fires — wrong direction. Root cause: Brent spikes occur disproportionately during geopolitical risk-off episodes (Russia 2022, Israel-Iran 2024, etc.) where E&P sells off WITH the broader risk-off tape despite earnings-positive mechanics. Fix: require `regime:NORMAL` AND `universe_5d_gt:0` (the tape itself must be bullish, not just 'not crashing'). Was: `universe_5d_gt:-0.03 + breadth_gt:0.40`. The tighter gate should keep us out of the contagion days.",
       "trigger_signals": [
         "driver:oil_up",
-        "breadth_gt:0.40",
-        "universe_5d_gt:-0.03"
+        "regime:NORMAL",
+        "breadth_gt:0.50",
+        "universe_5d_gt:0.00"
       ],
-      "min_triggers": 3,
+      "min_triggers": 4,
       "historical_instances": [
         {
           "date": "2022-02-24",
@@ -1053,26 +1052,29 @@
     {
       "id": "mf_distribution_strong",
       "category": "flow_regime",
-      "title": "Mutual fund distribution: 3+ month outflow streak",
-      "pattern": "At least one universe stock has experienced net selling from PSX equity mutual funds for 3+ consecutive months. Even without a fundamental catalyst, sustained institutional distribution drains liquidity and caps any rally; reversals require a clean macro shock or earnings beat.",
+      "title": "Mutual fund distribution streak + corroborating market weakness",
+      "pattern": "At least one universe stock has experienced net selling from PSX equity mutual funds for 3+ consecutive months. Even without a fundamental catalyst, sustained institutional distribution drains liquidity and caps any rally; reversals require a clean macro shock or earnings beat. **Audit fix 2026-05-15:** the standalone 3-month distribution-streak trigger produced +0.01pp edge on n=19 fires (i.e. zero predictive power — distributions often happen for idiosyncratic reasons like single-fund redemptions). The fix adds a corroborating-market-weakness gate (`universe_5d_lt:-0.005` AND `breadth_lt:0.45`) so the case fires only when flow weakness lines up with price weakness, and upgrades the reaction from a pure conviction cap to an explicit symbol-level TRIM on the flagged names.",
       "trigger_signals": [
-        "mf_distribution_streak_gte:3"
+        "mf_distribution_streak_gte:3",
+        "universe_5d_lt:-0.005",
+        "breadth_lt:0.45"
       ],
-      "min_triggers": 1,
+      "min_triggers": 3,
       "historical_instances": [],
-      "playbook": "TRIM or HOLD-only on names with 3+ months of distribution. AVOID fresh BUY even if technicals look constructive -- institutional selling has historically capped 5-7% rallies on the way down. Consider exiting full position if a 4th consecutive month of distribution prints.",
-      "what_breaks_it": "A genuine sector-wide rerating catalyst (e.g. circular-debt resolution for Power, oil shock for E&P) overrides the flow signal.",
-      "confidence": "MEDIUM",
-      "research_basis": "Same series as mf_accumulation_strong; the bearish corollary.",
+      "playbook": "TRIM or HOLD-only on names with 3+ months of distribution AND broader market is already weak (universe 5d down + breadth <45%). AVOID fresh BUY -- institutional selling has historically capped 5-7% rallies in this regime. Consider exiting full position if a 4th consecutive month of distribution prints. Audit note: in markets that are rising despite MF distribution, the case does NOT trigger — flow data alone is too noisy to act on.",
+      "what_breaks_it": "A genuine sector-wide rerating catalyst (e.g. circular-debt resolution for Power, oil shock for E&P) overrides the flow signal. If breadth recovers >50%, untrigger.",
+      "confidence": "LOW",
+      "research_basis": "Same series as mf_accumulation_strong; the bearish corollary. Tightened 2026-05-15 after backtest showed zero edge for the standalone version.",
       "tags": [
         "mf-flows",
         "smart-money",
         "distribution",
-        "negative-flows"
+        "negative-flows",
+        "LOW_CONFIDENCE"
       ],
       "reactions": {
         "conviction_cap": "MEDIUM",
-        "narrative_note": "MF distribution streak \u2014 TRIM/HOLD-only on flagged names."
+        "narrative_note": "MF distribution streak + corroborating market weakness \u2014 TRIM/HOLD-only on flagged names. Case retightened 2026-05-15 after backtest showed standalone version had no edge."
       }
     },
     {
@@ -1653,14 +1655,16 @@
           "source": "Cursor cross-layer post-mortem (scripts/_market_postmortem.py)."
         }
       ],
-      "playbook": "Mid-week safety net: lift cash floor to 70%, half-size all new BUYs, downgrade Banks/Cement/Power one notch. Keep E&P bias intact. Re-evaluate after the next macro print.",
+      "playbook": "Mid-week safety net: lift cash floor to 60%, half-size all new BUYs, downgrade Power one notch. Keep E&P bias intact. Re-evaluate after the next macro print. NOTE (audit 2026-05-15): This case is DEFENSIVE, not directional. Its purpose is to reduce damage while a crash is in progress, NOT to predict more downside. The 5y backtest shows +11.95pp forward 5d on n=1 fire because the only historical instance (May 13 2026) was at the bottom — a recovery followed. Even so, the case still earns its keep on the way down by limiting losses BEFORE the bottom. Validation gate exemption is documented in scripts/_validate_case_edit.py.",
       "what_breaks_it": "If the sell-off is driven by a confirmed macro shock (rate hike, PKR collapse), defer to the more specific case (sbp_rate_hike_shock, pkr_devaluation_shock).",
-      "confidence": "MEDIUM",
-      "research_basis": "Empirical from May 11-13 post-mortem (saved 14 of 35 universe names from being held through -3% sector moves).",
+      "confidence": "LOW",
+      "research_basis": "Empirical from May 11-13 post-mortem (saved 14 of 35 universe names from being held through -3% sector moves). n=1 historical instance — case is defensive (mitigates drawdown in progress) rather than directional.",
       "tags": [
         "safety-net",
         "auto-defensive",
-        "universe-pause"
+        "universe-pause",
+        "LOW_CONFIDENCE",
+        "DEFENSIVE_NOT_DIRECTIONAL"
       ],
       "reactions": {
         "cash_floor_pct": 60,

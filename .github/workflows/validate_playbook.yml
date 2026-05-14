@@ -46,3 +46,19 @@ jobs:
       - name: List loaded cases (for logs)
         if: always()
         run: python -m brain.playbook --list
+
+      # Audit gate (added 2026-05-15 per Gap-8 of bias audit):
+      # Compare any case modifications against the 5-year backtest. Hard-
+      # fails the PR if a case has wrong direction; warns on low-N. This
+      # is the deterministic version of the original "every case should
+      # be backed by ≥5 historical fires with the correct direction"
+      # rule that previously lived only in commit-message conventions.
+      - name: Audit cases against backtest (Gap-8 gate)
+        if: always()
+        run: |
+          if [ -f data/_research/backtest_per_case.json ]; then
+            python scripts/_validate_case_edit.py
+          else
+            echo "::warning::backtest_per_case.json missing — gate skipped."
+            echo "::warning::Re-run scripts/_research_backtest.py + _research_analyze.py to refresh it."
+          fi
