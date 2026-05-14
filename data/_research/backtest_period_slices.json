@@ -1,0 +1,333 @@
+{
+  "FULL_5Y": {
+    "label": "FULL 5-year",
+    "from": "2021-06-04",
+    "to": "2026-05-08",
+    "n_weeks": 258,
+    "avg_univ_5d_pct": 0.40768454625084743,
+    "avg_univ_21d_pct": 1.7987057241606095,
+    "sum_baseline_5d_pct": 52.46677307294622,
+    "sum_overlay_5d_pct": 59.98731029945179,
+    "edge_5d_pct": 7.520537226505574,
+    "sum_baseline_21d_pct": 231.20605051130855,
+    "sum_overlay_21d_pct": 252.96540709920137,
+    "edge_21d_pct": 21.759356587892825,
+    "max_dd_baseline_pct": -18.721967022097676,
+    "max_dd_overlay_pct": -14.698389911121474,
+    "dd_saved_pp": 4.023577110976202,
+    "n_zero_fire": 22,
+    "n_gap_weeks": 2,
+    "fires_histogram": {
+      "2": 90,
+      "1": 87,
+      "3": 37,
+      "0": 22,
+      "4": 13,
+      "5": 7,
+      "6": 1,
+      "7": 1
+    },
+    "top_cases": [
+      [
+        "volume_confirmation_breakout",
+        150,
+        0.7299202380503547
+      ],
+      [
+        "banking_nim_regime_high",
+        80,
+        0.8305311557708703
+      ],
+      [
+        "brent_spike_e_and_p",
+        37,
+        0.12698118369438863
+      ],
+      [
+        "mf_initiation_cluster",
+        31,
+        1.159185621371819
+      ],
+      [
+        "banking_nim_regime_low",
+        28,
+        -0.4302926069607139
+      ],
+      [
+        "post_cut_cycle_continuation",
+        25,
+        1.1254376781928157
+      ],
+      [
+        "brent_spike_cement_margin_squeeze",
+        23,
+        -0.10765085167226872
+      ],
+      [
+        "mf_distribution_strong",
+        19,
+        0.4153543138508814
+      ],
+      [
+        "mf_universe_distribution_broad",
+        19,
+        -0.3928123080258668
+      ],
+      [
+        "sbp_rate_hike_shock",
+        12,
+        -0.2461038967808606
+      ],
+      [
+        "nth_rate_cut_immediate_window",
+        9,
+        0.09413068153989396
+      ],
+      [
+        "behavioural_panic_3day",
+        8,
+        3.3704721050471567
+      ]
+    ]
+  },
+  "LAST_1Y": {
+    "label": "LAST 12 months",
+    "from": "2025-05-09",
+    "to": "2026-05-08",
+    "n_weeks": 53,
+    "avg_univ_5d_pct": 0.8500339874262423,
+    "avg_univ_21d_pct": 3.245162475243808,
+    "sum_baseline_5d_pct": 22.519698181042294,
+    "sum_overlay_5d_pct": 21.18497528302573,
+    "edge_5d_pct": -1.3347228980165653,
+    "sum_baseline_21d_pct": 85.49936536917724,
+    "sum_overlay_21d_pct": 95.93281979165153,
+    "edge_21d_pct": 10.433454422474284,
+    "max_dd_baseline_pct": -13.350590008902028,
+    "max_dd_overlay_pct": -4.6511022225995635,
+    "dd_saved_pp": 8.699487786302464,
+    "n_zero_fire": 7,
+    "n_gap_weeks": 0,
+    "fires_histogram": {
+      "3": 8,
+      "2": 9,
+      "1": 12,
+      "4": 8,
+      "0": 7,
+      "5": 7,
+      "6": 1,
+      "7": 1
+    },
+    "top_cases": [
+      [
+        "volume_confirmation_breakout",
+        33,
+        1.431739601853861
+      ],
+      [
+        "mf_initiation_cluster",
+        31,
+        1.159185621371819
+      ],
+      [
+        "mf_distribution_strong",
+        19,
+        0.4153543138508814
+      ],
+      [
+        "mf_universe_distribution_broad",
+        19,
+        -0.3928123080258668
+      ],
+      [
+        "brent_spike_e_and_p",
+        8,
+        0.72190770773923
+      ],
+      [
+        "mf_accumulation_strong",
+        5,
+        0.6028980608497834
+      ],
+      [
+        "us_iran_oil_spike",
+        5,
+        1.0741119404137582
+      ],
+      [
+        "brent_spike_cement_margin_squeeze",
+        5,
+        1.5551169417304487
+      ],
+      [
+        "post_cut_cycle_continuation",
+        4,
+        0.34216420268973363
+      ],
+      [
+        "behavioural_panic_3day",
+        2,
+        5.351811086771285
+      ],
+      [
+        "risk_off_universe_session_pause",
+        1,
+        12.356177048596459
+      ],
+      [
+        "nth_rate_cut_immediate_window",
+        1,
+        0.00934209253717529
+      ]
+    ]
+  },
+  "LAST_6M": {
+    "label": "LAST 6 months",
+    "from": "2025-11-07",
+    "to": "2026-05-08",
+    "n_weeks": 27,
+    "avg_univ_5d_pct": 0.22582702130721205,
+    "avg_univ_21d_pct": 1.1990436148587553,
+    "sum_baseline_5d_pct": 3.1561508123566533,
+    "sum_overlay_5d_pct": 5.667245738979265,
+    "edge_5d_pct": 2.5110949266226115,
+    "sum_baseline_21d_pct": 16.28716472401279,
+    "sum_overlay_21d_pct": 31.087182377848652,
+    "edge_21d_pct": 14.800017653835862,
+    "max_dd_baseline_pct": -13.350590008902026,
+    "max_dd_overlay_pct": -4.029087974307876,
+    "dd_saved_pp": 9.32150203459415,
+    "n_zero_fire": 0,
+    "n_gap_weeks": 0,
+    "fires_histogram": {
+      "1": 1,
+      "2": 4,
+      "3": 6,
+      "4": 7,
+      "5": 7,
+      "6": 1,
+      "7": 1
+    },
+    "top_cases": [
+      [
+        "mf_initiation_cluster",
+        23,
+        0.986759185681709
+      ],
+      [
+        "volume_confirmation_breakout",
+        19,
+        0.8827800579840562
+      ],
+      [
+        "mf_distribution_strong",
+        19,
+        0.4153543138508814
+      ],
+      [
+        "mf_universe_distribution_broad",
+        19,
+        -0.3928123080258668
+      ],
+      [
+        "brent_spike_e_and_p",
+        6,
+        0.5714738998305707
+      ],
+      [
+        "mf_accumulation_strong",
+        5,
+        0.6028980608497834
+      ],
+      [
+        "us_iran_oil_spike",
+        5,
+        1.0741119404137582
+      ],
+      [
+        "brent_spike_cement_margin_squeeze",
+        5,
+        1.5551169417304487
+      ],
+      [
+        "circular_debt_resolution_large",
+        1,
+        1.1654206924599906
+      ],
+      [
+        "behavioural_panic_3day",
+        1,
+        -1.652554875053889
+      ]
+    ]
+  },
+  "LAST_3M": {
+    "label": "LAST 3 months",
+    "from": "2026-02-06",
+    "to": "2026-05-08",
+    "n_weeks": 14,
+    "avg_univ_5d_pct": -0.7484231540528847,
+    "avg_univ_21d_pct": -0.4678075531262238,
+    "sum_baseline_5d_pct": -5.238260318250506,
+    "sum_overlay_5d_pct": -1.7361135841586925,
+    "edge_5d_pct": 3.5021467340918138,
+    "sum_baseline_21d_pct": -3.5031399428198697,
+    "sum_overlay_21d_pct": -1.3258959937164752,
+    "edge_21d_pct": 2.177243949103395,
+    "max_dd_baseline_pct": -11.763138491671958,
+    "max_dd_overlay_pct": -3.5206997584355313,
+    "dd_saved_pp": 8.242438733236426,
+    "n_zero_fire": 0,
+    "n_gap_weeks": 0,
+    "fires_histogram": {
+      "3": 3,
+      "2": 1,
+      "5": 2,
+      "4": 6,
+      "6": 1,
+      "7": 1
+    },
+    "top_cases": [
+      [
+        "mf_universe_distribution_broad",
+        14,
+        -0.7484231540528847
+      ],
+      [
+        "mf_distribution_strong",
+        10,
+        -0.40267975538458045
+      ],
+      [
+        "mf_initiation_cluster",
+        10,
+        0.6120207538644195
+      ],
+      [
+        "volume_confirmation_breakout",
+        8,
+        0.01395025909587301
+      ],
+      [
+        "brent_spike_e_and_p",
+        5,
+        0.9158782874798234
+      ],
+      [
+        "us_iran_oil_spike",
+        5,
+        1.0741119404137582
+      ],
+      [
+        "brent_spike_cement_margin_squeeze",
+        5,
+        1.5551169417304487
+      ],
+      [
+        "behavioural_panic_3day",
+        1,
+        -1.652554875053889
+      ]
+    ]
+  }
+}

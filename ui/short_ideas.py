@@ -179,6 +179,33 @@ def _render_coverage_panel(cov: dict) -> None:
                               use_container_width=True)
 
 
+def _render_status_badge(res: dict) -> None:
+    """Compact freshness + summary header so the user can verify the
+    Short Ideas tab is running on live data at a glance."""
+    as_of = res.get("as_of") or "—"
+    n_total = res.get("n_total")
+    cands = res.get("candidates") or []
+    if n_total is None:
+        n_total = len(cands)
+    n_high = sum(1 for c in cands
+                  if (c.get("conviction") or "").upper() == "HIGH")
+    n_med = sum(1 for c in cands
+                 if (c.get("conviction") or "").upper() == "MEDIUM")
+    n_low = sum(1 for c in cands
+                 if (c.get("conviction") or "").upper() == "LOW")
+    cov = res.get("dataset_coverage") or {}
+    summary = cov.get("summary") or {}
+    n_direct = summary.get("direct_count", 0)
+    n_synth  = summary.get("via_synth_count", 0)
+    n_preds  = summary.get("via_predictions_count", 0)
+    st.caption(
+        f"Computed at **{str(as_of)[:19].replace('T', ' ')}** UTC  ·  "
+        f"**{n_total}** universe-wide bearish leans  ·  "
+        f"**{n_high}** HIGH / **{n_med}** MED / **{n_low}** WATCH  ·  "
+        f"datasets feeding score: **{n_direct} direct + {n_synth} synth + {n_preds} preds**"
+    )
+
+
 def _render_regime_banner(regime: dict) -> None:
     if not regime:
         return
@@ -525,6 +552,7 @@ def render() -> None:
                       f"{type(e).__name__}: {e}")
             return
 
+    _render_status_badge(res)
     _render_disclaimer(res.get("disclaimer", ""))
     _render_regime_banner(res.get("regime", {}))
     _render_coverage_panel(res.get("dataset_coverage") or {})
