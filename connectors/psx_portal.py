@@ -22,6 +22,43 @@ def _to_num(s: str) -> float | None:
         return None
 
 
+# PSX appends suffixes to the SYMBOL on special-status days:
+#   XD  = ex-dividend
+#   XB  = ex-bonus
+#   XR  = ex-rights
+#   FUT = futures contract
+# The base ticker is unchanged in our universe / OHLCV files, so we
+# normalize here once and surface the suffix as a flag so downstream
+# consumers (intraday lookups, position monitoring) keep matching.
+_PSX_SYMBOL_SUFFIXES = ("XD", "XB", "XR", "XBR")
+
+
+def _canonical_symbol(raw: str | None) -> tuple[str | None, dict]:
+    """Strip PSX corporate-action suffixes from a SYMBOL.
+
+    Returns (canonical_symbol, flags) where flags is a dict like
+    {"ex_div": True, "ex_bonus": False, ...}.
+    """
+    flags = {"ex_div": False, "ex_bonus": False, "ex_rights": False}
+    if not raw:
+        return raw, flags
+    s = raw.strip().upper()
+    for suffix in _PSX_SYMBOL_SUFFIXES:
+        if s.endswith(suffix) and len(s) > len(suffix):
+            base = s[: -len(suffix)]
+            if suffix in ("XD",):
+                flags["ex_div"] = True
+            elif suffix == "XB":
+                flags["ex_bonus"] = True
+            elif suffix == "XR":
+                flags["ex_rights"] = True
+            elif suffix == "XBR":
+                flags["ex_bonus"] = True
+                flags["ex_rights"] = True
+            return base, flags
+    return s, flags
+
+
 class PSXCircuitBreakersConnector(BaseConnector):
     name = "PSX Circuit Breakers"
     category = "microstructure"
@@ -89,8 +126,12 @@ class PSXCircuitBreakersConnector(BaseConnector):
                     if len(cells) != len(headers):
                         continue
                     rec = dict(zip(headers, cells))
+                    raw_sym = rec.get("SYMBOL")
+                    canon, flags = _canonical_symbol(raw_sym)
                     out.append({
-                        "symbol": rec.get("SYMBOL"),
+                        "symbol": canon,
+                        "raw_symbol": raw_sym,
+                        "ex_div": flags["ex_div"],
                         "direction": direction,
                         "change_pct": _to_num(rec.get("CHANGE (%)", "")),
                         "volume": _to_num(rec.get("VOLUME", "")),
@@ -311,8 +352,14 @@ class PSXMarketWatchConnector(BaseConnector):
                     s_code = rec.get("SECTOR")
                     listed_in = rec.get("LISTED IN") or ""
                     indices = [i.strip() for i in listed_in.split(",") if i.strip()]
+                    raw_sym = rec.get("SYMBOL")
+                    canon, flags = _canonical_symbol(raw_sym)
                     records.append({
-                        "symbol": rec.get("SYMBOL"),
+                        "symbol": canon,
+                        "raw_symbol": raw_sym,
+                        "ex_div": flags["ex_div"],
+                        "ex_bonus": flags["ex_bonus"],
+                        "ex_rights": flags["ex_rights"],
                         "sector_code": s_code,
                         "sector_name": sector_name(s_code),
                         "indices": indices,
