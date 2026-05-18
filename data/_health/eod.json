@@ -1,23 +1,23 @@
 {
   "workflow": "eod",
   "ok": true,
-  "note": "FIPI snapshot for 2026-05-15: foreign_net=-0.4 mn",
-  "as_of": "2026-05-18T11:15:36+00:00",
+  "note": "FIPI snapshot for 2026-05-18: foreign_net=-0.6 mn",
+  "as_of": "2026-05-18T18:21:03+00:00",
   "github": {
-    "run_id": "26029997439",
-    "run_number": "21",
+    "run_id": "26052048741",
+    "run_number": "22",
     "ref": "refs/heads/main",
-    "sha": "b8688a502319dfc281a0c3a5aa149995897abbe6"
+    "sha": "ab095af1dda0b1d632241873946c2be7bee2ea1d"
   },
   "payload": {
-    "date": "2026-05-15",
-    "foreign_net_pkr_mn": -0.38,
-    "local_net_pkr_mn": 0.38,
+    "date": "2026-05-18",
+    "foreign_net_pkr_mn": -0.55,
+    "local_net_pkr_mn": 0.54,
     "foreign_regime": "net_selling",
     "n_participants": 9,
     "n_sectors": 10,
     "top_sector_name": "Banks",
-    "top_sector_net_usd_mn": -0.95,
-    "captured_at_utc": "2026-05-18T11:15:36"
+    "top_sector_net_usd_mn": -1.01,
+    "captured_at_utc": "2026-05-18T18:21:02"
   }
 }
