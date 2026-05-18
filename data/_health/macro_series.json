@@ -2,12 +2,12 @@
   "workflow": "macro_series",
   "ok": true,
   "note": "7/7 series refreshed",
-  "as_of": "2026-05-18T11:14:28+00:00",
+  "as_of": "2026-05-18T14:40:42+00:00",
   "github": {
-    "run_id": "26030000637",
-    "run_number": "19",
+    "run_id": "26040508553",
+    "run_number": "20",
     "ref": "refs/heads/main",
-    "sha": "b8688a502319dfc281a0c3a5aa149995897abbe6"
+    "sha": "35c7bcb5d595c4c49aa8a6770cff5476fa8640a6"
   },
   "payload": {
     "results": [
@@ -17,7 +17,7 @@
         "ticker": "BZ=F",
         "rows": 1606,
         "last_date": "2026-05-18",
-        "last_value": 110.6
+        "last_value": 109.32
       },
       {
         "ok": true,
@@ -25,7 +25,7 @@
         "ticker": "CL=F",
         "rows": 1605,
         "last_date": "2026-05-18",
-        "last_value": 102.46
+        "last_value": 101.31
       },
       {
         "ok": true,
@@ -33,7 +33,7 @@
         "ticker": "GC=F",
         "rows": 1605,
         "last_date": "2026-05-18",
-        "last_value": 4542.6
+        "last_value": 4564.4
       },
       {
         "ok": true,
@@ -41,7 +41,7 @@
         "ticker": "HG=F",
         "rows": 1606,
         "last_date": "2026-05-18",
-        "last_value": 6.235
+        "last_value": 6.302
       },
       {
         "ok": true,
@@ -49,7 +49,7 @@
         "ticker": "CT=F",
         "rows": 1605,
         "last_date": "2026-05-18",
-        "last_value": 81.78
+        "last_value": 81.38
       },
       {
         "ok": true,
@@ -57,7 +57,7 @@
         "ticker": "BTC-USD",
         "rows": 2330,
         "last_date": "2026-05-18",
-        "last_value": 76712.039
+        "last_value": 76389.602
       },
       {
         "ok": true,
@@ -65,7 +65,7 @@
         "ticker": "PKR=X",
         "rows": 1661,
         "last_date": "2026-05-18",
-        "last_value": 278.45
+        "last_value": 278.34
       }
     ],
     "latest_dates": {
