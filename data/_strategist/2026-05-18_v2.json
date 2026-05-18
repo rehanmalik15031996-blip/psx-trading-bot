@@ -55,7 +55,7 @@
           "target_pct": 13.07,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 6.69,
-          "position_size_pkr": 95614.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=2.1% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 5.2% stop; target 2.5R = 13.1%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.7,
@@ -106,7 +106,7 @@
           "target_pct": 12.21,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 10.0,
-          "position_size_pkr": 100000.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=1.9% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 4.9% stop; target 2.5R = 12.2%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.7,
@@ -152,7 +152,7 @@
           "target_pct": 18.19,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 6.87,
-          "position_size_pkr": 68728.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=2.9% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 7.3% stop; target 2.5R = 18.2%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.7
@@ -195,7 +195,7 @@
           "target_pct": 6.25,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 10.0,
-          "position_size_pkr": 100000.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=0.8% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.7
@@ -239,7 +239,7 @@
           "target_pct": 18.92,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 6.61,
-          "position_size_pkr": 66058.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=3.6% \u00d7 sector_mult=1.4\u00d7 \u00d7 1.5\u03c3 = 7.6% stop; target 2.5R = 18.9%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.4,
@@ -285,7 +285,7 @@
           "target_pct": 7.82,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 10.0,
-          "position_size_pkr": 100000.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=1.2% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 3.1% stop; target 2.5R = 7.8%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.7
@@ -328,7 +328,7 @@
           "target_pct": 15.69,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 7.97,
-          "position_size_pkr": 79661.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=3.0% \u00d7 sector_mult=1.4\u00d7 \u00d7 1.5\u03c3 = 6.3% stop; target 2.5R = 15.7%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.4
@@ -371,7 +371,7 @@
           "target_pct": 12.43,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 10.0,
-          "position_size_pkr": 100000.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=2.0% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 5.0% stop; target 2.5R = 12.4%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.7
@@ -414,7 +414,7 @@
           "target_pct": 10.32,
           "reward_to_risk_ratio": 2.5,
           "position_size_pct": 10.0,
-          "position_size_pkr": 100000.0,
+          "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=1.5% \u00d7 sector_mult=1.4\u00d7 \u00d7 1.5\u03c3 = 4.1% stop; target 2.5R = 10.3%; size sized to risk 0.5% of account.",
           "sector_volatility_mult": 1.4
@@ -811,7 +811,7 @@
         "magnitude": "MODERATE"
       },
       {
-        "tag": "cotton_up",
+        "tag": "tbill_above_policy",
         "magnitude": "MODERATE"
       }
     ],
@@ -1823,7 +1823,7 @@
         "target_pct": 13.07,
         "reward_to_risk_ratio": 2.5,
         "position_size_pct": 6.69,
-        "position_size_pkr": 95614.0,
+        "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=2.1% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 5.2% stop; target 2.5R = 13.1%; size sized to risk 0.5% of account.",
         "sector_volatility_mult": 1.7,
@@ -1856,7 +1856,7 @@
         "target_pct": 12.21,
         "reward_to_risk_ratio": 2.5,
         "position_size_pct": 10.0,
-        "position_size_pkr": 100000.0,
+        "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=1.9% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 4.9% stop; target 2.5R = 12.2%; size sized to risk 0.5% of account.",
         "sector_volatility_mult": 1.7,
@@ -1887,7 +1887,7 @@
         "target_pct": 18.19,
         "reward_to_risk_ratio": 2.5,
         "position_size_pct": 6.87,
-        "position_size_pkr": 68728.0,
+        "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=2.9% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 7.3% stop; target 2.5R = 18.2%; size sized to risk 0.5% of account.",
         "sector_volatility_mult": 1.7
@@ -1915,7 +1915,7 @@
         "target_pct": 6.25,
         "reward_to_risk_ratio": 2.5,
         "position_size_pct": 10.0,
-        "position_size_pkr": 100000.0,
+        "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=0.8% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
         "sector_volatility_mult": 1.7
@@ -1944,7 +1944,7 @@
         "target_pct": 18.92,
         "reward_to_risk_ratio": 2.5,
         "position_size_pct": 6.61,
-        "position_size_pkr": 66058.0,
+        "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=3.6% \u00d7 sector_mult=1.4\u00d7 \u00d7 1.5\u03c3 = 7.6% stop; target 2.5R = 18.9%; size sized to risk 0.5% of account.",
         "sector_volatility_mult": 1.4,
@@ -1960,7 +1960,7 @@
   "version": "v2",
   "pipeline_errors": [],
   "briefing_summary": {
-    "as_of": "2026-05-18T08:58:06+00:00",
+    "as_of": "2026-05-18T11:17:52+00:00",
     "regime": {
       "as_of": "2026-05-15",
       "regime": "NORMAL",
