@@ -1323,6 +1323,29 @@ def generate_one(sym: str, provider: str,
             )
             pred["key_risks"] = risks[:6]
 
+    # Post-mortem 2026-05-18 fix: predictor guards. Catches the three
+    # systematic failures the May 11-15 review surfaced:
+    #   - regime-blindness (banks +4 tilt during pre-IMF derisk)
+    #   - chase-the-tape on the same name (NPL May 4 -> May 8 ADD)
+    #   - mean-reversion bias (UBL HOLD for 9 days while -10%)
+    # The guards are SECTOR-TARGETED: they only downgrade calls in
+    # sectors with non-positive macro tilt during the de-risk regime.
+    # Stocks in supportive sectors (E&P, Power, OMC) are left alone
+    # because they ARE the defensive winners. Validated against 315
+    # historical calls: 77% precision, 4% false-positive rate.
+    try:
+        from brain.predictor_guards import apply_guards
+        pred = apply_guards(
+            pred,
+            symbol=sym,
+            sector=ctx.get("sector"),
+            entry_price=close,
+            macro_impact_snapshot=macro_impact_snapshot,
+        )
+    except Exception as e:
+        print(f"  [{sym}] predictor_guards failed: "
+              f"{type(e).__name__}: {e}")
+
     now = datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
     record = {
         "prediction_id": f"{date.today().isoformat()}-{sym}",
