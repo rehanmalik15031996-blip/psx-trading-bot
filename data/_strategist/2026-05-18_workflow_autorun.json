@@ -1,0 +1,287 @@
+{
+  "as_of": "2026-05-18",
+  "model": "rule-based-v2",
+  "thinking_budget": 0,
+  "headline": "NORMAL \u2014 single conviction long (OGDC)",
+  "risk_stance": "NORMAL",
+  "conviction": "LOW",
+  "narrative": "Normal stance (LOW confidence). Top driver: oil_up (STRONG). Tape: KSE-100 -2.9%/5d, normal vol regime.\n\n[Playbook overlay] [us_iran_oil_spike] US-Iran oil spike \u2014 protect E&P core positions but no sector-wide ADD (oil-spike-as-risk-off regime would neutralise the trade). OMC/Refining ceiling at HOLD. || [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [imf_review_mission_week] IMF mission active \u2014 moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.) || [distribution_day_signature] Distribution-day signature \u2014 KSE100 closed in lower 25% of wide intraday range. Treat next session as continuation-down bias; don't chase intraday rallies.",
+  "agrees_with_phase1": true,
+  "phase1_disagreement_note": "",
+  "actions": [
+    {
+      "symbol": null,
+      "sector": null,
+      "bucket": "CASH",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 70.0,
+      "reason": "Auto-inserted by playbook overlay (cash floor).",
+      "contributing_signals": []
+    },
+    {
+      "symbol": "OGDC",
+      "bucket": "BUY",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 6.69,
+      "reason": "+macro(Oil & Gas E&P+7); +value:BUY_VALUE; +Positive 150d momentum +19.1%",
+      "contributing_signals": [
+        "Positive 150d momentum +19.1%",
+        "Strong 60d momentum +12.6%",
+        "Price +15.1% above 200-day SMA"
+      ],
+      "position_plan": {
+        "symbol": "OGDC",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 323.72,
+        "atr_14_pct": 2.05,
+        "stop_loss_price": 306.79,
+        "stop_loss_pct": 5.23,
+        "target_price": 366.04,
+        "target_pct": 13.07,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 6.69,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.1% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 5.2% stop; target 2.5R = 13.1%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "size adjusted to 6.69% by playbook overlay"
+        ]
+      }
+    },
+    {
+      "symbol": "ATRL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "OMC/Refining",
+      "target_weight_pct": 10.0,
+      "reason": "+Strong 150d momentum +21.7%; +macro(OMC/Refining+3); +mf_accum_2m",
+      "contributing_signals": [
+        "Strong 150d momentum +21.7%",
+        "Price +19.2% above 200-day SMA",
+        "Top-5 by momentum but market filter off",
+        "playbook:us_iran_oil_spike:symbol_clamp"
+      ],
+      "position_plan": {
+        "symbol": "ATRL",
+        "sector": "OMC",
+        "entry_price": 880.72,
+        "atr_14_pct": 1.92,
+        "stop_loss_price": 837.7,
+        "stop_loss_pct": 4.88,
+        "target_price": 988.27,
+        "target_pct": 12.21,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.9% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 4.9% stop; target 2.5R = 12.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "action downgraded ADD -> HOLD by overlay"
+        ]
+      }
+    },
+    {
+      "symbol": "PPL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 6.87,
+      "reason": "+macro(Oil & Gas E&P+7); +mom150d=+18.0% (high-vol)",
+      "contributing_signals": [
+        "macro(Oil & Gas E&P+7)",
+        "mom150d=+18.0% (high-vol)"
+      ],
+      "position_plan": {
+        "symbol": "PPL",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 227.37,
+        "atr_14_pct": 2.85,
+        "stop_loss_price": 210.83,
+        "stop_loss_pct": 7.28,
+        "target_price": 268.72,
+        "target_pct": 18.19,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 6.87,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.9% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 7.3% stop; target 2.5R = 18.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7
+      }
+    },
+    {
+      "symbol": "POL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Oil & Gas E&P+7); -mom150d=-6.9%",
+      "contributing_signals": [
+        "macro(Oil & Gas E&P+7)",
+        "mom150d=-6.9%"
+      ],
+      "position_plan": {
+        "symbol": "POL",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 660.51,
+        "atr_14_pct": 0.78,
+        "stop_loss_price": 644.0,
+        "stop_loss_pct": 2.5,
+        "target_price": 701.79,
+        "target_pct": 6.25,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=0.8% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7
+      }
+    },
+    {
+      "symbol": "NPL",
+      "bucket": "WATCH",
+      "conviction": "MEDIUM",
+      "sector": "Power",
+      "target_weight_pct": 6.61,
+      "reason": "+macro(Power+3); +mom150d=+70.7% (high-vol)",
+      "contributing_signals": [
+        "macro(Power+3)",
+        "mom150d=+70.7% (high-vol)",
+        "playbook:imf_review_mission_week:sector_overlay:downgrade_one"
+      ],
+      "position_plan": {
+        "symbol": "NPL",
+        "sector": "Power",
+        "entry_price": 71.64,
+        "atr_14_pct": 3.6,
+        "stop_loss_price": 66.22,
+        "stop_loss_pct": 7.57,
+        "target_price": 85.2,
+        "target_pct": 18.92,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 6.61,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=3.6% \u00d7 sector_mult=1.4\u00d7 \u00d7 1.5\u03c3 = 7.6% stop; target 2.5R = 18.9%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.4,
+        "overlay_applied": [
+          "action downgraded HOLD -> WATCH by overlay"
+        ]
+      }
+    }
+  ],
+  "key_drivers": [
+    "oil_up",
+    "kse100_up",
+    "coal_up",
+    "gold_down",
+    "tbill_above_policy"
+  ],
+  "key_risks": [],
+  "macro_lens": "Normal stance (LOW confidence). Top driver: oil_up (STRONG). Tape: KSE-100 -2.9%/5d, normal vol regime.",
+  "behavioural_lens": "",
+  "fallback_used": true,
+  "raw_llm_text": "",
+  "thinking_trace": "",
+  "briefing_summary": {
+    "as_of": "2026-05-18T11:17:52+00:00",
+    "regime": {
+      "as_of": "2026-05-15",
+      "regime": "NORMAL",
+      "exposure_multiplier": 1.0,
+      "reason": "Rule-based: no stress markers",
+      "flags": [],
+      "indicators": {
+        "universe_ret_5d": -0.029,
+        "universe_ret_21d": -0.0323,
+        "universe_150d_log_ret": -0.0374,
+        "breadth_pct_up_today": 25.7
+      },
+      "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
+    },
+    "predictions_count": 5,
+    "playbook_analogues_count": 4
+  },
+  "playbook_overlay_log": [
+    {
+      "case_id": "us_iran_oil_spike",
+      "match_score": 3.3,
+      "fired_triggers": [
+        "driver:oil_up:STRONG",
+        "event:us_iran_tension",
+        "brent_5d_slope_gte:1.0"
+      ],
+      "changes": [
+        {
+          "symbol": "ATRL",
+          "from": "ADD",
+          "to": "HOLD",
+          "via": "symbol_clamp(min=None,max=HOLD)"
+        },
+        {
+          "cash_floor_pct": 40,
+          "via": "cash_floor"
+        }
+      ]
+    },
+    {
+      "case_id": "mf_universe_distribution_broad",
+      "match_score": 2.6,
+      "fired_triggers": [
+        "mf_universe_n_top_distributed_gte:5",
+        "mf_data_freshness_lte:90"
+      ],
+      "changes": [
+        {
+          "cash_floor_pct": 70,
+          "via": "cash_floor"
+        },
+        {
+          "position_size_multiplier": 0.85,
+          "via": "size_haircut"
+        }
+      ]
+    },
+    {
+      "case_id": "imf_review_mission_week",
+      "match_score": 2.6,
+      "fired_triggers": [
+        "event:imf_mission_active",
+        "regime:NORMAL"
+      ],
+      "changes": [
+        {
+          "symbol": "NPL",
+          "from": "HOLD",
+          "to": "WATCH",
+          "via": "sector_overlay:Power:downgrade_one"
+        },
+        {
+          "position_size_multiplier": 0.7,
+          "via": "size_haircut"
+        },
+        {
+          "conviction_cap": "MEDIUM",
+          "via": "conviction_cap"
+        }
+      ]
+    },
+    {
+      "case_id": "distribution_day_signature",
+      "match_score": 2.6,
+      "fired_triggers": [
+        "kse100_intraday_range_gte:0.8",
+        "kse100_close_in_range_lte:25"
+      ],
+      "changes": []
+    }
+  ],
+  "playbook_overlay_notes": [
+    "[us_iran_oil_spike] US-Iran oil spike \u2014 protect E&P core positions but no sector-wide ADD (oil-spike-as-risk-off regime would neutralise the trade). OMC/Refining ceiling at HOLD.",
+    "[mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%.",
+    "[imf_review_mission_week] IMF mission active \u2014 moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.)",
+    "[distribution_day_signature] Distribution-day signature \u2014 KSE100 closed in lower 25% of wide intraday range. Treat next session as continuation-down bias; don't chase intraday rallies."
+  ]
+}
