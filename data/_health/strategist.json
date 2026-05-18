@@ -1,8 +1,8 @@
 {
   "workflow": "strategist",
   "ok": true,
-  "note": "FALLBACK + 4 playbook overlay(s) applied; 6 actions, 2 BUY/ADD",
-  "as_of": "2026-05-14T23:41:47+00:00",
+  "note": "FALLBACK + 4 playbook overlay(s) applied; 6 actions, 1 BUY/ADD",
+  "as_of": "2026-05-18T08:12:02+00:00",
   "github": {
     "run_id": "",
     "run_number": "",
@@ -15,13 +15,13 @@
     "risk_stance": "NORMAL",
     "conviction": "LOW",
     "n_actions": 6,
-    "n_buy_or_add": 2,
+    "n_buy_or_add": 1,
     "n_overlays_applied": 4,
     "fired_case_ids": [
+      "us_iran_oil_spike",
       "mf_universe_distribution_broad",
       "imf_review_mission_week",
-      "distribution_day_signature",
-      "event_eve_distribution"
+      "distribution_day_signature"
     ],
     "headline": "NORMAL \u2014 single conviction long (OGDC)"
   }

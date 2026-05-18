@@ -172,7 +172,15 @@ def _build_v1_compatible_decision(v2: dict, briefing: dict,
 
 def _sync_overlay_changes(v1: dict, v2: dict) -> None:
     """If the playbook overlay haircut a position or raised cash, mirror
-    the changes back into v2.long_ideas + v2.portfolio_review."""
+    the changes back into v2.long_ideas + v2.portfolio_review.
+
+    Also syncs the BUCKET (action) so the UI doesn't show a HOLD
+    recommendation in long_ideas when the overlay has downgraded the
+    name to AVOID/TRIM in the canonical actions list. Without this,
+    the Friday May 15 cache showed MEBL/MCB/FABL as 'HOLD 10% size'
+    in long_ideas but 'AVOID/TRIM' in actions — confusing the UI
+    (Gap #3 from POSTMORTEM_2026-05-11_to_15.md).
+    """
     if not v2.get("long_ideas"):
         return
     actions_by_sym = {a.get("symbol"): a for a in v1.get("actions", [])
@@ -184,14 +192,45 @@ def _sync_overlay_changes(v1: dict, v2: dict) -> None:
         a = actions_by_sym.get(sym)
         if not a:
             continue
-        # Reflect any size change from overlay
+
         plan = idea.get("position_plan") or {}
+
+        # 1) Mirror SIZE change from overlay (existing behaviour)
         if a.get("target_weight_pct") is not None and plan:
             new_size = float(a["target_weight_pct"])
             if abs(plan.get("position_size_pct", 0) - new_size) > 0.01:
                 plan["position_size_pct"] = new_size
                 plan.setdefault("overlay_applied", []).append(
                     f"size adjusted to {new_size:.2f}% by playbook overlay")
+
+        # 2) Mirror BUCKET change from overlay (Gap #3 fix)
+        # Map v1 buckets to v2 actions cleanly so the UI matches.
+        old_action = idea.get("action", "")
+        new_action = (a.get("bucket") or "").upper()
+        # Only downgrade — never upgrade via overlay (overlays are
+        # defensive; if the overlay says AVOID, that wins over any
+        # score-based HOLD/ADD/BUY in long_ideas).
+        downgrade_order = {
+            "BUY": 5, "ADD": 4, "HOLD": 3, "WATCH": 2,
+            "TRIM": 1, "AVOID": 0, "EXIT": 0, "SHORT": -1, "CASH": -1,
+        }
+        if (new_action and old_action and
+                downgrade_order.get(new_action, 99) <
+                downgrade_order.get(old_action, 99)):
+            idea["action"] = new_action
+            # Cap conviction at MEDIUM after a downgrade (HIGH conviction
+            # never survives a defensive overlay)
+            if idea.get("conviction") == "HIGH":
+                idea["conviction"] = "MEDIUM"
+            plan.setdefault("overlay_applied", []).append(
+                f"action downgraded {old_action} -> {new_action} by overlay")
+            # Append the overlay's reason to the why string so the UI
+            # explains the downgrade without the user clicking through.
+            why = idea.get("why", "")
+            ov_reason = (a.get("reason") or "")[:80]
+            if ov_reason and ov_reason not in why:
+                idea["why"] = why + (" | overlay: " + ov_reason if why
+                                       else "overlay: " + ov_reason)
 
 
 def _briefing_summary(briefing: dict) -> dict:

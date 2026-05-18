@@ -140,25 +140,52 @@ def _short_ideas(scored: list[dict], macro: dict,
     # Below -0.10 alone is "weak hold" not "short candidate".
     raw_shorts = sorted(scored, key=lambda r: r["score"])[:10]
     filtered: list[dict] = []
+
+    # Gap #4 fix: if a sector has macro_tilt <= -3 (STRONG HEADWIND),
+    # auto-promote its bottom-2 names as short candidates even if
+    # their composite score is only mildly negative. This catches
+    # the May 11-15 case where Cement was -4 tilt but no individual
+    # name reached the -0.20 score threshold so we surfaced 0 shorts
+    # all week while Cement bled -4.17%.
+    sector_to_rows: dict[str, list[dict]] = {}
+    for r in scored:
+        sector_to_rows.setdefault(r["sector"], []).append(r)
+    auto_short_syms: set[str] = set()
+    for sec, rows in sector_to_rows.items():
+        if sector_tilts.get(sec, 0) <= -3:
+            worst_in_sector = sorted(rows, key=lambda x: x["score"])[:2]
+            for r in worst_in_sector:
+                if r["score"] < 0:
+                    auto_short_syms.add(r["symbol"])
+
     for r in raw_shorts:
-        if r["score"] >= -0.20:
-            break
+        # Stop the score-based loop if we are below the threshold AND
+        # there are no auto-promoted names left. (Auto-promoted names
+        # added below regardless.)
+        if r["score"] >= -0.20 and r["symbol"] not in auto_short_syms:
+            continue
         tilt = sector_tilts.get(r["sector"], 0)
         is_aggressive_regime = regime in ("AGGRESSIVE", "NORMAL")
-        if tilt > 1 and is_aggressive_regime:
+        if (tilt > 1 and is_aggressive_regime
+                and r["symbol"] not in auto_short_syms):
             # don't short sectors that have positive macro tilt in
             # a risk-on regime — that's fighting the tape
             continue
+        why_text = r["why"]
+        if r["symbol"] in auto_short_syms and r["score"] >= -0.20:
+            why_text = (f"[auto-short] sector {r['sector']} macro_tilt "
+                         f"{tilt:+d} -> sector-driven short; " + why_text)
         filtered.append({
             "symbol":      r["symbol"],
             "sector":      r["sector"],
             "score":       r["score"],
             "conviction":  r["conviction"],
-            "why":         r["why"],
+            "why":         why_text,
             "key_drivers": r["key_drivers"],
             "key_risks":   r["key_risks"],
             "tags":        r["tags"],
             "macro_sector_tilt": tilt,
+            "auto_promoted_from_sector": r["symbol"] in auto_short_syms,
         })
 
     if not filtered:

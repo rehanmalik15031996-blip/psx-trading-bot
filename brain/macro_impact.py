@@ -215,6 +215,19 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "circular_debt_worsening":  (-1, "Power-sector loan-book provisioning "
                                           "risk rises and sovereign-guarantee "
                                           "capacity gets eaten."),
+        # Pre-event de-risk window — added 2026-05-18 post-mortem.
+        # Banks are the FIRST sector dumped in any pre-IMF /
+        # institutional-de-risk flow because they are the most
+        # liquid names on PSX. Structural tailwinds (NIM, curve)
+        # remain in place but get drowned out by short-term flow.
+        "pre_event_derisk":   (-3, "Pre-event de-risk window — banks are "
+                                     "the most-liquid PSX names and get "
+                                     "dumped FIRST in IMF/MPC/risk-off "
+                                     "flows. Structural NIM/tbill/curve "
+                                     "tailwinds remain but they are "
+                                     "timing-blind. Examples: HBL -7.2%, "
+                                     "UBL -6.4%, BAHL -6.4% during the "
+                                     "May 2026 pre-IMF week."),
     },
     "Cement": {
         "rate_up":   (-3, "Sector is highly leveraged: financial costs "
@@ -311,6 +324,19 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "circular_debt_worsening":  (-2, "E&P receivables stretch back out — "
                                           "earnings quality and dividend "
                                           "cover both deteriorate."),
+        # Pre-event de-risk window — added 2026-05-18.
+        # E&Ps OUTPERFORM in IMF / pre-event flow because they pay
+        # high dividends, are USD-linked (PKR weakness benefits them),
+        # and are inherently lower-beta than banks. Validated May
+        # 11-15: E&P -0.98% vs market -2.88% (alpha +1.9pp).
+        "pre_event_derisk":   (+2, "E&P is the defensive winner in PSX "
+                                     "pre-event de-risk flows: USD-linked "
+                                     "wellhead pricing benefits from PKR "
+                                     "weakness, high dividend yields make "
+                                     "them resilient when high-beta sectors "
+                                     "(banks, cement) get dumped. Validated "
+                                     "May 11-15: E&P -0.98% vs market "
+                                     "-2.88%."),
     },
     "OMC/Refining": {
         "rate_up":   (-1, "Inventory financing costs rise; OMCs carry "
@@ -416,6 +442,15 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
                           "oil-derivative chemicals."),
         "pkr_weak":  (-1, "Imported feedstock costs rise."),
         "pkr_strong":(+1, "Imported feedstock costs fall."),
+        # Pre-event de-risk — added 2026-05-18.
+        # Conglomerates (ENGRO/LUCK holdings, large-cap chem) trade
+        # like banks during de-risk flows: high liquidity, popular
+        # foreign holdings. ENGROH lost -4.8% during May 11-15.
+        "pre_event_derisk":   (-2, "Conglomerates are second-line dumps "
+                                     "in pre-event de-risk flows after "
+                                     "banks — large foreign positions get "
+                                     "trimmed. ENGROH -4.8% during May "
+                                     "11-15 pre-IMF week."),
     },
     "Pharma": {
         "rate_up":   (-1, "Pharma carries some leverage; financial cost "
@@ -499,6 +534,14 @@ SECTOR_RULES: dict[str, dict[str, tuple[int, str]]] = {
         "circular_debt_worsening":  (-1, "Gas-supply reliability for "
                                           "petrochem plants deteriorates as "
                                           "the chain's receivables stretch."),
+        # Pre-event de-risk — added 2026-05-18.
+        # ENGROH lost -4.8% during the May 11-15 pre-IMF week even
+        # though brent + reserves stayed supportive.
+        "pre_event_derisk":   (-2, "Conglomerates are second-line dumps "
+                                     "in pre-event de-risk flows after "
+                                     "banks — large foreign positions get "
+                                     "trimmed. ENGROH -4.8% during May "
+                                     "11-15 pre-IMF week."),
     },
 }
 
@@ -658,6 +701,136 @@ def _active_circular_debt_event(today: Optional[datetime] = None) -> Optional[di
     # Most recent wins (smallest days_since).
     candidates.sort(key=lambda x: x[0])
     return candidates[0][1] | {"days_since_event": candidates[0][0]}
+
+
+def _detect_derisk_window(macro: dict | None,
+                           indicators: dict | None) -> dict | None:
+    """Detect a "pre-event de-risk window" that justifies temporarily
+    flipping banks/conglomerates/large-cap-heavy sectors from
+    structural-positive to short-term-negative.
+
+    Triggers (any ONE is enough):
+
+      1) An IMF mission, MPC day, or other binary macro event is
+         scheduled within the next 5 calendar days
+         (see data/macro/imf_events.json + active_events feed).
+      2) Confirmed risk-off tape pattern: universe 5d return <= -2%
+         AND the daily range/vol regime is elevated.
+      3) Foreign net outflow streak >= 2 sessions of net selling
+         (read from data/flows/fipi_daily.parquet).
+
+    Returns a dict {"move", "magnitude", "context", "trigger"} when
+    active, or None otherwise.
+
+    This addresses Gap #1 from the May 11-15 post-mortem: the macro
+    engine printed Banking +4 tilt all week while banks were dumped
+    on pre-IMF flow (HBL -7.2%, UBL -6.4%). The structural drivers
+    (tbill_above_policy, copper_up, kse100_up) were technically true
+    but timing-blind.
+    """
+    triggers: list[str] = []
+    severity = 0
+
+    # ---------- Trigger 1: imminent IMF / hard event ----------
+    try:
+        from pathlib import Path as _Path
+        import json as _json
+        p = _Path(__file__).resolve().parent.parent / "data" / "macro" / "imf_events.json"
+        if p.exists():
+            blob = _json.loads(p.read_text(encoding="utf-8"))
+            events = blob.get("events") or []
+            now = datetime.now(timezone.utc).date()
+            for e in events:
+                try:
+                    d = datetime.fromisoformat(str(e.get("date") or "")[:10]).date()
+                except Exception:
+                    continue
+                days_to = (d - now).days
+                if 0 <= days_to <= 5:
+                    triggers.append(
+                        f"IMF event in {days_to}d ({e.get('type','event')})")
+                    severity += 2
+                    break
+    except Exception:
+        pass
+
+    # ---------- Trigger 1b: active event feed ----------
+    try:
+        active = (macro or {}).get("active_events") or []
+        for ev in active:
+            if not isinstance(ev, dict):
+                continue
+            name = str(ev.get("name") or ev.get("key") or "").lower()
+            d_to = ev.get("days_to") or ev.get("days_until")
+            if "imf" in name or "mpc" in name or "monetary" in name:
+                if d_to is None or (isinstance(d_to, (int, float)) and 0 <= d_to <= 5):
+                    triggers.append(f"Active event window: {name}")
+                    severity += 2
+                    break
+    except Exception:
+        pass
+
+    # ---------- Trigger 2: confirmed risk-off tape ----------
+    ind = indicators or {}
+    u5 = ind.get("universe_ret_5d")
+    u21 = ind.get("universe_ret_21d")
+    breadth = ind.get("breadth_pct_up_today") or ind.get("breadth_pct_up")
+    if breadth is not None and breadth > 1.0:
+        breadth = breadth / 100.0
+    if u5 is not None and u5 <= -0.02:
+        triggers.append(f"universe -5d={u5*100:.1f}%")
+        severity += 2
+    if u21 is not None and u21 <= -0.05:
+        triggers.append(f"universe -21d={u21*100:.1f}%")
+        severity += 1
+    if breadth is not None and breadth < 0.40:
+        triggers.append(f"breadth {breadth*100:.0f}%")
+        severity += 1
+
+    # ---------- Trigger 3: foreign net outflow streak ----------
+    try:
+        from pathlib import Path as _Path
+        import pandas as _pd
+        p = _Path(__file__).resolve().parent.parent / "data" / "flows" / "fipi_daily.parquet"
+        if p.exists():
+            df = _pd.read_parquet(p)
+            if "foreign_net_pkr_mn" in df.columns and "date" in df.columns:
+                df = df.sort_values("date").tail(5)
+                vals = df["foreign_net_pkr_mn"].tolist()
+                streak = 0
+                for v in reversed(vals):
+                    if v is not None and v < 0:
+                        streak += 1
+                    else:
+                        break
+                if streak >= 2:
+                    triggers.append(f"foreign net-sell streak {streak}d")
+                    severity += 1
+    except Exception:
+        pass
+
+    if not triggers:
+        return None
+
+    if severity >= 3:
+        mag = "STRONG"
+    elif severity >= 2:
+        mag = "MODERATE"
+    else:
+        mag = "MILD"
+
+    return {
+        "move": " + ".join(triggers[:3]),
+        "magnitude": mag,
+        "context": ("Pre-event de-risk: high-liquidity sectors (banks, "
+                     "conglomerates) get dumped FIRST in this flow, even "
+                     "though their structural drivers (NIM, curve) look "
+                     "positive on paper. Short-term-bearish for Banking "
+                     "and Conglomerate; modestly defensive for OMC and "
+                     "Power. Lift defensive sectors (E&P, Pharma) on "
+                     "relative basis. Reset when the event passes."),
+        "severity": severity,
+    }
 
 
 def _load_kpi_snapshot() -> dict:
@@ -1294,6 +1467,29 @@ def detect_drivers(
                 context="Inflation cooling — opens room for SBP rate "
                          "cuts that benefit leveraged sectors.",
             ))
+
+    # ---- Pre-event de-risk window (added 2026-05-18 post-mortem)
+    # When an IMF mission / hard binary event is within 5 days OR the
+    # tape is in a confirmed risk-off pattern (universe 5d <= -2%
+    # AND elevated/crisis vol regime), the macro engine should flip
+    # banks/conglomerates/large caps from structural-positive to
+    # short-term-negative. They get dumped FIRST because they are
+    # the most liquid names in any de-risk flow, regardless of how
+    # bullish their structural drivers (NIM, tbill curve) look.
+    #
+    # See data/_research/POSTMORTEM_2026-05-11_to_15.md, Gap #1:
+    # the week of May 11-15 saw Banking print +4 macro tilt the
+    # whole week while HBL -7.2%, UBL -6.4%, BAHL -6.4% were the
+    # worst stocks on PSX. This driver is the fix.
+    derisk = _detect_derisk_window(macro, indicators)
+    if derisk is not None:
+        drivers.append(Driver(
+            name="Pre-event de-risk window",
+            tag="pre_event_derisk",
+            move=derisk["move"],
+            magnitude=derisk["magnitude"],
+            context=derisk["context"],
+        ))
 
     # ---- Circular-debt event (Power / E&P / OMC / Banking complex)
     # Read from a curated event log (`data/macro/circular_debt_events.json`).
