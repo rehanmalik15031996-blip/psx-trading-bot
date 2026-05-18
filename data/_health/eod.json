@@ -2,12 +2,12 @@
   "workflow": "eod",
   "ok": true,
   "note": "FIPI snapshot for 2026-05-15: foreign_net=-0.4 mn",
-  "as_of": "2026-05-15T17:16:39+00:00",
+  "as_of": "2026-05-18T11:15:36+00:00",
   "github": {
-    "run_id": "25931180783",
-    "run_number": "20",
+    "run_id": "26029997439",
+    "run_number": "21",
     "ref": "refs/heads/main",
-    "sha": "6fefd47037f21eff0d002893888ddf7c4f662e47"
+    "sha": "b8688a502319dfc281a0c3a5aa149995897abbe6"
   },
   "payload": {
     "date": "2026-05-15",
@@ -18,6 +18,6 @@
     "n_sectors": 10,
     "top_sector_name": "Banks",
     "top_sector_net_usd_mn": -0.95,
-    "captured_at_utc": "2026-05-15T17:16:39"
+    "captured_at_utc": "2026-05-18T11:15:36"
   }
 }
