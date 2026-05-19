@@ -1,6 +1,6 @@
 {
   "as_of": "2026-05-18",
-  "model": "rule-based-v2",
+  "model": "cursor-claude-sonnet-4-5-manual",
   "thinking_budget": 0,
   "headline": "NORMAL \u2014 single conviction long (OGDC)",
   "risk_stance": "NORMAL",
@@ -278,5 +278,6 @@
     "[imf_review_mission_week] IMF mission active \u2014 moderate defensive. Cash 60%, Banks/Power -1 notch, half-size leveraged small-caps. (Calibrated 2026-05-13 backtest: prior settings -1.7% per fire on universe drift +0.4%.)",
     "[distribution_day_signature] Distribution-day signature \u2014 KSE100 closed in lower 25% of wide intraday range. Treat next session as continuation-down bias; don't chase intraday rallies.",
     "[event_eve_distribution] Event-eve distribution \u2014 pre-event de-risk. Don't chase morning bounces tomorrow; the closing tape is telling you institutions are still net sellers."
-  ]
+  ],
+  "human_override": true
 }

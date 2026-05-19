@@ -252,10 +252,48 @@ def _briefing_summary(briefing: dict) -> dict:
     return out
 
 
+def _human_override_present(path) -> bool:
+    """Return True if the existing strategist file at `path` was written
+    by a human-in-the-loop process (Cursor agent, manual edit, etc).
+
+    Sentinel detection — any of:
+      * top-level key `"human_override": true`
+      * `"model"` value starts with `cursor-` or contains `-manual`
+      * `"model"` value equals `human` or `cursor`
+    """
+    try:
+        if not path.exists():
+            return False
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if data.get("human_override") is True:
+            return True
+        model = str(data.get("model") or "").lower()
+        if model.startswith("cursor-") or "-manual" in model:
+            return True
+        if model in {"human", "cursor"}:
+            return True
+        return False
+    except Exception:
+        return False
+
+
 def _persist_v1(decision: dict) -> None:
+    """Persist v1 (legacy) decision.
+
+    If a human override is present at `<date>.json`, we *preserve* it and
+    instead write the autogen output to `<date>_workflow_autorun.json`,
+    and we leave `latest.json` alone too. This stops the scheduled
+    workflow from clobbering hand-curated calls written by Cursor or
+    a human via the IDE.
+    """
     try:
         date = decision.get("as_of") or datetime.now().strftime("%Y-%m-%d")
-        (CACHE_DIR / f"{date}.json").write_text(
+        canonical = CACHE_DIR / f"{date}.json"
+        if _human_override_present(canonical):
+            (CACHE_DIR / f"{date}_workflow_autorun.json").write_text(
+                json.dumps(decision, default=str, indent=2), encoding="utf-8")
+            return
+        canonical.write_text(
             json.dumps(decision, default=str, indent=2), encoding="utf-8")
         (CACHE_DIR / "latest.json").write_text(
             json.dumps(decision, default=str, indent=2), encoding="utf-8")
@@ -264,9 +302,16 @@ def _persist_v1(decision: dict) -> None:
 
 
 def _persist_v2(decision: dict) -> None:
+    """Persist v2 decision (with same human-override protection)."""
     try:
         date = decision.get("as_of") or datetime.now().strftime("%Y-%m-%d")
-        (CACHE_DIR / f"{date}_v2.json").write_text(
+        canonical = CACHE_DIR / f"{date}.json"
+        v2_canonical = CACHE_DIR / f"{date}_v2.json"
+        if _human_override_present(canonical):
+            (CACHE_DIR / f"{date}_v2_workflow_autorun.json").write_text(
+                json.dumps(decision, default=str, indent=2), encoding="utf-8")
+            return
+        v2_canonical.write_text(
             json.dumps(decision, default=str, indent=2), encoding="utf-8")
         (CACHE_DIR / "latest_v2.json").write_text(
             json.dumps(decision, default=str, indent=2), encoding="utf-8")
