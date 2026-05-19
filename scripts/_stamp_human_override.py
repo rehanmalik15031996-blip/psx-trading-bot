@@ -18,7 +18,7 @@ for f in FILES:
     if not p.exists():
         print(f"  [SKIP] {f} not found")
         continue
-    data = json.loads(p.read_text(encoding="utf-8"))
+    data = json.loads(p.read_text(encoding="utf-8-sig"))
     if data.get("human_override") is True:
         print(f"  [OK  ] {f} already flagged")
         continue
