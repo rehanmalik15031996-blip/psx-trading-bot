@@ -485,6 +485,27 @@ Recommended: schedule alongside `cache_fipi_daily.py` — run
 `score_news_sentiment.py` 2-3x per day (morning, midday, close) to keep
 the 24h macro tilt fresh.
 
+### Manual override — when the Anthropic key is dead
+
+If the LLM workflow `news_scoring.yml` keeps failing (invalid /
+revoked / out-of-credit API key), the Cursor agent can stand in for
+Haiku as the scorer. Same parquet, same shock detector, same UI —
+no consumer changes needed.
+
+```powershell
+python scripts\_pull_news_for_manual_scoring.py    # fetch RSS to JSON
+# (edit scripts\_apply_manual_news_scores.py SCORES dict by hand)
+python scripts\_apply_manual_news_scores.py        # write back to parquet
+python scripts\check_news_shocks.py                # detect HIGH shocks
+```
+
+Manual rows are stamped `model="cursor-claude-sonnet-4-5-manual"` so
+they survive future LLM workflow runs (the workflow only scores articles
+not already in the cache).
+
+**Full runbook with scoring rules, sentinel notes, UI integration map,
+and a worked example:** [`docs/manual_news_scoring_runbook.md`](docs/manual_news_scoring_runbook.md).
+
 
 ## Deployment — GitHub Actions as your data janitor, Streamlit Cloud (free) for the UI
 
