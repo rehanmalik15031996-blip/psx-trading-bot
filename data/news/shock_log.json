@@ -1241,6 +1241,47 @@
       "is_broad_market": false,
       "scored_at": "2026-05-08T07:09:04+00:00",
       "detected_at": "2026-05-08T07:09:52+00:00"
+    },
+    {
+      "article_id": "3979933698b51677",
+      "title": "Current account slips back into deficit",
+      "sentiment": -0.35,
+      "confidence": "HIGH",
+      "category": "MACRO",
+      "affected_symbols": [
+        "BAHL",
+        "FABL",
+        "HBL",
+        "MCB",
+        "MEBL",
+        "NBP",
+        "UBL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-19T09:40:39+00:00",
+      "detected_at": "2026-05-19T09:40:52+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-19::BULLISH::5",
+      "title": "Broad-market bullish shock: 5 HIGH-confidence articles avg sentiment +0.59",
+      "sentiment": 0.59,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BULLISH",
+      "n_articles": 5,
+      "sample_titles": [
+        "Buying returns at PSX as US-Iran tensions ease - Business Recorder",
+        "Buying returns at PSX as US-Iran tensions ease - Business Recorder",
+        "PSX rebounds as easing US-Iran tensions lift investor sentiment - Profit by Pakistan Today",
+        "Pakistan stocks jump sharply after Trump holds off planned attack on Iran - Hum News English",
+        "PSX rebounds as easing US-Iran tensions lift investor sentiment"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-19T09:40:52+00:00"
     }
   ]
 }
