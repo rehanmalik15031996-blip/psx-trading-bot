@@ -111480,13 +111480,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 559.89,
+        "actual_return_pct": 1.41,
+        "actual_return_net_pct": 0.722,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -111656,13 +111661,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 898.46,
+        "actual_return_pct": 0.01,
+        "actual_return_net_pct": -0.551,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -111844,13 +111854,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 165.3,
+        "actual_return_pct": 0.92,
+        "actual_return_net_pct": 0.305,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -112008,13 +112023,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 1117.46,
+        "actual_return_pct": 1.66,
+        "actual_return_net_pct": 0.934,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -112190,13 +112210,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 186.39,
+        "actual_return_pct": 2.49,
+        "actual_return_net_pct": 1.64,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -112354,13 +112379,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 200.37,
+        "actual_return_pct": 2.14,
+        "actual_return_net_pct": 1.342,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -112533,13 +112563,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 261.95,
+        "actual_return_pct": 2.19,
+        "actual_return_net_pct": 1.385,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -112712,13 +112747,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 32.83,
+        "actual_return_pct": 1.74,
+        "actual_return_net_pct": 1.002,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -112900,13 +112940,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 87.41,
+        "actual_return_pct": 0.52,
+        "actual_return_net_pct": -0.041,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -113065,13 +113110,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 136.77,
+        "actual_return_pct": 4.38,
+        "actual_return_net_pct": 3.246,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -113247,13 +113297,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 51.14,
+        "actual_return_pct": 3.27,
+        "actual_return_net_pct": 2.303,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -113408,13 +113463,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 531.21,
+        "actual_return_pct": 2.55,
+        "actual_return_net_pct": 1.691,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -113596,13 +113656,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 279.52,
+        "actual_return_pct": 4.03,
+        "actual_return_net_pct": 2.949,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -113768,13 +113833,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 215.99,
+        "actual_return_pct": 3.01,
+        "actual_return_net_pct": 2.082,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -113928,13 +113998,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 1999.19,
+        "actual_return_pct": 1.24,
+        "actual_return_net_pct": 0.577,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -114101,13 +114176,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 27.13,
+        "actual_return_pct": 0.15,
+        "actual_return_net_pct": -0.411,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -114268,13 +114348,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 8.34,
+        "actual_return_pct": 0.72,
+        "actual_return_net_pct": 0.135,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -114450,13 +114535,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 84.46,
+        "actual_return_pct": 3.72,
+        "actual_return_net_pct": 2.685,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -114628,13 +114718,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 27.02,
+        "actual_return_pct": 1.85,
+        "actual_return_net_pct": 1.096,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -114806,13 +114901,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 426.82,
+        "actual_return_pct": 3.88,
+        "actual_return_net_pct": 2.821,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -114989,13 +115089,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 647.42,
+        "actual_return_pct": 1.76,
+        "actual_return_net_pct": 1.019,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -115173,13 +115278,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 405.88,
+        "actual_return_pct": 0.55,
+        "actual_return_net_pct": -0.011,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -115355,13 +115465,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 481.45,
+        "actual_return_pct": 1.32,
+        "actual_return_net_pct": 0.645,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -115537,13 +115652,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 85.54,
+        "actual_return_pct": 2.37,
+        "actual_return_net_pct": 1.538,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -115726,13 +115846,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 186.73,
+        "actual_return_pct": 3.53,
+        "actual_return_net_pct": 2.524,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     },
     {
@@ -115895,13 +116020,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 71.18,
+        "actual_return_pct": 2.36,
+        "actual_return_net_pct": 1.529,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -116074,13 +116204,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 325.82,
+        "actual_return_pct": 2.29,
+        "actual_return_net_pct": 1.47,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -116250,13 +116385,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 105.6,
+        "actual_return_pct": 0.19,
+        "actual_return_net_pct": -0.371,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -116427,13 +116567,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 658.63,
+        "actual_return_pct": -0.06,
+        "actual_return_net_pct": -0.621,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -116606,13 +116751,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 234.11,
+        "actual_return_pct": 3.23,
+        "actual_return_net_pct": 2.269,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -116785,13 +116935,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 350.89,
+        "actual_return_pct": 0.88,
+        "actual_return_net_pct": 0.271,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -116961,13 +117116,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 89.03,
+        "actual_return_pct": 2.22,
+        "actual_return_net_pct": 1.41,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -117120,13 +117280,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 151.81,
+        "actual_return_pct": 1.38,
+        "actual_return_net_pct": 0.696,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": true,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -117283,13 +117448,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 62.92,
+        "actual_return_pct": 2.78,
+        "actual_return_net_pct": 1.886,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": true,
+        "inside_range": true,
+        "stop_triggered": false,
+        "target_triggered": false
       }
     },
     {
@@ -117471,13 +117641,18 @@
         ]
       },
       "outcome": {
-        "checked_at": null,
-        "actual_end_price_pkr": null,
-        "actual_return_pct": null,
-        "direction_hit": null,
-        "inside_range": null,
-        "stop_triggered": null,
-        "target_triggered": null
+        "checked_at": "2026-05-21T14:22:05+00:00",
+        "bars_elapsed": 1,
+        "end_date": "2026-05-21",
+        "actual_end_price_pkr": 407.03,
+        "actual_return_pct": 4.71,
+        "actual_return_net_pct": 3.527,
+        "round_trip_cost_pct": 0.561,
+        "direction_hit": false,
+        "direction_hit_net": false,
+        "inside_range": false,
+        "stop_triggered": false,
+        "target_triggered": true
       }
     }
   ]
