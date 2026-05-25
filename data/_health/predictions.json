@@ -1,17 +1,17 @@
 {
   "workflow": "predictions",
   "ok": true,
-  "note": "35 new predictions, 692 in log",
-  "as_of": "2026-05-22T07:56:41+00:00",
+  "note": "35 new predictions, 727 in log",
+  "as_of": "2026-05-25T08:42:57+00:00",
   "github": {
-    "run_id": "26275677193",
-    "run_number": "60",
+    "run_id": "26391698400",
+    "run_number": "61",
     "ref": "refs/heads/main",
-    "sha": "673a0ca62c82bf0fb8cd53d3ec4d6bcace7276b2"
+    "sha": "8233a4cf6eced621ab63cc0ad6135529937d43ea"
   },
   "payload": {
     "new": 35,
-    "total": 692,
+    "total": 727,
     "symbols": [
       "HUBC",
       "PABC",
