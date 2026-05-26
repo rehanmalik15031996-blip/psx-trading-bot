@@ -1,23 +1,23 @@
 {
   "workflow": "eod",
   "ok": true,
-  "note": "FIPI snapshot for 2026-05-22: foreign_net=-1.9 mn",
-  "as_of": "2026-05-25T14:21:51+00:00",
+  "note": "FIPI snapshot for 2026-05-25: foreign_net=-1.0 mn",
+  "as_of": "2026-05-26T14:14:56+00:00",
   "github": {
-    "run_id": "26405150304",
-    "run_number": "28",
+    "run_id": "26453561692",
+    "run_number": "29",
     "ref": "refs/heads/main",
-    "sha": "70e38895050f55dfb024615ddd32a660b2b08d90"
+    "sha": "6d46a5791e4218d9595ab707a09ebdec5c9ae8ce"
   },
   "payload": {
-    "date": "2026-05-22",
-    "foreign_net_pkr_mn": -1.92,
-    "local_net_pkr_mn": 1.93,
+    "date": "2026-05-25",
+    "foreign_net_pkr_mn": -1.0,
+    "local_net_pkr_mn": 1.0,
     "foreign_regime": "net_selling",
     "n_participants": 9,
     "n_sectors": 10,
-    "top_sector_name": "All other Sectors",
-    "top_sector_net_usd_mn": -1.06,
-    "captured_at_utc": "2026-05-25T14:21:51"
+    "top_sector_name": "Textile Composite",
+    "top_sector_net_usd_mn": -0.36,
+    "captured_at_utc": "2026-05-26T14:14:56"
   }
 }
