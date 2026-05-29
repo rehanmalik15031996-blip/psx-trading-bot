@@ -2,12 +2,12 @@
   "workflow": "macro_series",
   "ok": true,
   "note": "7/7 series refreshed",
-  "as_of": "2026-05-28T05:56:28+00:00",
+  "as_of": "2026-05-29T00:52:22+00:00",
   "github": {
-    "run_id": "26557515818",
-    "run_number": "29",
-    "ref": "refs/heads/main",
-    "sha": "96b30e23f64568162bcb098331ddbeff7b052774"
+    "run_id": "",
+    "run_number": "",
+    "ref": "",
+    "sha": ""
   },
   "payload": {
     "results": [
@@ -17,7 +17,7 @@
         "ticker": "BZ=F",
         "rows": 1614,
         "last_date": "2026-05-28",
-        "last_value": 95.08
+        "last_value": 92.16
       },
       {
         "ok": true,
@@ -25,7 +25,7 @@
         "ticker": "CL=F",
         "rows": 1613,
         "last_date": "2026-05-28",
-        "last_value": 91.67
+        "last_value": 88.11
       },
       {
         "ok": true,
@@ -33,7 +33,7 @@
         "ticker": "GC=F",
         "rows": 1613,
         "last_date": "2026-05-28",
-        "last_value": 4420.0
+        "last_value": 4526.8
       },
       {
         "ok": true,
@@ -41,30 +41,30 @@
         "ticker": "HG=F",
         "rows": 1614,
         "last_date": "2026-05-28",
-        "last_value": 6.299
+        "last_value": 6.412
       },
       {
         "ok": true,
         "key": "cotton",
         "ticker": "CT=F",
-        "rows": 1611,
-        "last_date": "2026-05-27",
-        "last_value": 76.16
+        "rows": 1612,
+        "last_date": "2026-05-28",
+        "last_value": 76.63
       },
       {
         "ok": true,
         "key": "btc",
         "ticker": "BTC-USD",
-        "rows": 2340,
-        "last_date": "2026-05-28",
-        "last_value": 72907.188
+        "rows": 2341,
+        "last_date": "2026-05-29",
+        "last_value": 73674.117
       },
       {
         "ok": true,
         "key": "usdpkr",
         "ticker": "PKR=X",
-        "rows": 1669,
-        "last_date": "2026-05-28",
+        "rows": 1670,
+        "last_date": "2026-05-29",
         "last_value": 278.24
       }
     ],
@@ -73,9 +73,9 @@
       "wti": "2026-05-28",
       "gold": "2026-05-28",
       "copper": "2026-05-28",
-      "cotton": "2026-05-27",
-      "btc": "2026-05-28",
-      "usdpkr": "2026-05-28"
+      "cotton": "2026-05-28",
+      "btc": "2026-05-29",
+      "usdpkr": "2026-05-29"
     }
   }
 }

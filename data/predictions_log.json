@@ -145649,7 +145649,7 @@
     },
     {
       "prediction_id": "2026-05-28-APL",
-      "generated_at": "2026-05-28T08:14:28+00:00",
+      "generated_at": "2026-05-28T17:56:30-07:00",
       "symbol": "APL",
       "sector": "OMC/Refining",
       "model": "rule-based-v1",
@@ -145675,7 +145675,7 @@
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -145687,21 +145687,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -145741,7 +145741,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
           ],
           "verdict": "NEUTRAL"
         },
@@ -145754,7 +145754,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
           ],
           "amplifier_note": "",
           "verdict": "NEUTRAL"
@@ -145771,8 +145771,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -145782,7 +145782,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -145815,10 +145815,10 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
           "Maple Leafs' Max Domi out indefinitely after surgery complications"
@@ -145836,7 +145836,7 @@
     },
     {
       "prediction_id": "2026-05-28-ATRL",
-      "generated_at": "2026-05-28T08:16:26+00:00",
+      "generated_at": "2026-05-28T17:57:38-07:00",
       "symbol": "ATRL",
       "sector": "OMC/Refining",
       "model": "rule-based-v1",
@@ -145865,7 +145865,7 @@
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -145877,21 +145877,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -145931,7 +145931,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
           ],
           "verdict": "NEUTRAL"
         },
@@ -145944,7 +145944,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
           ],
           "amplifier_note": "",
           "verdict": "NEUTRAL"
@@ -145961,8 +145961,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -145972,7 +145972,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -146005,17 +146005,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -146030,7 +146030,7 @@
     },
     {
       "prediction_id": "2026-05-28-BAHL",
-      "generated_at": "2026-05-28T08:16:12+00:00",
+      "generated_at": "2026-05-28T17:57:01-07:00",
       "symbol": "BAHL",
       "sector": "Banking",
       "model": "rule-based-v1",
@@ -146054,7 +146054,7 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
         "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
         "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits)."
       ],
@@ -146074,21 +146074,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -146125,7 +146125,7 @@
           "sector": "Banking",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -146141,7 +146141,7 @@
           "sector_score": 1,
           "stock_score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -146164,8 +146164,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -146175,7 +146175,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -146208,13 +146208,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says"
         ]
       },
       "outcome": {
@@ -146229,7 +146229,7 @@
     },
     {
       "prediction_id": "2026-05-28-COLG",
-      "generated_at": "2026-05-28T08:16:36+00:00",
+      "generated_at": "2026-05-28T17:57:57-07:00",
       "symbol": "COLG",
       "sector": "Consumer",
       "model": "rule-based-v1",
@@ -146267,21 +146267,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -146337,8 +146337,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -146348,7 +146348,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -146381,17 +146381,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -146406,7 +146406,7 @@
     },
     {
       "prediction_id": "2026-05-28-DGKC",
-      "generated_at": "2026-05-28T08:16:18+00:00",
+      "generated_at": "2026-05-28T17:57:16-07:00",
       "symbol": "DGKC",
       "sector": "Cement",
       "model": "rule-based-v1",
@@ -146430,9 +146430,9 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-        "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-        "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+        "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+        "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+        "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
       ],
       "macro_headwinds": [
         "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -146451,21 +146451,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -146502,9 +146502,9 @@
           "sector": "Cement",
           "score": 5,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -146517,9 +146517,9 @@
           "sector_score": 5,
           "stock_score": 5,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -146539,8 +146539,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -146550,7 +146550,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -146583,13 +146583,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 1,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 8,
         "news_headlines": [
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -146604,7 +146608,7 @@
     },
     {
       "prediction_id": "2026-05-28-EFERT",
-      "generated_at": "2026-05-28T08:16:21+00:00",
+      "generated_at": "2026-05-28T17:57:25-07:00",
       "symbol": "EFERT",
       "sector": "Fertilizer",
       "model": "rule-based-v1",
@@ -146643,21 +146647,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -146713,8 +146717,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -146724,7 +146728,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -146757,17 +146761,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -146782,7 +146786,7 @@
     },
     {
       "prediction_id": "2026-05-28-ENGROH",
-      "generated_at": "2026-05-28T08:16:28+00:00",
+      "generated_at": "2026-05-28T17:57:41-07:00",
       "symbol": "ENGROH",
       "sector": "Conglomerate/Chem",
       "model": "rule-based-v1",
@@ -146810,7 +146814,7 @@
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
         "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
       ],
       "regime_on": false,
@@ -146823,21 +146827,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -146877,7 +146881,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
             "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
           ],
           "verdict": "HEADWIND"
@@ -146891,7 +146895,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
             "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
           ],
           "amplifier_note": "",
@@ -146909,8 +146913,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -146920,7 +146924,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -146953,17 +146957,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -146978,7 +146982,7 @@
     },
     {
       "prediction_id": "2026-05-28-EPCL",
-      "generated_at": "2026-05-28T08:14:29+00:00",
+      "generated_at": "2026-05-28T17:56:33-07:00",
       "symbol": "EPCL",
       "sector": "Conglomerate/Chem",
       "model": "rule-based-v1",
@@ -147005,7 +147009,7 @@
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
         "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
       ],
       "regime_on": false,
@@ -147018,21 +147022,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -147072,7 +147076,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
             "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
           ],
           "verdict": "HEADWIND"
@@ -147086,7 +147090,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
             "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
           ],
           "amplifier_note": "Very high debt-to-equity (2.4) magnifies rate-driven impact (+/-2 notches).",
@@ -147104,8 +147108,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -147115,7 +147119,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -147148,17 +147152,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -147173,7 +147177,7 @@
     },
     {
       "prediction_id": "2026-05-28-FABL",
-      "generated_at": "2026-05-28T08:14:20+00:00",
+      "generated_at": "2026-05-28T17:56:07-07:00",
       "symbol": "FABL",
       "sector": "Banking",
       "model": "rule-based-v1",
@@ -147196,7 +147200,7 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
         "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
         "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits)."
       ],
@@ -147213,21 +147217,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -147264,7 +147268,7 @@
           "sector": "Banking",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -147280,7 +147284,7 @@
           "sector_score": 1,
           "stock_score": 0,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -147303,8 +147307,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -147314,7 +147318,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -147347,13 +147351,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says"
         ]
       },
       "outcome": {
@@ -147368,7 +147372,7 @@
     },
     {
       "prediction_id": "2026-05-28-FATIMA",
-      "generated_at": "2026-05-28T08:16:22+00:00",
+      "generated_at": "2026-05-28T17:57:28-07:00",
       "symbol": "FATIMA",
       "sector": "Fertilizer",
       "model": "rule-based-v1",
@@ -147407,21 +147411,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -147477,8 +147481,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -147488,7 +147492,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -147521,17 +147525,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -147546,7 +147550,7 @@
     },
     {
       "prediction_id": "2026-05-28-FCCL",
-      "generated_at": "2026-05-28T08:14:26+00:00",
+      "generated_at": "2026-05-28T17:56:26-07:00",
       "symbol": "FCCL",
       "sector": "Cement",
       "model": "rule-based-v1",
@@ -147569,9 +147573,9 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-        "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-        "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+        "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+        "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+        "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
       ],
       "macro_headwinds": [
         "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -147586,21 +147590,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -147637,9 +147641,9 @@
           "sector": "Cement",
           "score": 5,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -147652,9 +147656,9 @@
           "sector_score": 5,
           "stock_score": 5,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -147674,8 +147678,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -147685,7 +147689,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -147718,13 +147722,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 1,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 8,
         "news_headlines": [
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -147739,7 +147747,7 @@
     },
     {
       "prediction_id": "2026-05-28-FFC",
-      "generated_at": "2026-05-28T08:16:19+00:00",
+      "generated_at": "2026-05-28T17:57:20-07:00",
       "symbol": "FFC",
       "sector": "Fertilizer",
       "model": "rule-based-v1",
@@ -147774,21 +147782,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -147844,8 +147852,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -147855,7 +147863,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -147888,17 +147896,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -147913,7 +147921,7 @@
     },
     {
       "prediction_id": "2026-05-28-HBL",
-      "generated_at": "2026-05-28T08:14:38+00:00",
+      "generated_at": "2026-05-28T17:56:53-07:00",
       "symbol": "HBL",
       "sector": "Banking",
       "model": "rule-based-v1",
@@ -147938,7 +147946,7 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
         "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
         "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits)."
       ],
@@ -147947,7 +147955,7 @@
       ],
       "critic_notes": [
         "[fail] BEARISH call but target=297.07 / entry=288.42 / stop=265.35 are not in the order target < entry < stop.",
-        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is ADD (score +5). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is BUY (score +6). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -147959,21 +147967,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -148010,7 +148018,7 @@
           "sector": "Banking",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -148026,7 +148034,7 @@
           "sector_score": 1,
           "stock_score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -148049,8 +148057,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -148060,7 +148068,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -148093,13 +148101,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says"
         ]
       },
       "outcome": {
@@ -148114,7 +148122,7 @@
     },
     {
       "prediction_id": "2026-05-28-HUBC",
-      "generated_at": "2026-05-28T08:14:14+00:00",
+      "generated_at": "2026-05-28T17:55:51-07:00",
       "symbol": "HUBC",
       "sector": "Power",
       "model": "rule-based-v1",
@@ -148139,7 +148147,7 @@
         "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -148151,21 +148159,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -148205,7 +148213,7 @@
             "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
           ],
           "verdict": "TAILWIND"
         },
@@ -148218,7 +148226,7 @@
             "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
           ],
           "amplifier_note": "",
           "verdict": "TAILWIND"
@@ -148235,8 +148243,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -148246,7 +148254,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -148279,12 +148287,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 2,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 3,
         "news_headlines": [
+          "Asia rice: Indian prices extend gains; Thai demand firms",
           "NBA to introduce AI-powered automated systems to increase game efficiency",
           "Oil prices bounce higher after new US strikes on Iran"
         ]
@@ -148301,7 +148310,7 @@
     },
     {
       "prediction_id": "2026-05-28-INDU",
-      "generated_at": "2026-05-28T08:16:34+00:00",
+      "generated_at": "2026-05-28T17:57:54-07:00",
       "symbol": "INDU",
       "sector": "Autos",
       "model": "rule-based-v1",
@@ -148335,21 +148344,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -148405,8 +148414,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -148416,7 +148425,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -148449,10 +148458,10 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
           "Fast-Moving Consumer Goods sector faces tax strain"
@@ -148470,7 +148479,7 @@
     },
     {
       "prediction_id": "2026-05-28-KAPCO",
-      "generated_at": "2026-05-28T08:16:24+00:00",
+      "generated_at": "2026-05-28T17:57:31-07:00",
       "symbol": "KAPCO",
       "sector": "Power",
       "model": "rule-based-v1",
@@ -148497,7 +148506,7 @@
         "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
       ],
       "critic_notes": [
         "[fail] BEARISH call but target=28.21 / entry=27.39 / stop=25.2 are not in the order target < entry < stop.",
@@ -148513,21 +148522,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -148567,7 +148576,7 @@
             "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
           ],
           "verdict": "TAILWIND"
         },
@@ -148580,7 +148589,7 @@
             "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
           ],
           "amplifier_note": "",
           "verdict": "TAILWIND"
@@ -148597,8 +148606,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -148608,7 +148617,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -148641,12 +148650,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 2,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 3,
         "news_headlines": [
+          "Asia rice: Indian prices extend gains; Thai demand firms",
           "NBA to introduce AI-powered automated systems to increase game efficiency",
           "Oil prices bounce higher after new US strikes on Iran"
         ]
@@ -148663,7 +148673,7 @@
     },
     {
       "prediction_id": "2026-05-28-KEL",
-      "generated_at": "2026-05-28T08:16:25+00:00",
+      "generated_at": "2026-05-28T17:57:35-07:00",
       "symbol": "KEL",
       "sector": "Power",
       "model": "rule-based-v1",
@@ -148689,7 +148699,7 @@
         "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -148701,21 +148711,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -148755,7 +148765,7 @@
             "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
           ],
           "verdict": "TAILWIND"
         },
@@ -148768,7 +148778,7 @@
             "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
           ],
           "amplifier_note": "",
           "verdict": "TAILWIND"
@@ -148785,8 +148795,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -148796,7 +148806,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -148829,12 +148839,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 2,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 3,
         "news_headlines": [
+          "Asia rice: Indian prices extend gains; Thai demand firms",
           "NBA to introduce AI-powered automated systems to increase game efficiency",
           "Oil prices bounce higher after new US strikes on Iran"
         ]
@@ -148851,7 +148862,7 @@
     },
     {
       "prediction_id": "2026-05-28-KOHC",
-      "generated_at": "2026-05-28T08:14:31+00:00",
+      "generated_at": "2026-05-28T17:56:37-07:00",
       "symbol": "KOHC",
       "sector": "Cement",
       "model": "rule-based-v1",
@@ -148876,9 +148887,9 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-        "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-        "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+        "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+        "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+        "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
       ],
       "macro_headwinds": [
         "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -148897,21 +148908,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -148948,9 +148959,9 @@
           "sector": "Cement",
           "score": 5,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -148963,9 +148974,9 @@
           "sector_score": 5,
           "stock_score": 4,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -148985,8 +148996,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -148996,7 +149007,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -149029,13 +149040,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 1,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 8,
         "news_headlines": [
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -149050,7 +149065,7 @@
     },
     {
       "prediction_id": "2026-05-28-LOTCHEM",
-      "generated_at": "2026-05-28T08:16:29+00:00",
+      "generated_at": "2026-05-28T17:57:44-07:00",
       "symbol": "LOTCHEM",
       "sector": "Conglomerate/Chem",
       "model": "rule-based-v1",
@@ -149076,7 +149091,7 @@
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
         "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
       ],
       "regime_on": false,
@@ -149089,21 +149104,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -149143,7 +149158,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
             "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
           ],
           "verdict": "HEADWIND"
@@ -149157,7 +149172,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Narrower margins on PVC and other oil-derivative chemicals.",
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Narrower margins on PVC and other oil-derivative chemicals.",
             "-2 | Pre-event de-risk window: foreign net-sell streak 5d — Conglomerates are second-line dumps in pre-event de-risk flows after banks — large foreign positions get trimmed. ENGROH -4.8% during May 11-15 pre-IMF week."
           ],
           "amplifier_note": "Low debt-to-equity (0.0) dampens rate-driven impact (-1 notch).",
@@ -149175,8 +149190,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -149186,7 +149201,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -149219,17 +149234,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -149244,7 +149259,7 @@
     },
     {
       "prediction_id": "2026-05-28-LUCK",
-      "generated_at": "2026-05-28T08:16:16+00:00",
+      "generated_at": "2026-05-28T17:57:12-07:00",
       "symbol": "LUCK",
       "sector": "Cement",
       "model": "rule-based-v1",
@@ -149268,9 +149283,9 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-        "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-        "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+        "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+        "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+        "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
       ],
       "macro_headwinds": [
         "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -149289,21 +149304,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -149340,9 +149355,9 @@
           "sector": "Cement",
           "score": 5,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -149355,9 +149370,9 @@
           "sector_score": 5,
           "stock_score": 5,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -149377,8 +149392,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -149388,7 +149403,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -149421,13 +149436,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 1,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 8,
         "news_headlines": [
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -149442,7 +149461,7 @@
     },
     {
       "prediction_id": "2026-05-28-MARI",
-      "generated_at": "2026-05-28T08:16:15+00:00",
+      "generated_at": "2026-05-28T17:57:08-07:00",
       "symbol": "MARI",
       "sector": "Oil & Gas E&P",
       "model": "rule-based-v1",
@@ -149466,12 +149485,12 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+        "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
         "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
       ],
       "macro_headwinds": [
-        "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+        "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
       ],
       "critic_notes": [
         "[fail] BEARISH call but target=678.28 / entry=658.52 / stop=605.84 are not in the order target < entry < stop.",
@@ -149487,21 +149506,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -149538,12 +149557,12 @@
           "sector": "Oil & Gas E&P",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
             "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
           ],
           "headwinds": [
-            "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+            "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
           ],
           "verdict": "TAILWIND"
         },
@@ -149553,12 +149572,12 @@
           "sector_score": 1,
           "stock_score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
             "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
           ],
           "headwinds": [
-            "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+            "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
           ],
           "amplifier_note": "",
           "verdict": "TAILWIND"
@@ -149575,8 +149594,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -149586,7 +149605,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -149619,17 +149638,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms",
           "Oil prices bounce higher after new US strikes on Iran",
-          "Oil surges after Iran targets US airbase in retaliation"
+          "Oil surges after Iran targets US airbase in retaliation",
+          "Golden Knights punch ticket to Stanley Cup Final with shocking sweep of Avalanche"
         ]
       },
       "outcome": {
@@ -149644,7 +149663,7 @@
     },
     {
       "prediction_id": "2026-05-28-MCB",
-      "generated_at": "2026-05-28T08:14:34+00:00",
+      "generated_at": "2026-05-28T17:56:43-07:00",
       "symbol": "MCB",
       "sector": "Banking",
       "model": "rule-based-v1",
@@ -149667,7 +149686,7 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
         "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
         "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits)."
       ],
@@ -149684,21 +149703,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -149735,7 +149754,7 @@
           "sector": "Banking",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -149751,7 +149770,7 @@
           "sector_score": 1,
           "stock_score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -149774,8 +149793,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -149785,7 +149804,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -149818,13 +149837,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says"
         ]
       },
       "outcome": {
@@ -149839,7 +149858,7 @@
     },
     {
       "prediction_id": "2026-05-28-MEBL",
-      "generated_at": "2026-05-28T08:14:35+00:00",
+      "generated_at": "2026-05-28T17:56:47-07:00",
       "symbol": "MEBL",
       "sector": "Banking",
       "model": "rule-based-v1",
@@ -149862,7 +149881,7 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
         "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
         "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits)."
       ],
@@ -149879,21 +149898,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -149930,7 +149949,7 @@
           "sector": "Banking",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -149946,7 +149965,7 @@
           "sector_score": 1,
           "stock_score": 2,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -149969,8 +149988,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -149980,7 +149999,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -150013,13 +150032,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says"
         ]
       },
       "outcome": {
@@ -150034,7 +150053,7 @@
     },
     {
       "prediction_id": "2026-05-28-MLCF",
-      "generated_at": "2026-05-28T08:14:17+00:00",
+      "generated_at": "2026-05-28T17:56:00-07:00",
       "symbol": "MLCF",
       "sector": "Cement",
       "model": "rule-based-v1",
@@ -150058,9 +150077,9 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-        "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-        "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+        "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+        "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+        "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
       ],
       "macro_headwinds": [
         "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -150079,21 +150098,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -150130,9 +150149,9 @@
           "sector": "Cement",
           "score": 5,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -150145,9 +150164,9 @@
           "sector_score": 5,
           "stock_score": 4,
           "tailwinds": [
-            "+2 | Brent crude: -16.6% in 21d — Energy and freight costs fall — direct margin tailwind.",
-            "+3 | Coal (Brent proxy): implied via Brent -16.6% in 21d — Cement margins ease as coal cost falls.",
-            "+1 | Copper: +6.3% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+            "+2 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy and freight costs fall — direct margin tailwind.",
+            "+3 | Coal (Brent proxy): implied via Brent -19.2% in 21d — Cement margins ease as coal cost falls.",
+            "+1 | Copper: +8.2% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
           ],
           "headwinds": [
             "-1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bills above policy rate price-in more hikes — leverage-heavy cement balance sheets bear the cost."
@@ -150167,8 +150186,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -150178,7 +150197,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -150211,13 +150230,12 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 2,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 1,
         "news_headlines": [
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
           "Maple Leafs' Max Domi out indefinitely after surgery complications"
         ]
       },
@@ -150233,7 +150251,7 @@
     },
     {
       "prediction_id": "2026-05-28-NBP",
-      "generated_at": "2026-05-28T08:16:13+00:00",
+      "generated_at": "2026-05-28T17:57:05-07:00",
       "symbol": "NBP",
       "sector": "Banking",
       "model": "rule-based-v1",
@@ -150258,7 +150276,7 @@
         "Price -8.3% below 200-day SMA"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
         "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
         "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits)."
       ],
@@ -150279,21 +150297,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -150330,7 +150348,7 @@
           "sector": "Banking",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -150346,7 +150364,7 @@
           "sector_score": 1,
           "stock_score": 0,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -150369,8 +150387,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -150380,7 +150398,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -150413,13 +150431,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says"
         ]
       },
       "outcome": {
@@ -150434,7 +150452,7 @@
     },
     {
       "prediction_id": "2026-05-28-NPL",
-      "generated_at": "2026-05-28T08:14:23+00:00",
+      "generated_at": "2026-05-28T17:56:16-07:00",
       "symbol": "NPL",
       "sector": "Power",
       "model": "rule-based-v1",
@@ -150461,7 +150479,7 @@
         "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -150473,21 +150491,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -150527,7 +150545,7 @@
             "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
           ],
           "verdict": "TAILWIND"
         },
@@ -150540,7 +150558,7 @@
             "+2 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Lower indexation revenue."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower indexation revenue."
           ],
           "amplifier_note": "",
           "verdict": "TAILWIND"
@@ -150557,8 +150575,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -150568,7 +150586,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -150601,12 +150619,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
-        "news_count_matched": 2,
+        "usdpkr_ret_21d": 0.0031,
+        "news_count_matched": 3,
         "news_headlines": [
+          "Asia rice: Indian prices extend gains; Thai demand firms",
           "NBA to introduce AI-powered automated systems to increase game efficiency",
           "Oil prices bounce higher after new US strikes on Iran"
         ]
@@ -150623,7 +150642,7 @@
     },
     {
       "prediction_id": "2026-05-28-OGDC",
-      "generated_at": "2026-05-28T08:14:18+00:00",
+      "generated_at": "2026-05-28T17:56:04-07:00",
       "symbol": "OGDC",
       "sector": "Oil & Gas E&P",
       "model": "rule-based-v1",
@@ -150648,12 +150667,12 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+        "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
         "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
       ],
       "macro_headwinds": [
-        "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+        "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -150665,21 +150684,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -150716,12 +150735,12 @@
           "sector": "Oil & Gas E&P",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
             "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
           ],
           "headwinds": [
-            "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+            "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
           ],
           "verdict": "TAILWIND"
         },
@@ -150731,12 +150750,12 @@
           "sector_score": 1,
           "stock_score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
             "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
           ],
           "headwinds": [
-            "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+            "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
           ],
           "amplifier_note": "",
           "verdict": "TAILWIND"
@@ -150753,8 +150772,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -150764,7 +150783,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -150797,17 +150816,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms",
           "Oil prices bounce higher after new US strikes on Iran",
-          "Oil surges after Iran targets US airbase in retaliation"
+          "Oil surges after Iran targets US airbase in retaliation",
+          "Golden Knights punch ticket to Stanley Cup Final with shocking sweep of Avalanche"
         ]
       },
       "outcome": {
@@ -150822,7 +150841,7 @@
     },
     {
       "prediction_id": "2026-05-28-PABC",
-      "generated_at": "2026-05-28T08:14:15+00:00",
+      "generated_at": "2026-05-28T17:55:55-07:00",
       "symbol": "PABC",
       "sector": "Misc",
       "model": "rule-based-v1",
@@ -150846,7 +150865,7 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Brent crude: -16.6% in 21d — Energy cost relief.",
+        "+1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy cost relief.",
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise — supply-chain relief."
       ],
       "macro_headwinds": [],
@@ -150864,21 +150883,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -150915,7 +150934,7 @@
           "sector": "Misc",
           "score": 2,
           "tailwinds": [
-            "+1 | Brent crude: -16.6% in 21d — Energy cost relief.",
+            "+1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy cost relief.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise — supply-chain relief."
           ],
           "headwinds": [],
@@ -150927,7 +150946,7 @@
           "sector_score": 2,
           "stock_score": 2,
           "tailwinds": [
-            "+1 | Brent crude: -16.6% in 21d — Energy cost relief.",
+            "+1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Energy cost relief.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Imports normalise — supply-chain relief."
           ],
           "headwinds": [],
@@ -150946,8 +150965,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -150957,7 +150976,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -150990,17 +151009,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -151015,7 +151034,7 @@
     },
     {
       "prediction_id": "2026-05-28-POL",
-      "generated_at": "2026-05-28T08:14:25+00:00",
+      "generated_at": "2026-05-28T17:56:20-07:00",
       "symbol": "POL",
       "sector": "Oil & Gas E&P",
       "model": "rule-based-v1",
@@ -151037,12 +151056,12 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+        "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
         "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
       ],
       "macro_headwinds": [
-        "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+        "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -151054,21 +151073,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -151105,12 +151124,12 @@
           "sector": "Oil & Gas E&P",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
             "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
           ],
           "headwinds": [
-            "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+            "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
           ],
           "verdict": "TAILWIND"
         },
@@ -151120,12 +151139,12 @@
           "sector_score": 1,
           "stock_score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
             "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
           ],
           "headwinds": [
-            "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+            "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
           ],
           "amplifier_note": "",
           "verdict": "TAILWIND"
@@ -151142,8 +151161,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -151153,7 +151172,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -151186,17 +151205,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms",
           "Oil prices bounce higher after new US strikes on Iran",
-          "Oil surges after Iran targets US airbase in retaliation"
+          "Oil surges after Iran targets US airbase in retaliation",
+          "Golden Knights punch ticket to Stanley Cup Final with shocking sweep of Avalanche"
         ]
       },
       "outcome": {
@@ -151211,7 +151230,7 @@
     },
     {
       "prediction_id": "2026-05-28-PPL",
-      "generated_at": "2026-05-28T08:14:22+00:00",
+      "generated_at": "2026-05-28T17:56:11-07:00",
       "symbol": "PPL",
       "sector": "Oil & Gas E&P",
       "model": "rule-based-v1",
@@ -151236,12 +151255,12 @@
         "GUARD B (chase detector): re-entry +6.1% above prior LONG on 2026-05-21 at 226.79; ADD HIGH -> HOLD MEDIUM."
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+        "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
         "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
       ],
       "macro_headwinds": [
-        "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+        "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
       ],
       "regime_on": false,
       "regime_triggers": [
@@ -151263,21 +151282,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -151314,12 +151333,12 @@
           "sector": "Oil & Gas E&P",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
             "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
           ],
           "headwinds": [
-            "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+            "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
           ],
           "verdict": "TAILWIND"
         },
@@ -151329,12 +151348,12 @@
           "sector_score": 1,
           "stock_score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | Copper: +8.2% in 21d — Industrial-growth read-through is positive for energy demand.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Reserve rebuild eases circular-debt settlement pressure — cash flow lift.",
             "+2 | Pre-event de-risk window: foreign net-sell streak 5d — E&P is the defensive winner in PSX pre-event de-risk flows: USD-linked wellhead pricing benefits from PKR weakness, high dividend yields make them resilient when high-beta sectors (banks, cement) get dumped. Validated May 11-15: E&P -0.98% vs market -2.88%."
           ],
           "headwinds": [
-            "-3 | Brent crude: -16.6% in 21d — Direct revenue hit; sector earnings fall in lockstep with crude."
+            "-3 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Direct revenue hit; sector earnings fall in lockstep with crude."
           ],
           "amplifier_note": "",
           "verdict": "TAILWIND"
@@ -151351,8 +151370,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -151362,7 +151381,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -151395,17 +151414,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms",
           "Oil prices bounce higher after new US strikes on Iran",
-          "Oil surges after Iran targets US airbase in retaliation"
+          "Oil surges after Iran targets US airbase in retaliation",
+          "Golden Knights punch ticket to Stanley Cup Final with shocking sweep of Avalanche"
         ]
       },
       "outcome": {
@@ -151420,7 +151439,7 @@
     },
     {
       "prediction_id": "2026-05-28-PSO",
-      "generated_at": "2026-05-28T08:14:37+00:00",
+      "generated_at": "2026-05-28T17:56:50-07:00",
       "symbol": "PSO",
       "sector": "OMC/Refining",
       "model": "rule-based-v1",
@@ -151448,7 +151467,7 @@
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
       ],
       "macro_headwinds": [
-        "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+        "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
       ],
       "critic_notes": [
         "[fail] BEARISH call but target=364.78 / entry=354.16 / stop=325.83 are not in the order target < entry < stop."
@@ -151463,21 +151482,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -151517,7 +151536,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
           ],
           "verdict": "NEUTRAL"
         },
@@ -151530,7 +151549,7 @@
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — L/C confirmation normalises — relief."
           ],
           "headwinds": [
-            "-1 | Brent crude: -16.6% in 21d — Inventory losses risk; refining margins compress."
+            "-1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Inventory losses risk; refining margins compress."
           ],
           "amplifier_note": "",
           "verdict": "NEUTRAL"
@@ -151547,8 +151566,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -151558,7 +151577,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -151591,17 +151610,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -151616,7 +151635,7 @@
     },
     {
       "prediction_id": "2026-05-28-SEARL",
-      "generated_at": "2026-05-28T08:14:32+00:00",
+      "generated_at": "2026-05-28T17:56:40-07:00",
       "symbol": "SEARL",
       "sector": "Pharma",
       "model": "rule-based-v1",
@@ -151640,7 +151659,7 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Brent crude: -16.6% in 21d — Lower input costs.",
+        "+1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower input costs.",
         "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — API import flow normalises — gross margins stabilise."
       ],
       "macro_headwinds": [],
@@ -151658,21 +151677,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -151709,7 +151728,7 @@
           "sector": "Pharma",
           "score": 2,
           "tailwinds": [
-            "+1 | Brent crude: -16.6% in 21d — Lower input costs.",
+            "+1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower input costs.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — API import flow normalises — gross margins stabilise."
           ],
           "headwinds": [],
@@ -151721,7 +151740,7 @@
           "sector_score": 2,
           "stock_score": 2,
           "tailwinds": [
-            "+1 | Brent crude: -16.6% in 21d — Lower input costs.",
+            "+1 | Brent crude: -19.2% in 21d [stretched, z=-1.8] — Lower input costs.",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — API import flow normalises — gross margins stabilise."
           ],
           "headwinds": [],
@@ -151740,8 +151759,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -151751,7 +151770,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -151784,17 +151803,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -151809,7 +151828,7 @@
     },
     {
       "prediction_id": "2026-05-28-SYS",
-      "generated_at": "2026-05-28T08:16:31+00:00",
+      "generated_at": "2026-05-28T17:57:47-07:00",
       "symbol": "SYS",
       "sector": "Technology",
       "model": "rule-based-v1",
@@ -151844,21 +151863,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -151914,8 +151933,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -151925,7 +151944,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -151958,10 +151977,10 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 2,
         "news_headlines": [
           "NBA to introduce AI-powered automated systems to increase game efficiency",
@@ -151980,7 +151999,7 @@
     },
     {
       "prediction_id": "2026-05-28-TRG",
-      "generated_at": "2026-05-28T08:16:32+00:00",
+      "generated_at": "2026-05-28T17:57:50-07:00",
       "symbol": "TRG",
       "sector": "Technology",
       "model": "rule-based-v1",
@@ -152016,21 +152035,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -152086,8 +152105,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -152097,7 +152116,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -152130,17 +152149,17 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 8,
         "news_headlines": [
-          "Gold hits two-month low as US-Iran tension stokes inflation fears",
-          "Oil surges after Iran targets US airbase in retaliation",
-          "TotalEnergies files for authorisation of €4.5 billion offshore wind project in Normandy",
-          "NBA to introduce AI-powered automated systems to increase game efficiency",
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says",
+          "Wall St muted as investors assess inflation data, Mideast developments",
+          "Copper rises after China news, but nervous over Iran strikes",
+          "Palm rises on firmer crude, rival oil prices",
+          "Asia rice: Indian prices extend gains; Thai demand firms"
         ]
       },
       "outcome": {
@@ -152155,7 +152174,7 @@
     },
     {
       "prediction_id": "2026-05-28-UBL",
-      "generated_at": "2026-05-28T08:16:10+00:00",
+      "generated_at": "2026-05-28T17:56:56-07:00",
       "symbol": "UBL",
       "sector": "Banking",
       "model": "rule-based-v1",
@@ -152178,7 +152197,7 @@
         "Market breadth weak — Phase-1 in cash"
       ],
       "macro_tailwinds": [
-        "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
         "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
         "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits)."
       ],
@@ -152195,21 +152214,21 @@
           {
             "name": "Brent crude",
             "tag": "oil_down",
-            "move": "-16.6% in 21d",
-            "magnitude": "STRONG",
-            "context": "Brent at 95.08 USD/bbl."
+            "move": "-19.2% in 21d [stretched, z=-1.8]",
+            "magnitude": "MODERATE",
+            "context": "Brent at 92.16 USD/bbl. The 5d move sits -1.8σ from the 1y mean — bounce risk is elevated."
           },
           {
             "name": "Coal (Brent proxy)",
             "tag": "coal_down",
-            "move": "implied via Brent -16.6% in 21d",
+            "move": "implied via Brent -19.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Cement-grade coal lags Brent."
           },
           {
             "name": "Copper",
             "tag": "copper_up",
-            "move": "+6.3% in 21d",
+            "move": "+8.2% in 21d",
             "magnitude": "MODERATE",
             "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
           },
@@ -152246,7 +152265,7 @@
           "sector": "Banking",
           "score": 1,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -152262,7 +152281,7 @@
           "sector_score": 1,
           "stock_score": 0,
           "tailwinds": [
-            "+1 | Copper: +6.3% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | Copper: +8.2% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
             "+1 | T-bill 3M curve: 3M cut-off 12.49% vs policy 11.50% (+99 bps) — T-bill 3M trading above the policy rate signals the market expects future hikes — banks lock in higher yields on the new investment book.",
             "+1 | T-bill 3M (5-day move): +41 bps in 5d to 12.49% — Rising T-bill 3M cut-offs lift bank treasury yields immediately (the investment book reprices faster than deposits).",
             "+1 | FX reserves: SBP USD 17.1 bn (+2.0 bn in 30d) — Rebuilding reserves de-risks the BoP — supportive for bank equities."
@@ -152285,8 +152304,8 @@
           "kibor_3m_change_5d": 0.27999999999999936,
           "reserves_change_30d": 2017.5,
           "kse100_close": 171725.29,
-          "kse100_ret_5d": 0.01905385674960569,
-          "kse100_ret_21d": 0.019672324272411723,
+          "kse100_ret_5d": 0.023122926351240913,
+          "kse100_ret_21d": 0.03558848312972085,
           "cpi_yoy_pct": 10.9,
           "cpi_period": "April",
           "cpi_yoy_change_pp": 3.6000000000000005
@@ -152296,7 +152315,7 @@
         "in_pre_window": false,
         "in_post_window": false,
         "next_mpc": "2026-06-16",
-        "days_until": 19,
+        "days_until": 18,
         "rate_sensitive_sectors": [
           "Banking",
           "Cement",
@@ -152329,13 +152348,13 @@
         "fipi_foreign_net_pkr_mn": -1.0,
         "fipi_local_net_pkr_mn": 1.0,
         "policy_rate_pct": 11.5,
-        "brent_value": 95.08,
-        "brent_ret_21d": -0.166,
+        "brent_value": 92.16,
+        "brent_ret_21d": -0.1916,
         "usdpkr_value": 278.24,
-        "usdpkr_ret_21d": -0.0009,
+        "usdpkr_ret_21d": 0.0031,
         "news_count_matched": 1,
         "news_headlines": [
-          "South African rand weakens ahead of central bank rate decision"
+          "Sri Lanka monetary stance appropriate, 3% growth target within reach, IMF says"
         ]
       },
       "outcome": {
