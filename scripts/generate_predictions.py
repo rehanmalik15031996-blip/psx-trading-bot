@@ -1462,6 +1462,25 @@ def main():
         # Small sleep to be gentle on RSS / API rate limits
         time.sleep(0.5)
 
+    # Batch-level AVOID cap (G1): if the regime guards pushed more than
+    # half the universe to AVOID in one batch, that is a regime call, not
+    # a stock call — relax the weakest guard-driven AVOIDs back to WATCH.
+    # This is the belt-and-suspenders backstop for the relief-rally
+    # override; see brain/predictor_guards.cap_universe_avoid.
+    try:
+        from brain.predictor_guards import cap_universe_avoid
+        before = sum(1 for r in new_records
+                     if str(r.get("suggested_action") or "").upper() == "AVOID")
+        new_records = cap_universe_avoid(new_records)
+        after = sum(1 for r in new_records
+                    if str(r.get("suggested_action") or "").upper() == "AVOID")
+        if after != before:
+            print(f"\nAVOID-cap: relaxed {before - after} guard-driven "
+                  f"AVOID(s) -> WATCH ({before} -> {after} of "
+                  f"{len(new_records)}).")
+    except Exception as e:
+        print(f"  WARN: cap_universe_avoid failed: {type(e).__name__}: {e}")
+
     # Deduplicate by prediction_id (same date + same ticker → overwrite)
     existing = {p["prediction_id"]: p for p in log["predictions"]}
     for r in new_records:

@@ -84,7 +84,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, asdict
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -437,6 +437,44 @@ def _score_intraday_pressure(sym: str) -> tuple[float, str]:
         return 0.0, ""
 
 
+# --- rally kill switch (G2, post-mortem 2026-05-19 -> 28) --------------------
+# The May-19->25 review found the cement short bucket (DGKC, KOHC) got
+# stopped out +10.4% in an Eid relief-rally squeeze: the per-name stops
+# (set ~4% above entry) were too tight, and the short scorer kept the
+# names HIGH-conviction even as both traded above their 5-day highs.
+#
+# This kill switch is the short-side mirror of predictor Guard D
+# (momentum exhaustion): once a short candidate has already rallied hard
+# over the trailing 5 sessions, the bounce is in motion and a fresh
+# short is fighting the tape — so we hard-cap conviction to LOW (cover /
+# stand aside) regardless of how bearish the longer-term thesis is.
+SHORT_RALLY_COVER_5D_PCT = 8.0
+
+
+def _trailing_return_5d(sym: str, as_of: date | None = None) -> float | None:
+    """Trailing 5-session % return for `sym` from its OHLCV parquet.
+
+    Returns None when history is too sparse — callers must treat None as
+    "unknown" and NOT as 0%.
+    """
+    p = PROJECT_ROOT / "data" / "ohlcv" / f"{sym}.parquet"
+    if not p.exists():
+        return None
+    try:
+        import pandas as pd
+        df = pd.read_parquet(p)[["date", "close"]].copy()
+        df["date"] = pd.to_datetime(df["date"]).dt.date
+        df = df.sort_values("date")
+        if as_of is not None:
+            df = df[df["date"] <= as_of]
+        s = df["close"].dropna().tail(6)
+        if len(s) < 6:
+            return None
+        return float(s.iloc[-1] / s.iloc[0] - 1) * 100.0
+    except Exception:
+        return None
+
+
 # --- regime ------------------------------------------------------------------
 
 
@@ -651,6 +689,24 @@ def rank_shorts(min_conviction: str = "LOW",
         if guards and conv == "HIGH":
             conv = "MEDIUM"
 
+        # Rally kill switch (G2): if the name has already rallied hard
+        # over the trailing 5 sessions, the squeeze is in motion — a
+        # fresh short is fighting the tape. Hard-cap to LOW (cover /
+        # stand aside) regardless of the bearish thesis. This is what
+        # the May-19 cement shorts (DGKC/KOHC +10%) needed.
+        rally_kill = None
+        mom5 = _trailing_return_5d(sym)
+        if mom5 is not None and mom5 >= SHORT_RALLY_COVER_5D_PCT:
+            if conv != "LOW":
+                conv = "LOW"
+            rally_kill = (
+                f"Rally kill switch: {sym} +{mom5:.1f}% over the last 5 "
+                f"sessions (>= {SHORT_RALLY_COVER_5D_PCT:.0f}%). The "
+                f"bounce/squeeze is in motion; cover or stand aside "
+                f"rather than short into strength. Conviction capped to "
+                f"LOW.")
+            drivers = list(drivers) + [rally_kill]
+
         rows.append({
             "symbol":   sym,
             "sector":   sector,
@@ -672,6 +728,7 @@ def rank_shorts(min_conviction: str = "LOW",
                 "critic":    round(s_critic, 1),
             },
             "guards":      guards,
+            "rally_kill":  rally_kill,
             "eligibility": elig,
             **levels,
         })

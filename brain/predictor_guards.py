@@ -81,6 +81,43 @@ FORECAST_CLAMP_PP = 1.5
 # chasing a top.
 MOMENTUM_EXHAUSTION_5D_PCT = 12.0
 
+# ---------------------------------------------------------------------------
+# Relief-rally override (G1, post-mortem 2026-05-19 -> 28)
+# ---------------------------------------------------------------------------
+# The May 19->25 review found the regime guards (A + C) were
+# systematically too bearish during a *local-bid* geopolitical relief
+# rally: after the May-18 crash the foreign-sell-streak + negative
+# universe-5d triggers kept the de-risk regime ON, so banks and cement
+# got downgraded to AVOID even as a broad risk-on bounce lifted them
+# +6-12% (8 AVOID names rallied >8%; predictor hit-rate 26%).
+#
+# A relief rally is driven by *local* mutual-fund / retail buying on a
+# positive geopolitical or policy catalyst, BEFORE foreign flows flip.
+# The de-risk guards are built for the opposite (foreign-led de-risk),
+# so during a confirmed relief rally we stand guards A + C down.
+#
+# Detection uses two independent signals, EITHER of which fires the
+# override (OR, not AND): the news signal is the *leading* indicator
+# that catches day-1 of the bounce (when price hasn't moved yet), and
+# the index signal is the *confirming* indicator on day 2+.
+
+# Trailing 3-session KSE-100 return that confirms a relief bounce.
+RELIEF_RALLY_INDEX_3D_PCT = 3.0
+# Min avg HIGH-confidence GEOPOLITICS/broad-market bullish news
+# sentiment (last RELIEF_NEWS_LOOKBACK_HOURS) that signals a relief
+# catalyst landed.
+RELIEF_NEWS_SENTIMENT_MIN = 0.3
+RELIEF_NEWS_LOOKBACK_HOURS = 48.0
+# Categories that carry a PURE geopolitical / broad-market relief
+# catalyst. Deliberately NARROW: MACRO is excluded because it mixes
+# the bullish relief headlines with bearish domestic prints
+# (current-account deficit, FDI drops) that land the same day — on
+# 2026-05-19 that dilution dragged the HIGH-MACRO average to +0.25 and
+# the override missed day-1 of the rally, the exact case we are fixing.
+# Restricting to GEOPOLITICS + the explicit BROAD_MARKET bullish-shock
+# label keeps the Iran-de-escalation signal clean (+0.65 on May 19).
+_RELIEF_NEWS_CATEGORIES = {"GEOPOLITICS", "BROAD_MARKET"}
+
 _BUCKET_DOWNGRADE = {
     "BUY":   "ADD",
     "ADD":   "HOLD",
@@ -105,8 +142,15 @@ def _downgrade_conviction(c: str) -> str:
 # ---------------------------------------------------------------------------
 # Regime detection
 # ---------------------------------------------------------------------------
-def _universe_5d_return(as_of: date | None = None) -> float | None:
-    """Trailing-5-day KSE-100 return as of `as_of` (or today)."""
+def _universe_session_return(sessions: int,
+                              as_of: date | None = None) -> float | None:
+    """Trailing-`sessions`-session KSE-100 return as of `as_of`.
+
+    Reads `data/macro/kse100.parquet`. Needs `sessions + 1` non-null
+    closes (the anchor close + `sessions` later closes). Returns None
+    when the index history is too sparse — callers must treat None as
+    "unknown", never as 0%.
+    """
     p = Path("data/macro/kse100.parquet")
     if not p.exists():
         return None
@@ -119,12 +163,17 @@ def _universe_5d_return(as_of: date | None = None) -> float | None:
             return None
         if as_of is not None:
             df = df[df["date"] <= as_of]
-        s = df[col].dropna().tail(6)
-        if len(s) < 6:
+        s = df[col].dropna().tail(sessions + 1)
+        if len(s) < sessions + 1:
             return None
         return float(s.iloc[-1] / s.iloc[0] - 1)
     except Exception:
         return None
+
+
+def _universe_5d_return(as_of: date | None = None) -> float | None:
+    """Trailing-5-session KSE-100 return as of `as_of` (or today)."""
+    return _universe_session_return(5, as_of)
 
 
 def _foreign_sell_streak(as_of: date | None = None) -> int:
@@ -174,13 +223,109 @@ def _imf_days_until(as_of: date | None = None) -> int | None:
         return None
 
 
+def _relief_news_signal(as_of: date | None = None
+                         ) -> tuple[float, int] | None:
+    """Avg sentiment of recent HIGH-confidence relief-catalyst news.
+
+    Reads `data/news/scored_news.parquet` and returns
+    ``(avg_sentiment, n_articles)`` over HIGH-confidence articles in
+    the relief categories within the lookback window, or None when the
+    cache is missing / empty. `as_of`-aware so it can be backtested:
+    only articles published / scored on-or-before `as_of` count.
+    """
+    p = Path("data/news/scored_news.parquet")
+    if not p.exists():
+        return None
+    try:
+        df = pd.read_parquet(p)
+        if df.empty:
+            return None
+
+        def _ts(row):
+            for col in ("published_at", "scored_at"):
+                v = row.get(col)
+                if not v:
+                    continue
+                try:
+                    dt = datetime.fromisoformat(str(v).replace("Z", "+00:00"))
+                    if dt.tzinfo is None:
+                        dt = dt.replace(tzinfo=timezone.utc)
+                    return dt
+                except Exception:
+                    continue
+            return None
+
+        df = df.copy()
+        df["_ts"] = df.apply(_ts, axis=1)
+        df = df[df["_ts"].notna()]
+        if df.empty:
+            return None
+        if as_of is not None:
+            anchor = datetime(as_of.year, as_of.month, as_of.day,
+                              23, 59, 59, tzinfo=timezone.utc)
+        else:
+            anchor = datetime.now(timezone.utc)
+        cutoff = anchor - timedelta(hours=RELIEF_NEWS_LOOKBACK_HOURS)
+        df = df[(df["_ts"] <= anchor) & (df["_ts"] >= cutoff)]
+        if df.empty:
+            return None
+        conf = df["confidence"].astype(str).str.upper()
+        cat = df["category"].astype(str).str.upper()
+        hi = df[(conf == "HIGH") & (cat.isin(_RELIEF_NEWS_CATEGORIES))]
+        if hi.empty:
+            return None
+        return (float(hi["sentiment"].mean()), int(len(hi)))
+    except Exception:
+        return None
+
+
+def detect_relief_rally(as_of: date | None = None) -> tuple[bool, str | None]:
+    """Detect a *local-bid* relief rally that should stand the de-risk
+    guards down. Returns ``(active, reason)``.
+
+    Fires when EITHER (OR, by design):
+      * the trailing-3-session KSE-100 return >= RELIEF_RALLY_INDEX_3D_PCT
+        (price *confirmation* — visible on day 2+ of a bounce), OR
+      * recent HIGH-confidence relief-catalyst news averages
+        >= RELIEF_NEWS_SENTIMENT_MIN (the *leading* signal that catches
+        day-1, before price has moved).
+
+    The doc prescribed AND, but AND can never fire on day-1 of a relief
+    rally (price hasn't bounced yet) — exactly the May-19 case we are
+    fixing — so we use OR and require the news leg to be HIGH-confidence
+    to keep it from firing on noise.
+    """
+    reasons: list[str] = []
+    idx3 = _universe_session_return(3, as_of)
+    if idx3 is not None and idx3 * 100.0 >= RELIEF_RALLY_INDEX_3D_PCT:
+        reasons.append(f"index_3d=+{idx3*100:.1f}%")
+    news = _relief_news_signal(as_of)
+    if news is not None:
+        avg_sent, n = news
+        if avg_sent >= RELIEF_NEWS_SENTIMENT_MIN:
+            reasons.append(f"news_bull=+{avg_sent:.2f}(n={n})")
+    if reasons:
+        return (True, "; ".join(reasons))
+    return (False, None)
+
+
 def detect_regime(as_of: date | None = None) -> tuple[bool, list[str]]:
-    """Risk-off regime fires when AT LEAST 2 of 3 triggers are true.
+    """Risk-off regime fires when AT LEAST 2 of 3 triggers are true,
+    UNLESS a local-bid relief rally is in progress (then it stands down).
 
     Strict 2-of-3 keeps the guards surgical. A single-trigger version
     (the v1 design) fired on 89% of all predictions and killed too
     many winners (OGDC, TRG, KEL rallies were all in early-pre-event
     days when only the IMF clock had started ticking).
+
+    Relief-rally override (G1): once the de-risk triggers would fire, we
+    check `detect_relief_rally`. A relief rally is a *local-bid* bounce
+    on a geopolitical / policy catalyst that lifts the whole tape before
+    foreign flows flip — the exact regime in which guards A + C were
+    over-bearish (May 19->25 post-mortem). When it is active we force
+    regime_on = False so the regime-gated guards stand down; the
+    chase (B) and momentum-exhaustion (D) guards still operate because
+    they protect against chasing tops regardless of regime.
     """
     triggers: list[str] = []
     u5 = _universe_5d_return(as_of)
@@ -192,7 +337,13 @@ def detect_regime(as_of: date | None = None) -> tuple[bool, list[str]]:
     dti = _imf_days_until(as_of)
     if dti is not None:
         triggers.append(f"imf_in_{dti}d")
-    return (len(triggers) >= 2, triggers)
+    regime_on = len(triggers) >= 2
+    if regime_on:
+        relief, reason = detect_relief_rally(as_of)
+        if relief:
+            triggers.append(f"relief_rally_override({reason})")
+            return (False, triggers)
+    return (regime_on, triggers)
 
 
 # ---------------------------------------------------------------------------
@@ -554,3 +705,62 @@ def apply_guards(pred: dict, symbol: str, sector: str | None,
     out["guards_applied"] = applied
 
     return out
+
+
+# ---------------------------------------------------------------------------
+# Batch-level AVOID cap (G1, belt-and-suspenders for the relief override)
+# ---------------------------------------------------------------------------
+# Max fraction of the universe the guards are allowed to push to AVOID in
+# a single batch. The May-19 batch flagged ~23 of 35 (66%) as AVOID right
+# as a broad rally started. If the guards downgrade more than half the
+# universe to AVOID, that is a regime call, not a stock call — and a
+# whole-universe AVOID is exactly the over-bearish failure we are fixing.
+MAX_AVOID_FRACTION = 0.5
+
+
+def cap_universe_avoid(records: list[dict],
+                        max_fraction: float = MAX_AVOID_FRACTION) -> list[dict]:
+    """Relax the *weakest* guard-driven AVOID downgrades when too much of
+    the universe got pushed to AVOID in one batch.
+
+    Only records whose AVOID came from a guard downgrade (Guard A or C
+    fired) are eligible to be relaxed, and only back to WATCH — we never
+    touch an AVOID that the predictor itself produced on fundamentals.
+    The ones with the *least* bearish mid-forecast are relaxed first
+    (they are the most likely false positives). Mutates and returns the
+    same list for convenience.
+    """
+    if not records:
+        return records
+    n = len(records)
+    avoid = [r for r in records
+             if str(r.get("suggested_action") or "").upper() == "AVOID"]
+    max_avoid = int(n * max_fraction)
+    if len(avoid) <= max_avoid:
+        return records
+    # Eligible = AVOID that a regime guard produced (not a fundamental AVOID).
+    guard_driven = [
+        r for r in avoid
+        if any(g in ("regime_sector_cap", "regime_forecast_clamp")
+               for g in (r.get("guards_applied") or []))
+    ]
+    # Relax the least-bearish first (highest mid forecast). Use an
+    # explicit None check — `or -99` would wrongly treat a legit 0.0
+    # mid as missing.
+    def _mid(r: dict) -> float:
+        v = r.get("expected_return_5d_mid_pct")
+        return float(v) if v is not None else -99.0
+    guard_driven.sort(key=_mid, reverse=True)
+    to_relax = len(avoid) - max_avoid
+    for r in guard_driven[:to_relax]:
+        r["suggested_action"] = "WATCH"
+        notes = list(r.get("key_risks") or [])
+        notes.append(
+            f"AVOID-CAP: >{int(max_fraction*100)}% of the universe was "
+            f"guard-downgraded to AVOID this batch (regime call, not a "
+            f"stock call); relaxed AVOID -> WATCH.")
+        r["key_risks"] = notes[:8]
+        applied = list(r.get("guards_applied") or [])
+        applied.append("avoid_cap_relaxed")
+        r["guards_applied"] = applied
+    return records
