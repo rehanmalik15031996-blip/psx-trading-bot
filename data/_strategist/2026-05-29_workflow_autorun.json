@@ -1,0 +1,233 @@
+{
+  "as_of": "2026-05-29",
+  "model": "rule-based-v2",
+  "thinking_budget": 0,
+  "headline": "NORMAL \u2014 single conviction long (OGDC)",
+  "risk_stance": "NORMAL",
+  "conviction": "LOW",
+  "narrative": "Normal stance (LOW confidence). Top driver: tbill_above_policy (STRONG). Tape: KSE-100 +5.6%/5d, crisis vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [mf_initiation_cluster] 3+ funds initiated \u2014 BUY full size on flagged names within 5 sessions.",
+  "agrees_with_phase1": true,
+  "phase1_disagreement_note": "",
+  "actions": [
+    {
+      "symbol": null,
+      "sector": null,
+      "bucket": "CASH",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 70.0,
+      "reason": "Auto-inserted by playbook overlay (cash floor).",
+      "contributing_signals": []
+    },
+    {
+      "symbol": "OGDC",
+      "bucket": "ADD",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 8.07,
+      "reason": "+Strong 150d momentum +22.4%; +value:BUY_VALUE; +mf_accum_2m",
+      "contributing_signals": [
+        "Strong 150d momentum +22.4%",
+        "Strong 60d momentum +15.7%",
+        "Price +16.5% above 200-day SMA"
+      ],
+      "position_plan": {
+        "symbol": "OGDC",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 330.05,
+        "atr_14_pct": 2.07,
+        "stop_loss_price": 312.67,
+        "stop_loss_pct": 5.27,
+        "target_price": 373.51,
+        "target_pct": 13.17,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 8.07,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.1% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 5.3% stop; target 2.5R = 13.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "size adjusted to 8.07% by playbook overlay"
+        ]
+      }
+    },
+    {
+      "symbol": "ATRL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "OMC/Refining",
+      "target_weight_pct": 10.0,
+      "reason": "+Strong 150d momentum +29.3%; +mf_accum_2m; +mom150d=+29.3%",
+      "contributing_signals": [
+        "Strong 150d momentum +29.3%",
+        "Strong 60d momentum +20.6%",
+        "Price +20.3% above 200-day SMA"
+      ],
+      "position_plan": {
+        "symbol": "ATRL",
+        "sector": "OMC",
+        "entry_price": 898.63,
+        "atr_14_pct": 1.42,
+        "stop_loss_price": 865.98,
+        "stop_loss_pct": 3.63,
+        "target_price": 980.26,
+        "target_pct": 9.08,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.4% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 3.6% stop; target 2.5R = 9.1%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7
+      }
+    },
+    {
+      "symbol": "FCCL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Cement",
+      "target_weight_pct": 5.42,
+      "reason": "+macro(Cement+5); -mom150d=-8.0% (high-vol)",
+      "contributing_signals": [
+        "macro(Cement+5)",
+        "mom150d=-8.0% (high-vol)"
+      ],
+      "position_plan": {
+        "symbol": "FCCL",
+        "sector": "Cement",
+        "entry_price": 53.07,
+        "atr_14_pct": 3.84,
+        "stop_loss_price": 48.18,
+        "stop_loss_pct": 9.22,
+        "target_price": 65.3,
+        "target_pct": 23.04,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 5.42,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=3.8% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 9.2% stop; target 2.5R = 23.0%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.6
+      }
+    },
+    {
+      "symbol": "LUCK",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Cement",
+      "target_weight_pct": 7.68,
+      "reason": "+macro(Cement+5); -mom150d=-5.7%",
+      "contributing_signals": [
+        "macro(Cement+5)",
+        "mom150d=-5.7%"
+      ],
+      "position_plan": {
+        "symbol": "LUCK",
+        "sector": "Cement",
+        "entry_price": 436.77,
+        "atr_14_pct": 2.71,
+        "stop_loss_price": 408.33,
+        "stop_loss_pct": 6.51,
+        "target_price": 507.87,
+        "target_pct": 16.28,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 7.68,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.7% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 6.5% stop; target 2.5R = 16.3%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.6
+      }
+    },
+    {
+      "symbol": "MLCF",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Cement",
+      "target_weight_pct": 6.61,
+      "reason": "+macro(Cement+5); -mom150d=-12.6% (high-vol)",
+      "contributing_signals": [
+        "macro(Cement+5)",
+        "mom150d=-12.6% (high-vol)"
+      ],
+      "position_plan": {
+        "symbol": "MLCF",
+        "sector": "Cement",
+        "entry_price": 89.38,
+        "atr_14_pct": 3.15,
+        "stop_loss_price": 82.62,
+        "stop_loss_pct": 7.57,
+        "target_price": 106.29,
+        "target_pct": 18.92,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 6.61,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=3.2% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 7.6% stop; target 2.5R = 18.9%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.6
+      }
+    }
+  ],
+  "key_drivers": [
+    "tbill_above_policy",
+    "oil_down",
+    "coal_down",
+    "copper_up",
+    "tbill_up"
+  ],
+  "key_risks": [
+    "Vol regime is CRISIS \u2014 use tighter stops or smaller size."
+  ],
+  "macro_lens": "Normal stance (LOW confidence). Top driver: tbill_above_policy (STRONG). Tape: KSE-100 +5.6%/5d, crisis vol regime.",
+  "behavioural_lens": "",
+  "fallback_used": true,
+  "raw_llm_text": "",
+  "thinking_trace": "",
+  "briefing_summary": {
+    "as_of": "2026-05-29T08:26:35+00:00",
+    "regime": {
+      "as_of": "2026-05-25",
+      "regime": "NORMAL",
+      "exposure_multiplier": 1.0,
+      "reason": "Rule-based: no stress markers",
+      "flags": [],
+      "indicators": {
+        "universe_ret_5d": 0.0563,
+        "universe_ret_21d": 0.0047,
+        "universe_150d_log_ret": -0.0077,
+        "breadth_pct_up_today": 97.1
+      },
+      "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
+    },
+    "predictions_count": 5,
+    "playbook_analogues_count": 2
+  },
+  "playbook_overlay_log": [
+    {
+      "case_id": "mf_universe_distribution_broad",
+      "match_score": 2.6,
+      "fired_triggers": [
+        "mf_universe_n_top_distributed_gte:5",
+        "mf_data_freshness_lte:90"
+      ],
+      "changes": [
+        {
+          "cash_floor_pct": 70,
+          "via": "cash_floor"
+        },
+        {
+          "position_size_multiplier": 0.85,
+          "via": "size_haircut"
+        }
+      ]
+    },
+    {
+      "case_id": "mf_initiation_cluster",
+      "match_score": 1.0,
+      "fired_triggers": [
+        "mf_n_funds_initiating_30d_gte:3"
+      ],
+      "changes": []
+    }
+  ],
+  "playbook_overlay_notes": [
+    "[mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%.",
+    "[mf_initiation_cluster] 3+ funds initiated \u2014 BUY full size on flagged names within 5 sessions."
+  ]
+}
