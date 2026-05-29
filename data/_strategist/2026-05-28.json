@@ -1,233 +1,264 @@
 {
   "as_of": "2026-05-28",
-  "model": "rule-based-v2",
-  "thinking_budget": 0,
-  "headline": "NORMAL \u2014 single conviction long (OGDC)",
-  "risk_stance": "NORMAL",
-  "conviction": "LOW",
-  "narrative": "Normal stance (LOW confidence). Top driver: oil_down (STRONG). Tape: KSE-100 +5.6%/5d, crisis vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [mf_initiation_cluster] 3+ funds initiated \u2014 BUY full size on flagged names within 5 sessions.",
-  "agrees_with_phase1": true,
-  "phase1_disagreement_note": "",
+  "as_of_label": "POST-EID REOPEN (~18:00 PKT)",
+  "generated_at": "2026-05-29T00:03:00+00:00",
+  "model": "cursor-claude-sonnet-4-5-manual",
+  "fallback_used": false,
+  "human_override": true,
+  "risk_stance": "CAUTIOUS_REOPEN",
+  "conviction": "MEDIUM",
+  "headline": "POST-EID REOPEN \u2014 cover cement shorts (Eid blowout), hold E&P (+1.6% today), start 15% bank deploy on SBP FII reform. Brent $92; truce vs oil spike tug-of-war.",
+  "macro_lens": "Brent USD 92.26000213623047/bbl (down from USD 110 on May 19 but spiking intraday on Iran headlines). KSE-100 171725.29. FIPI foreign net-sell streak 5d (cum -2.94 PKR mn) \u2014 local bid carried Eid rally.",
+  "key_drivers": [
+    "Eid relief rally validated LONG_CORE; cement shorts stopped out",
+    "SBP foreign shareholding reform \u2014 structural FII tailwind for banks",
+    "OGDC Rs7.7bn circular debt payment",
+    "US-Iran 60-day truce renewal headline",
+    "Predictor regime-guard too bearish May 19\u201325 (gap documented)"
+  ],
+  "key_risks": [
+    "Intraday oil spike on Iran retaliation \u2014 OMC/import drag",
+    "FIPI still net-selling \u2014 foreign confirmation absent",
+    "FY27 budget limited relief narrative",
+    "UNDP stabilization cracks warning",
+    "9-day data gap \u2014 OHLCV only through May 25 until DPS catches up"
+  ],
+  "narrative": "THURSDAY MAY 28, POST-EID REOPEN \u2014 MIXED MACRO, TACTICAL RESET.\n9-day pipeline gap closed manually; LLM still down.\n\nSINCE MAY 19 \u2014 WHAT ACTUALLY HAPPENED\n- LONG_CORE +3.6% into Eid (PPL +8.3% star) \u2014 thesis WORKED.\n- BANKS +6.2% relief rally \u2014 we correctly did NOT chase pre-Eid;\n  SBP foreign-shareholding reform now lowers FII friction.\n- CEMENT SHORTS BLOWOUT: DGKC +9.6%, KOHC +11.2% \u2014 COVER.\n  Predictor AVOID/regime-guard stack was too bearish into rally.\n- AVOID bucket +3.7% bounce \u2014 structural issues unchanged; stay out.\n- FIPI May 25 still net-sell (-1.0 PKR mn); streak not cleared.\n\nTAPE NOW (May 28 reopen)\n- KSE-100 live: 171725.29 (2.31%)\n- BKTI: 47299.7 (3.04%)\n- OGTI: 36341.36 (2.2%)\n- LONG core today: +1.60%\n- Banks today: +3.14%\n- Cement (ex-short): +5.54%\n\nNEWS MIX TODAY\n+ US-Iran 60-day truce renewal (Bloomberg) \u2014 supports risk reopen.\n- Oil +3.7% on Iran retaliatory strike \u2014 import/OMC headwind.\n+ OGDC Rs7.7bn circular debt payment \u2014 company-specific tailwind.\n+ SBP digital non-resident shareholding \u2014 FII facilitation.\n\nTODAY'S PRIORITIES\n1. COVER cement shorts (DGKC, KOHC) \u2014 thesis invalidated by Eid rally.\n2. HOLD LONG_CORE; trim ATRL if >+2% today (don't chase).\n3. START bank deployment 15% (MCB/UBL split) on SBP reform catalyst;\n   still wait for FIPI flip before full 30% plan from May 19.\n4. CASH floor 45% (down from 50%) \u2014 controlled redeployment.\n5. AVOID list unchanged \u2014 circular debt / leverage names.\n\nMACRO: Brent USD 92.26000213623047, WTI 88.3499984741211, USDPKR 277.15985107421875\nKSE-100 EOD reference: 171725.29\n",
+  "bucket_summary": {
+    "LONG_CORE": {
+      "symbols": [
+        "OGDC",
+        "PPL",
+        "POL",
+        "MARI",
+        "ATRL"
+      ],
+      "avg_today_pct": 1.6
+    },
+    "SHORT_COVER": {
+      "symbols": [
+        "DGKC",
+        "KOHC"
+      ],
+      "avg_today_pct": 5.54
+    },
+    "BANKS": {
+      "symbols": [
+        "HBL",
+        "UBL",
+        "NBP",
+        "MEBL",
+        "MCB",
+        "BAHL",
+        "FABL"
+      ],
+      "avg_today_pct": 3.14
+    },
+    "AVOID": {
+      "symbols": [
+        "KEL",
+        "HUBC",
+        "EPCL",
+        "KAPCO",
+        "NPL"
+      ],
+      "avg_today_pct": 1.23
+    }
+  },
+  "sector_today_pct": {
+    "Cement": 5.2,
+    "Commercial Banks": 3.14,
+    "Investment Banks / Investment Companies / Securities Cos.": 2.9,
+    "Miscellaneous": 2.46,
+    "Pharmaceuticals": 2.44,
+    "Chemical": 2.15,
+    "Oil & Gas Exploration Companies": 1.74,
+    "Oil & Gas Marketing Companies": 1.69,
+    "Fertilizer": 1.59,
+    "Power Generation & Distribution": 1.42,
+    "Refinery": 1.02,
+    "Technology & Communication": 1.02,
+    "Automobile Assembler": 0.72,
+    "Food & Personal Care Products": -1.42
+  },
+  "ex_div_universe": [
+    "PPL",
+    "INDU",
+    "SYS"
+  ],
+  "fipi_streak": {
+    "days": 5,
+    "cum_pkr_mn": -2.94,
+    "flipped": false
+  },
   "actions": [
     {
       "symbol": null,
-      "sector": null,
       "bucket": "CASH",
-      "conviction": "MEDIUM",
-      "target_weight_pct": 70.0,
-      "reason": "Auto-inserted by playbook overlay (cash floor).",
-      "contributing_signals": []
+      "conviction": "HIGH",
+      "target_weight_pct": 45.0,
+      "reason": "Down from 50% post-Eid; redeploy 15% banks pending FIPI confirmation."
+    },
+    {
+      "symbol": "DGKC",
+      "bucket": "COVER_SHORT",
+      "conviction": "HIGH",
+      "sector": "Cement",
+      "target_weight_pct": 0.0,
+      "reason": "Short thesis invalidated (+9.6% May19-25). Cover at 193.33."
+    },
+    {
+      "symbol": "KOHC",
+      "bucket": "COVER_SHORT",
+      "conviction": "HIGH",
+      "sector": "Cement",
+      "target_weight_pct": 0.0,
+      "reason": "Blowout +11.2% into Eid. Cover at 88.05."
     },
     {
       "symbol": "OGDC",
-      "bucket": "ADD",
+      "bucket": "HOLD",
+      "conviction": "HIGH",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 8.0,
+      "reason": "Circular debt payment + E&P tailwind. Live 330.05. Stop 303.",
+      "stop_loss_price": 303.65
+    },
+    {
+      "symbol": "PPL",
+      "bucket": "HOLD",
+      "conviction": "HIGH",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 8.0,
+      "reason": "Best performer +8.3% into Eid. Live 240.73. Hold; ADD only on pullback.",
+      "stop_loss_price": 221.47
+    },
+    {
+      "symbol": "POL",
+      "bucket": "HOLD",
       "conviction": "MEDIUM",
       "sector": "Oil & Gas E&P",
-      "target_weight_pct": 8.07,
-      "reason": "+Strong 150d momentum +22.4%; +value:BUY_VALUE; +mf_accum_2m",
-      "contributing_signals": [
-        "Strong 150d momentum +22.4%",
-        "Strong 60d momentum +15.7%",
-        "Price +16.5% above 200-day SMA"
-      ],
-      "position_plan": {
-        "symbol": "OGDC",
-        "sector": "Oil & Gas E&P",
-        "entry_price": 330.05,
-        "atr_14_pct": 2.07,
-        "stop_loss_price": 312.67,
-        "stop_loss_pct": 5.27,
-        "target_price": 373.51,
-        "target_pct": 13.17,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 8.07,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=2.1% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 5.3% stop; target 2.5R = 13.2%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.7,
-        "overlay_applied": [
-          "size adjusted to 8.07% by playbook overlay"
-        ]
-      }
+      "target_weight_pct": 7.0,
+      "reason": "Defensive E&P; dividend bid intact."
+    },
+    {
+      "symbol": "MARI",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 7.0,
+      "reason": "Hold through AGM cycle."
     },
     {
       "symbol": "ATRL",
-      "bucket": "HOLD",
+      "bucket": "TRIM",
       "conviction": "MEDIUM",
-      "sector": "OMC/Refining",
-      "target_weight_pct": 10.0,
-      "reason": "+Strong 150d momentum +29.3%; +mf_accum_2m; +mom150d=+29.3%",
-      "contributing_signals": [
-        "Strong 150d momentum +29.3%",
-        "Strong 60d momentum +20.6%",
-        "Price +20.3% above 200-day SMA"
-      ],
-      "position_plan": {
-        "symbol": "ATRL",
-        "sector": "OMC",
-        "entry_price": 898.63,
-        "atr_14_pct": 1.42,
-        "stop_loss_price": 865.98,
-        "stop_loss_pct": 3.63,
-        "target_price": 980.26,
-        "target_pct": 9.08,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 10.0,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=1.4% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 3.6% stop; target 2.5R = 9.1%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.7
-      }
+      "sector": "Refinery",
+      "target_weight_pct": 5.0,
+      "reason": "Trim 2% if +2% today \u2014 refinery margins pressured by oil spike headlines."
     },
     {
-      "symbol": "FCCL",
-      "bucket": "HOLD",
+      "symbol": "MCB",
+      "bucket": "BUY",
       "conviction": "MEDIUM",
-      "sector": "Cement",
-      "target_weight_pct": 5.42,
-      "reason": "+macro(Cement+5); -mom150d=-8.0% (high-vol)",
-      "contributing_signals": [
-        "macro(Cement+5)",
-        "mom150d=-8.0% (high-vol)"
-      ],
-      "position_plan": {
-        "symbol": "FCCL",
-        "sector": "Cement",
-        "entry_price": 53.07,
-        "atr_14_pct": 3.84,
-        "stop_loss_price": 48.18,
-        "stop_loss_pct": 9.22,
-        "target_price": 65.3,
-        "target_pct": 23.04,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 5.42,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=3.8% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 9.2% stop; target 2.5R = 23.0%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.6
-      }
+      "sector": "Commercial Banks",
+      "target_weight_pct": 8.0,
+      "reason": "SBP foreign shareholding reform catalyst; deploy 8% of book."
     },
     {
-      "symbol": "LUCK",
-      "bucket": "HOLD",
+      "symbol": "UBL",
+      "bucket": "BUY",
       "conviction": "MEDIUM",
-      "sector": "Cement",
-      "target_weight_pct": 7.68,
-      "reason": "+macro(Cement+5); -mom150d=-5.7%",
-      "contributing_signals": [
-        "macro(Cement+5)",
-        "mom150d=-5.7%"
-      ],
-      "position_plan": {
-        "symbol": "LUCK",
-        "sector": "Cement",
-        "entry_price": 436.77,
-        "atr_14_pct": 2.71,
-        "stop_loss_price": 408.33,
-        "stop_loss_pct": 6.51,
-        "target_price": 507.87,
-        "target_pct": 16.28,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 7.68,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=2.7% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 6.5% stop; target 2.5R = 16.3%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.6
-      }
+      "sector": "Commercial Banks",
+      "target_weight_pct": 7.0,
+      "reason": "Eid rally leader; FII reform lowers friction for foreign buyers."
     },
     {
-      "symbol": "MLCF",
-      "bucket": "HOLD",
+      "symbol": "KEL",
+      "bucket": "AVOID",
       "conviction": "MEDIUM",
-      "sector": "Cement",
-      "target_weight_pct": 6.61,
-      "reason": "+macro(Cement+5); -mom150d=-12.6% (high-vol)",
-      "contributing_signals": [
-        "macro(Cement+5)",
-        "mom150d=-12.6% (high-vol)"
-      ],
-      "position_plan": {
-        "symbol": "MLCF",
-        "sector": "Cement",
-        "entry_price": 89.38,
-        "atr_14_pct": 3.15,
-        "stop_loss_price": 82.62,
-        "stop_loss_pct": 7.57,
-        "target_price": 106.29,
-        "target_pct": 18.92,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 6.61,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=3.2% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 7.6% stop; target 2.5R = 18.9%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.6
-      }
+      "target_weight_pct": 0,
+      "reason": "Circular debt; bounce is technical."
+    },
+    {
+      "symbol": "HUBC",
+      "bucket": "AVOID",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 0,
+      "reason": "Circular debt overhang unchanged."
+    },
+    {
+      "symbol": "NPL",
+      "bucket": "AVOID",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 0,
+      "reason": "High vol post-ex-div; structural avoid."
+    },
+    {
+      "symbol": "EPCL",
+      "bucket": "AVOID",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 0,
+      "reason": "Holdco discount; commodity squeeze risk."
+    },
+    {
+      "symbol": "KAPCO",
+      "bucket": "AVOID",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 0,
+      "reason": "Circular debt; no change to thesis."
     }
   ],
-  "key_drivers": [
-    "oil_down",
-    "tbill_above_policy",
-    "coal_down",
-    "copper_up",
-    "tbill_up"
-  ],
-  "key_risks": [
-    "Vol regime is CRISIS \u2014 use tighter stops or smaller size."
-  ],
-  "macro_lens": "Normal stance (LOW confidence). Top driver: oil_down (STRONG). Tape: KSE-100 +5.6%/5d, crisis vol regime.",
-  "behavioural_lens": "",
-  "fallback_used": true,
-  "raw_llm_text": "",
-  "thinking_trace": "",
-  "briefing_summary": {
-    "as_of": "2026-05-28T08:28:25+00:00",
-    "regime": {
-      "as_of": "2026-05-25",
-      "regime": "NORMAL",
-      "exposure_multiplier": 1.0,
-      "reason": "Rule-based: no stress markers",
-      "flags": [],
-      "indicators": {
-        "universe_ret_5d": 0.0563,
-        "universe_ret_21d": 0.0047,
-        "universe_150d_log_ret": -0.0077,
-        "breadth_pct_up_today": 97.1
-      },
-      "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
+  "international_lens": {
+    "commodities": {
+      "brent_usd": 92.26000213623047,
+      "wti_usd": 88.3499984741211,
+      "gold_usd": 4522.39990234375,
+      "copper_usd": 6.420000076293945,
+      "tilt": "truce_hopes_vs_intraday_oil_spike"
     },
-    "predictions_count": 5,
-    "playbook_analogues_count": 2
+    "fx": {
+      "usdpkr": 277.15985107421875,
+      "stable": true
+    }
   },
-  "playbook_overlay_log": [
-    {
-      "case_id": "mf_universe_distribution_broad",
-      "match_score": 2.6,
-      "fired_triggers": [
-        "mf_universe_n_top_distributed_gte:5",
-        "mf_data_freshness_lte:90"
+  "predictor_guards_active": {
+    "regime_on": true,
+    "regime_triggers": [
+      "May19-25 relief rally",
+      "predictor_over_bearish"
+    ],
+    "guards_engaged_note": "May 19 batch had 12 AVOID calls; 8 rallied >8% \u2014 guard calibration gap",
+    "downgrade_count_yday": 0,
+    "false_positive_count": 8
+  },
+  "gap_eval_summary": {
+    "window": "2026-05-19 to 2026-05-25",
+    "long_core_return_pct": 3.6,
+    "short_return_pct": 10.38,
+    "banks_return_pct": 6.24,
+    "avoid_return_pct": 3.72,
+    "predictor_directional_hit_rate_pct": 26
+  },
+  "deployment_plan": {
+    "if_fipi_flip_positive": {
+      "deploy_pct": 25,
+      "banks_add": [
+        "MEBL +5%",
+        "FABL +5%"
       ],
-      "changes": [
-        {
-          "cash_floor_pct": 70,
-          "via": "cash_floor"
-        },
-        {
-          "position_size_multiplier": 0.85,
-          "via": "size_haircut"
-        }
-      ]
+      "ep_addons": [
+        "OGDC +3%"
+      ],
+      "new_cash": 30
     },
-    {
-      "case_id": "mf_initiation_cluster",
-      "match_score": 1.0,
-      "fired_triggers": [
-        "mf_n_funds_initiating_30d_gte:3"
+    "if_oil_spike_sustained": {
+      "deploy_pct": 0,
+      "trim": [
+        "ATRL -3%",
+        "PSO avoid adds"
       ],
-      "changes": []
+      "new_cash": 55
     }
-  ],
-  "playbook_overlay_notes": [
-    "[mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%.",
-    "[mf_initiation_cluster] 3+ funds initiated \u2014 BUY full size on flagged names within 5 sessions."
-  ]
+  }
 }
