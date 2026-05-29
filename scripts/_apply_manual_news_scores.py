@@ -42,6 +42,12 @@ PENDING    = CACHE_DIR / "_pending_articles.json"
 
 MODEL_TAG = "cursor-claude-sonnet-4-5-manual"
 
+# May 28 batch (imported from companion module)
+try:
+    from scripts._scores_may28 import MAY28_SCORES as _MAY28_SCORES
+except ImportError:
+    from _scores_may28 import MAY28_SCORES as _MAY28_SCORES  # type: ignore
+
 # --- Cursor-as-strategist scores ---------------------------------------
 # Format: article_id -> (sentiment, conf, category, [affected_symbols], one_liner)
 SCORES: dict[str, tuple[float, str, str, list[str], str]] = {
@@ -280,6 +286,7 @@ SCORES: dict[str, tuple[float, str, str, list[str], str]] = {
     "f5c70d04582c528f": (+0.05, "LOW", "POLICY", [],
         "SBP expands Eidul Azha cashless drive — minor"),
 }
+SCORES.update(_MAY28_SCORES)
 
 # --- Apply scores -----------------------------------------------------
 print(f"[1/4] Loading pending articles from {PENDING}")

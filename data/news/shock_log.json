@@ -1282,6 +1282,86 @@
       ],
       "scored_at": "",
       "detected_at": "2026-05-19T09:40:52+00:00"
+    },
+    {
+      "article_id": "d2fe16e63e6fd31b",
+      "title": "OGDC receives Rs7.7bn circular debt payment",
+      "sentiment": 0.4,
+      "confidence": "HIGH",
+      "category": "COMPANY",
+      "affected_symbols": [
+        "OGDC"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-28T23:56:34+00:00",
+      "detected_at": "2026-05-28T23:57:38+00:00"
+    },
+    {
+      "article_id": "ad1771063443813e",
+      "title": "Oil surges after Iran targets US airbase in retaliation",
+      "sentiment": -0.5,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "APL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-28T23:56:34+00:00",
+      "detected_at": "2026-05-28T23:57:38+00:00"
+    },
+    {
+      "article_id": "2131e8ff94607bdf",
+      "title": "Oil prices bounce higher after new US strikes on Iran",
+      "sentiment": -0.45,
+      "confidence": "HIGH",
+      "category": "COMMODITY",
+      "affected_symbols": [
+        "APL",
+        "ATRL",
+        "PSO"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-28T23:56:34+00:00",
+      "detected_at": "2026-05-28T23:57:38+00:00"
+    },
+    {
+      "article_id": "ca97c423483ded7c",
+      "title": "Banks to register foreign shares to ease investment inflows",
+      "sentiment": 0.35,
+      "confidence": "HIGH",
+      "category": "POLICY",
+      "affected_symbols": [
+        "HBL",
+        "MCB",
+        "UBL"
+      ],
+      "is_macro_shock": false,
+      "is_broad_market": false,
+      "scored_at": "2026-05-28T23:56:34+00:00",
+      "detected_at": "2026-05-28T23:57:38+00:00"
+    },
+    {
+      "article_id": "BROAD::2026-05-28::BEARISH::3",
+      "title": "Broad-market bearish shock: 3 HIGH-confidence articles avg sentiment -0.45",
+      "sentiment": -0.45,
+      "confidence": "HIGH",
+      "category": "BROAD_MARKET",
+      "affected_symbols": [],
+      "is_macro_shock": true,
+      "is_broad_market": true,
+      "side": "BEARISH",
+      "n_articles": 3,
+      "sample_titles": [
+        "The higher oil climbs, the harder Pakistan\u2019s market falls",
+        "Oil surges after Iran targets US airbase in retaliation",
+        "Oil prices bounce higher after new US strikes on Iran"
+      ],
+      "scored_at": "",
+      "detected_at": "2026-05-28T23:57:38+00:00"
     }
   ]
 }

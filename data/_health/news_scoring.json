@@ -1,8 +1,8 @@
 {
   "workflow": "news_scoring",
   "ok": true,
-  "note": "scored 109 new articles (Cursor-as-strategist; LLM API down)",
-  "as_of": "2026-05-19T09:40:39+00:00",
+  "note": "scored 94 new articles (Cursor-as-strategist; LLM API down)",
+  "as_of": "2026-05-28T23:56:34+00:00",
   "github": {
     "run_id": "",
     "run_number": "",
@@ -10,16 +10,15 @@
     "sha": ""
   },
   "payload": {
-    "scored": 109,
-    "fetched": 130,
+    "scored": 94,
+    "fetched": 113,
     "by_category": {
-      "MACRO": 39,
-      "POLICY": 19,
-      "COMPANY": 17,
-      "OTHER": 11,
-      "COMMODITY": 10,
-      "GLOBAL": 9,
-      "GEOPOLITICS": 4
+      "OTHER": 43,
+      "POLICY": 21,
+      "MACRO": 16,
+      "COMMODITY": 9,
+      "GEOPOLITICS": 3,
+      "COMPANY": 2
     },
     "model": "cursor-claude-sonnet-4-5-manual"
   }
