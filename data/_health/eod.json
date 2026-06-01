@@ -1,23 +1,23 @@
 {
   "workflow": "eod",
   "ok": true,
-  "note": "FIPI snapshot for 2026-05-29: foreign_net=-1.6 mn",
-  "as_of": "2026-05-31T22:28:35+00:00",
+  "note": "FIPI snapshot for 2026-06-01: foreign_net=+1.8 mn",
+  "as_of": "2026-06-01T17:02:21+00:00",
   "github": {
-    "run_id": "26726270798",
-    "run_number": "33",
+    "run_id": "26769453850",
+    "run_number": "34",
     "ref": "refs/heads/main",
-    "sha": "15aee19cd32aa05011cdbdc60908ad64ae3d7037"
+    "sha": "b44738f1c903eaf9ca2ef24fc8a3ebe5d6fe1308"
   },
   "payload": {
-    "date": "2026-05-29",
-    "foreign_net_pkr_mn": -1.56,
-    "local_net_pkr_mn": 1.57,
-    "foreign_regime": "net_selling",
+    "date": "2026-06-01",
+    "foreign_net_pkr_mn": 1.84,
+    "local_net_pkr_mn": -1.83,
+    "foreign_regime": "net_buying",
     "n_participants": 9,
     "n_sectors": 10,
-    "top_sector_name": "Banks",
-    "top_sector_net_usd_mn": -1.2,
-    "captured_at_utc": "2026-05-31T22:28:35"
+    "top_sector_name": "Oil and Gas Exploration",
+    "top_sector_net_usd_mn": 0.64,
+    "captured_at_utc": "2026-06-01T17:02:21"
   }
 }
