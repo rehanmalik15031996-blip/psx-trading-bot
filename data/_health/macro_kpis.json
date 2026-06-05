@@ -1,13 +1,13 @@
 {
   "workflow": "macro_kpis",
-  "ok": true,
-  "note": "3/3 sub-sources refreshed",
-  "as_of": "2026-06-04T14:35:21+00:00",
+  "ok": false,
+  "note": "2/3 sub-sources refreshed",
+  "as_of": "2026-06-05T07:49:56+00:00",
   "github": {
-    "run_id": "26958577264",
-    "run_number": "65",
+    "run_id": "27002596718",
+    "run_number": "66",
     "ref": "refs/heads/main",
-    "sha": "3eab9fa03fda203b48e80a4543b0afd3aeb39155"
+    "sha": "010af1bc02b044f5ee199ef4c9d90d83655269e0"
   },
   "payload": {
     "sbp_rates": {
@@ -19,15 +19,13 @@
     },
     "kse100": {
       "ok": true,
-      "date": "2026-06-04",
-      "rows": 428,
-      "kse100_close": 171175.5
+      "date": "2026-06-05",
+      "rows": 429,
+      "kse100_close": 171436.0
     },
     "cpi": {
-      "ok": true,
-      "date": "2026-06-04",
-      "rows": 1679,
-      "cpi_yoy_pct": 11.7
+      "ok": false,
+      "error": "could not extract CPI YoY"
     }
   }
 }
