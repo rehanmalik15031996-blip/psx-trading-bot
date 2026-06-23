@@ -2,12 +2,12 @@
   "workflow": "macro_series",
   "ok": true,
   "note": "7/7 series refreshed",
-  "as_of": "2026-06-22T07:07:21+00:00",
+  "as_of": "2026-06-23T05:54:17+00:00",
   "github": {
-    "run_id": "27935626312",
-    "run_number": "47",
+    "run_id": "28005416108",
+    "run_number": "48",
     "ref": "refs/heads/main",
-    "sha": "ba29bcd6a467ebeb2399d2062de9afb299f233cb"
+    "sha": "85f1d4ed5db0829110e9c846ff116e8aaf31ed08"
   },
   "payload": {
     "results": [
@@ -15,67 +15,67 @@
         "ok": true,
         "key": "brent",
         "ticker": "BZ=F",
-        "rows": 1632,
-        "last_date": "2026-06-22",
-        "last_value": 79.06
+        "rows": 1633,
+        "last_date": "2026-06-23",
+        "last_value": 77.23
       },
       {
         "ok": true,
         "key": "wti",
         "ticker": "CL=F",
-        "rows": 1631,
-        "last_date": "2026-06-22",
-        "last_value": 75.38
+        "rows": 1632,
+        "last_date": "2026-06-23",
+        "last_value": 73.33
       },
       {
         "ok": true,
         "key": "gold",
         "ticker": "GC=F",
-        "rows": 1631,
-        "last_date": "2026-06-22",
-        "last_value": 4221.8
+        "rows": 1632,
+        "last_date": "2026-06-23",
+        "last_value": 4144.5
       },
       {
         "ok": true,
         "key": "copper",
         "ticker": "HG=F",
-        "rows": 1632,
-        "last_date": "2026-06-22",
-        "last_value": 6.357
+        "rows": 1633,
+        "last_date": "2026-06-23",
+        "last_value": 6.259
       },
       {
         "ok": true,
         "key": "cotton",
         "ticker": "CT=F",
-        "rows": 1627,
-        "last_date": "2026-06-18",
-        "last_value": 76.05
+        "rows": 1628,
+        "last_date": "2026-06-22",
+        "last_value": 75.21
       },
       {
         "ok": true,
         "key": "btc",
         "ticker": "BTC-USD",
-        "rows": 2365,
-        "last_date": "2026-06-22",
-        "last_value": 64000.012
+        "rows": 2366,
+        "last_date": "2026-06-23",
+        "last_value": 63290.672
       },
       {
         "ok": true,
         "key": "usdpkr",
         "ticker": "PKR=X",
-        "rows": 1687,
-        "last_date": "2026-06-22",
-        "last_value": 278.09
+        "rows": 1688,
+        "last_date": "2026-06-23",
+        "last_value": 278.051
       }
     ],
     "latest_dates": {
-      "brent": "2026-06-22",
-      "wti": "2026-06-22",
-      "gold": "2026-06-22",
-      "copper": "2026-06-22",
-      "cotton": "2026-06-18",
-      "btc": "2026-06-22",
-      "usdpkr": "2026-06-22"
+      "brent": "2026-06-23",
+      "wti": "2026-06-23",
+      "gold": "2026-06-23",
+      "copper": "2026-06-23",
+      "cotton": "2026-06-22",
+      "btc": "2026-06-23",
+      "usdpkr": "2026-06-23"
     }
   }
 }
