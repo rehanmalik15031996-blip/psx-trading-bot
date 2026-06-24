@@ -1,23 +1,23 @@
 {
   "workflow": "eod",
   "ok": true,
-  "note": "FIPI snapshot for 2026-06-22: foreign_net=+0.4 mn",
-  "as_of": "2026-06-23T13:59:35+00:00",
+  "note": "FIPI snapshot for 2026-06-23: foreign_net=-157.7 mn",
+  "as_of": "2026-06-24T13:36:36+00:00",
   "github": {
-    "run_id": "28031665358",
-    "run_number": "50",
+    "run_id": "28102427847",
+    "run_number": "51",
     "ref": "refs/heads/main",
-    "sha": "82570efb65dad89c83cf033a2f137f4f267f053a"
+    "sha": "ef92eee5ef0f34640d36bd713416d649c37d31e2"
   },
   "payload": {
-    "date": "2026-06-22",
-    "foreign_net_pkr_mn": 0.43,
-    "local_net_pkr_mn": -0.44,
-    "foreign_regime": "net_buying",
+    "date": "2026-06-23",
+    "foreign_net_pkr_mn": -157.68,
+    "local_net_pkr_mn": 157.68,
+    "foreign_regime": "net_selling",
     "n_participants": 9,
     "n_sectors": 10,
-    "top_sector_name": "Banks",
-    "top_sector_net_usd_mn": 0.77,
-    "captured_at_utc": "2026-06-23T13:59:35"
+    "top_sector_name": "Foods",
+    "top_sector_net_usd_mn": -157.39,
+    "captured_at_utc": "2026-06-24T13:36:36"
   }
 }
