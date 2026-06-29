@@ -1,13 +1,23 @@
 {
   "workflow": "eod",
-  "ok": false,
-  "note": "FIPI snapshot returned no row",
-  "as_of": "2026-06-26T13:29:43+00:00",
+  "ok": true,
+  "note": "FIPI snapshot for 2026-06-29: foreign_net=-1.6 mn",
+  "as_of": "2026-06-29T14:59:24+00:00",
   "github": {
-    "run_id": "28241121385",
-    "run_number": "53",
+    "run_id": "28381351785",
+    "run_number": "54",
     "ref": "refs/heads/main",
-    "sha": "c59e1c60c7332657e8ee359f6756dcf464040e31"
+    "sha": "1b9e59ae2834134fbf83444c78c7e4eddfdfabdc"
   },
-  "payload": {}
+  "payload": {
+    "date": "2026-06-29",
+    "foreign_net_pkr_mn": -1.62,
+    "local_net_pkr_mn": 1.61,
+    "foreign_regime": "net_selling",
+    "n_participants": 9,
+    "n_sectors": 11,
+    "top_sector_name": "Power",
+    "top_sector_net_usd_mn": -0.84,
+    "captured_at_utc": "2026-06-29T14:59:24"
+  }
 }
