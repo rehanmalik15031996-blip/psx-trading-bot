@@ -2,17 +2,17 @@
   "workflow": "material_info",
   "ok": true,
   "note": "new=0 total=42",
-  "as_of": "2026-07-07T15:22:40+00:00",
+  "as_of": "2026-07-08T14:46:14+00:00",
   "github": {
-    "run_id": "28877664163",
-    "run_number": "58",
+    "run_id": "28951561154",
+    "run_number": "59",
     "ref": "refs/heads/main",
-    "sha": "e75f4125db98f4d9b7780e8f86da727b98dedb4b"
+    "sha": "1b3bf0dcd62c0a6392ed966cf994147a139bf941"
   },
   "payload": {
     "ok": true,
     "new_records": 0,
     "total_in_store": 42,
-    "as_of_utc": "2026-07-07T15:22:40+00:00"
+    "as_of_utc": "2026-07-08T14:46:14+00:00"
   }
 }
