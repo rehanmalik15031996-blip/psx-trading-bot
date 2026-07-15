@@ -2,12 +2,12 @@
   "workflow": "macro_kpis",
   "ok": true,
   "note": "3/3 sub-sources refreshed",
-  "as_of": "2026-07-15T05:44:47+00:00",
+  "as_of": "2026-07-15T13:11:49+00:00",
   "github": {
-    "run_id": "29392228588",
-    "run_number": "122",
+    "run_id": "29418150615",
+    "run_number": "123",
     "ref": "refs/heads/main",
-    "sha": "58704792821dbe6ea2151deaabd9591339f6abfc"
+    "sha": "dc9e2f5839e10892fadd97a72f67340573cff856"
   },
   "payload": {
     "sbp_rates": {
@@ -21,7 +21,7 @@
       "ok": true,
       "date": "2026-07-15",
       "rows": 457,
-      "kse100_close": 176151.33
+      "kse100_close": 175285.78
     },
     "cpi": {
       "ok": true,
