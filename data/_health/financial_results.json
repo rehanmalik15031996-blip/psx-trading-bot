@@ -1,17 +1,17 @@
 {
   "workflow": "financial_results",
   "ok": true,
-  "note": "new=0 total=170 errors=2",
-  "as_of": "2026-07-11T08:07:13+00:00",
+  "note": "new=1 total=171 errors=2",
+  "as_of": "2026-07-18T08:04:17+00:00",
   "github": {
-    "run_id": "29145564592",
-    "run_number": "13",
+    "run_id": "29636777215",
+    "run_number": "14",
     "ref": "refs/heads/main",
-    "sha": "4b4d8873af2711daa9b44cad72152dd0b09263a8"
+    "sha": "7bf72bad002f11af761e1172c53951f22c2a0d73"
   },
   "payload": {
-    "new": 0,
-    "total": 170,
+    "new": 1,
+    "total": 171,
     "errors": [
       "OGDC/270842-1: download: HTTPError: 404 Client Error: Not Found for url: https://dps.psx.com.pk/download/document/270842-1.pdf",
       "HBL/272195-1: download: HTTPError: 404 Client Error: Not Found for url: https://dps.psx.com.pk/download/document/272195-1.pdf"
