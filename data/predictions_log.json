@@ -399250,6 +399250,5198 @@
         "stop_triggered": false,
         "target_triggered": false
       }
+    },
+    {
+      "prediction_id": "2026-07-21-APL",
+      "generated_at": "2026-07-21T06:44:53+00:00",
+      "symbol": "APL",
+      "sector": "OMC/Refining",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 540.1,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.31,
+      "expected_return_5d_mid_pct": -0.25,
+      "expected_return_5d_high_pct": 1.81,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 496.89,
+      "suggested_target_pkr": 556.3,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score -0.15). Drivers (0): none material. Risks (1): Price -2.7% below 200-day SMA. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Price -2.7% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+        "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "OMC/Refining",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "APL",
+          "sector": "OMC/Refining",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 540.1,
+        "ret_5d": -0.0174,
+        "ret_21d": -0.0064,
+        "ret_63d": -0.016,
+        "mom_20d_log": -0.0127,
+        "mom_60d_log": -0.0379,
+        "mom_150d_log": -0.0123,
+        "mom_250d_log": 0.0398,
+        "rvol_20d_ann": 0.1464,
+        "rvol_regime": "stable",
+        "rsi_14": 51.9,
+        "px_vs_sma200_pct": -2.68,
+        "trend": "down",
+        "momentum_rank_today": 15,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 4,
+        "news_headlines": [
+          "US technology firm proposes refinery modernisation plan for Pakistan in meeting with finance minister",
+          "Pakistan State Oil to be sole diesel importer in FY27",
+          "Three-pronged strategy devised for seamless oil supply",
+          "Ex-Oilers and Maple Leafs goalie Jack Campbell retires from hockey to pursue life coaching"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-ATRL",
+      "generated_at": "2026-07-21T06:45:21+00:00",
+      "symbol": "ATRL",
+      "sector": "OMC/Refining",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 936.98,
+      "direction": "BULLISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -1.91,
+      "expected_return_5d_mid_pct": 2.07,
+      "expected_return_5d_high_pct": 6.06,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 862.02,
+      "suggested_target_pkr": 993.79,
+      "rationale": "Rule-based call: BULLISH with HIGH conviction (score +0.65). Drivers (3): Strong 150d momentum +35.1%. Risks (1): RSI 77.1 — overbought, pullback risk. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +35.1%",
+        "Price +19.2% above 200-day SMA",
+        "In Phase-1 top-5 today"
+      ],
+      "key_risks": [
+        "RSI 77.1 — overbought, pullback risk"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+        "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "OMC/Refining",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "ATRL",
+          "sector": "OMC/Refining",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 936.98,
+        "ret_5d": 0.0113,
+        "ret_21d": 0.0212,
+        "ret_63d": 0.1084,
+        "mom_20d_log": 0.0246,
+        "mom_60d_log": 0.0683,
+        "mom_150d_log": 0.3511,
+        "mom_250d_log": 0.3217,
+        "rvol_20d_ann": 0.2832,
+        "rvol_regime": "stable",
+        "rsi_14": 77.1,
+        "px_vs_sma200_pct": 19.2,
+        "trend": "up",
+        "momentum_rank_today": 2,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 3,
+        "news_headlines": [
+          "US technology firm proposes refinery modernisation plan for Pakistan in meeting with finance minister",
+          "Pakistan State Oil to be sole diesel importer in FY27",
+          "Three-pronged strategy devised for seamless oil supply"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-BAHL",
+      "generated_at": "2026-07-21T06:45:06+00:00",
+      "symbol": "BAHL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 171.19,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.01,
+      "expected_return_5d_mid_pct": -1.21,
+      "expected_return_5d_high_pct": 2.58,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 157.49,
+      "suggested_target_pkr": 176.33,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (0): none material. Risks (2): Negative 150d momentum -6.7%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -6.7%",
+        "Price -4.7% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=176.33 / entry=171.19 / stop=157.49 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is ADD (score +5). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "BAHL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 171.19,
+        "ret_5d": -0.0279,
+        "ret_21d": -0.0314,
+        "ret_63d": -0.0209,
+        "mom_20d_log": -0.017,
+        "mom_60d_log": -0.0209,
+        "mom_150d_log": -0.067,
+        "mom_250d_log": 0.0308,
+        "rvol_20d_ann": 0.2692,
+        "rvol_regime": "stable",
+        "rsi_14": 52.7,
+        "px_vs_sma200_pct": -4.71,
+        "trend": "mixed",
+        "momentum_rank_today": 23,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Julius Baer posts H1 net profit of $831 million",
+          "Profit repatriation hits $2.31b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-COLG",
+      "generated_at": "2026-07-21T06:45:30+00:00",
+      "symbol": "COLG",
+      "sector": "Consumer",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 1233.22,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.63,
+      "expected_return_5d_mid_pct": 0.23,
+      "expected_return_5d_high_pct": 3.08,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 1134.56,
+      "suggested_target_pkr": 1271.23,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.10). Drivers (1): Price +1.9% above 200-day SMA. Risks (0): none material. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Price +1.9% above 200-day SMA"
+      ],
+      "key_risks": [
+        "No material risks flagged"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "COLG",
+          "sector": "Consumer",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 1233.22,
+        "ret_5d": -0.0161,
+        "ret_21d": 0.0424,
+        "ret_63d": 0.1123,
+        "mom_20d_log": 0.0204,
+        "mom_60d_log": 0.074,
+        "mom_150d_log": -0.0411,
+        "mom_250d_log": -0.0777,
+        "rvol_20d_ann": 0.2026,
+        "rvol_regime": "rising",
+        "rsi_14": 44.8,
+        "px_vs_sma200_pct": 1.95,
+        "trend": "mixed",
+        "momentum_rank_today": 20,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-DGKC",
+      "generated_at": "2026-07-21T06:45:12+00:00",
+      "symbol": "DGKC",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 209.9,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -6.94,
+      "expected_return_5d_mid_pct": -1.68,
+      "expected_return_5d_high_pct": 3.57,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 193.11,
+      "suggested_target_pkr": 217.4,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (0): none material. Risks (2): Negative 150d momentum -14.2%. Macro verdict: HEADWIND (stock score -2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -14.2%",
+        "Price -0.8% below 200-day SMA"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=217.4 / entry=209.9 / stop=193.11 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "verdict": "HEADWIND"
+        },
+        "by_symbol": {
+          "symbol": "DGKC",
+          "sector": "Cement",
+          "sector_score": -2,
+          "stock_score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "amplifier_note": "",
+          "verdict": "HEADWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 209.9,
+        "ret_5d": -0.0341,
+        "ret_21d": -0.0449,
+        "ret_63d": 0.1015,
+        "mom_20d_log": -0.0429,
+        "mom_60d_log": 0.0343,
+        "mom_150d_log": -0.1419,
+        "mom_250d_log": 0.2003,
+        "rvol_20d_ann": 0.373,
+        "rvol_regime": "stable",
+        "rsi_14": 38.8,
+        "px_vs_sma200_pct": -0.75,
+        "trend": "mixed",
+        "momentum_rank_today": 30,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-EFERT",
+      "generated_at": "2026-07-21T06:45:15+00:00",
+      "symbol": "EFERT",
+      "sector": "Fertilizer",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 191.07,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -3.2,
+      "expected_return_5d_mid_pct": -1.09,
+      "expected_return_5d_high_pct": 1.01,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 175.78,
+      "suggested_target_pkr": 196.8,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.65). Drivers (0): none material. Risks (4): Negative 150d momentum -13.2%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -13.2%",
+        "Weakening 60d momentum -10.4%",
+        "20d weakness -5.7%",
+        "Price -10.5% below 200-day SMA"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=196.8 / entry=191.07 / stop=175.78 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "EFERT",
+          "sector": "Fertilizer",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 191.07,
+        "ret_5d": -0.0158,
+        "ret_21d": -0.054,
+        "ret_63d": -0.0806,
+        "mom_20d_log": -0.057,
+        "mom_60d_log": -0.1044,
+        "mom_150d_log": -0.1324,
+        "mom_250d_log": -0.0912,
+        "rvol_20d_ann": 0.1493,
+        "rvol_regime": "stable",
+        "rsi_14": 33.9,
+        "px_vs_sma200_pct": -10.52,
+        "trend": "down",
+        "momentum_rank_today": 29,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-ENGROH",
+      "generated_at": "2026-07-21T06:45:23+00:00",
+      "symbol": "ENGROH",
+      "sector": "Conglomerate/Chem",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 276.7,
+      "direction": "BULLISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -1.71,
+      "expected_return_5d_mid_pct": 2.56,
+      "expected_return_5d_high_pct": 6.83,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 254.56,
+      "suggested_target_pkr": 295.6,
+      "rationale": "Rule-based call: BULLISH with HIGH conviction (score +0.75). Drivers (3): Strong 150d momentum +24.3%. Risks (0): none material. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +24.3%",
+        "Price +7.8% above 200-day SMA",
+        "In Phase-1 top-5 today"
+      ],
+      "key_risks": [
+        "No material risks flagged"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+        "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Conglomerate/Chem",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "ENGROH",
+          "sector": "Conglomerate/Chem",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 276.7,
+        "ret_5d": -0.0023,
+        "ret_21d": -0.0275,
+        "ret_63d": -0.0085,
+        "mom_20d_log": -0.0376,
+        "mom_60d_log": -0.0423,
+        "mom_150d_log": 0.2434,
+        "mom_250d_log": 0.2989,
+        "rvol_20d_ann": 0.3031,
+        "rvol_regime": "stable",
+        "rsi_14": 41.3,
+        "px_vs_sma200_pct": 7.77,
+        "trend": "up",
+        "momentum_rank_today": 4,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-EPCL",
+      "generated_at": "2026-07-21T06:44:55+00:00",
+      "symbol": "EPCL",
+      "sector": "Conglomerate/Chem",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 33.27,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.88,
+      "expected_return_5d_mid_pct": -0.19,
+      "expected_return_5d_high_pct": 4.5,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 30.61,
+      "suggested_target_pkr": 34.77,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score -0.05). Drivers (1): Price +2.4% above 200-day SMA. Risks (1): Weakening 60d momentum -7.0%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Price +2.4% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Weakening 60d momentum -7.0%"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+        "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Conglomerate/Chem",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "EPCL",
+          "sector": "Conglomerate/Chem",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 33.27,
+        "ret_5d": -0.0774,
+        "ret_21d": -0.0258,
+        "ret_63d": -0.0615,
+        "mom_20d_log": -0.0287,
+        "mom_60d_log": -0.0705,
+        "mom_150d_log": 0.0259,
+        "mom_250d_log": 0.0024,
+        "rvol_20d_ann": 0.3331,
+        "rvol_regime": "stable",
+        "rsi_14": 47.2,
+        "px_vs_sma200_pct": 2.38,
+        "trend": "up",
+        "momentum_rank_today": 13,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-FABL",
+      "generated_at": "2026-07-21T06:44:46+00:00",
+      "symbol": "FABL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 98.95,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.7,
+      "expected_return_5d_mid_pct": 0.85,
+      "expected_return_5d_high_pct": 4.41,
+      "suggested_action": "ADD",
+      "suggested_stop_pkr": 91.03,
+      "suggested_target_pkr": 103.31,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.30). Drivers (2): Positive 150d momentum +9.1%. Risks (0): none material. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +9.1%",
+        "Price +8.6% above 200-day SMA"
+      ],
+      "key_risks": [
+        "No material risks flagged"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "FABL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 98.95,
+        "ret_5d": -0.0078,
+        "ret_21d": 0.0242,
+        "ret_63d": 0.068,
+        "mom_20d_log": 0.0158,
+        "mom_60d_log": 0.0335,
+        "mom_150d_log": 0.0914,
+        "mom_250d_log": 0.2,
+        "rvol_20d_ann": 0.2523,
+        "rvol_regime": "stable",
+        "rsi_14": 49.3,
+        "px_vs_sma200_pct": 8.57,
+        "trend": "up",
+        "momentum_rank_today": 10,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Julius Baer posts H1 net profit of $831 million",
+          "Profit repatriation hits $2.31b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-FATIMA",
+      "generated_at": "2026-07-21T06:45:16+00:00",
+      "symbol": "FATIMA",
+      "sector": "Fertilizer",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 156.38,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.49,
+      "expected_return_5d_mid_pct": 0.0,
+      "expected_return_5d_high_pct": 5.49,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 143.87,
+      "suggested_target_pkr": 164.96,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.00). Drivers (1): Price +6.2% above 200-day SMA. Risks (1): 20d weakness -6.9%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Price +6.2% above 200-day SMA"
+      ],
+      "key_risks": [
+        "20d weakness -6.9%"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "FATIMA",
+          "sector": "Fertilizer",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 156.38,
+        "ret_5d": -0.0103,
+        "ret_21d": -0.0375,
+        "ret_63d": 0.0834,
+        "mom_20d_log": -0.0685,
+        "mom_60d_log": 0.086,
+        "mom_150d_log": 0.0283,
+        "mom_250d_log": 0.3913,
+        "rvol_20d_ann": 0.3897,
+        "rvol_regime": "stable",
+        "rsi_14": 41.1,
+        "px_vs_sma200_pct": 6.24,
+        "trend": "up",
+        "momentum_rank_today": 12,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-FCCL",
+      "generated_at": "2026-07-21T06:44:52+00:00",
+      "symbol": "FCCL",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 53.74,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.71,
+      "expected_return_5d_mid_pct": 0.0,
+      "expected_return_5d_high_pct": 5.71,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 49.44,
+      "suggested_target_pkr": 56.81,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.00). Drivers (1): Price +1.7% above 200-day SMA. Risks (1): 20d weakness -7.8%. Macro verdict: HEADWIND (stock score -2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Price +1.7% above 200-day SMA"
+      ],
+      "key_risks": [
+        "20d weakness -7.8%"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "verdict": "HEADWIND"
+        },
+        "by_symbol": {
+          "symbol": "FCCL",
+          "sector": "Cement",
+          "sector_score": -2,
+          "stock_score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "amplifier_note": "",
+          "verdict": "HEADWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 53.74,
+        "ret_5d": -0.0089,
+        "ret_21d": -0.0809,
+        "ret_63d": 0.0409,
+        "mom_20d_log": -0.0775,
+        "mom_60d_log": 0.0133,
+        "mom_150d_log": -0.0273,
+        "mom_250d_log": 0.1544,
+        "rvol_20d_ann": 0.4057,
+        "rvol_regime": "stable",
+        "rsi_14": 37.4,
+        "px_vs_sma200_pct": 1.67,
+        "trend": "up",
+        "momentum_rank_today": 19,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-FFC",
+      "generated_at": "2026-07-21T06:45:13+00:00",
+      "symbol": "FFC",
+      "sector": "Fertilizer",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 551.42,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -3.23,
+      "expected_return_5d_mid_pct": -0.35,
+      "expected_return_5d_high_pct": 2.54,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 507.31,
+      "suggested_target_pkr": 567.96,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score -0.15). Drivers (1): Price +1.6% above 200-day SMA. Risks (1): Negative 150d momentum -5.1%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Price +1.6% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -5.1%"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "FFC",
+          "sector": "Fertilizer",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 551.42,
+        "ret_5d": -0.0085,
+        "ret_21d": -0.0222,
+        "ret_63d": 0.047,
+        "mom_20d_log": -0.0295,
+        "mom_60d_log": 0.0221,
+        "mom_150d_log": -0.0505,
+        "mom_250d_log": 0.1607,
+        "rvol_20d_ann": 0.2046,
+        "rvol_regime": "stable",
+        "rsi_14": 30.4,
+        "px_vs_sma200_pct": 1.64,
+        "trend": "up",
+        "momentum_rank_today": 21,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-HBL",
+      "generated_at": "2026-07-21T06:45:03+00:00",
+      "symbol": "HBL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 302.42,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.44,
+      "expected_return_5d_mid_pct": -0.58,
+      "expected_return_5d_high_pct": 4.28,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 278.23,
+      "suggested_target_pkr": 315.35,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score -0.15). Drivers (0): none material. Risks (1): Price -0.3% below 200-day SMA. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Price -0.3% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "HBL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 302.42,
+        "ret_5d": -0.0274,
+        "ret_21d": -0.003,
+        "ret_63d": 0.0042,
+        "mom_20d_log": -0.0066,
+        "mom_60d_log": -0.0348,
+        "mom_150d_log": -0.0187,
+        "mom_250d_log": 0.3072,
+        "rvol_20d_ann": 0.345,
+        "rvol_regime": "stable",
+        "rsi_14": 56.5,
+        "px_vs_sma200_pct": -0.34,
+        "trend": "mixed",
+        "momentum_rank_today": 16,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Julius Baer posts H1 net profit of $831 million",
+          "Profit repatriation hits $2.31b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-HUBC",
+      "generated_at": "2026-07-21T06:44:39+00:00",
+      "symbol": "HUBC",
+      "sector": "Power",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 218.94,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -3.8,
+      "expected_return_5d_mid_pct": -0.73,
+      "expected_return_5d_high_pct": 2.33,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 201.42,
+      "suggested_target_pkr": 225.51,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.30). Drivers (1): RSI 27.9 — oversold, bounce setup. Risks (3): Weakening 60d momentum -5.1%. Macro verdict: STRONG TAILWIND (stock score +3). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "RSI 27.9 — oversold, bounce setup"
+      ],
+      "key_risks": [
+        "Weakening 60d momentum -5.1%",
+        "20d weakness -6.4%",
+        "Price -0.1% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+        "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=225.51 / entry=218.94 / stop=201.42 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is BUY (score +8). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "HUBC",
+          "sector": "Power",
+          "sector_score": 3,
+          "stock_score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 218.94,
+        "ret_5d": -0.0172,
+        "ret_21d": -0.0327,
+        "ret_63d": 0.0282,
+        "mom_20d_log": -0.0642,
+        "mom_60d_log": -0.0514,
+        "mom_150d_log": -0.0227,
+        "mom_250d_log": 0.3907,
+        "rvol_20d_ann": 0.2174,
+        "rvol_regime": "stable",
+        "rsi_14": 27.9,
+        "px_vs_sma200_pct": -0.07,
+        "trend": "up",
+        "momentum_rank_today": 17,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-INDU",
+      "generated_at": "2026-07-21T06:45:29+00:00",
+      "symbol": "INDU",
+      "sector": "Autos",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 1937.1,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.0,
+      "expected_return_5d_mid_pct": -0.21,
+      "expected_return_5d_high_pct": 1.57,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 1782.13,
+      "suggested_target_pkr": 1995.21,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score -0.15). Drivers (1): RSI 13.6 — oversold, bounce setup. Risks (2): 20d weakness -6.1%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "RSI 13.6 — oversold, bounce setup"
+      ],
+      "key_risks": [
+        "20d weakness -6.1%",
+        "Price -4.4% below 200-day SMA"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "INDU",
+          "sector": "Autos",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 1937.1,
+        "ret_5d": -0.0168,
+        "ret_21d": -0.0694,
+        "ret_63d": -0.02,
+        "mom_20d_log": -0.0612,
+        "mom_60d_log": -0.0314,
+        "mom_150d_log": -0.023,
+        "mom_250d_log": -0.0776,
+        "rvol_20d_ann": 0.1267,
+        "rvol_regime": "falling",
+        "rsi_14": 13.6,
+        "px_vs_sma200_pct": -4.37,
+        "trend": "down",
+        "momentum_rank_today": 18,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Daily oil revisions to hurt industry"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-KAPCO",
+      "generated_at": "2026-07-21T06:45:18+00:00",
+      "symbol": "KAPCO",
+      "sector": "Power",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 27.79,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.38,
+      "expected_return_5d_mid_pct": -0.58,
+      "expected_return_5d_high_pct": 1.23,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 25.57,
+      "suggested_target_pkr": 28.62,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (0): none material. Risks (2): Negative 150d momentum -10.6%. Macro verdict: STRONG TAILWIND (stock score +3). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -10.6%",
+        "Price -9.4% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+        "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=28.62 / entry=27.79 / stop=25.57 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is ADD (score +5). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "KAPCO",
+          "sector": "Power",
+          "sector_score": 3,
+          "stock_score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 27.79,
+        "ret_5d": -0.0018,
+        "ret_21d": -0.0145,
+        "ret_63d": -0.0229,
+        "mom_20d_log": -0.0114,
+        "mom_60d_log": -0.0433,
+        "mom_150d_log": -0.1058,
+        "mom_250d_log": -0.1976,
+        "rvol_20d_ann": 0.1279,
+        "rvol_regime": "stable",
+        "rsi_14": 39.8,
+        "px_vs_sma200_pct": -9.41,
+        "trend": "mixed",
+        "momentum_rank_today": 28,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-KEL",
+      "generated_at": "2026-07-21T06:45:20+00:00",
+      "symbol": "KEL",
+      "sector": "Power",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 7.28,
+      "direction": "BULLISH",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -3.71,
+      "expected_return_5d_mid_pct": 1.44,
+      "expected_return_5d_high_pct": 6.59,
+      "suggested_action": "ADD",
+      "suggested_stop_pkr": 6.7,
+      "suggested_target_pkr": 7.76,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.35). Drivers (3): Strong 150d momentum +27.1%. Risks (2): Weakening 60d momentum -12.0%. Macro verdict: STRONG TAILWIND (stock score +3). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +27.1%",
+        "Price +2.4% above 200-day SMA",
+        "RSI 19.5 — oversold, bounce setup"
+      ],
+      "key_risks": [
+        "Weakening 60d momentum -12.0%",
+        "20d weakness -14.8%"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+        "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[warn] LLM is BULLISH but the seven-lens synthesizer verdict is TRIM (score -5). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "KEL",
+          "sector": "Power",
+          "sector_score": 3,
+          "stock_score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 7.28,
+        "ret_5d": -0.082,
+        "ret_21d": -0.1292,
+        "ret_63d": -0.0408,
+        "mom_20d_log": -0.1479,
+        "mom_60d_log": -0.1202,
+        "mom_150d_log": 0.2713,
+        "mom_250d_log": 0.3155,
+        "rvol_20d_ann": 0.3655,
+        "rvol_regime": "stable",
+        "rsi_14": 19.5,
+        "px_vs_sma200_pct": 2.44,
+        "trend": "mixed",
+        "momentum_rank_today": 3,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-KOHC",
+      "generated_at": "2026-07-21T06:44:56+00:00",
+      "symbol": "KOHC",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 95.11,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -6.3,
+      "expected_return_5d_mid_pct": -1.53,
+      "expected_return_5d_high_pct": 3.25,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 87.5,
+      "suggested_target_pkr": 98.2,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (1): RSI 19.8 — oversold, bounce setup. Risks (3): Negative 150d momentum -8.6%. Macro verdict: HEADWIND (stock score -2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "RSI 19.8 — oversold, bounce setup"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -8.6%",
+        "20d weakness -10.2%",
+        "Price -2.6% below 200-day SMA"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=98.2 / entry=95.11 / stop=87.5 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "verdict": "HEADWIND"
+        },
+        "by_symbol": {
+          "symbol": "KOHC",
+          "sector": "Cement",
+          "sector_score": -2,
+          "stock_score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "amplifier_note": "",
+          "verdict": "HEADWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 95.11,
+        "ret_5d": -0.0506,
+        "ret_21d": -0.0907,
+        "ret_63d": 0.0277,
+        "mom_20d_log": -0.102,
+        "mom_60d_log": -0.0006,
+        "mom_150d_log": -0.0855,
+        "mom_250d_log": 0.122,
+        "rvol_20d_ann": 0.339,
+        "rvol_regime": "falling",
+        "rsi_14": 19.8,
+        "px_vs_sma200_pct": -2.61,
+        "trend": "mixed",
+        "momentum_rank_today": 26,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-LOTCHEM",
+      "generated_at": "2026-07-21T06:45:24+00:00",
+      "symbol": "LOTCHEM",
+      "sector": "Conglomerate/Chem",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 29.65,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -4.07,
+      "expected_return_5d_mid_pct": 1.29,
+      "expected_return_5d_high_pct": 6.65,
+      "suggested_action": "ADD",
+      "suggested_stop_pkr": 27.28,
+      "suggested_target_pkr": 31.62,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.30). Drivers (2): Positive 150d momentum +7.8%. Risks (0): none material. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +7.8%",
+        "Price +9.6% above 200-day SMA"
+      ],
+      "key_risks": [
+        "No material risks flagged"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+        "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Conglomerate/Chem",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "LOTCHEM",
+          "sector": "Conglomerate/Chem",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Wider naphtha-to-PVC spread in some configurations; mixed for downstream.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 29.65,
+        "ret_5d": -0.0626,
+        "ret_21d": 0.0455,
+        "ret_63d": 0.1922,
+        "mom_20d_log": 0.0322,
+        "mom_60d_log": -0.0084,
+        "mom_150d_log": 0.0782,
+        "mom_250d_log": 0.3608,
+        "rvol_20d_ann": 0.3806,
+        "rvol_regime": "stable",
+        "rsi_14": 58.6,
+        "px_vs_sma200_pct": 9.59,
+        "trend": "up",
+        "momentum_rank_today": 11,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-LUCK",
+      "generated_at": "2026-07-21T06:45:10+00:00",
+      "symbol": "LUCK",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 446.42,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.93,
+      "expected_return_5d_mid_pct": -0.82,
+      "expected_return_5d_high_pct": 3.28,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 410.71,
+      "suggested_target_pkr": 461.08,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score -0.25). Drivers (1): Price +0.2% above 200-day SMA. Risks (2): Negative 150d momentum -6.4%. Macro verdict: HEADWIND (stock score -2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Price +0.2% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -6.4%",
+        "20d weakness -5.5%"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "verdict": "HEADWIND"
+        },
+        "by_symbol": {
+          "symbol": "LUCK",
+          "sector": "Cement",
+          "sector_score": -2,
+          "stock_score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "amplifier_note": "",
+          "verdict": "HEADWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 446.42,
+        "ret_5d": -0.0284,
+        "ret_21d": -0.0514,
+        "ret_63d": 0.0278,
+        "mom_20d_log": -0.0548,
+        "mom_60d_log": -0.0066,
+        "mom_150d_log": -0.0643,
+        "mom_250d_log": 0.2187,
+        "rvol_20d_ann": 0.2914,
+        "rvol_regime": "stable",
+        "rsi_14": 37.9,
+        "px_vs_sma200_pct": 0.25,
+        "trend": "up",
+        "momentum_rank_today": 22,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-MARI",
+      "generated_at": "2026-07-21T06:45:09+00:00",
+      "symbol": "MARI",
+      "sector": "Oil & Gas E&P",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 650.12,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -3.83,
+      "expected_return_5d_mid_pct": -0.84,
+      "expected_return_5d_high_pct": 2.15,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 598.11,
+      "suggested_target_pkr": 669.62,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.35). Drivers (1): Playbook overlay (symbol MARI): +0.05 score bias. Risks (2): Negative 150d momentum -8.1%. Macro verdict: STRONG TAILWIND (stock score +4). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Playbook overlay (symbol MARI): +0.05 score bias"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -8.1%",
+        "Price -4.5% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+        "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=669.62 / entry=650.12 / stop=598.11 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is ADD (score +4). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 4,
+          "tailwinds": [
+            "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MARI",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 4,
+          "stock_score": 4,
+          "tailwinds": [
+            "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 650.12,
+        "ret_5d": -0.0295,
+        "ret_21d": -0.0296,
+        "ret_63d": -0.01,
+        "mom_20d_log": -0.0227,
+        "mom_60d_log": -0.0388,
+        "mom_150d_log": -0.0805,
+        "mom_250d_log": 0.0473,
+        "rvol_20d_ann": 0.2124,
+        "rvol_regime": "stable",
+        "rsi_14": 38.6,
+        "px_vs_sma200_pct": -4.55,
+        "trend": "mixed",
+        "momentum_rank_today": 25,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 5,
+        "news_headlines": [
+          "PSX gains 2,000 points during intraday trade",
+          "Pakistan State Oil to be sole diesel importer in FY27",
+          "Three-pronged strategy devised for seamless oil supply",
+          "Daily oil revisions to hurt industry",
+          "Ex-Oilers and Maple Leafs goalie Jack Campbell retires from hockey to pursue life coaching"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-MCB",
+      "generated_at": "2026-07-21T06:44:59+00:00",
+      "symbol": "MCB",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 401.72,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.27,
+      "expected_return_5d_mid_pct": 1.78,
+      "expected_return_5d_high_pct": 5.83,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 369.58,
+      "suggested_target_pkr": 425.15,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.55). Drivers (3): Positive 150d momentum +11.7%. Risks (0): none material. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +11.7%",
+        "Price +3.2% above 200-day SMA",
+        "In Phase-1 top-5 today"
+      ],
+      "key_risks": [
+        "No material risks flagged"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MCB",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "amplifier_note": "MCB is a CASA-rich tier-1 bank — bigger NIM expansion on rate-up days (+1 notch).",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 401.72,
+        "ret_5d": -0.0262,
+        "ret_21d": -0.0168,
+        "ret_63d": -0.0096,
+        "mom_20d_log": -0.0133,
+        "mom_60d_log": -0.0398,
+        "mom_150d_log": 0.117,
+        "mom_250d_log": 0.1485,
+        "rvol_20d_ann": 0.2875,
+        "rvol_regime": "rising",
+        "rsi_14": 47.8,
+        "px_vs_sma200_pct": 3.25,
+        "trend": "up",
+        "momentum_rank_today": 8,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Julius Baer posts H1 net profit of $831 million",
+          "Profit repatriation hits $2.31b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-MEBL",
+      "generated_at": "2026-07-21T06:45:00+00:00",
+      "symbol": "MEBL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 540.0,
+      "direction": "BULLISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -1.93,
+      "expected_return_5d_mid_pct": 2.9,
+      "expected_return_5d_high_pct": 7.74,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 496.8,
+      "suggested_target_pkr": 581.79,
+      "rationale": "Rule-based call: BULLISH with HIGH conviction (score +0.75). Drivers (3): Strong 150d momentum +21.4%. Risks (0): none material. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +21.4%",
+        "Price +14.6% above 200-day SMA",
+        "In Phase-1 top-5 today"
+      ],
+      "key_risks": [
+        "No material risks flagged"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MEBL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "amplifier_note": "MEBL is a CASA-rich tier-1 bank — bigger NIM expansion on rate-up days (+1 notch).",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 540.0,
+        "ret_5d": -0.0129,
+        "ret_21d": 0.055,
+        "ret_63d": 0.1079,
+        "mom_20d_log": 0.0478,
+        "mom_60d_log": 0.0828,
+        "mom_150d_log": 0.2143,
+        "mom_250d_log": 0.417,
+        "rvol_20d_ann": 0.3434,
+        "rvol_regime": "rising",
+        "rsi_14": 58.2,
+        "px_vs_sma200_pct": 14.61,
+        "trend": "up",
+        "momentum_rank_today": 6,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Julius Baer posts H1 net profit of $831 million",
+          "Profit repatriation hits $2.31b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-MLCF",
+      "generated_at": "2026-07-21T06:44:42+00:00",
+      "symbol": "MLCF",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 96.36,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -8.82,
+      "expected_return_5d_mid_pct": -2.52,
+      "expected_return_5d_high_pct": 3.78,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 88.65,
+      "suggested_target_pkr": 100.0,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.50). Drivers (0): none material. Risks (3): Negative 150d momentum -9.5%. Macro verdict: HEADWIND (stock score -2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -9.5%",
+        "20d weakness -6.2%",
+        "Price -3.1% below 200-day SMA"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [
+        "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=100.0 / entry=96.36 / stop=88.65 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "verdict": "HEADWIND"
+        },
+        "by_symbol": {
+          "symbol": "MLCF",
+          "sector": "Cement",
+          "sector_score": -2,
+          "stock_score": -2,
+          "tailwinds": [],
+          "headwinds": [
+            "-2 | Brent crude: +13.7% in 21d — Furnace-oil and freight costs rise; coal-fired kilns also pay more for delivered fuel."
+          ],
+          "amplifier_note": "",
+          "verdict": "HEADWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 96.36,
+        "ret_5d": -0.0454,
+        "ret_21d": -0.0242,
+        "ret_63d": 0.0273,
+        "mom_20d_log": -0.0615,
+        "mom_60d_log": 0.0051,
+        "mom_150d_log": -0.0952,
+        "mom_250d_log": 0.137,
+        "rvol_20d_ann": 0.4475,
+        "rvol_regime": "stable",
+        "rsi_14": 34.3,
+        "px_vs_sma200_pct": -3.09,
+        "trend": "mixed",
+        "momentum_rank_today": 27,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Ex-Oilers and Maple Leafs goalie Jack Campbell retires from hockey to pursue life coaching"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-NBP",
+      "generated_at": "2026-07-21T06:45:08+00:00",
+      "symbol": "NBP",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 203.53,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -6.88,
+      "expected_return_5d_mid_pct": -1.67,
+      "expected_return_5d_high_pct": 3.54,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 187.25,
+      "suggested_target_pkr": 210.74,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (0): none material. Risks (2): Negative 150d momentum -7.8%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -7.8%",
+        "Price -6.7% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=210.74 / entry=203.53 / stop=187.25 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is BUY (score +8). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "NBP",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 203.53,
+        "ret_5d": -0.0084,
+        "ret_21d": -0.0164,
+        "ret_63d": 0.0789,
+        "mom_20d_log": -0.0192,
+        "mom_60d_log": -0.0448,
+        "mom_150d_log": -0.0785,
+        "mom_250d_log": 0.4879,
+        "rvol_20d_ann": 0.37,
+        "rvol_regime": "stable",
+        "rsi_14": 54.0,
+        "px_vs_sma200_pct": -6.73,
+        "trend": "mixed",
+        "momentum_rank_today": 24,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Julius Baer posts H1 net profit of $831 million",
+          "Profit repatriation hits $2.31b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-NPL",
+      "generated_at": "2026-07-21T06:44:49+00:00",
+      "symbol": "NPL",
+      "sector": "Power",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 67.31,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.99,
+      "expected_return_5d_mid_pct": 1.25,
+      "expected_return_5d_high_pct": 7.48,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 61.93,
+      "suggested_target_pkr": 72.34,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.25). Drivers (2): Strong 150d momentum +44.5%. Risks (2): Weakening 60d momentum -17.8%. Macro verdict: STRONG TAILWIND (stock score +3). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +44.5%",
+        "Price +4.3% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Weakening 60d momentum -17.8%",
+        "20d weakness -15.6%"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+        "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "NPL",
+          "sector": "Power",
+          "sector_score": 3,
+          "stock_score": 3,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Furnace-oil-fired plants get fuel-cost pass-through under PPA indexation.",
+            "+2 | FX reserves: SBP USD 17.2 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 67.31,
+        "ret_5d": 0.0037,
+        "ret_21d": -0.1272,
+        "ret_63d": -0.1049,
+        "mom_20d_log": -0.1558,
+        "mom_60d_log": -0.1782,
+        "mom_150d_log": 0.4451,
+        "mom_250d_log": 0.6258,
+        "rvol_20d_ann": 0.4425,
+        "rvol_regime": "stable",
+        "rsi_14": 35.2,
+        "px_vs_sma200_pct": 4.35,
+        "trend": "mixed",
+        "momentum_rank_today": 1,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-OGDC",
+      "generated_at": "2026-07-21T06:44:44+00:00",
+      "symbol": "OGDC",
+      "sector": "Oil & Gas E&P",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 318.22,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -1.9,
+      "expected_return_5d_mid_pct": 1.26,
+      "expected_return_5d_high_pct": 4.42,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 292.76,
+      "suggested_target_pkr": 332.3,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.50). Drivers (4): Positive 150d momentum +14.8%. Risks (1): 20d weakness -5.8%. Macro verdict: STRONG TAILWIND (stock score +4). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +14.8%",
+        "Price +8.4% above 200-day SMA",
+        "In Phase-1 top-5 today",
+        "Playbook overlay (symbol OGDC): +0.05 score bias"
+      ],
+      "key_risks": [
+        "20d weakness -5.8%"
+      ],
+      "macro_tailwinds": [
+        "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+        "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 4,
+          "tailwinds": [
+            "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "OGDC",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 4,
+          "stock_score": 4,
+          "tailwinds": [
+            "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 318.22,
+        "ret_5d": -0.0403,
+        "ret_21d": -0.0474,
+        "ret_63d": 0.062,
+        "mom_20d_log": -0.0579,
+        "mom_60d_log": -0.0202,
+        "mom_150d_log": 0.1483,
+        "mom_250d_log": 0.3543,
+        "rvol_20d_ann": 0.2243,
+        "rvol_regime": "stable",
+        "rsi_14": 34.5,
+        "px_vs_sma200_pct": 8.38,
+        "trend": "up",
+        "momentum_rank_today": 7,
+        "in_phase1_top5": true,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 5,
+        "news_headlines": [
+          "PSX gains 2,000 points during intraday trade",
+          "Pakistan State Oil to be sole diesel importer in FY27",
+          "Three-pronged strategy devised for seamless oil supply",
+          "Daily oil revisions to hurt industry",
+          "Ex-Oilers and Maple Leafs goalie Jack Campbell retires from hockey to pursue life coaching"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-PABC",
+      "generated_at": "2026-07-21T06:44:41+00:00",
+      "symbol": "PABC",
+      "sector": "Misc",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 104.06,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.72,
+      "expected_return_5d_mid_pct": -1.96,
+      "expected_return_5d_high_pct": 1.81,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 95.74,
+      "suggested_target_pkr": 107.18,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.65). Drivers (0): none material. Risks (4): Negative 150d momentum -21.0%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -21.0%",
+        "Weakening 60d momentum -10.3%",
+        "20d weakness -9.8%",
+        "Price -11.8% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise — supply-chain relief."
+      ],
+      "macro_headwinds": [
+        "-1 | Brent crude: +13.7% in 21d — Energy-intensive aluminium manufacturing pays more for power and freight."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=107.18 / entry=104.06 / stop=95.74 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Misc",
+          "score": 0,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise — supply-chain relief."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: +13.7% in 21d — Energy-intensive aluminium manufacturing pays more for power and freight."
+          ],
+          "verdict": "NEUTRAL"
+        },
+        "by_symbol": {
+          "symbol": "PABC",
+          "sector": "Misc",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Imports normalise — supply-chain relief."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: +13.7% in 21d — Energy-intensive aluminium manufacturing pays more for power and freight."
+          ],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 104.06,
+        "ret_5d": -0.0245,
+        "ret_21d": -0.1016,
+        "ret_63d": -0.066,
+        "mom_20d_log": -0.0976,
+        "mom_60d_log": -0.1028,
+        "mom_150d_log": -0.2097,
+        "mom_250d_log": -0.4018,
+        "rvol_20d_ann": 0.267,
+        "rvol_regime": "stable",
+        "rsi_14": 31.2,
+        "px_vs_sma200_pct": -11.75,
+        "trend": "mixed",
+        "momentum_rank_today": 33,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "US technology firm proposes refinery modernisation plan for Pakistan in meeting with finance minister",
+          "Three-pronged strategy devised for seamless oil supply"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-POL",
+      "generated_at": "2026-07-21T06:44:50+00:00",
+      "symbol": "POL",
+      "sector": "Oil & Gas E&P",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 682.24,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -0.79,
+      "expected_return_5d_mid_pct": 0.25,
+      "expected_return_5d_high_pct": 1.29,
+      "suggested_action": "ADD",
+      "suggested_stop_pkr": 627.66,
+      "suggested_target_pkr": 702.71,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.30). Drivers (2): Positive 150d momentum +10.0%. Risks (0): none material. Macro verdict: STRONG TAILWIND (stock score +4). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +10.0%",
+        "Price +5.3% above 200-day SMA"
+      ],
+      "key_risks": [
+        "No material risks flagged"
+      ],
+      "macro_tailwinds": [
+        "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+        "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 4,
+          "tailwinds": [
+            "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "POL",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 4,
+          "stock_score": 4,
+          "tailwinds": [
+            "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 682.24,
+        "ret_5d": 0.0037,
+        "ret_21d": -0.0227,
+        "ret_63d": 0.0474,
+        "mom_20d_log": -0.0242,
+        "mom_60d_log": 0.0272,
+        "mom_150d_log": 0.1,
+        "mom_250d_log": 0.1205,
+        "rvol_20d_ann": 0.074,
+        "rvol_regime": "stable",
+        "rsi_14": 39.4,
+        "px_vs_sma200_pct": 5.31,
+        "trend": "up",
+        "momentum_rank_today": 9,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 6,
+        "news_headlines": [
+          "PSX gains 2,000 points during intraday trade",
+          "Pakistan State Oil to be sole diesel importer in FY27",
+          "Three-pronged strategy devised for seamless oil supply",
+          "Geopolitics spurs data localisation",
+          "Daily oil revisions to hurt industry"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-PPL",
+      "generated_at": "2026-07-21T06:44:47+00:00",
+      "symbol": "PPL",
+      "sector": "Oil & Gas E&P",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 220.17,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.64,
+      "expected_return_5d_mid_pct": -0.77,
+      "expected_return_5d_high_pct": 3.09,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 202.56,
+      "suggested_target_pkr": 226.98,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.25). Drivers (2): RSI 27.3 — oversold, bounce setup. Risks (3): Weakening 60d momentum -8.0%. Macro verdict: STRONG TAILWIND (stock score +4). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "RSI 27.3 — oversold, bounce setup",
+        "Playbook overlay (symbol PPL): +0.05 score bias"
+      ],
+      "key_risks": [
+        "Weakening 60d momentum -8.0%",
+        "20d weakness -12.3%",
+        "Price -1.0% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+        "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=226.98 / entry=220.17 / stop=202.56 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is ADD (score +5). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 4,
+          "tailwinds": [
+            "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "STRONG TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "PPL",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 4,
+          "stock_score": 4,
+          "tailwinds": [
+            "+3 | Brent crude: +13.7% in 21d — Direct revenue lift on every barrel produced — the strongest single driver for the sector.",
+            "+1 | FX reserves: SBP USD 17.2 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "STRONG TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 220.17,
+        "ret_5d": -0.0527,
+        "ret_21d": -0.1035,
+        "ret_63d": 0.0067,
+        "mom_20d_log": -0.1233,
+        "mom_60d_log": -0.0797,
+        "mom_150d_log": 0.0034,
+        "mom_250d_log": 0.3003,
+        "rvol_20d_ann": 0.2744,
+        "rvol_regime": "falling",
+        "rsi_14": 27.3,
+        "px_vs_sma200_pct": -1.04,
+        "trend": "up",
+        "momentum_rank_today": 14,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 6,
+        "news_headlines": [
+          "Copper gains on Chinese demand, tight stocks",
+          "PSX gains 2,000 points during intraday trade",
+          "Pakistan State Oil to be sole diesel importer in FY27",
+          "Three-pronged strategy devised for seamless oil supply",
+          "Daily oil revisions to hurt industry"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-PSO",
+      "generated_at": "2026-07-21T06:45:02+00:00",
+      "symbol": "PSO",
+      "sector": "OMC/Refining",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 346.52,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -3.67,
+      "expected_return_5d_mid_pct": -1.12,
+      "expected_return_5d_high_pct": 1.43,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 318.8,
+      "suggested_target_pkr": 356.92,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.55). Drivers (0): none material. Risks (3): Negative 150d momentum -30.0%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -30.0%",
+        "Weakening 60d momentum -8.9%",
+        "Price -15.8% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+        "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=356.92 / entry=346.52 / stop=318.8 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is BUY (score +6). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "OMC/Refining",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "PSO",
+          "sector": "OMC/Refining",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Brent crude: +13.7% in 21d — Inventory revaluation gains; refining margins can widen short-term.",
+            "+1 | FX reserves: SBP USD 17.2 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 346.52,
+        "ret_5d": -0.0284,
+        "ret_21d": -0.051,
+        "ret_63d": -0.0433,
+        "mom_20d_log": -0.0409,
+        "mom_60d_log": -0.0889,
+        "mom_150d_log": -0.2996,
+        "mom_250d_log": -0.0887,
+        "rvol_20d_ann": 0.1809,
+        "rvol_regime": "stable",
+        "rsi_14": 54.4,
+        "px_vs_sma200_pct": -15.8,
+        "trend": "down",
+        "momentum_rank_today": 35,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 3,
+        "news_headlines": [
+          "US technology firm proposes refinery modernisation plan for Pakistan in meeting with finance minister",
+          "Pakistan State Oil to be sole diesel importer in FY27",
+          "Three-pronged strategy devised for seamless oil supply"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-SEARL",
+      "generated_at": "2026-07-21T06:44:57+00:00",
+      "symbol": "SEARL",
+      "sector": "Pharma",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 92.69,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -6.02,
+      "expected_return_5d_mid_pct": -1.84,
+      "expected_return_5d_high_pct": 2.34,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 85.27,
+      "suggested_target_pkr": 95.47,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.55). Drivers (0): none material. Risks (3): Negative 150d momentum -17.1%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -17.1%",
+        "Weakening 60d momentum -6.0%",
+        "Price -9.3% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — API import flow normalises — gross margins stabilise."
+      ],
+      "macro_headwinds": [
+        "-1 | Brent crude: +13.7% in 21d — Packaging and freight costs rise; DRAP price caps limit pass-through."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=95.47 / entry=92.69 / stop=85.27 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Pharma",
+          "score": 0,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — API import flow normalises — gross margins stabilise."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: +13.7% in 21d — Packaging and freight costs rise; DRAP price caps limit pass-through."
+          ],
+          "verdict": "NEUTRAL"
+        },
+        "by_symbol": {
+          "symbol": "SEARL",
+          "sector": "Pharma",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — API import flow normalises — gross margins stabilise."
+          ],
+          "headwinds": [
+            "-1 | Brent crude: +13.7% in 21d — Packaging and freight costs rise; DRAP price caps limit pass-through."
+          ],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 92.69,
+        "ret_5d": -0.0151,
+        "ret_21d": -0.0376,
+        "ret_63d": -0.0113,
+        "mom_20d_log": -0.0343,
+        "mom_60d_log": -0.0602,
+        "mom_150d_log": -0.1707,
+        "mom_250d_log": -0.0169,
+        "rvol_20d_ann": 0.2966,
+        "rvol_regime": "stable",
+        "rsi_14": 45.1,
+        "px_vs_sma200_pct": -9.29,
+        "trend": "mixed",
+        "momentum_rank_today": 32,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-SYS",
+      "generated_at": "2026-07-21T06:45:26+00:00",
+      "symbol": "SYS",
+      "sector": "Technology",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 137.26,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.31,
+      "expected_return_5d_mid_pct": -1.32,
+      "expected_return_5d_high_pct": 1.68,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 126.28,
+      "suggested_target_pkr": 141.38,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.55). Drivers (1): RSI 28.1 — oversold, bounce setup. Risks (4): Negative 150d momentum -16.1%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "RSI 28.1 — oversold, bounce setup"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -16.1%",
+        "Weakening 60d momentum -11.8%",
+        "20d weakness -12.3%",
+        "Price -8.5% below 200-day SMA"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=141.38 / entry=137.26 / stop=126.28 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "SYS",
+          "sector": "Technology",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 137.26,
+        "ret_5d": -0.0324,
+        "ret_21d": -0.1175,
+        "ret_63d": -0.0976,
+        "mom_20d_log": -0.1226,
+        "mom_60d_log": -0.1185,
+        "mom_150d_log": -0.1608,
+        "mom_250d_log": 0.1397,
+        "rvol_20d_ann": 0.2125,
+        "rvol_regime": "stable",
+        "rsi_14": 28.1,
+        "px_vs_sma200_pct": -8.53,
+        "trend": "down",
+        "momentum_rank_today": 31,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-TRG",
+      "generated_at": "2026-07-21T06:45:27+00:00",
+      "symbol": "TRG",
+      "sector": "Technology",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 60.22,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -9.53,
+      "expected_return_5d_mid_pct": -2.72,
+      "expected_return_5d_high_pct": 4.08,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 55.4,
+      "suggested_target_pkr": 62.68,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.50). Drivers (0): none material. Risks (3): Negative 150d momentum -24.8%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -24.8%",
+        "20d weakness -14.8%",
+        "Price -8.2% below 200-day SMA"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=62.68 / entry=60.22 / stop=55.4 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "TRG",
+          "sector": "Technology",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 60.22,
+        "ret_5d": -0.0599,
+        "ret_21d": -0.1391,
+        "ret_63d": 0.0458,
+        "mom_20d_log": -0.1482,
+        "mom_60d_log": 0.002,
+        "mom_150d_log": -0.2476,
+        "mom_250d_log": 0.0755,
+        "rvol_20d_ann": 0.4831,
+        "rvol_regime": "stable",
+        "rsi_14": 41.5,
+        "px_vs_sma200_pct": -8.18,
+        "trend": "down",
+        "momentum_rank_today": 34,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "South Korean shares rally after two-day rout, won eases from 10-week high",
+          "Copper gains on Chinese demand, tight stocks",
+          "Corn, soybeans decline as US crop ratings top expectations",
+          "Julius Baer posts H1 net profit of $831 million",
+          "Novartis Q2 profit up as generic competition mounts"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-07-21-UBL",
+      "generated_at": "2026-07-21T06:45:05+00:00",
+      "symbol": "UBL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 471.94,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.36,
+      "expected_return_5d_mid_pct": 3.01,
+      "expected_return_5d_high_pct": 8.38,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 434.18,
+      "suggested_target_pkr": 511.47,
+      "rationale": "Rule-based call: BULLISH with HIGH conviction (score +0.70). Drivers (3): Strong 150d momentum +22.8%. Risks (0): none material. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +22.8%",
+        "Strong 60d momentum +14.8%",
+        "Price +14.2% above 200-day SMA"
+      ],
+      "key_risks": [
+        "No material risks flagged",
+        "GUARD B (chase detector): re-entry +4.0% above prior LONG on 2026-07-15 at 453.98; ADD HIGH -> HOLD MEDIUM."
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "critic_notes": [
+        {
+          "rule": "chase_the_tape",
+          "severity": "warn",
+          "action": "ADD/HIGH -> HOLD/MEDIUM",
+          "reason": "chase=+4.0% vs prior 453.98"
+        }
+      ],
+      "guards_applied": [
+        "chase_the_tape"
+      ],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Brent crude",
+            "tag": "oil_up",
+            "move": "+13.7% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Brent at 88.53 USD/bbl."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.2 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "UBL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.2 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.3978,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22675.5,
+          "reserves_sbp_usd_mn": 17225.8,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": 0.009999999999999787,
+          "reserves_change_30d": -66.20000000000073,
+          "kse100_close": 177930.73,
+          "kse100_ret_5d": 0.025426177138951234,
+          "kse100_ret_21d": -0.003032018605061748,
+          "cpi_yoy_pct": 11.1,
+          "cpi_period": "June",
+          "cpi_yoy_change_pp": -0.5999999999999996
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-07-30",
+        "days_until": 9,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-20",
+        "close_pkr": 471.94,
+        "ret_5d": -0.0094,
+        "ret_21d": 0.0601,
+        "ret_63d": 0.3259,
+        "mom_20d_log": 0.0587,
+        "mom_60d_log": 0.1483,
+        "mom_150d_log": 0.2284,
+        "mom_250d_log": 0.234,
+        "rvol_20d_ann": 0.3812,
+        "rvol_regime": "stable",
+        "rsi_14": 59.5,
+        "px_vs_sma200_pct": 14.15,
+        "trend": "up",
+        "momentum_rank_today": 5,
+        "in_phase1_top5": false,
+        "market_risk_on": true,
+        "fipi_foreign_net_pkr_mn": 0.63,
+        "fipi_local_net_pkr_mn": -0.64,
+        "policy_rate_pct": 11.5,
+        "brent_value": 88.53,
+        "brent_ret_21d": 0.1365,
+        "usdpkr_value": 277.72,
+        "usdpkr_ret_21d": 0.0034,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Julius Baer posts H1 net profit of $831 million",
+          "Profit repatriation hits $2.31b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
     }
   ]
 }
