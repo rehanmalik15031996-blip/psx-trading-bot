@@ -1,10 +1,10 @@
 {
-  "ts": "2026-07-21T07:13:42.208428",
+  "ts": "2026-07-22T07:15:20.736295",
   "pipeline": "v2",
   "model": "rule-based-v2",
   "fallback": true,
   "n_longs": 10,
-  "n_shorts": 0,
+  "n_shorts": 2,
   "regime": "NORMAL",
   "errors": [],
   "ok": true
