@@ -1,27 +1,24 @@
 {
   "workflow": "macro_kpis",
-  "ok": true,
-  "note": "3/3 sub-sources refreshed",
-  "as_of": "2026-07-31T06:27:30+00:00",
+  "ok": false,
+  "note": "2/3 sub-sources refreshed",
+  "as_of": "2026-07-31T13:40:19+00:00",
   "github": {
-    "run_id": "30609675427",
-    "run_number": "146",
+    "run_id": "30635322500",
+    "run_number": "147",
     "ref": "refs/heads/main",
-    "sha": "90a8d9a73fc69d7311308336e8976f46d3934481"
+    "sha": "e404b362cd914f9d9fc6e375d4b5381d426d8c23"
   },
   "payload": {
     "sbp_rates": {
-      "ok": true,
-      "date": "2026-07-31",
-      "rows": 1711,
-      "tbill_3m_pct": 11.5154,
-      "reserves_total_usd_mn": 22442.1
+      "ok": false,
+      "error": "ReadTimeout: HTTPSConnectionPool(host='www.sbp.org.pk', port=443): Read timed out. (read timeout=15)"
     },
     "kse100": {
       "ok": true,
       "date": "2026-07-31",
       "rows": 469,
-      "kse100_close": 176932.0
+      "kse100_close": 176094.11
     },
     "cpi": {
       "ok": true,
