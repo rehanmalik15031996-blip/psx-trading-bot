@@ -1,20 +1,21 @@
 {
   "workflow": "financial_results",
   "ok": true,
-  "note": "new=5 total=177 errors=2",
-  "as_of": "2026-08-01T08:31:38+00:00",
+  "note": "new=9 total=186 errors=3",
+  "as_of": "2026-08-08T07:11:29+00:00",
   "github": {
-    "run_id": "30691854330",
-    "run_number": "16",
+    "run_id": "31245290725",
+    "run_number": "17",
     "ref": "refs/heads/main",
-    "sha": "886954761896e8b817436febbd8e3d31309762ee"
+    "sha": "ca2af634016bf0b7b64b18923c7cdc79928c1bbf"
   },
   "payload": {
-    "new": 5,
-    "total": 177,
+    "new": 9,
+    "total": 186,
     "errors": [
       "OGDC/270842-1: download: HTTPError: 404 Client Error: Not Found for url: https://dps.psx.com.pk/download/document/270842-1.pdf",
-      "HBL/272195-1: download: HTTPError: 404 Client Error: Not Found for url: https://dps.psx.com.pk/download/document/272195-1.pdf"
+      "HBL/272195-1: download: HTTPError: 404 Client Error: Not Found for url: https://dps.psx.com.pk/download/document/272195-1.pdf",
+      "SYS: announcements: HTTPError: 502 Server Error: Bad Gateway for url: https://dps.psx.com.pk/company/SYS"
     ]
   }
 }
