@@ -1,5 +1,5 @@
 {
-  "computed_utc": "2026-08-02T05:29:35+00:00",
+  "computed_utc": "2026-08-09T03:43:51+00:00",
   "by_sector": {
     "Power": {
       "n": 4,
@@ -55,7 +55,7 @@
       "n": 7,
       "pe_med": 6.78,
       "pb_med": 1.34,
-      "yield_med": 7.08,
+      "yield_med": 6.88,
       "payout_med": 56.6,
       "members": [
         "BAHL",
@@ -82,7 +82,7 @@
     "Conglomerate/Chem": {
       "n": 3,
       "pe_med": 14.3,
-      "pb_med": 1.91,
+      "pb_med": 1.74,
       "yield_med": 12.05,
       "payout_med": 100.0,
       "members": [
@@ -105,8 +105,8 @@
       "n": 3,
       "pe_med": 9.78,
       "pb_med": 2.97,
-      "yield_med": 6.81,
-      "payout_med": 66.6,
+      "yield_med": 4.69,
+      "payout_med": 45.8,
       "members": [
         "EFERT",
         "FATIMA",
@@ -137,7 +137,7 @@
     "Consumer": {
       "n": 1,
       "pe_med": 16.35,
-      "pb_med": 8.24,
+      "pb_med": 7.23,
       "yield_med": 4.72,
       "payout_med": 77.2,
       "members": [
