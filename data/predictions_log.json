@@ -508726,6 +508726,5494 @@
         "stop_triggered": null,
         "target_triggered": null
       }
+    },
+    {
+      "prediction_id": "2026-08-17-APL",
+      "generated_at": "2026-08-17T05:02:18+00:00",
+      "symbol": "APL",
+      "sector": "OMC/Refining",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 533.66,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.17,
+      "expected_return_5d_mid_pct": -0.53,
+      "expected_return_5d_high_pct": 1.12,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 490.97,
+      "suggested_target_pkr": 549.67,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (0): none material. Risks (3): Weakening 60d momentum -9.6%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Weakening 60d momentum -9.6%",
+        "Price -3.8% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=549.67 / entry=533.66 / stop=490.97 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "OMC/Refining",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "APL",
+          "sector": "OMC/Refining",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 533.66,
+        "ret_5d": 0.0053,
+        "ret_21d": -0.0153,
+        "ret_63d": -0.0471,
+        "mom_20d_log": -0.0463,
+        "mom_60d_log": -0.0961,
+        "mom_150d_log": -0.0192,
+        "mom_250d_log": 0.0302,
+        "rvol_20d_ann": 0.1169,
+        "rvol_regime": "falling",
+        "rsi_14": 34.4,
+        "px_vs_sma200_pct": -3.82,
+        "trend": "mixed",
+        "momentum_rank_today": 13,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Circular debt jumps by Rs364b",
+          "Germany may continue to run some coal plants"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-ATRL",
+      "generated_at": "2026-08-17T05:02:46+00:00",
+      "symbol": "ATRL",
+      "sector": "OMC/Refining",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 968.1,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.24,
+      "expected_return_5d_mid_pct": 1.76,
+      "expected_return_5d_high_pct": 5.75,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 890.65,
+      "suggested_target_pkr": 1023.77,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.55). Drivers (4): Strong 150d momentum +40.3%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +40.3%",
+        "Strong 20d momentum +10.0%",
+        "Price +21.5% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
+      ],
+      "key_risks": [
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "OMC/Refining",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "ATRL",
+          "sector": "OMC/Refining",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 968.1,
+        "ret_5d": 0.0526,
+        "ret_21d": 0.1069,
+        "ret_63d": 0.012,
+        "mom_20d_log": 0.1003,
+        "mom_60d_log": 0.054,
+        "mom_150d_log": 0.4031,
+        "mom_250d_log": 0.3901,
+        "rvol_20d_ann": 0.2835,
+        "rvol_regime": "rising",
+        "rsi_14": 60.1,
+        "px_vs_sma200_pct": 21.52,
+        "trend": "up",
+        "momentum_rank_today": 1,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Circular debt jumps by Rs364b",
+          "Germany may continue to run some coal plants"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-BAHL",
+      "generated_at": "2026-08-17T05:02:31+00:00",
+      "symbol": "BAHL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 171.0,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -3.19,
+      "expected_return_5d_mid_pct": -0.91,
+      "expected_return_5d_high_pct": 1.37,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 157.32,
+      "suggested_target_pkr": 176.13,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.50). Drivers (0): none material. Risks (3): Negative 150d momentum -8.6%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -8.6%",
+        "Price -3.9% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=176.13 / entry=171.0 / stop=157.32 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "BAHL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 171.0,
+        "ret_5d": 0.0099,
+        "ret_21d": -0.024,
+        "ret_63d": -0.0133,
+        "mom_20d_log": -0.0227,
+        "mom_60d_log": 0.0049,
+        "mom_150d_log": -0.0855,
+        "mom_250d_log": 0.0297,
+        "rvol_20d_ann": 0.1616,
+        "rvol_regime": "falling",
+        "rsi_14": 33.8,
+        "px_vs_sma200_pct": -3.91,
+        "trend": "mixed",
+        "momentum_rank_today": 20,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Construction uplift package being studied"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-COLG",
+      "generated_at": "2026-08-17T05:02:55+00:00",
+      "symbol": "COLG",
+      "sector": "Consumer",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 1239.25,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.45,
+      "expected_return_5d_mid_pct": 0.28,
+      "expected_return_5d_high_pct": 2.01,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 1140.11,
+      "suggested_target_pkr": 1276.43,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.20). Drivers (2): Strong 60d momentum +12.1%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 60d momentum +12.1%",
+        "Price +2.6% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "COLG",
+          "sector": "Consumer",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 1239.25,
+        "ret_5d": 0.0078,
+        "ret_21d": -0.0152,
+        "ret_63d": 0.1094,
+        "mom_20d_log": -0.0197,
+        "mom_60d_log": 0.1207,
+        "mom_150d_log": -0.0286,
+        "mom_250d_log": -0.0706,
+        "rvol_20d_ann": 0.1229,
+        "rvol_regime": "falling",
+        "rsi_14": 42.7,
+        "px_vs_sma200_pct": 2.65,
+        "trend": "mixed",
+        "momentum_rank_today": 15,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-DGKC",
+      "generated_at": "2026-08-17T05:02:37+00:00",
+      "symbol": "DGKC",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 207.31,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -9.59,
+      "expected_return_5d_mid_pct": -2.32,
+      "expected_return_5d_high_pct": 4.94,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 190.73,
+      "suggested_target_pkr": 217.55,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (1): Strong 60d momentum +16.5%. Risks (4): Negative 150d momentum -16.4%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 60d momentum +16.5%"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -16.4%",
+        "20d weakness -9.0%",
+        "Price -1.0% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=217.55 / entry=207.31 / stop=190.73 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "verdict": "NEUTRAL"
+        },
+        "by_symbol": {
+          "symbol": "DGKC",
+          "sector": "Cement",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 207.31,
+        "ret_5d": 0.0621,
+        "ret_21d": -0.0865,
+        "ret_63d": 0.1654,
+        "mom_20d_log": -0.0903,
+        "mom_60d_log": 0.1651,
+        "mom_150d_log": -0.1635,
+        "mom_250d_log": 0.209,
+        "rvol_20d_ann": 0.5158,
+        "rvol_regime": "stable",
+        "rsi_14": 42.8,
+        "px_vs_sma200_pct": -1.01,
+        "trend": "mixed",
+        "momentum_rank_today": 28,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Construction uplift package being studied",
+          "Germany may continue to run some coal plants"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-EFERT",
+      "generated_at": "2026-08-17T05:02:40+00:00",
+      "symbol": "EFERT",
+      "sector": "Fertilizer",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 188.24,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.0,
+      "expected_return_5d_mid_pct": -1.37,
+      "expected_return_5d_high_pct": 1.26,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 173.18,
+      "suggested_target_pkr": 193.89,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.65). Drivers (0): none material. Risks (4): Negative 150d momentum -14.9%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -14.9%",
+        "Weakening 60d momentum -5.5%",
+        "Price -11.1% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=193.89 / entry=188.24 / stop=173.18 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "EFERT",
+          "sector": "Fertilizer",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 188.24,
+        "ret_5d": 0.0046,
+        "ret_21d": -0.0531,
+        "ret_63d": -0.0629,
+        "mom_20d_log": -0.0471,
+        "mom_60d_log": -0.0547,
+        "mom_150d_log": -0.1494,
+        "mom_250d_log": -0.0845,
+        "rvol_20d_ann": 0.1866,
+        "rvol_regime": "stable",
+        "rsi_14": 39.8,
+        "px_vs_sma200_pct": -11.1,
+        "trend": "down",
+        "momentum_rank_today": 26,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-ENGROH",
+      "generated_at": "2026-08-17T05:02:48+00:00",
+      "symbol": "ENGROH",
+      "sector": "Conglomerate/Chem",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 274.16,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.68,
+      "expected_return_5d_mid_pct": 0.41,
+      "expected_return_5d_high_pct": 5.49,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 252.23,
+      "suggested_target_pkr": 289.21,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.10). Drivers (2): Positive 150d momentum +17.9%. Risks (2): 20d weakness -6.3%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +17.9%",
+        "Price +6.3% above 200-day SMA"
+      ],
+      "key_risks": [
+        "20d weakness -6.3%",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Conglomerate/Chem",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "ENGROH",
+          "sector": "Conglomerate/Chem",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 274.16,
+        "ret_5d": 0.0232,
+        "ret_21d": -0.0627,
+        "ret_63d": -0.0272,
+        "mom_20d_log": -0.0629,
+        "mom_60d_log": 0.0005,
+        "mom_150d_log": 0.1789,
+        "mom_250d_log": 0.259,
+        "rvol_20d_ann": 0.3609,
+        "rvol_regime": "stable",
+        "rsi_14": 47.9,
+        "px_vs_sma200_pct": 6.33,
+        "trend": "up",
+        "momentum_rank_today": 4,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-EPCL",
+      "generated_at": "2026-08-17T05:02:20+00:00",
+      "symbol": "EPCL",
+      "sector": "Conglomerate/Chem",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 33.74,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.55,
+      "expected_return_5d_mid_pct": 0.0,
+      "expected_return_5d_high_pct": 4.55,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 31.04,
+      "suggested_target_pkr": 35.28,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.00). Drivers (1): Price +3.4% above 200-day SMA. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Price +3.4% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Conglomerate/Chem",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "EPCL",
+          "sector": "Conglomerate/Chem",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 33.74,
+        "ret_5d": 0.0312,
+        "ret_21d": -0.0299,
+        "ret_63d": 0.0508,
+        "mom_20d_log": -0.0338,
+        "mom_60d_log": 0.0344,
+        "mom_150d_log": -0.0398,
+        "mom_250d_log": 0.098,
+        "rvol_20d_ann": 0.3233,
+        "rvol_regime": "stable",
+        "rsi_14": 34.3,
+        "px_vs_sma200_pct": 3.44,
+        "trend": "up",
+        "momentum_rank_today": 18,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-FABL",
+      "generated_at": "2026-08-17T05:02:11+00:00",
+      "symbol": "FABL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 100.36,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -2.45,
+      "expected_return_5d_mid_pct": 1.15,
+      "expected_return_5d_high_pct": 4.76,
+      "suggested_action": "ADD",
+      "suggested_stop_pkr": 92.33,
+      "suggested_target_pkr": 105.14,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.40). Drivers (3): Positive 150d momentum +11.2%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +11.2%",
+        "Strong 60d momentum +14.0%",
+        "Price +9.6% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "FABL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 100.36,
+        "ret_5d": 0.017,
+        "ret_21d": 0.0018,
+        "ret_63d": 0.1429,
+        "mom_20d_log": -0.0119,
+        "mom_60d_log": 0.1403,
+        "mom_150d_log": 0.1116,
+        "mom_250d_log": 0.2656,
+        "rvol_20d_ann": 0.256,
+        "rvol_regime": "stable",
+        "rsi_14": 51.9,
+        "px_vs_sma200_pct": 9.59,
+        "trend": "up",
+        "momentum_rank_today": 8,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Construction uplift package being studied"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-FATIMA",
+      "generated_at": "2026-08-17T05:02:42+00:00",
+      "symbol": "FATIMA",
+      "sector": "Fertilizer",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 155.03,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -4.39,
+      "expected_return_5d_mid_pct": 1.39,
+      "expected_return_5d_high_pct": 7.16,
+      "suggested_action": "ADD",
+      "suggested_stop_pkr": 142.63,
+      "suggested_target_pkr": 166.13,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.30). Drivers (3): Positive 150d momentum +7.5%. Risks (2): 20d weakness -5.5%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +7.5%",
+        "Strong 60d momentum +17.4%",
+        "Price +4.9% above 200-day SMA"
+      ],
+      "key_risks": [
+        "20d weakness -5.5%",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "FATIMA",
+          "sector": "Fertilizer",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 155.03,
+        "ret_5d": 0.0309,
+        "ret_21d": -0.0569,
+        "ret_63d": 0.1402,
+        "mom_20d_log": -0.0548,
+        "mom_60d_log": 0.1739,
+        "mom_150d_log": 0.0754,
+        "mom_250d_log": 0.3251,
+        "rvol_20d_ann": 0.4101,
+        "rvol_regime": "stable",
+        "rsi_14": 46.4,
+        "px_vs_sma200_pct": 4.88,
+        "trend": "up",
+        "momentum_rank_today": 10,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-FCCL",
+      "generated_at": "2026-08-17T05:02:17+00:00",
+      "symbol": "FCCL",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 54.18,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -6.51,
+      "expected_return_5d_mid_pct": 0.57,
+      "expected_return_5d_high_pct": 7.64,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 49.85,
+      "suggested_target_pkr": 58.32,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.10). Drivers (2): Strong 60d momentum +13.2%. Risks (2): 20d weakness -7.9%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 60d momentum +13.2%",
+        "Price +3.0% above 200-day SMA"
+      ],
+      "key_risks": [
+        "20d weakness -7.9%",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "verdict": "NEUTRAL"
+        },
+        "by_symbol": {
+          "symbol": "FCCL",
+          "sector": "Cement",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 54.18,
+        "ret_5d": 0.0472,
+        "ret_21d": -0.0756,
+        "ret_63d": 0.1001,
+        "mom_20d_log": -0.0794,
+        "mom_60d_log": 0.1324,
+        "mom_150d_log": -0.0354,
+        "mom_250d_log": 0.1742,
+        "rvol_20d_ann": 0.5021,
+        "rvol_regime": "stable",
+        "rsi_14": 49.9,
+        "px_vs_sma200_pct": 2.97,
+        "trend": "mixed",
+        "momentum_rank_today": 17,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Construction uplift package being studied",
+          "Germany may continue to run some coal plants"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-FFC",
+      "generated_at": "2026-08-17T05:02:38+00:00",
+      "symbol": "FFC",
+      "sector": "Fertilizer",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 565.38,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.38,
+      "expected_return_5d_mid_pct": 0.45,
+      "expected_return_5d_high_pct": 3.28,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 520.15,
+      "suggested_target_pkr": 583.94,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.20). Drivers (2): Strong 60d momentum +11.4%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 60d momentum +11.4%",
+        "Price +3.6% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "FFC",
+          "sector": "Fertilizer",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 565.38,
+        "ret_5d": 0.0597,
+        "ret_21d": -0.0121,
+        "ret_63d": 0.0771,
+        "mom_20d_log": -0.0199,
+        "mom_60d_log": 0.1144,
+        "mom_150d_log": -0.0341,
+        "mom_250d_log": 0.2115,
+        "rvol_20d_ann": 0.2009,
+        "rvol_regime": "stable",
+        "rsi_14": 56.3,
+        "px_vs_sma200_pct": 3.57,
+        "trend": "up",
+        "momentum_rank_today": 16,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-HBL",
+      "generated_at": "2026-08-17T05:02:28+00:00",
+      "symbol": "HBL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 303.67,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.88,
+      "expected_return_5d_mid_pct": -0.98,
+      "expected_return_5d_high_pct": 3.92,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 279.38,
+      "suggested_target_pkr": 315.57,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score -0.25). Drivers (1): Price +0.1% above 200-day SMA. Risks (2): Negative 150d momentum -5.4%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Price +0.1% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -5.4%",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "HBL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 303.67,
+        "ret_5d": 0.04,
+        "ret_21d": -0.0064,
+        "ret_63d": 0.0044,
+        "mom_20d_log": -0.0073,
+        "mom_60d_log": 0.071,
+        "mom_150d_log": -0.0539,
+        "mom_250d_log": 0.3135,
+        "rvol_20d_ann": 0.3478,
+        "rvol_regime": "stable",
+        "rsi_14": 44.6,
+        "px_vs_sma200_pct": 0.1,
+        "trend": "mixed",
+        "momentum_rank_today": 19,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Construction uplift package being studied"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-HUBC",
+      "generated_at": "2026-08-17T05:02:05+00:00",
+      "symbol": "HUBC",
+      "sector": "Power",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 217.12,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.81,
+      "expected_return_5d_mid_pct": -1.05,
+      "expected_return_5d_high_pct": 2.7,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 199.75,
+      "suggested_target_pkr": 223.63,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.35). Drivers (0): none material. Risks (3): 20d weakness -7.3%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "20d weakness -7.3%",
+        "Price -0.8% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=223.63 / entry=217.12 / stop=199.75 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 2,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "HUBC",
+          "sector": "Power",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 217.12,
+        "ret_5d": 0.0147,
+        "ret_21d": -0.0664,
+        "ret_63d": -0.0371,
+        "mom_20d_log": -0.0732,
+        "mom_60d_log": -0.0154,
+        "mom_150d_log": -0.0157,
+        "mom_250d_log": 0.392,
+        "rvol_20d_ann": 0.2667,
+        "rvol_regime": "stable",
+        "rsi_14": 42.8,
+        "px_vs_sma200_pct": -0.78,
+        "trend": "up",
+        "momentum_rank_today": 12,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Circular debt jumps by Rs364b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-INDU",
+      "generated_at": "2026-08-17T05:02:53+00:00",
+      "symbol": "INDU",
+      "sector": "Autos",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 1925.64,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.41,
+      "expected_return_5d_mid_pct": -0.69,
+      "expected_return_5d_high_pct": 1.03,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 1771.59,
+      "suggested_target_pkr": 1983.41,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.50). Drivers (0): none material. Risks (4): Weakening 60d momentum -10.7%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Weakening 60d momentum -10.7%",
+        "20d weakness -6.3%",
+        "Price -4.4% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=1983.41 / entry=1925.64 / stop=1771.59 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "INDU",
+          "sector": "Autos",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 1925.64,
+        "ret_5d": 0.0162,
+        "ret_21d": -0.0569,
+        "ret_63d": -0.0684,
+        "mom_20d_log": -0.0626,
+        "mom_60d_log": -0.1067,
+        "mom_150d_log": -0.0211,
+        "mom_250d_log": -0.0931,
+        "rvol_20d_ann": 0.1224,
+        "rvol_regime": "stable",
+        "rsi_14": 35.5,
+        "px_vs_sma200_pct": -4.38,
+        "trend": "down",
+        "momentum_rank_today": 14,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-KAPCO",
+      "generated_at": "2026-08-17T05:02:43+00:00",
+      "symbol": "KAPCO",
+      "sector": "Power",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 27.51,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.49,
+      "expected_return_5d_mid_pct": -0.71,
+      "expected_return_5d_high_pct": 1.07,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 25.31,
+      "suggested_target_pkr": 28.34,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.50). Drivers (0): none material. Risks (3): Negative 150d momentum -32.9%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -32.9%",
+        "Price -9.3% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=28.34 / entry=27.51 / stop=25.31 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 2,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "KAPCO",
+          "sector": "Power",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 27.51,
+        "ret_5d": 0.0036,
+        "ret_21d": -0.0289,
+        "ret_63d": -0.0129,
+        "mom_20d_log": -0.035,
+        "mom_60d_log": 0.0073,
+        "mom_150d_log": -0.3288,
+        "mom_250d_log": -0.1982,
+        "rvol_20d_ann": 0.1264,
+        "rvol_regime": "stable",
+        "rsi_14": 41.6,
+        "px_vs_sma200_pct": -9.31,
+        "trend": "down",
+        "momentum_rank_today": 35,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Circular debt jumps by Rs364b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-KEL",
+      "generated_at": "2026-08-17T05:02:45+00:00",
+      "symbol": "KEL",
+      "sector": "Power",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 7.18,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.44,
+      "expected_return_5d_mid_pct": 0.61,
+      "expected_return_5d_high_pct": 5.66,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 6.61,
+      "suggested_target_pkr": 7.59,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.15). Drivers (3): Strong 150d momentum +20.5%. Risks (3): Weakening 60d momentum -5.2%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +20.5%",
+        "Price +0.9% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
+      ],
+      "key_risks": [
+        "Weakening 60d momentum -5.2%",
+        "20d weakness -13.8%",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 2,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "KEL",
+          "sector": "Power",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 7.18,
+        "ret_5d": 0.0056,
+        "ret_21d": -0.1329,
+        "ret_63d": -0.0663,
+        "mom_20d_log": -0.1377,
+        "mom_60d_log": -0.0516,
+        "mom_150d_log": 0.2049,
+        "mom_250d_log": 0.3539,
+        "rvol_20d_ann": 0.3585,
+        "rvol_regime": "stable",
+        "rsi_14": 32.4,
+        "px_vs_sma200_pct": 0.93,
+        "trend": "mixed",
+        "momentum_rank_today": 3,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Ronaldo hints at likely final year in football after two decades",
+          "Circular debt jumps by Rs364b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-KOHC",
+      "generated_at": "2026-08-17T05:02:21+00:00",
+      "symbol": "KOHC",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 96.63,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -8.96,
+      "expected_return_5d_mid_pct": -2.17,
+      "expected_return_5d_high_pct": 4.62,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 88.9,
+      "suggested_target_pkr": 101.09,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (1): Strong 60d momentum +17.5%. Risks (4): Negative 150d momentum -12.4%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 60d momentum +17.5%"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -12.4%",
+        "20d weakness -9.4%",
+        "Price -0.5% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=101.09 / entry=96.63 / stop=88.9 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "verdict": "NEUTRAL"
+        },
+        "by_symbol": {
+          "symbol": "KOHC",
+          "sector": "Cement",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 96.63,
+        "ret_5d": 0.0737,
+        "ret_21d": -0.0934,
+        "ret_63d": 0.1269,
+        "mom_20d_log": -0.0939,
+        "mom_60d_log": 0.1753,
+        "mom_150d_log": -0.1244,
+        "mom_250d_log": 0.1087,
+        "rvol_20d_ann": 0.4821,
+        "rvol_regime": "stable",
+        "rsi_14": 44.9,
+        "px_vs_sma200_pct": -0.54,
+        "trend": "mixed",
+        "momentum_rank_today": 25,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Construction uplift package being studied",
+          "Germany may continue to run some coal plants"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-LOTCHEM",
+      "generated_at": "2026-08-17T05:02:49+00:00",
+      "symbol": "LOTCHEM",
+      "sector": "Conglomerate/Chem",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 26.97,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -9.31,
+      "expected_return_5d_mid_pct": -2.66,
+      "expected_return_5d_high_pct": 3.99,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 24.81,
+      "suggested_target_pkr": 28.05,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.50). Drivers (1): RSI 20.9 — oversold, bounce setup. Risks (4): Negative 150d momentum -9.0%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "RSI 20.9 — oversold, bounce setup"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -9.0%",
+        "20d weakness -8.6%",
+        "Price -0.5% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=28.05 / entry=26.97 / stop=24.81 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Conglomerate/Chem",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "LOTCHEM",
+          "sector": "Conglomerate/Chem",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 26.97,
+        "ret_5d": 0.006,
+        "ret_21d": -0.0527,
+        "ret_63d": -0.0232,
+        "mom_20d_log": -0.0856,
+        "mom_60d_log": 0.0259,
+        "mom_150d_log": -0.0897,
+        "mom_250d_log": 0.2651,
+        "rvol_20d_ann": 0.4723,
+        "rvol_regime": "rising",
+        "rsi_14": 20.9,
+        "px_vs_sma200_pct": -0.45,
+        "trend": "up",
+        "momentum_rank_today": 22,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-LUCK",
+      "generated_at": "2026-08-17T05:02:36+00:00",
+      "symbol": "LUCK",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 440.91,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -7.19,
+      "expected_return_5d_mid_pct": -2.33,
+      "expected_return_5d_high_pct": 2.52,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 405.64,
+      "suggested_target_pkr": 454.14,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.60). Drivers (0): none material. Risks (4): Negative 150d momentum -12.4%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -12.4%",
+        "20d weakness -8.5%",
+        "Price -0.8% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=454.14 / entry=440.91 / stop=405.64 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "verdict": "NEUTRAL"
+        },
+        "by_symbol": {
+          "symbol": "LUCK",
+          "sector": "Cement",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 440.91,
+        "ret_5d": 0.0182,
+        "ret_21d": -0.0815,
+        "ret_63d": 0.0426,
+        "mom_20d_log": -0.0852,
+        "mom_60d_log": 0.0776,
+        "mom_150d_log": -0.1238,
+        "mom_250d_log": 0.2112,
+        "rvol_20d_ann": 0.3447,
+        "rvol_regime": "stable",
+        "rsi_14": 41.2,
+        "px_vs_sma200_pct": -0.8,
+        "trend": "up",
+        "momentum_rank_today": 24,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Construction uplift package being studied",
+          "Germany may continue to run some coal plants"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-MARI",
+      "generated_at": "2026-08-17T05:02:34+00:00",
+      "symbol": "MARI",
+      "sector": "Oil & Gas E&P",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 646.4,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.42,
+      "expected_return_5d_mid_pct": -1.35,
+      "expected_return_5d_high_pct": 1.72,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 594.69,
+      "suggested_target_pkr": 665.79,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.55). Drivers (1): Playbook overlay (symbol MARI): +0.05 score bias. Risks (4): Negative 150d momentum -8.9%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Playbook overlay (symbol MARI): +0.05 score bias"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -8.9%",
+        "20d weakness -6.5%",
+        "Price -4.4% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=665.79 / entry=646.4 / stop=594.69 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MARI",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 646.4,
+        "ret_5d": 0.0211,
+        "ret_21d": -0.0457,
+        "ret_63d": -0.0073,
+        "mom_20d_log": -0.0649,
+        "mom_60d_log": 0.0227,
+        "mom_150d_log": -0.0892,
+        "mom_250d_log": 0.0396,
+        "rvol_20d_ann": 0.2178,
+        "rvol_regime": "stable",
+        "rsi_14": 35.6,
+        "px_vs_sma200_pct": -4.38,
+        "trend": "mixed",
+        "momentum_rank_today": 21,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-MCB",
+      "generated_at": "2026-08-17T05:02:24+00:00",
+      "symbol": "MCB",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 408.67,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -2.61,
+      "expected_return_5d_mid_pct": 0.5,
+      "expected_return_5d_high_pct": 3.6,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 375.98,
+      "suggested_target_pkr": 423.4,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.20). Drivers (2): Positive 150d momentum +10.3%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +10.3%",
+        "Price +4.5% above 200-day SMA"
+      ],
+      "key_risks": [
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MCB",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "amplifier_note": "MCB is a CASA-rich tier-1 bank — bigger NIM expansion on rate-up days (+1 notch).",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 408.67,
+        "ret_5d": 0.0165,
+        "ret_21d": -0.0356,
+        "ret_63d": 0.0096,
+        "mom_20d_log": -0.0441,
+        "mom_60d_log": 0.0357,
+        "mom_150d_log": 0.1031,
+        "mom_250d_log": 0.1751,
+        "rvol_20d_ann": 0.2206,
+        "rvol_regime": "stable",
+        "rsi_14": 45.9,
+        "px_vs_sma200_pct": 4.54,
+        "trend": "up",
+        "momentum_rank_today": 9,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Construction uplift package being studied"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-MEBL",
+      "generated_at": "2026-08-17T05:02:25+00:00",
+      "symbol": "MEBL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 560.91,
+      "direction": "BULLISH",
+      "conviction": "HIGH",
+      "expected_return_5d_low_pct": -2.08,
+      "expected_return_5d_mid_pct": 1.92,
+      "expected_return_5d_high_pct": 5.92,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 516.04,
+      "suggested_target_pkr": 594.12,
+      "rationale": "Rule-based call: BULLISH with HIGH conviction (score +0.60). Drivers (4): Strong 150d momentum +24.6%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 150d momentum +24.6%",
+        "Strong 60d momentum +13.0%",
+        "Price +17.9% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
+      ],
+      "key_risks": [
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "MEBL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "amplifier_note": "MEBL is a CASA-rich tier-1 bank — bigger NIM expansion on rate-up days (+1 notch).",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 560.91,
+        "ret_5d": 0.0385,
+        "ret_21d": 0.0154,
+        "ret_63d": 0.1278,
+        "mom_20d_log": 0.0089,
+        "mom_60d_log": 0.1304,
+        "mom_150d_log": 0.2456,
+        "mom_250d_log": 0.4422,
+        "rvol_20d_ann": 0.284,
+        "rvol_regime": "stable",
+        "rsi_14": 57.7,
+        "px_vs_sma200_pct": 17.91,
+        "trend": "up",
+        "momentum_rank_today": 2,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Construction uplift package being studied"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-MLCF",
+      "generated_at": "2026-08-17T05:02:08+00:00",
+      "symbol": "MLCF",
+      "sector": "Cement",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 94.87,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -10.24,
+      "expected_return_5d_mid_pct": -2.48,
+      "expected_return_5d_high_pct": 5.28,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 87.28,
+      "suggested_target_pkr": 99.88,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (1): Strong 60d momentum +17.5%. Risks (4): Negative 150d momentum -22.6%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 60d momentum +17.5%"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -22.6%",
+        "20d weakness -12.2%",
+        "Price -4.0% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=99.88 / entry=94.87 / stop=87.28 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Cement",
+          "score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "verdict": "NEUTRAL"
+        },
+        "by_symbol": {
+          "symbol": "MLCF",
+          "sector": "Cement",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-cycle proxy is strong — supportive for construction demand."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Risk-off mood pressures cyclicals like cement."
+          ],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 94.87,
+        "ret_5d": 0.076,
+        "ret_21d": -0.1239,
+        "ret_63d": 0.1312,
+        "mom_20d_log": -0.1219,
+        "mom_60d_log": 0.1754,
+        "mom_150d_log": -0.2264,
+        "mom_250d_log": 0.1539,
+        "rvol_20d_ann": 0.5509,
+        "rvol_regime": "stable",
+        "rsi_14": 41.3,
+        "px_vs_sma200_pct": -4.03,
+        "trend": "mixed",
+        "momentum_rank_today": 31,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Construction uplift package being studied",
+          "Germany may continue to run some coal plants"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-NBP",
+      "generated_at": "2026-08-17T05:02:33+00:00",
+      "symbol": "NBP",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 200.29,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -8.0,
+      "expected_return_5d_mid_pct": -1.55,
+      "expected_return_5d_high_pct": 4.91,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 184.27,
+      "suggested_target_pkr": 210.12,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.30). Drivers (1): Strong 60d momentum +13.1%. Risks (3): Negative 150d momentum -17.2%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 60d momentum +13.1%"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -17.2%",
+        "Price -8.0% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+      ],
+      "critic_notes": [
+        "[fail] BEARISH call but target=210.12 / entry=200.29 / stop=184.27 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is ADD (score +6). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "NBP",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 200.29,
+        "ret_5d": 0.0368,
+        "ret_21d": -0.0279,
+        "ret_63d": -0.0264,
+        "mom_20d_log": -0.0416,
+        "mom_60d_log": 0.1306,
+        "mom_150d_log": -0.1717,
+        "mom_250d_log": 0.4812,
+        "rvol_20d_ann": 0.4583,
+        "rvol_regime": "stable",
+        "rsi_14": 46.0,
+        "px_vs_sma200_pct": -8.04,
+        "trend": "mixed",
+        "momentum_rank_today": 29,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Construction uplift package being studied"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-NPL",
+      "generated_at": "2026-08-17T05:02:14+00:00",
+      "symbol": "NPL",
+      "sector": "Power",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 65.62,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -10.43,
+      "expected_return_5d_mid_pct": -3.91,
+      "expected_return_5d_high_pct": 2.61,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 60.37,
+      "suggested_target_pkr": 67.59,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.75). Drivers (0): none material. Risks (5): Negative 150d momentum -9.2%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -9.2%",
+        "Weakening 60d momentum -10.4%",
+        "20d weakness -11.6%",
+        "Price -0.4% below 200-day SMA"
+      ],
+      "macro_tailwinds": [
+        "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=67.59 / entry=65.62 / stop=60.37 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Power",
+          "score": 2,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "NPL",
+          "sector": "Power",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+2 | FX reserves: SBP USD 17.1 bn — Reserve rebuilds typically come with circular-debt settlement plans — cash flow normalises and dividends resume."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 65.62,
+        "ret_5d": 0.015,
+        "ret_21d": -0.1089,
+        "ret_63d": -0.2115,
+        "mom_20d_log": -0.1164,
+        "mom_60d_log": -0.1042,
+        "mom_150d_log": -0.0915,
+        "mom_250d_log": 0.5787,
+        "rvol_20d_ann": 0.4629,
+        "rvol_regime": "stable",
+        "rsi_14": 46.7,
+        "px_vs_sma200_pct": -0.37,
+        "trend": "mixed",
+        "momentum_rank_today": 23,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Circular debt jumps by Rs364b"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-OGDC",
+      "generated_at": "2026-08-17T05:02:09+00:00",
+      "symbol": "OGDC",
+      "sector": "Oil & Gas E&P",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 314.04,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -3.04,
+      "expected_return_5d_mid_pct": 0.41,
+      "expected_return_5d_high_pct": 3.87,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 288.92,
+      "suggested_target_pkr": 326.19,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.15). Drivers (4): Positive 150d momentum +15.9%. Risks (2): 20d weakness -9.5%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +15.9%",
+        "Price +6.2% above 200-day SMA",
+        "Top-5 by momentum but market filter off",
+        "Playbook overlay (symbol OGDC): +0.05 score bias"
+      ],
+      "key_risks": [
+        "20d weakness -9.5%",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "OGDC",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 314.04,
+        "ret_5d": 0.0118,
+        "ret_21d": -0.0739,
+        "ret_63d": -0.0159,
+        "mom_20d_log": -0.0953,
+        "mom_60d_log": 0.0352,
+        "mom_150d_log": 0.1586,
+        "mom_250d_log": 0.2984,
+        "rvol_20d_ann": 0.2452,
+        "rvol_regime": "stable",
+        "rsi_14": 33.4,
+        "px_vs_sma200_pct": 6.25,
+        "trend": "mixed",
+        "momentum_rank_today": 5,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-PABC",
+      "generated_at": "2026-08-17T05:02:06+00:00",
+      "symbol": "PABC",
+      "sector": "Misc",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 102.48,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.03,
+      "expected_return_5d_mid_pct": -1.63,
+      "expected_return_5d_high_pct": 1.77,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 94.28,
+      "suggested_target_pkr": 105.55,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.60). Drivers (0): none material. Risks (4): Negative 150d momentum -24.7%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -24.7%",
+        "20d weakness -8.1%",
+        "Price -11.3% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise — supply-chain relief."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=105.55 / entry=102.48 / stop=94.28 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Misc",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise — supply-chain relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "PABC",
+          "sector": "Misc",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — Imports normalise — supply-chain relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 102.48,
+        "ret_5d": -0.005,
+        "ret_21d": -0.0709,
+        "ret_63d": -0.0472,
+        "mom_20d_log": -0.0814,
+        "mom_60d_log": 0.0267,
+        "mom_150d_log": -0.2474,
+        "mom_250d_log": -0.46,
+        "rvol_20d_ann": 0.2415,
+        "rvol_regime": "stable",
+        "rsi_14": 36.8,
+        "px_vs_sma200_pct": -11.3,
+        "trend": "down",
+        "momentum_rank_today": 32,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-POL",
+      "generated_at": "2026-08-17T05:02:15+00:00",
+      "symbol": "POL",
+      "sector": "Oil & Gas E&P",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 686.98,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -1.2,
+      "expected_return_5d_mid_pct": 0.23,
+      "expected_return_5d_high_pct": 1.66,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 632.02,
+      "suggested_target_pkr": 707.59,
+      "rationale": "Rule-based call: NEUTRAL with LOW conviction (score +0.20). Drivers (3): Positive 150d momentum +11.7%. Risks (1): Market breadth weak — Phase-1 in cash. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +11.7%",
+        "Price +6.4% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
+      ],
+      "key_risks": [
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+      ],
+      "macro_headwinds": [],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "POL",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 686.98,
+        "ret_5d": 0.0253,
+        "ret_21d": 0.002,
+        "ret_63d": 0.0411,
+        "mom_20d_log": 0.0017,
+        "mom_60d_log": 0.0329,
+        "mom_150d_log": 0.117,
+        "mom_250d_log": 0.0579,
+        "rvol_20d_ann": 0.1016,
+        "rvol_regime": "stable",
+        "rsi_14": 56.6,
+        "px_vs_sma200_pct": 6.36,
+        "trend": "up",
+        "momentum_rank_today": 7,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Construction uplift package being studied"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-PPL",
+      "generated_at": "2026-08-17T05:02:12+00:00",
+      "symbol": "PPL",
+      "sector": "Oil & Gas E&P",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 216.21,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -6.06,
+      "expected_return_5d_mid_pct": -1.17,
+      "expected_return_5d_high_pct": 3.72,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 198.91,
+      "suggested_target_pkr": 224.25,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.30). Drivers (1): Playbook overlay (symbol PPL): +0.05 score bias. Risks (3): 20d weakness -14.0%. Macro verdict: TAILWIND (stock score +2). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Playbook overlay (symbol PPL): +0.05 score bias"
+      ],
+      "key_risks": [
+        "20d weakness -14.0%",
+        "Price -3.2% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=224.25 / entry=216.21 / stop=198.91 are not in the order target < entry < stop.",
+        "[warn] LLM is BEARISH but the seven-lens synthesizer verdict is BUY (score +6). Conviction downgraded one notch; analyst should open the Bot's Verdict panel for the breakdown."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Oil & Gas E&P",
+          "score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "PPL",
+          "sector": "Oil & Gas E&P",
+          "sector_score": 2,
+          "stock_score": 2,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Industrial-growth read-through is positive for energy demand.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Reserve rebuild eases circular-debt settlement pressure — cash flow lift."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 216.21,
+        "ret_5d": 0.0242,
+        "ret_21d": -0.1209,
+        "ret_63d": -0.0542,
+        "mom_20d_log": -0.14,
+        "mom_60d_log": 0.0453,
+        "mom_150d_log": -0.0143,
+        "mom_250d_log": 0.2416,
+        "rvol_20d_ann": 0.3472,
+        "rvol_regime": "stable",
+        "rsi_14": 34.0,
+        "px_vs_sma200_pct": -3.17,
+        "trend": "mixed",
+        "momentum_rank_today": 11,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-PSO",
+      "generated_at": "2026-08-17T05:02:27+00:00",
+      "symbol": "PSO",
+      "sector": "OMC/Refining",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 337.35,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -4.58,
+      "expected_return_5d_mid_pct": -1.57,
+      "expected_return_5d_high_pct": 1.45,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 310.36,
+      "suggested_target_pkr": 347.47,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.65). Drivers (0): none material. Risks (4): Negative 150d momentum -30.9%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -30.9%",
+        "Weakening 60d momentum -5.9%",
+        "Price -16.8% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=347.47 / entry=337.35 / stop=310.36 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "OMC/Refining",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "PSO",
+          "sector": "OMC/Refining",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — L/C confirmation normalises — relief."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 337.35,
+        "ret_5d": 0.0006,
+        "ret_21d": -0.0398,
+        "ret_63d": -0.129,
+        "mom_20d_log": -0.0386,
+        "mom_60d_log": -0.0586,
+        "mom_150d_log": -0.3086,
+        "mom_250d_log": -0.1342,
+        "rvol_20d_ann": 0.2138,
+        "rvol_regime": "stable",
+        "rsi_14": 32.4,
+        "px_vs_sma200_pct": -16.77,
+        "trend": "down",
+        "momentum_rank_today": 34,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 2,
+        "news_headlines": [
+          "Circular debt jumps by Rs364b",
+          "Germany may continue to run some coal plants"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-SEARL",
+      "generated_at": "2026-08-17T05:02:22+00:00",
+      "symbol": "SEARL",
+      "sector": "Pharma",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 89.79,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -7.1,
+      "expected_return_5d_mid_pct": -2.3,
+      "expected_return_5d_high_pct": 2.5,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 82.61,
+      "suggested_target_pkr": 92.48,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.60). Drivers (0): none material. Risks (4): Negative 150d momentum -20.4%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "No strong drivers"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -20.4%",
+        "20d weakness -6.8%",
+        "Price -11.2% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | FX reserves: SBP USD 17.1 bn — API import flow normalises — gross margins stabilise."
+      ],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=92.48 / entry=89.79 / stop=82.61 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Pharma",
+          "score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — API import flow normalises — gross margins stabilise."
+          ],
+          "headwinds": [],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "SEARL",
+          "sector": "Pharma",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | FX reserves: SBP USD 17.1 bn — API import flow normalises — gross margins stabilise."
+          ],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 89.79,
+        "ret_5d": 0.0156,
+        "ret_21d": -0.0712,
+        "ret_63d": -0.0317,
+        "mom_20d_log": -0.0682,
+        "mom_60d_log": 0.0391,
+        "mom_150d_log": -0.2037,
+        "mom_250d_log": -0.0538,
+        "rvol_20d_ann": 0.3407,
+        "rvol_regime": "stable",
+        "rsi_14": 39.1,
+        "px_vs_sma200_pct": -11.18,
+        "trend": "mixed",
+        "momentum_rank_today": 30,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-SYS",
+      "generated_at": "2026-08-17T05:02:50+00:00",
+      "symbol": "SYS",
+      "sector": "Technology",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 130.44,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -5.0,
+      "expected_return_5d_mid_pct": -1.71,
+      "expected_return_5d_high_pct": 1.58,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 120.0,
+      "suggested_target_pkr": 134.35,
+      "rationale": "Rule-based call: BEARISH with HIGH conviction (score -0.65). Drivers (1): RSI 28.9 — oversold, bounce setup. Risks (5): Negative 150d momentum -25.1%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "RSI 28.9 — oversold, bounce setup"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -25.1%",
+        "Weakening 60d momentum -10.8%",
+        "20d weakness -13.6%",
+        "Price -12.5% below 200-day SMA"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=134.35 / entry=130.44 / stop=120.0 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "SYS",
+          "sector": "Technology",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 130.44,
+        "ret_5d": -0.0136,
+        "ret_21d": -0.1248,
+        "ret_63d": -0.1413,
+        "mom_20d_log": -0.1358,
+        "mom_60d_log": -0.1082,
+        "mom_150d_log": -0.2506,
+        "mom_250d_log": -0.05,
+        "rvol_20d_ann": 0.2334,
+        "rvol_regime": "stable",
+        "rsi_14": 28.9,
+        "px_vs_sma200_pct": -12.51,
+        "trend": "down",
+        "momentum_rank_today": 33,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-TRG",
+      "generated_at": "2026-08-17T05:02:52+00:00",
+      "symbol": "TRG",
+      "sector": "Technology",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 60.85,
+      "direction": "NEUTRAL",
+      "conviction": "LOW",
+      "expected_return_5d_low_pct": -8.66,
+      "expected_return_5d_mid_pct": -2.1,
+      "expected_return_5d_high_pct": 4.46,
+      "suggested_action": "HOLD",
+      "suggested_stop_pkr": 55.98,
+      "suggested_target_pkr": 63.56,
+      "rationale": "Rule-based call: BEARISH with MEDIUM conviction (score -0.40). Drivers (1): Strong 60d momentum +15.2%. Risks (4): Negative 150d momentum -16.2%. Macro verdict: NEUTRAL (stock score +0). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Strong 60d momentum +15.2%"
+      ],
+      "key_risks": [
+        "Negative 150d momentum -16.2%",
+        "20d weakness -10.5%",
+        "Price -6.3% below 200-day SMA",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [],
+      "macro_headwinds": [],
+      "critic_notes": [
+        "[fail] BEARISH call but target=63.56 / entry=60.85 / stop=55.98 are not in the order target < entry < stop."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {},
+        "by_symbol": {
+          "symbol": "TRG",
+          "sector": "Technology",
+          "sector_score": 0,
+          "stock_score": 0,
+          "tailwinds": [],
+          "headwinds": [],
+          "amplifier_note": "",
+          "verdict": "NEUTRAL"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 60.85,
+        "ret_5d": 0.0319,
+        "ret_21d": -0.103,
+        "ret_63d": 0.0866,
+        "mom_20d_log": -0.1055,
+        "mom_60d_log": 0.1516,
+        "mom_150d_log": -0.1624,
+        "mom_250d_log": 0.074,
+        "rvol_20d_ann": 0.4656,
+        "rvol_regime": "falling",
+        "rsi_14": 41.6,
+        "px_vs_sma200_pct": -6.32,
+        "trend": "down",
+        "momentum_rank_today": 27,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 8,
+        "news_headlines": [
+          "Von Miller joins Dallas Cowboys on one-year contract",
+          "Scottie Scheffler wins FedEx St. Jude Championship by eight shots",
+          "Ronaldo hints at likely final year in football after two decades",
+          "Novak Djokovic 'won't be back' for 2027 Cincinnati Open due to health scare",
+          "Messi misses 3rd penalty as Nashville thrashes Inter Miami 4-1 in MLS clash"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
+    },
+    {
+      "prediction_id": "2026-08-17-UBL",
+      "generated_at": "2026-08-17T05:02:30+00:00",
+      "symbol": "UBL",
+      "sector": "Banking",
+      "model": "rule-based-v1",
+      "horizon_trading_days": 5,
+      "entry_price_pkr": 465.21,
+      "direction": "BULLISH",
+      "conviction": "MEDIUM",
+      "expected_return_5d_low_pct": -4.05,
+      "expected_return_5d_mid_pct": 1.28,
+      "expected_return_5d_high_pct": 6.61,
+      "suggested_action": "ADD",
+      "suggested_stop_pkr": 427.99,
+      "suggested_target_pkr": 495.95,
+      "rationale": "Rule-based call: BULLISH with MEDIUM conviction (score +0.30). Drivers (3): Positive 150d momentum +12.1%. Risks (2): 20d weakness -5.3%. Macro verdict: TAILWIND (stock score +1). This is a deterministic fallback — the AI model was unavailable; rationale is therefore terse.",
+      "key_drivers": [
+        "Positive 150d momentum +12.1%",
+        "Strong 60d momentum +19.9%",
+        "Price +11.6% above 200-day SMA"
+      ],
+      "key_risks": [
+        "20d weakness -5.3%",
+        "Market breadth weak — Phase-1 in cash"
+      ],
+      "macro_tailwinds": [
+        "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+        "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+      ],
+      "macro_headwinds": [
+        "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+      ],
+      "regime_on": false,
+      "regime_triggers": [],
+      "guards_applied": [],
+      "macro_impact": {
+        "drivers": [
+          {
+            "name": "Gold",
+            "tag": "gold_up",
+            "move": "+11.0% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Gold at 4451.1 USD/oz — risk-off tone reduces appetite for EM equities."
+          },
+          {
+            "name": "Copper",
+            "tag": "copper_up",
+            "move": "+6.6% in 21d",
+            "magnitude": "MODERATE",
+            "context": "Strong copper signals global industrial growth — supportive of EM cyclicals."
+          },
+          {
+            "name": "FX reserves",
+            "tag": "reserves_recovery",
+            "move": "SBP USD 17.1 bn",
+            "magnitude": "MILD",
+            "context": "Reserve buffer comfortable — BoP risk muted."
+          }
+        ],
+        "by_sector": {
+          "sector": "Banking",
+          "score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "verdict": "TAILWIND"
+        },
+        "by_symbol": {
+          "symbol": "UBL",
+          "sector": "Banking",
+          "sector_score": 1,
+          "stock_score": 1,
+          "tailwinds": [
+            "+1 | Copper: +6.6% in 21d — Copper strength signals global industrial growth — supports loan demand and asset quality on emerging-market bank books.",
+            "+1 | FX reserves: SBP USD 17.1 bn — Rebuilding reserves de-risks the BoP — supportive for bank equities."
+          ],
+          "headwinds": [
+            "-1 | Gold: +11.0% in 21d — Strong gold = risk-off mood = equity outflow from EM banks."
+          ],
+          "amplifier_note": "",
+          "verdict": "TAILWIND"
+        },
+        "kpis": {
+          "tbill_3m_pct": 11.5154,
+          "kibor_3m_pct": 11.535,
+          "reserves_total_usd_mn": 22498.3,
+          "reserves_sbp_usd_mn": 17057.0,
+          "tbill_3m_change_1d": 0.0,
+          "kibor_3m_change_1d": 0.0,
+          "kibor_12m_change_1d": 0.0,
+          "tbill_3m_change_5d": 0.0,
+          "kibor_3m_change_5d": -0.019999999999999574,
+          "reserves_change_30d": -177.20000000000073,
+          "kse100_close": 180104.61,
+          "kse100_ret_5d": -0.006649760840918728,
+          "kse100_ret_21d": 0.024469635804393874,
+          "cpi_yoy_pct": 9.2,
+          "cpi_period": "July",
+          "cpi_yoy_change_pp": -1.9000000000000004
+        }
+      },
+      "mpc_alert": {
+        "in_pre_window": false,
+        "in_post_window": false,
+        "next_mpc": "2026-09-15",
+        "days_until": 29,
+        "rate_sensitive_sectors": [
+          "Banking",
+          "Cement",
+          "Power",
+          "Auto",
+          "Textile",
+          "Conglomerate/Chem"
+        ],
+        "label": ""
+      },
+      "mpc_cap_applied": false,
+      "data_snapshot": {
+        "as_of_price_date": "2026-07-31",
+        "close_pkr": 465.21,
+        "ret_5d": 0.0414,
+        "ret_21d": -0.0408,
+        "ret_63d": 0.135,
+        "mom_20d_log": -0.0535,
+        "mom_60d_log": 0.1991,
+        "mom_150d_log": 0.1213,
+        "mom_250d_log": 0.238,
+        "rvol_20d_ann": 0.3783,
+        "rvol_regime": "stable",
+        "rsi_14": 45.8,
+        "px_vs_sma200_pct": 11.59,
+        "trend": "up",
+        "momentum_rank_today": 6,
+        "in_phase1_top5": false,
+        "market_risk_on": false,
+        "fipi_foreign_net_pkr_mn": -2.89,
+        "fipi_local_net_pkr_mn": 2.89,
+        "policy_rate_pct": 11.5,
+        "brent_value": 89.16,
+        "brent_ret_21d": -0.0007,
+        "usdpkr_value": 277.38,
+        "usdpkr_ret_21d": -0.0012,
+        "news_count_matched": 1,
+        "news_headlines": [
+          "Construction uplift package being studied"
+        ]
+      },
+      "outcome": {
+        "checked_at": null,
+        "actual_end_price_pkr": null,
+        "actual_return_pct": null,
+        "direction_hit": null,
+        "inside_range": null,
+        "stop_triggered": null,
+        "target_triggered": null
+      }
     }
   ]
 }
