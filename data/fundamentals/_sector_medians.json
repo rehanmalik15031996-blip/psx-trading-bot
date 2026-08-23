@@ -1,11 +1,11 @@
 {
-  "computed_utc": "2026-08-16T03:00:46+00:00",
+  "computed_utc": "2026-08-23T03:03:43+00:00",
   "by_sector": {
     "Power": {
       "n": 4,
       "pe_med": 4.31,
-      "pb_med": 0.78,
-      "yield_med": 11.43,
+      "pb_med": 1.01,
+      "yield_med": 11.47,
       "payout_med": 49.3,
       "members": [
         "HUBC",
@@ -55,8 +55,8 @@
       "n": 7,
       "pe_med": 6.78,
       "pb_med": 1.29,
-      "yield_med": 7.57,
-      "payout_med": 56.6,
+      "yield_med": 7.97,
+      "payout_med": 61.6,
       "members": [
         "BAHL",
         "FABL",
@@ -82,7 +82,7 @@
     "Conglomerate/Chem": {
       "n": 3,
       "pe_med": 14.3,
-      "pb_med": 1.74,
+      "pb_med": 1.75,
       "yield_med": 12.05,
       "payout_med": 100.0,
       "members": [
