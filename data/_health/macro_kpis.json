@@ -2,31 +2,31 @@
   "workflow": "macro_kpis",
   "ok": true,
   "note": "3/3 sub-sources refreshed",
-  "as_of": "2026-08-25T12:26:51+00:00",
+  "as_of": "2026-08-26T04:08:11+00:00",
   "github": {
-    "run_id": "32847577725",
-    "run_number": "181",
+    "run_id": "32929032615",
+    "run_number": "182",
     "ref": "refs/heads/main",
-    "sha": "954a4efca87a428fe02e84771e60b2a7aa7dce2c"
+    "sha": "26e84b7270c23edc6fed8d63e2461e0d47fc38c0"
   },
   "payload": {
     "sbp_rates": {
       "ok": true,
-      "date": "2026-08-25",
-      "rows": 1728,
+      "date": "2026-08-26",
+      "rows": 1729,
       "tbill_3m_pct": 11.645,
       "reserves_total_usd_mn": 22506.1
     },
     "kse100": {
       "ok": true,
-      "date": "2026-08-25",
-      "rows": 486,
+      "date": "2026-08-26",
+      "rows": 487,
       "kse100_close": 177370.7
     },
     "cpi": {
       "ok": true,
-      "date": "2026-08-25",
-      "rows": 1737,
+      "date": "2026-08-26",
+      "rows": 1738,
       "cpi_yoy_pct": 9.2
     }
   }
