@@ -1,11 +1,11 @@
 {
-  "computed_utc": "2026-08-23T03:03:43+00:00",
+  "computed_utc": "2026-08-30T07:59:39+00:00",
   "by_sector": {
     "Power": {
       "n": 4,
       "pe_med": 4.31,
-      "pb_med": 1.01,
-      "yield_med": 11.47,
+      "pb_med": 0.78,
+      "yield_med": 11.43,
       "payout_med": 49.3,
       "members": [
         "HUBC",
@@ -17,7 +17,7 @@
     "Misc": {
       "n": 1,
       "pe_med": 7.1,
-      "pb_med": 1.59,
+      "pb_med": 1.49,
       "yield_med": 0.0,
       "payout_med": 0.0,
       "members": [
@@ -27,7 +27,7 @@
     "Cement": {
       "n": 5,
       "pe_med": 8.64,
-      "pb_med": 1.44,
+      "pb_med": 1.36,
       "yield_med": 0.91,
       "payout_med": 7.6,
       "members": [
@@ -56,7 +56,7 @@
       "pe_med": 6.78,
       "pb_med": 1.29,
       "yield_med": 7.97,
-      "payout_med": 61.6,
+      "payout_med": 58.6,
       "members": [
         "BAHL",
         "FABL",
@@ -70,7 +70,7 @@
     "OMC/Refining": {
       "n": 3,
       "pe_med": 4.8,
-      "pb_med": 0.6,
+      "pb_med": 0.55,
       "yield_med": 2.96,
       "payout_med": 24.8,
       "members": [
@@ -82,7 +82,7 @@
     "Conglomerate/Chem": {
       "n": 3,
       "pe_med": 14.3,
-      "pb_med": 1.75,
+      "pb_med": 1.7,
       "yield_med": 12.05,
       "payout_med": 100.0,
       "members": [
