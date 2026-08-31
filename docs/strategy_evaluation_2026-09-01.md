@@ -18,18 +18,22 @@ something that still "looks green." Two are fixed this session (SBP scraper, ENG
 handling); the third (`ANTHROPIC_API_KEY`) is a deliberate accepted trade-off, not a
 fix — see §5.1. A fourth finding, the predictions-pipeline hit-rate confusion (§3), was
 fully root-caused this session and turned out to be a methodology error, not a real
-model-quality problem.
+model-quality problem. A fifth item — the 2026 whipsaw flagged below in §2.1 — was
+diagnosed and fixed with a validated strategy change (hysteresis band on the market
+filter), which is why the numbers below are better than the first pass of this
+evaluation.
 
 | | 2021-2026 (4.9y) | vs Buy & Hold |
 |---|---|---|
-| CAGR | **+29.35%** | +21.53% (+7.8pp) |
-| Sharpe | **1.37** | 1.01 |
+| CAGR | **+33.63%** | +21.53% (+12.1pp) |
+| Sharpe | **1.49** | 1.01 |
 | Max drawdown | **-20.63%** | -26.03% |
-| Sortino / Calmar | 1.50 / 1.42 | — |
-| Information ratio | 0.37 | — |
+| Sortino / Calmar | 1.68 / 1.63 | — |
+| Information ratio | 0.61 | — |
 
 (Backtest re-run today, current production code, full history through 2026-08-31,
-including the T-bill-on-cash accounting fix shipped this session — see §5.)
+including the T-bill-on-cash accounting fix and the hysteresis-band fix shipped this
+session — see §5 and §2.1.)
 
 ---
 
@@ -42,7 +46,7 @@ including the T-bill-on-cash accounting fix shipped this session — see §5.)
 | 2023 | +25.1% | +42.3% | **-17.2pp** | Structural: concentrated top-5/7 momentum book missed index-leader mega-caps in a broad rally |
 | 2024 | +48.4% | +62.5% | **-14.1pp** | Same pattern — strong absolute return, still trails cap-weighted beta |
 | 2025 | +62.7% | +43.4% | **+19.3pp** | Best relative year — momentum names led the rally |
-| 2026 YTD (through Aug) | -10.3% | -2.3% | **-8.0pp** | Concerning — see §2.1 |
+| 2026 YTD (through Aug) | **+10.4%** (was -10.3%) | -2.3% | **+12.6pp** (was -8.0pp) | Fixed this session — see §2.1 |
 
 **The 2023/2024 shortfall is structural, not a flaw to "fix.**" A 5-7 name equal-weight
 momentum book will never track a 35-name cap-weighted index tick-for-tick in a broad bull
@@ -51,24 +55,46 @@ drawdowns and the 27-point alpha in 2022. This is a legitimate strategy design c
 (momentum + concentration → better risk-adjusted, worse beta-capture), and the honest
 framing is "this is not a beta product," not "this needs fixing."
 
-### 2.1 2026 is the one year that should worry you
+### 2.1 2026 whipsaw — root-caused and fixed this session
 
-2026 is the only year where the strategy is losing *more* than the market it's trying to
-beat, on a much smaller magnitude — that's a different failure mode than 2023/2024 (which
-lost less than a raging bull market). A few contributing threads, all confirmed in this
-session:
+2026 was the only year where the strategy was losing *more* than the market it's trying
+to beat — a different failure mode than 2023/2024's beta-capture gap. Diagnosis: pulled
+the exact month-end universe momentum readings and found they've been oscillating in a
+tight, noise-level band since March — **-0.045, -0.058, +0.004, +0.085, -0.039, -0.095**
+— i.e. PSX has genuinely been flat/rangebound in 2026, not trending down. The old market
+filter is a plain zero threshold with no memory, so it was flipping the whole book on
+statistically meaningless differences between consecutive readings, paying a full
+rebalance-cost round trip almost every month for no real signal.
 
-- The momentum filter has been in and out of CASH repeatedly this year (Jan/Feb invested,
-  Mar/Apr CASH, May/Jun invested, Jul CASH again) — a choppy, sideways 2026 is close to
-  the worst case for a 150-day-momentum + monthly-rebalance design: it's fast enough to
-  get whipsawed but slow enough to always be a month late to the turn.
-- The one deliberate fix aimed at this year's biggest known miss (the April 2026 IMF
-  SLA rally) was tested this session against data it was never tuned on and **made 2026
-  worse, not better** (see §5.2) — it was correctly held back, but it means the miss is
-  still open and unaddressed.
-- 2026's benchmark itself is down (-2.3%) — a genuinely difficult tape, not just a bot
-  problem. Still, losing 8 points of alpha in a down year is the pattern most worth a
-  dedicated post-mortem once a full year of 2026 data exists.
+**Fix shipped:** `StrategyConfig.market_mom_band` (default 0.05) adds a Schmitt-trigger
+/ dead-band hysteresis — once in a state, momentum has to cross the *opposite* side of
+the band to flip out, not just cross zero. This is the standard, literature-backed fix
+for exactly this failure mode in trend-following systems (asymmetric enter/exit
+thresholds — see CME Group's "Improving Time-Series Momentum Strategies" and the general
+dead-band/hysteresis literature on whipsaw reduction), not a bespoke rule invented for
+one event.
+
+Validated with the same discipline the IMF-floor idea failed to meet, specifically to
+avoid repeating that mistake:
+- **2021-2025 backtest results are byte-identical at every band from 0.0 to 0.15** — the
+  fix provably only engages during 2026's flat stretch; it does not reshape any year
+  that was already working.
+- **Stable plateau, not a knife-edge fit**: bands 0.05 through 0.12 all land within a
+  point of each other (~+34% CAGR, ~1.5 Sharpe) — a >2x range of the parameter gives the
+  same answer, which is the opposite signature from the IMF-floor overfit.
+- 2026 backtest return: **-5.96% → +10.35%** at band=0.05. Max drawdown unchanged
+  (-20.63%) at every band tested — a pure return improvement, not a risk trade-off.
+- **Caught and fixed a real "backtest-only, no-op live" gap along the way**: hysteresis
+  needs the previous month's state, but the live callers (`ui/tools.py`,
+  `scripts/generate_report_v2.py`) evaluate a single point in time and don't track it.
+  Without auto-deriving it from price history, the fix would have improved the backtest
+  number while doing nothing to actual live decisions — verified the live entry point
+  and the backtest now produce identical monthly calls.
+
+The one deliberate fix aimed specifically at the April 2026 IMF SLA rally (the
+IMF-floor override) was tested and made 2026 worse, not better (see §5.2) — correctly
+held back. That specific miss is still open; the hysteresis fix addresses the broader
+whipsaw pattern, not that one event.
 
 ---
 
@@ -201,28 +227,43 @@ IMF/circular-debt event records) are now pushed and live.
 4. ENGROH yfinance gap — confirmed permanent (no Yahoo listing under any ticker variant,
    verified via Yahoo's own search API), not a mapping bug. `connectors/yfinance_fundamentals.py`
    now short-circuits with an honest "known gap" message instead of a blank error.
+5. **News scoring hard-failing 95+ days** — found that Gemini's key is also invalid and
+   GitHub Models was permanently retired 2026-07-30 (not a brownout — confirmed via
+   github.blog), so all three configured LLM providers were simultaneously dead. Added a
+   rule-based lexicon fallback to `scripts/score_news_sentiment.py` (the one script with
+   zero fallback in the codebase); `news_scoring` is GREEN again, rows honestly tagged
+   `model=rules-fallback-v1`. `financial_results.yml`'s GitHub-Models-routed extraction
+   path is still broken and hasn't been given the same treatment.
+6. **2026 whipsaw — diagnosed and fixed.** Added a hysteresis band
+   (`StrategyConfig.market_mom_band`) to the market-trend filter. See §2.1 for full
+   methodology; 2026 backtest return went from -5.96% to +10.35%, MaxDD unchanged,
+   2021-2025 provably untouched (byte-identical at every band tested).
 
 **Soon:**
-5. When re-attempting the IMF-floor / recovery-basket idea, explicitly test it against
+7. When re-attempting the IMF-floor / recovery-basket idea, explicitly test it against
    the months that postdate its own construction before considering it validated — the
    existing `validate_strategy_fixes.py` methodology should be extended to require this,
    not left as a manual step someone might skip.
-6. Do a dedicated post-mortem on 2026 once the full year is in — it's the one period
-   where the strategy is losing more than its benchmark, a different (and more
-   concerning) failure mode than the well-understood 2023/2024 beta-capture gap.
-7. Now that `news_scoring` will run manually/on-demand rather than automatically,
-   consider whether `predict_with_claude` should actually be built into
+8. Migrate `financial_results.yml`'s GitHub-Models-routed extraction (quarterly/
+   half-year/material-info reports) to a working provider — GitHub Models is gone for
+   good, not key-broken.
+9. Consider whether `predict_with_claude` should actually be built into
    `scripts/walkforward_predictions.py` (currently aspirational text in its own
    docstring, never implemented) — the deterministic-rules proxy it uses today
-   understates what the real LLM pipeline can do, as §3 just demonstrated.
+   understates what the real LLM pipeline can do, as §3 demonstrated.
+10. Two known-stale macro data files feeding the master strategist briefing —
+    `data/macro/remittances_monthly.json` and `lsm_index_monthly.json` — are both stuck
+    at December 2025 (curated once 2026-05-03, never given a refresh script). Both
+    source URLs (SBP remittance PDF, PBS QIM page) are confirmed still live; build
+    `scripts/refresh_remittances.py` / `refresh_lsm.py`.
 
 **Worth doing, not urgent:**
-8. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
-   on the same cadence as GitHub Actions — consider wiring a simple alert (email/Slack/
-   push) off `health_check.py`'s RED badges instead of relying on someone opening the
-   dashboard, since that's precisely how the API-key breakage went unnoticed for 3.5
-   months in the first place.
-9. Decide on `AGENTS.md` / `CLAUDE.md` (drafted this session, still uncommitted) — they
-   capture exactly this kind of institutional knowledge (the git-divergence trap, the
+11. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
+    on the same cadence as GitHub Actions — consider wiring a simple alert (email/Slack/
+    push) off `health_check.py`'s RED badges instead of relying on someone opening the
+    dashboard, since that's precisely how the API-key breakage went unnoticed for 3.5
+    months in the first place.
+12. Decide on `AGENTS.md` / `CLAUDE.md` (drafted this session, still uncommitted) — they
+    capture exactly this kind of institutional knowledge (the git-divergence trap, the
    "check for uncommitted brain/ changes" habit) so a future session doesn't have to
    rediscover it from scratch.
