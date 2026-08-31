@@ -292,6 +292,36 @@ quality) or don't survive contact with this specific universe's actual history
 testing new ideas against real out-of-sample PSX data before shipping them, rather than
 importing what worked in US large-cap literature by default.
 
+### 6.3 Point-in-time fundamentals — built, then honestly tested and rejected as a strategy input
+
+Went ahead and built the data-engineering prerequisite flagged in §6.2. Turned out to be
+smaller than expected: Yahoo Finance's annual financial-statement calls already return
+REAL fiscal-year-end dates alongside the figures — `connectors/yfinance_fundamentals.py`
+was just discarding them (`fins.loc[row].dropna().tolist()` drops the column index).
+Added `fetch_history_one()` to keep them, `scripts/build_fundamentals_history.py` to
+build/upsert `data/fundamentals_history/{SYMBOL}.parquet` (idempotent, accumulates a new
+row automatically whenever a company reports a new fiscal year), and
+`brain/fundamentals_history.py::point_in_time()` for lookup with a documented 90-day
+reporting-lag assumption.
+
+Result: **33/35 symbols**, 133 fiscal-year rows, coverage from 2021-12/2022-06 (varies by
+fiscal year end) through 2025-06/2025-12. HUBC (empty Yahoo statements) and ENGROH (no
+Yahoo coverage at all) have no history via this source — documented gaps.
+
+**Immediately used it for the honest test §6.2 flagged as blocked**: blended
+point-in-time inverse-P/E into the momentum ranking at several weights (0.2/0.3/0.5).
+**Rejected — underperforms pure momentum at every weight tested** (CAGR 26.4% → 22-25%,
+degrades 2024 and/or 2025 depending on weight). Same conclusion as §6.2's vol-adjusted
+momentum test, now confirmed with real point-in-time data instead of a data-availability
+excuse: this specific momentum strategy does not benefit from diluting with other
+factors on this universe's actual history.
+
+**The infrastructure still stands on its own merit, independent of that result**: it
+fixes `scripts/walkforward_predictions.py`'s own documented "latest-only fundamentals —
+small lookahead bias" caveat, and is available for future research without needing to
+re-litigate whether point-in-time data exists. Scheduled monthly (idempotent, cheap) on
+both GitHub Actions and the local scheduler.
+
 ---
 
 ## 7. Recommendations, prioritized
@@ -331,45 +361,52 @@ importing what worked in US large-cap literature by default.
    side effect of item 5's news-scoring fallback; verified the full chain now completes
    and commits. See §6.1.
 
+8. **Point-in-time fundamentals history — built.** Fixed the lookahead-bias gap:
+   `data/fundamentals_history/{SYMBOL}.parquet` now has real fiscal-year-dated
+   revenue/net income/equity/assets/EPS/BVPS for 33/35 symbols, scheduled monthly. See
+   §6.3.
+
 **Tested and rejected (same discipline as the IMF-floor idea):**
-8. Volatility-adjusted ("Sharpe-style") momentum ranking — a standard trend-following
+9. Volatility-adjusted ("Sharpe-style") momentum ranking — a standard trend-following
    refinement, tested honestly, made things worse here (CAGR 26.4%→24.5%, gives back
    13.5pp in 2025). See §6.2 for the likely reason. Not shipped.
+10. Point-in-time value tilt (inverse P/E blended into the momentum ranking) — tested at
+    three weights using the newly-built point-in-time data (item 8), underperforms pure
+    momentum at every weight (CAGR 26.4%→22-25%, degrades 2024 and/or 2025). See §6.3.
+    Not shipped.
 
 **Soon:**
-9. When re-attempting the IMF-floor / recovery-basket idea, explicitly test it against
-   the months that postdate its own construction before considering it validated — the
-   existing `validate_strategy_fixes.py` methodology should be extended to require this,
-   not left as a manual step someone might skip.
-10. Migrate `financial_results.yml`'s GitHub-Models-routed extraction (quarterly/
+11. When re-attempting the IMF-floor / recovery-basket idea, explicitly test it against
+    the months that postdate its own construction before considering it validated — the
+    existing `validate_strategy_fixes.py` methodology should be extended to require this,
+    not left as a manual step someone might skip.
+12. Migrate `financial_results.yml`'s GitHub-Models-routed extraction (quarterly/
     half-year/material-info reports) to a working provider — GitHub Models is gone for
     good, not key-broken.
-11. Consider whether `predict_with_claude` should actually be built into
+13. Consider whether `predict_with_claude` should actually be built into
     `scripts/walkforward_predictions.py` (currently aspirational text in its own
     docstring, never implemented) — the deterministic-rules proxy it uses today
-    understates what the real LLM pipeline can do, as §3 demonstrated.
-12. Two known-stale macro data files feeding the master strategist briefing —
+    understates what the real LLM pipeline can do, as §3 demonstrated. Now easier: it
+    could also use item 8's point-in-time fundamentals to remove the "latest-only
+    fundamentals" lookahead-bias caveat at the same time.
+14. Two known-stale macro data files feeding the master strategist briefing —
     `data/macro/remittances_monthly.json` and `lsm_index_monthly.json` — are both stuck
     at December 2025 (curated once 2026-05-03, never given a refresh script). Both
     source URLs (SBP remittance PDF, PBS QIM page) are confirmed still live; build
     `scripts/refresh_remittances.py` / `refresh_lsm.py`.
-13. Build point-in-time fundamentals history (quarterly snapshots, not just today's) —
-    the real prerequisite for ever rigorously testing a value/quality-tilted strategy
-    without lookahead bias. Bigger effort than anything else on this list; only worth it
-    if factor-tilting is actually a priority.
-14. VWAP tracking per rebalance day, now that intraday snapshots are flowing again —
+15. VWAP tracking per rebalance day, now that intraday snapshots are flowing again —
     execution-quality improvement (reduces slippage), not an alpha change. See §6.1.
-15. Intraday unusual-volume spike detection as a same-day complement to
+16. Intraday unusual-volume spike detection as a same-day complement to
     `scripts/check_news_shocks.py` — often the volume move precedes the news that
     explains it. See §6.1.
 
 **Worth doing, not urgent:**
-16. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
+17. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
     on the same cadence as GitHub Actions — consider wiring a simple alert (email/Slack/
     push) off `health_check.py`'s RED badges instead of relying on someone opening the
     dashboard, since that's precisely how the API-key breakage went unnoticed for 3.5
     months in the first place.
-17. Decide on `AGENTS.md` / `CLAUDE.md` (drafted this session, still uncommitted) — they
+18. Decide on `AGENTS.md` / `CLAUDE.md` (drafted this session, still uncommitted) — they
     capture exactly this kind of institutional knowledge (the git-divergence trap, the
    "check for uncommitted brain/ changes" habit) so a future session doesn't have to
    rediscover it from scratch.
