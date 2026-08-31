@@ -352,6 +352,76 @@ class YFinanceFundamentalsConnector(BaseConnector):
             rec["error"] = f"{type(e).__name__}: {e}"
         return rec
 
+    # ------------------------------------------------------- point-in-time
+    def fetch_history_one(self, symbol: str) -> list[dict[str, Any]]:
+        """Per-fiscal-year fundamentals with REAL period-end dates, for
+        building point-in-time history (see brain/fundamentals_history.py).
+
+        fetch_one() above already pulls t.financials/t.balance_sheet but
+        only keeps the VALUES (fins.loc[row].dropna().tolist()), discarding
+        the column index -- which is the actual fiscal-year-end Timestamp
+        for each figure. This method keeps those dates. Without them there
+        is no way to know which year a number belongs to, which is the
+        whole point of a point-in-time series.
+
+        Returns one dict per fiscal year found (typically 3-4 years, limited
+        by what Yahoo's default annual-statement window returns), each with:
+            period_end   ISO date string (fiscal year end, e.g. "2024-06-30")
+            revenue, net_income, total_equity, total_assets   float | None
+            eps          net_income / CURRENT shares outstanding (approximation
+                         -- historical share count isn't available from this
+                         source; PSX share counts change rarely outside
+                         bonus/rights issues, but this is a real, documented
+                         simplification, not exact historical EPS)
+            bvps         total_equity / CURRENT shares (same approximation)
+        Empty list on any failure or for a _NO_YAHOO_COVERAGE symbol.
+        """
+        if symbol in _NO_YAHOO_COVERAGE:
+            return []
+        try:
+            import yfinance as yf
+            import pandas as pd
+            t = yf.Ticker(symbol + ".KA")
+            shares = (t.info or {}).get("sharesOutstanding")
+            fins = t.financials
+            bs = t.balance_sheet
+            if fins is None or fins.empty:
+                return []
+
+            row_ni = next((r for r in fins.index if "Net Income" in str(r)
+                           and "Common" not in str(r) and "Continuous" not in str(r)), None)
+            row_rev = next((r for r in fins.index if "Total Revenue" in str(r)
+                            or str(r) == "Revenue"), None)
+            row_equity, row_assets = None, None
+            if bs is not None and not bs.empty:
+                row_equity = next((r for r in bs.index if str(r) == "Stockholders Equity"
+                                   or str(r) == "Common Stock Equity"), None)
+                row_assets = next((r for r in bs.index if str(r) == "Total Assets"), None)
+
+            out: list[dict[str, Any]] = []
+            for period_end in fins.columns:
+                ni = fins.loc[row_ni, period_end] if row_ni is not None else None
+                rev = fins.loc[row_rev, period_end] if row_rev is not None else None
+                equity = (bs.loc[row_equity, period_end]
+                          if row_equity is not None and period_end in bs.columns else None)
+                assets = (bs.loc[row_assets, period_end]
+                          if row_assets is not None and period_end in bs.columns else None)
+                ni_f = float(ni) if pd.notna(ni) else None
+                out.append({
+                    "period_end": pd.Timestamp(period_end).date().isoformat(),
+                    "revenue": float(rev) if pd.notna(rev) else None,
+                    "net_income": ni_f,
+                    "total_equity": float(equity) if equity is not None and pd.notna(equity) else None,
+                    "total_assets": float(assets) if assets is not None and pd.notna(assets) else None,
+                    "eps": (round(ni_f / float(shares), 4)
+                            if ni_f is not None and shares else None),
+                    "bvps": (round(float(equity) / float(shares), 4)
+                             if equity is not None and pd.notna(equity) and shares else None),
+                })
+            return out
+        except Exception:
+            return []
+
     # ----------------------------------------------------------------- I/O
     def fetch(self, symbols: list[str] | None = None) -> FetchResult:
         """Fetch fundamentals for every symbol in ``symbols`` (default: universe).
