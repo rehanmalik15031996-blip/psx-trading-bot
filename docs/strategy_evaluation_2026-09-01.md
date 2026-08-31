@@ -12,11 +12,13 @@ the data-refresh log), not recalled from documentation.
 The mechanical strategy is **genuinely good on a risk-adjusted basis and structurally
 behind on raw returns in strong bull years** — that trade-off is real, not a bug, and
 should be stated to whoever owns capital allocation decisions in plain terms before
-anything else here. Separately, the system has been running with **three
-material infrastructure failures** for weeks to months, silently, because each one
-degrades to something that still "looks green." Those are higher priority than any
-strategy tweak: a good strategy fed stale data or missing its reasoning layer is worse
-than a mediocre strategy running correctly.
+anything else here. Separately, the system had been running with **three material
+infrastructure failures** for weeks to months, silently, because each one degrades to
+something that still "looks green." Two are fixed this session (SBP scraper, ENGROH
+handling); the third (`ANTHROPIC_API_KEY`) is a deliberate accepted trade-off, not a
+fix — see §5.1. A fourth finding, the predictions-pipeline hit-rate confusion (§3), was
+fully root-caused this session and turned out to be a methodology error, not a real
+model-quality problem.
 
 | | 2021-2026 (4.9y) | vs Buy & Hold |
 |---|---|---|
@@ -70,52 +72,56 @@ session:
 
 ---
 
-## 3. The predictions pipeline: two contradictory numbers exist right now
+## 3. The predictions pipeline: the "anti-predictive" finding was measuring the wrong system
 
-This is worth a standalone section because it's actively load-bearing on how the LLM
-layer is instructed to use the signal, and the two numbers disagree by 29 points.
+This session dug into the two contradictory numbers and found a definitive root cause —
+not just a stale figure, a methodology error that conflated two different systems.
 
-| Source | Method | Sample | Result |
+| Source | What it actually measures | Sample | Result |
 |---|---|---|---|
-| `brain/master_strategist.py` rule 14 (uncommitted, held back this session) | Walk-forward simulation, 2025-06-01 → 2026-06-20 | n≈500 | **38.5% hit rate** — "anti-predictive," z≈-8.7 |
-| Computed fresh this session from `data/predictions_log.json`'s own `outcome.direction_hit` field | Live logged production predictions | n=2,477, 2026-04-23 → 2026-07-30 | **67.3% gross / 60.8% net** hit rate |
+| `data/backtest/walkforward_predictions.parquet` (`source=walkforward_rules`) | `scripts/walkforward_predictions.py` calling `predict_with_rules()` — a **deterministic rules-engine proxy**, explicitly documented in its own file as "more conservative... tests the bot's logic, **not the LLM judgement layer**" | n=1,469 (1,363 fully realized), **2026-02-23 → 2026-04-24 only** (2 months, not the 13 months the prompt rule claimed) | 38.5% (37.4% on fully-realized only) |
+| `data/predictions_log.json`'s own `outcome.direction_hit` field, computed fresh this session | **Real, live, Claude-generated predictions** (`scripts/generate_predictions.py`, the actual production pipeline) | n=2,477 | **67.3% gross / 60.8% net** hit rate |
 
-These cannot both be describing the same thing well. The walk-forward figure is a
-*simulation* of what predictions would have looked like over 13 months of history; the
-67.3% figure is what the *actual deployed* predictor scored on *real* logged calls over
-the last ~3.5 months. Two live signals worth flagging inside that 67.3%:
+The uncommitted `master_strategist.py` rule 14 (held back this session, never pushed —
+see §5.2) told Claude to treat the live `predictions` block as an **inverse** signal,
+citing "the predictions block's directional hit rate" of 38.5%. But that 38.5% number
+was never a measurement of the live predictions block at all — it came from a separate,
+explicitly-weaker rules-only simulation that the walk-forward script's own docstring
+says isn't a proxy for LLM judgment. The two got conflated somewhere between running the
+analysis and writing the prompt rule, and the rule would have instructed Claude to bet
+*against* a signal that's actually correct roughly two-thirds of the time.
 
-- **It's declining month over month**: Apr 71.2% → May 70.1% → Jun 66.9% → Jul 64.3%
-  (n=132/805/770/770). Still comfortably better than a coin flip, but the trend deserves
-  watching, not just the headline number.
-- The 38.5%/"treat as inverse signal" rule was written into the uncommitted
-  `master_strategist.py` diff that this session declined to push (see §5.2) — **it is
-  not live in production right now**. Good, because if the 67.3% figure is closer to
-  reality, that rule would have been actively harmful (telling Claude to bet against a
-  signal that's actually right two-thirds of the time).
+**This is now resolved, not just flagged:** don't revive the "predictions = inverse
+signal" rule. If reintroducing a predictions-calibration rule, base it on
+`data/predictions_log.json` (the real production log), not
+`walkforward_predictions.parquet` (a rules-engine proxy that was never meant to
+characterize the LLM's actual output).
 
-**Recommendation:** before reviving any calibration rule based on the 38.5% figure, re-run
-that exact walk-forward methodology fresh and reconcile it against the live log. Don't
-carry a stale ground-truth number into a new prompt rule just because it's already
-written down.
+One live signal still worth tracking: the real hit rate is **declining month over
+month** — Apr 71.2% → May 70.1% → Jun 66.9% → Jul 64.3% (n=132/805/770/770). Still
+comfortably better than a coin flip, but worth a monthly check rather than trusting the
+all-time headline number indefinitely.
 
 ---
 
 ## 4. Data infrastructure — what's actually healthy right now
 
-Ran `scripts/health_check.py` fresh this session. Two feeds are RED:
+Ran `scripts/health_check.py` fresh this session, fixed what was fixable, re-ran it —
+now only one feed is RED, and it's an accepted trade-off rather than an open bug:
 
 | Feed | Status | Root cause |
 |---|---|---|
-| `news_scoring` | 🔴 RED — 94.9 days since last success | `ANTHROPIC_API_KEY` invalid (401) — see §5.1 |
-| `macro_kpis` | 🔴 RED — "2/3 sub-sources refreshed" | SBP rates scraper returns 403 Forbidden when run locally (GitHub's own runners still succeed — likely an IP/User-Agent block, not a dead source) |
+| `news_scoring` | 🔴 RED — 94.9 days since last success | `ANTHROPIC_API_KEY` invalid (401) — **accepted trade-off, not fixing** (§5.1); will stay RED under the "Claude Code session on demand" model |
+| `macro_kpis` | ✅ **Fixed this session** — was 🔴 RED ("2/3 sub-sources refreshed") | SBP rates scraper 403 was transient (confirmed by hand); added retry-with-backoff + browser User-Agent to `connectors/sbp.py`. Re-ran health check: 3/3 sub-sources, GREEN. |
 | everything else (eod, overnight, predictions, fundamentals, material_info, financial_results, intraday) | 🟢 GREEN | confirmed fresh this session |
 
 Other data-quality notes surfaced this session:
 
-- `fundamentals` refresh: 34/35 symbols OK, **ENGROH consistently fails** on yfinance's
-  side ("possibly delisted; no timezone found") despite trading normally on PSX — a
-  ticker-mapping issue on the Yahoo Finance side specifically, not a real delisting.
+- `fundamentals` refresh: 34/35 symbols OK. **ENGROH confirmed permanent gap** — no
+  Yahoo Finance listing under any ticker variant (ENGROH.KA, ENGRO.KA, ENGROH.PSX,
+  ENGROHOLD.KA, and Yahoo's own name-search all come back empty) despite trading
+  normally on PSX. Not a mapping bug to fix; `connectors/yfinance_fundamentals.py` now
+  short-circuits it with an honest "known gap" message instead of a blank error.
 - `mf_holdings` (mutual-fund flow signal): 62 days stale as of today, which is expected
   — AHL stopped publishing the detailed feed after mid-2025 and the AMC-FMR scraper
   fallback runs monthly. The `mf_universe_distribution_broad` playbook analogue that
@@ -138,11 +144,14 @@ been reporting green in the Actions tab every single day while quietly serving
 `model: rule-based-v2, fallback_used: true` instead of real Claude reasoning, for **3.5
 months**. News sentiment scoring and financial-results extraction have no such fallback
 and have been hard-failing the same whole time (`news_scoring` health badge confirms:
-94.9 days). **This is still unresolved** — it requires a human to rotate the key at
-console.anthropic.com and update both places it's stored. Until then, every "Master
-Strategist" call — including the one manually authored this session
-(`reports/master_strategist_2026-09-01.md`) — is either a rule-based fallback or a
-one-off manual substitute, not the automated pipeline working as designed.
+94.9 days). **Decision (2026-09-01): not rotating the key.** The owner is using direct
+Claude Code sessions as the manual reasoning substitute instead — see
+`reports/master_strategist_2026-09-01.md` for the pattern. This is a real trade-off, not
+a fix: the *scheduled, unattended* runs (GitHub Actions and the local Task Scheduler
+equivalent) will keep serving the rule-based fallback or hard-failing indefinitely under
+this model — `news_scoring`'s RED health badge is now an accepted, permanent state
+rather than a bug to chase. A genuine Claude pass only happens when someone opens a
+session and asks for one.
 
 ### 5.2 A tuning change looked good in aggregate and failed on the data it hadn't seen
 
@@ -174,18 +183,26 @@ IMF/circular-debt event records) are now pushed and live.
 
 ## 6. Recommendations, prioritized
 
-**Now (blocking real value):**
-1. Rotate `ANTHROPIC_API_KEY` — nothing else in this list matters as much. Update
-   `.env` and the GitHub repo secret. Confirm by checking `data/_strategist/latest.json`
-   shows `fallback_used: false` the next trading day.
-2. Reconcile the predictions hit-rate discrepancy (§3) before writing or reviving any
-   prompt rule that depends on it.
+**Resolved this session:**
+1. ~~Rotate `ANTHROPIC_API_KEY`~~ — **decision made not to**: the owner will use direct
+   Claude Code sessions as the manual reasoning substitute for the Master Strategist /
+   news scoring / financial-results extraction instead of maintaining a paid API key.
+   Trade-off, not a fix: the scheduled/unattended runs still fall back to
+   `rule-based-v2` or hard-fail (`news_scoring` will stay RED on `health_check.py`
+   indefinitely under this model — that's now expected, not a bug to chase). A real
+   Claude pass only happens when someone actually opens a session and asks for it, as
+   in `reports/master_strategist_2026-09-01.md`.
+2. **Predictions hit-rate discrepancy — root-caused, not just reconciled.** The 38.5%
+   "anti-predictive" figure measured a different, weaker system (`walkforward_rules`
+   proxy) than the live Claude-generated predictions (67.3%). See §3. Do not revive the
+   inverse-signal rule.
+3. SBP rates scraper 403 — fixed (`connectors/sbp.py`: retry with backoff + browser
+   User-Agent; the block was transient, confirmed by hand). `macro_kpis` is GREEN again.
+4. ENGROH yfinance gap — confirmed permanent (no Yahoo listing under any ticker variant,
+   verified via Yahoo's own search API), not a mapping bug. `connectors/yfinance_fundamentals.py`
+   now short-circuits with an honest "known gap" message instead of a blank error.
 
 **Soon:**
-3. Fix the SBP rates scraper 403 (likely a User-Agent/IP block specific to non-GitHub
-   runners) or add a fallback source — it's the one RED feed with no LLM dependency,
-   should be the easiest to fix.
-4. Investigate the ENGROH yfinance mapping so `fundamentals` reaches 35/35.
 5. When re-attempting the IMF-floor / recovery-basket idea, explicitly test it against
    the months that postdate its own construction before considering it validated — the
    existing `validate_strategy_fixes.py` methodology should be extended to require this,
@@ -193,14 +210,19 @@ IMF/circular-debt event records) are now pushed and live.
 6. Do a dedicated post-mortem on 2026 once the full year is in — it's the one period
    where the strategy is losing more than its benchmark, a different (and more
    concerning) failure mode than the well-understood 2023/2024 beta-capture gap.
+7. Now that `news_scoring` will run manually/on-demand rather than automatically,
+   consider whether `predict_with_claude` should actually be built into
+   `scripts/walkforward_predictions.py` (currently aspirational text in its own
+   docstring, never implemented) — the deterministic-rules proxy it uses today
+   understates what the real LLM pipeline can do, as §3 just demonstrated.
 
 **Worth doing, not urgent:**
-7. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
+8. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
    on the same cadence as GitHub Actions — consider wiring a simple alert (email/Slack/
    push) off `health_check.py`'s RED badges instead of relying on someone opening the
    dashboard, since that's precisely how the API-key breakage went unnoticed for 3.5
    months in the first place.
-8. Decide on `AGENTS.md` / `CLAUDE.md` (drafted this session, still uncommitted) — they
+9. Decide on `AGENTS.md` / `CLAUDE.md` (drafted this session, still uncommitted) — they
    capture exactly this kind of institutional knowledge (the git-divergence trap, the
    "check for uncommitted brain/ changes" habit) so a future session doesn't have to
    rediscover it from scratch.
