@@ -37,6 +37,7 @@ from rich.console import Console
 from brain.strategy import (
     StrategyConfig, pick_monthly, build_prices_wide,
     compute_momentum, compute_realized_vol, trailing_stop_hit,
+    _hysteresis_state,
 )
 from config.universe import symbols as universe_symbols
 
@@ -152,6 +153,7 @@ def simulate(
     picks_log: list[dict] = []
 
     current_exposure = 1.0
+    prev_risk_on: bool | None = None  # tracks state across rebalances for hysteresis
 
     for i, dt in enumerate(dates):
         # ------------------------------------------------------------
@@ -189,8 +191,12 @@ def simulate(
             valid = ~np.isnan(mom_row)
             market_risk_on = True
             if cfg.market_filter_on:
-                if valid.sum() == 0 or np.nanmean(mom_row) < 0:
+                if valid.sum() == 0:
                     market_risk_on = False
+                else:
+                    market_risk_on = _hysteresis_state(
+                        float(np.nanmean(mom_row)), prev_risk_on, cfg.market_mom_band)
+            prev_risk_on = market_risk_on
 
             selected: list[str] = []
             reason = ""

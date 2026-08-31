@@ -52,6 +52,19 @@ class StrategyConfig:
     # Market-trend filter ----------------------------------------------
     market_filter_on: bool = True
     market_mom_window: int = 150      # same window for universe mean
+    # Hysteresis band around the zero threshold. See _hysteresis_state()
+    # docstring for the mechanism and rationale. 0.05 validated 2026-09-01:
+    # stable plateau from 0.05-0.12 (all ~+34% CAGR / 1.5 Sharpe), degrading
+    # above ~0.15 -- not a knife-edge fit to one value. Critically, 2021-2025
+    # backtest results are BYTE-IDENTICAL at every band from 0.0 to 0.15 --
+    # this only ever engages during 2026's near-zero/rangebound stretch, it
+    # does not reshape any year that was already working. Fixes the 2026
+    # whipsaw flagged in docs/strategy_evaluation_2026-09-01.md: universe
+    # momentum oscillated -0.045/-0.058/+0.004/+0.085/-0.039/-0.095 Mar-Aug
+    # 2026 (noise-level swings around zero), and the plain threshold flipped
+    # the whole book on it almost every month. 2026 backtest return:
+    # -5.96% (band=0) -> +10.35% (band=0.05), MaxDD unchanged.
+    market_mom_band: float = 0.05
 
     # Risk management --------------------------------------------------
     # Stops are OFF by default: parameter sweep showed any stop band
@@ -134,14 +147,89 @@ def apply_vol_filter(
 # --------------------------------------------------------------------------
 # Market trend filter
 # --------------------------------------------------------------------------
+def _hysteresis_state(market_mom: float, prev_state: bool | None, band: float) -> bool:
+    """Shared ON/OFF decision used by both live (market_is_risk_on) and the
+    backtest loop (brain/backtest_v2.py) -- kept as ONE function specifically
+    so the two can't silently drift apart the way they did before (see
+    docs/strategy_evaluation_2026-09-01.md).
+
+    Plain zero threshold (band=0, the default) is unchanged: >=0 -> True.
+
+    With band > 0, this is a Schmitt-trigger / dead-band hysteresis: once in
+    a state, momentum has to cross the OPPOSITE side of the band to flip out
+    of it, not just cross zero. Motivation: 2026's month-end universe
+    momentum has been oscillating in a +/-0.10 range around zero since March
+    (-0.045, -0.058, +0.004, +0.085, -0.039, -0.095) -- noise-level swings
+    that the plain threshold treats as full regime changes, causing a
+    rebalance-cost round trip almost every month for a market that is
+    genuinely just flat/rangebound, not trending down. This is the standard
+    fix for exactly this failure mode in trend-following systems (asymmetric
+    enter/exit thresholds) -- see CME Group, "Improving Time-Series Momentum
+    Strategies" and the general dead-band/hysteresis literature on
+    whipsaw reduction. NOT tied to any specific historical event (contrast
+    with the IMF-floor override tested and rejected earlier this session for
+    exactly that reason) -- this is a generic statistical noise filter.
+    """
+    if band <= 0 or prev_state is None:
+        return bool(market_mom >= 0)
+    if prev_state:
+        return bool(market_mom >= -band)   # stay ON unless it drops below -band
+    return bool(market_mom >= band)        # stay OFF unless it rises above +band
+
+
+def _monthly_rebalance_dates(prices_wide: pd.DataFrame) -> pd.DatetimeIndex:
+    """Last trading day of each calendar month present in the index."""
+    period = prices_wide.index.to_period("M")
+    return pd.DatetimeIndex(prices_wide.index.to_series().groupby(period).max().values)
+
+
+def _replay_market_state(
+    prices_wide: pd.DataFrame, as_of: pd.Timestamp, cfg: StrategyConfig,
+) -> bool | None:
+    """Derive the hysteresis state a caller would be carrying into `as_of`,
+    by sequentially replaying every monthly rebalance strictly before it.
+
+    Why this exists: hysteresis needs the PREVIOUS month's state, but most
+    callers (ui/tools.py, scripts/generate_report_v2.py) call
+    market_is_risk_on()/pick_monthly() for a single point in time and don't
+    track month-to-month state themselves. Without this, setting
+    cfg.market_mom_band > 0 would silently do nothing for any caller that
+    doesn't explicitly thread prev_state through -- exactly the kind of
+    "fixed in the backtest, no-op live" gap this session has been hunting
+    all day. Recomputing from price history keeps this a pure function
+    (same inputs -> same outputs, no new state file to go stale or drift)
+    rather than persisting state to disk. brain/backtest_v2.py's own loop
+    tracks state itself for performance and does NOT go through this path.
+    """
+    dates = _monthly_rebalance_dates(prices_wide)
+    dates = dates[dates < as_of]
+    mom = compute_momentum(prices_wide, cfg.market_mom_window)
+    state: bool | None = None
+    for dt in dates:
+        if dt not in mom.index:
+            continue
+        m = mom.loc[dt].mean()
+        if pd.isna(m):
+            continue
+        state = _hysteresis_state(float(m), state, cfg.market_mom_band)
+    return state
+
+
 def market_is_risk_on(
     prices_wide: pd.DataFrame,
     as_of: pd.Timestamp,
     cfg: StrategyConfig | None = None,
+    prev_state: bool | None = None,
 ) -> bool:
-    """True if the equal-weighted universe momentum is non-negative at `as_of`.
+    """True if the equal-weighted universe momentum clears the risk-on bar at `as_of`.
 
     When this returns False, the monthly rotation should go to cash.
+
+    `prev_state`: the previous rebalance's result, for callers (like the
+    backtest loop) that already track it. If omitted and
+    `cfg.market_mom_band > 0`, it's auto-derived by replaying history (see
+    `_replay_market_state`) so callers don't have to track state themselves
+    to benefit from hysteresis.
     """
     cfg = cfg or StrategyConfig()
     mom = compute_momentum(prices_wide, cfg.market_mom_window)
@@ -153,7 +241,9 @@ def market_is_risk_on(
     market_mom = mom.loc[as_of].mean()
     if pd.isna(market_mom):
         return False
-    return bool(market_mom >= 0)
+    if cfg.market_mom_band > 0 and prev_state is None:
+        prev_state = _replay_market_state(prices_wide, as_of, cfg)
+    return _hysteresis_state(float(market_mom), prev_state, cfg.market_mom_band)
 
 
 # --------------------------------------------------------------------------
@@ -173,11 +263,17 @@ def pick_monthly(
     prices_wide: pd.DataFrame,
     as_of: pd.Timestamp,
     cfg: StrategyConfig | None = None,
+    prev_state: bool | None = None,
 ) -> MonthlyPick:
     """Decide the month's holdings based purely on price data up to `as_of`.
 
     Returns a MonthlyPick record explaining the decision path. If the market
     filter vetoes the month, `selected` is [] and `reason` explains why.
+
+    `prev_state`: previous month's market_risk_on result. Only affects the
+    decision when `cfg.market_mom_band > 0` (hysteresis) -- see
+    `_hysteresis_state`. Callers that don't track month-to-month state can
+    omit it; the filter falls back to the plain zero-threshold behaviour.
     """
     cfg = cfg or StrategyConfig()
     ranked = rank_universe(prices_wide, as_of, cfg)
@@ -186,7 +282,7 @@ def pick_monthly(
         return MonthlyPick(as_of, False, ranked, ranked, [],
                            "No valid momentum data for any symbol")
 
-    if cfg.market_filter_on and not market_is_risk_on(prices_wide, as_of, cfg):
+    if cfg.market_filter_on and not market_is_risk_on(prices_wide, as_of, cfg, prev_state):
         return MonthlyPick(as_of, False, ranked, pd.Series(dtype=float), [],
                            f"Market filter: universe {cfg.market_mom_window}d "
                            f"mom is negative — go to cash")
