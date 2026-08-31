@@ -1,5 +1,5 @@
 {
-  "refreshed_utc": "2026-08-30T07:59:08+00:00",
+  "refreshed_utc": "2026-08-31T20:16:24+00:00",
   "results": {
     "HUBC": "ok",
     "PABC": "ok",
@@ -30,7 +30,7 @@
     "KAPCO": "ok",
     "KEL": "ok",
     "ATRL": "ok",
-    "ENGROH": "ok",
+    "ENGROH": "AttributeError: 'PriceHistory' object has no attribute '_dividends'",
     "LOTCHEM": "ok",
     "SYS": "ok",
     "TRG": "ok",
