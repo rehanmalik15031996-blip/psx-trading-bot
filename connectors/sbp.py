@@ -45,14 +45,37 @@ def _iso_date(raw: str | None) -> str | None:
 
 def _pull_sbp_dashboard() -> tuple[str, int]:
     """Fetch the SBP M2M dashboard — this one page has policy rate, KIBOR,
-    T-Bill/PIB yields, reserves, and PKR/USD in one go."""
-    r = requests.get(
-        "https://www.sbp.org.pk/ecodata/rates/m2m/M2M-Current.asp",
-        headers={"User-Agent": "Mozilla/5.0 PSX-Bot"},
-        timeout=15,
-    )
-    r.raise_for_status()
-    return r.text, r.status_code
+    T-Bill/PIB yields, reserves, and PKR/USD in one go.
+
+    Observed 2026-09-01: the endpoint intermittently 403s (looks like transient
+    rate-limiting rather than a persistent block — retrying with a short
+    backoff and a browser-like User-Agent has cleared it every time so far).
+    Retry a couple of times before giving up so one flaky hit doesn't turn
+    into a full RED health badge for the day.
+    """
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+    last_exc: Exception | None = None
+    for attempt in range(3):
+        try:
+            r = requests.get(
+                "https://www.sbp.org.pk/ecodata/rates/m2m/M2M-Current.asp",
+                headers=headers,
+                timeout=15,
+            )
+            r.raise_for_status()
+            return r.text, r.status_code
+        except requests.HTTPError as e:
+            last_exc = e
+            if attempt < 2:
+                time.sleep(2 * (attempt + 1))
+    raise last_exc
 
 
 class SBPPolicyRateConnector(BaseConnector):

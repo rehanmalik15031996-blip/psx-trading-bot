@@ -69,6 +69,16 @@ def _safe_div(num, den):
         return None
 
 
+# Symbols confirmed to have no Yahoo Finance listing under any tried ticker
+# variant (checked via Yahoo's own search API, not just the .KA suffix).
+# ENGROH ("Engro Holdings"): searched ENGROH.KA, ENGRO.KA, ENGROH.PSX,
+# ENGROHOLD.KA and Yahoo's search endpoint for "Engro"/"Engro Holdings" --
+# nothing resolves to this PSX listing. PSX-native data (OHLCV, results PDFs)
+# is unaffected; only this connector's Yahoo-sourced fundamentals are blind
+# to it. Revisit if Yahoo ever picks up coverage.
+_NO_YAHOO_COVERAGE = frozenset({"ENGROH"})
+
+
 class YFinanceFundamentalsConnector(BaseConnector):
     name = "yfinance (PSX fundamentals)"
     category = "fundamentals"
@@ -140,6 +150,15 @@ class YFinanceFundamentalsConnector(BaseConnector):
             "as_of_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "ok": False,
         }
+        if symbol in _NO_YAHOO_COVERAGE:
+            rec["error"] = (
+                "Known gap: no Yahoo Finance listing for this symbol under any "
+                "tried ticker (confirmed via Yahoo search API 2026-09-01) -- "
+                "not a transient failure, don't keep retrying it as one. "
+                "PSX OHLCV/results data for this symbol is fine; only Yahoo "
+                "fundamentals coverage is missing."
+            )
+            return rec
         try:
             t = yf.Ticker(symbol + ".KA")
             info = t.info or {}
