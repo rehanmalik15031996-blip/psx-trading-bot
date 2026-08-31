@@ -15,6 +15,7 @@ python-dateutil>=2.8.2,<3.0.0
 numpy>=1.26.0,<3.0.0
 pandas>=2.2.0,<3.0.0
 pyarrow>=16.0.0,<19.0.0
+rich>=13.0.0,<15.0.0            # console output (scripts/backfill.py, brain/backtest_v2.py)
 
 # LLM (news scoring + daily predictions + report extraction)
 anthropic>=0.34.0,<1.0.0
