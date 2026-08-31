@@ -1,0 +1,68 @@
+name: Fundamentals history (point-in-time)
+
+# Builds/refreshes data/fundamentals_history/{SYMBOL}.parquet -- per-fiscal-
+# year fundamentals with real period-end dates, kept from Yahoo Finance's
+# annual financial statements (see connectors/yfinance_fundamentals.py::
+# fetch_history_one). This is what makes value/quality signals backtestable
+# without lookahead bias -- see docs/strategy_evaluation_2026-09-01.md and
+# brain/fundamentals_history.py for the full rationale and known caveats.
+#
+# Idempotent (dedup by symbol+period_end) and cheap, so monthly is fine --
+# it just catches whichever companies have reported a new fiscal year since
+# the last run. Separate from fundamentals.yml (which refreshes the CURRENT
+# snapshot weekly); this one only ever adds new historical rows.
+
+on:
+  schedule:
+    - cron: '30 2 1 * *'      # 07:30 PKT, 1st of every month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fundamentals-history
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Build fundamentals history
+        run: python scripts/build_fundamentals_history.py
+
+      - name: Commit updates
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/fundamentals_history/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No new fiscal-year data."
+            exit 0
+          fi
+          git commit -m "data: fundamentals history $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing on latest main..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1

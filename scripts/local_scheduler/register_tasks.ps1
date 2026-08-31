@@ -95,6 +95,7 @@ Register-PSXTask -TaskName "fundamentals"        -Workflow "fundamentals"       
 Register-PSXTask -TaskName "ingest_mf_holdings"  -Workflow "ingest_mf_holdings"  -Kind Daily -Time "09:00"
 Register-PSXTask -TaskName "ingest_amc_fmr"      -Workflow "ingest_amc_fmr"      -Kind Daily -Time "09:00"
 Register-PSXTask -TaskName "validate_ranker"     -Workflow "validate_ranker"     -Kind Daily -Time "08:30"
+Register-PSXTask -TaskName "fundamentals_history" -Workflow "fundamentals_history" -Kind Daily -Time "07:30"
 
 Write-Host ""
 Write-Host "Done. List all registered tasks with:"

@@ -93,6 +93,9 @@ WORKFLOWS: dict[str, list[dict]] = {
     "validate_ranker": [
         {"cmd": [PY, "scripts/validate_ranker.py"], "allow_fail": True},
     ],
+    "fundamentals_history": [
+        {"cmd": [PY, "scripts/build_fundamentals_history.py"]},
+    ],
 }
 
 # Monthly-cadence workflows are registered as DAILY Task Scheduler triggers
@@ -103,6 +106,7 @@ DAY_GATES: dict[str, dict] = {
     "ingest_mf_holdings": {"day_of_month": 5},
     "ingest_amc_fmr": {"day_of_month": 8},
     "validate_ranker": {"day_of_month": 1, "months": {1, 4, 7, 10}},
+    "fundamentals_history": {"day_of_month": 1},  # monthly is cheap+idempotent; catches new filings promptly
 }
 
 
