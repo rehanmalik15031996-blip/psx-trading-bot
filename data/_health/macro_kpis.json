@@ -1,8 +1,8 @@
 {
   "workflow": "macro_kpis",
-  "ok": false,
-  "note": "2/3 sub-sources refreshed",
-  "as_of": "2026-08-31T20:14:23+00:00",
+  "ok": true,
+  "note": "3/3 sub-sources refreshed",
+  "as_of": "2026-08-31T20:56:09+00:00",
   "github": {
     "run_id": "",
     "run_number": "",
@@ -11,8 +11,11 @@
   },
   "payload": {
     "sbp_rates": {
-      "ok": false,
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.sbp.org.pk/ecodata/rates/m2m/M2M-Current.asp"
+      "ok": true,
+      "date": "2026-08-31",
+      "rows": 1732,
+      "tbill_3m_pct": 11.645,
+      "reserves_total_usd_mn": 22587.4
     },
     "kse100": {
       "ok": true,

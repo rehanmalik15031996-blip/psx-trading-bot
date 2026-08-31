@@ -1,5 +1,5 @@
 {
-  "refreshed_utc": "2026-08-31T20:16:24+00:00",
+  "refreshed_utc": "2026-08-31T20:59:25+00:00",
   "results": {
     "HUBC": "ok",
     "PABC": "ok",
@@ -30,7 +30,7 @@
     "KAPCO": "ok",
     "KEL": "ok",
     "ATRL": "ok",
-    "ENGROH": "AttributeError: 'PriceHistory' object has no attribute '_dividends'",
+    "ENGROH": "Known gap: no Yahoo Finance listing for this symbol under any tried ticker (confirmed via Yahoo search API 2026-09-01) -- not a transient failure, don't keep retrying it as one. PSX OHLCV/results data for this symbol is fine; only Yahoo fundamentals coverage is missing.",
     "LOTCHEM": "ok",
     "SYS": "ok",
     "TRG": "ok",
