@@ -109,6 +109,22 @@
       "decay_days": 21,
       "description": "IMF completes 2nd EFF review; ~$1.1bn tranche disbursed.",
       "source": "https://www.imf.org/en/News/Articles/2025/10/25/pr-pakistan-imf-executive-board-completes-second-review-under-eff"
+    },
+    {
+      "date": "2026-04-10",
+      "type": "review_sla",
+      "amount_usd_mn": 1000,
+      "decay_days": 28,
+      "description": "Staff-level agreement on 3rd EFF review (~$1bn tranche pending board approval). Catalyst for KSE-100 +11% week of April 7-11. Decay extended to 28d: SLA sentiment stays elevated until board approval ~28d later.",
+      "source": "https://www.imf.org/en/countries/pak"
+    },
+    {
+      "date": "2026-05-08",
+      "type": "review_board_approval",
+      "amount_usd_mn": 1000,
+      "decay_days": 21,
+      "description": "IMF Executive Board completes 3rd EFF review; ~$1bn tranche disbursed. Cumulative EFF disbursements reach ~$4bn. 4th review expected Sep/Oct 2026.",
+      "source": "https://www.imf.org/en/news/articles/2026/05/08/pr-26147-pakistan-imf-completes-3rd-rev-of-extended-arrangement-under-eff-and-2nd-rev-arrang-rsf"
     }
   ]
 }
