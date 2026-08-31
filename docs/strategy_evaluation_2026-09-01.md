@@ -207,7 +207,94 @@ IMF/circular-debt event records) are now pushed and live.
 
 ---
 
-## 6. Recommendations, prioritized
+## 6. Runtime volume data + strategy candidates researched this round
+
+### 6.1 Real-time volume/microstructure data was silently broken for 4 months — now fixed
+
+Checked what's already built before suggesting anything new: `connectors/psx_terminal.py`
+(live REST/WebSocket feed) and `connectors/psx_portal.py` (MarketWatch snapshots +
+circuit breakers) already exist, feeding `data/intraday/marketwatch.parquet`,
+`circuit_breakers.parquet`, `fipi_intraday.parquet` twice a trading day via
+`intraday_session.yml` (11:30 and 13:30 PKT). Checked the data: **`marketwatch.parquet`
+was stuck at 2026-05-07 — 4 months stale.**
+
+Root cause: `intraday_session.yml` runs 3 steps in sequence — (1) live snapshot, (2)
+score fresh headlines via the same `score_news_sentiment.py` fixed earlier this session,
+(3) commit. Step 1 was succeeding every single run; step 2 was hard-failing on the
+invalid API key (before this session's fix) and aborting the job **before step 3 ever
+ran** — so real, successfully-fetched live volume data was fetched and then silently
+discarded, every trading day, for 4 months. Confirmed via `gh run list` (every recent
+run failed) and the actual failure log.
+
+This is fixed as a side effect of the news-scoring fallback fix (§ from the prior
+round): re-ran the exact chain locally end-to-end
+(`scripts/local_scheduler/run_workflow.py --workflow intraday_session`) and it now
+completes and commits — `marketwatch.parquet` is fresh again (7,814 rows). The next
+scheduled GitHub Actions run (or the local Task Scheduler equivalent, both now
+registered) should resume normal twice-daily collection going forward.
+
+**What this data can now actually be used for** (research-grounded, not yet built):
+- **VWAP-aware execution.** The backtest and live report currently assume fills at the
+  day's close. PSX is explicitly documented in this repo's own research as "retail-heavy,
+  narrow breadth, lower ADV" — exactly the condition where VWAP benchmarking matters most
+  (it's the standard institutional yardstick for execution quality precisely because
+  naive close-price fills can cost real slippage in thin names). With intraday snapshots
+  flowing again, a VWAP estimate per rebalance day is now computable and worth reporting
+  alongside the close price the backtest assumes.
+- **Intraday unusual-volume detection.** The existing `brain/volume_signals.py` only
+  looks at EOD daily volume. With two intraday checkpoints a day now flowing again, a
+  same-day volume-spike flag (e.g., a name printing 3x+ its typical volume by midday) is
+  a cheap, near-real-time complement to `scripts/check_news_shocks.py` — often a big
+  volume move precedes the news that explains it by hours.
+
+Neither of these is built yet — flagging both as concrete, data-ready next steps rather
+than shipping untested execution-logic changes in the same pass as a data-pipeline fix.
+
+### 6.2 Better strategies — what the research says, tested against what our data can actually prove
+
+Researched current (2026) multi-factor and momentum literature. Two takeaways, both
+already partially true in this codebase's own history:
+
+- Momentum has had "its best multi-year run since the dot-com bubble" recently, but the
+  same research explicitly flags "elevated risk... favoring diversification rather than
+  outsized positions" — i.e. even mainstream factor research is currently *skeptical* of
+  pure-momentum concentration, which is exactly this bot's design.
+- Value has been "strongest in emerging markets" per the same research — a natural
+  candidate to blend in.
+
+**Tested it anyway, honestly, before recommending it — and it doesn't work here.**
+Blending value/quality into the ranking is blocked by a real data-infrastructure gap:
+`data/fundamentals/*.parquet` is a **single current snapshot per symbol, not a
+point-in-time history** (checked: one row, `as_of_utc` = today, no history). Backtesting
+any value/quality-tilted ranking against 2021-2026 with today's fundamentals applied
+retroactively would be lookahead bias — the same flaw already flagged in
+`scripts/walkforward_predictions.py`'s own docstring for a different reason. This is
+almost certainly *why* the mechanical Phase-1 rule deliberately uses only pure
+price/volume data: it's the only signal in this codebase that's genuinely
+lookahead-bias-free to backtest. Building true point-in-time fundamentals history would
+be a real data-engineering project (quarterly snapshots reconstructed from historical
+filings), not something to bolt on casually.
+
+**What *is* safely testable with pure OHLCV (no lookahead risk) — tested, rejected:**
+volatility-adjusted ("Sharpe-style") momentum ranking, i.e. rank by momentum ÷ realized
+volatility instead of raw momentum. Standard refinement in the trend-following
+literature. Result on this universe: CAGR 26.4% → 24.5%, and specifically **gives back
+13.5pp in 2025** (the strategy's best relative year) for a MaxDD improvement of under
+1pp. Rejected — same discipline as the IMF-floor idea. Plausible reason specific to this
+strategy: the vol filter already excludes the top-30%-by-volatility names before
+ranking, so a second volatility adjustment on top double-penalizes exactly the decisive,
+high-conviction moves that drove 2025's outperformance.
+
+**Net conclusion on "better strategies":** the generic multi-factor/quant literature's
+suggestions either aren't provable without a real data-engineering investment (value/
+quality) or don't survive contact with this specific universe's actual history
+(vol-adjusted momentum). This isn't a reason to stop looking, but it is a reason to keep
+testing new ideas against real out-of-sample PSX data before shipping them, rather than
+importing what worked in US large-cap literature by default.
+
+---
+
+## 7. Recommendations, prioritized
 
 **Resolved this session:**
 1. ~~Rotate `ANTHROPIC_API_KEY`~~ — **decision made not to**: the owner will use direct
@@ -238,32 +325,51 @@ IMF/circular-debt event records) are now pushed and live.
    (`StrategyConfig.market_mom_band`) to the market-trend filter. See §2.1 for full
    methodology; 2026 backtest return went from -5.96% to +10.35%, MaxDD unchanged,
    2021-2025 provably untouched (byte-identical at every band tested).
+7. **Real-time volume data restored.** `data/intraday/marketwatch.parquet` was silently
+   stuck for 4 months (fetched successfully every run, then discarded because a
+   downstream step in the same workflow hard-failed before the commit step). Fixed as a
+   side effect of item 5's news-scoring fallback; verified the full chain now completes
+   and commits. See §6.1.
+
+**Tested and rejected (same discipline as the IMF-floor idea):**
+8. Volatility-adjusted ("Sharpe-style") momentum ranking — a standard trend-following
+   refinement, tested honestly, made things worse here (CAGR 26.4%→24.5%, gives back
+   13.5pp in 2025). See §6.2 for the likely reason. Not shipped.
 
 **Soon:**
-7. When re-attempting the IMF-floor / recovery-basket idea, explicitly test it against
+9. When re-attempting the IMF-floor / recovery-basket idea, explicitly test it against
    the months that postdate its own construction before considering it validated — the
    existing `validate_strategy_fixes.py` methodology should be extended to require this,
    not left as a manual step someone might skip.
-8. Migrate `financial_results.yml`'s GitHub-Models-routed extraction (quarterly/
-   half-year/material-info reports) to a working provider — GitHub Models is gone for
-   good, not key-broken.
-9. Consider whether `predict_with_claude` should actually be built into
-   `scripts/walkforward_predictions.py` (currently aspirational text in its own
-   docstring, never implemented) — the deterministic-rules proxy it uses today
-   understates what the real LLM pipeline can do, as §3 demonstrated.
-10. Two known-stale macro data files feeding the master strategist briefing —
+10. Migrate `financial_results.yml`'s GitHub-Models-routed extraction (quarterly/
+    half-year/material-info reports) to a working provider — GitHub Models is gone for
+    good, not key-broken.
+11. Consider whether `predict_with_claude` should actually be built into
+    `scripts/walkforward_predictions.py` (currently aspirational text in its own
+    docstring, never implemented) — the deterministic-rules proxy it uses today
+    understates what the real LLM pipeline can do, as §3 demonstrated.
+12. Two known-stale macro data files feeding the master strategist briefing —
     `data/macro/remittances_monthly.json` and `lsm_index_monthly.json` — are both stuck
     at December 2025 (curated once 2026-05-03, never given a refresh script). Both
     source URLs (SBP remittance PDF, PBS QIM page) are confirmed still live; build
     `scripts/refresh_remittances.py` / `refresh_lsm.py`.
+13. Build point-in-time fundamentals history (quarterly snapshots, not just today's) —
+    the real prerequisite for ever rigorously testing a value/quality-tilted strategy
+    without lookahead bias. Bigger effort than anything else on this list; only worth it
+    if factor-tilting is actually a priority.
+14. VWAP tracking per rebalance day, now that intraday snapshots are flowing again —
+    execution-quality improvement (reduces slippage), not an alpha change. See §6.1.
+15. Intraday unusual-volume spike detection as a same-day complement to
+    `scripts/check_news_shocks.py` — often the volume move precedes the news that
+    explains it. See §6.1.
 
 **Worth doing, not urgent:**
-11. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
+16. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
     on the same cadence as GitHub Actions — consider wiring a simple alert (email/Slack/
     push) off `health_check.py`'s RED badges instead of relying on someone opening the
     dashboard, since that's precisely how the API-key breakage went unnoticed for 3.5
     months in the first place.
-12. Decide on `AGENTS.md` / `CLAUDE.md` (drafted this session, still uncommitted) — they
+17. Decide on `AGENTS.md` / `CLAUDE.md` (drafted this session, still uncommitted) — they
     capture exactly this kind of institutional knowledge (the git-divergence trap, the
    "check for uncommitted brain/ changes" habit) so a future session doesn't have to
    rediscover it from scratch.
