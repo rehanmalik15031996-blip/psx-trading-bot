@@ -292,6 +292,26 @@ def simulate(
     daily_cost = dw.sum(axis=1) * (cfg.cost_round_trip / 2)
     gross = (w.shift(1) * r).sum(axis=1)
     daily_ret = (gross - daily_cost.shift(1).fillna(0)).fillna(0)
+
+    # T-bill yield on CASH days: when fully out of equities, earn T-bill 3M rate
+    # Historically 9-14% (2021-22), 21-22% (2023), 12% (2025). Omitting this
+    # understates CAGR by ~2-3pp in bear years (2021-2022 were fully in cash).
+    try:
+        tbill_path = PROJECT_ROOT / "data" / "macro" / "sbp_rates.parquet"
+        if tbill_path.exists():
+            sbp = pd.read_parquet(tbill_path)
+            sbp["date"] = pd.to_datetime(sbp["date"]).dt.normalize()
+            sbp = sbp.set_index("date")["tbill_3m_pct"].dropna()
+            # Forward-fill to get a daily series (rates change infrequently)
+            tbill_daily_series = sbp.reindex(dates).ffill().bfill().fillna(0)
+            # Daily T-bill return: (1 + rate/100)^(1/252) - 1
+            tbill_daily_ret = (1 + tbill_daily_series / 100) ** (1.0 / 252) - 1
+            # Apply only on full-CASH days (total weight == 0)
+            cash_mask = (w.shift(1).sum(axis=1) == 0)
+            daily_ret = daily_ret + cash_mask * tbill_daily_ret
+    except Exception:
+        pass  # graceful degradation: no T-bill yield if data unavailable
+
     equity = (1 + daily_ret).cumprod()
 
     # Benchmark: equal-weight buy-and-hold on the same period
