@@ -221,6 +221,127 @@ def _score_batch(batch: list[dict], client) -> list[dict]:
     return scored
 
 
+# ---------------------------------------------------------------------------
+# Rule-based fallback scorer (2026-09-01)
+#
+# Used when no LLM provider is available (as of this writing, ANTHROPIC_API_KEY
+# and GEMINI_API_KEY are both invalid and GitHub Models was permanently
+# retired 2026-07-30 -- see docs/strategy_evaluation_2026-09-01.md). This is
+# deliberately conservative: keyword/company-name matching only, confidence
+# capped at MED (never HIGH -- a keyword hit is not the same as an LLM reading
+# the article's actual catalyst), and it exists so the automated/scheduled
+# runs degrade gracefully instead of hard-failing for months unnoticed. It is
+# NOT a substitute for a real Claude pass; ask a Claude Code session to score
+# a batch directly (same SYSTEM_PROMPT + schema) for anything that matters.
+# ---------------------------------------------------------------------------
+_POS_WORDS = {
+    "surge": 0.4, "rally": 0.4, "record profit": 0.5, "record high": 0.4,
+    "upgrade": 0.35, "approval": 0.3, "approved": 0.3, "disbursed": 0.35,
+    "tranche": 0.25, "resolved": 0.3, "recovery": 0.25, "expansion": 0.2,
+    "growth": 0.2, "profit": 0.2, "dividend": 0.2, "bonus": 0.15,
+    "increase": 0.15, "gain": 0.2, "rebound": 0.25, "cut rate": 0.4,
+    "rate cut": 0.4, "easing": 0.25, "surplus": 0.25, "boost": 0.2,
+    "strong": 0.15, "beat estimates": 0.35, "acquisition": 0.15,
+    "jump": 0.3, "jumps": 0.3, "climb": 0.25, "climbs": 0.25,
+    "soar": 0.35, "soars": 0.35, "advance": 0.15, "advances": 0.15,
+}
+_NEG_WORDS = {
+    "plunge": -0.4, "crash": -0.5, "crisis": -0.4, "default": -0.5,
+    "downgrade": -0.35, "rejected": -0.3, "delay": -0.2, "delayed": -0.2,
+    "shutdown": -0.35, "loss": -0.25, "losses": -0.25, "strike": -0.25,
+    "protest": -0.25, "devaluation": -0.35, "decline": -0.2, "fall": -0.2,
+    "falls": -0.2, "deficit": -0.2, "rate hike": -0.3, "hike rate": -0.3,
+    "tightening": -0.2, "terror": -0.5, "attack": -0.4, "explosion": -0.45,
+    "war": -0.4, "conflict": -0.3, "unrest": -0.3, "sanctions": -0.35,
+    "miss estimates": -0.3, "weak": -0.15, "concern": -0.15, "risk": -0.1,
+    "slip": -0.25, "slips": -0.25, "slipped": -0.25, "tumble": -0.35,
+    "tumbles": -0.35, "sink": -0.3, "sinks": -0.3, "drop": -0.2,
+    "drops": -0.2, "weigh on": -0.2, "weighs on": -0.2,
+    "under pressure": -0.2, "sell-off": -0.35, "selloff": -0.35,
+}
+# Order matters: checked top-to-bottom, first match wins. Geopolitics/policy
+# take priority over commodity/global since a war-driven oil spike is a
+# geopolitics story, not a commodity story (matches the SYSTEM_PROMPT's own
+# "terror/political escalation -> GEOPOLITICS" framing).
+_CATEGORY_KEYWORDS = {
+    "GEOPOLITICS": ("terror", "attack", "war", "conflict", "protest",
+                     "unrest", "martial law", "no-confidence", "election",
+                     "sanctions", "border"),
+    "POLICY": ("sbp", "policy rate", "mpc", "monetary policy", "kibor",
+               "interest rate", "central bank"),
+    "MACRO": ("imf", "reserves", "cpi", "inflation", "current account",
+              "trade deficit", "trade balance", "remittance", "gdp",
+              "circular debt", "fiscal", "budget"),
+    "GLOBAL": ("fed ", "federal reserve", "wall street", "s&p 500",
+               "dow jones", "nasdaq", "dollar index", "vix", "us stocks",
+               "us treasury"),
+    "COMMODITY": ("oil", "brent", "crude", "gold", "cotton", "gas price",
+                  "commodity", "opec"),
+}
+
+
+def _score_one_rules(article: dict, universe_by_name: dict[str, str]) -> dict:
+    raw_text = f"{article.get('title', '')} {article.get('summary', '')}"
+    text = raw_text.lower()
+
+    affected: list[str] = []
+    for hint in (article.get("ticker_hits") or []):
+        sym = str(hint).strip().upper()
+        if sym in UNIVERSE and sym not in affected:
+            affected.append(sym)
+    for name_lower, sym in universe_by_name.items():
+        if name_lower in text and sym not in affected:
+            affected.append(sym)
+    # Ticker symbols matched case-sensitively with word boundaries against the
+    # ORIGINAL text (not lowered) -- short tickers like SYS/TRG/APL would
+    # false-positive as substrings of ordinary words ("systems", "trg" in
+    # "strong") if matched against lowercased text.
+    for sym in UNIVERSE:
+        if sym in affected or len(sym) < 3:
+            continue
+        if re.search(rf"\b{re.escape(sym)}\b", raw_text):
+            affected.append(sym)
+
+    sentiment = 0.0
+    hits = 0
+    for word, weight in _POS_WORDS.items():
+        if word in text:
+            sentiment += weight
+            hits += 1
+    for word, weight in _NEG_WORDS.items():
+        if word in text:
+            sentiment += weight
+            hits += 1
+    sentiment = max(-1.0, min(1.0, sentiment))
+
+    category = "COMPANY" if affected else "OTHER"
+    for cat, keywords in _CATEGORY_KEYWORDS.items():
+        if any(kw in text for kw in keywords):
+            category = cat
+            break
+
+    confidence = "MED" if hits >= 2 and abs(sentiment) >= 0.3 else "LOW"
+
+    one_liner = (
+        f"Rule-based: {hits} keyword hit(s), category={category}"
+        + (f", tickers={','.join(affected)}" if affected else "")
+    )[:120]
+
+    return {
+        "sentiment": round(sentiment, 3),
+        "confidence": confidence,
+        "category": category,
+        "affected_symbols": affected,
+        "one_liner": one_liner,
+    }
+
+
+def _score_batch_rules(batch: list[dict]) -> list[dict]:
+    from config.universe import UNIVERSE as _UNIV_ENTRIES
+    universe_by_name = {e.name.lower(): e.symbol for e in _UNIV_ENTRIES}
+    return [_score_one_rules(a, universe_by_name) for a in batch]
+
+
 def _clean_symbols(syms) -> str:
     if not syms:
         return ""
@@ -250,10 +371,6 @@ def main():
                              "data/_health/news_scoring.json.")
     args = parser.parse_args()
 
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("ERROR: ANTHROPIC_API_KEY not set in .env")
-        return 2
-
     print(f"[1/4] Fetching RSS feeds (per_feed={args.per_feed}) ...")
     articles = _fetch_articles(args.per_feed)
     print(f"      got {len(articles)} articles")
@@ -280,23 +397,37 @@ def main():
         print("Nothing to score. Done.")
         return 0
 
-    from anthropic import Anthropic
-    client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    client = None
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        from anthropic import Anthropic
+        client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    else:
+        print("  ANTHROPIC_API_KEY not set -- using rule-based fallback "
+              "for this whole run.")
 
     scored_rows: list[dict] = []
     now_iso = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    used_fallback = client is None
     for i in range(0, len(enriched), args.batch):
         chunk = enriched[i : i + args.batch]
         print(f"  scoring batch {i // args.batch + 1} "
               f"({len(chunk)} articles) ...")
         t0 = time.perf_counter()
-        try:
-            scores = _score_batch(chunk, client)
-        except Exception as e:
-            print(f"    batch failed: {type(e).__name__}: {e}")
-            continue
+        model_tag = SCORER_MODEL
+        if client is not None:
+            try:
+                scores = _score_batch(chunk, client)
+            except Exception as e:
+                print(f"    batch failed: {type(e).__name__}: {e} "
+                      f"-- switching to rule-based fallback for the "
+                      f"rest of this run.")
+                client = None
+                used_fallback = True
+        if client is None:
+            scores = _score_batch_rules(chunk)
+            model_tag = "rules-fallback-v1"
         dt = (time.perf_counter() - t0) * 1000
-        print(f"    done in {dt:.0f}ms")
+        print(f"    done in {dt:.0f}ms ({'Claude' if model_tag == SCORER_MODEL else 'rules fallback'})")
 
         for art, sc in zip(chunk, scores):
             try:
@@ -317,7 +448,7 @@ def main():
                 "category": str(sc.get("category", "OTHER")).upper()[:14],
                 "affected_symbols": _clean_symbols(sc.get("affected_symbols", [])),
                 "one_liner": str(sc.get("one_liner", ""))[:160],
-                "model": SCORER_MODEL,
+                "model": model_tag,
             })
 
     if not scored_rows:
@@ -359,12 +490,15 @@ def main():
             write_status(
                 workflow="news_scoring",
                 ok=True,
-                note=(f"scored {len(new_df)} new of {len(articles)} fetched"),
+                note=(f"scored {len(new_df)} new of {len(articles)} fetched"
+                      + (" [RULE-BASED FALLBACK -- no LLM key available]"
+                         if used_fallback else "")),
                 payload={
                     "scored":  int(len(new_df)),
                     "fetched": int(len(articles)),
                     "by_category": {k: int(v)
                                       for k, v in (cat_counts or {}).items()},
+                    "used_fallback": used_fallback,
                 },
             )
         except Exception as e:
