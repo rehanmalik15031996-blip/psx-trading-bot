@@ -64,6 +64,9 @@ reports/
 _tmp_*.py
 _scratch/
 
+# Local scheduler run logs (scripts/local_scheduler/) -- machine-local, noisy
+logs/
+
 # NOTE: data/ is INTENTIONALLY tracked in git. The GitHub Actions
 # workflows commit daily updates back to the repo so `git pull` on
 # your laptop is enough to get the latest prices, predictions,
