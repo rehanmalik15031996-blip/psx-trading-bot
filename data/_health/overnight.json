@@ -2,12 +2,12 @@
   "workflow": "overnight",
   "ok": true,
   "note": "523 rows, last 2026-09-01",
-  "as_of": "2026-09-01T07:19:17+00:00",
+  "as_of": "2026-09-01T08:57:13+00:00",
   "github": {
-    "run_id": "",
-    "run_number": "",
-    "ref": "",
-    "sha": ""
+    "run_id": "33489633147",
+    "run_number": "105",
+    "ref": "refs/heads/main",
+    "sha": "375332eab50b7d8f5d546cfdda32ef2899e2ee38"
   },
   "payload": {
     "rows": 523,
