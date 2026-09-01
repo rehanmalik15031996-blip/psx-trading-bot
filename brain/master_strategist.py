@@ -404,6 +404,9 @@ def build_briefing() -> dict:
         briefing["remittances"] = _safe(_load_remittances_signal)
         briefing["lsm_index"] = _safe(_load_lsm_signal)
         briefing["msci_calendar"] = _safe(_load_msci_calendar_signal)
+        briefing["sector_indices"] = _safe(_load_sector_indices_signal)
+        briefing["dividend_calendar"] = _safe(_load_dividend_calendar_signal)
+        briefing["intraday_volume_spikes"] = _safe(_load_intraday_volume_spikes)
     except Exception as e:
         briefing["new_streams_error"] = f"{type(e).__name__}: {e}"
 
@@ -567,6 +570,111 @@ def _load_msci_calendar_signal() -> dict:
             "Adds to FM main index ⇒ passive-fund inflow on implementation day "
             "(can be PKR 5-25bn for major adds). Deletions ⇒ forced selling. "
             "Effect typically peaks the day before implementation."
+        ),
+    }
+
+
+def _load_sector_indices_signal() -> dict:
+    """PSX's own sector sub-indices (BKTI=Banking, OGTI=Oil&Gas, etc.), live
+    from dps.psx.com.pk -- see connectors/psx_portal.py::PSXIndicesConnector.
+
+    Wired in 2026-09-01: this connector already existed and worked but had
+    zero live consumers (confirmed by grep -- only test_connections.py
+    called it). macro_impact.py currently infers sector tailwind/headwind
+    indirectly from global commodity/FX drivers; this is the sector's own
+    actual price action on PSX, a more direct signal to read alongside it.
+    """
+    from connectors.psx_portal import PSXIndicesConnector
+    # Known sub-index codes -> human label (PSX doesn't publish a canonical
+    # mapping; these are the ones observed live and stable across runs).
+    LABELS = {
+        "KSE100": "KSE-100 (benchmark)", "ALLSHR": "All Share",
+        "KSE30": "KSE-30", "KMI30": "KMI-30 (Shariah)",
+        "BKTI": "Banking sector index", "OGTI": "Oil & Gas sector index",
+        "KMIALLSHR": "KMI All Share", "PSXDIV20": "Dividend 20 Index",
+    }
+    try:
+        result = PSXIndicesConnector().fetch()
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+    if not result.ok or not result.records:
+        return {"error": result.error or "no index rows parsed"}
+    rows = []
+    for rec in result.records:
+        code = (rec.get("index") or "").strip()
+        if code not in LABELS:
+            continue
+        rows.append({
+            "code": code, "label": LABELS[code],
+            "current": rec.get("current"), "change_pct": rec.get("change_pct"),
+        })
+    return {
+        "as_of": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "indices": rows,
+        "interpretation": (
+            "BKTI/OGTI etc. are PSX's own sector sub-indices -- read alongside "
+            "macro_impact's driver-based sector verdicts as the sector's actual "
+            "same-day price action, not an inference from commodity/FX moves."
+        ),
+    }
+
+
+def _load_intraday_volume_spikes() -> dict:
+    """Universe names trading unusually heavy same-day volume vs a
+    time-of-day-adjusted expectation. Heuristic on discrete snapshots, not
+    a true intraday volume profile -- see brain/intraday_signals.py's
+    module docstring for exactly what this can and can't claim.
+
+    Wired in 2026-09-01 alongside a 3rd daily intraday checkpoint (10:00
+    PKT, added the same day) -- 2 snapshots/day was too sparse for this to
+    mean much; 3 is still coarse but usable as an early-warning
+    complement to scripts/check_news_shocks.py (a volume move often
+    precedes the news that explains it by hours).
+    """
+    from brain.intraday_signals import detect_volume_spikes
+    try:
+        spikes = detect_volume_spikes(min_ratio=2.0)
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+    from config.universe import symbols as _universe_symbols
+    universe = set(_universe_symbols())
+    in_universe = [s for s in spikes if s["symbol"] in universe]
+    return {
+        "spikes_in_universe": in_universe,
+        "interpretation": (
+            "Ratio is cumulative same-day volume vs a time-of-day-adjusted "
+            "expectation from trailing 20d average -- a heuristic on sparse "
+            "intraday snapshots, not a precise volume profile. Treat >=3x as "
+            "worth a second look (check news/material info for that name), "
+            "not as a standalone trading signal."
+        ),
+    }
+
+
+def _load_dividend_calendar_signal() -> dict:
+    """Upcoming ex-dividend / bonus / rights-issue dates for universe stocks.
+
+    Wired in 2026-09-01: connectors/dividend_calendar.py existed but had a
+    dead parser (pandas 3.0 API break + stale column-name matching, both
+    fixed the same day) and zero live consumers. See
+    connectors/dividend_calendar.py::_parse_azee for the fix details.
+    """
+    from connectors.dividend_calendar import load_upcoming_dividends
+    try:
+        rows = load_upcoming_dividends(min_yield_pct=0.0)
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
+    from config.universe import symbols as _universe_symbols
+    universe = set(_universe_symbols())
+    in_universe = [r for r in rows if r.get("symbol") in universe]
+    return {
+        "as_of": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "upcoming_in_universe": in_universe,
+        "n_upcoming_total": len(rows),
+        "interpretation": (
+            "Ex-date price drops mechanically by roughly the dividend amount -- "
+            "don't read a same-day drop on the ex-date as a bearish signal for "
+            "a name in this list. Bonus/rights issues dilute per-share metrics."
         ),
     }
 
@@ -965,6 +1073,24 @@ Anchor truths you must respect:
         analogue. Otherwise cap at MEDIUM.
       - Bearish calls do NOT need this extra gate — they have already
         been shown to be well-calibrated.
+
+13. **Sector indices + dividend calendar + intraday volume (wired
+    2026-09-01).** The briefing carries ``sector_indices`` (PSX's own live
+    sector sub-indices — BKTI for Banking, OGTI for Oil & Gas, plus
+    KSE100/ALLSHR/KSE30/KMI30), ``dividend_calendar`` (upcoming ex-dividend/
+    bonus/rights dates for universe names), and ``intraday_volume_spikes``
+    (same-day names trading unusually heavy volume vs a time-of-day-adjusted
+    expectation — a heuristic on sparse snapshots, not a precise volume
+    profile). Use ``sector_indices`` as the sector's own actual same-day
+    price action — a more direct read than inferring sector performance
+    from commodity/FX drivers alone; cite it in ``contributing_signals``
+    when it agrees or disagrees with ``macro_impact``'s driver-based verdict
+    for that sector. Before flagging any name in
+    ``dividend_calendar.upcoming_in_universe`` as bearish on its ex-date,
+    check whether the drop is just the mechanical ex-dividend adjustment
+    rather than a real signal. Treat a ``intraday_volume_spikes`` entry
+    (>=2x expected) as a prompt to check news/material info for that name,
+    not as a standalone bullish or bearish signal by itself.
 
 Output format
 -------------

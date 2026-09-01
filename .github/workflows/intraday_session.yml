@@ -22,6 +22,10 @@ name: Intraday session refresh (live PSX + extra news)
 
 on:
   schedule:
+    - cron: '0 5 * * 1-5'       # 10:00 PKT, Mon-Fri (added 2026-09-01 for a
+                                 # 3rd intraday checkpoint -- 2/day was too
+                                 # sparse for any volume-weighted price
+                                 # estimate; see brain/intraday_signals.py)
     - cron: '30 6 * * 1-5'      # 11:30 PKT, Mon-Fri
     - cron: '30 8 * * 1-5'      # 13:30 PKT, Mon-Fri
   workflow_dispatch:

@@ -76,6 +76,9 @@ WORKFLOWS: dict[str, list[dict]] = {
     "material_info": [
         {"cmd": [PY, "scripts/refresh_material_info.py"]},
     ],
+    "dividend_calendar": [
+        {"cmd": [PY, "scripts/refresh_dividend_calendar.py"], "allow_fail": True},
+    ],
     "fundamentals": [
         {"cmd": [PY, "scripts/refresh_fundamentals.py"]},
     ],

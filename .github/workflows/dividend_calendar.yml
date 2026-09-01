@@ -1,0 +1,65 @@
+name: Dividend calendar refresh
+
+# Upcoming ex-dividend/bonus/rights-issue dates for the universe, scraped
+# from azeetrade.com. connectors/dividend_calendar.py existed for months
+# but was never given a refresh script or schedule, and its parser broke
+# under pandas 3.0 (fixed 2026-09-01 -- see the connector's docstring).
+#
+# Feeds brain/master_strategist.py's dividend_calendar briefing signal so
+# the strategist doesn't misread a mechanical ex-date price drop as bearish.
+
+on:
+  schedule:
+    - cron: '15 2 * * 1-5'    # 07:15 PKT, Mon-Fri
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dividend-calendar
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '.github/requirements-ci.txt'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/requirements-ci.txt
+
+      - name: Refresh dividend calendar
+        run: python scripts/refresh_dividend_calendar.py
+        continue-on-error: true   # azeetrade.com is a single scraped source, no fallback yet
+
+      - name: Commit updates
+        run: |
+          git config user.name  "psx-bot"
+          git config user.email "psx-bot@users.noreply.github.com"
+          git add data/dividends/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "data: dividend calendar $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected; rebasing on latest main..."
+            git pull --rebase --autostash origin main || exit 1
+            sleep $((i * 2))
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
