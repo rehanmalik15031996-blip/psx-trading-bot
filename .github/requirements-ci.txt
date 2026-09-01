@@ -26,3 +26,6 @@ pymupdf>=1.24.0,<2.0.0
 
 # Mutual Funds Equity Holdings parser (AHL monthly PDF)
 pdfplumber>=0.11.0,<1.0.0
+
+# Retail search-interest proxy (unofficial Google Trends API)
+pytrends>=4.9.0,<5.0.0

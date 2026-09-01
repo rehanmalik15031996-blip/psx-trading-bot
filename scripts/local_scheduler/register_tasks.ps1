@@ -87,6 +87,7 @@ Register-PSXTask -TaskName "health_check_2"      -Workflow "health_check"       
 Register-PSXTask -TaskName "macro_kpis_2"        -Workflow "macro_kpis"          -Kind Weekly -Days $WEEKDAYS -Time "17:00"
 Register-PSXTask -TaskName "material_info"       -Workflow "material_info"       -Kind Weekly -Days $WEEKDAYS -Time "17:30"
 Register-PSXTask -TaskName "dividend_calendar"   -Workflow "dividend_calendar"   -Kind Weekly -Days $WEEKDAYS -Time "07:15"
+Register-PSXTask -TaskName "google_trends"       -Workflow "google_trends"       -Kind Weekly -Days $WEEKDAYS -Time "12:00"
 Register-PSXTask -TaskName "news_scoring_3"      -Workflow "news_scoring"        -Kind Weekly -Days $WEEKDAYS -Time "18:00"
 
 # --- Weekly single-day jobs ---

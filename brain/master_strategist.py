@@ -407,6 +407,7 @@ def build_briefing() -> dict:
         briefing["sector_indices"] = _safe(_load_sector_indices_signal)
         briefing["dividend_calendar"] = _safe(_load_dividend_calendar_signal)
         briefing["intraday_volume_spikes"] = _safe(_load_intraday_volume_spikes)
+        briefing["google_trends"] = _safe(_load_google_trends_signal)
     except Exception as e:
         briefing["new_streams_error"] = f"{type(e).__name__}: {e}"
 
@@ -617,6 +618,44 @@ def _load_sector_indices_signal() -> dict:
             "same-day price action, not an inference from commodity/FX moves."
         ),
     }
+
+
+def _load_google_trends_signal() -> dict:
+    """PSX/KSE-100 Google search interest, as a free retail-attention proxy
+    (this repo's own research describes PSX as retail-heavy/emotion-driven
+    -- see psx_strategy_v2.md). New 2026-09-01, see
+    connectors/google_trends.py for the reliability caveat: pytrends is
+    unofficial and rate-limits occasionally -- an error here is expected
+    background noise, not a pipeline regression.
+    """
+    import json
+    from pathlib import Path
+    p = Path(__file__).resolve().parent.parent / "data" / "sentiment" / "google_trends.parquet"
+    if not p.exists():
+        return {"error": "google_trends.parquet missing (not refreshed yet)"}
+    try:
+        import pandas as pd
+        df = pd.read_parquet(p)
+        if df.empty:
+            return {"error": "no rows"}
+        latest_per_kw = df.sort_values("as_of_utc").groupby("keyword").last()
+        return {
+            "as_of": latest_per_kw["as_of_utc"].max(),
+            "keywords": {
+                kw: {"latest_value": int(row["latest_value"]),
+                     "trailing_7d_mean": float(row["trailing_7d_mean"]),
+                     "spike_ratio": row["spike_ratio"]}
+                for kw, row in latest_per_kw.iterrows()
+            },
+            "interpretation": (
+                "spike_ratio >> 1 on 'PSX'/'KSE 100' search terms = elevated "
+                "retail attention, often panic-driven on a down day rather "
+                "than bullish curiosity. Read alongside FIPI flows and news "
+                "sentiment, not as a standalone directional signal."
+            ),
+        }
+    except Exception as e:
+        return {"error": f"{type(e).__name__}: {e}"}
 
 
 def _load_intraday_volume_spikes() -> dict:
@@ -1090,7 +1129,10 @@ Anchor truths you must respect:
     check whether the drop is just the mechanical ex-dividend adjustment
     rather than a real signal. Treat a ``intraday_volume_spikes`` entry
     (>=2x expected) as a prompt to check news/material info for that name,
-    not as a standalone bullish or bearish signal by itself.
+    not as a standalone bullish or bearish signal by itself. ``google_trends``
+    (PSX/KSE-100 search interest, free retail-attention proxy) firing a high
+    ``spike_ratio`` usually means panic/attention on a down day, not bullish
+    curiosity — read it alongside FIPI flows and news sentiment, never alone.
 
 Output format
 -------------
