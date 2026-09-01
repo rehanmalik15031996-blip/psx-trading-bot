@@ -19,35 +19,6 @@
       "contributing_signals": []
     },
     {
-      "symbol": "MEBL",
-      "bucket": "HOLD",
-      "conviction": "MEDIUM",
-      "sector": "Banking",
-      "target_weight_pct": 10.0,
-      "reason": "+Strong 150d momentum +24.6%; -value:SELL_VALUE; -macro(Banking-3)",
-      "contributing_signals": [
-        "Strong 150d momentum +24.6%",
-        "Strong 60d momentum +13.0%",
-        "Price +17.9% above 200-day SMA"
-      ],
-      "position_plan": {
-        "symbol": "MEBL",
-        "sector": "Banking",
-        "entry_price": 560.91,
-        "atr_14_pct": 1.52,
-        "stop_loss_price": 540.12,
-        "stop_loss_pct": 3.71,
-        "target_price": 612.89,
-        "target_pct": 9.27,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 10.0,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.7% stop; target 2.5R = 9.3%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.0
-      }
-    },
-    {
       "symbol": "OGDC",
       "bucket": "HOLD",
       "conviction": "MEDIUM",
@@ -117,7 +88,7 @@
   "raw_llm_text": "",
   "thinking_trace": "",
   "briefing_summary": {
-    "as_of": "2026-09-01T04:37:52+00:00",
+    "as_of": "2026-09-01T09:33:39+00:00",
     "regime": {
       "as_of": "2026-08-31",
       "regime": "NORMAL",
