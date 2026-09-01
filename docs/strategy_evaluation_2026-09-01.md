@@ -394,11 +394,12 @@ both GitHub Actions and the local scheduler.
     at December 2025 (curated once 2026-05-03, never given a refresh script). Both
     source URLs (SBP remittance PDF, PBS QIM page) are confirmed still live; build
     `scripts/refresh_remittances.py` / `refresh_lsm.py`.
-15. VWAP tracking per rebalance day, now that intraday snapshots are flowing again —
-    execution-quality improvement (reduces slippage), not an alpha change. See §6.1.
-16. Intraday unusual-volume spike detection as a same-day complement to
-    `scripts/check_news_shocks.py` — often the volume move precedes the news that
-    explains it. See §6.1.
+15. ~~VWAP tracking~~ — **done, with an honest scope correction.** True VWAP needs
+    continuous intraday ticks; PSX MarketWatch snapshots are only 3 discrete
+    checkpoints/day. Built `intraday_reference_price()` as a snapshot-weighted
+    approximation instead, explicitly labeled as not true VWAP. See §9.
+16. ~~Intraday unusual-volume spike detection~~ — **done.** `detect_volume_spikes()` in
+    `brain/intraday_signals.py`, wired into the briefing. See §9.
 
 **Worth doing, not urgent:**
 17. `scripts/local_scheduler/` (added this session) now runs the whole pipeline locally
@@ -410,3 +411,76 @@ both GitHub Actions and the local scheduler.
     capture exactly this kind of institutional knowledge (the git-divergence trap, the
    "check for uncommitted brain/ changes" habit) so a future session doesn't have to
    rediscover it from scratch.
+
+---
+
+## 9. Data source sweep: old (dormant) wired up, new sources built
+
+Full audit of every connector (verified by tracing actual imports, not assuming a file
+existing means it's used) plus a build pass on the highest-value gaps found.
+
+### Wired up — old, dormant, already built
+
+- **`connectors/dividend_calendar.py`** — found genuinely broken, not just unused: (1)
+  pandas 3.0 requires `io.StringIO(html)`, the raw-string call now raises
+  `FileNotFoundError`, silently swallowed by its own `except Exception: return []`; (2)
+  azeetrade.com's real columns are `KATS Code`/`X Date`/`Dividend`/`Bonus`/`Right Issue`,
+  not `symbol`/`scrip`/`ex date` — even with (1) fixed, nothing would have matched.
+  Fixed both, confirmed live (correctly parses dividend/bonus/rights-issue % of face
+  value). Was never even committed to git before this. Built the refresh script that
+  never existed, scheduled it, wired `dividend_calendar` into the briefing.
+- **`connectors/psx_portal.py::PSXIndicesConnector`** — already worked perfectly, had
+  zero live consumers (only `test_connections.py`). Returns 18 real PSX indices
+  including **BKTI (Banking)** and **OGTI (Oil & Gas)** sector sub-indices — exactly the
+  "sector-relative momentum" gap flagged two turns ago, already built. Wired into the
+  briefing as `sector_indices`, no fix needed.
+
+### Explicitly NOT wired, and why
+
+- **`connectors/government.py`** (FBR revenue, MoC trade, PBS trade stats, PBS general,
+  IMF Pakistan) — tested all 5: 2 are dead (403s), and the 3 that respond only return
+  **article/publication TITLES** linking to portal pages (one behind a login), not
+  actual CPI/trade-balance/tax-revenue numbers. Wiring these in would clutter the
+  briefing with headline links, not give the strategist real data to reason over.
+- **CoinGecko, PSX Terminal, the `yfinance_commodities` wrapper class** — genuinely
+  redundant. BTC price and commodity data already reach the briefing through a separate
+  direct-Yahoo-Finance path; PSX Terminal duplicates what `PSXMarketWatchConnector`
+  already provides. Reviving these would add code, not information.
+- **Remittances/LSM real numeric refresh** (recommendation #14 above) — attempted.
+  SBP's remittance PDF URL (the one recorded in `remittances_monthly.json`'s own
+  `_metadata.source_url`) now redirects to SBP's generic homepage HTML instead of the
+  actual PDF — the file moved sometime after May 2026. Needs fresh URL discovery on
+  SBP's site before this can be built; deferred, not abandoned.
+- **PSX single-stock-futures open interest** — no working URL found at any guessable
+  path (`/futures`, `/derivatives`, `/market-summary` all 404). Needs real site
+  navigation, not URL guessing; deferred.
+- **Broker/analyst consensus target prices, Pakistan Eurobond/sovereign spread** — not
+  attempted this round; no free, reliably-scrapable source identified yet for either.
+
+### New, built and shipped this round
+
+- **`brain/intraday_signals.py`** — `detect_volume_spikes()` (same-day cumulative
+  volume vs a time-of-day-adjusted expectation from trailing 20d average — a heuristic,
+  documented as such) and `intraday_reference_price()` (snapshot-weighted price
+  approximation — explicitly **not** true VWAP; PSX MarketWatch data is 3 discrete
+  checkpoints/day, not continuous ticks, so real VWAP isn't computable here). Added a
+  3rd daily intraday checkpoint (10:00 PKT) since 2/day was too sparse for either
+  function to mean much. Wired into the briefing as `intraday_volume_spikes`.
+- **`connectors/google_trends.py`** — genuinely new data source, not previously in the
+  codebase in any form. Free, no key, via `pytrends` (unofficial Google Trends API).
+  Tracks "PSX"/"KSE 100" search interest as a retail-attention proxy — fits this repo's
+  own research framing of PSX as retail-heavy and emotion-driven about as directly as a
+  free source can. Explicitly documented as best-effort (no SLA, rate-limiting expected)
+  so a failure here never blocks the pipeline.
+
+**Cross-validation, not staged**: at the moment these were built, all three fired
+together on the same real event — Google Trends showed PSX search interest at 2.5x its
+7-day mean, `intraday_volume_spikes` flagged 7 universe names at 2.5-9.5x expected
+volume, and news scoring had already surfaced "PSX slips 721 points amid US-Iran
+conflict" earlier the same session. Three independently-built signals agreeing on the
+same real event is a reasonable sanity check that none of them are pure noise.
+
+All of the above are scheduled on both GitHub Actions and the local scheduler, and the
+`STRATEGIST_SYSTEM` prompt was updated (rule 13) so the master strategist actually knows
+how to read each new signal rather than receiving it silently in the data dict — a
+signal nobody reads is the same trap as a connector nobody calls.
