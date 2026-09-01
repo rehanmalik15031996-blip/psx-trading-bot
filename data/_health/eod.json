@@ -1,8 +1,8 @@
 {
   "workflow": "eod",
   "ok": true,
-  "note": "OHLCV refresh: 1/1 symbols, 1,239 rows",
-  "as_of": "2026-09-01T07:11:18+00:00",
+  "note": "FIPI snapshot for 2026-08-31: foreign_net=-3.8 mn",
+  "as_of": "2026-09-01T07:20:54+00:00",
   "github": {
     "run_id": "",
     "run_number": "",
@@ -10,8 +10,14 @@
     "sha": ""
   },
   "payload": {
-    "symbols_ok": 1,
-    "symbols_total": 1,
-    "rows_total": 1239
+    "date": "2026-08-31",
+    "foreign_net_pkr_mn": -3.78,
+    "local_net_pkr_mn": 3.79,
+    "foreign_regime": "net_selling",
+    "n_participants": 9,
+    "n_sectors": 11,
+    "top_sector_name": "Banks",
+    "top_sector_net_usd_mn": -1.43,
+    "captured_at_utc": "2026-09-01T07:20:54"
   }
 }
