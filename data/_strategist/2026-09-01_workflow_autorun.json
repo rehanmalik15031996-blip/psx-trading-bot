@@ -1,0 +1,161 @@
+{
+  "as_of": "2026-09-01",
+  "model": "rule-based-v2",
+  "thinking_budget": 0,
+  "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
+  "risk_stance": "NORMAL",
+  "conviction": "LOW",
+  "narrative": "Normal stance (LOW confidence). Top driver: gold_up (MODERATE). Tape: KSE-100 -0.3%/5d, quiet vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%.",
+  "agrees_with_phase1": true,
+  "phase1_disagreement_note": "",
+  "actions": [
+    {
+      "symbol": null,
+      "sector": null,
+      "bucket": "CASH",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 70.0,
+      "reason": "Auto-inserted by playbook overlay (cash floor).",
+      "contributing_signals": []
+    },
+    {
+      "symbol": "MEBL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Banking",
+      "target_weight_pct": 10.0,
+      "reason": "+Strong 150d momentum +24.6%; -value:SELL_VALUE; -macro(Banking-3)",
+      "contributing_signals": [
+        "Strong 150d momentum +24.6%",
+        "Strong 60d momentum +13.0%",
+        "Price +17.9% above 200-day SMA"
+      ],
+      "position_plan": {
+        "symbol": "MEBL",
+        "sector": "Banking",
+        "entry_price": 560.91,
+        "atr_14_pct": 1.52,
+        "stop_loss_price": 540.12,
+        "stop_loss_pct": 3.71,
+        "target_price": 612.89,
+        "target_pct": 9.27,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.7% stop; target 2.5R = 9.3%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
+    },
+    {
+      "symbol": "OGDC",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Oil & Gas E&P+3); -mom150d=-0.1%",
+      "contributing_signals": [
+        "macro(Oil & Gas E&P+3)",
+        "mom150d=-0.1%"
+      ],
+      "position_plan": {
+        "symbol": "OGDC",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 328.7,
+        "atr_14_pct": 1.56,
+        "stop_loss_price": 315.65,
+        "stop_loss_pct": 3.97,
+        "target_price": 361.32,
+        "target_pct": 9.92,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.6% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 4.0% stop; target 2.5R = 9.9%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7
+      }
+    },
+    {
+      "symbol": "PPL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 9.38,
+      "reason": "+macro(Oil & Gas E&P+3); -mom150d=-12.1% (high-vol)",
+      "contributing_signals": [
+        "macro(Oil & Gas E&P+3)",
+        "mom150d=-12.1% (high-vol)"
+      ],
+      "position_plan": {
+        "symbol": "PPL",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 234.5,
+        "atr_14_pct": 2.09,
+        "stop_loss_price": 221.99,
+        "stop_loss_pct": 5.33,
+        "target_price": 265.76,
+        "target_pct": 13.33,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 9.38,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.1% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 5.3% stop; target 2.5R = 13.3%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7
+      }
+    }
+  ],
+  "key_drivers": [
+    "gold_up",
+    "cotton_up",
+    "reserves_recovery",
+    "pre_event_derisk"
+  ],
+  "key_risks": [],
+  "macro_lens": "Normal stance (LOW confidence). Top driver: gold_up (MODERATE). Tape: KSE-100 -0.3%/5d, quiet vol regime.",
+  "behavioural_lens": "",
+  "fallback_used": true,
+  "raw_llm_text": "",
+  "thinking_trace": "",
+  "briefing_summary": {
+    "as_of": "2026-09-01T04:37:52+00:00",
+    "regime": {
+      "as_of": "2026-08-31",
+      "regime": "NORMAL",
+      "exposure_multiplier": 1.0,
+      "reason": "Rule-based: no stress markers",
+      "flags": [],
+      "indicators": {
+        "universe_ret_5d": -0.0033,
+        "universe_ret_21d": 0.0057,
+        "universe_150d_log_ret": -0.095,
+        "breadth_pct_up_today": 28.6
+      },
+      "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
+    },
+    "predictions_count": 5,
+    "playbook_analogues_count": 1
+  },
+  "playbook_overlay_log": [
+    {
+      "case_id": "mf_universe_distribution_broad",
+      "match_score": 2.6,
+      "fired_triggers": [
+        "mf_universe_n_top_distributed_gte:5",
+        "mf_data_freshness_lte:90"
+      ],
+      "changes": [
+        {
+          "cash_floor_pct": 70,
+          "via": "cash_floor"
+        },
+        {
+          "position_size_multiplier": 0.85,
+          "via": "size_haircut"
+        }
+      ]
+    }
+  ],
+  "playbook_overlay_notes": [
+    "[mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%."
+  ]
+}
