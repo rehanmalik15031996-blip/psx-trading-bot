@@ -2,7 +2,7 @@
   "workflow": "macro_series",
   "ok": true,
   "note": "7/7 series refreshed",
-  "as_of": "2026-09-01T04:38:08+00:00",
+  "as_of": "2026-09-01T07:18:38+00:00",
   "github": {
     "run_id": "",
     "run_number": "",
@@ -17,7 +17,7 @@
         "ticker": "BZ=F",
         "rows": 1678,
         "last_date": "2026-09-01",
-        "last_value": 88.9
+        "last_value": 89.15
       },
       {
         "ok": true,
@@ -25,7 +25,7 @@
         "ticker": "CL=F",
         "rows": 1677,
         "last_date": "2026-09-01",
-        "last_value": 86.74
+        "last_value": 86.83
       },
       {
         "ok": true,
@@ -33,7 +33,7 @@
         "ticker": "GC=F",
         "rows": 1677,
         "last_date": "2026-09-01",
-        "last_value": 4479.8
+        "last_value": 4479.9
       },
       {
         "ok": true,
@@ -41,7 +41,7 @@
         "ticker": "HG=F",
         "rows": 1678,
         "last_date": "2026-09-01",
-        "last_value": 6.718
+        "last_value": 6.703
       },
       {
         "ok": true,
@@ -57,7 +57,7 @@
         "ticker": "BTC-USD",
         "rows": 2436,
         "last_date": "2026-09-01",
-        "last_value": 78721.242
+        "last_value": 78712.859
       },
       {
         "ok": true,
@@ -65,7 +65,7 @@
         "ticker": "PKR=X",
         "rows": 1735,
         "last_date": "2026-09-01",
-        "last_value": 277.037
+        "last_value": 277.278
       }
     ],
     "latest_dates": {

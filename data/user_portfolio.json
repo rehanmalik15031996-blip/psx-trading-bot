@@ -3,38 +3,38 @@
   "positions": [
     {
       "symbol": "HUBC",
-      "entry_date": "2026-04-24",
-      "entry_price": 225.13,
-      "quantity": 750.0,
-      "notes": ""
+      "entry_date": "2026-08-31",
+      "entry_price": 229.87,
+      "quantity": 1300.0,
+      "notes": "synced from Investify app screenshot 2026-09-01; exact entry date unknown, placeholder used"
     },
     {
-      "symbol": "FABL",
-      "entry_date": "2026-04-24",
-      "entry_price": 92.67,
-      "quantity": 542.0,
-      "notes": ""
+      "symbol": "SYS",
+      "entry_date": "2026-08-31",
+      "entry_price": 129.00,
+      "quantity": 1700.0,
+      "notes": "synced from Investify app screenshot 2026-09-01; exact entry date unknown, placeholder used"
     },
     {
       "symbol": "OGDC",
-      "entry_date": "2026-04-24",
-      "entry_price": 315.91,
-      "quantity": 12.0,
-      "notes": ""
-    },
-    {
-      "symbol": "PABC",
-      "entry_date": "2026-04-24",
-      "entry_price": 112.68,
-      "quantity": 970.0,
-      "notes": ""
+      "entry_date": "2026-08-31",
+      "entry_price": 326.50,
+      "quantity": 700.0,
+      "notes": "synced from Investify app screenshot 2026-09-01; exact entry date unknown, placeholder used"
     },
     {
       "symbol": "MLCF",
-      "entry_date": "2026-04-24",
-      "entry_price": 93.65,
-      "quantity": 950.0,
-      "notes": ""
+      "entry_date": "2026-08-31",
+      "entry_price": 101.83,
+      "quantity": 2500.0,
+      "notes": "synced from Investify app screenshot 2026-09-01; exact entry date unknown, placeholder used"
+    },
+    {
+      "symbol": "PRL",
+      "entry_date": "2026-08-31",
+      "entry_price": 107.09,
+      "quantity": 3770.0,
+      "notes": "synced from Investify app screenshot 2026-09-01; NOT in the 35-stock trading universe -- OHLCV backfilled for reference (2021-2026) but no momentum/quality/value signals computed for it. Exact entry date unknown, placeholder used."
     }
   ]
 }
