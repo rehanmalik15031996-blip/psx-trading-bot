@@ -1,8 +1,8 @@
 {
   "workflow": "overnight",
   "ok": true,
-  "note": "526 rows, last 2026-09-01",
-  "as_of": "2026-09-01T04:38:12+00:00",
+  "note": "523 rows, last 2026-09-01",
+  "as_of": "2026-09-01T07:19:17+00:00",
   "github": {
     "run_id": "",
     "run_number": "",
@@ -10,7 +10,7 @@
     "sha": ""
   },
   "payload": {
-    "rows": 526,
+    "rows": 523,
     "last_date": "2026-09-01",
     "tickers": [
       "sp500",
