@@ -11,6 +11,8 @@ inspect any single name with pandas in 2 lines.
 from __future__ import annotations
 
 import json
+import os
+import uuid
 from pathlib import Path
 from typing import Iterable
 
@@ -21,6 +23,41 @@ OHLCV_DIR = ROOT / "ohlcv"
 SNAPSHOT_DIR = ROOT / "snapshots"
 OHLCV_DIR.mkdir(parents=True, exist_ok=True)
 SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def atomic_to_parquet(df: pd.DataFrame, path: Path, **kwargs) -> None:
+    """Write `df` to `path` without ever leaving a truncated/corrupt file
+    behind if the process is killed mid-write.
+
+    Found 2026-09-15: `data/news/scored_news.parquet` was silently corrupt
+    (unreadable, "Couldn't deserialize thrift") from 2026-09-01 onward,
+    blocking news_scoring's health status for 14 days straight with no
+    error surfaced anywhere -- df.to_parquet() writing directly to the
+    final path isn't atomic, so an interrupted write (scheduled task
+    killed, machine slept mid-run, disk full) leaves corrupt bytes at the
+    real path and every subsequent read of it raises. Writing to a temp
+    file in the same directory (so the final os.replace is on the same
+    filesystem, hence atomic) and renaming over the target means a reader
+    always sees either the old complete file or the new complete file,
+    never a partial one.
+
+    A grep across the repo at the time found 26 files writing parquet
+    directly without this pattern -- this fixes the ones on the hot,
+    unattended-scheduled path (this module, news scoring, live market,
+    dividend calendar, Google Trends); the rest are lower-frequency and
+    were left as-is, but the same fix applies if one of them corrupts too.
+    """
+    path = Path(path)
+    tmp_path = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
+    try:
+        df.to_parquet(tmp_path, **kwargs)
+        os.replace(tmp_path, path)
+    finally:
+        if tmp_path.exists():
+            try:
+                tmp_path.unlink()
+            except OSError:
+                pass
 
 
 def ohlcv_path(symbol: str) -> Path:
@@ -39,7 +76,7 @@ def save_ohlcv(symbol: str, rows: Iterable[dict]) -> int:
         return 0
     df["date"] = pd.to_datetime(df["date"], utc=False)
     df = df.sort_values("date").drop_duplicates(subset=["date"]).reset_index(drop=True)
-    df.to_parquet(ohlcv_path(symbol), engine="pyarrow", index=False)
+    atomic_to_parquet(df, ohlcv_path(symbol), engine="pyarrow", index=False)
     return len(df)
 
 
@@ -80,7 +117,7 @@ def append_ohlcv_row(symbol: str, row: dict) -> None:
         .drop_duplicates(subset=["date"], keep="last")
         .reset_index(drop=True)
     )
-    combined.to_parquet(ohlcv_path(symbol), engine="pyarrow", index=False)
+    atomic_to_parquet(combined, ohlcv_path(symbol), engine="pyarrow", index=False)
 
 
 def save_snapshot(date_iso: str, payload: dict) -> Path:
