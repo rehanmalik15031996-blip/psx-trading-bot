@@ -260,7 +260,8 @@ class DividendCalendarConnector(BaseConnector):
             try:
                 DIVIDEND_DIR.mkdir(parents=True, exist_ok=True)
                 df = pd.DataFrame(deduped)
-                df.to_parquet(DIVIDEND_DIR / "upcoming.parquet", index=False)
+                from data.store import atomic_to_parquet
+                atomic_to_parquet(df, DIVIDEND_DIR / "upcoming.parquet", index=False)
             except Exception as e:
                 errors.append(f"parquet save: {e}")
 

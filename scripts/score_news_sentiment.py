@@ -114,11 +114,27 @@ def _article_id(link: str, title: str) -> str:
 def _load_existing() -> pd.DataFrame:
     if not CACHE_PATH.exists():
         return pd.DataFrame()
-    return pd.read_parquet(CACHE_PATH)
+    try:
+        return pd.read_parquet(CACHE_PATH)
+    except Exception as e:
+        # 2026-09-15: found the cache silently corrupt for 14 days straight
+        # (non-atomic write interrupted mid-flight -- see
+        # data/store.py::atomic_to_parquet), and this read blowing up
+        # uncaught killed the whole script before it ever reached
+        # write_status(), which is why the health badge froze instead of
+        # going RED with a real error. Degrade instead of crash: treat as
+        # empty (everything gets rescored once, harmless with the
+        # rule-based fallback) and print loudly so it's visible in logs.
+        print(f"  WARN: {CACHE_PATH} is unreadable ({type(e).__name__}: {e}) "
+              f"-- treating as empty cache. Back up/inspect the file if this "
+              f"persists; it should not happen now that _save() writes "
+              f"atomically.")
+        return pd.DataFrame()
 
 
 def _save(df: pd.DataFrame) -> None:
-    df.to_parquet(CACHE_PATH, index=False)
+    from data.store import atomic_to_parquet
+    atomic_to_parquet(df, CACHE_PATH, index=False)
 
 
 def _fetch_articles(per_feed: int) -> list[dict]:

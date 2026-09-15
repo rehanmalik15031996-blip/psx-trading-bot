@@ -67,7 +67,8 @@ def _append_parquet(path: Path, rows: list[dict],
     df_all = (pd.concat([df_old, df_new], ignore_index=True)
                 .drop_duplicates(subset=dedupe_keys, keep="last")
                 .reset_index(drop=True))
-    df_all.to_parquet(path, index=False)
+    from data.store import atomic_to_parquet
+    atomic_to_parquet(df_all, path, index=False)
     return int(len(df_all))
 
 

@@ -34,12 +34,16 @@ def main() -> int:
         return 0  # don't fail the workflow over an unofficial, best-effort source
     new_df = pd.DataFrame(result.records)
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    existing = pd.DataFrame()
     if OUT_PATH.exists():
-        existing = pd.read_parquet(OUT_PATH)
-        combined = pd.concat([existing, new_df], ignore_index=True)
-    else:
-        combined = new_df
-    combined.to_parquet(OUT_PATH, index=False)
+        try:
+            existing = pd.read_parquet(OUT_PATH)
+        except Exception as e:
+            print(f"  WARN: {OUT_PATH} unreadable ({type(e).__name__}: {e}) "
+                  f"-- starting a fresh cache instead of crashing.")
+    combined = pd.concat([existing, new_df], ignore_index=True) if not existing.empty else new_df
+    from data.store import atomic_to_parquet
+    atomic_to_parquet(combined, OUT_PATH, index=False)
     print(f"[google_trends] ok -- {result.summary}, cache now {len(combined)} rows")
     for rec in result.records:
         print(f"  {rec['keyword']}: latest={rec['latest_value']} "
