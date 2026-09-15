@@ -1,8 +1,8 @@
 {
   "workflow": "eod",
   "ok": true,
-  "note": "OHLCV refresh: 1/1 symbols, 1,239 rows",
-  "as_of": "2026-09-15T09:07:12+00:00",
+  "note": "OHLCV refresh: 35/35 symbols, 43,249 rows",
+  "as_of": "2026-09-15T11:31:39+00:00",
   "github": {
     "run_id": "",
     "run_number": "",
@@ -10,8 +10,8 @@
     "sha": ""
   },
   "payload": {
-    "symbols_ok": 1,
-    "symbols_total": 1,
-    "rows_total": 1239
+    "symbols_ok": 35,
+    "symbols_total": 35,
+    "rows_total": 43249
   }
 }
