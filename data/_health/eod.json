@@ -1,23 +1,13 @@
 {
   "workflow": "eod",
-  "ok": true,
-  "note": "FIPI snapshot for 2026-09-16: foreign_net=-1.1 mn",
-  "as_of": "2026-09-16T15:30:11+00:00",
+  "ok": false,
+  "note": "FIPI snapshot returned no row",
+  "as_of": "2026-09-17T15:37:24+00:00",
   "github": {
-    "run_id": "35115567618",
-    "run_number": "111",
+    "run_id": "35241246431",
+    "run_number": "112",
     "ref": "refs/heads/main",
-    "sha": "7acba72b46c7424cf6b916cacb8932f1ac331696"
+    "sha": "a05d85ded96c99e44233fc5909fa52520de70f1e"
   },
-  "payload": {
-    "date": "2026-09-16",
-    "foreign_net_pkr_mn": -1.11,
-    "local_net_pkr_mn": 1.1,
-    "foreign_regime": "net_selling",
-    "n_participants": 9,
-    "n_sectors": 10,
-    "top_sector_name": "Cement",
-    "top_sector_net_usd_mn": -0.71,
-    "captured_at_utc": "2026-09-16T15:30:11"
-  }
+  "payload": {}
 }
