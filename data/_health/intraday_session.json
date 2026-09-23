@@ -2,12 +2,12 @@
   "workflow": "intraday_session",
   "ok": true,
   "note": "3/3 sources refreshed",
-  "as_of": "2026-09-23T09:47:56+00:00",
+  "as_of": "2026-09-23T11:53:04+00:00",
   "github": {
-    "run_id": "35844988457",
-    "run_number": "231",
+    "run_id": "35857060949",
+    "run_number": "232",
     "ref": "refs/heads/main",
-    "sha": "d3db267f50b78969f6cd577ce9d3d95d37f01344"
+    "sha": "0fea5933ab52e2986c360fd2804ce732739812a9"
   },
   "payload": {
     "sources": [
@@ -19,23 +19,23 @@
       {
         "ok": true,
         "source": "marketwatch",
-        "snapshot_at": "2026-09-23T09:47:52+00:00",
-        "added": 491,
-        "rows_total": 16681
+        "snapshot_at": "2026-09-23T11:53:01+00:00",
+        "added": 495,
+        "rows_total": 17176
       },
       {
         "ok": true,
         "source": "circuit_breakers",
-        "snapshot_at": "2026-09-23T09:47:54+00:00",
+        "snapshot_at": "2026-09-23T11:53:03+00:00",
         "added": 15,
-        "rows_total": 593
+        "rows_total": 608
       },
       {
         "ok": true,
         "source": "fipi_intraday",
-        "snapshot_at": "2026-09-23T09:47:56+00:00",
+        "snapshot_at": "2026-09-23T11:53:04+00:00",
         "added": 1,
-        "rows_total": 34,
+        "rows_total": 35,
         "foreign_net_pkr_mn": 1.17,
         "local_net_pkr_mn": -1.17
       }
