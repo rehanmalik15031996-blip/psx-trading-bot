@@ -1,30 +1,32 @@
 {
   "workflow": "macro_kpis",
-  "ok": false,
-  "note": "2/3 sub-sources refreshed",
-  "as_of": "2026-09-24T16:07:51+00:00",
+  "ok": true,
+  "note": "3/3 sub-sources refreshed",
+  "as_of": "2026-09-25T08:58:08+00:00",
   "github": {
-    "run_id": "36025102485",
-    "run_number": "225",
+    "run_id": "36115747379",
+    "run_number": "226",
     "ref": "refs/heads/main",
-    "sha": "944a8fe08fe1a1f721653a5472e8d67dfa401921"
+    "sha": "34a28513c3b2a75a5759bfd82581700227d818f9"
   },
   "payload": {
     "sbp_rates": {
       "ok": true,
-      "date": "2026-09-24",
-      "rows": 1750,
+      "date": "2026-09-25",
+      "rows": 1751,
       "tbill_3m_pct": 11.3849,
       "reserves_total_usd_mn": 26810.6
     },
     "kse100": {
-      "ok": false,
-      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+      "ok": true,
+      "date": "2026-09-25",
+      "rows": 509,
+      "kse100_close": 170632.86
     },
     "cpi": {
       "ok": true,
-      "date": "2026-09-24",
-      "rows": 1759,
+      "date": "2026-09-25",
+      "rows": 1760,
       "cpi_yoy_pct": 11.1
     }
   }
