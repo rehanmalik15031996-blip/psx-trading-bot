@@ -1,17 +1,17 @@
 {
   "workflow": "financial_results",
   "ok": true,
-  "note": "new=7 total=238 errors=0",
-  "as_of": "2026-10-03T11:32:14+00:00",
+  "note": "new=4 total=242 errors=0",
+  "as_of": "2026-10-10T12:18:55+00:00",
   "github": {
-    "run_id": "37119731593",
-    "run_number": "25",
+    "run_id": "38051366930",
+    "run_number": "26",
     "ref": "refs/heads/main",
-    "sha": "3869ee22f2e1d2bf735813b9395331c9479cfa1a"
+    "sha": "079fc170e7b8d2591c05ca786c375d87f713a795"
   },
   "payload": {
-    "new": 7,
-    "total": 238,
+    "new": 4,
+    "total": 242,
     "errors": []
   }
 }
