@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-09",
+  "as_of": "2026-10-12",
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
   "regime": "NORMAL",
   "regime_confidence": "LOW",
@@ -27,12 +27,13 @@
         "score": 0.279,
         "action": "HOLD",
         "conviction": "MEDIUM",
-        "expected_5d_pct": -0.561,
+        "expected_5d_pct": -0.471,
         "expected_21d_pct": null,
         "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+3)",
         "key_drivers": [
           "Price +4.0% above 200-day SMA",
-          "Top-5 by momentum but market filter off"
+          "Top-5 by momentum but market filter off",
+          "Playbook overlay (symbol OGDC): +0.05 score bias"
         ],
         "key_risks": [
           "Market breadth weak \u2014 Phase-1 in cash"
@@ -72,17 +73,19 @@
         "symbol": "FABL",
         "sector": "Banking",
         "score": 0.121,
-        "action": "HOLD",
+        "action": "WATCH",
         "conviction": "MEDIUM",
-        "expected_5d_pct": -0.561,
+        "expected_5d_pct": -0.781,
         "expected_21d_pct": null,
         "why": "+mf_accum_3m; -value:SELL_VALUE; +macro(Banking+3)",
         "key_drivers": [
           "Price +1.6% above 200-day SMA",
-          "Top-5 by momentum but market filter off"
+          "Top-5 by momentum but market filter off",
+          "playbook:distribution_day_signature:sector_overlay:downgrade_one"
         ],
         "key_risks": [
-          "Market breadth weak \u2014 Phase-1 in cash"
+          "Market breadth weak \u2014 Phase-1 in cash",
+          "Playbook overlay (sector Banking): -0.15 score bias from ['mf_universe_distribution_broad', 'distribution_day_signature', 'mf_accumulation_strong']"
         ],
         "tags": [
           "MACRO_TAILWIND",
@@ -102,7 +105,10 @@
           "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=1.0% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
-          "sector_volatility_mult": 1.0
+          "sector_volatility_mult": 1.0,
+          "overlay_applied": [
+            "action downgraded HOLD -> WATCH by overlay"
+          ]
         },
         "components": {
           "predict": 0.0,
@@ -204,14 +210,15 @@
         "symbol": "MCB",
         "sector": "Banking",
         "score": 0.103,
-        "action": "HOLD",
+        "action": "WATCH",
         "conviction": "MEDIUM",
         "expected_5d_pct": null,
         "expected_21d_pct": null,
         "why": "+macro(Banking+3); -mom150d=-7.7%",
         "key_drivers": [
           "macro(Banking+3)",
-          "mom150d=-7.7%"
+          "mom150d=-7.7%",
+          "playbook:distribution_day_signature:sector_overlay:downgrade_one"
         ],
         "key_risks": [],
         "tags": [
@@ -231,7 +238,10 @@
           "position_size_pkr": null,
           "hold_horizon_days": 21,
           "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
-          "sector_volatility_mult": 1.0
+          "sector_volatility_mult": 1.0,
+          "overlay_applied": [
+            "action downgraded HOLD -> WATCH by overlay"
+          ]
         },
         "components": {
           "predict": 0.0,
@@ -671,7 +681,7 @@
       "score": 0.279,
       "action": "HOLD",
       "conviction": "MEDIUM",
-      "expected_5d_net_pct": -0.561,
+      "expected_5d_net_pct": -0.471,
       "expected_21d_pct": null,
       "entry_price": 319.52,
       "components": {
@@ -686,7 +696,8 @@
       "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+3)",
       "key_drivers": [
         "Price +4.0% above 200-day SMA",
-        "Top-5 by momentum but market filter off"
+        "Top-5 by momentum but market filter off",
+        "Playbook overlay (symbol OGDC): +0.05 score bias"
       ],
       "key_risks": [
         "Market breadth weak \u2014 Phase-1 in cash"
@@ -703,7 +714,7 @@
       "score": 0.121,
       "action": "HOLD",
       "conviction": "MEDIUM",
-      "expected_5d_net_pct": -0.561,
+      "expected_5d_net_pct": -0.781,
       "expected_21d_pct": null,
       "entry_price": 94.69,
       "components": {
@@ -718,10 +729,12 @@
       "why": "+mf_accum_3m; -value:SELL_VALUE; +macro(Banking+3)",
       "key_drivers": [
         "Price +1.6% above 200-day SMA",
-        "Top-5 by momentum but market filter off"
+        "Top-5 by momentum but market filter off",
+        "playbook:distribution_day_signature:sector_overlay:downgrade_one"
       ],
       "key_risks": [
-        "Market breadth weak \u2014 Phase-1 in cash"
+        "Market breadth weak \u2014 Phase-1 in cash",
+        "Playbook overlay (sector Banking): -0.15 score bias from ['mf_universe_distribution_broad', 'distribution_day_signature', 'mf_accumulation_strong']"
       ],
       "tags": [
         "MACRO_TAILWIND",
@@ -805,7 +818,8 @@
       "why": "+macro(Banking+3); -mom150d=-7.7%",
       "key_drivers": [
         "macro(Banking+3)",
-        "mom150d=-7.7%"
+        "mom150d=-7.7%",
+        "playbook:distribution_day_signature:sector_overlay:downgrade_one"
       ],
       "key_risks": [],
       "tags": [
@@ -961,7 +975,7 @@
       "score": 0.087,
       "action": "HOLD",
       "conviction": "LOW",
-      "expected_5d_net_pct": -0.061,
+      "expected_5d_net_pct": -0.431,
       "expected_21d_pct": null,
       "entry_price": 555.51,
       "components": {
@@ -980,7 +994,8 @@
         "Top-5 by momentum but market filter off"
       ],
       "key_risks": [
-        "Market breadth weak \u2014 Phase-1 in cash"
+        "Market breadth weak \u2014 Phase-1 in cash",
+        "Playbook overlay (sector Banking): -0.15 score bias from ['mf_universe_distribution_broad', 'distribution_day_signature', 'mf_accumulation_strong']"
       ],
       "tags": [
         "MACRO_TAILWIND"
@@ -1633,7 +1648,8 @@
       "reason": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+3)",
       "contributing_signals": [
         "Price +4.0% above 200-day SMA",
-        "Top-5 by momentum but market filter off"
+        "Top-5 by momentum but market filter off",
+        "Playbook overlay (symbol OGDC): +0.05 score bias"
       ],
       "position_plan": {
         "symbol": "OGDC",
@@ -1654,14 +1670,15 @@
     },
     {
       "symbol": "FABL",
-      "bucket": "HOLD",
+      "bucket": "WATCH",
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
       "reason": "+mf_accum_3m; -value:SELL_VALUE; +macro(Banking+3)",
       "contributing_signals": [
         "Price +1.6% above 200-day SMA",
-        "Top-5 by momentum but market filter off"
+        "Top-5 by momentum but market filter off",
+        "playbook:distribution_day_signature:sector_overlay:downgrade_one"
       ],
       "position_plan": {
         "symbol": "FABL",
@@ -1677,7 +1694,10 @@
         "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=1.0% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.0
+        "sector_volatility_mult": 1.0,
+        "overlay_applied": [
+          "action downgraded HOLD -> WATCH by overlay"
+        ]
       }
     },
     {
@@ -1738,14 +1758,15 @@
     },
     {
       "symbol": "MCB",
-      "bucket": "HOLD",
+      "bucket": "WATCH",
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
       "reason": "+macro(Banking+3); -mom150d=-7.7%",
       "contributing_signals": [
         "macro(Banking+3)",
-        "mom150d=-7.7%"
+        "mom150d=-7.7%",
+        "playbook:distribution_day_signature:sector_overlay:downgrade_one"
       ],
       "position_plan": {
         "symbol": "MCB",
@@ -1761,7 +1782,10 @@
         "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.0
+        "sector_volatility_mult": 1.0,
+        "overlay_applied": [
+          "action downgraded HOLD -> WATCH by overlay"
+        ]
       }
     }
   ],
@@ -1771,7 +1795,7 @@
   "version": "v2",
   "pipeline_errors": [],
   "briefing_summary": {
-    "as_of": "2026-10-09T11:28:41+00:00",
+    "as_of": "2026-10-12T12:21:24+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
@@ -1787,6 +1811,6 @@
       "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
     },
     "predictions_count": 5,
-    "playbook_analogues_count": 3
+    "playbook_analogues_count": 4
   }
 }
