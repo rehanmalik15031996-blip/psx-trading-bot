@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-14",
+  "as_of": "2026-10-15",
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
   "regime": "NORMAL",
   "regime_confidence": "LOW",
@@ -9,11 +9,11 @@
     "regime_confidence": "LOW",
     "bullets": [
       "Tape: KSE-100 +2.72% over 5d, -3.98% over 21d, breadth 80% up  [NORMAL vol]",
-      "Driver: **copper_up** (MODERATE)",
+      "Driver: **gold_down** (MODERATE)",
       "Driver: **tbill_above_policy** (MODERATE)",
       "Driver: **reserves_recovery** (MODERATE)"
     ],
-    "narrative": "Normal stance (LOW confidence). Top driver: copper_up (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
+    "narrative": "Normal stance (LOW confidence). Top driver: gold_down (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
     "n_longs": 0,
     "n_shorts": 0,
     "key_event_window": null
@@ -24,23 +24,21 @@
       {
         "symbol": "OGDC",
         "sector": "Oil & Gas E&P",
-        "score": 0.239,
+        "score": 0.199,
         "action": "HOLD",
         "conviction": "MEDIUM",
-        "expected_5d_pct": -0.471,
+        "expected_5d_pct": -0.561,
         "expected_21d_pct": null,
-        "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+2)",
+        "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+1)",
         "key_drivers": [
           "Price +4.0% above 200-day SMA",
-          "Top-5 by momentum but market filter off",
-          "Playbook overlay (symbol OGDC): +0.05 score bias"
+          "Top-5 by momentum but market filter off"
         ],
         "key_risks": [
           "Market breadth weak \u2014 Phase-1 in cash"
         ],
         "tags": [
           "BUY_VALUE",
-          "MACRO_TAILWIND",
           "MF_ACCUMULATION"
         ],
         "position_plan": {
@@ -64,7 +62,7 @@
           "value": 0.8,
           "quality": 0.0,
           "momentum": 0.063,
-          "macro": 0.4,
+          "macro": 0.2,
           "flows": 0.7,
           "volume": 0.0
         }
@@ -255,11 +253,11 @@
         "action": "HOLD",
         "urgency": "LOW",
         "note": "Mildly positive \u2014 hold but keep stop tight.",
-        "score": 0.239,
+        "score": 0.199,
         "stop_loss_price": 309.91287500000004,
         "stop_loss_pct": 3.01,
         "target_price": 343.5378125,
-        "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+2)"
+        "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+1)"
       },
       {
         "symbol": "MLCF",
@@ -299,17 +297,6 @@
   "sector_view": {
     "sectors": [
       {
-        "sector": "Oil & Gas E&P",
-        "outlook": "POSITIVE",
-        "macro_tilt": 2,
-        "avg_score": 0.105,
-        "n_stocks": 4,
-        "top_name": "OGDC",
-        "top_score": 0.239,
-        "bottom_name": "POL",
-        "bottom_score": 0.051
-      },
-      {
         "sector": "Banking",
         "outlook": "POSITIVE",
         "macro_tilt": 3,
@@ -319,6 +306,17 @@
         "top_score": 0.121,
         "bottom_name": "BAHL",
         "bottom_score": 0.075
+      },
+      {
+        "sector": "Oil & Gas E&P",
+        "outlook": "POSITIVE",
+        "macro_tilt": 1,
+        "avg_score": 0.065,
+        "n_stocks": 4,
+        "top_name": "OGDC",
+        "top_score": 0.199,
+        "bottom_name": "POL",
+        "bottom_score": 0.011
       },
       {
         "sector": "Power",
@@ -431,7 +429,7 @@
         "bottom_score": -0.045
       }
     ],
-    "best_sector": "Oil & Gas E&P",
+    "best_sector": "Banking",
     "worst_sector": "Autos"
   },
   "watchlist": {
@@ -440,12 +438,13 @@
       {
         "symbol": "OGDC",
         "sector": "Oil & Gas E&P",
-        "score": 0.239,
+        "score": 0.199,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
-          "Wait for volume breakout (>1.5x 20d avg)"
+          "Wait for volume breakout (>1.5x 20d avg)",
+          "Wait for sector macro tilt to firm"
         ],
-        "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+2)"
+        "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+1)"
       },
       {
         "symbol": "FABL",
@@ -532,7 +531,7 @@
     "regime_confidence": "LOW",
     "dominant_drivers": [
       {
-        "tag": "copper_up",
+        "tag": "gold_down",
         "magnitude": "MODERATE"
       },
       {
@@ -546,7 +545,7 @@
     ],
     "sector_tilts": {
       "Banking": 3,
-      "Oil & Gas E&P": 2,
+      "Oil & Gas E&P": 1,
       "OMC/Refining": 1,
       "Power": 2,
       "Conglomerate/Chem": 1,
@@ -564,22 +563,22 @@
     "fallback_used": true,
     "bullets": [
       "Tape: KSE-100 +2.72% over 5d, -3.98% over 21d, breadth 80% up  [NORMAL vol]",
-      "Driver: **copper_up** (MODERATE)",
+      "Driver: **gold_down** (MODERATE)",
       "Driver: **tbill_above_policy** (MODERATE)",
       "Driver: **reserves_recovery** (MODERATE)",
-      "Sector tilts: Banking +3, Oil & Gas E&P +2, Power +2",
+      "Sector tilts: Banking +3, Power +2, Oil & Gas E&P +1",
       "Recommended stance: **NORMAL** (confidence: LOW)."
     ],
-    "narrative": "Normal stance (LOW confidence). Top driver: copper_up (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime."
+    "narrative": "Normal stance (LOW confidence). Top driver: gold_down (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime."
   },
   "stock_scores": [
     {
       "symbol": "OGDC",
       "sector": "Oil & Gas E&P",
-      "score": 0.239,
+      "score": 0.199,
       "action": "HOLD",
       "conviction": "MEDIUM",
-      "expected_5d_net_pct": -0.471,
+      "expected_5d_net_pct": -0.561,
       "expected_21d_pct": null,
       "entry_price": 319.52,
       "components": {
@@ -587,22 +586,20 @@
         "value": 0.8,
         "quality": 0.0,
         "momentum": 0.063,
-        "macro": 0.4,
+        "macro": 0.2,
         "flows": 0.7,
         "volume": 0.0
       },
-      "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+2)",
+      "why": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+1)",
       "key_drivers": [
         "Price +4.0% above 200-day SMA",
-        "Top-5 by momentum but market filter off",
-        "Playbook overlay (symbol OGDC): +0.05 score bias"
+        "Top-5 by momentum but market filter off"
       ],
       "key_risks": [
         "Market breadth weak \u2014 Phase-1 in cash"
       ],
       "tags": [
         "BUY_VALUE",
-        "MACRO_TAILWIND",
         "MF_ACCUMULATION"
       ]
     },
@@ -835,62 +832,6 @@
       "tags": []
     },
     {
-      "symbol": "MARI",
-      "sector": "Oil & Gas E&P",
-      "score": 0.066,
-      "action": "HOLD",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.09,
-        "macro": 0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "+macro(Oil & Gas E&P+2); -mom150d=-6.0%",
-      "key_drivers": [
-        "macro(Oil & Gas E&P+2)",
-        "mom150d=-6.0%"
-      ],
-      "key_risks": [],
-      "tags": [
-        "MACRO_TAILWIND"
-      ]
-    },
-    {
-      "symbol": "PPL",
-      "sector": "Oil & Gas E&P",
-      "score": 0.065,
-      "action": "HOLD",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.097,
-        "macro": 0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "+macro(Oil & Gas E&P+2); -mom150d=-6.5%",
-      "key_drivers": [
-        "macro(Oil & Gas E&P+2)",
-        "mom150d=-6.5%"
-      ],
-      "key_risks": [],
-      "tags": [
-        "MACRO_TAILWIND"
-      ]
-    },
-    {
       "symbol": "HUBC",
       "sector": "Power",
       "score": 0.057,
@@ -914,37 +855,6 @@
         "mom150d=-10.3%"
       ],
       "key_risks": [],
-      "tags": [
-        "MACRO_TAILWIND"
-      ]
-    },
-    {
-      "symbol": "POL",
-      "sector": "Oil & Gas E&P",
-      "score": 0.051,
-      "action": "HOLD",
-      "conviction": "LOW",
-      "expected_5d_net_pct": -0.171,
-      "expected_21d_pct": null,
-      "entry_price": 748.84,
-      "components": {
-        "predict": 0.0,
-        "value": -0.6,
-        "quality": 0.0,
-        "momentum": 0.21,
-        "macro": 0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-value:SELL_VALUE; +macro(Oil & Gas E&P+2); +mom150d=+14.2%",
-      "key_drivers": [
-        "Positive 150d momentum +14.2%",
-        "Price +12.8% above 200-day SMA",
-        "Top-5 by momentum but market filter off"
-      ],
-      "key_risks": [
-        "Market breadth weak \u2014 Phase-1 in cash"
-      ],
       "tags": [
         "MACRO_TAILWIND"
       ]
@@ -1058,6 +968,58 @@
       "tags": []
     },
     {
+      "symbol": "MARI",
+      "sector": "Oil & Gas E&P",
+      "score": 0.026,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": -0.09,
+        "macro": 0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "+macro(Oil & Gas E&P+1); -mom150d=-6.0%",
+      "key_drivers": [
+        "macro(Oil & Gas E&P+1)",
+        "mom150d=-6.0%"
+      ],
+      "key_risks": [],
+      "tags": []
+    },
+    {
+      "symbol": "PPL",
+      "sector": "Oil & Gas E&P",
+      "score": 0.025,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": -0.097,
+        "macro": 0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "+macro(Oil & Gas E&P+1); -mom150d=-6.5%",
+      "key_drivers": [
+        "macro(Oil & Gas E&P+1)",
+        "mom150d=-6.5%"
+      ],
+      "key_risks": [],
+      "tags": []
+    },
+    {
       "symbol": "KEL",
       "sector": "Power",
       "score": 0.021,
@@ -1135,6 +1097,35 @@
         "mom150d=-11.5%"
       ],
       "key_risks": [],
+      "tags": []
+    },
+    {
+      "symbol": "POL",
+      "sector": "Oil & Gas E&P",
+      "score": 0.011,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": -0.171,
+      "expected_21d_pct": null,
+      "entry_price": 748.84,
+      "components": {
+        "predict": 0.0,
+        "value": -0.6,
+        "quality": 0.0,
+        "momentum": 0.21,
+        "macro": 0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "-value:SELL_VALUE; +mom150d=+14.2%; +macro(Oil & Gas E&P+1)",
+      "key_drivers": [
+        "Positive 150d momentum +14.2%",
+        "Price +12.8% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
+      ],
+      "key_risks": [
+        "Market breadth weak \u2014 Phase-1 in cash"
+      ],
       "tags": []
     },
     {
@@ -1526,11 +1517,10 @@
       "conviction": "MEDIUM",
       "sector": "Oil & Gas E&P",
       "target_weight_pct": 10.0,
-      "reason": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+2)",
+      "reason": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+1)",
       "contributing_signals": [
         "Price +4.0% above 200-day SMA",
-        "Top-5 by momentum but market filter off",
-        "Playbook overlay (symbol OGDC): +0.05 score bias"
+        "Top-5 by momentum but market filter off"
       ],
       "position_plan": {
         "symbol": "OGDC",
@@ -1636,11 +1626,11 @@
   ],
   "fallback_used": true,
   "model": "rule-based-v2",
-  "narrative": "Normal stance (LOW confidence). Top driver: copper_up (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
+  "narrative": "Normal stance (LOW confidence). Top driver: gold_down (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
   "version": "v2",
   "pipeline_errors": [],
   "briefing_summary": {
-    "as_of": "2026-10-14T09:40:36+00:00",
+    "as_of": "2026-10-15T09:20:01+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
@@ -1656,6 +1646,6 @@
       "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
     },
     "predictions_count": 5,
-    "playbook_analogues_count": 3
+    "playbook_analogues_count": 2
   }
 }

@@ -1,11 +1,11 @@
 {
-  "as_of": "2026-10-14",
+  "as_of": "2026-10-15",
   "model": "rule-based-v2",
   "thinking_budget": 0,
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
   "risk_stance": "NORMAL",
   "conviction": "LOW",
-  "narrative": "Normal stance (LOW confidence). Top driver: copper_up (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates. || [us_iran_oil_spike] US-Iran oil spike \u2014 protect E&P core positions but no sector-wide ADD (oil-spike-as-risk-off regime would neutralise the trade). OMC/Refining ceiling at HOLD.",
+  "narrative": "Normal stance (LOW confidence). Top driver: gold_down (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates.",
   "agrees_with_phase1": true,
   "phase1_disagreement_note": "",
   "actions": [
@@ -24,11 +24,10 @@
       "conviction": "MEDIUM",
       "sector": "Oil & Gas E&P",
       "target_weight_pct": 10.0,
-      "reason": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+2)",
+      "reason": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+1)",
       "contributing_signals": [
         "Price +4.0% above 200-day SMA",
-        "Top-5 by momentum but market filter off",
-        "Playbook overlay (symbol OGDC): +0.05 score bias"
+        "Top-5 by momentum but market filter off"
       ],
       "position_plan": {
         "symbol": "OGDC",
@@ -133,18 +132,18 @@
     }
   ],
   "key_drivers": [
-    "copper_up",
+    "gold_down",
     "tbill_above_policy",
     "reserves_recovery"
   ],
   "key_risks": [],
-  "macro_lens": "Normal stance (LOW confidence). Top driver: copper_up (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
+  "macro_lens": "Normal stance (LOW confidence). Top driver: gold_down (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
   "behavioural_lens": "",
   "fallback_used": true,
   "raw_llm_text": "",
   "thinking_trace": "",
   "briefing_summary": {
-    "as_of": "2026-10-14T09:40:36+00:00",
+    "as_of": "2026-10-15T09:20:01+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
@@ -160,7 +159,7 @@
       "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
     },
     "predictions_count": 5,
-    "playbook_analogues_count": 3
+    "playbook_analogues_count": 2
   },
   "playbook_overlay_log": [
     {
@@ -189,19 +188,10 @@
         "mf_n_funds_increasing_30d_gte:5"
       ],
       "changes": []
-    },
-    {
-      "case_id": "us_iran_oil_spike",
-      "match_score": 1.3,
-      "fired_triggers": [
-        "brent_5d_slope_gte:1.0"
-      ],
-      "changes": []
     }
   ],
   "playbook_overlay_notes": [
     "[mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%.",
-    "[mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates.",
-    "[us_iran_oil_spike] US-Iran oil spike \u2014 protect E&P core positions but no sector-wide ADD (oil-spike-as-risk-off regime would neutralise the trade). OMC/Refining ceiling at HOLD."
+    "[mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates."
   ]
 }
