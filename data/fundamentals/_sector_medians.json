@@ -1,12 +1,12 @@
 {
-  "computed_utc": "2026-10-11T08:23:25+00:00",
+  "computed_utc": "2026-10-18T07:01:57+00:00",
   "by_sector": {
     "Power": {
       "n": 4,
       "pe_med": 4.17,
-      "pb_med": 0.94,
-      "yield_med": 9.56,
-      "payout_med": 49.3,
+      "pb_med": 0.75,
+      "yield_med": 3.94,
+      "payout_med": 16.4,
       "members": [
         "HUBC",
         "KAPCO",
@@ -28,8 +28,8 @@
       "n": 5,
       "pe_med": 8.24,
       "pb_med": 1.37,
-      "yield_med": 1.0,
-      "payout_med": 8.2,
+      "yield_med": 0.0,
+      "payout_med": 0.0,
       "members": [
         "DGKC",
         "FCCL",
@@ -71,8 +71,8 @@
       "n": 3,
       "pe_med": 5.26,
       "pb_med": 0.67,
-      "yield_med": 2.84,
-      "payout_med": 25.6,
+      "yield_med": 1.49,
+      "payout_med": 7.4,
       "members": [
         "APL",
         "ATRL",
@@ -82,7 +82,7 @@
     "Conglomerate/Chem": {
       "n": 3,
       "pe_med": 13.4,
-      "pb_med": 1.66,
+      "pb_med": 1.75,
       "yield_med": 12.64,
       "payout_med": 100.0,
       "members": [
@@ -94,9 +94,9 @@
     "Pharma": {
       "n": 1,
       "pe_med": 48.93,
-      "pb_med": 1.47,
-      "yield_med": 0.0,
-      "payout_med": 0.0,
+      "pb_med": 1.48,
+      "yield_med": 1.19,
+      "payout_med": 58.1,
       "members": [
         "SEARL"
       ]
