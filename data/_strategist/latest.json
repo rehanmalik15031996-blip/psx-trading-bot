@@ -1,11 +1,11 @@
 {
-  "as_of": "2026-10-19",
+  "as_of": "2026-10-20",
   "model": "rule-based-v2",
   "thinking_budget": 0,
-  "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
-  "risk_stance": "NORMAL",
-  "conviction": "LOW",
-  "narrative": "Normal stance (LOW confidence). Top driver: pkr_weak (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates. || [earnings_blackout_concentration] Multiple universe names in 5d earnings blackout \u2014 HOLD-only, downgrade conviction.",
+  "headline": "CAUTIOUS \u2014 selective adds only, no new shorts",
+  "risk_stance": "CAUTIOUS",
+  "conviction": "MEDIUM",
+  "narrative": "Cautious stance \u2014 tape weakness or active risk-off drivers. Top driver: pkr_weak (STRONG). Tape: KSE-100 +2.7%/5d, normal vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates. || [pkr_devaluation_shock] PKR STRONG devaluation \u2014 E&P wellhead-USD tailwind; Autos pressured by imports. Cement downgrade DROPPED (again, after STRONG-only filter still scored 38% \u2014 Cement's PKR response is non-stationary). || [earnings_blackout_concentration] Multiple universe names in 5d earnings blackout \u2014 HOLD-only, downgrade conviction.",
   "agrees_with_phase1": true,
   "phase1_disagreement_note": "",
   "actions": [
@@ -20,14 +20,16 @@
     },
     {
       "symbol": "OGDC",
-      "bucket": "HOLD",
+      "bucket": "BUY",
       "conviction": "MEDIUM",
       "sector": "Oil & Gas E&P",
-      "target_weight_pct": 10.0,
+      "target_weight_pct": 8.5,
       "reason": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+3)",
       "contributing_signals": [
         "Price +4.0% above 200-day SMA",
-        "Top-5 by momentum but market filter off"
+        "Top-5 by momentum but market filter off",
+        "Playbook overlay (sector Oil & Gas E&P): +0.15 score bias from ['mf_universe_distribution_broad', 'mf_accumulation_strong', 'pkr_devaluation_shock']",
+        "playbook:pkr_devaluation_shock:sector_overlay:upgrade_one"
       ],
       "position_plan": {
         "symbol": "OGDC",
@@ -39,11 +41,47 @@
         "target_price": 343.54,
         "target_pct": 7.52,
         "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 10.0,
+        "position_size_pct": 8.5,
         "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=1.2% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 3.0% stop; target 2.5R = 7.5%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.7
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "size adjusted to 8.50% by playbook overlay"
+        ]
+      }
+    },
+    {
+      "symbol": "POL",
+      "bucket": "ADD",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 8.5,
+      "reason": "-value:SELL_VALUE; +macro(Oil & Gas E&P+3); +Positive 150d momentum +14.2%",
+      "contributing_signals": [
+        "Positive 150d momentum +14.2%",
+        "Price +12.8% above 200-day SMA",
+        "Top-5 by momentum but market filter off",
+        "playbook:pkr_devaluation_shock:sector_overlay:upgrade_one"
+      ],
+      "position_plan": {
+        "symbol": "POL",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 748.84,
+        "atr_14_pct": 0.86,
+        "stop_loss_price": 730.12,
+        "stop_loss_pct": 2.5,
+        "target_price": 795.64,
+        "target_pct": 6.25,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 8.5,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=0.9% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "size adjusted to 8.50% by playbook overlay"
+        ]
       }
     },
     {
@@ -129,34 +167,6 @@
         "rationale": "ATR14=1.0% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.6% stop; target 2.5R = 6.5%; size sized to risk 0.5% of account.",
         "sector_volatility_mult": 1.0
       }
-    },
-    {
-      "symbol": "UBL",
-      "bucket": "HOLD",
-      "conviction": "MEDIUM",
-      "sector": "Banking",
-      "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+4); -mom150d=-11.4%",
-      "contributing_signals": [
-        "macro(Banking+4)",
-        "mom150d=-11.4%"
-      ],
-      "position_plan": {
-        "symbol": "UBL",
-        "sector": "Banking",
-        "entry_price": 432.68,
-        "atr_14_pct": 1.47,
-        "stop_loss_price": 419.86,
-        "stop_loss_pct": 2.96,
-        "target_price": 464.72,
-        "target_pct": 7.41,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 10.0,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.0% stop; target 2.5R = 7.4%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.0
-      }
     }
   ],
   "key_drivers": [
@@ -166,15 +176,16 @@
     "reserves_recovery"
   ],
   "key_risks": [
-    "pkr_weak active \u2014 see macro tab."
+    "pkr_weak active \u2014 see macro tab.",
+    "Stance is CAUTIOUS \u2014 verify cash >= 25% of NAV."
   ],
-  "macro_lens": "Normal stance (LOW confidence). Top driver: pkr_weak (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
+  "macro_lens": "Cautious stance \u2014 tape weakness or active risk-off drivers. Top driver: pkr_weak (STRONG). Tape: KSE-100 +2.7%/5d, normal vol regime.",
   "behavioural_lens": "",
   "fallback_used": true,
   "raw_llm_text": "",
   "thinking_trace": "",
   "briefing_summary": {
-    "as_of": "2026-10-19T10:11:36+00:00",
+    "as_of": "2026-10-20T09:35:13+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
@@ -190,7 +201,7 @@
       "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
     },
     "predictions_count": 5,
-    "playbook_analogues_count": 3
+    "playbook_analogues_count": 4
   },
   "playbook_overlay_log": [
     {
@@ -221,6 +232,27 @@
       "changes": []
     },
     {
+      "case_id": "pkr_devaluation_shock",
+      "match_score": 1.6,
+      "fired_triggers": [
+        "driver:pkr_weak:STRONG"
+      ],
+      "changes": [
+        {
+          "symbol": "OGDC",
+          "from": "ADD",
+          "to": "BUY",
+          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+        },
+        {
+          "symbol": "POL",
+          "from": "HOLD",
+          "to": "ADD",
+          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+        }
+      ]
+    },
+    {
       "case_id": "earnings_blackout_concentration",
       "match_score": 1.5,
       "fired_triggers": [
@@ -237,6 +269,7 @@
   "playbook_overlay_notes": [
     "[mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%.",
     "[mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates.",
+    "[pkr_devaluation_shock] PKR STRONG devaluation \u2014 E&P wellhead-USD tailwind; Autos pressured by imports. Cement downgrade DROPPED (again, after STRONG-only filter still scored 38% \u2014 Cement's PKR response is non-stationary).",
     "[earnings_blackout_concentration] Multiple universe names in 5d earnings blackout \u2014 HOLD-only, downgrade conviction."
   ]
 }
