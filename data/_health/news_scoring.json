@@ -1,24 +1,23 @@
 {
   "workflow": "news_scoring",
   "ok": true,
-  "note": "scored 63 new of 143 fetched [RULE-BASED FALLBACK -- no LLM key available]",
-  "as_of": "2026-10-20T06:52:46+00:00",
+  "note": "scored 61 new of 147 fetched [RULE-BASED FALLBACK -- no LLM key available]",
+  "as_of": "2026-10-20T13:09:33+00:00",
   "github": {
-    "run_id": "39382906120",
-    "run_number": "394",
+    "run_id": "39427928810",
+    "run_number": "395",
     "ref": "refs/heads/main",
-    "sha": "7269bb95fd0b05db6a26076f03dc17f5381b678f"
+    "sha": "e65ccf6e84764134cd362715c03989a6bcdc58d0"
   },
   "payload": {
-    "scored": 63,
-    "fetched": 143,
+    "scored": 61,
+    "fetched": 147,
     "by_category": {
-      "OTHER": 35,
-      "MACRO": 12,
-      "COMPANY": 6,
-      "COMMODITY": 4,
-      "GEOPOLITICS": 3,
-      "POLICY": 2,
+      "OTHER": 44,
+      "COMMODITY": 9,
+      "MACRO": 5,
+      "POLICY": 1,
+      "GEOPOLITICS": 1,
       "GLOBAL": 1
     },
     "used_fallback": true
