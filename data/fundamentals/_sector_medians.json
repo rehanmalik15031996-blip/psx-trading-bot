@@ -1,12 +1,12 @@
 {
-  "computed_utc": "2026-10-18T07:01:57+00:00",
+  "computed_utc": "2026-10-25T07:20:44+00:00",
   "by_sector": {
     "Power": {
       "n": 4,
-      "pe_med": 4.17,
+      "pe_med": 9.05,
       "pb_med": 0.75,
       "yield_med": 3.94,
-      "payout_med": 16.4,
+      "payout_med": 35.7,
       "members": [
         "HUBC",
         "KAPCO",
@@ -26,10 +26,10 @@
     },
     "Cement": {
       "n": 5,
-      "pe_med": 8.24,
+      "pe_med": 7.87,
       "pb_med": 1.37,
-      "yield_med": 0.0,
-      "payout_med": 0.0,
+      "yield_med": 0.5,
+      "payout_med": 3.7,
       "members": [
         "DGKC",
         "FCCL",
@@ -40,10 +40,10 @@
     },
     "Oil & Gas E&P": {
       "n": 4,
-      "pe_med": 5.66,
-      "pb_med": 1.57,
-      "yield_med": 5.52,
-      "payout_med": 38.15,
+      "pe_med": 6.39,
+      "pb_med": 1.66,
+      "yield_med": 5.24,
+      "payout_med": 35.35,
       "members": [
         "MARI",
         "OGDC",
@@ -69,10 +69,10 @@
     },
     "OMC/Refining": {
       "n": 3,
-      "pe_med": 5.26,
+      "pe_med": 4.8,
       "pb_med": 0.67,
-      "yield_med": 1.49,
-      "payout_med": 7.4,
+      "yield_med": 2.84,
+      "payout_med": 18.4,
       "members": [
         "APL",
         "ATRL",
@@ -93,10 +93,10 @@
     },
     "Pharma": {
       "n": 1,
-      "pe_med": 48.93,
-      "pb_med": 1.48,
+      "pe_med": 112.21,
+      "pb_med": 1.9,
       "yield_med": 1.19,
-      "payout_med": 58.1,
+      "payout_med": 133.3,
       "members": [
         "SEARL"
       ]
@@ -105,8 +105,8 @@
       "n": 3,
       "pe_med": 9.41,
       "pb_med": 2.86,
-      "yield_med": 6.35,
-      "payout_med": 70.9,
+      "yield_med": 4.02,
+      "payout_med": 45.7,
       "members": [
         "EFERT",
         "FATIMA",
