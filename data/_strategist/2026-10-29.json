@@ -1,0 +1,263 @@
+{
+  "as_of": "2026-10-29",
+  "model": "rule-based-v2",
+  "thinking_budget": 0,
+  "headline": "CAUTIOUS \u2014 selective adds only, no new shorts",
+  "risk_stance": "CAUTIOUS",
+  "conviction": "MEDIUM",
+  "narrative": "Cautious stance \u2014 tape weakness or active risk-off drivers. Top driver: pkr_weak (STRONG). Tape: KSE-100 +2.7%/5d, normal vol regime.\n\n[Playbook overlay] [mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%. || [mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates. || [pkr_devaluation_shock] PKR STRONG devaluation \u2014 E&P wellhead-USD tailwind; Autos pressured by imports. Cement downgrade DROPPED (again, after STRONG-only filter still scored 38% \u2014 Cement's PKR response is non-stationary).",
+  "agrees_with_phase1": true,
+  "phase1_disagreement_note": "",
+  "actions": [
+    {
+      "symbol": null,
+      "sector": null,
+      "bucket": "CASH",
+      "conviction": "MEDIUM",
+      "target_weight_pct": 70.0,
+      "reason": "Auto-inserted by playbook overlay (cash floor).",
+      "contributing_signals": []
+    },
+    {
+      "symbol": "OGDC",
+      "bucket": "BUY",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 8.5,
+      "reason": "+value:BUY_VALUE; +mf_accum_3m; +macro(Oil & Gas E&P+3)",
+      "contributing_signals": [
+        "Price +4.0% above 200-day SMA",
+        "Top-5 by momentum but market filter off",
+        "Playbook overlay (sector Oil & Gas E&P): +0.15 score bias from ['mf_universe_distribution_broad', 'mf_accumulation_strong', 'pkr_devaluation_shock']",
+        "playbook:pkr_devaluation_shock:sector_overlay:upgrade_one"
+      ],
+      "position_plan": {
+        "symbol": "OGDC",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 319.52,
+        "atr_14_pct": 1.18,
+        "stop_loss_price": 309.91,
+        "stop_loss_pct": 3.01,
+        "target_price": 343.54,
+        "target_pct": 7.52,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 8.5,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.2% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 3.0% stop; target 2.5R = 7.5%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "size adjusted to 8.50% by playbook overlay"
+        ]
+      }
+    },
+    {
+      "symbol": "POL",
+      "bucket": "ADD",
+      "conviction": "MEDIUM",
+      "sector": "Oil & Gas E&P",
+      "target_weight_pct": 8.5,
+      "reason": "-value:SELL_VALUE; +macro(Oil & Gas E&P+3); +Positive 150d momentum +14.2%",
+      "contributing_signals": [
+        "Positive 150d momentum +14.2%",
+        "Price +12.8% above 200-day SMA",
+        "Top-5 by momentum but market filter off",
+        "playbook:pkr_devaluation_shock:sector_overlay:upgrade_one"
+      ],
+      "position_plan": {
+        "symbol": "POL",
+        "sector": "Oil & Gas E&P",
+        "entry_price": 748.84,
+        "atr_14_pct": 0.86,
+        "stop_loss_price": 730.12,
+        "stop_loss_pct": 2.5,
+        "target_price": 795.64,
+        "target_pct": 6.25,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 8.5,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=0.9% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.7,
+        "overlay_applied": [
+          "size adjusted to 8.50% by playbook overlay"
+        ]
+      }
+    },
+    {
+      "symbol": "FABL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Banking",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Banking+6); +mf_accum_3m; -value:SELL_VALUE",
+      "contributing_signals": [
+        "Price +1.6% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
+      ],
+      "position_plan": {
+        "symbol": "FABL",
+        "sector": "Banking",
+        "entry_price": 94.69,
+        "atr_14_pct": 1.04,
+        "stop_loss_price": 92.32,
+        "stop_loss_pct": 2.5,
+        "target_price": 100.61,
+        "target_pct": 6.25,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.0% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
+    },
+    {
+      "symbol": "MCB",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Banking",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Banking+6); -mom150d=-7.7%",
+      "contributing_signals": [
+        "macro(Banking+6)",
+        "mom150d=-7.7%"
+      ],
+      "position_plan": {
+        "symbol": "MCB",
+        "sector": "Banking",
+        "entry_price": 390.6,
+        "atr_14_pct": 1.48,
+        "stop_loss_price": 380.84,
+        "stop_loss_pct": 2.5,
+        "target_price": 415.01,
+        "target_pct": 6.25,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.5% stop; target 2.5R = 6.2%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
+    },
+    {
+      "symbol": "HBL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Banking",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Banking+6); -mom150d=-7.5%",
+      "contributing_signals": [
+        "macro(Banking+6)",
+        "mom150d=-7.5%"
+      ],
+      "position_plan": {
+        "symbol": "HBL",
+        "sector": "Banking",
+        "entry_price": 303.3,
+        "atr_14_pct": 1.02,
+        "stop_loss_price": 295.37,
+        "stop_loss_pct": 2.61,
+        "target_price": 323.12,
+        "target_pct": 6.53,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.0% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.6% stop; target 2.5R = 6.5%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
+    }
+  ],
+  "key_drivers": [
+    "pkr_weak",
+    "rate_up",
+    "tbill_above_policy",
+    "tbill_up",
+    "reserves_recovery"
+  ],
+  "key_risks": [
+    "pkr_weak active \u2014 see macro tab.",
+    "rate_up active \u2014 see macro tab.",
+    "Stance is CAUTIOUS \u2014 verify cash >= 25% of NAV."
+  ],
+  "macro_lens": "Cautious stance \u2014 tape weakness or active risk-off drivers. Top driver: pkr_weak (STRONG). Tape: KSE-100 +2.7%/5d, normal vol regime.",
+  "behavioural_lens": "",
+  "fallback_used": true,
+  "raw_llm_text": "",
+  "thinking_trace": "",
+  "briefing_summary": {
+    "as_of": "2026-10-29T11:02:45+00:00",
+    "regime": {
+      "as_of": "2026-09-23",
+      "regime": "NORMAL",
+      "exposure_multiplier": 1.0,
+      "reason": "Rule-based: no stress markers",
+      "flags": [],
+      "indicators": {
+        "universe_ret_5d": 0.0272,
+        "universe_ret_21d": -0.0398,
+        "universe_150d_log_ret": -0.1196,
+        "breadth_pct_up_today": 80.0
+      },
+      "note": "Regime classification uses rule-based fallback. Connect an Anthropic API key to enable Claude-powered regime detection."
+    },
+    "predictions_count": 5,
+    "playbook_analogues_count": 3
+  },
+  "playbook_overlay_log": [
+    {
+      "case_id": "mf_universe_distribution_broad",
+      "match_score": 2.6,
+      "fired_triggers": [
+        "mf_universe_n_top_distributed_gte:5",
+        "mf_data_freshness_lte:90"
+      ],
+      "changes": [
+        {
+          "cash_floor_pct": 70,
+          "via": "cash_floor"
+        },
+        {
+          "position_size_multiplier": 0.85,
+          "via": "size_haircut"
+        }
+      ]
+    },
+    {
+      "case_id": "mf_accumulation_strong",
+      "match_score": 2.3,
+      "fired_triggers": [
+        "mf_accumulation_streak_gte:3",
+        "mf_n_funds_increasing_30d_gte:5"
+      ],
+      "changes": []
+    },
+    {
+      "case_id": "pkr_devaluation_shock",
+      "match_score": 1.6,
+      "fired_triggers": [
+        "driver:pkr_weak:STRONG"
+      ],
+      "changes": [
+        {
+          "symbol": "OGDC",
+          "from": "ADD",
+          "to": "BUY",
+          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+        },
+        {
+          "symbol": "POL",
+          "from": "HOLD",
+          "to": "ADD",
+          "via": "sector_overlay:Oil & Gas E&P:upgrade_one"
+        }
+      ]
+    }
+  ],
+  "playbook_overlay_notes": [
+    "[mf_universe_distribution_broad] Broad MF distribution across top-30 universe \u2014 reduce gross exposure 10-20%.",
+    "[mf_accumulation_strong] MF accumulation broad streak \u2014 names auto-listed as institutional-buy candidates.",
+    "[pkr_devaluation_shock] PKR STRONG devaluation \u2014 E&P wellhead-USD tailwind; Autos pressured by imports. Cement downgrade DROPPED (again, after STRONG-only filter still scored 38% \u2014 Cement's PKR response is non-stationary)."
+  ]
+}
