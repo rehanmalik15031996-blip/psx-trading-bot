@@ -1,10 +1,10 @@
 {
-  "computed_utc": "2026-10-25T07:20:44+00:00",
+  "computed_utc": "2026-11-01T08:50:43+00:00",
   "by_sector": {
     "Power": {
       "n": 4,
       "pe_med": 9.05,
-      "pb_med": 0.75,
+      "pb_med": 0.76,
       "yield_med": 3.94,
       "payout_med": 35.7,
       "members": [
@@ -17,7 +17,7 @@
     "Misc": {
       "n": 1,
       "pe_med": 6.58,
-      "pb_med": 1.38,
+      "pb_med": 1.56,
       "yield_med": 0.0,
       "payout_med": 0.0,
       "members": [
@@ -27,7 +27,7 @@
     "Cement": {
       "n": 5,
       "pe_med": 7.87,
-      "pb_med": 1.37,
+      "pb_med": 1.35,
       "yield_med": 0.5,
       "payout_med": 3.7,
       "members": [
@@ -41,7 +41,7 @@
     "Oil & Gas E&P": {
       "n": 4,
       "pe_med": 6.39,
-      "pb_med": 1.66,
+      "pb_med": 1.67,
       "yield_med": 5.24,
       "payout_med": 35.35,
       "members": [
@@ -54,9 +54,9 @@
     "Banking": {
       "n": 7,
       "pe_med": 6.67,
-      "pb_med": 1.22,
-      "yield_med": 7.58,
-      "payout_med": 58.6,
+      "pb_med": 1.21,
+      "yield_med": 6.91,
+      "payout_med": 54.8,
       "members": [
         "BAHL",
         "FABL",
@@ -70,7 +70,7 @@
     "OMC/Refining": {
       "n": 3,
       "pe_med": 4.8,
-      "pb_med": 0.67,
+      "pb_med": 0.61,
       "yield_med": 2.84,
       "payout_med": 18.4,
       "members": [
@@ -82,7 +82,7 @@
     "Conglomerate/Chem": {
       "n": 3,
       "pe_med": 13.4,
-      "pb_med": 1.75,
+      "pb_med": 1.79,
       "yield_med": 12.64,
       "payout_med": 100.0,
       "members": [
@@ -104,9 +104,9 @@
     "Fertilizer": {
       "n": 3,
       "pe_med": 9.41,
-      "pb_med": 2.86,
-      "yield_med": 4.02,
-      "payout_med": 45.7,
+      "pb_med": 2.98,
+      "yield_med": 6.87,
+      "payout_med": 70.9,
       "members": [
         "EFERT",
         "FATIMA",
@@ -116,7 +116,7 @@
     "Technology": {
       "n": 2,
       "pe_med": 7.66,
-      "pb_med": 1.89,
+      "pb_med": 1.87,
       "yield_med": 0.82,
       "payout_med": 13.35,
       "members": [
@@ -127,7 +127,7 @@
     "Autos": {
       "n": 1,
       "pe_med": 5.5,
-      "pb_med": 1.61,
+      "pb_med": 1.55,
       "yield_med": 10.92,
       "payout_med": 60.1,
       "members": [
@@ -137,7 +137,7 @@
     "Consumer": {
       "n": 1,
       "pe_med": 14.84,
-      "pb_med": 6.65,
+      "pb_med": 7.27,
       "yield_med": 5.62,
       "payout_med": 83.4,
       "members": [
