@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-02",
+  "as_of": "2026-11-03",
   "model": "rule-based-v2",
   "thinking_budget": 0,
   "headline": "CAUTIOUS \u2014 selective adds only, no new shorts",
@@ -90,7 +90,7 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+8); +mf_accum_3m; -value:SELL_VALUE",
+      "reason": "+macro(Banking+7); +mf_accum_3m; -value:SELL_VALUE",
       "contributing_signals": [
         "Price +1.6% above 200-day SMA",
         "Top-5 by momentum but market filter off"
@@ -118,9 +118,9 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+8); -mom150d=-7.7%",
+      "reason": "+macro(Banking+7); -mom150d=-7.7%",
       "contributing_signals": [
-        "macro(Banking+8)",
+        "macro(Banking+7)",
         "mom150d=-7.7%"
       ],
       "position_plan": {
@@ -146,9 +146,9 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+8); -mom150d=-7.5%",
+      "reason": "+macro(Banking+7); -mom150d=-7.5%",
       "contributing_signals": [
-        "macro(Banking+8)",
+        "macro(Banking+7)",
         "mom150d=-7.5%"
       ],
       "position_plan": {
@@ -187,7 +187,7 @@
   "raw_llm_text": "",
   "thinking_trace": "",
   "briefing_summary": {
-    "as_of": "2026-11-02T12:47:58+00:00",
+    "as_of": "2026-11-03T12:14:43+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
