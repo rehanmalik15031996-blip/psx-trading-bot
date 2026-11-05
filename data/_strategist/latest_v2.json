@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-04",
+  "as_of": "2026-11-05",
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
   "regime": "NORMAL",
   "regime_confidence": "LOW",
@@ -11,7 +11,7 @@
       "Tape: KSE-100 +2.72% over 5d, -3.98% over 21d, breadth 80% up  [NORMAL vol]",
       "Driver: **rate_up** (MODERATE)",
       "Driver: **tbill_above_policy** (MODERATE)",
-      "Driver: **tbill_up** (MODERATE)"
+      "Driver: **kse100_up** (MODERATE)"
     ],
     "narrative": "Normal stance (LOW confidence). Top driver: rate_up (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
     "n_longs": 0,
@@ -19,7 +19,7 @@
     "key_event_window": null
   },
   "long_ideas": {
-    "count": 7,
+    "count": 8,
     "ideas": [
       {
         "symbol": "FABL",
@@ -327,9 +327,55 @@
           "flows": 0.0,
           "volume": 0.0
         }
+      },
+      {
+        "symbol": "OGDC",
+        "sector": "Oil & Gas E&P",
+        "score": 0.119,
+        "action": "HOLD",
+        "conviction": "MEDIUM",
+        "expected_5d_pct": -0.561,
+        "expected_21d_pct": null,
+        "why": "+value:BUY_VALUE; +mf_accum_3m; -macro(Oil & Gas E&P-1)",
+        "key_drivers": [
+          "Price +4.0% above 200-day SMA",
+          "Top-5 by momentum but market filter off"
+        ],
+        "key_risks": [
+          "Market breadth weak \u2014 Phase-1 in cash"
+        ],
+        "tags": [
+          "BUY_VALUE",
+          "MF_ACCUMULATION"
+        ],
+        "position_plan": {
+          "symbol": "OGDC",
+          "sector": "Oil & Gas E&P",
+          "entry_price": 319.52,
+          "atr_14_pct": 1.18,
+          "stop_loss_price": 309.91,
+          "stop_loss_pct": 3.01,
+          "target_price": 343.54,
+          "target_pct": 7.52,
+          "reward_to_risk_ratio": 2.5,
+          "position_size_pct": 10.0,
+          "position_size_pkr": null,
+          "hold_horizon_days": 21,
+          "rationale": "ATR14=1.2% \u00d7 sector_mult=1.7\u00d7 \u00d7 1.5\u03c3 = 3.0% stop; target 2.5R = 7.5%; size sized to risk 0.5% of account.",
+          "sector_volatility_mult": 1.7
+        },
+        "components": {
+          "predict": 0.0,
+          "value": 0.8,
+          "quality": 0.0,
+          "momentum": 0.063,
+          "macro": -0.2,
+          "flows": 0.7,
+          "volume": 0.0
+        }
       }
     ],
-    "summary": "7 long candidates; top conviction: FABL"
+    "summary": "8 long candidates; top conviction: FABL"
   },
   "short_ideas": {
     "count": 0,
@@ -380,13 +426,13 @@
         "current_price": 319.52,
         "pnl_pct": null,
         "action": "HOLD",
-        "urgency": "MEDIUM",
-        "note": "Mixed signals \u2014 set hard stop, no new buys.",
-        "score": 0.079,
+        "urgency": "LOW",
+        "note": "Mildly positive \u2014 hold but keep stop tight.",
+        "score": 0.119,
         "stop_loss_price": 309.91287500000004,
         "stop_loss_pct": 3.01,
         "target_price": 343.5378125,
-        "why": "+value:BUY_VALUE; +mf_accum_3m; -macro(Oil & Gas E&P-2)"
+        "why": "+value:BUY_VALUE; +mf_accum_3m; -macro(Oil & Gas E&P-1)"
       },
       {
         "symbol": "MLCF",
@@ -398,11 +444,11 @@
         "action": "HOLD",
         "urgency": "MEDIUM",
         "note": "Mixed signals \u2014 set hard stop, no new buys.",
-        "score": -0.098,
+        "score": -0.058,
         "stop_loss_price": 90.502,
         "stop_loss_pct": 5.8,
         "target_price": 109.99,
-        "why": "-macro(Cement-2); -mom150d=-16.1% (high-vol)"
+        "why": "-macro(Cement-1); -mom150d=-16.1% (high-vol)"
       },
       {
         "symbol": "PRL",
@@ -457,6 +503,28 @@
         "top_score": 0.003,
         "bottom_name": "SEARL",
         "bottom_score": 0.003
+      },
+      {
+        "sector": "OMC/Refining",
+        "outlook": "NEUTRAL",
+        "macro_tilt": 0,
+        "avg_score": -0.012,
+        "n_stocks": 3,
+        "top_name": "ATRL",
+        "top_score": 0.032,
+        "bottom_name": "PSO",
+        "bottom_score": -0.06
+      },
+      {
+        "sector": "Oil & Gas E&P",
+        "outlook": "NEGATIVE",
+        "macro_tilt": -1,
+        "avg_score": -0.015,
+        "n_stocks": 4,
+        "top_name": "OGDC",
+        "top_score": 0.119,
+        "bottom_name": "POL",
+        "bottom_score": -0.069
       },
       {
         "sector": "Consumer",
@@ -514,37 +582,15 @@
         "bottom_score": -0.045
       },
       {
-        "sector": "OMC/Refining",
+        "sector": "Cement",
         "outlook": "NEGATIVE",
         "macro_tilt": -1,
-        "avg_score": -0.052,
-        "n_stocks": 3,
-        "top_name": "ATRL",
-        "top_score": -0.008,
-        "bottom_name": "PSO",
-        "bottom_score": -0.1
-      },
-      {
-        "sector": "Oil & Gas E&P",
-        "outlook": "BEARISH",
-        "macro_tilt": -2,
-        "avg_score": -0.055,
-        "n_stocks": 4,
-        "top_name": "OGDC",
-        "top_score": 0.079,
-        "bottom_name": "POL",
-        "bottom_score": -0.109
-      },
-      {
-        "sector": "Cement",
-        "outlook": "BEARISH",
-        "macro_tilt": -2,
-        "avg_score": -0.098,
+        "avg_score": -0.058,
         "n_stocks": 5,
         "top_name": "FCCL",
-        "top_score": -0.083,
+        "top_score": -0.043,
         "bottom_name": "KOHC",
-        "bottom_score": -0.11
+        "bottom_score": -0.07
       },
       {
         "sector": "Conglomerate/Chem",
@@ -637,13 +683,13 @@
       {
         "symbol": "OGDC",
         "sector": "Oil & Gas E&P",
-        "score": 0.079,
+        "score": 0.119,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)",
           "Wait for sector macro tilt to firm"
         ],
-        "why": "+value:BUY_VALUE; +mf_accum_3m; -macro(Oil & Gas E&P-2)"
+        "why": "+value:BUY_VALUE; +mf_accum_3m; -macro(Oil & Gas E&P-1)"
       }
     ]
   },
@@ -675,7 +721,7 @@
         "magnitude": "MODERATE"
       },
       {
-        "tag": "tbill_up",
+        "tag": "kse100_up",
         "magnitude": "MODERATE"
       },
       {
@@ -689,9 +735,8 @@
     ],
     "sector_tilts": {
       "Banking": 5,
-      "Cement": -2,
-      "Oil & Gas E&P": -2,
-      "OMC/Refining": -1,
+      "Cement": -1,
+      "Oil & Gas E&P": -1,
       "Conglomerate/Chem": -2,
       "Pharma": 1,
       "Misc": 1
@@ -709,8 +754,8 @@
       "Tape: KSE-100 +2.72% over 5d, -3.98% over 21d, breadth 80% up  [NORMAL vol]",
       "Driver: **rate_up** (MODERATE)",
       "Driver: **tbill_above_policy** (MODERATE)",
-      "Driver: **tbill_up** (MODERATE)",
-      "Sector tilts: Banking +5, Cement -2, Oil & Gas E&P -2",
+      "Driver: **kse100_up** (MODERATE)",
+      "Sector tilts: Banking +5, Conglomerate/Chem -2, Cement -1",
       "Recommended stance: **NORMAL** (confidence: LOW)."
     ],
     "narrative": "Normal stance (LOW confidence). Top driver: rate_up (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime."
@@ -921,9 +966,9 @@
     {
       "symbol": "OGDC",
       "sector": "Oil & Gas E&P",
-      "score": 0.079,
+      "score": 0.119,
       "action": "HOLD",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "expected_5d_net_pct": -0.561,
       "expected_21d_pct": null,
       "entry_price": 319.52,
@@ -932,11 +977,11 @@
         "value": 0.8,
         "quality": 0.0,
         "momentum": 0.063,
-        "macro": -0.4,
+        "macro": -0.2,
         "flows": 0.7,
         "volume": 0.0
       },
-      "why": "+value:BUY_VALUE; +mf_accum_3m; -macro(Oil & Gas E&P-2)",
+      "why": "+value:BUY_VALUE; +mf_accum_3m; -macro(Oil & Gas E&P-1)",
       "key_drivers": [
         "Price +4.0% above 200-day SMA",
         "Top-5 by momentum but market filter off"
@@ -946,9 +991,33 @@
       ],
       "tags": [
         "BUY_VALUE",
-        "MACRO_HEADWIND",
         "MF_ACCUMULATION"
       ]
+    },
+    {
+      "symbol": "ATRL",
+      "sector": "OMC/Refining",
+      "score": 0.032,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": 0.21,
+        "macro": 0.0,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "+mom150d=+29.9% (high-vol)",
+      "key_drivers": [
+        "mom150d=+29.9% (high-vol)"
+      ],
+      "key_risks": [],
+      "tags": []
     },
     {
       "symbol": "PABC",
@@ -1003,9 +1072,9 @@
       "tags": []
     },
     {
-      "symbol": "ATRL",
+      "symbol": "APL",
       "sector": "OMC/Refining",
-      "score": -0.008,
+      "score": -0.009,
       "action": "HOLD",
       "conviction": "LOW",
       "expected_5d_net_pct": null,
@@ -1015,15 +1084,14 @@
         "predict": 0.0,
         "value": 0.0,
         "quality": 0.0,
-        "momentum": 0.21,
-        "macro": -0.2,
+        "momentum": -0.059,
+        "macro": 0.0,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+mom150d=+29.9% (high-vol); -macro(OMC/Refining-1)",
+      "why": "-mom150d=-4.0%",
       "key_drivers": [
-        "macro(OMC/Refining-1)",
-        "mom150d=+29.9% (high-vol)"
+        "mom150d=-4.0%"
       ],
       "key_risks": [],
       "tags": []
@@ -1229,6 +1297,32 @@
       "tags": []
     },
     {
+      "symbol": "FCCL",
+      "sector": "Cement",
+      "score": -0.043,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": -0.022,
+        "macro": -0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "-macro(Cement-1); -mom150d=-2.9% (high-vol)",
+      "key_drivers": [
+        "macro(Cement-1)",
+        "mom150d=-2.9% (high-vol)"
+      ],
+      "key_risks": [],
+      "tags": []
+    },
+    {
       "symbol": "INDU",
       "sector": "Autos",
       "score": -0.045,
@@ -1279,9 +1373,9 @@
       "tags": []
     },
     {
-      "symbol": "APL",
-      "sector": "OMC/Refining",
-      "score": -0.049,
+      "symbol": "DGKC",
+      "sector": "Cement",
+      "score": -0.051,
       "action": "HOLD",
       "conviction": "LOW",
       "expected_5d_net_pct": null,
@@ -1291,15 +1385,93 @@
         "predict": 0.0,
         "value": 0.0,
         "quality": 0.0,
-        "momentum": -0.059,
+        "momentum": -0.076,
         "macro": -0.2,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "-macro(OMC/Refining-1); -mom150d=-4.0%",
+      "why": "-macro(Cement-1); -mom150d=-10.2% (high-vol)",
       "key_drivers": [
-        "macro(OMC/Refining-1)",
-        "mom150d=-4.0%"
+        "macro(Cement-1)",
+        "mom150d=-10.2% (high-vol)"
+      ],
+      "key_risks": [],
+      "tags": []
+    },
+    {
+      "symbol": "MARI",
+      "sector": "Oil & Gas E&P",
+      "score": -0.054,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": -0.09,
+        "macro": -0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "-macro(Oil & Gas E&P-1); -mom150d=-6.0%",
+      "key_drivers": [
+        "macro(Oil & Gas E&P-1)",
+        "mom150d=-6.0%"
+      ],
+      "key_risks": [],
+      "tags": []
+    },
+    {
+      "symbol": "PPL",
+      "sector": "Oil & Gas E&P",
+      "score": -0.055,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": -0.097,
+        "macro": -0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "-macro(Oil & Gas E&P-1); -mom150d=-6.5%",
+      "key_drivers": [
+        "macro(Oil & Gas E&P-1)",
+        "mom150d=-6.5%"
+      ],
+      "key_risks": [],
+      "tags": []
+    },
+    {
+      "symbol": "MLCF",
+      "sector": "Cement",
+      "score": -0.058,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": -0.119,
+        "macro": -0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "-macro(Cement-1); -mom150d=-16.1% (high-vol)",
+      "key_drivers": [
+        "macro(Cement-1)",
+        "mom150d=-16.1% (high-vol)"
       ],
       "key_risks": [],
       "tags": []
@@ -1330,9 +1502,9 @@
       "tags": []
     },
     {
-      "symbol": "FCCL",
-      "sector": "Cement",
-      "score": -0.083,
+      "symbol": "PSO",
+      "sector": "OMC/Refining",
+      "score": -0.06,
       "action": "HOLD",
       "conviction": "LOW",
       "expected_5d_net_pct": null,
@@ -1342,20 +1514,98 @@
         "predict": 0.0,
         "value": 0.0,
         "quality": 0.0,
-        "momentum": -0.022,
-        "macro": -0.4,
+        "momentum": -0.397,
+        "macro": 0.0,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "-macro(Cement-2); -mom150d=-2.9% (high-vol)",
+      "why": "-mom150d=-28.0%",
       "key_drivers": [
-        "macro(Cement-2)",
-        "mom150d=-2.9% (high-vol)"
+        "mom150d=-28.0%"
       ],
       "key_risks": [],
-      "tags": [
-        "MACRO_HEADWIND"
-      ]
+      "tags": []
+    },
+    {
+      "symbol": "LUCK",
+      "sector": "Cement",
+      "score": -0.066,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": -0.175,
+        "macro": -0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "-macro(Cement-1); -mom150d=-11.8%",
+      "key_drivers": [
+        "macro(Cement-1)",
+        "mom150d=-11.8%"
+      ],
+      "key_risks": [],
+      "tags": []
+    },
+    {
+      "symbol": "POL",
+      "sector": "Oil & Gas E&P",
+      "score": -0.069,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": -0.171,
+      "expected_21d_pct": null,
+      "entry_price": 748.84,
+      "components": {
+        "predict": 0.0,
+        "value": -0.6,
+        "quality": 0.0,
+        "momentum": 0.21,
+        "macro": -0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "-value:SELL_VALUE; +mom150d=+14.2%; -macro(Oil & Gas E&P-1)",
+      "key_drivers": [
+        "Positive 150d momentum +14.2%",
+        "Price +12.8% above 200-day SMA",
+        "Top-5 by momentum but market filter off"
+      ],
+      "key_risks": [
+        "Market breadth weak \u2014 Phase-1 in cash"
+      ],
+      "tags": []
+    },
+    {
+      "symbol": "KOHC",
+      "sector": "Cement",
+      "score": -0.07,
+      "action": "HOLD",
+      "conviction": "LOW",
+      "expected_5d_net_pct": null,
+      "expected_21d_pct": null,
+      "entry_price": null,
+      "components": {
+        "predict": 0.0,
+        "value": 0.0,
+        "quality": 0.0,
+        "momentum": -0.202,
+        "macro": -0.2,
+        "flows": 0.0,
+        "volume": 0.0
+      },
+      "why": "-mom150d=-13.7%; -macro(Cement-1)",
+      "key_drivers": [
+        "macro(Cement-1)",
+        "mom150d=-13.7%"
+      ],
+      "key_risks": [],
+      "tags": []
     },
     {
       "symbol": "EPCL",
@@ -1386,172 +1636,6 @@
       ]
     },
     {
-      "symbol": "DGKC",
-      "sector": "Cement",
-      "score": -0.091,
-      "action": "HOLD",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.076,
-        "macro": -0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-macro(Cement-2); -mom150d=-10.2% (high-vol)",
-      "key_drivers": [
-        "macro(Cement-2)",
-        "mom150d=-10.2% (high-vol)"
-      ],
-      "key_risks": [],
-      "tags": [
-        "MACRO_HEADWIND"
-      ]
-    },
-    {
-      "symbol": "MARI",
-      "sector": "Oil & Gas E&P",
-      "score": -0.094,
-      "action": "HOLD",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.09,
-        "macro": -0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-macro(Oil & Gas E&P-2); -mom150d=-6.0%",
-      "key_drivers": [
-        "macro(Oil & Gas E&P-2)",
-        "mom150d=-6.0%"
-      ],
-      "key_risks": [],
-      "tags": [
-        "MACRO_HEADWIND"
-      ]
-    },
-    {
-      "symbol": "PPL",
-      "sector": "Oil & Gas E&P",
-      "score": -0.095,
-      "action": "HOLD",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.097,
-        "macro": -0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-macro(Oil & Gas E&P-2); -mom150d=-6.5%",
-      "key_drivers": [
-        "macro(Oil & Gas E&P-2)",
-        "mom150d=-6.5%"
-      ],
-      "key_risks": [],
-      "tags": [
-        "MACRO_HEADWIND"
-      ]
-    },
-    {
-      "symbol": "MLCF",
-      "sector": "Cement",
-      "score": -0.098,
-      "action": "HOLD",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.119,
-        "macro": -0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-macro(Cement-2); -mom150d=-16.1% (high-vol)",
-      "key_drivers": [
-        "macro(Cement-2)",
-        "mom150d=-16.1% (high-vol)"
-      ],
-      "key_risks": [],
-      "tags": [
-        "MACRO_HEADWIND"
-      ]
-    },
-    {
-      "symbol": "PSO",
-      "sector": "OMC/Refining",
-      "score": -0.1,
-      "action": "HOLD",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.397,
-        "macro": -0.2,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-mom150d=-28.0%; -macro(OMC/Refining-1)",
-      "key_drivers": [
-        "macro(OMC/Refining-1)",
-        "mom150d=-28.0%"
-      ],
-      "key_risks": [],
-      "tags": []
-    },
-    {
-      "symbol": "LUCK",
-      "sector": "Cement",
-      "score": -0.106,
-      "action": "WATCH",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.175,
-        "macro": -0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-macro(Cement-2); -mom150d=-11.8%",
-      "key_drivers": [
-        "macro(Cement-2)",
-        "mom150d=-11.8%"
-      ],
-      "key_risks": [],
-      "tags": [
-        "MACRO_HEADWIND"
-      ]
-    },
-    {
       "symbol": "ENGROH",
       "sector": "Conglomerate/Chem",
       "score": -0.106,
@@ -1573,65 +1657,6 @@
       "key_drivers": [
         "macro(Conglomerate/Chem-2)",
         "mom150d=-11.5%"
-      ],
-      "key_risks": [],
-      "tags": [
-        "MACRO_HEADWIND"
-      ]
-    },
-    {
-      "symbol": "POL",
-      "sector": "Oil & Gas E&P",
-      "score": -0.109,
-      "action": "WATCH",
-      "conviction": "LOW",
-      "expected_5d_net_pct": -0.171,
-      "expected_21d_pct": null,
-      "entry_price": 748.84,
-      "components": {
-        "predict": 0.0,
-        "value": -0.6,
-        "quality": 0.0,
-        "momentum": 0.21,
-        "macro": -0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-value:SELL_VALUE; -macro(Oil & Gas E&P-2); +mom150d=+14.2%",
-      "key_drivers": [
-        "Positive 150d momentum +14.2%",
-        "Price +12.8% above 200-day SMA",
-        "Top-5 by momentum but market filter off"
-      ],
-      "key_risks": [
-        "Market breadth weak \u2014 Phase-1 in cash"
-      ],
-      "tags": [
-        "MACRO_HEADWIND"
-      ]
-    },
-    {
-      "symbol": "KOHC",
-      "sector": "Cement",
-      "score": -0.11,
-      "action": "WATCH",
-      "conviction": "LOW",
-      "expected_5d_net_pct": null,
-      "expected_21d_pct": null,
-      "entry_price": null,
-      "components": {
-        "predict": 0.0,
-        "value": 0.0,
-        "quality": 0.0,
-        "momentum": -0.202,
-        "macro": -0.4,
-        "flows": 0.0,
-        "volume": 0.0
-      },
-      "why": "-macro(Cement-2); -mom150d=-13.7%",
-      "key_drivers": [
-        "macro(Cement-2)",
-        "mom150d=-13.7%"
       ],
       "key_risks": [],
       "tags": [
@@ -1819,7 +1844,7 @@
   "version": "v2",
   "pipeline_errors": [],
   "briefing_summary": {
-    "as_of": "2026-11-04T12:26:12+00:00",
+    "as_of": "2026-11-05T12:41:13+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
