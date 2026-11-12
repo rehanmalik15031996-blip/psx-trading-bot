@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-11",
+  "as_of": "2026-11-12",
   "model": "rule-based-v2",
   "thinking_budget": 0,
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
@@ -24,9 +24,9 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+6); -mom150d=-7.7%",
+      "reason": "+macro(Banking+3); -mom150d=-7.7%",
       "contributing_signals": [
-        "macro(Banking+6)",
+        "macro(Banking+3)",
         "mom150d=-7.7%",
         "playbook:distribution_day_signature:sector_overlay:downgrade_one"
       ],
@@ -56,9 +56,9 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+6); -mom150d=-7.5%",
+      "reason": "+macro(Banking+3); -mom150d=-7.5%",
       "contributing_signals": [
-        "macro(Banking+6)",
+        "macro(Banking+3)",
         "mom150d=-7.5%",
         "playbook:distribution_day_signature:sector_overlay:downgrade_one"
       ],
@@ -81,114 +81,17 @@
           "action downgraded HOLD -> WATCH by overlay"
         ]
       }
-    },
-    {
-      "symbol": "UBL",
-      "bucket": "WATCH",
-      "conviction": "MEDIUM",
-      "sector": "Banking",
-      "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+6); -mom150d=-11.4%",
-      "contributing_signals": [
-        "macro(Banking+6)",
-        "mom150d=-11.4%",
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one"
-      ],
-      "position_plan": {
-        "symbol": "UBL",
-        "sector": "Banking",
-        "entry_price": 432.68,
-        "atr_14_pct": 1.47,
-        "stop_loss_price": 419.86,
-        "stop_loss_pct": 2.96,
-        "target_price": 464.72,
-        "target_pct": 7.41,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 10.0,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.0% stop; target 2.5R = 7.4%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.0,
-        "overlay_applied": [
-          "action downgraded HOLD -> WATCH by overlay"
-        ]
-      }
-    },
-    {
-      "symbol": "NBP",
-      "bucket": "WATCH",
-      "conviction": "MEDIUM",
-      "sector": "Banking",
-      "target_weight_pct": 6.93,
-      "reason": "+macro(Banking+6); -mom150d=-43.9% (high-vol)",
-      "contributing_signals": [
-        "macro(Banking+6)",
-        "mom150d=-43.9% (high-vol)",
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one"
-      ],
-      "position_plan": {
-        "symbol": "NBP",
-        "sector": "Banking",
-        "entry_price": 170.57,
-        "atr_14_pct": 1.88,
-        "stop_loss_price": 158.26,
-        "stop_loss_pct": 7.22,
-        "target_price": 201.35,
-        "target_pct": 18.05,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 6.93,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=1.9% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 7.2% stop; target 2.5R = 18.0%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.0,
-        "overlay_applied": [
-          "action downgraded HOLD -> WATCH by overlay"
-        ]
-      }
-    },
-    {
-      "symbol": "BAHL",
-      "bucket": "WATCH",
-      "conviction": "MEDIUM",
-      "sector": "Banking",
-      "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+6); -mom150d=-20.8%",
-      "contributing_signals": [
-        "macro(Banking+6)",
-        "mom150d=-20.8%",
-        "playbook:distribution_day_signature:sector_overlay:downgrade_one"
-      ],
-      "position_plan": {
-        "symbol": "BAHL",
-        "sector": "Banking",
-        "entry_price": 152.82,
-        "atr_14_pct": 1.52,
-        "stop_loss_price": 147.41,
-        "stop_loss_pct": 3.54,
-        "target_price": 166.36,
-        "target_pct": 8.86,
-        "reward_to_risk_ratio": 2.5,
-        "position_size_pct": 10.0,
-        "position_size_pkr": null,
-        "hold_horizon_days": 21,
-        "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.5% stop; target 2.5R = 8.9%; size sized to risk 0.5% of account.",
-        "sector_volatility_mult": 1.0,
-        "overlay_applied": [
-          "action downgraded HOLD -> WATCH by overlay"
-        ]
-      }
     }
   ],
   "key_drivers": [
     "rate_up",
     "oil_down",
-    "pkr_weak",
-    "tbill_above_policy",
-    "kse100_up"
+    "tbill_down",
+    "kse100_up",
+    "reserves_recovery"
   ],
   "key_risks": [
-    "rate_up active \u2014 see macro tab.",
-    "pkr_weak active \u2014 see macro tab."
+    "rate_up active \u2014 see macro tab."
   ],
   "macro_lens": "Normal stance (LOW confidence). Top driver: rate_up (MODERATE). Tape: KSE-100 +2.7%/5d, normal vol regime.",
   "behavioural_lens": "",
@@ -196,7 +99,7 @@
   "raw_llm_text": "",
   "thinking_trace": "",
   "briefing_summary": {
-    "as_of": "2026-11-11T12:03:56+00:00",
+    "as_of": "2026-11-12T13:08:22+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
@@ -249,24 +152,6 @@
         },
         {
           "symbol": "HBL",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "UBL",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "NBP",
-          "from": "HOLD",
-          "to": "WATCH",
-          "via": "sector_overlay:Banking:downgrade_one"
-        },
-        {
-          "symbol": "BAHL",
           "from": "HOLD",
           "to": "WATCH",
           "via": "sector_overlay:Banking:downgrade_one"
