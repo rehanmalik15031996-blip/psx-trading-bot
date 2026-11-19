@@ -1,17 +1,17 @@
 {
   "workflow": "overnight",
   "ok": true,
-  "note": "524 rows, last 2026-11-18",
-  "as_of": "2026-11-18T12:22:21+00:00",
+  "note": "525 rows, last 2026-11-19",
+  "as_of": "2026-11-19T12:16:31+00:00",
   "github": {
-    "run_id": "44303200473",
-    "run_number": "161",
+    "run_id": "44522284273",
+    "run_number": "162",
     "ref": "refs/heads/main",
-    "sha": "66b06fa0f1b5bf9163a74c509b8ac234fd8b36e9"
+    "sha": "ac9956c21bbb0730afe401da39650b90197108ea"
   },
   "payload": {
-    "rows": 524,
-    "last_date": "2026-11-18",
+    "rows": 525,
+    "last_date": "2026-11-19",
     "tickers": [
       "sp500",
       "vix",
