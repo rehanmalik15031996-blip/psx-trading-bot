@@ -1,13 +1,13 @@
 {
   "workflow": "macro_kpis",
-  "ok": true,
-  "note": "3/3 sub-sources refreshed",
-  "as_of": "2026-11-20T11:57:35+00:00",
+  "ok": false,
+  "note": "2/3 sub-sources refreshed",
+  "as_of": "2026-11-20T19:25:41+00:00",
   "github": {
-    "run_id": "44731732044",
-    "run_number": "306",
+    "run_id": "44801903382",
+    "run_number": "307",
     "ref": "refs/heads/main",
-    "sha": "16fb43ab09cde0077e6353e2efac790cbd5f7f38"
+    "sha": "129cb3db69f266eea6e449f3b1cb328cbb2db1b3"
   },
   "payload": {
     "sbp_rates": {
@@ -18,10 +18,8 @@
       "reserves_total_usd_mn": 26774.9
     },
     "kse100": {
-      "ok": true,
-      "date": "2026-11-20",
-      "rows": 548,
-      "kse100_close": 177382.57
+      "ok": false,
+      "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
     },
     "cpi": {
       "ok": true,
