@@ -1,11 +1,11 @@
 {
-  "ts": "2026-11-23T15:14:10.962526",
+  "ts": "2026-11-24T15:11:27.353738",
   "pipeline": "v2",
   "model": "rule-based-v2",
   "fallback": true,
-  "n_longs": 2,
-  "n_shorts": 0,
-  "regime": "NORMAL",
+  "n_longs": 7,
+  "n_shorts": 2,
+  "regime": "CAUTIOUS",
   "errors": [],
   "ok": true
 }
