@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-25",
+  "as_of": "2026-11-26",
   "model": "rule-based-v2",
   "thinking_budget": 0,
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
@@ -24,9 +24,9 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+3); -mom150d=-7.7%",
+      "reason": "+macro(Banking+4); -mom150d=-7.7%",
       "contributing_signals": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-7.7%"
       ],
       "position_plan": {
@@ -52,9 +52,9 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+3); -mom150d=-7.5%",
+      "reason": "+macro(Banking+4); -mom150d=-7.5%",
       "contributing_signals": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-7.5%"
       ],
       "position_plan": {
@@ -71,6 +71,90 @@
         "position_size_pkr": null,
         "hold_horizon_days": 21,
         "rationale": "ATR14=1.0% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.6% stop; target 2.5R = 6.5%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
+    },
+    {
+      "symbol": "UBL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Banking",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Banking+4); -mom150d=-11.4%",
+      "contributing_signals": [
+        "macro(Banking+4)",
+        "mom150d=-11.4%"
+      ],
+      "position_plan": {
+        "symbol": "UBL",
+        "sector": "Banking",
+        "entry_price": 432.68,
+        "atr_14_pct": 1.47,
+        "stop_loss_price": 419.86,
+        "stop_loss_pct": 2.96,
+        "target_price": 464.72,
+        "target_pct": 7.41,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.0% stop; target 2.5R = 7.4%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
+    },
+    {
+      "symbol": "FCCL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Cement",
+      "target_weight_pct": 9.55,
+      "reason": "+macro(Cement+3); -mom150d=-2.9% (high-vol)",
+      "contributing_signals": [
+        "macro(Cement+3)",
+        "mom150d=-2.9% (high-vol)"
+      ],
+      "position_plan": {
+        "symbol": "FCCL",
+        "sector": "Cement",
+        "entry_price": 54.41,
+        "atr_14_pct": 2.18,
+        "stop_loss_price": 51.56,
+        "stop_loss_pct": 5.23,
+        "target_price": 61.53,
+        "target_pct": 13.09,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 9.55,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.2% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 5.2% stop; target 2.5R = 13.1%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.6
+      }
+    },
+    {
+      "symbol": "NBP",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Banking",
+      "target_weight_pct": 6.93,
+      "reason": "+macro(Banking+4); -mom150d=-43.9% (high-vol)",
+      "contributing_signals": [
+        "macro(Banking+4)",
+        "mom150d=-43.9% (high-vol)"
+      ],
+      "position_plan": {
+        "symbol": "NBP",
+        "sector": "Banking",
+        "entry_price": 170.57,
+        "atr_14_pct": 1.88,
+        "stop_loss_price": 158.26,
+        "stop_loss_pct": 7.22,
+        "target_price": 201.35,
+        "target_pct": 18.05,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 6.93,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.9% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 7.2% stop; target 2.5R = 18.0%; size sized to risk 0.5% of account.",
         "sector_volatility_mult": 1.0
       }
     }
@@ -91,7 +175,7 @@
   "raw_llm_text": "",
   "thinking_trace": "",
   "briefing_summary": {
-    "as_of": "2026-11-25T14:51:10+00:00",
+    "as_of": "2026-11-26T14:16:26+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",

@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-25",
+  "as_of": "2026-11-26",
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
   "regime": "NORMAL",
   "regime_confidence": "LOW",
@@ -19,19 +19,19 @@
     "key_event_window": null
   },
   "long_ideas": {
-    "count": 2,
+    "count": 8,
     "ideas": [
       {
         "symbol": "MCB",
         "sector": "Banking",
-        "score": 0.103,
+        "score": 0.143,
         "action": "HOLD",
         "conviction": "MEDIUM",
         "expected_5d_pct": null,
         "expected_21d_pct": null,
-        "why": "+macro(Banking+3); -mom150d=-7.7%",
+        "why": "+macro(Banking+4); -mom150d=-7.7%",
         "key_drivers": [
-          "macro(Banking+3)",
+          "macro(Banking+4)",
           "mom150d=-7.7%"
         ],
         "key_risks": [],
@@ -59,7 +59,7 @@
           "value": 0.0,
           "quality": 0.0,
           "momentum": -0.115,
-          "macro": 0.6,
+          "macro": 0.8,
           "flows": 0.0,
           "volume": 0.0
         }
@@ -67,14 +67,14 @@
       {
         "symbol": "HBL",
         "sector": "Banking",
-        "score": 0.103,
+        "score": 0.143,
         "action": "HOLD",
         "conviction": "MEDIUM",
         "expected_5d_pct": null,
         "expected_21d_pct": null,
-        "why": "+macro(Banking+3); -mom150d=-7.5%",
+        "why": "+macro(Banking+4); -mom150d=-7.5%",
         "key_drivers": [
-          "macro(Banking+3)",
+          "macro(Banking+4)",
           "mom150d=-7.5%"
         ],
         "key_risks": [],
@@ -102,13 +102,271 @@
           "value": 0.0,
           "quality": 0.0,
           "momentum": -0.112,
+          "macro": 0.8,
+          "flows": 0.0,
+          "volume": 0.0
+        }
+      },
+      {
+        "symbol": "UBL",
+        "sector": "Banking",
+        "score": 0.135,
+        "action": "HOLD",
+        "conviction": "MEDIUM",
+        "expected_5d_pct": null,
+        "expected_21d_pct": null,
+        "why": "+macro(Banking+4); -mom150d=-11.4%",
+        "key_drivers": [
+          "macro(Banking+4)",
+          "mom150d=-11.4%"
+        ],
+        "key_risks": [],
+        "tags": [
+          "MACRO_TAILWIND"
+        ],
+        "position_plan": {
+          "symbol": "UBL",
+          "sector": "Banking",
+          "entry_price": 432.68,
+          "atr_14_pct": 1.47,
+          "stop_loss_price": 419.86,
+          "stop_loss_pct": 2.96,
+          "target_price": 464.72,
+          "target_pct": 7.41,
+          "reward_to_risk_ratio": 2.5,
+          "position_size_pct": 10.0,
+          "position_size_pkr": null,
+          "hold_horizon_days": 21,
+          "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.0% stop; target 2.5R = 7.4%; size sized to risk 0.5% of account.",
+          "sector_volatility_mult": 1.0
+        },
+        "components": {
+          "predict": 0.0,
+          "value": 0.0,
+          "quality": 0.0,
+          "momentum": -0.17,
+          "macro": 0.8,
+          "flows": 0.0,
+          "volume": 0.0
+        }
+      },
+      {
+        "symbol": "FCCL",
+        "sector": "Cement",
+        "score": 0.117,
+        "action": "HOLD",
+        "conviction": "MEDIUM",
+        "expected_5d_pct": null,
+        "expected_21d_pct": null,
+        "why": "+macro(Cement+3); -mom150d=-2.9% (high-vol)",
+        "key_drivers": [
+          "macro(Cement+3)",
+          "mom150d=-2.9% (high-vol)"
+        ],
+        "key_risks": [],
+        "tags": [
+          "MACRO_TAILWIND"
+        ],
+        "position_plan": {
+          "symbol": "FCCL",
+          "sector": "Cement",
+          "entry_price": 54.41,
+          "atr_14_pct": 2.18,
+          "stop_loss_price": 51.56,
+          "stop_loss_pct": 5.23,
+          "target_price": 61.53,
+          "target_pct": 13.09,
+          "reward_to_risk_ratio": 2.5,
+          "position_size_pct": 9.55,
+          "position_size_pkr": null,
+          "hold_horizon_days": 21,
+          "rationale": "ATR14=2.2% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 5.2% stop; target 2.5R = 13.1%; size sized to risk 0.5% of account.",
+          "sector_volatility_mult": 1.6
+        },
+        "components": {
+          "predict": 0.0,
+          "value": 0.0,
+          "quality": 0.0,
+          "momentum": -0.022,
+          "macro": 0.6,
+          "flows": 0.0,
+          "volume": 0.0
+        }
+      },
+      {
+        "symbol": "NBP",
+        "sector": "Banking",
+        "score": 0.117,
+        "action": "HOLD",
+        "conviction": "MEDIUM",
+        "expected_5d_pct": null,
+        "expected_21d_pct": null,
+        "why": "+macro(Banking+4); -mom150d=-43.9% (high-vol)",
+        "key_drivers": [
+          "macro(Banking+4)",
+          "mom150d=-43.9% (high-vol)"
+        ],
+        "key_risks": [],
+        "tags": [
+          "MACRO_TAILWIND"
+        ],
+        "position_plan": {
+          "symbol": "NBP",
+          "sector": "Banking",
+          "entry_price": 170.57,
+          "atr_14_pct": 1.88,
+          "stop_loss_price": 158.26,
+          "stop_loss_pct": 7.22,
+          "target_price": 201.35,
+          "target_pct": 18.05,
+          "reward_to_risk_ratio": 2.5,
+          "position_size_pct": 6.93,
+          "position_size_pkr": null,
+          "hold_horizon_days": 21,
+          "rationale": "ATR14=1.9% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 7.2% stop; target 2.5R = 18.0%; size sized to risk 0.5% of account.",
+          "sector_volatility_mult": 1.0
+        },
+        "components": {
+          "predict": 0.0,
+          "value": 0.0,
+          "quality": 0.0,
+          "momentum": -0.289,
+          "macro": 0.8,
+          "flows": 0.0,
+          "volume": 0.0
+        }
+      },
+      {
+        "symbol": "BAHL",
+        "sector": "Banking",
+        "score": 0.115,
+        "action": "HOLD",
+        "conviction": "MEDIUM",
+        "expected_5d_pct": null,
+        "expected_21d_pct": null,
+        "why": "+macro(Banking+4); -mom150d=-20.8%",
+        "key_drivers": [
+          "macro(Banking+4)",
+          "mom150d=-20.8%"
+        ],
+        "key_risks": [],
+        "tags": [
+          "MACRO_TAILWIND"
+        ],
+        "position_plan": {
+          "symbol": "BAHL",
+          "sector": "Banking",
+          "entry_price": 152.82,
+          "atr_14_pct": 1.52,
+          "stop_loss_price": 147.41,
+          "stop_loss_pct": 3.54,
+          "target_price": 166.36,
+          "target_pct": 8.86,
+          "reward_to_risk_ratio": 2.5,
+          "position_size_pct": 10.0,
+          "position_size_pkr": null,
+          "hold_horizon_days": 21,
+          "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.5% stop; target 2.5R = 8.9%; size sized to risk 0.5% of account.",
+          "sector_volatility_mult": 1.0
+        },
+        "components": {
+          "predict": 0.0,
+          "value": 0.0,
+          "quality": 0.0,
+          "momentum": -0.302,
+          "macro": 0.8,
+          "flows": 0.0,
+          "volume": 0.0
+        }
+      },
+      {
+        "symbol": "DGKC",
+        "sector": "Cement",
+        "score": 0.109,
+        "action": "HOLD",
+        "conviction": "MEDIUM",
+        "expected_5d_pct": null,
+        "expected_21d_pct": null,
+        "why": "+macro(Cement+3); -mom150d=-10.2% (high-vol)",
+        "key_drivers": [
+          "macro(Cement+3)",
+          "mom150d=-10.2% (high-vol)"
+        ],
+        "key_risks": [],
+        "tags": [
+          "MACRO_TAILWIND"
+        ],
+        "position_plan": {
+          "symbol": "DGKC",
+          "sector": "Cement",
+          "entry_price": 199.97,
+          "atr_14_pct": 2.35,
+          "stop_loss_price": 188.68,
+          "stop_loss_pct": 5.64,
+          "target_price": 228.19,
+          "target_pct": 14.11,
+          "reward_to_risk_ratio": 2.5,
+          "position_size_pct": 8.86,
+          "position_size_pkr": null,
+          "hold_horizon_days": 21,
+          "rationale": "ATR14=2.4% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 5.6% stop; target 2.5R = 14.1%; size sized to risk 0.5% of account.",
+          "sector_volatility_mult": 1.6
+        },
+        "components": {
+          "predict": 0.0,
+          "value": 0.0,
+          "quality": 0.0,
+          "momentum": -0.076,
+          "macro": 0.6,
+          "flows": 0.0,
+          "volume": 0.0
+        }
+      },
+      {
+        "symbol": "MLCF",
+        "sector": "Cement",
+        "score": 0.102,
+        "action": "HOLD",
+        "conviction": "MEDIUM",
+        "expected_5d_pct": null,
+        "expected_21d_pct": null,
+        "why": "+macro(Cement+3); -mom150d=-16.1% (high-vol)",
+        "key_drivers": [
+          "macro(Cement+3)",
+          "mom150d=-16.1% (high-vol)"
+        ],
+        "key_risks": [],
+        "tags": [
+          "MACRO_TAILWIND"
+        ],
+        "position_plan": {
+          "symbol": "MLCF",
+          "sector": "Cement",
+          "entry_price": 96.07,
+          "atr_14_pct": 2.41,
+          "stop_loss_price": 90.5,
+          "stop_loss_pct": 5.8,
+          "target_price": 109.99,
+          "target_pct": 14.49,
+          "reward_to_risk_ratio": 2.5,
+          "position_size_pct": 8.63,
+          "position_size_pkr": null,
+          "hold_horizon_days": 21,
+          "rationale": "ATR14=2.4% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 5.8% stop; target 2.5R = 14.5%; size sized to risk 0.5% of account.",
+          "sector_volatility_mult": 1.6
+        },
+        "components": {
+          "predict": 0.0,
+          "value": 0.0,
+          "quality": 0.0,
+          "momentum": -0.119,
           "macro": 0.6,
           "flows": 0.0,
           "volume": 0.0
         }
       }
     ],
-    "summary": "2 long candidates; top conviction: MCB"
+    "summary": "8 long candidates; top conviction: MCB"
   },
   "short_ideas": {
     "count": 0,
@@ -175,13 +433,13 @@
         "current_price": null,
         "pnl_pct": null,
         "action": "HOLD",
-        "urgency": "MEDIUM",
-        "note": "Mixed signals \u2014 set hard stop, no new buys.",
-        "score": 0.062,
+        "urgency": "LOW",
+        "note": "Mildly positive \u2014 hold but keep stop tight.",
+        "score": 0.102,
         "stop_loss_price": 90.502,
         "stop_loss_pct": 5.8,
         "target_price": 109.99,
-        "why": "+macro(Cement+2); -mom150d=-16.1% (high-vol)"
+        "why": "+macro(Cement+3); -mom150d=-16.1% (high-vol)"
       },
       {
         "symbol": "PRL",
@@ -207,24 +465,24 @@
       {
         "sector": "Banking",
         "outlook": "POSITIVE",
-        "macro_tilt": 3,
-        "avg_score": 0.077,
+        "macro_tilt": 4,
+        "avg_score": 0.117,
         "n_stocks": 7,
         "top_name": "MCB",
-        "top_score": 0.103,
+        "top_score": 0.143,
         "bottom_name": "MEBL",
-        "bottom_score": 0.037
+        "bottom_score": 0.077
       },
       {
         "sector": "Cement",
         "outlook": "POSITIVE",
-        "macro_tilt": 2,
-        "avg_score": 0.062,
+        "macro_tilt": 3,
+        "avg_score": 0.102,
         "n_stocks": 5,
         "top_name": "FCCL",
-        "top_score": 0.077,
+        "top_score": 0.117,
         "bottom_name": "KOHC",
-        "bottom_score": 0.05
+        "bottom_score": 0.09
       },
       {
         "sector": "Misc",
@@ -346,82 +604,82 @@
       {
         "symbol": "MCB",
         "sector": "Banking",
-        "score": 0.103,
+        "score": 0.143,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)"
         ],
-        "why": "+macro(Banking+3); -mom150d=-7.7%"
+        "why": "+macro(Banking+4); -mom150d=-7.7%"
       },
       {
         "symbol": "HBL",
         "sector": "Banking",
-        "score": 0.103,
+        "score": 0.143,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)"
         ],
-        "why": "+macro(Banking+3); -mom150d=-7.5%"
+        "why": "+macro(Banking+4); -mom150d=-7.5%"
       },
       {
         "symbol": "UBL",
         "sector": "Banking",
-        "score": 0.095,
+        "score": 0.135,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)"
         ],
-        "why": "+macro(Banking+3); -mom150d=-11.4%"
+        "why": "+macro(Banking+4); -mom150d=-11.4%"
       },
       {
         "symbol": "FCCL",
         "sector": "Cement",
-        "score": 0.077,
+        "score": 0.117,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)"
         ],
-        "why": "+macro(Cement+2); -mom150d=-2.9% (high-vol)"
+        "why": "+macro(Cement+3); -mom150d=-2.9% (high-vol)"
       },
       {
         "symbol": "NBP",
         "sector": "Banking",
-        "score": 0.077,
+        "score": 0.117,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)"
         ],
-        "why": "+macro(Banking+3); -mom150d=-43.9% (high-vol)"
+        "why": "+macro(Banking+4); -mom150d=-43.9% (high-vol)"
       },
       {
         "symbol": "BAHL",
         "sector": "Banking",
-        "score": 0.075,
+        "score": 0.115,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)"
         ],
-        "why": "+macro(Banking+3); -mom150d=-20.8%"
+        "why": "+macro(Banking+4); -mom150d=-20.8%"
       },
       {
         "symbol": "DGKC",
         "sector": "Cement",
-        "score": 0.069,
+        "score": 0.109,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)"
         ],
-        "why": "+macro(Cement+2); -mom150d=-10.2% (high-vol)"
+        "why": "+macro(Cement+3); -mom150d=-10.2% (high-vol)"
       },
       {
         "symbol": "MLCF",
         "sector": "Cement",
-        "score": 0.062,
+        "score": 0.102,
         "triggers_to_buy": [
           "Wait for 5d close above 20-SMA (momentum rebuild)",
           "Wait for volume breakout (>1.5x 20d avg)"
         ],
-        "why": "+macro(Cement+2); -mom150d=-16.1% (high-vol)"
+        "why": "+macro(Cement+3); -mom150d=-16.1% (high-vol)"
       }
     ]
   },
@@ -466,8 +724,8 @@
       }
     ],
     "sector_tilts": {
-      "Banking": 3,
-      "Cement": 2,
+      "Banking": 4,
+      "Cement": 3,
       "Oil & Gas E&P": -2,
       "Conglomerate/Chem": -2,
       "Pharma": 1,
@@ -487,7 +745,7 @@
       "Driver: **oil_down** (STRONG)",
       "Driver: **gold_down** (STRONG)",
       "Driver: **copper_down** (STRONG)",
-      "Sector tilts: Banking +3, Cement +2, Oil & Gas E&P -2",
+      "Sector tilts: Banking +4, Cement +3, Oil & Gas E&P -2",
       "Recommended stance: **NORMAL** (confidence: LOW)."
     ],
     "narrative": "Normal stance (LOW confidence). Top driver: oil_down (STRONG). Tape: KSE-100 +2.7%/5d, normal vol regime."
@@ -496,7 +754,7 @@
     {
       "symbol": "MCB",
       "sector": "Banking",
-      "score": 0.103,
+      "score": 0.143,
       "action": "HOLD",
       "conviction": "MEDIUM",
       "expected_5d_net_pct": null,
@@ -507,13 +765,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.115,
-        "macro": 0.6,
+        "macro": 0.8,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Banking+3); -mom150d=-7.7%",
+      "why": "+macro(Banking+4); -mom150d=-7.7%",
       "key_drivers": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-7.7%"
       ],
       "key_risks": [],
@@ -524,7 +782,7 @@
     {
       "symbol": "HBL",
       "sector": "Banking",
-      "score": 0.103,
+      "score": 0.143,
       "action": "HOLD",
       "conviction": "MEDIUM",
       "expected_5d_net_pct": null,
@@ -535,13 +793,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.112,
-        "macro": 0.6,
+        "macro": 0.8,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Banking+3); -mom150d=-7.5%",
+      "why": "+macro(Banking+4); -mom150d=-7.5%",
       "key_drivers": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-7.5%"
       ],
       "key_risks": [],
@@ -552,9 +810,9 @@
     {
       "symbol": "UBL",
       "sector": "Banking",
-      "score": 0.095,
+      "score": 0.135,
       "action": "HOLD",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "expected_5d_net_pct": null,
       "expected_21d_pct": null,
       "entry_price": null,
@@ -563,13 +821,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.17,
-        "macro": 0.6,
+        "macro": 0.8,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Banking+3); -mom150d=-11.4%",
+      "why": "+macro(Banking+4); -mom150d=-11.4%",
       "key_drivers": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-11.4%"
       ],
       "key_risks": [],
@@ -580,9 +838,9 @@
     {
       "symbol": "FCCL",
       "sector": "Cement",
-      "score": 0.077,
+      "score": 0.117,
       "action": "HOLD",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "expected_5d_net_pct": null,
       "expected_21d_pct": null,
       "entry_price": null,
@@ -591,13 +849,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.022,
-        "macro": 0.4,
+        "macro": 0.6,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Cement+2); -mom150d=-2.9% (high-vol)",
+      "why": "+macro(Cement+3); -mom150d=-2.9% (high-vol)",
       "key_drivers": [
-        "macro(Cement+2)",
+        "macro(Cement+3)",
         "mom150d=-2.9% (high-vol)"
       ],
       "key_risks": [],
@@ -608,9 +866,9 @@
     {
       "symbol": "NBP",
       "sector": "Banking",
-      "score": 0.077,
+      "score": 0.117,
       "action": "HOLD",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "expected_5d_net_pct": null,
       "expected_21d_pct": null,
       "entry_price": null,
@@ -619,13 +877,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.289,
-        "macro": 0.6,
+        "macro": 0.8,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Banking+3); -mom150d=-43.9% (high-vol)",
+      "why": "+macro(Banking+4); -mom150d=-43.9% (high-vol)",
       "key_drivers": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-43.9% (high-vol)"
       ],
       "key_risks": [],
@@ -636,9 +894,9 @@
     {
       "symbol": "BAHL",
       "sector": "Banking",
-      "score": 0.075,
+      "score": 0.115,
       "action": "HOLD",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "expected_5d_net_pct": null,
       "expected_21d_pct": null,
       "entry_price": null,
@@ -647,13 +905,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.302,
-        "macro": 0.6,
+        "macro": 0.8,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Banking+3); -mom150d=-20.8%",
+      "why": "+macro(Banking+4); -mom150d=-20.8%",
       "key_drivers": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-20.8%"
       ],
       "key_risks": [],
@@ -664,9 +922,9 @@
     {
       "symbol": "DGKC",
       "sector": "Cement",
-      "score": 0.069,
+      "score": 0.109,
       "action": "HOLD",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "expected_5d_net_pct": null,
       "expected_21d_pct": null,
       "entry_price": null,
@@ -675,13 +933,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.076,
-        "macro": 0.4,
+        "macro": 0.6,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Cement+2); -mom150d=-10.2% (high-vol)",
+      "why": "+macro(Cement+3); -mom150d=-10.2% (high-vol)",
       "key_drivers": [
-        "macro(Cement+2)",
+        "macro(Cement+3)",
         "mom150d=-10.2% (high-vol)"
       ],
       "key_risks": [],
@@ -692,9 +950,9 @@
     {
       "symbol": "MLCF",
       "sector": "Cement",
-      "score": 0.062,
+      "score": 0.102,
       "action": "HOLD",
-      "conviction": "LOW",
+      "conviction": "MEDIUM",
       "expected_5d_net_pct": null,
       "expected_21d_pct": null,
       "entry_price": null,
@@ -703,13 +961,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.119,
-        "macro": 0.4,
+        "macro": 0.6,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Cement+2); -mom150d=-16.1% (high-vol)",
+      "why": "+macro(Cement+3); -mom150d=-16.1% (high-vol)",
       "key_drivers": [
-        "macro(Cement+2)",
+        "macro(Cement+3)",
         "mom150d=-16.1% (high-vol)"
       ],
       "key_risks": [],
@@ -720,7 +978,7 @@
     {
       "symbol": "LUCK",
       "sector": "Cement",
-      "score": 0.054,
+      "score": 0.094,
       "action": "HOLD",
       "conviction": "LOW",
       "expected_5d_net_pct": null,
@@ -731,13 +989,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.175,
-        "macro": 0.4,
+        "macro": 0.6,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Cement+2); -mom150d=-11.8%",
+      "why": "+macro(Cement+3); -mom150d=-11.8%",
       "key_drivers": [
-        "macro(Cement+2)",
+        "macro(Cement+3)",
         "mom150d=-11.8%"
       ],
       "key_risks": [],
@@ -748,7 +1006,7 @@
     {
       "symbol": "FABL",
       "sector": "Banking",
-      "score": 0.051,
+      "score": 0.091,
       "action": "HOLD",
       "conviction": "LOW",
       "expected_5d_net_pct": -0.561,
@@ -759,11 +1017,11 @@
         "value": -0.6,
         "quality": 0.0,
         "momentum": -0.058,
-        "macro": 0.6,
+        "macro": 0.8,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "-value:SELL_VALUE; +macro(Banking+3); -mom150d=-3.8%",
+      "why": "+macro(Banking+4); -value:SELL_VALUE; -mom150d=-3.8%",
       "key_drivers": [
         "Price +1.6% above 200-day SMA",
         "Top-5 by momentum but market filter off"
@@ -778,7 +1036,7 @@
     {
       "symbol": "KOHC",
       "sector": "Cement",
-      "score": 0.05,
+      "score": 0.09,
       "action": "HOLD",
       "conviction": "LOW",
       "expected_5d_net_pct": null,
@@ -789,13 +1047,13 @@
         "value": 0.0,
         "quality": 0.0,
         "momentum": -0.202,
-        "macro": 0.4,
+        "macro": 0.6,
         "flows": 0.0,
         "volume": 0.0
       },
-      "why": "+macro(Cement+2); -mom150d=-13.7%",
+      "why": "+macro(Cement+3); -mom150d=-13.7%",
       "key_drivers": [
-        "macro(Cement+2)",
+        "macro(Cement+3)",
         "mom150d=-13.7%"
       ],
       "key_risks": [],
@@ -806,7 +1064,7 @@
     {
       "symbol": "MEBL",
       "sector": "Banking",
-      "score": 0.037,
+      "score": 0.077,
       "action": "HOLD",
       "conviction": "LOW",
       "expected_5d_net_pct": -0.061,
@@ -817,11 +1075,11 @@
         "value": -0.6,
         "quality": 0.0,
         "momentum": 0.183,
-        "macro": 0.6,
+        "macro": 0.8,
         "flows": -0.5,
         "volume": 0.0
       },
-      "why": "-value:SELL_VALUE; +macro(Banking+3); -mf_dist_2m",
+      "why": "+macro(Banking+4); -value:SELL_VALUE; -mf_dist_2m",
       "key_drivers": [
         "Positive 150d momentum +12.4%",
         "Price +11.2% above 200-day SMA",
@@ -1450,9 +1708,9 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+3); -mom150d=-7.7%",
+      "reason": "+macro(Banking+4); -mom150d=-7.7%",
       "contributing_signals": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-7.7%"
       ],
       "position_plan": {
@@ -1478,9 +1736,9 @@
       "conviction": "MEDIUM",
       "sector": "Banking",
       "target_weight_pct": 10.0,
-      "reason": "+macro(Banking+3); -mom150d=-7.5%",
+      "reason": "+macro(Banking+4); -mom150d=-7.5%",
       "contributing_signals": [
-        "macro(Banking+3)",
+        "macro(Banking+4)",
         "mom150d=-7.5%"
       ],
       "position_plan": {
@@ -1499,6 +1757,90 @@
         "rationale": "ATR14=1.0% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 2.6% stop; target 2.5R = 6.5%; size sized to risk 0.5% of account.",
         "sector_volatility_mult": 1.0
       }
+    },
+    {
+      "symbol": "UBL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Banking",
+      "target_weight_pct": 10.0,
+      "reason": "+macro(Banking+4); -mom150d=-11.4%",
+      "contributing_signals": [
+        "macro(Banking+4)",
+        "mom150d=-11.4%"
+      ],
+      "position_plan": {
+        "symbol": "UBL",
+        "sector": "Banking",
+        "entry_price": 432.68,
+        "atr_14_pct": 1.47,
+        "stop_loss_price": 419.86,
+        "stop_loss_pct": 2.96,
+        "target_price": 464.72,
+        "target_pct": 7.41,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 10.0,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.5% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 3.0% stop; target 2.5R = 7.4%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
+    },
+    {
+      "symbol": "FCCL",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Cement",
+      "target_weight_pct": 9.55,
+      "reason": "+macro(Cement+3); -mom150d=-2.9% (high-vol)",
+      "contributing_signals": [
+        "macro(Cement+3)",
+        "mom150d=-2.9% (high-vol)"
+      ],
+      "position_plan": {
+        "symbol": "FCCL",
+        "sector": "Cement",
+        "entry_price": 54.41,
+        "atr_14_pct": 2.18,
+        "stop_loss_price": 51.56,
+        "stop_loss_pct": 5.23,
+        "target_price": 61.53,
+        "target_pct": 13.09,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 9.55,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=2.2% \u00d7 sector_mult=1.6\u00d7 \u00d7 1.5\u03c3 = 5.2% stop; target 2.5R = 13.1%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.6
+      }
+    },
+    {
+      "symbol": "NBP",
+      "bucket": "HOLD",
+      "conviction": "MEDIUM",
+      "sector": "Banking",
+      "target_weight_pct": 6.93,
+      "reason": "+macro(Banking+4); -mom150d=-43.9% (high-vol)",
+      "contributing_signals": [
+        "macro(Banking+4)",
+        "mom150d=-43.9% (high-vol)"
+      ],
+      "position_plan": {
+        "symbol": "NBP",
+        "sector": "Banking",
+        "entry_price": 170.57,
+        "atr_14_pct": 1.88,
+        "stop_loss_price": 158.26,
+        "stop_loss_pct": 7.22,
+        "target_price": 201.35,
+        "target_pct": 18.05,
+        "reward_to_risk_ratio": 2.5,
+        "position_size_pct": 6.93,
+        "position_size_pkr": null,
+        "hold_horizon_days": 21,
+        "rationale": "ATR14=1.9% \u00d7 sector_mult=1.0\u00d7 \u00d7 1.5\u03c3 = 7.2% stop; target 2.5R = 18.0%; size sized to risk 0.5% of account.",
+        "sector_volatility_mult": 1.0
+      }
     }
   ],
   "fallback_used": true,
@@ -1507,7 +1849,7 @@
   "version": "v2",
   "pipeline_errors": [],
   "briefing_summary": {
-    "as_of": "2026-11-25T14:51:10+00:00",
+    "as_of": "2026-11-26T14:16:26+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
