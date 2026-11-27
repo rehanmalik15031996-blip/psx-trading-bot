@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-26",
+  "as_of": "2026-11-27",
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
   "regime": "NORMAL",
   "regime_confidence": "LOW",
@@ -10,8 +10,8 @@
     "bullets": [
       "Tape: KSE-100 +2.72% over 5d, -3.98% over 21d, breadth 80% up  [NORMAL vol]",
       "Driver: **oil_down** (STRONG)",
-      "Driver: **gold_down** (STRONG)",
-      "Driver: **copper_down** (STRONG)"
+      "Driver: **copper_down** (STRONG)",
+      "Driver: **rate_up** (MODERATE)"
     ],
     "narrative": "Normal stance (LOW confidence). Top driver: oil_down (STRONG). Tape: KSE-100 +2.7%/5d, normal vol regime.",
     "n_longs": 0,
@@ -707,10 +707,6 @@
         "magnitude": "STRONG"
       },
       {
-        "tag": "gold_down",
-        "magnitude": "STRONG"
-      },
-      {
         "tag": "copper_down",
         "magnitude": "STRONG"
       },
@@ -720,6 +716,10 @@
       },
       {
         "tag": "coal_down",
+        "magnitude": "MODERATE"
+      },
+      {
+        "tag": "gold_down",
         "magnitude": "MODERATE"
       }
     ],
@@ -743,8 +743,8 @@
     "bullets": [
       "Tape: KSE-100 +2.72% over 5d, -3.98% over 21d, breadth 80% up  [NORMAL vol]",
       "Driver: **oil_down** (STRONG)",
-      "Driver: **gold_down** (STRONG)",
       "Driver: **copper_down** (STRONG)",
+      "Driver: **rate_up** (MODERATE)",
       "Sector tilts: Banking +4, Cement +3, Oil & Gas E&P -2",
       "Recommended stance: **NORMAL** (confidence: LOW)."
     ],
@@ -1849,7 +1849,7 @@
   "version": "v2",
   "pipeline_errors": [],
   "briefing_summary": {
-    "as_of": "2026-11-26T14:16:26+00:00",
+    "as_of": "2026-11-27T14:12:20+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",

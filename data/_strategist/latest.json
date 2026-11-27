@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-26",
+  "as_of": "2026-11-27",
   "model": "rule-based-v2",
   "thinking_budget": 0,
   "headline": "NORMAL \u2014 no high-conviction names, stay defensive",
@@ -161,10 +161,10 @@
   ],
   "key_drivers": [
     "oil_down",
-    "gold_down",
     "copper_down",
     "rate_up",
-    "coal_down"
+    "coal_down",
+    "gold_down"
   ],
   "key_risks": [
     "rate_up active \u2014 see macro tab."
@@ -175,7 +175,7 @@
   "raw_llm_text": "",
   "thinking_trace": "",
   "briefing_summary": {
-    "as_of": "2026-11-26T14:16:26+00:00",
+    "as_of": "2026-11-27T14:12:20+00:00",
     "regime": {
       "as_of": "2026-09-23",
       "regime": "NORMAL",
