@@ -1,16 +1,16 @@
 {
   "workflow": "financial_results",
   "ok": true,
-  "note": "new=1 total=317 errors=3",
-  "as_of": "2026-11-21T14:30:46+00:00",
+  "note": "new=0 total=317 errors=3",
+  "as_of": "2026-11-28T15:22:10+00:00",
   "github": {
-    "run_id": "44914133626",
-    "run_number": "32",
+    "run_id": "46159331838",
+    "run_number": "33",
     "ref": "refs/heads/main",
-    "sha": "5bcc0a73588cdd7965c4fbfd92fd55f4123295be"
+    "sha": "25b9cbd4f3ccfb86821eec20599fc62f0503e556"
   },
   "payload": {
-    "new": 1,
+    "new": 0,
     "total": 317,
     "errors": [
       "EPCL/288115-1: download: HTTPError: 404 Client Error: Not Found for url: https://dps.psx.com.pk/download/document/288115-1.pdf",
